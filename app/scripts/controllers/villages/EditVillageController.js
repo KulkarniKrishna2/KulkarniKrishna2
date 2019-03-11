@@ -3,7 +3,8 @@
         EditVillageController: function (scope, resourceFactory, location, routeParams, dateFilter) {
             scope.managecode = routeParams.managecode;
             scope.first = {};
-            scope.first.date = new Date();
+            scope.submittedOn = {};
+
             scope.villageId = routeParams.id;
             scope.restrictDate = new Date();
 
@@ -18,10 +19,12 @@
                 if (data.timeline.activatedOnDate) {
                     var newDate = dateFilter(data.timeline.activatedOnDate, scope.df);
                     scope.first.date = new Date(newDate);
+                }else{
+                    scope.first.date = new Date();
                 }
 
                 if (data.timeline.submittedOnDate) {
-                    scope.mindate = new Date(data.timeline.submittedOnDate);
+                    scope.submittedOn.first = new Date(dateFilter(data.timeline.submittedOnDate, scope.df));
                 }
             });
 
@@ -30,6 +33,9 @@
                     var reqDate = dateFilter(scope.first.date, scope.df);
                     this.formData.activatedOnDate = reqDate;
                 }
+                if(scope.submittedOn.first){
+                    this.formData.submittedOnDate = dateFilter(scope.submittedOn.first, scope.df);
+                }                
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 resourceFactory.villageResource.update({villageId: routeParams.id}, this.formData, function (data) {

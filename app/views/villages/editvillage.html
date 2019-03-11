@@ -40,7 +40,17 @@
                         <input type="text" autocomplete="off" id="externalId" ng-model="formData.externalId" class="form-control"/>
                     </div>
                 </div>
+                <div ng-show="submittedOn.first">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">{{'label.input.submittedon' | translate}}<span
+                                class="required">*</span></label>
 
+                        <div class="col-sm-3">
+                            <input id="submittedOnDate" type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="submittedOn.first"
+                                   is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control" ng-readonly="isDatePickerReadOnly"/>
+                        </div>
+                    </div>
+                </div>
                 <div ng-hide="isWorkflowEnabled">
                     <div data-ng-hide="edit.status.value=='Pending'" class="form-group">
                         <label class="control-label col-sm-2">{{'label.input.activationdate' | translate}}<span
@@ -48,7 +58,7 @@
 
                         <div class="col-sm-3">
                             <input id="activationDate" type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="first.date"
-                                   is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control" ng-readonly="isDatePickerReadOnly"/>
+                                   is-open="opened" min="'2000-01-01'"  max="restrictDate"  class="form-control" ng-readonly="isDatePickerReadOnly"/>
                         </div>
                     </div>
                 </div>
