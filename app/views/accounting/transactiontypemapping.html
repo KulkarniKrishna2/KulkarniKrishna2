@@ -16,7 +16,7 @@
                     </label>
         
                     <div class="col-sm-3">
-                        <select chosen="transactionTypeOptions" id="transactionTypeId" name="transactionTypeId" ng-model="formData.transactionTypeId"
+                        <select  chosen="transactionTypeOptions" id="transactionTypeId" ng-autofocus="true" name="transactionTypeId" ng-model="formData.transactionTypeId"
                             class="form-control" ng-options="transactionTypeOption.id as transactionTypeOption.value for transactionTypeOption in transactionTypeOptions"
                             value="{{transactionTypeOption.id}}">
                             <option value="">{{'label.all' | translate}}</option>
@@ -26,7 +26,7 @@
                         {{'label.heading.accounting.level' | translate}}
                     </label>
                     <div class="col-sm-3">
-                        <select chosen="accountLevelTypeOptions" id="accountingLevelId" name="accountingLevel" ng-model="formData.accountingLevelId"
+                        <select chosen="accountLevelTypeOptions" id="accountingLevelId" ng-autofocus="true" name="accountingLevel" ng-model="formData.accountingLevelId"
                             class="form-control" ng-options="accountLevelTypeOption.id as accountLevelTypeOption.value for accountLevelTypeOption in accountLevelTypeOptions"
                             value="{{accountLevelTypeOption.id}}">
                             <option value="">{{'label.all' | translate}}</option>
@@ -40,7 +40,7 @@
         
                     <div class="col-sm-3">
                         <div>
-                            <select chosen="productTypeOptions" id="productTypeId" ng-model="formData.productTypeId" class="form-control"
+                            <select chosen="productTypeOptions" id="productTypeId" ng-autofocus="true" ng-model="formData.productTypeId" class="form-control"
                                 ng-options="productTypeOption.id as productTypeOption.value for productTypeOption in productTypeOptions"
                                 value="{{productTypeOption.id}}" ng-change="changeProductType()">
                                 <option value="">{{'label.all' | translate}}</option>
@@ -53,7 +53,7 @@
         
                     <div class="col-sm-3">
                         <div>
-                            <select chosen="productOptions" id="productId" ng-model="formData.productId" class="form-control"
+                            <select chosen="productOptions" id="productId" ng-autofocus="true" ng-model="formData.productId" class="form-control"
                                 ng-options="productOption.id as productOption.name for productOption in productOptions" value="{{productOption.id}}">
                                 <option value="">{{'label.all' | translate}}</option>
                             </select>
@@ -67,29 +67,41 @@
         
                     <div class="col-sm-3">
                         <div>
-                            <select chosen="bcAccountingTypeOptions" id="bcAccountingTypeId" ng-model="formData.bcAccountingTypeId"
+                            <select chosen="bcAccountingTypeOptions" id="bcAccountingTypeId" ng-autofocus="true" ng-model="formData.bcAccountingTypeId"
                                 class="form-control" ng-options="accountingType.id as accountingType.value for accountingType in bcAccountingTypeOptions"
-                                value="{{accountingType.id}}">
+                                value="{{accountingType.id}}" ng-change="getPaymentOptions()">
                                 <option value="">{{'label.all' | translate}}</option>
                             </select>
                         </div>
                     </div>
-                    <label class="control-label col-sm-2">
+                    <!-- <label class="control-label col-sm-2">
                         {{'label.input.transactionEntryType' | translate}}
                     </label>
         
                     <div class="col-sm-3">
                         <div>
-                            <select chosen="transactionEntryTypeOptions" id="transactionEntryTypeId" ng-model="formData.transactionEntryTypeId"
+                            <select chosen="transactionEntryTypeOptions" id="transactionEntryTypeId" ng-autofocus="true" ng-model="formData.transactionEntryTypeId"
                                 class="form-control" ng-options="transactionEntryType.id as transactionEntryType.value for transactionEntryType in transactionEntryTypeOptions"
                                 value="{{transactionEntryType.id}}">
                                 <option value="">{{'label.all' | translate}}</option>
                             </select>
                         </div>
+                    </div> -->
+                    <label class="control-label col-sm-2">
+                        {{'label.heading.paymenttype' | translate}}
+                    </label>
+                    <div class="col-sm-3">
+                        <div>
+                            <select chosen="paymentTypeOptions" id="accSubTypeId" ng-autofocus="true" ng-model="formData.accSubTypeId"
+                                class="form-control" ng-options="paymentType.id as paymentType.name for paymentType in paymentTypeOptions"
+                                value="{{paymentType.id}}">
+                                <option value="">{{'label.all' | translate}}</option>
+                            </select>
+                        </div>
                     </div>
-        
                 </div>&nbsp;
                 <div class="center">
+                    <a ng-click="clearFilters()" class="btn btn-warning btn-lg">Clear Filters&nbsp;<i class="icon-remove-sign"></i></a>
                     <a ng-click="searchTransaction()" class="btn btn-primary btn-lg">Search
                         <i class="icon-search icon-white"></i></a>
                 </div>
