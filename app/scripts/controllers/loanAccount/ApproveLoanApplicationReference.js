@@ -789,6 +789,8 @@
                         }
                         scope.charges.push(data);
                         scope.chargeFormData.chargeId = undefined;
+                        scope.penalCharges = $filter('filter')(scope.charges, { penalty: true }) || [];
+                        scope.feeCharges = $filter('filter')(scope.charges, { penalty: false }) || [];
                     });
                 }
             };
