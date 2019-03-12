@@ -1905,6 +1905,9 @@
             .when('/gstmapping', {
                 templateUrl: 'views/accounting/gst_mapping.html'
             })
+            .when('/gstdatapush', {
+                templateUrl: 'views/accounting/gst_data_push.html'
+            })
             .when('/gstmapping/loanproducts', {
                 templateUrl: 'views/accounting/loanproduct_gst_mapping.html'
             })

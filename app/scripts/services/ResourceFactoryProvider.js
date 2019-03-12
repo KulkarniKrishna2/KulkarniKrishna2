@@ -1801,6 +1801,9 @@
                     AdvancedAccountingProductMappingTemplate: defineResource(apiVer + "/advancedaccounting/productmappings/template", {}, {
                     }),
                     AdvancedAccountingProductMapping: defineResource(apiVer + "/advancedaccounting/productmappings/:mappingId", { mappingId: '@mappingId' }, {
+                    }),
+                    pushGSTTransactionsResource: defineResource(apiVer + "/pushgsttransactions", {}, {
+                        run: {method: 'POST', params: {}}
                     })
                 };
             }];
