@@ -40,10 +40,8 @@
                             for(var j in scope.centerMeetingData.subGroupMembers[i].memberData){
                                  if(scope.centerMeetingData.subGroupMembers[i].memberData[j].loanAccountBasicData && scope.centerMeetingData.subGroupMembers[i].memberData[j].loanAccountBasicData.status.code === 'loanStatusType.approved'){
                                        var actualExpectedDisburseDate = dateFilter(new Date(scope.centerMeetingData.subGroupMembers[i].memberData[j].loanAccountBasicData.expectedDisbursementOnDate),scope.df);
-                                       if(scope.expectedDisbursementOnDate < actualExpectedDisburseDate) {
                                             scope.formData.expectedDisbursementDate = actualExpectedDisburseDate;
-                                            scope.expectedDisbursementOnDate = actualExpectedDisburseDate;        
-                                       }     
+                                            scope.expectedDisbursementOnDate = actualExpectedDisburseDate;             
                                  }       
                             }       
                        }                     

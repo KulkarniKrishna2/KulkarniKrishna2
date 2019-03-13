@@ -7842,7 +7842,7 @@
     "error.msg.fldg.loan.prudential.written.off" : "FLDG loan can be prudential write of.",
     "label.anchor.repaidamount":"Repaid Amount",
     "error.msg.village.activation.date.can.not.be.beforesubmitted.date" : "Village activation date ban not be before submitted on date `{{params[0].value}}` ",
+    "label.tab.kotak.reject.loans" : "Kotak Rejected Loans",
 
     "------ end of translation file ------": "----------"
-
 }

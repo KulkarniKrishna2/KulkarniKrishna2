@@ -1804,6 +1804,9 @@
                     }),
                     pushGSTTransactionsResource: defineResource(apiVer + "/pushgsttransactions", {}, {
                         run: {method: 'POST', params: {}}
+                    }),
+                    bankRejectLoanTemplateResource: defineResource(apiVer + "/tasktracking/:trackerId/bankloanreject/template",{trackerId:'@trackerId'}, {
+                        get: {method: 'GET', params: {}}
                     })
                 };
             }];
