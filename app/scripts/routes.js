@@ -1989,6 +1989,9 @@
             .when('/editaccountingmappingsdetails/:mappingId/accstate/:accStateId/subtype/:subTypeId', {
                 templateUrl: 'views/accounting/edit_mapping_details.html'
             })
+            .when('/workflowbankrejectloanaction/:trackerId/:workflowBankApprovalId/:loanId',{
+                templateUrl: 'views/task/bankapproval/workflowbankrejectloanaction.html'
+            })
 
         $locationProvider.html5Mode(false);
     };
