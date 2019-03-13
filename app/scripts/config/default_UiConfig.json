@@ -419,8 +419,8 @@
 			"CGTValidation": {
 				"profileRatingPercentage": ""
 			},
-			"showReschedule": true,
-			"showCreateTask": true,
+			"showReschedule": false,
+			"showCreateTask": false,
 			"disableVillageDropDown": false,
 			"hideReject": false,
 			"isReadOnlyField": {

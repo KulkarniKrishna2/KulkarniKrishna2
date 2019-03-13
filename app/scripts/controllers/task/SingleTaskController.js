@@ -94,7 +94,7 @@
                     }
 
                     if(scope.taskData.status.value != 'inactive' || scope.taskData.status.value != 'completed' || scope.taskData.status.value != 'cancelled'){
-                        if(scope.taskData.taskActivity != null){
+                        if(scope.taskData.taskActivity != null && scope.taskData.taskActivity.name == "Adhoc"){
                            scope.canReschedule = true;
                         }
                     }
