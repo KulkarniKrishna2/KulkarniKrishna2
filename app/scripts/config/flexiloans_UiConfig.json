@@ -37,8 +37,7 @@
         "bankIFSCCode":"^[A-Za-z0-9_]{1,11}$",
         "bankCity":"^[A-Za-z]{1,20}$",
         "bankName":"^(?!.*?\\s{2})[A-Za-z ]{1,20}$",
-        "bankAccountNumber":"^[a-zA-Z0-9_]{1,50}$",
-        "bankAccountHolderName":"^[a-zA-Z]+([a-zA-Z0-9\\s][a-zA-Z]+)*$"
+        "bankAccountNumber":"^[a-zA-Z0-9_]{1,50}$"
       }
     },
     "createMandates":{
