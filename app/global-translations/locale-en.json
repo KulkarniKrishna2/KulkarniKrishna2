@@ -7841,6 +7841,7 @@
     "error.msg.loan.prudential.written.off" : "Loan is prudential written off.",
     "error.msg.fldg.loan.prudential.written.off" : "FLDG loan can be prudential write of.",
     "label.anchor.repaidamount":"Repaid Amount",
+    "validation.msg.recurringdepositaccount.summital.cannot.be.before.client.activation.date" : "Account cannot be created before client activation date. ",
     
      "------ end of translation file ------":"---------"
 }
