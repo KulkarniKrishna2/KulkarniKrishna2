@@ -20,6 +20,47 @@
             scope.isAddressTypeMandatory = false;
             scope.isStreetNameMandatory=false;
             scope.isHouseNoMandatory=false;
+            scope.showUpdateAddressFromCenter = false;
+
+            scope.upadateDefaultAddress = function () {
+                resourceFactory.clientDefaultAddressResource.get({ clientId: routeParams.clientId }, function (response) {
+                    if (response.addressData.length > 0) {
+                        if (response.villageName) {
+                            scope.formData.villageTown = response.villageName;
+                        }
+                        if (response.addressData[0].countryData) {
+                            scope.formData.countryId = response.addressData[0].countryData.countryId;
+                            scope.changeCountry(scope.formData.countryId);
+                        }
+                        if (response.addressData[0].stateData) {
+                            scope.formData.stateId = response.addressData[0].stateData.stateId;
+                            scope.changeState(scope.formData.stateId);
+                        }
+                        if (response.addressData[0].districtData) {
+                            scope.formData.districtId = response.addressData[0].districtData.districtId;
+                            scope.changeDistrict(scope.formData.districtId);
+                        }
+                        if (response.addressData[0].talukaData) {
+                            scope.formData.talukaId = response.addressData[0].talukaData.talukaId;
+                        }
+                        if (response.addressData[0].postalCode) {
+                            scope.formData.postalCode = response.addressData[0].postalCode;
+                        }
+                    }
+
+                });
+            }
+
+            if(scope.response != undefined){
+                scope.isNameAutoPopulate = scope.response.uiDisplayConfigurations.createCenter.isAutoPopulate.name;
+                var villageConfig = 'populate_client_address_from_villages';
+                scope.isPopulateClientAddressFromVillages = scope.isSystemGlobalConfigurationEnabled(villageConfig);
+                
+                if(scope.isPopulateClientAddressFromVillages && !scope.isNameAutoPopulate ){
+                    scope.showUpdateAddressFromCenter = true;
+                }
+            }
+
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isHiddenField.pincode) {
                 scope.pincode = scope.response.uiDisplayConfigurations.createClient.isHiddenField.pincode;
             }
@@ -49,7 +90,6 @@
                     addressId: scope.addressId,
                     template: true
                 }, function (data) {
-
                     if (data.addressEntityData[0].addressType) {
                         scope.addressTypeId = data.addressEntityData[0].addressType.id;
                     }

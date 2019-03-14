@@ -1807,6 +1807,9 @@
                     }),
                     bankRejectLoanTemplateResource: defineResource(apiVer + "/tasktracking/:trackerId/bankloanreject/template",{trackerId:'@trackerId'}, {
                         get: {method: 'GET', params: {}}
+                    }),
+                    clientDefaultAddressResource: defineResource(apiVer + "/villages/clients/:clientId/center/village", {clientId: '@clientId'}, {
+                        get: {method: 'GET', params: {}},
                     })
                 };
             }];

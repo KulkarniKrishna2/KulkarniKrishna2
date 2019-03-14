@@ -7843,6 +7843,7 @@
     "label.anchor.repaidamount":"Repaid Amount",
     "error.msg.village.activation.date.can.not.be.beforesubmitted.date" : "Village activation date ban not be before submitted on date `{{params[0].value}}` ",
     "label.tab.kotak.reject.loans" : "Kotak Rejected Loans",
+    "label.button.updatevillagefromcenter" : "Update Village From Center",
 
     "------ end of translation file ------": "----------"
 }

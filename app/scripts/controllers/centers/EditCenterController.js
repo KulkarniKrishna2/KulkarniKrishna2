@@ -6,6 +6,12 @@
             scope.first.date = new Date();
             scope.centerId = routeParams.id;
             scope.restrictDate = new Date();
+            scope.isHiddenVillageOption = true;
+            scope.villages = [];
+            if(scope.response != undefined){
+                scope.isHiddenVillageOption = scope.response.uiDisplayConfigurations.createCenter.isHiddenField.villageOptions;                
+                scope.isNameAutoPopulate = scope.response.uiDisplayConfigurations.createCenter.isAutoPopulate.name;
+            }
             if(scope.response && scope.response.uiDisplayConfigurations.createCenter.isValidateName) {
                 scope.namePattern = scope.response.uiDisplayConfigurations.createCenter.isValidateName.namePattern;
             }
@@ -15,15 +21,19 @@
             if(scope.response && scope.response.uiDisplayConfigurations){
                 scope.loanOfficersOnly = scope.response.uiDisplayConfigurations.createCenter.loanOfficersOnly;
             }
-            resourceFactory.centerResource.get({centerId: routeParams.id, template: 'true',staffInSelectedOfficeOnly:true,loanOfficersOnly:scope.loanOfficersOnly}, function (data) {
+            resourceFactory.centerResource.get({centerId: routeParams.id, template: 'true',staffInSelectedOfficeOnly:true,loanOfficersOnly:scope.loanOfficersOnly, associations:'hierarchyLookup'}, function (data) {
                 scope.edit = data;
-                scope.staffs = data.staffOptions;
+                scope.staffs = data.staffOptions;                
+                scope.villages = data.villageOptions;
                 scope.isWorkflowEnabled = (data.isWorkflowEnabled && data.isWorkflowEnableForBranch);
                 scope.formData = {
                     name: data.name,
                     externalId: data.externalId,
                     staffId: data.staffId
                 };
+                if(data.villageCounter){
+                    scope.formData.villageId = data.villageCounter.villageId
+                }
 
                 if (data.activationDate) {
                     var newDate = dateFilter(data.activationDate, scope.df);
@@ -42,6 +52,9 @@
                 }
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
+                if(scope.isNameAutoPopulate){
+                    this.formData.villageId = undefined;
+                }
                 resourceFactory.centerResource.update({centerId: routeParams.id}, this.formData, function (data) {
                     location.path('/viewcenter/' + routeParams.id);
                 });
