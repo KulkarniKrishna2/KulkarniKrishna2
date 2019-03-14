@@ -265,6 +265,23 @@
                     scope.datatabledetails = data;
                     scope.datatabledetails.isData = data.data.length > 0 ? true : false;
                     scope.datatabledetails.isMultirow = data.columnHeaders[0].columnName == "id" ? true : false;
+                    if (scope.datatabledetails.isMultirow == false) {
+                        var indexI = data.columnHeaders.findIndex(x => x.columnName == 'savings_account_id');
+                        if (indexI > -1) {
+                            data.columnHeaders.splice(indexI, 1);
+                        }
+                    } else if (scope.datatabledetails.isMultirow == true) {
+                        for (var m in data.columnData) {
+                            var indexk = data.columnData[m].row.findIndex(x => x.columnName == 'id');
+                            if (indexk > -1) {
+                                data.columnData[m].row.splice(indexk, 1);
+                            }
+                            var indexJ = data.columnData[m].row.findIndex(x => x.columnName == 'savings_account_id');
+                            if (indexJ > -1) {
+                                data.columnData[m].row.splice(indexJ, 1);
+                            }
+                        }
+                    }
                     scope.singleRow = [];
                     for (var i in data.columnHeaders) {
                         if (scope.datatabledetails.columnHeaders[i].columnCode) {
