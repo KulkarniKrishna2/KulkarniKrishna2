@@ -161,7 +161,8 @@
                     <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
                 </a>
                 <button id="save" type="submit" class="btn btn-primary"  ng-hide="blockUI" has-permission='UPDATE_ADDRESSES'>{{'label.button.save' | translate}}</button>
-                <button class="btn btn-info" ng-show="blockUI"><strong>{{'label.button.processing' | translate}}</strong></button>
+                <button  class="btn btn-primary" ng-show="showUpdateAddressFromCenter" type="button" ng-click="upadateDefaultAddress()">{{'label.button.updatevillagefromcenter' | translate}}</button>
+                <button class="btn btn-info"  ng-show="blockUI"><strong>{{'label.button.processing' | translate}}</strong></button>
             </div>
 
         </fieldset>
