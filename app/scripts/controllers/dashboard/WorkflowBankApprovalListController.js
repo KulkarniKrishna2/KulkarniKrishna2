@@ -6,7 +6,8 @@
             scope.taskTypes = [
                 {id: 'tab1', name: "label.tab.kotak.approval.loans", grouping: 'ManualApprove', taskPermissionName: 'READ_TASK_CLIENT_LEVEL_APPROVE', active: false, showtab : false},
                 {id: 'tab2', name: "label.tab.system.approved", grouping: 'SystemApprove', taskPermissionName: 'READ_TASK_CLIENT_LEVEL_APPROVE', active: false, showtab : false},
-                {id: 'tab3', name: "label.tab.ODU.review.loans", grouping: 'QueryResolve', taskPermissionName: 'READ_TASK_CLIENT_LEVEL_QUERY', active: false, showtab : false}];
+                {id: 'tab3', name: "label.tab.ODU.review.loans", grouping: 'QueryResolve', taskPermissionName: 'READ_TASK_CLIENT_LEVEL_QUERY', active: false, showtab : false},
+                {id: 'tab4', name: "label.tab.kotak.reject.loans", grouping: 'KotakRejected', taskPermissionName: 'READ_TASK_CLIENT_LEVEL_BANK_REJECT', active: false, showtab : false}];
             scope.pageSize = 15;
             scope.selectedStatus = 'Invalid';
             scope.filterBy = 'Invalid';
@@ -313,7 +314,7 @@
                 scope.dedupeMatchFound = null;
                 if(grouping == 'ManualApprove'){
                     scope.workflowLoanStatusList = [];
-                    scope.workflowLoanStatusList = ['UnderKotakApproval', 'ODUReviewed', 'KotakApproved', 'KotakRejected','CreditReviewed'];
+                    scope.workflowLoanStatusList = ['UnderKotakApproval', 'ODUReviewed', 'KotakApproved', 'CreditReviewed'];
                     scope.filterBy = 'ManualApprove';
                     if(scope.allowBcifOperations){
                     scope.isShowBulkOperationsButton = true;
@@ -332,6 +333,12 @@
                     scope.workflowLoanStatusList = [];
                     scope.workflowLoanStatusList = ['UnderODUReview'];
                     scope.filterBy = 'QueryResolve';
+                    scope.isShowBulkOperationsButton = false;
+                }
+                if(grouping == 'KotakRejected'){
+                    scope.workflowLoanStatusList = [];
+                    scope.workflowLoanStatusList = ['KotakRejected'];
+                    scope.filterBy = 'KotakRejected';
                     scope.isShowBulkOperationsButton = false;
                 }
 
@@ -365,6 +372,8 @@
                          location.path('/workflowbankapprovalaction/' + bankApproveObj.trackerId + '/' + bankApproveObj.bankApproveId);
                     }else if(groupingType == 'QueryResolve'){
                          location.path('/clientlevelqueryresolve/' + bankApproveObj.trackerId + '/' + bankApproveObj.bankApproveId);
+                    }else if(groupingType == 'KotakRejected'){
+                         location.path('/workflowbankrejectloanaction/' + bankApproveObj.trackerId + '/' + bankApproveObj.bankApproveId + '/' + bankApproveObj.loanId);
                     }
                 }
             };

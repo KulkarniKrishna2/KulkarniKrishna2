@@ -1801,6 +1801,15 @@
                     AdvancedAccountingProductMappingTemplate: defineResource(apiVer + "/advancedaccounting/productmappings/template", {}, {
                     }),
                     AdvancedAccountingProductMapping: defineResource(apiVer + "/advancedaccounting/productmappings/:mappingId", { mappingId: '@mappingId' }, {
+                    }),
+                    pushGSTTransactionsResource: defineResource(apiVer + "/pushgsttransactions", {}, {
+                        run: {method: 'POST', params: {}}
+                    }),
+                    bankRejectLoanTemplateResource: defineResource(apiVer + "/tasktracking/:trackerId/bankloanreject/template",{trackerId:'@trackerId'}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+                    clientDefaultAddressResource: defineResource(apiVer + "/villages/clients/:clientId/center/village", {clientId: '@clientId'}, {
+                        get: {method: 'GET', params: {}},
                     })
                 };
             }];

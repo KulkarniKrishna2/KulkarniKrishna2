@@ -7,7 +7,7 @@
             scope.datatabledetails.isData;
             resourceFactory.DataTablesResource.getAllDataTables({apptable: 'chai_villages', isFetchBasicData: true}, function (data) {
                 scope.datatables = data;
-                if(scope.datatables){
+                if(scope.datatables && scope.datatables[0]){
                 scope.dataTableChange(scope.datatables[0].datatablename);
                 }
             });

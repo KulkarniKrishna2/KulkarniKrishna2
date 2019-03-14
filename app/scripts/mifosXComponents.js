@@ -671,7 +671,9 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'accounting/AccountingStateProductMappingController',
             'accounting/CreateAccStateProductMappingController',
             'accounting/EditAccountingMappingsController',
-            'accounting/EditAccountingMappingDetailsController'
+            'accounting/EditAccountingMappingDetailsController',
+            'accounting/GSTDataPushController',
+            'task/bankapproval/WorkflowBankRejectLoanActionController'
         ],
         filters: [
             'StatusLookup',

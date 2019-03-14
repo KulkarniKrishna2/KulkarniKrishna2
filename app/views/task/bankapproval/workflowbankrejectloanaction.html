@@ -1,0 +1,605 @@
+<div  data-ng-controller="WorkflowBankRejectLoanActionController">
+        <div>
+            <ul class="breadcrumb">
+                <li><a href="#/workflowbankapprovallist"><strong>{{'label.anchor.workflow.bankapproval.list' | translate}}</strong></a></li>
+                <li class="active">{{'label.heading.bankapproval' |  translate}}</li>
+            </ul>
+        </div>
+        <br>
+        <div>
+        	<api-validate></api-validate>
+        </div>
+        <legend><strong>{{'label.heading.applicantdetails' | translate}}</strong></legend>
+        <div class="col-md-12">
+	        <div class="col-md-3">
+	        	<img ng-hide="clientImagePresent" ng-src="./images/client-image-placeholder.png" 
+	        	  alt="Avatar">
+				<img ng-show="clientImagePresent"  ng-src="{{image}}" alt="Avatar">
+	        </div>
+	        <div class="col-md-6">
+		        <table class="table table-bordered">
+		        	<tbody>
+		        		<tr>
+		        			<td class="graybg">{{'label.heading.name' | translate}}</td>
+		        			<td>{{bankApprovalTemplateData.memberData.displayName}}</td>
+		        		</tr>
+		        		<tr>
+		        			<td class="graybg">{{'label.heading.dob' | translate}}</td>
+		        			<td>{{bankApprovalTemplateData.memberData.dateOfBirth | DateFormat}}</td>
+		        		</tr>
+		        		<tr>
+		        			<td class="graybg">{{'label.heading.FCSM.No' | translate}}</td>
+		        			<td>{{bankApprovalTemplateData.memberData.fcsmNumber}}</td>
+		        		</tr>
+		        		<tr>
+		        			<td class="graybg">{{'label.heading.mobilenumber' | translate}}</td>
+		        			<td>{{bankApprovalTemplateData.memberData.mobileNo}}</td>
+		        		</tr>
+		        	</tbody>
+		        </table>
+	        </div>
+	        <div class="col-md-3">
+	        </div>
+        </div>
+        <br>
+         <legend><strong>{{'label.heading.criteria.check.result' | translate}}</strong></legend>
+        <div style="border:1px solid black">
+        	<br>
+	        <span class="badge {{ 'bucket'+cbCriteriaResult.output.value | StatusLookup}}">{{cbCriteriaResult.output.value}}</span>
+		    {{cbCriteriaResult.output.bucket}}&nbsp;[{{cbCriteriaResult.name}}]
+		    <span ng-if="cbCriteriaResult.output.error"> - {{cbCriteriaResult.output.error}}</span>
+		    <ul>
+		        <li ng-repeat="dimensionResult in cbCriteriaResult.ruleResultHierarchy">
+		            <span class="badge {{ 'bucket'+dimensionResult.output.value | StatusLookup}}">{{dimensionResult.output.value}}</span>
+		            {{dimensionResult.output.bucket}}&nbsp;[{{dimensionResult.name}}]
+		            <span ng-if="dimensionResult.output.error">
+		                - {{dimensionResult.output.error}}</span>
+		            <ol>
+		                <li ng-repeat="factorResult in dimensionResult.ruleResultHierarchy">
+		                    <span class="badge {{ 'bucket'+factorResult.output.value | StatusLookup}}">{{factorResult.output.value}}</span>
+		                    {{factorResult.output.bucket}}&nbsp;[{{factorResult.name}}]
+		                    <span ng-if="factorResult.output.error">
+		                        - {{factorResult.output.error}}</span>
+		            </ol>
+		        </li>
+		    </ul>
+		    <br>
+	    </div> 
+	    <br>
+	    <legend><strong>{{'label.heading.queries.resolution' | translate}}</strong></legend>
+	    <div class="col-md-12">
+			<div class="col-sm-8">
+	    	<table class="table table-bordered">
+	    		<tbody ng-repeat = "queryData in bankApprovalTemplateData.queryList">
+	    			<tr>
+	    				<td class = "col-md-2 graybg">{{'label.heading.query' | translate}} {{$index + 1}}
+	    				</td>
+	    				<td>{{queryData.query}}</td>
+	    			</tr>
+	    			<tr>
+	    				<td class = "col-md-2 graybg">{{'label.heading.resolution' | translate}} 
+	    					{{$index + 1}}
+	    				</td>
+	    				<td>{{queryData.resolution}}</td>
+	    			</tr>
+
+	    		</tbody>
+	    	</table>
+			</div>
+			<div class="col-sm-4">
+				<div class="form-group">
+				<label class="control-label col-sm-2">{{'label.heading.attachments' | translate}}</label>
+				</div>
+				<div class="form-group">
+					<table class="table">
+						<thead>
+						<tr class="graybg">
+							<th>{{'label.heading.filename' | translate}}</th>
+							<th>{{'label.heading.action' | translate}}</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr ng-repeat="document in bankApprovalTemplateData.documentData">
+							<td>{{$index+1}}.{{document.fileName}}</td>
+							<td>
+								<span ng-if="document.id">
+								<a target="_blank" data-ng-click="openViewDocument(document.docUrl)" has-permission='READ_DOCUMENT'>
+									<i class="icon-eye-open text-success"></i>
+								</a>
+								<a target="_blank" ng-click="download(document)" has-permission='READ_DOCUMENT'>
+									<i class="icon-cloud-download"></i>
+								</a>
+							</span>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+	    </div>
+	    <br>
+	    <legend><strong>{{'label.heading.loanterms' | translate}}</strong></legend>
+	    <div>
+	    	<table class="table table-striped">
+	    		<thead>
+	    			<th class="col-md-3">{{'label.heading.principal' | translate}}</th>
+	    			<th class="col-md-3">{{'label.heading.loanProductName' | translate}}</th>
+	    			<th class="col-md-3">{{'label.heading.loanTerm' | translate}}</th>
+	    			<th class="col-md-3">{{'label.heading.emiamount' | translate}}</th>
+	    		</thead>
+	    		<tbody>
+	    			<tr>
+	    				<td class="col-md-3">{{bankApprovalTemplateData.loanAccountBasicData.principalAmount}}</td>
+	    				<td class="col-md-3">{{bankApprovalTemplateData.loanAccountBasicData.loanProductName}}</td>
+	    				<td class="col-md-3">{{bankApprovalTemplateData.loanAccountBasicData.loanEMIPackData.numberOfRepayments}} - {{bankApprovalTemplateData.loanAccountBasicData.loanEMIPackData.repaymentFrequencyType.value}} </td>
+	    				<td class="col-md-3">{{bankApprovalTemplateData.loanAccountBasicData.loanEMIPackData.fixedEmi}}</td>
+	    			</tr>
+	    		</tbody>
+	    	</table>
+	    </div>
+	    <legend><strong>{{'label.heading.identities' | translate}}</strong></legend>
+	    <div>
+	    	<table class="table table-striped">
+		        <thead>
+		        <tr>
+		            <th>{{'label.heading.id' | translate}}</th>
+		            <th>{{'label.heading.description' | translate}}</th>
+		            <th>{{'label.heading.type' | translate}}</th>
+		            <th>{{'label.heading.identitydocuments' | translate}}</th>
+		        </tr>
+		        </thead>
+		        <tbody>
+		        <tr ng-repeat="document in bankApprovalTemplateData.clientIdentifiers">
+		            <td>{{document.documentKey}}</td>
+		            <td>{{document.description}}</td>
+		            <td>{{document.documentType.name}}</td>
+		            <td>
+		                  <span ng-repeat="file in document.documents">
+		                    {{file.fileName}}&nbsp;&nbsp;
+		                    <a target="_blank" data-ng-click="openViewDocument(file.docUrl)" has-permission='READ_DOCUMENT'><i
+		                            class="icon-eye-open text-success"></i></a>
+		                    <a target="_blank" ng-click = "download(file)" has-permission='READ_DOCUMENT'><i
+		                            class="icon-cloud-download"></i></a>
+		                  </span>
+		            </td>
+		        </tr>
+		        </tbody>
+		    </table>
+	    </div>
+        <legend><strong>{{'label.heading.familydetails' | translate}}</strong></legend>
+		<div>
+				<table class="table table-striped">
+					<thead >
+					<tr>
+						<th>{{ 'label.heading.name' | translate }}</th>
+						<th>{{ 'label.heading.belongs.to.families.of' | translate }}</th>
+						<th>{{ 'label.heading.dob' | translate }}</th>
+						<th>{{ 'label.heading.age' | translate }}</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr ng-repeat="familyMember in bankApprovalTemplateData.familyMembers">
+						<td>{{familyMember.firstname}}
+							{{familyMember.lastname}}
+						</td>
+						<td>
+							{{familyMember.relationship.name}}
+						</td>
+						<td>{{familyMember.dateOfBirth |
+							DateFormat}}
+						</td>
+						<td>{{familyMember.age}}</td>
+					</tr>
+					</tbody>
+				</table>
+				<br>
+		<div>
+		<legend ng-if="clientDedupTemplateData!=null && allowBcifOperations"><strong>{{'label.heading.bcif.details' | translate}}</strong></legend>
+		<div ng-if="clientDedupTemplateData!=null && allowBcifOperations">
+			<div ng-if="clientDedupTemplateData.clientDedupeList!=null && clientDedupTemplateData.clientDedupeList.length>0 && !crnGeneration && !deduperrorExists">
+					<table class="table table-striped">
+							<thead >
+							<tr>
+								<th>{{ 'label.heading.crn' | translate }}</th>
+								<th>{{ 'label.heading.name' | translate }}</th>
+								<th>{{ 'label.heading.dob' | translate }}</th>
+								<th>{{ 'label.heading.address' | translate }}</th>
+								<th ng-if="clientDedupTemplateData.crn==null">{{ 'label.heading.actions' | translate }}</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr ng-repeat="record in clientDedupTemplateData.clientDedupeList">
+								<td>{{record.bcifId}}</td>
+								<td>{{record.displayName}}
+								</td>
+								<td>{{record.dateOfBirth}}
+								</td>
+								<td>{{record.address}}</td>
+								<td ng-if="clientDedupTemplateData.crn==null">
+									<span>
+										<button type="button" class="btn btn-secondary" ng-click="overrideCrn(record)">{{'label.button.overridecrn' | translate}}</button>
+									</span>
+								</td>
+
+							</tr>
+							</tbody>
+						</table>
+						<br>
+			</div>
+			<div ng-if="clientCrnTemplateData !=null && crnGeneration && !creationerrorExists">
+					<table class="table table-striped">
+							<thead >
+							<tr>
+								<th>{{ 'label.heading.crn' | translate }}</th>
+								<th>{{ 'label.heading.name' | translate }}</th>
+								<th>{{ 'label.heading.dob' | translate }}</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr>
+								<td>{{clientCrnTemplateData.crn}}</td>
+								<td>{{clientCrnTemplateData.clientBasicData.displayName}}
+								</td>
+								<td>{{clientCrnTemplateData.clientBasicData.dateOfBirth}}
+								</td>
+							</tr>
+							</tbody>
+						</table>
+						<br>
+			</div>
+			<div ng-if="allCrnSuspended && !crnGeneration && !deduperrorExists">
+				<p>{{'description.msg.crnsuspended' | translate}}</p>
+				<br>
+			</div>
+
+			<div ng-if="noDedupeMatchFound && !crnGeneration && !deduperrorExists">
+				<p>{{'description.msg.nodedupe' | translate}}</p>
+				<br>
+			</div>
+
+			<!-- <div ng-if="deduperrorExists">
+				<p style="color:red">{{deduperror}}</p>
+				<br>
+			</div> -->
+
+			<div ng-if="creationerrorExists">
+					<p style="color:red">{{crncreationerror}}</p>
+					<br>
+				</div>
+
+			<div ng-if="!crnExists">
+				<span class = "pull-left" ng-if="!crnGeneration">
+					<button type="button" class="btn btn-primary" ng-click="createBcif()">{{'label.button.createbcif' | translate}}</button>
+				</span>
+				<br>
+				<br>
+			</div>
+		</div>
+		<legend ng-if ="ncifDedupTemplateData!=null"><strong>{{'label.heading.ncif.details' | translate}}</strong></legend>
+		<div ng-if ="ncifDedupTemplateData!=null">
+			<div ng-if ="ncifDedupTemplateData.errorExists">
+				<p style="color:red">{{ncifDedupTemplateData.errorDescription}}</p>
+				<br>
+			</div>
+			<div ng-if ="!ncifDedupTemplateData.errorExists">
+				<p>{{ncifDedupTemplateData.dedupeResponse}}</p>
+			</div>
+		</div>
+		<legend><strong>{{'label.heading.creditbureau' | translate}}</strong></legend>
+		<button ng-click="openCBReport(bankApprovalTemplateData.creditBureauLoansSummaryData.creditBureauEnquiryId)"
+			class = "pull-right" has-permission='READ_CREDIT_BUREAU_REPORT'>{{'label.button.viewReport' | translate}}
+		</button>
+		<div>
+			<span>
+				<strong>{{'label.heading.cb.report.active.loans.summary' | translate}} : </strong>
+			</span>
+			<br>
+			<table class="table table-striped">
+				<thead>
+					<th class="col-md-3">{{'label.heading.no.of.active.loans' | translate}}</th>
+					<th class="col-md-3">{{'label.heading.total.disbursal.amount' | translate}}</th>
+					<th class="col-md-3">{{'label.heading.total.outstanding.amount' | translate}}</th>
+					<th class="col-md-3">{{'label.heading.overdue.amount' | translate}}</th>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="col-md-3">
+						{{bankApprovalTemplateData.creditBureauLoansSummaryData.totalLoans - 
+							bankApprovalTemplateData.creditBureauLoansSummaryData.ownTotalLoans}}
+					    </td>
+					    <td class="col-md-3">
+						{{bankApprovalTemplateData.creditBureauLoansSummaryData.totalAmountBarrowed - 
+							bankApprovalTemplateData.creditBureauLoansSummaryData.ownAmountBarrowed}}
+					    </td>
+					    <td class="col-md-3">
+						{{bankApprovalTemplateData.creditBureauLoansSummaryData.totalOutstanding - 
+							bankApprovalTemplateData.creditBureauLoansSummaryData.ownOutstanding}}
+					    </td>
+					    <td class="col-md-3">
+						{{bankApprovalTemplateData.creditBureauLoansSummaryData.totalArrears - 
+							bankApprovalTemplateData.creditBureauLoansSummaryData.ownArrears}}
+					    </td>
+					</tr>
+				</tbody>
+			</table>
+			<br>
+			<span>
+				<strong>{{'label.heading.bss.loans.summary' | translate}} : </strong>
+			</span>
+			<br>
+			<table class="table table-striped">
+				<thead>
+					<th class="col-md-3">{{'label.heading.no.of.active.loans' | translate}}</th>
+					<th class="col-md-3">{{'label.heading.total.disbursal.amount' | translate}}</th>
+					<th class="col-md-3">{{'label.heading.total.outstanding.amount' | translate}}</th>
+					<th class="col-md-3">{{'label.heading.overdue.amount' | translate}}</th>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="col-md-3">
+						{{bankApprovalTemplateData.existingInternalLoansSummaryData.activeLoansCount}}
+					    </td>
+					    <td class="col-md-3">
+						{{bankApprovalTemplateData.existingInternalLoansSummaryData.totalDisbursementAmount}}
+					    </td>
+					    <td class="col-md-3">
+						{{bankApprovalTemplateData.existingInternalLoansSummaryData.totalOutstandingAmount}}
+					    </td>
+					    <td class="col-md-3">
+						{{bankApprovalTemplateData.existingInternalLoansSummaryData.totalOverdueAmount}}
+					    </td>
+					</tr>
+				</tbody>
+			</table>
+			<br>
+			<span>
+				<strong>{{'label.heading.prepay.loan.info' | translate}} : </strong>
+			</span>	
+				<table class="table table-striped">
+					<thead>
+						<th>{{'label.heading.serialno' | translate}}</th>
+						<th>{{'label.heading.prepay.loan' | translate}}</th>
+						<th>{{'label.heading.prepay.amount' | translate}}</th>
+						<th>{{'label.heading.prepay.repayment.date' | translate}}</th>
+					</thead>
+					<tbody>
+						<tr ng-repeat = "preclosureLoan in bankApprovalTemplateData.preclosureLoansList">
+							<td>{{$index + 1}}</td>
+							<td>{{preclosureLoan.productName}} ({{preclosureLoan.loanAccountNo}})</td>
+							<td>{{preclosureLoan.preclosureAmount}}</td>
+                            <td>{{preclosureLoan.preclosureDate | DateFormat}}</td>
+						</tr>
+					</tbody>
+				</table>
+            <br>
+            <div>
+            	<table class="table table-bordered">
+            		<tbody>
+            			<tr>
+            				<td class= "col-md-3 graybg">{{'label.heading.total.current.outstanding' | translate}}</td>
+            				<td class="col-md-3">{{bssCurrentOutstanding}}</td>
+            				<td class="col-md-3 graybg">{{'label.heading.final.outstanding' | translate}}</td>
+            				<td class="col-md-3">{{finalOutstanding}}</td>
+            			</tr>
+            		</tbody>
+            	</table>
+            </div>
+		</div>
+
+            <div class="btn btn-group right">
+                <a id="back" href="#/workflowbankapprovallist" class="btn btn-default">
+                     {{'label.button.back' | translate}}
+                </a>&nbsp;&nbsp;
+                <a id="query" class="btn btn-info" 
+                  ng-click="raiseQuery(bankApprovalTemplateData.bankApprovalId)" 
+                  ng-if = "showRaiseQueryButton">
+                   {{'label.button.raise.query' | translate}}
+                </a>&nbsp;
+                <a id="reject" class="btn btn-danger" 
+                   ng-click="rejectLoan(bankApprovalTemplateData.bankApprovalId)"
+                   ng-if = "showRejectButton" 
+                   has-permission = "REJECT_TASK_CLIENT_LEVEL_BANK_APPROVE">
+                   {{'label.button.reject' | translate}}
+				</a>
+				<a id="creditReview" class="btn btn-primary" 
+				   ng-click="creditReview(bankApprovalTemplateData.bankApprovalId)"
+				   ng-if = "showCreditReviewButton"
+                   has-permission = "REVIEW_CREDIT_REVIEW_CLIENT_LEVEL">
+                   {{'label.credit.reviewed' | translate}}
+                </a>
+                <a id="approve" class="btn btn-primary" 
+                   ng-click="approveLoan(bankApprovalTemplateData.bankApprovalId)"
+                   ng-if = "showApproveButton" 
+                   has-permission = "APPROVE_TASK_CLIENT_LEVEL_BANK_APPROVE">
+                   {{'label.button.approve' | translate}}
+                </a>
+                <a id="undoapprove" class="btn btn-danger" 
+                   ng-click="undoApproveLoan(bankApprovalTemplateData.bankApprovalId)"
+                   ng-if = "showUndoApproveButton" 
+                   has-permission = "UNDO_APPROVAL_TASK_CLIENT_LEVEL_BANK_APPROVE">
+                   {{'label.button.undoapproval' | translate}}
+                </a>
+                <a id="resolveQuery" class="btn btn-primary" 
+                   ng-click="routeToResolveQuery()"
+                   ng-if = "showResolveQueryButton" 
+                   has-permission = "READ_TASK_CLIENT_LEVEL_QUERY">
+                   {{'label.button.resolve' | translate}}
+                </a>
+            </div>
+            <br><br>
+            <div>
+                <span class="pull-left">
+                    <button type="button" class="btn btn-link" ng-disabled="isDisplayClientLog" ng-click="displayClientLog(bankApprovalTemplateData.memberData.id)">{{'label.heading.client.log' | translate}}</button>
+                    &nbsp;
+                    <button type="button" class="btn btn-link" ng-disabled="isDisplayLoanLog" 
+                    ng-click="displayLoanLog(bankApprovalTemplateData.loanAccountBasicData.id)">{{'label.heading.loan.log' | translate}}</button>
+                    &nbsp;
+                </span>
+            </div>    
+            <br><br>
+            <div>    
+		        <table class="tabel table-striped" ng-if="isDisplayClientLog">
+			        <thead>
+			            <th class="col-md-2">{{'label.heading.action' | translate}}</th>
+			            <th class="col-md-2">{{'label.heading.entity' | translate}}</th>
+			            <th class="col-md-2">{{'label.heading.office' | translate}}</th>
+			            <th class="col-md-3">{{'label.heading.madeby' | translate}}</th>
+			            <th class="col-md-3">{{'label.heading.madedate' | translate}}</th>
+			        </thead>
+			        <tbody>
+			        <tr ng-repeat="clientLog in clientLogs" 
+			           ng-if = "isDisplayClientLog">
+			            <td class="col-md-2">{{clientLog.actionName}}</td>
+			            <td class="col-md-2">{{clientLog.entityName}}</td>
+			            <td class="col-md-2">{{clientLog.officeName}}</td>
+			            <td class="col-md-3">{{clientLog.makerName}}</td>
+			            <td class="col-md-3">{{clientLog.makerTime | DateTimeFormat}}</td>
+			        </tr>
+			        <tr ng-repeat="loanLog in loanLogs" 
+			           ng-if="isDisplayLoanLog">
+			            <td class="col-md-2">{{loanLog.actionName}}</td>
+			            <td class="col-md-2">{{loanLog.entityName}}</td>
+			            <td class="col-md-2">{{loanLog.officeName}}</td>
+			            <td class="col-md-3">{{loanLog.makerName}}</td>
+			            <td class="col-md-3">{{loanLog.makerTime | DateTimeFormat}}</td>
+			        </tr>
+			        </tbody>
+		        </table>
+		        <table class="table table-bordered"  ng-if="isDisplayLoanLog">
+				<thead>
+					<th>{{'label.heading.action' | translate}}</th>
+					<th>{{'label.heading.user' | translate}}</th>
+					<th>{{'label.heading.loan.amount' | translate}}</th>
+					<th>{{'label.heading.review.reason' | translate}}</th>
+					<th>{{'label.heading.review.reason.notes' | translate}}</th>
+					<th>{{'label.heading.review.current.loanid' | translate}}</th>
+					<th>{{'label.heading.review.preclousre.loanid' | translate}}</th>
+					<th>{{'label.heading.preclosure.date' | translate}}</th>
+					<th>{{'label.heading.attachments' | translate}}</th>
+					<th>{{'label.heading.timestamp'| translate}}</th>
+				</thead>
+				<tbody>
+					<tr ng-repeat="history in loanLogs">
+						<td>{{history.action}}</td>
+						<td>{{history.reviewerName}}</td>
+						<td>{{history.recommendedAmount}}</td>
+						<td>{{history.reviewReson}}</td>
+						<td>{{history.reviewReasonNotes}}</td>
+						<td>{{history.loanId}}</td>
+						<td>{{history.preclosureLoanId}}</td>
+						<td>{{history.preclosureDate | DateFormat}}</td>
+						<td>
+							<span ng-if="history.documentId">
+								{{history.fileName}}&nbsp;&nbsp;
+								<a target="_blank" data-ng-click="openViewDocument(history.docUrl)" has-permission='READ_DOCUMENT'>
+									<i class="icon-eye-open text-success"></i>
+								</a>
+								<a target="_blank" ng-click="downloadHistory(history)" has-permission='READ_DOCUMENT'>
+									<i class="icon-cloud-download"></i>
+								</a>
+							</span>
+							<span ng-if="history.">
+
+							</span>
+						</td>
+						<td>{{history.reviewDoneOn | DateFormat}}</td>
+					</tr>
+				</tbody>
+			</table>
+            </div>
+
+	<script type="text/ng-template" id="viewDocument.html">
+	    	 <div style="position: fixed; top:20%; right:10%; width:600px; height: 500px;">
+            	<view-document-directive  ng-entity-type="{{data.parentEntityType}}"
+            	ng-entity-id="{{data.parentEntityId}}"
+            	ng-document-id="{{data.id}}"></view-document-directive>
+        	</div>
+	</script>
+	<script type="text/ng-template" id="raisequery.html">
+		<div class="modal-header silver">
+			<h3 class="bolder">{{'label.heading.raise.query' | translate}}</h3>
+		</div>
+		<div class="modal-body">
+			<form name="popupform" novalidate="" class="form-horizontal well">
+				<api-validate></api-validate>
+				<div ng-show="error" class="error">
+					{{'label.error.add.query' | translate}}
+				</div>
+				<br>
+				<fieldset>
+					<div class="col-md-12">
+					    <div class="col-sm-8">
+							<div class="form-group">
+						    <label class="control-label col-sm-3">{{'label.input.availablequery' | translate}}</label>
+						    <div class="col-sm-4">
+							    <select  ng-model="available"  class="form-control width170px"
+									    ng-options="availableQuery.queryId as availableQuery.query for availableQuery in availableQueries" value="{{availableQuery.id}}" ng-change="checkOtherQuery(available)">
+								    <option style="display:none" value="">{{'label.selectquery' | translate}}</option>
+							    </select>
+						    </div>
+						   <div class="col-sm-1">
+							    <button type="button" class="btn btn-primary" data-ng-click="addQuery()" data-ng-disabled="isDisableAddButton">{{'label.button.add' | translate}}</button>
+						    </div>
+							</div>
+							<div class="form-group" ng-if="showQueryText">
+								<label class="control-label col-sm-3">{{'label.input.addquery' | translate}}</label>
+								<div class="col-sm-5">
+									<textarea type="text" autocomplete="off" id="queryId" name="query"  ng-if="showQueryText"
+											  ng-model="queryText.description">
+									</textarea>
+								</div>
+							</div>
+					    </div>
+						<div class="col-sm-4">
+							<table class="table">
+								<thead>
+									<tr class="graybg">
+										<th>{{'label.input.selectedquery' | translate}}</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="selectQuery in selectedQueries">
+										<td>{{$index+1}}. {{selectQuery.query}}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<div class="col-md-offset-5">
+						<button class="btn btn-warning" ng-click="cancelRaiseQuery()">{{'label.button.cancel' | translate}}</button>
+						<button class="btn btn-primary" has-permission = "CREATE_TASK_CLIENT_LEVEL_QUERY"
+								ng-click="submitQuery()">{{'label.button.submit' | translate}}</button>
+					</div>
+
+				</fieldset>
+			</form>
+		</div>
+    </script>
+	<script type="text/ng-template" id="rejectloan.html">
+		<div class="modal-header silver">
+			<h3 class="bolder">{{'label.heading.reject' | translate}}</h3>
+		</div>
+		<div class="modal-body ">
+			<api-validate></api-validate>
+			<br>			
+			<form name="popupform" novalidate="" class="form-horizontal well">
+			    <fieldset>
+			    	<div class="form-group">
+						<label class="control-label col-sm-3">{{'label.heading.rejectionreason' | translate}}</label>
+						<div class="col-sm-5">
+							<select id="rejectReasonId" ng-model="formData.rejectReasonId" class="form-control" ng-options="closureReason.id as closureReason.name for closureReason in closureReasons"
+									 value="{{closureReason.id}}"></select>
+						</div>
+					</div>
+					<div class="col-md-offset-5">
+					    <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}
+					    </button>
+			            <button class="btn btn-primary" ng-click="reject()">{{'label.button.confirm' | translate}}
+			            </button>
+			        </div>    
+			    </fieldset>
+			</form>			
+		</div>
+	</script>
+</div>

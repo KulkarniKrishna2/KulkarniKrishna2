@@ -1905,6 +1905,9 @@
             .when('/gstmapping', {
                 templateUrl: 'views/accounting/gst_mapping.html'
             })
+            .when('/gstdatapush', {
+                templateUrl: 'views/accounting/gst_data_push.html'
+            })
             .when('/gstmapping/loanproducts', {
                 templateUrl: 'views/accounting/loanproduct_gst_mapping.html'
             })
@@ -1985,6 +1988,9 @@
             })
             .when('/editaccountingmappingsdetails/:mappingId/accstate/:accStateId/subtype/:subTypeId', {
                 templateUrl: 'views/accounting/edit_mapping_details.html'
+            })
+            .when('/workflowbankrejectloanaction/:trackerId/:workflowBankApprovalId/:loanId',{
+                templateUrl: 'views/task/bankapproval/workflowbankrejectloanaction.html'
             })
         $locationProvider.html5Mode(false);
     };

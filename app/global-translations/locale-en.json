@@ -7713,6 +7713,12 @@
     "label.anchor.generateinvoice": "GENERATE INVOICE",
     "label.anchor.gstmapping": "GST MAPPING",
     "label.anchor.screenforgstmapping": "Screen For GST Mapping",
+    "label.anchor.gstdatapush": "GST Data Push",
+    "label.anchor.screenforgstdatapush": "Push GST entries to external system",
+    "label.heading.gstdatapush": "Execute Push GST Transactions",
+    "label.input.gstdbdush.executeasondate":"Execute as on date",
+    "label.input.gstdbdush.loanIds":"Loan ids",
+    "label.button.push.gst.transactions":"Push Transactions",
     "label.input.selecttaxgroup": "Select Tax group",
     "label.anchor.loanproductgstmapping": "Loan Product GST Mappings",
     "label.anchor.screenforloanproductgstmapping": "Screen For Loan Product GST Mappings",
@@ -7843,5 +7849,9 @@
     "label.anchor.repaidamount":"Repaid Amount",
     "validation.msg.recurringdepositaccount.summital.cannot.be.before.client.activation.date" : "Account cannot be created before client activation date. ",
     
-     "------ end of translation file ------":"---------"
+    "error.msg.village.activation.date.can.not.be.beforesubmitted.date" : "Village activation date ban not be before submitted on date `{{params[0].value}}` ",
+    "label.tab.kotak.reject.loans" : "Kotak Rejected Loans",
+    "label.button.updatevillagefromcenter" : "Update Village From Center",
+
+    "------ end of translation file ------": "----------"
 }

@@ -1,0 +1,33 @@
+
+    <div class="col-md-12">
+        <ul class="breadcrumb">
+            <li><a href="#/bc">{{'label.anchor.bc' | translate}}</a></li>
+            <li class="active">{{'label.anchor.gstdatapush' | translate}}</li>
+        </ul>
+    <api-validate></api-validate>
+    <form class="form-horizontal well" name="gstdbpushform" novalidate="" ng-submit="submit()" ng-controller="GSTDataPushController">
+        <fieldset>
+            <legend>{{ 'label.heading.gstdatapush' | translate}}</legend>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="executeAsOnDate">{{'label.input.gstdbdush.executeasondate' | translate}}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input id="executeAsOnDate" sort type="text" autocomplete="off" datepicker-pop="{{df}}" class="form-control" is-open="opened"
+                           ng-model="executeAsOnDate" min="'2000-01-01'" max="restrictDate" ng-readonly="isDatePickerReadOnly"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="loanIds">{{'label.input.gstdbdush.loanIds' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <textarea id="loanIds" rows="2" class="form-control" ng-model="formData.loanIds"></textarea>
+                </div>
+            </div>
+            <div class="col-md-offset-3">
+                <a id="cancel" href="#/bc" class="btn btn-default">{{ 'label.button.cancel' | translate }}</a>
+                <button id="save" type="submit" class="btn btn-primary" has-permission='PUSH_GSTTRANSACTION'>{{ 'label.button.push.gst.transactions' | translate }}</button>
+            </div>
+        </fieldset>
+    </form>
+ </div>
