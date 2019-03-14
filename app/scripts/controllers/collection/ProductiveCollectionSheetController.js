@@ -199,8 +199,8 @@
                     if (!_.isUndefined(scope.attendanceTypeOptions)) {
                         scope.collectionsheetdata.attendanceTypeOptions = scope.attendanceTypeOptions;
                     }
-                    if (!_.isUndefined(scope.defaultAttendanceValue)) {
-                        scope.defaultClientAttendanceType = {};
+                    if (angular.isNumber(scope.defaultAttendanceValue)) {
+                        scope.defaultClientAttendanceType = scope.defaultAttendanceValue;
                     } else {
                         scope.defaultClientAttendanceType = scope.collectionsheetdata.attendanceTypeOptions[0].id
                     }
@@ -431,11 +431,7 @@
                         attendence.clientId = scope.clients[j].clientId;
                         attendence.reasonId = scope.clients[j].reasonId;
                         attendence.reason = scope.clients[j].reason;
-                        if (!_.isUndefined(scope.defaultAttendanceValue)) {
-                            attendence.attendanceType = scope.defaultAttendanceValue;
-                        } else {
-                            attendence.attendanceType = scope.clients[j].attendanceType;
-                        }
+                        attendence.attendanceType = scope.clients[j].attendanceType;
                         if (attendence.clientId) {
                             clientsAttendanceDetails.push(attendence);
                         }
