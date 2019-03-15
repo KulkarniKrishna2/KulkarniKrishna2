@@ -39,7 +39,8 @@
 				"loanPurpose": false,
 				"preferredPaymentChannel": false,
 				"canAddCharge": true,
-				"writeOff": false
+				"writeOff": false,				
+				"previewSchedule": false
 			},
 			"isMandatory": {
 				"externalId": false,

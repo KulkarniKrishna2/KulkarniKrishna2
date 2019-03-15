@@ -45,6 +45,7 @@
                 scope.hidePrepayButton = scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.prepayLoanButton;
                 scope.showRetryBankTransaction = scope.response.uiDisplayConfigurations.loanAccount.isShowField.retryBankTransaction;
                 scope.hideWriteoff = scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.writeOff;
+                scope.hidePreviewSchedule = scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.previewSchedule;
                 scope.showSavingToDisburse = scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.linkAccountId;
                 scope.hideNetDisbursedAmount = scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.netDisbursedAmount;
                 scope.showBankApprovalStatus = scope.response.uiDisplayConfigurations.viewLoanAccountDetails.displayBankApprovalStatus;
@@ -107,7 +108,6 @@
 
             scope.clickEvent = function (eventName, accountId) {
                 eventName = eventName || "";
-                console.log('eventName: ',eventName);
                 $rootScope.headerLoanDetails = scope.loandetails;
                 switch (eventName) {
                     case "addloancharge":
@@ -377,9 +377,9 @@
                 resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_loan', associatedEntityId: scope.loandetails.loanProductId, isFetchBasicData : false,isFetchAssociateTable: true}, function (data) {
                     scope.datatables = data;
                 });
-               
+                scope.showOriginalSchedule = true;
                 if(scope.loandetails.isInterestRecalculationEnabled && data.status.value == "Active"){
-                    scope.showOriginalSchedule = true;
+                    
                     if(scope.loandetails.transactionProcessingStrategyCode == 'rbi-india-strategy'){
                         scope.showFutureSchedule = true;
                        
@@ -634,7 +634,8 @@
                             },
                             {
                                 name: "button.schedulepreview",
-                                taskPermissionName: 'READ_LOAN'
+                                taskPermissionName: 'READ_LOAN',
+                                isHidden:scope.hidePreviewSchedule
                             },
                             {
                                 name: "button.listguarantor",
