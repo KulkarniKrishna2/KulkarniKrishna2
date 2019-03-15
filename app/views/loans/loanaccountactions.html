@@ -143,7 +143,7 @@
 
         <div class="col-sm-3">
             <input id="{{nextRepaymentDate}}" sort type="text" autocomplete="off" datepicker-pop="{{df}}" class="form-control"
-                   ng-model="nextRepaymentDate" min="'2000-01-01'" max="restrictDate" ng-disabled="false" ng-readonly="isDatePickerReadOnly"/>
+                   ng-model="nextRepaymentDate" min="'2000-01-01'" max="restrictDate" disabled="disabled" ng-readonly="isDatePickerReadOnly"/>
         </div>
     </div>
     <div class="form-group" ng-show="(action == 'disburse' || action == 'forcedisburse' || action == 'disbursetogroupbankaccounts') && ((response.uiDisplayConfigurations.loanAccount.isShowField.adjustRepaymentDateDisburseScreen) || formData.adjustRepaymentDate)">
