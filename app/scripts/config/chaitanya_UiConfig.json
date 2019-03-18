@@ -173,7 +173,8 @@
       },
       "isAutoPopulate":{
         "bankName": "MASTER"
-      }
+      },
+      "isMakerTwoStepPresent": false
     },
     "paymentDetails": {
       "isMandatory": {
