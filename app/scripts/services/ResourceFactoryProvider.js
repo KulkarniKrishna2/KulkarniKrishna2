@@ -1567,10 +1567,11 @@
                     loanProposalReviewTemplateResource: defineResource(apiVer + '/loans/:loanId/proposalreview/template', {loanId: '@loanId'}, {
                         get: {method: "GET", params: {}, isArray: true}
                     }),
-                    loanProposalReviewResource: defineResource(apiVer + '/loans/:loanId/proposalreview', {loanId: '@loanId'}, {
-                        post: {method: "POST"}
+                    loanProposalReviewResource: defineResource(apiVer + '/loans/:loanId/proposalreview/:proposalreviewId', {loanId: '@loanId',proposalreviewId: '@proposalreviewId'}, {
+                        post: {method: "POST"},
+                        update:{method: 'PUT'}
                     }),
-                    loanProposalReviewHistoryResource: defineResource(apiVer +"/grouploanindividualmonitoring/:loanId/reviewhistory", {loanId:'@loanId'},{
+                    loanProposalReviewHistoryResource: defineResource(apiVer +"/loans/:loanId/proposalreview/reviewhistory", {loanId:'@loanId'},{
                         getAll: {method: 'GET', params: {}, isArray : true}
                     }),
                     cgtBasicActivityResource: defineResource(apiVer + "/cgt/completiondate", {},{
