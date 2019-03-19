@@ -166,6 +166,7 @@
                                                ng-model="account.amount"
                                                number-format required late-validate=""/>
                                     </div>
+                                    <div  class="form-inline paddedbottom10"> {{amountInwords}} </div>
                                     <div ng-show="validate && damountForm{{$index}}.damount.$error.required">
                                         <span class="error">{{ 'label.requirefield' | translate }}</span>
                                     </div>
@@ -250,6 +251,7 @@
                                                ng-model="account.amount"
                                                number-format required late-validate=""/>
                                     </div>
+                                    <div  class="form-inline paddedbottom10"> {{amountInwords}} </div>
                                     <div ng-show="validate && camountForm{{$index}}.camount.$error.required">
                                         <span class="error">{{ 'label.requirefield' | translate }}</span>
                                     </div>

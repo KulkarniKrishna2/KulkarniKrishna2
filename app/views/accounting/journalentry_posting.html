@@ -62,6 +62,7 @@
                         </select>&nbsp;&nbsp;
 	                    <input type="text" autocomplete="off" class="input-small form-control" number-format ng-model="dbAccount.debitAmount">
 	                    &nbsp;<a ng-click="removeDebitAccount($index)">&nbsp;<i class="icon-remove icon-white"></i></a>
+	                    <div  class="form-inline paddedbottom10"> {{amountInwords}} </div>
 	                </div>
 
 	            	<h4><strong>{{ 'label.input.credit' | translate }}</strong>&nbsp;<a ng-click="addCrAccount()">&nbsp;<i class="icon-plus icon-white"></i></a></h4>
@@ -72,6 +73,7 @@
 						</select>&nbsp;&nbsp;
 	                  	<input type="text" autocomplete="off" class="input-small form-control" number-format ng-model="crAccount.crAmount">&nbsp;
 	                	<a ng-click="removeCrAccount($index)">&nbsp;<i class="icon-remove icon-white"></i></a>
+	                    <div  class="form-inline paddedbottom10"> {{amountInwords}} </div>
 	                </div>
 	            </div>
 
