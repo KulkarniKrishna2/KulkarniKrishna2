@@ -16,6 +16,10 @@
             scope.deFaultBankName = null;
             scope.bankAccountDocuments= [];
             scope.clientBankAccountDetailAssociationId = routeParams.clientBankAccountDetailAssociationId;
+            scope.isMakerTwoStepPresent = false;
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.bankAccountDetails.isMakerTwoStepPresent) {
+                scope.isMakerTwoStepPresent = scope.response.uiDisplayConfigurations.bankAccountDetails.isMakerTwoStepPresent;
+            }
 
             function getEntityType(){
                return scope.commonConfig.bankAccount.entityType;
@@ -25,8 +29,21 @@
                 return scope.commonConfig.bankAccount.entityId;
             }
 
-            function getClientBankAccountDetailAssociationId(){
-                return scope.clientBankAccountDetailAssociationId;
+            function getClientBankAccountDetailAssociationId() {
+                if (!_.isUndefined(scope.clientBankAccountDetailAssociationId)) {
+                    return scope.clientBankAccountDetailAssociationId;
+                } else {
+                    resourceFactory.bankAccountDetailResource.getAll({
+                        entityType: scope.entityType,
+                        entityId: scope.entityId
+                    }, function(data) {
+                        if (!_.isUndefined(data[0])) {
+                            scope.clientBankAccountDetailAssociationId = data[0].bankAccountAssociationId;
+                            populateDetails();
+                        }
+                    });
+                    return scope.clientBankAccountDetailAssociationId;
+                }
             }
 
             function populateDetails(){

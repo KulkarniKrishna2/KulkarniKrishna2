@@ -354,7 +354,8 @@
 			"regexValidations": {
 				"mobileNumber": "",
 				"bankIFSCCode": ""
-			}
+			},
+			"isMakerTwoStepPresent": false
 		},
 		"paymentDetails": {
 			"isMandatory": {

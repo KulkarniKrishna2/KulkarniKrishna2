@@ -29,8 +29,8 @@
         <tr class="graybg">
             <th>{{'label.heading.info' | translate}}</th>
             <th>{{'label.heading.makerdata' | translate}}</th>
-            <th>{{'label.heading.checkerdata' | translate}}</th>
-            <th ng-if="!viewConfig.showSummary">{{'label.heading.review' | translate}}</th>
+            <th ng-if="isMakerTwoStepPresent">{{'label.heading.checkerdata' | translate}}</th>
+            <th ng-if="!viewConfig.showSummary && isMakerTwoStepPresent">{{'label.heading.review' | translate}}</th>
         </tr>
         </thead>
         <tbody>
@@ -131,7 +131,7 @@
                            ng-checked="bankAccountData.branchName.toLowerCase().trim()==checkerBankAccountData.branchName.toLowerCase().trim()"/>
             </td>
         </tr>
-        <tr ng-if="!isElemHidden('bankCity')">
+        <tr ng-if="!isElemHidden('bankCity') && isMakerTwoStepPresent">
             <td>
                 {{'label.input.bankcity' | translate}}
             </td>
@@ -147,7 +147,7 @@
                        ng-checked="bankAccountData.bankCity.toLowerCase().trim()==checkerBankAccountData.bankCity.toLowerCase().trim()"/>
             </td>
         </tr>
-        <tr ng-if="!isElemHidden('mobileNumber')">
+        <tr ng-if="!isElemHidden('mobileNumber') && isMakerTwoStepPresent">
             <td>
                 {{'label.input.mobileNo' | translate}}
             </td>
