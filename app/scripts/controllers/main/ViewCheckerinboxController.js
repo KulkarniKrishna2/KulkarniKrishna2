@@ -8,8 +8,8 @@
                 scope.details = data;
                 scope.commandAsJson = data.commandAsJson;
                 var obj = JSON.parse(scope.commandAsJson);
-                var creditdetails = obj.credits || [];
-                var debitdetails = obj.debits || [];
+                var creditdetails = obj.credits || obj.creditAccounts|| [];
+                var debitdetails = obj.debits || obj.debitAccounts || [];
                 scope.jsondata = [];
 
                 if (scope.details.clientName) {
