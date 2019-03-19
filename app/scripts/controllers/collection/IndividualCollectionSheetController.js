@@ -171,7 +171,7 @@
                 if(scope.response.uiDisplayConfigurations.collectionSheet.isMandatory.officeId){
                     data.officeId = scope.officeId;
                 }
-                resourceFactory.collectionSheetResource.save({command: 'saveCollectionSheet'}, data, function (data) {
+                resourceFactory.collectionSheetV2Resource.save({command: 'saveCollectionSheet'}, data, function (data) {
                     localStorageService.addToLocalStorage('Success', true);
                     route.reload();
                 });
