@@ -326,7 +326,7 @@
                     }
                     
                 }
-                resourceFactory.centerResource.save({'centerId': scope.centerId, command: 'saveCollectionSheet'}, scope.formData, function (data) {
+                resourceFactory.centerV2Resource.save({'centerId': scope.centerId, command: 'saveCollectionSheet'}, scope.formData, function (data) {
                     for (var i = 0; i < centerIdArray.length; i++) {
                         if (scope.centerId === centerIdArray[i].id && centerIdArray.length >= 1) {
                             scope.staffCenterData[i].submitted = true;
