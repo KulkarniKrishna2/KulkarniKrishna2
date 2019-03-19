@@ -1075,6 +1075,8 @@
                             }
                             scope.charges.push(data);
                             scope.chargeFormData.chargeId = undefined;
+                            scope.penalCharges = $filter('filter')(scope.charges, { penalty: true }) || [];
+                            scope.feeCharges = $filter('filter')(scope.charges, { penalty: false }) || [];
                         });
                     }
                 }
@@ -1082,6 +1084,8 @@
 
             scope.deleteCharge = function (index) {
                 scope.charges.splice(index, 1);
+                scope.penalCharges = $filter('filter')(scope.charges, { penalty: true }) || [];
+                scope.feeCharges = $filter('filter')(scope.charges, { penalty: false }) || [];
             };
 
             scope.report = false;
