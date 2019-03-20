@@ -164,7 +164,7 @@
              }
 
             //Credit Bureau Review
-            scope.captureReviewReason = function(clientId, loanId, reviewId){
+            scope.captureReviewReason = function(clientId, loanId, reviewData){
                 $modal.open({
                     templateUrl : 'views/task/popup/loanproposalreview.html',
                     controller : reviewReasonCtrl,
@@ -172,7 +172,7 @@
                     windowClass: 'app-modal-window-full-screen',
                     resolve: {
                         reviewParameterInfo: function () {
-                            return { 'clientId': clientId, 'loanId': loanId, 'reviewId' : reviewId };
+                            return { 'clientId': clientId, 'loanId': loanId, 'reviewData' : reviewData };
                         }
                     }
                 })
@@ -182,7 +182,7 @@
 				$scope.df = scope.df;
                 $scope.clientId = reviewParameterInfo.clientId;
                 $scope.loanId = reviewParameterInfo.loanId;
-                $scope.reviewId = reviewParameterInfo.reviewId;
+                $scope.reviewData = reviewParameterInfo.reviewData;
                 $scope.reviewFormData = {};
                 $scope.isReasonNotesMandatory = false;
                 $scope.isAttachmentMandatory = false;
@@ -195,6 +195,12 @@
                 $scope.clientLoanAccounts = [];
                 $scope.preClosureTempFormData = [];
                 $scope.isAccChecked = false;
+                $scope.isEditpage = false;
+                $scope.autoCheck = false;
+                $scope.updateReview = false;
+                if(!_.isUndefined($scope.reviewData)){
+                    $scope.isEditpage = true;
+                }
 
                 resourceFactory.loanProposalReviewTemplateResource.get({loanId: $scope.loanId}, function (data) {
                    $scope.codeValues = data;
@@ -202,7 +208,7 @@
                 if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.loanProposalReview && scope.response.uiDisplayConfigurations.loanProposalReview.isHiddenField) {
                     $scope.ispreCloseDateHidden = scope.response.uiDisplayConfigurations.loanProposalReview.isHiddenField.preCloseDate;
                 };
-                $scope.reviewReasonChange = function(reviewReasonId){
+                $scope.reviewReasonChange = function(reviewReasonId,autoCheck){
                     for(var i = 0; i < $scope.codeValues.length; i++){
                         if($scope.codeValues[i].id == reviewReasonId){
                             if($scope.codeValues[i].systemIdentifier == "OSDPD"){
@@ -226,6 +232,9 @@
                                 $scope.isOutstandingReason = false;
                                  resourceFactory.clientAccountsOverviewsResource.get({clientId: $scope.clientId}, function (data) {
                                     $scope.clientLoanAccounts = data.loanAccounts;
+                                    if(autoCheck){
+                                        $scope.checkPreclosureLoan();
+                                    }
                                 });
                             }
                             if($scope.codeValues[i].systemIdentifier == "ERCB" || $scope.codeValues[i].systemIdentifier == "BLCNT"){
@@ -243,7 +252,7 @@
                     }
                 }
 
-                $scope.detectPreclosureAccount = function(loanAccount,isAccChecked,idx){
+                $scope.detectPreclosureAccount = function(loanAccount,isAccChecked){
                     if(isAccChecked){
                         $scope.preClosureTempFormData.push(
                             {'preclosureLoanId' : loanAccount.id, 
@@ -251,7 +260,11 @@
                              'locale' : scope.optlang.code,
                              'dateFormat' : scope.df});
                     }else{
-                        $scope.preClosureTempFormData[idx] = undefined;
+                        loanAccount.isAccChecked = false;
+                        var idx = $scope.preClosureTempFormData.findIndex(x => x.preclosureLoanId == loanAccount.id);
+                        if(idx >= 0){
+                            $scope.preClosureTempFormData.splice(idx,1);
+                        }
                     }
 
                 }
@@ -272,7 +285,17 @@
                         if($scope.reviewFormData.reviewReasonNotes == undefined){
                             return $scope.errorDetails.push([{code: 'error.msg.reason.notes.mandatory'}]);
                         }
-                         $upload.upload({
+                        if($scope.updateReview){
+                            $upload.upload({
+                            url: $rootScope.hostUrl + API_VERSION + '/loans/' + $scope.loanId + '/proposalreview/withattachment/' + $scope.proposalreviewId ,
+                            data: {'data' : $scope.reviewFormData} ,
+                            file: $scope.file
+                        }).then(function (data) {
+                            $modalInstance.close();
+                             initTask();
+                        });                           
+                    }else{
+                        $upload.upload({
                             url: $rootScope.hostUrl + API_VERSION + '/loans/' + $scope.loanId + '/proposalreview/withattachment',
                             data: {'data' : $scope.reviewFormData} ,
                             file: $scope.file
@@ -280,6 +303,8 @@
                             $modalInstance.close();
                              initTask();
                         });
+                    }
+                         
                     }
 
                     
@@ -303,10 +328,18 @@
                     }
                     
                     if($scope.isPrepayAtBSSReason || $scope.isErrorneousReason){
-                        resourceFactory.loanProposalReviewResource.save({loanId: $scope.loanId}, $scope.reviewFormData, function (data) {
+                        if($scope.updateReview){
+                          resourceFactory.loanProposalReviewResource.update({loanId: $scope.loanId,proposalreviewId: $scope.proposalreviewId}, $scope.reviewFormData, function (data) {
                           $modalInstance.close();
                           initTask();
-                        });
+                          }); 
+                        }else{
+                           resourceFactory.loanProposalReviewResource.save({loanId: $scope.loanId}, $scope.reviewFormData, function (data) {
+                           $modalInstance.close();
+                           initTask();
+                           }); 
+                        }
+                        
                     }   
                 }
                 $scope.close = function () {
@@ -315,6 +348,66 @@
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
                 };
+                //view review reason document
+
+                $scope.openViewDocument = function (historyId, documentId) {
+                    scope.reportEntityType = "loan_proposal_review";
+                    var url = $rootScope.hostUrl + '/fineract-provider/api/v1/' + scope.reportEntityType + '/' +
+                    historyId +'/documents/'+ documentId + '/attachment';
+                    url = $sce.trustAsResourceUrl(url);
+                    $http.get(url, { responseType: 'arraybuffer' }).
+                    success(function(data, status, headers, config) {
+                        var supportedContentTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'application/pdf', 'application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.presentationml.presentation', 'text/html', 'application/xml', 'text/plain',];
+                        var contentType = headers('Content-Type');
+                        var file = new Blob([data], { type: contentType });
+                        var fileContent = URL.createObjectURL(file);
+                        if (supportedContentTypes.indexOf(contentType) > -1) {
+                            var docData = $sce.trustAsResourceUrl(fileContent);
+                            window.open(docData);
+                        }
+                    });
+                };
+
+                 //downloan the reason document
+                 $scope.download = function (historyId, document) {
+                    scope.reportEntityType = "loan_proposal_review";
+                    var url = $rootScope.hostUrl + '/fineract-provider/api/v1/' + scope.reportEntityType + '/' +
+                    historyId +'/documents/'+ document.documentId + '/attachment';
+                    var fileType = document.fileName.substr(document.fileName.lastIndexOf('.') + 1);
+                    CommonUtilService.downloadFile(url,fileType);
+                 }
+                $scope.editLoanReviewProposal = function(loanReviewProposalId){
+                    $scope.isEditpage = false;
+                    $scope.preClosureTempFormData = {};
+                    
+                    resourceFactory.loanProposalReviewResource.get({loanId: $scope.loanId,proposalreviewId: loanReviewProposalId}, function (data) {
+                        $scope.reviewData = data;
+                        $scope.autoCheck = true;
+                        $scope.updateReview = true;
+                        $scope.proposalreviewId = $scope.reviewData.id;
+                        $scope.preClosureTempFormData = [];
+                        $scope.reviewFormData.reviewReasonId = $scope.reviewData.reviewReasonId;
+                        $scope.reviewFormData.reviewReasonNotes = $scope.reviewData.reviewReasonNotes;
+                        $scope.reviewReasonChange($scope.reviewFormData.reviewReasonId,$scope.autoCheck);
+                   });
+                }
+                $scope.checkPreclosureLoan = function(){
+                        for(var i in $scope.clientLoanAccounts){
+                            for(var j in $scope.reviewData.precloseLoanList){
+                                if($scope.clientLoanAccounts[i].id == $scope.reviewData.precloseLoanList[j]){
+                                    var loanAccounts =  $scope.clientLoanAccounts[i];
+                                    $scope.clientLoanAccounts[i].isAccChecked = true;
+                                    $scope.detectPreclosureAccount(loanAccounts,$scope.clientLoanAccounts[i].isAccChecked);
+                                }
+                            }
+                        $scope.clientLoanAccounts.isAccChecked = false;   
+                    }
+                }
+                $scope.addNewReview = function(){
+                  $scope.isEditpage = false;
+                  $scope.autoCheck = false;
+                  $scope.updateReview = false;
+                }
             }//end of reviewReasonCtrl
 
          //lona account edit 

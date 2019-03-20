@@ -2,6 +2,7 @@
     mifosX.services = _.extend(module, {
         ResourceFactoryProvider: function () {
             var baseUrl = "" , apiVer = "/fineract-provider/api/v1", tenantIdentifier = "";
+            var apiVer2 = "/fineract-provider/api/v2";
             this.setBaseUrl = function (url) {
                 baseUrl = url;
                 console.log(baseUrl);
@@ -144,6 +145,11 @@
                         getAllGroups: {method: 'GET', params: {searchConditions: '@searchConditions'}, isArray: true}
                     }),
                     groupResource: defineResource(apiVer + "/groups/:groupId/:anotherresource", {groupId: '@groupId', anotherresource: '@anotherresource'}, {
+                        get: {method: 'GET', params: {}},
+                        getAllGroups: {method: 'GET', params: {}, isArray: true},
+                        update: { method: 'PUT'}
+                    }),
+                    groupV2Resource: defineResource(apiVer2 + "/groups/:groupId/:anotherresource", {groupId: '@groupId', anotherresource: '@anotherresource'}, {
                         get: {method: 'GET', params: {}},
                         getAllGroups: {method: 'GET', params: {}, isArray: true},
                         update: { method: 'PUT'}
@@ -584,6 +590,12 @@
                         getAllMeetingFallCenters: {method: 'GET', params: {}, isArray: true},
                         update: { method: 'PUT'}
                     }),
+                    centerV2Resource: defineResource(apiVer2 + "/centers/:centerId/:anotherresource", {centerId: '@centerId', anotherresource: '@anotherresource', officeId: '@officeId', paged: '@paged'}, {
+                        get: {method: 'GET', params: {}},
+                        getAllCenters: {method: 'GET', params: {}},
+                        getAllMeetingFallCenters: {method: 'GET', params: {}, isArray: true},
+                        update: { method: 'PUT'}
+                    }),
                     centerWorkflowResource: defineResource(apiVer + "/centers/:centerId/workflowData", {centerId: '@centerId'}, {
                         get: {method: 'GET', params: {}}
                     }),
@@ -723,6 +735,8 @@
                         get: {method: 'GET', params: {tellerId: "@tellerId", cashierId: "@cashierId"}, isArray: false}
                     }),
                     collectionSheetResource: defineResource(apiVer + "/collectionsheet", {}, {
+                    }),
+                    collectionSheetV2Resource: defineResource(apiVer2 + "/collectionsheet", {}, {
                     }),
                     workingDaysResource: defineResource(apiVer + "/workingdays", {}, {
                         get: {method: 'GET', params: {}},
@@ -1567,10 +1581,11 @@
                     loanProposalReviewTemplateResource: defineResource(apiVer + '/loans/:loanId/proposalreview/template', {loanId: '@loanId'}, {
                         get: {method: "GET", params: {}, isArray: true}
                     }),
-                    loanProposalReviewResource: defineResource(apiVer + '/loans/:loanId/proposalreview', {loanId: '@loanId'}, {
-                        post: {method: "POST"}
+                    loanProposalReviewResource: defineResource(apiVer + '/loans/:loanId/proposalreview/:proposalreviewId', {loanId: '@loanId',proposalreviewId: '@proposalreviewId'}, {
+                        post: {method: "POST"},
+                        update:{method: 'PUT'}
                     }),
-                    loanProposalReviewHistoryResource: defineResource(apiVer +"/grouploanindividualmonitoring/:loanId/reviewhistory", {loanId:'@loanId'},{
+                    loanProposalReviewHistoryResource: defineResource(apiVer +"/loans/:loanId/proposalreview/reviewhistory", {loanId:'@loanId'},{
                         getAll: {method: 'GET', params: {}, isArray : true}
                     }),
                     cgtBasicActivityResource: defineResource(apiVer + "/cgt/completiondate", {},{

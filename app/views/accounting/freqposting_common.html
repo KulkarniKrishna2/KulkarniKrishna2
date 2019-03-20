@@ -48,6 +48,7 @@
                    ng-model="dbAccount.debitAmount">
             <a ng-click="removeDebitAccount($index)">&nbsp;<i
                     class="icon-remove icon-white"></i></a>
+            <div  class="form-inline paddedbottom10"> {{amountInwords}} </div>       
         </div>
         <h4><strong>{{ 'label.input.credit' | translate }}</strong>&nbsp;
             <a ng-click="addCrAccount()" ng-show="allowCreditEntries">&nbsp;<i class="icon-plus icon-white"></i></a>
@@ -59,6 +60,7 @@
             <input id="credits[{{$index}}]" type="text" autocomplete="off" class="input-sm form-control" number-format
                    ng-model="crAccount.crAmount">
             <a ng-click="removeCrAccount($index)">&nbsp;<i class="icon-remove icon-white"></i></a>
+            <div  class="form-inline paddedbottom10"> {{amountInwords}} </div>
         </div>
     </div>
 </div>

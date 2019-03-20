@@ -79,6 +79,7 @@
             scope.download = function(fileId){
                 resourceFactory.fileUrlResource.get({fileId: fileId},function(data){
                     var url = data.locationPath;
+                    url = $rootScope.hostUrl+API_VERSION+'/'+url;
                     if(data.storageType==1){
                         commonUtilService.downloadFile(url,data.contentType.toLowerCase());
                     }else{

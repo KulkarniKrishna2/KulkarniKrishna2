@@ -818,7 +818,7 @@
                     scope.formData.searchParams = scope.productiveCollctionSheetSearchParams;
                 }
                 if (centerOrGroupResource === "centerResource") {
-                    resourceFactory.centerResource.save({'centerId': scope.centerId, command: 'saveCollectionSheet'}, scope.formData, function (data) {
+                    resourceFactory.centerV2Resource.save({'centerId': scope.centerId, command: 'saveCollectionSheet'}, scope.formData, function (data) {
                         localStorageService.addToLocalStorage('Success', true);
                         route.reload();
                     },
@@ -831,7 +831,7 @@
                             scope.setErrorMessage(data.data.errors[0].userMessageGlobalisationCode);
                         });
                 } else if (centerOrGroupResource === "groupResource") {
-                    resourceFactory.groupResource.save({'groupId': scope.groupId, command: 'saveCollectionSheet'}, scope.formData, function (data) {
+                    resourceFactory.groupV2Resource.save({'groupId': scope.groupId, command: 'saveCollectionSheet'}, scope.formData, function (data) {
                         localStorageService.addToLocalStorage('Success', true);
                         route.reload();
                     },

@@ -7,7 +7,8 @@
 	</div>
 	<br>
 	<br>
-	<div class="modal-body well">
+	<div class="modal-body well" ng-if='!isEditpage'>
+		
 		<div class="margin-plus-10px">
 			<form name="reviewform" novalidate="" class="form-horizontal well" rc-submit="submitReview()">
 				<api-validate></api-validate>
@@ -19,7 +20,7 @@
 						</label>
 						<div class="col-md-4">
 							<select id="reviewReasonId" name="reviewReasonId" ng-model="reviewFormData.reviewReasonId" ng-options="codeValue.id as codeValue.name for codeValue in codeValues"
-							    value="{{codeValue.id}}" class="form-control" ng-change="reviewReasonChange(reviewFormData.reviewReasonId)">
+							    value="{{codeValue.id}}" class="form-control" ng-change="reviewReasonChange(reviewFormData.reviewReasonId,autoCheck)">
 								<option value="">{{'label.selectone' | translate}}</option>
 							</select>
 						</div>
@@ -52,7 +53,7 @@
 											<form-validate valattributeform="reviewFormData" valattribute="preclosureDate" />
 										</td>
 										<td>
-											<input type="checkbox" ng-model="isAccChecked" ng-change="detectPreclosureAccount(loanAccount, isAccChecked, $index)"></input>
+											<input type="checkbox" ng-model="loanAccount.isAccChecked" ng-change="detectPreclosureAccount(loanAccount,loanAccount.isAccChecked)"></input>
 										</td>
 									</tr>
 								</tbody>
@@ -94,10 +95,48 @@
 							{{'label.button.save' | translate}}
 						</button>
 					</div>
-
-
 				</fieldset>
 			</form>
 		</div>
+	</div>
+	<div class="modal-body well" ng-if='isEditpage'>
+		<div ng-if='isEditpage' class="pull-right">
+			<a href="" ng-click="addNewReview()" ng-if='isEditpage' class="btn btn-primary" >
+				<i class="icon-plus icon-white"></i>
+				{{'label.button.add'|translate}}
+			</a>
+		</div>
+		<div class="col-md-9">
+							<table class="table table-bordered">
+								<thead>
+									<th>{{'label.heading.serialno' | translate}}</th>
+									<th>{{'label.heading.user' | translate}}</th>
+									<th>{{'label.heading.loan.amount' | translate}}</th>
+									<th>{{'label.heading.review.reason' | translate}}</th>
+									<th>{{'label.heading.review.reason.notes' | translate}}</th>
+									<th>{{'label.heading.attachments' | translate}}</th>
+									<th>{{'label.input.actions' | translate}}</th>
+								</thead>
+								<tbody>
+									<tr ng-repeat="review in reviewData">
+										<td>{{($index+1)}}</td>
+										<td>{{review.reviewerId}}</td>
+										<td>{{review.loanId}}</td>
+										<td>{{review.reviewReson}}</td>
+										<td>{{review.reviewReasonNotes}}</td>
+										<td><span ng-if="review.documentId">
+								        {{review.fileName}}&nbsp;&nbsp;
+								<a target="_blank" data-ng-click="openViewDocument(review.id,review.documentId)" has-permission='READ_DOCUMENT'>
+									<i class="icon-eye-open text-success"></i>
+								</a>
+								<a target="_blank" ng-click="download(review.id,review)" has-permission='READ_DOCUMENT'>
+									<i class="icon-cloud-download"></i>
+								</a>
+							    </span></td>
+							    		<td><a ng-click="editLoanReviewProposal(review.id)"><i class="icon-edit icon-white"></i></a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 	</div>
 </div>
