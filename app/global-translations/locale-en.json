@@ -7846,6 +7846,12 @@
     "label.button.updatevillagefromcenter" : "Update Village From Center",
     "error.msg.single.loan.application.already.exist.with.loanStatusType.submitted.and.pending.approval" :"Loan application already exist with status `Submitted.",
     "error.msg.single.loan.application.already.exist.with.loanStatusType.approved" : "Loan application already exist with status `Approved`.",
+    "label.tooltip.global.single-loan-application-workflow" : "At any point of time can not have more than 1 submitted or approved loan can be present.",
+    "label.tooltip.global.recalculate-schedule-on-undo-preclose" : "On undo preclose schedule will be regenerated with existing terms.",
+    "label.tooltip.global.restrict-partial-payment" : "Restrict partial payment in repayment and collection sheet.",
+    "label.tooltip.global.glim-loans-in-client-profile" : "Glim Loans will be shown in Client Profile",
+    "label.tooltip.global.glim-payment-as-group" : "For Glim Loan group payment will be allowed",
+
 
     "------ end of translation file ------": "----------"
 }

@@ -250,7 +250,7 @@
 
                 var reportURL = $rootScope.hostUrl + API_VERSION + "/runreports/" + encodeURIComponent(scope.reportName);
                 reportURL += "?output-type=" + encodeURIComponent(scope.reportOutputType) + "&locale="
-                + scope.optlang.code + "&dateFormat=" + scope.df + "&R_transactionId=" + scope.transactionId;
+                + scope.optlang.code + "&dateFormat=" + scope.df + "&R_transactionId=" + scope.voucherData.journalEntryData.transactionId;
 
                 reportURL = $sce.trustAsResourceUrl(reportURL);
 
