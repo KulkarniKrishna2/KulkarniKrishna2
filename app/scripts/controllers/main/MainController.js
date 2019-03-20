@@ -208,58 +208,40 @@
                 scope.configs = [];
                 resourceFactory.configurationResource.get(function (data) {
                     for (var i in data.globalConfiguration) {
-                        if(data.globalConfiguration[i].name == "allow-inter-branch-transaction"){
+                        if (data.globalConfiguration[i].name == "allow-inter-branch-transaction") {
                             scope.showCollections = data.globalConfiguration[i].enabled;
-                        }
-                        if(data.globalConfiguration[i].name=='Allow emi packs for loan'){
+                        } else if (data.globalConfiguration[i].name == 'Allow emi packs for loan') {
                             scope.isLoanEmiPackEnabled = data.globalConfiguration[i].enabled;
-                        }                        
-                        if(data.globalConfiguration[i].name=='work-flow'){
+                        } else if (data.globalConfiguration[i].name == 'work-flow') {
                             scope.isGlobalWorkflowEnabled = data.globalConfiguration[i].enabled;
-                        }
-                        if(data.globalConfiguration[i].name=='show reference number as a name in group'){
+                        } else if (data.globalConfiguration[i].name == 'show reference number as a name in group') {
                             scope.isReferenceNumberAsNameEnable = data.globalConfiguration[i].enabled;
-                        }
-                        if(data.globalConfiguration[i].name=='max-clients-in-group'){
+                        } else if (data.globalConfiguration[i].name == 'max-clients-in-group') {
                             scope.isMaxClientInGroupEnable = data.globalConfiguration[i].enabled;
                             scope.maxClientLimit = data.globalConfiguration[i].value;
-
-                        }
-                        if(data.globalConfiguration[i].name=='max-groups-in-center'){
+                        } else if (data.globalConfiguration[i].name == 'max-groups-in-center') {
                             scope.isMaxGroupInCenterEnable = data.globalConfiguration[i].enabled;
                             scope.maxGroupLimit = data.globalConfiguration[i].value;
-
-                        }
-                        if(data.globalConfiguration[i].name=='cb check validation for workflow'){
+                        } else if (data.globalConfiguration[i].name == 'cb check validation for workflow') {
                             scope.isCBCheckEnable = data.globalConfiguration[i].enabled;
-
-                        }
-                        if(data.globalConfiguration[i].name=='modify_approved_loan'){
+                        } else if (data.globalConfiguration[i].name == 'modify_approved_loan') {
                             scope.isEditApprovedLoan = data.globalConfiguration[i].enabled;
-                        }
-                        if(data.globalConfiguration[i].name == "create_center_without_village"){
+                        } else if (data.globalConfiguration[i].name == "create_center_without_village") {
                             scope.createWithoutVillage = data.globalConfiguration[i].enabled;
-                        }
-                        if(data.globalConfiguration[i].name == "allow-bank-account-for-groups"){
+                        } else if (data.globalConfiguration[i].name == "allow-bank-account-for-groups") {
                             scope.allowBankAccountForGroup = data.globalConfiguration[i].enabled;
-                        }
-                        if(data.globalConfiguration[i].name == "allow-multiple-bank-disbursal"){
+                        } else if (data.globalConfiguration[i].name == "allow-multiple-bank-disbursal") {
                             scope.allowGroupBankAccountInDisburse = data.globalConfiguration[i].enabled;
-                        }
-                        if(data.globalConfiguration[i].name == "BCIF"){
+                        } else if (data.globalConfiguration[i].name == "BCIF") {
                             scope.allowBcifOperations = data.globalConfiguration[i].enabled;
-                        }
-                        if(data.globalConfiguration[i].name=='is-field-office-enable'){
+                        } else if (data.globalConfiguration[i].name == 'is-field-office-enable') {
                             scope.isFieldOfficeEnable = data.globalConfiguration[i].enabled;
-
-                        }
-                        if (data.globalConfiguration[i].name == 'batch-accounting') {
+                        } else if (data.globalConfiguration[i].name == 'batch-accounting') {
                             scope.isBatchAccountingEnabled = data.globalConfiguration[i].enabled;
-
-                        }
-                        if (data.globalConfiguration[i].name == 'apply-loan-officer-to-center-hierarchy') {
+                        } else if (data.globalConfiguration[i].name == 'apply-loan-officer-to-center-hierarchy') {
                             scope.isLoanOfficerHierarchy = data.globalConfiguration[i].enabled;
-
+                        } else if (data.globalConfiguration[i].name == 'allow-all-gl-types-for-product-mapping') {
+                            scope.allowAllGLTypes = data.globalConfiguration[i].enabled;
                         }
                         data.globalConfiguration[i].showEditvalue = true;
                         scope.configs.push(data.globalConfiguration[i])
