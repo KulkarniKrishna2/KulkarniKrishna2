@@ -7859,7 +7859,8 @@
     "label.tooltip.global.restrict-partial-payment" : "Restrict partial payment in repayment and collection sheet.",
     "label.tooltip.global.glim-loans-in-client-profile" : "Glim Loans will be shown in Client Profile",
     "label.tooltip.global.glim-payment-as-group" : "For Glim Loan group payment will be allowed",
-
+    "validation.msg.village.activatedOnDate.cannot.be.blank": "Please enter the activation date",
+    "error.msg.rule.duplicate.short.name": "Rule with the short name `{{params[0].value}}` already exists",
 
     "------ end of translation file ------": "----------"
 }
