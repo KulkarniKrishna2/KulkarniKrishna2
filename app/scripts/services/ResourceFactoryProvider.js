@@ -734,7 +734,9 @@
                     cashierTxnTemplateResource: defineResource(apiVer + "/tellers/:tellerId/cashiers/:cashierId/transactions/template", {tellerId: "@tellerId", cashierId: "@cashierId"}, {
                         get: {method: 'GET', params: {tellerId: "@tellerId", cashierId: "@cashierId"}, isArray: false}
                     }),
-                    collectionSheetResource: defineResource(apiVer + "/collectionsheet", {}, {
+                    collectionSheetResource: defineResource(apiVer + "/collectionsheet/:collectionSheetId", {collectionSheetId: "@collectionSheetId"}, {
+                        get: {method: 'GET', params : {collectionSheetId: "@collectionSheetId"}},
+                        getAllCollections: {method: 'GET', params: {}, isArray: true} 
                     }),
                     collectionSheetV2Resource: defineResource(apiVer2 + "/collectionsheet", {}, {
                     }),
@@ -1825,7 +1827,7 @@
                     }),
                     clientDefaultAddressResource: defineResource(apiVer + "/villages/clients/:clientId/center/village", {clientId: '@clientId'}, {
                         get: {method: 'GET', params: {}},
-                    })
+                    })  
                 };
             }];
         }

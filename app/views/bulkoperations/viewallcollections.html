@@ -1,0 +1,83 @@
+<form name="ViewAllCollectionsForm" novalidate="" class="row form-horizontal" 
+  ng-controller="ViewAllCollectionsController"
+	  rc-submit="submit()">
+	  <api-validate></api-validate>
+    <div class="form-group">
+        <ul class="breadcrumb">
+            <li class="active">{{'label.anchor.allCollections' | translate}}</li>
+        </ul>
+	</div>
+	<br>
+    <div>
+		<div class="row">
+	    <div class="form-group">
+			<div class="col-sm-3">
+	            <select chosen="offices" id="officeId" ng-model="officeId" name="office" class="chzn-select-deselect form-control"
+	                    ng-options="office.id as office.name for office in offices" value="{{office.id}}"
+	                    ng-change="officeSelected(officeId)" required>
+	                <option value="">{{'label.selectoffice' | translate}}</option>
+	            </select>
+	        </div>
+	        <div class="col-sm-3">
+	            <select chosen="loanOfficers" id="loanOfficerId" ng-model="searchConditions.staffId" name="loanOfficer"
+	                    ng-options="loanOfficer.id as loanOfficer.displayName for loanOfficer in loanOfficers | filter: 'true'  "
+	                    value="{{loanOfficer.id}}" ng-change="loanOfficerSelected(searchConditions.staffId)" class="form-control">
+	                <option value="">{{'label.selectloanofficer' | translate}}</option>
+	            </select>
+			</div>
+			
+			<div class="col-sm-3">
+	            <select chosen="centers" id="centerId" name="center" ng-model="searchConditions.centerId"
+	                    ng-options="center.id as center.name for center in centers" value="{{center.id}}"
+	                    ng-change="centerSelected(searchConditions.centerId)" class="form-control">
+	                <option value="">{{'label.selectcenter' | translate}}</option>
+	            </select>
+	        </div>
+	    
+	        <div class="col-sm-3">
+	            <select chosen="groups" id="groupId" ng-model="searchConditions.groupId" ng-options="group.id as group.name for group in groups"
+	                    value="{{group.id}}" ng-change="groupSelected(searchConditions.groupId)" class="form-control">
+	                <option value="">{{'label.selectgroup' | translate}}</option>
+	            </select>
+	        </div>
+	    </div>
+		</div>
+	    <div class="form-group">
+	    	<button class="btn btn-primary col-md-offset-5" data-ng-click="collectionsDataRequests()"><i
+                class="icon-search"></i>{{'label.button.search' | translate}}</button>
+		</div>
+		<br>
+	</div>
+		<table class="row form-group table" >
+			<thead>
+			<tr class="graybg">
+				<th>{{'label.heading.office' | translate}}</th>
+				<th>{{'label.heading.staff' | translate}}</th>
+				<th>{{'label.heading.center' | translate}}</th>
+				<th>{{'label.heading.group' | translate}}</th>
+				<th>{{'label.heading.meetingDate' | translate}}</th>
+				<th>{{'label.heading.status' | translate}}</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr class="pointer-main" ng-repeat="collectionSheet in allCollectionsData">
+				<td class="pointer" data-ng-click="routeToTransactions(collectionSheet.id)">{{collectionSheet.officeName}}</td>
+				<td class="pointer" data-ng-click="routeToTransactions(collectionSheet.id)">{{collectionSheet.staffName}}</td>
+				<td class="pointer" data-ng-click="routeToTransactions(collectionSheet.id)">{{collectionSheet.centerName}}</td>
+				<td class="pointer" data-ng-click="routeToTransactions(collectionSheet.id)">{{collectionSheet.groupName}}</td>
+				<td class="pointer" data-ng-click="routeToTransactions(collectionSheet.id)">{{collectionSheet.meetingDate}}</td>
+				<td class="pointer" data-ng-click="routeToTransactions(collectionSheet.id)">{{collectionSheet.status.value}}</td>
+			</tr>
+			</tbody>
+		</table>
+		<ul class="pager">
+				<li class="previous">
+					<a id="prev" ng-click="previousCollectionsDataRequest()" href=""
+					   ng-hide="requestoffset == 0"> &larr; {{'label.button.previous' | translate}}</a>
+				</li>
+				<li class="next">
+					<a id="next" ng-click="nextCollectionsDataRequest()" href=""
+					   ng-hide="allCollectionsData.length != limit">{{'label.button.next' | translate}} &rarr;</a>
+				</li>
+		</ul>
+	</form>

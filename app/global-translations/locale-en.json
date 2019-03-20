@@ -7851,6 +7851,13 @@
     "label.tooltip.global.restrict-partial-payment" : "Restrict partial payment in repayment and collection sheet.",
     "label.tooltip.global.glim-loans-in-client-profile" : "Glim Loans will be shown in Client Profile",
     "label.tooltip.global.glim-payment-as-group" : "For Glim Loan group payment will be allowed",
+    "label.anchor.allCollections" : "All Collections",
+    "label.perform.allCollections" : "Collections for deposit,withdraw and repayments",
+    "error.msg.officeId.not.greater.than.zero" : "Office is mandatory",
+    "label.heading.meetingDate" : "Meeting Date",
+    "label.heading.collectionSheetTransactions" : "Collection Sheet Transactions",
+    "label.heading.enityType" : "Entity Type",
+    "label.heading.entityId" : "EntityId",
 
 
     "------ end of translation file ------": "----------"

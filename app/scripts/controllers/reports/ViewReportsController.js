@@ -46,13 +46,7 @@
                     scope.reports = data ;
                 });
             } ;
-
-            scope.reportrequests = function () {
-                resourceFactory.advancedReportsResource.get(function(data){
-                    scope.reportrequests = data;
-                } );
-            };
-
+ 
             scope.reportrequests = function(){
                 resourceFactory.advancedReportsResource.get({offset: scope.requestoffset,limit:scope.limit}, function (data) {
                 scope.reportrequestsData = data;
