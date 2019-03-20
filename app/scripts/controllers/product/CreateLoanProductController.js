@@ -63,6 +63,16 @@
                 scope.incomeAndLiabilityAccountOptions = scope.incomeAccountOptions.concat(scope.liabilityAccountOptions);
                 scope.assetAndLiabilityAccountOptions = scope.assetAccountOptions.concat(scope.liabilityAccountOptions);
                 scope.assetLiabilityAndIncomeAccountOptions = scope.assetAndLiabilityAccountOptions.concat(scope.incomeAccountOptions);
+                if (scope.allowAllGLTypes) {
+                    scope.glAccounts = scope.assetLiabilityAndIncomeAccountOptions.concat(scope.expenseAccountOptions) || [];
+                    scope.assetAccountOptions = scope.glAccounts;
+                    scope.incomeAccountOptions = scope.glAccounts;
+                    scope.expenseAccountOptions = scope.glAccounts;
+                    scope.liabilityAccountOptions = scope.glAccounts;
+                    scope.incomeAndLiabilityAccountOptions = scope.glAccounts;
+                    scope.assetAndLiabilityAccountOptions = scope.glAccounts;
+                    scope.assetLiabilityAndIncomeAccountOptions = scope.glAccounts;
+                }
                 scope.penaltyOptions = scope.product.penaltyOptions || [];
                 scope.chargeOptions = scope.product.chargeOptions || [];
                 scope.writeOffReasonOptions = [];
