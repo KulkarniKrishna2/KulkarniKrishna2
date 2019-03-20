@@ -1,0 +1,64 @@
+<div class="col-md-12" ng-controller="CollectionSheetTransactionsController">
+        <div>
+                <ul class="breadcrumb">
+                    <li class="active">{{'label.heading.collectionSheetTransactions' | translate}}</li>
+                </ul>
+        </div>
+            <h3>{{'label.heading.collectionsheet' | translate}}</h3>
+            <br>
+            <div class="form-group">
+            <table>
+                <tr>
+                    <th class="col-sm-3">{{'label.heading.office' | translate}}</th>    
+                    <td class="col-sm-3">{{collectionSheetData.officeName}}</td> 
+                
+                    <th class="col-sm-3">{{'label.heading.meetingDate' | translate}}</th>
+                    <td class="col-sm-3">{{collectionSheetData.meetingDate}}</td>
+                    
+                </tr>
+                <tr>
+                    <th class="col-sm-3">{{'label.heading.center' | translate}}</th>
+                    <td class="col-sm-3">{{collectionSheetData.centerName}}</td>
+                
+                    <th class="col-sm-3">{{'label.heading.status' | translate}}</th>
+                    <td class="col-sm-3">{{collectionSheetData.status.value}}</td>
+                </tr>
+                <tr>
+                    <th class="col-sm-3">{{'label.heading.staff' | translate}} </th>
+                    <td class="col-sm-3">{{collectionSheetData.staffName}}</td>
+                </tr>
+                <tr>
+                    <th class="col-sm-3">{{'label.heading.group' | translate}}  </th>
+                    <td class="col-sm-3">{{collectionSheetData.groupName}}</td>
+                </tr>  
+            </table>    
+            </div>      
+        <br>
+        <div>
+            <h3>{{'label.heading.collectionSheetTransactions' | translate}}</h3>
+        </div>
+        <br>
+    <table class="table">
+        <thead>
+            <tr class="graybg">
+                <th>{{ 'label.heading.transactionid' | translate }}</th>
+                <th>{{ 'label.heading.enityType' | translate }}</th>
+                <th>{{ 'label.heading.entityId' | translate }}</th>
+                <th>{{ 'label.heading.amount' | translate }}</th>
+                <th>{{ 'label.heading.status' | translate}}</th>
+                <th>{{ 'label.heading.error' | translate}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="pointer-main" ng-repeat="transaction in collectionSheetData.transactionDetails" >
+                <td>{{transaction.transactionId}}</td>
+                <td>{{transaction.entityType.value}}</td>
+                <td>{{transaction.entityId}}</td>
+                <td>{{transaction.amount}}</td>
+                <td>{{transaction.status.value}}</td>
+                <td>{{transaction.errorMsge}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+                

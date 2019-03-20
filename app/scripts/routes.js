@@ -1992,6 +1992,12 @@
             .when('/workflowbankrejectloanaction/:trackerId/:workflowBankApprovalId/:loanId',{
                 templateUrl: 'views/task/bankapproval/workflowbankrejectloanaction.html'
             })
+            .when('/viewallcollections', {
+                templateUrl: 'views/bulkoperations/viewallcollections.html'
+            })
+            .when('/viewallcollections/:collectionSheetId',{
+                templateUrl: 'views/collection/collectionSheetTransactions.html'
+            })
 
         $locationProvider.html5Mode(false);
     };
