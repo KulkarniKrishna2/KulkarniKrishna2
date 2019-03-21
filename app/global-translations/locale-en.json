@@ -7848,6 +7848,8 @@
     "error.msg.fldg.loan.prudential.written.off" : "FLDG loan can be prudential write of.",
     "label.anchor.repaidamount":"Repaid Amount",
     "validation.msg.recurringdepositaccount.summital.cannot.be.before.client.activation.date" : "Account cannot be created before client activation date. ",
+    "error.msg.loan.application.add.all.loan.product.mandatory.charges" : "Please add all the loan product mandatory charges.",
+    "validation.msg.loanapplicationreference.expectedTrancheDisbursementDate.disbursement.date.must.be.unique.for.tranches" : "Disbursement date shouldbe unique for all tranches",
     
     "error.msg.village.activation.date.can.not.be.beforesubmitted.date" : "Village activation date ban not be before submitted on date `{{params[0].value}}` ",
     "label.tab.kotak.reject.loans" : "Kotak Rejected Loans",

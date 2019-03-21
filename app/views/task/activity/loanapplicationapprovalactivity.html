@@ -554,7 +554,7 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <tr>
+                                                    <tr ng-if = !isLoanSanctioned>
                                                         <td class="col-md-1">
                                                             <span>{{formData.loanEMIPackData.sanctionAmount}}</span>
                                                         </td>
@@ -580,6 +580,32 @@
                                                             <span>{{formData.loanEMIPackData.disbursalAmount4}}</span>
                                                         </td>
                                                     </tr>
+                                                    <tr ng-if = "formRequestData.loanEMIPackData && isLoanSanctioned">
+                                                    <td class="col-md-1">
+                                                        <span>{{formRequestData.loanEMIPackData.sanctionAmount}}</span>
+                                        </td>
+                                        <td class="col-md-1">
+                                            <span>{{formRequestData.loanEMIPackData.repaymentEvery}} - {{formRequestData.loanEMIPackData.repaymentFrequencyType.value}}</span>
+                                        </td>
+                                        <td class="col-md-1">
+                                            <span>{{formRequestData.loanEMIPackData.numberOfRepayments}}</span>
+                                        </td>
+                                        <td class="col-md-1">
+                                            <span>{{formRequestData.loanEMIPackData.fixedEmi}}</span>
+                                        </td>
+                                        <td class="col-md-1" ng-show="formRequestData.loanEMIPackData.disbursalAmount1">
+                                            <span>{{formData.loanEMIPackData.disbursalAmount1}}</span>
+                                        </td>
+                                        <td class="col-md-1" ng-show="formRequestData.loanEMIPackData.disbursalAmount2">
+                                            <span>{{formData.loanEMIPackData.disbursalAmount2}}</span>
+                                        </td>
+                                        <td class="col-md-1" ng-show="formRequestData.loanEMIPackData.disbursalAmount3">
+                                            <span>{{formData.loanEMIPackData.disbursalAmount3}}</span>
+                                        </td>
+                                        <td class="col-md-1" ng-show="formRequestData.loanEMIPackData.disbursalAmount4">
+                                            <span>{{formData.loanEMIPackData.disbursalAmount4}}</span>
+                                        </td>
+                                    </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
