@@ -7858,6 +7858,19 @@
     "label.heading.collectionSheetTransactions" : "Collection Sheet Transactions",
     "label.heading.enityType" : "Entity Type",
     "label.heading.entityId" : "EntityId",
+    "label.heading.insert.date" : "Insert date",
+    "label.anchor.gst.debit.transaction.details" : "Gst Debit Transaction Details",
+    "label.anchor.gst.debit.transaction" : "Gst Debit Transaction",
+    "label.heading.accountid":"Account Id",
+    "label.heading.glaccountid":"GL Account Id",
+    "label.heading.input.tax.amount":"Input Tax Amount",
+    "label.heading.charge.value":"Charge Value",
+    "label.heading.processed.status":"Processed Status",
+    "label.heading.processed.date":"Processed Date",
+    "label.heading.failure.reason" : "Failure Reason",
+    "label.anchor.screenforGstDebitTransactionDetails" : "Screen for GST Pushed Debit transactions",
+    "label.anchor.gstDebitTransaction" : "GST Debit transactions",
+    "error.msg.proposed.loans.not.preclosed" : "Proposed Loans must be closed",
 
 
     "------ end of translation file ------": "----------"
