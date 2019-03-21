@@ -7,6 +7,7 @@
             scope.loanApplicationReferenceId = scope.taskconfig['loanApplicationId'];
             scope.taskCompletedFlag=scope.isTaskCompleted();
             scope.isPendingForApprovalStageEnabled = scope.isSystemGlobalConfigurationEnabled('enable-pending-for-approval-stage');
+            scope.isLoanSanctioned = false;
 
             scope.onReject = function(){
 
@@ -78,6 +79,7 @@
 
             scope.loadLoanData = function(loanData){
                 if (loanData.loanAppSanctionId) {
+                    scope.isLoanSanctioned = true;
                     scope.formRequestData = loanData;
                     scope.status = 'SUMMARY';
                     if(scope.formRequestData.repaymentsStartingFromDate){
@@ -122,16 +124,26 @@
                     }
                     scope.initializeTrancheDetails();
                 } else {
-                    scope.formRequestData.loanAmountApproved = scope.formData.loanAmountRequested;
-                    scope.formRequestData.numberOfRepayments = scope.formData.numberOfRepayments;
-                    scope.formRequestData.repaymentPeriodFrequencyEnum = scope.formData.repaymentPeriodFrequency.id;
-                    scope.formRequestData.repayEvery = scope.formData.repayEvery;
+                    if(scope.formData.loanEMIPackData){
+                        scope.formRequestData.loanEMIPackId = scope.formData.loanEMIPackData.id;
+                        scope.formRequestData.loanAmountApproved = scope.formData.loanEMIPackData.sanctionAmount;
+                        scope.formRequestData.numberOfRepayments = scope.formData.loanEMIPackData.numberOfRepayments;
+                        scope.formRequestData.repaymentPeriodFrequencyEnum = scope.formData.loanEMIPackData.repaymentFrequencyType.id;
+                        scope.formRequestData.repayEvery = scope.formData.loanEMIPackData.repaymentEvery;
+                        scope.formRequestData.fixedEmiAmount = scope.formData.loanEMIPackData.fixedEmi;
+                    }else{
+                        scope.formRequestData.loanAmountApproved = scope.formData.loanAmountRequested;
+                        scope.formRequestData.numberOfRepayments = scope.formData.numberOfRepayments;
+                        scope.formRequestData.repaymentPeriodFrequencyEnum = scope.formData.repaymentPeriodFrequency.id;
+                        scope.formRequestData.repayEvery = scope.formData.repayEvery;
+                        scope.formRequestData.discountOnDisbursalAmount = scope.formData.discountOnDisbursalAmount;
+                    }
                     scope.formRequestData.termPeriodFrequencyEnum = scope.formData.termPeriodFrequency.id;
                     scope.formRequestData.termFrequency = scope.formData.termFrequency;
-                    scope.formRequestData.discountOnDisbursalAmount = scope.formData.discountOnDisbursalAmount;
                     if (scope.formData.noOfTranche && scope.formData.noOfTranche > 0) {
                         scope.constructTranches();
                     }
+                    
                 }
                 if(scope.formData.fixedEmiAmount){
                     scope.formRequestData.fixedEmiAmount = scope.formData.fixedEmiAmount;
@@ -1074,6 +1086,12 @@
                                 }
                             }
                             scope.charges.push(data);
+                            if($filter){
+                            scope.existingPenalCharges = $filter('filter')(scope.existingCharges, { penalty: true }) || [];
+                            scope.existingFeeCharges = $filter('filter')(scope.existingCharges, { penalty: false }) || [];
+                            scope.penalCharges = $filter('filter')(scope.charges, { penalty: true }) || [];
+                            scope.feeCharges = $filter('filter')(scope.charges, { penalty: false }) || [];
+                        }
                             scope.chargeFormData.chargeId = undefined;
                             scope.penalCharges = $filter('filter')(scope.charges, { penalty: true }) || [];
                             scope.feeCharges = $filter('filter')(scope.charges, { penalty: false }) || [];
@@ -1084,8 +1102,12 @@
 
             scope.deleteCharge = function (index) {
                 scope.charges.splice(index, 1);
-                scope.penalCharges = $filter('filter')(scope.charges, { penalty: true }) || [];
-                scope.feeCharges = $filter('filter')(scope.charges, { penalty: false }) || [];
+                if($filter){
+                    scope.existingPenalCharges = $filter('filter')(scope.existingCharges, { penalty: true }) || [];
+                    scope.existingFeeCharges = $filter('filter')(scope.existingCharges, { penalty: false }) || [];
+                    scope.penalCharges = $filter('filter')(scope.charges, { penalty: true }) || [];
+                    scope.feeCharges = $filter('filter')(scope.charges, { penalty: false }) || [];
+                }
             };
 
             scope.report = false;
@@ -1386,8 +1408,7 @@
                 }
                 return false;  
             };
-
-        }
+          }
 
 
     });
