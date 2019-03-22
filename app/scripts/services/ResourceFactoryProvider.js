@@ -1827,7 +1827,11 @@
                     }),
                     clientDefaultAddressResource: defineResource(apiVer + "/villages/clients/:clientId/center/village", {clientId: '@clientId'}, {
                         get: {method: 'GET', params: {}},
-                    })  
+                    }),
+                    gstHeadersResource: defineResource(apiVer + "/pushgsttransactions/headers/:id", {id: '@id'}, {
+                        get: {method: 'GET', params: {id: '@id'}},
+                        getAll: {method: 'GET', params: {}, isArray: true}
+                    })
                 };
             }];
         }

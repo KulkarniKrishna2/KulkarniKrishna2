@@ -1,0 +1,42 @@
+<div class="row form-horizontal" ng-controller="GSTDebitTransactionDetailsControllers">
+    <div>
+        <ul class="breadcrumb">
+                <li><a ng-href="#/bc">{{'label.anchor.bc' | translate}}</a></li>
+                <li><a ng-href="#/gstdebittransaction">{{'label.anchor.gst.debit.transaction' | translate}}</a></li>
+                <li class="active">{{'label.anchor.gst.debit.transaction' | translate}}</li>
+        </ul>
+    </div>
+    <br>
+
+    <table class="table well" ng-show="headerData">
+        <thead>
+            <tr class="graybg">
+                <th>{{'label.heading.insert.date' | translate}}</th>
+                <th>{{'label.heading.customerid' | translate}}</th>
+                <th>{{'label.heading.transactionid' | translate}}</th>
+                <th>{{'label.heading.accountid' | translate}}</th>
+                <th>{{'label.heading.glaccountid' | translate}}</th>
+                <th>{{'label.heading.input.tax.amount' | translate}}</th>
+                <th>{{'label.heading.charge.value' | translate}}</th>
+                <th>{{'label.heading.processed.status' | translate}}</th>
+                <th>{{'label.heading.processed.date' | translate}}</th>
+                <th>{{'label.heading.failure.reason' | translate}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="transaction in headerData.gstDebitTransactionDetails" ng-click="routeTo(header.id)">
+
+                <td>{{transaction.insertDate | DateFormat}}</td>
+                <td>{{transaction.customerId}}</td>
+                <td>{{transaction.transactionId}}</td>
+                <td>{{transaction.accountd}}</td>
+                <td>{{transaction.glAccountId}}</td>
+                <td>{{transaction.inputTaxAmount | number}}</td>
+                <td>{{transaction.chargeValue | number}}</td>
+                <td>{{transaction.processedStatus}}</td>
+                <td>{{transaction.processedDate | DateFormat}}</td>
+                <td>{{transaction.failureReason}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

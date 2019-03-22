@@ -1991,6 +1991,12 @@
             })
             .when('/workflowbankrejectloanaction/:trackerId/:workflowBankApprovalId/:loanId',{
                 templateUrl: 'views/task/bankapproval/workflowbankrejectloanaction.html'
+            })            
+            .when('/gstdebittransaction', {
+                templateUrl: 'views/accounting/gst_debit_transaction.html'
+            })
+            .when('/gstdebittransaction/:id', {
+                templateUrl: 'views/accounting/gst_debit_transaction_details.html'
             })
             .when('/viewallcollections', {
                 templateUrl: 'views/bulkoperations/viewallcollections.html'
