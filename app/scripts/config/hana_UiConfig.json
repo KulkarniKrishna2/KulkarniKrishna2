@@ -18,7 +18,8 @@
 				"transactionProcessingStrategyId": true,
 				"graceOnInterestPayment": true,
 				"graceOnArrearsAgeing": true,
-				"syncDisbursementDateWithMeeting": true
+				"syncDisbursementDateWithMeeting": true,
+				"loanPurpose": true
 			},
 			"isHiddenSection": {
 				"interestRecalculationSection": true,
@@ -27,10 +28,11 @@
 			"isReadOnlyField": {
 				"loanTermFrequencyType": true,
 				"interestChargedFromDate": true,
-				"interestRatePerPeriod": true
+				"interestRatePerPeriod": true,
+				"loanPurposeId": false
 			},
 			"isMandatory": {
-			  "loanPurposeId": true
+			  "loanPurposeId": false
 	  		}
 		},
 		"viewLoanAccountDetails": {
