@@ -1,0 +1,45 @@
+<div  class="row form-horizontal" ng-controller="GSTDebitTransactionControllers">
+    <div>
+        <ul class="breadcrumb">
+                <li><a ng-href="#/bc">{{'label.anchor.bc' | translate}}</a></li>                
+                <li class="active">{{'label.anchor.gst.debit.transaction' | translate}}</li>
+        </ul>
+    </div>
+    <br>
+    <div class="form-horizontal">
+            <div class="form-group">
+                    <label class="control-label col-sm-2">{{'label.input.daterangefrom' | translate}}:</label>
+                    <div class="col-sm-3">
+                        <input id="startDate" type="text" autocomplete="off" name="startDate" datepicker-pop="{{df}}"
+                               ng-model="startDate" ng-readonly="true"  is-open="opened" min="'2000-01-01'" max="endDate" class="form-control"  ng-change="checkCriteria()"/>
+                    </div>
+                    <label class="control-label col-sm-2">{{'label.input.to' | translate}}:</label>
+                    <div class="col-sm-3">
+                        <input id="endDate" type="text" autocomplete="off" name="endDate" datepicker-pop="{{df}}" ng-change="checkCriteria()"
+                               ng-model="endDate" ng-readonly="true" is-open="opened" min="startDate" max="restrictDate" class="form-control"/>
+                    </div>
+                </div>
+    </div>
+    <div class="Pform-horizontal">
+            <table class="table well" ng-show="headersData.length > 0">
+                    <thead>
+                    <tr class="graybg">
+                        <th>{{'label.heading.insert.date' | translate}}</th>
+                        <th>{{'label.heading.totRecs' | translate}}</th>
+                        <th>{{'label.heading.sucRecs' | translate}}</th>
+                        <th>{{'label.heading.failRecs' | translate}}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="header in headersData" ng-click="routeTo(header.id)" class="pointer-main">
+            
+                        <td>{{header.insertDate | DateFormat}}</td>
+                        <td>{{header.totalRecords}}</td>
+                        <td>{{header.successRecords}}</td>
+                        <td>{{header.failedRecords}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+    </div>
+    
+</div>

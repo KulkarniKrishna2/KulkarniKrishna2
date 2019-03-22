@@ -1,7 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
 
-        ViewTransactionController: function (scope, routeParams, resourceFactory, location, route, $modal, http, API_VERSION, $rootScope, $sce, $window, $filter) {
+        ViewTransactionController: function (scope, routeParams, resourceFactory, location, route, $modal, http, API_VERSION, $rootScope, $sce, $window, $filter, $upload, CommonUtilService) {
             scope.flag = false;
             scope.manualEntry = false;
             scope.productName = routeParams.productName;
@@ -11,6 +11,7 @@
             scope.loanId = routeParams.loanId;
             scope.groupId = routeParams.groupId;
             scope.groupName = routeParams.groupName;
+            scope.entityId = routeParams.transactionId;
             scope.journalEntryTransactionId = routeParams.transactionId;
             scope.transactionIdStringvalue = routeParams.transactionId.toString();
             scope.bankNonPortfolioId = location.search().id;
@@ -328,9 +329,104 @@
                     }
                 }
             }
+
+
+
+
+            scope.newDocuments = [];
+            scope.docData = {};
+            scope.files = [];
+            scope.onFileSelect = function ($files) {
+                scope.docData.fName = $files[0].name;
+                scope.files.push($files[0]);
+            };
+            scope.addDocument = function(){
+                scope.newDocuments.push(scope.docData);
+                scope.docData = {};
+            };
+            scope.deleteDocument = function (documentId,index) {
+                resourceFactory.documentsResource.delete({'entityType':'journal_entry','entityId':scope.entityId,'documentId':documentId})
+                scope.documents.splice(index, 1);
+            };
+            scope.deleteSingleDocument = function(index){
+                scope.newDocuments.splice(index,1);
+            };
+            scope.viewDocument = function (index) {
+
+            };
+            var docResponse = 0;
+            var uploadURL = null;
+            scope.uploadDocuments = function () {
+                docResponse = 0;
+                uploadURL = $rootScope.hostUrl + API_VERSION + '/journal_entry/' + scope.entityId + '/documents';
+                if(!_.isUndefined(scope.newDocuments) && scope.newDocuments.length > 0){
+                        uploadProcessDocumets();
+                }
+            };
+
+            scope.$on('attachmentsUpload', function(event) {
+                uploadProcessDocumets();
+            });
+
+            function uploadProcessDocumets() {
+                $upload.upload({
+                    url: uploadURL,
+                    data: scope.newDocuments[docResponse],
+                    file: scope.files[docResponse]
+                }).then(function (data) {
+                    // to fix IE not refreshing the model
+                    if (!scope.$$phase) {
+                        scope.$apply();
+                    }
+                    docResponse++;
+                    if (docResponse == scope.newDocuments.length) {
+                        scope.getDocuments();
+                    }else{
+                        if($rootScope.requestsInProgressAPIs["POST" + uploadURL]){
+                            delete $rootScope.requestsInProgressAPIs["POST" + uploadURL];
+                        }
+                        scope.$emit("attachmentsUpload");
+                    }
+                });
+            };
+
+
+            scope.uploadNewDocuments = function () {
+                scope.newDocuments = [];
+                scope.docData = {};
+                scope.files = [];
+                scope.isUploadNewDocuments = true;
+            };
+
+            scope.cancelDocuments = function () {
+                scope.isUploadNewDocuments = false;
+            };
+
+            scope.download = function(file){
+                var url =$rootScope.hostUrl + file.docUrl;
+                var fileType = file.fileName.substr(file.fileName.lastIndexOf('.') + 1);
+                CommonUtilService.downloadFile(url,fileType);
+            }
+            scope.idUploadNewDocuments = true;
+            scope.getDocuments = function () {
+                resourceFactory.documentsResource.getAllDocuments({
+                    entityType: 'journal_entry',
+                    entityId: scope.entityId
+                }, function (data) {
+                    for (var l in data) {
+                        var loandocs = {};
+                        loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment';
+                        data[l].docUrl = loandocs;
+                    }
+                    scope.documents = data;
+                    scope.isUploadNewDocuments = false;
+                });
+            };
+
+
         }
     });
-    mifosX.ng.application.controller('ViewTransactionController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$modal', '$http', 'API_VERSION', '$rootScope', '$sce', '$window', '$filter', mifosX.controllers.ViewTransactionController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewTransactionController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$modal', '$http', 'API_VERSION', '$rootScope', '$sce', '$window', '$filter', '$upload', 'CommonUtilService', mifosX.controllers.ViewTransactionController]).run(function ($log) {
         $log.info("ViewTransactionController initialized");
     });
 }(mifosX.controllers || {}));
