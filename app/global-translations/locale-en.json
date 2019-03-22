@@ -7855,7 +7855,7 @@
     "label.perform.allCollections" : "Collections for deposit,withdraw and repayments",
     "error.msg.officeId.not.greater.than.zero" : "Office is mandatory",
     "label.heading.meetingDate" : "Meeting Date",
-    "label.heading.collectionSheetTransactions" : "Collection Sheet Transactions",
+    "label.heading.collectionSheetDetail" : "Collection Sheet Detail",
     "label.heading.enityType" : "Entity Type",
     "label.heading.entityId" : "EntityId",
     "label.heading.insert.date" : "Insert date",

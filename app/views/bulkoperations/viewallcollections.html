@@ -4,7 +4,9 @@
 	  <api-validate></api-validate>
     <div class="form-group">
         <ul class="breadcrumb">
-            <li class="active">{{'label.anchor.allCollections' | translate}}</li>
+				<li>{{'label.anchor.admin' | translate}}</li>
+				<li><a href="#/bulkoperations">{{'label.anchor.bulkoperations' | translate}}</a></li>
+				<li class="active">{{'label.anchor.allCollections' | translate}}</li>
         </ul>
 	</div>
 	<br>
@@ -61,12 +63,12 @@
 			</thead>
 			<tbody>
 			<tr class="pointer-main" ng-repeat="collectionSheet in allCollectionsData">
-				<td class="pointer" data-ng-click="routeToTransactions(collectionSheet.id)">{{collectionSheet.officeName}}</td>
-				<td class="pointer" data-ng-click="routeToTransactions(collectionSheet.id)">{{collectionSheet.staffName}}</td>
-				<td class="pointer" data-ng-click="routeToTransactions(collectionSheet.id)">{{collectionSheet.centerName}}</td>
-				<td class="pointer" data-ng-click="routeToTransactions(collectionSheet.id)">{{collectionSheet.groupName}}</td>
-				<td class="pointer" data-ng-click="routeToTransactions(collectionSheet.id)">{{collectionSheet.meetingDate}}</td>
-				<td class="pointer" data-ng-click="routeToTransactions(collectionSheet.id)">{{collectionSheet.status.value}}</td>
+				<td class="pointer" data-ng-click="routeToCollectionSheetDetail(collectionSheet.id)">{{collectionSheet.officeName}}</td>
+				<td class="pointer" data-ng-click="routeToCollectionSheetDetail(collectionSheet.id)">{{collectionSheet.staffName}}</td>
+				<td class="pointer" data-ng-click="routeToCollectionSheetDetail(collectionSheet.id)">{{collectionSheet.centerName}}</td>
+				<td class="pointer" data-ng-click="routeToCollectionSheetDetail(collectionSheet.id)">{{collectionSheet.groupName}}</td>
+				<td class="pointer" data-ng-click="routeToCollectionSheetDetail(collectionSheet.id)">{{collectionSheet.meetingDate}}</td>
+				<td class="pointer" data-ng-click="routeToCollectionSheetDetail(collectionSheet.id)">{{collectionSheet.status.value}}</td>
 			</tr>
 			</tbody>
 		</table>
@@ -80,4 +82,7 @@
 					   ng-hide="allCollectionsData.length != limit">{{'label.button.next' | translate}} &rarr;</a>
 				</li>
 		</ul>
+		<div class="col-md-offset-5">
+	        <button id="cancel" class="btn btn-primary" ng-click="refresh()"><i class="icon-repeat icon-white"></i>{{'label.button.refresh' | translate}}</button>
+	    </div>
 	</form>

@@ -1,0 +1,73 @@
+<div class="col-md-12" ng-controller="CollectionSheetDetailController">
+        <div>
+                <ul class="breadcrumb">
+                    <li>{{'label.anchor.admin' | translate}}</li>
+                    <li><a href="#/bulkoperations">{{'label.anchor.bulkoperations' | translate}}</a></li>
+                    <li><a href="#/viewallcollections">{{'label.anchor.allCollections' | translate}}</a></li>
+                    <li class="active">{{'label.heading.collectionSheetDetail' | translate}}</li>
+                </ul>
+        </div>
+        <br>
+        <div class="row span" style="margin-left:-1px;margin-top: -10px">
+                <div class="col-sm-6 col-md-6">
+                    <table class="table table-striped table-bordered">
+                        <tr>
+                            <th class="table-bold">{{'label.heading.center' | translate}}</th>
+                            <td><span class="padded-td">{{collectionSheetData.centerName}}</span></td>
+                        </tr>
+                        <tr>
+                            <th class="table-bold">{{'label.heading.staff' | translate}}</th>
+                            <td><span class="padded-td">{{'label.heading.staff' | translate}}</span></td>
+                        </tr>
+                        <tr>
+                            <th class="table-bold">{{'label.heading.group' | translate}}</th>
+                            <td><span class="padded-td">{{collectionSheetData.groupName}}</span></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-sm-6 col-md-6">
+                    <table class="table table-striped table-bordered">
+                        <tr>
+                            <th class="table-bold">{{'label.heading.office' | translate}}</th>
+                            <td><span class="padded-td">{{collectionSheetData.officeName}}</span></td>
+                        </tr>
+                        <tr>
+                            <th class="table-bold">{{'label.heading.meetingDate' | translate}}</th>
+                            <td><span class="padded-td">{{collectionSheetData.meetingDate}}</span></td>
+                        </tr>
+                        <tr>
+                            <th class="table-bold">{{'label.heading.status' | translate}}</th>
+                            <td><span class="padded-td">{{collectionSheetData.status.value}}</span></td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+    <table class="table table-striped">
+        <thead>
+            <tr class="graybg">
+                <th>{{ 'label.heading.transactionid' | translate }}</th>
+                <th>{{ 'label.heading.enityType' | translate }}</th>
+                <th>{{ 'label.heading.entityId' | translate }}</th>
+                <th>{{ 'label.heading.amount' | translate }}</th>
+                <th>{{ 'label.heading.status' | translate}}</th>
+                <th>{{ 'label.heading.error' | translate}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="pointer-main" ng-repeat="transaction in collectionSheetData.transactionDetails" >
+                <td>{{transaction.transactionId}}</td>
+                <td>{{transaction.entityType.value}}</td>
+                <td>{{transaction.entityId}}</td>
+                <td>{{transaction.amount}}</td>
+                <td>{{transaction.status.value}}</td>
+                <td>{{transaction.errorMsge}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="col-md-offset-5">
+        <button id="cancel" class="btn btn-primary" ng-click="refresh()"><i class="icon-repeat icon-white"></i>{{'label.button.refresh' | translate}}</button>
+        <a id="back" href="#/viewallcollections" class="btn btn-default">{{'label.button.back' | translate}}</a>
+    </div>
+</div>
+                

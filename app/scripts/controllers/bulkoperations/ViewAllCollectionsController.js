@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewAllCollectionsController: function (scope,  $q, $timeout, location, resourceFactory, dateFilter, paginatorUsingOffsetService, route, $modal, $rootScope){
+        ViewAllCollectionsController: function (scope, location, resourceFactory, dateFilter, route){
             scope.offices = [];
             scope.centers = [];
             scope.groups = [];
@@ -158,12 +158,22 @@
                 }
             } 
 
-            scope.routeToTransactions = function(collectionSheetId){
+            scope.routeToCollectionSheetDetail = function(collectionSheetId){
                 location.path('/viewallcollections/'+collectionSheetId);
-            }  
+            } 
+            
+            scope.refresh = function () {
+                if(!scope.isSearch){
+                    route.reload();
+                }else{
+                    scope.allCollectionsData = null;
+                    scope.collectionsDataRequests();
+                }
+            };
+
         }
     });
-    mifosX.ng.application.controller('ViewAllCollectionsController', ['$scope', '$q', '$timeout', '$location', 'ResourceFactory', 'dateFilter', 'PaginatorUsingOffsetService', '$route', '$modal', '$rootScope', mifosX.controllers.ViewAllCollectionsController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewAllCollectionsController', ['$scope', '$location', 'ResourceFactory', 'dateFilter', '$route', mifosX.controllers.ViewAllCollectionsController]).run(function ($log) {
         $log.info("ViewAllCollectionsController initialized");
     });
 }(mifosX.controllers || {}));
