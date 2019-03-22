@@ -819,8 +819,7 @@
                 }
                 if (centerOrGroupResource === "centerResource") {
                     resourceFactory.centerV2Resource.save({'centerId': scope.centerId, command: 'saveCollectionSheet'}, scope.formData, function (data) {
-                        localStorageService.addToLocalStorage('Success', true);
-                        route.reload();
+                        location.path('/viewallcollections');
                     },
                         function(data){
                             if(data.data.errors[0].userMessageGlobalisationCode == "error.msg.Collection.has.already.been.added") {
@@ -832,8 +831,7 @@
                         });
                 } else if (centerOrGroupResource === "groupResource") {
                     resourceFactory.groupV2Resource.save({'groupId': scope.groupId, command: 'saveCollectionSheet'}, scope.formData, function (data) {
-                        localStorageService.addToLocalStorage('Success', true);
-                        route.reload();
+                        location.path('/viewallcollections');
                     },
                         function(data){
                             if(data.data.errors[0].userMessageGlobalisationCode == "error.msg.Collection.has.already.been.added") {
