@@ -2002,7 +2002,7 @@
                 templateUrl: 'views/bulkoperations/viewallcollections.html'
             })
             .when('/viewallcollections/:collectionSheetId',{
-                templateUrl: 'views/collection/collectionSheetTransactions.html'
+                templateUrl: 'views/collection/collectionSheetDetail.html'
             })
 
         $locationProvider.html5Mode(false);
