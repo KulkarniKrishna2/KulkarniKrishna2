@@ -379,20 +379,21 @@
             }
 
             scope.changeVillage = function (villageId) {
+
+                if(scope.formAddressData.districtId){
+                    delete scope.formAddressData.districtId;
+                }
+                if(scope.formAddressData.talukaId){
+                    delete scope.formAddressData.talukaId;
+                }
+                scope.formAddressData.villageTown = null
+                scope.talukas = null;
+                scope.formAddressData.postalCode = null;
+                scope.districts = null;
+                scope.states= null;
+                scope.countries = null;
                 if(villageId != null){
 
-                    if(scope.formAddressData.districtId){
-                        delete scope.formAddressData.districtId;
-                    }
-                    if(scope.formAddressData.talukaId){
-                        delete scope.formAddressData.talukaId;
-                    }
-                    scope.formAddressData.villageTown = null
-                    scope.talukas = null;
-                    scope.formAddressData.postalCode = null;
-                    scope.districts = null;
-                    scope.states= null;
-                    scope.countries = null;
                     resourceFactory.villageResource.get({villageId:villageId},function (response) {
                         if (response.addressData.length > 0) {
                             if(response.villageName){
@@ -425,7 +426,6 @@
                     });
 
                 }
-
 
             }
 
@@ -659,6 +659,7 @@
                 if (scope.formAddressData.addressLineOne == null || scope.formAddressData.addressLineOne == "") {
                     delete scope.formAddressData.addressLineOne;
                 }
+
                 if(scope.isLevelBasedAddressEnabled){
                     if(scope.formAddressData.wardAndVillagesId == null && scope.formAddressData.wardAndVillagesId == ""){
                         delete scope.formAddressData.wardAndVillagesId;
@@ -678,6 +679,9 @@
                 }
                 if (scope.formAddressData.talukaId == null || scope.formAddressData.talukaId == ""){
                     delete scope.formAddressData.talukaId;
+                }
+                if (scope.formAddressData.villageId){
+                    delete scope.formAddressData.villageId;
                 }
 
                 if(scope.enableClientAddress){
