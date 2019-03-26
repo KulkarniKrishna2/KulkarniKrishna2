@@ -112,7 +112,7 @@
                 }
 
                 if(data.feeFrequency){
-                    scope.addfeefrequency = 'true';
+                    scope.addfeefrequency = true;
                     scope.formData.feeFrequency = data.feeFrequency.id;
                     scope.formData.feeInterval = data.feeInterval;
                 }
@@ -250,6 +250,8 @@
                 if(scope.formData.chargeCalculationType == 1 ||  (scope.formData.percentageType != undefined && scope.formData.percentageType == 1) ) {
                     scope.formData.overdueChargeDetail.calculateChargeOnCurrentOverdue = true;
                     scope.formData.overdueChargeDetail.applyChargeForBrokenPeriod = false;
+                }else{
+                    scope.formData.overdueChargeDetail.calculateChargeOnCurrentOverdue = false;
                 }
             }
 
@@ -342,7 +344,7 @@
                         this.formData.monthDayFormat = 'dd MMM';
                         this.formData.feeOnMonthDay = reqDate;
                     }
-                }else if(scope.addfeefrequency == 'false'){
+                }else if(scope.addfeefrequency == false){
                     scope.formData.feeFrequency = null;
                     scope.formData.feeInterval = null;
                 }

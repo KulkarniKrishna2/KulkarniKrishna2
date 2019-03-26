@@ -176,6 +176,8 @@
                 if(scope.formData.chargeCalculationType == 1 ||  (scope.formData.percentageType != undefined && scope.formData.percentageType == 1) ) {
                     scope.formData.overdueChargeDetail.calculateChargeOnCurrentOverdue = true;
                     scope.formData.overdueChargeDetail.applyChargeForBrokenPeriod = false;
+                }else{
+                    scope.formData.overdueChargeDetail.calculateChargeOnCurrentOverdue = false;
                 }
             }
 
