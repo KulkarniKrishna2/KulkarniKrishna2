@@ -44,7 +44,8 @@
                 resourceFactory.userListResource.getAllUsers({
                     isSelfServiceUser : scope.isSelfServiceUser,
                     offset: offset,
-                    limit: limit
+                    limit: limit,
+                    searchString:scope.filterText
                 }, callback);
             };
 
