@@ -1,10 +1,27 @@
-<div class="col-md-12" ng-controller="UserListController">
+<div class="col-md-12" ng-controller="UserListController"> 
     <ul class="breadcrumb">
         <li class="active">{{'label.anchor.users' | translate}}</li>
     </ul>
+<form class="form-horizontal well">
+    <div class="form-group">
+        <div class="col-md-11">
+        <input ng-model="filterText" type="text" autocomplete="off" ng-keyup="onFilter()"
+            class="span form-control" placeholder="{{'label.input.filterbynameorusername' | translate}}">
+        </div>
+        <div class="col-md-1">
+            <a ng-click="searchData()" class="btn btn-primary  pull-right">{{'label.heading.search' | translate }}
+            <i class="icon-search icon-white"></i></a>
+        </div>
+    </div>
 
-    <input ng-model="filterText" type="text" autocomplete="off" ng-keyup="onFilter()" class="span marginbottom0px form-control" placeholder="{{'label.input.filterbyname' | translate}}">
+    <div>
     <a href="#/createuser" class="btn btn-primary pull-right" has-permission='CREATE_USER'><i class="icon-plus icon-white"></i>{{'label.button.createuser' | translate}}</a>
+    <tabset has-permission='READ_REGISTERED_DEVICE'>
+        <tab heading="{{'users' | translate}}" select="fetchUsers('users')">
+        </tab>
+        <tab heading="{{'label.self.service.user' | translate}}" select="fetchUsers('selfServiceUser')">
+        </tab>
+    </tabset>
     <table class="table">
         <thead>
         <tr class="graybg">
@@ -16,13 +33,31 @@
         </tr>
         </thead>
         <tbody>
-        <tr class="pointer-main" ng-repeat="user in users| filter:{ 'systemUser': false } |orderBy:'firstname':reverse | filter:filterText">
+        <tr class="pointer-main" ng-repeat="user in users.currentPageItems| orderBy:'firstname':reverse | filter:filterText">
             <td class="pointer" data-ng-click="routeTo(user.id)">{{user.firstname}}</td>
             <td class="pointer" data-ng-click="routeTo(user.id)">{{user.lastname}}</td>
             <td class="pointer" data-ng-click="routeTo(user.id)">{{user.email}}</td>
             <td class="pointer" data-ng-click="routeTo(user.id)">{{user.lastLoginDate}}</td>
             <td class="pointer" data-ng-click="routeTo(user.id)">{{user.officeName}}</td>
         </tr>
+        <tr ng-if="users.isResponsePresent && users.currentPageItems.length == 0">
+            <td>
+                <div class="alert alert-info col-sm-12" style="border-style: dashed;">
+                    <span class="fa fa-info-circle"></span> {{'label.message.no.data.found' | translate}}
+                </div>
+            </td>
+        </tr>
         </tbody>
     </table>
+</div>
+    <ul class="pager">
+        <li class="previous">
+            <a id="prev" ng-click="users.previous()" href=""
+               ng-hide="!users.hasPrevious()">&larr; {{'label.button.previous' | translate}}</a>
+        </li>
+        <li class="next">
+            <a id="next" ng-click="users.next()" href=""
+               ng-hide="!users.hasNext()">{{'label.button.next' | translate}} &rarr;</a></li>
+    </ul>
+</form>
 </div>

@@ -331,7 +331,8 @@
     "label.input.allowinterestratechart": "Allow Floating Rate Interest ?",
     "label.anchor.accountLimits": "Account Limits",
     "label.input.document.subCategoryTypeId": "Sub Category Type",
-
+    "label.input.filterbynameorusername": "Filter By Name/UserName ",
+    
     "#Buttons": "..",
     "label.button.previous": "Previous",
     "label.button.next": "Next",
@@ -7867,7 +7868,7 @@
     "label.perform.allCollections" : "Collections for deposit,withdraw and repayments",
     "error.msg.officeId.not.greater.than.zero" : "Office is mandatory",
     "label.heading.meetingDate" : "Meeting Date",
-    "label.heading.collectionSheetTransactions" : "Collection Sheet Transactions",
+    "label.heading.collectionSheetDetail" : "Collection Sheet Detail",
     "label.heading.enityType" : "Entity Type",
     "label.heading.entityId" : "EntityId",
     "label.heading.insert.date" : "Insert date",
@@ -7885,6 +7886,7 @@
     "error.msg.proposed.loans.not.preclosed" : "Proposed Loans must be closed",
     "error.msg.charge.cannot.be.applied.toclient": "Charge cannot be applied to client",
 
-
+    "label.self.service.user" : "Self Service Users",
+    
     "------ end of translation file ------": "----------"
 }

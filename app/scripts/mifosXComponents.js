@@ -675,7 +675,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'accounting/GSTDataPushController',
             'task/bankapproval/WorkflowBankRejectLoanActionController',
             'bulkoperations/ViewAllCollectionsController',
-            'collection/CollectionSheetTransactionsController',
+            'collection/CollectionSheetDetailController',
             'accounting/GSTDebitTransactionDetailsControllers',
             'accounting/GSTDebitTransactionControllers'
         ],
