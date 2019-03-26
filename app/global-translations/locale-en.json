@@ -332,7 +332,8 @@
     "label.input.allowinterestratechart": "Allow Floating Rate Interest ?",
     "label.anchor.accountLimits":"Account Limits",
     "label.input.document.subCategoryTypeId": "Sub Category Type",
-
+    "label.input.filterbynameorusername": "Filter By Name/UserName ",
+    
     "#Buttons": "..",
     "label.button.previous": "Previous",
     "label.button.next": "Next",
