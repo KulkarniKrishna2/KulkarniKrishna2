@@ -124,14 +124,14 @@
                     }
                     scope.initializeTrancheDetails();
                 } else {
-                    if(scope.formData.loanEMIPackData){
+                    if(scope.formData.loanEMIPackData && _.isUndefined(scope.formRequestData.loanEMIPackId)){
                         scope.formRequestData.loanEMIPackId = scope.formData.loanEMIPackData.id;
                         scope.formRequestData.loanAmountApproved = scope.formData.loanEMIPackData.sanctionAmount;
                         scope.formRequestData.numberOfRepayments = scope.formData.loanEMIPackData.numberOfRepayments;
                         scope.formRequestData.repaymentPeriodFrequencyEnum = scope.formData.loanEMIPackData.repaymentFrequencyType.id;
                         scope.formRequestData.repayEvery = scope.formData.loanEMIPackData.repaymentEvery;
                         scope.formRequestData.fixedEmiAmount = scope.formData.loanEMIPackData.fixedEmi;
-                    }else{
+                    }else if (_.isUndefined(scope.formRequestData.loanAmountApproved)){
                         scope.formRequestData.loanAmountApproved = scope.formData.loanAmountRequested;
                         scope.formRequestData.numberOfRepayments = scope.formData.numberOfRepayments;
                         scope.formRequestData.repaymentPeriodFrequencyEnum = scope.formData.repaymentPeriodFrequency.id;
@@ -145,7 +145,7 @@
                     }
                     
                 }
-                if(scope.formData.fixedEmiAmount){
+                if(scope.formData.fixedEmiAmount && _.isUndefined(scope.formRequestData.fixedEmiAmount)){
                     scope.formRequestData.fixedEmiAmount = scope.formData.fixedEmiAmount;
                 }
             };

@@ -7885,6 +7885,7 @@
     "label.anchor.gstDebitTransaction" : "GST Debit transactions",
     "error.msg.proposed.loans.not.preclosed" : "Proposed Loans must be closed",
     "error.msg.charge.cannot.be.applied.toclient": "Charge cannot be applied to client",
+    "validation.msg.loan.number.of.repayments.greater.than.max.loan.term": "Number of repayments is greater than maximum number of loan term",
 
     "label.self.service.user" : "Self Service Users",
     
