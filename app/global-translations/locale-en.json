@@ -4791,7 +4791,7 @@
     "label.heading.cashmgmt.cashier.sumDisbursement": "Loan Disbursements",
     "label.heading.cashmgmt.cashier.sumDeposit": "Deposits",
     "label.heading.cashmgmt.cashier.sumWithdrawal": "Withdrawn",
-    "label.heading.cashmgmt.cashier.sumPayCharge": "Charges Collected",
+    "label.heading.cashmgmt.cashier.sumPayCharge": "Client Charges Collected",
     "label.button.cashier.showSummary": "Show Summary",
     "label.heading.cashmgmt.cashier.txntype": "Transaction Type",
     "label.heading.cashmgmt.cashier.txnAllocateCash": "Allocate Cash",
