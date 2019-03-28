@@ -1281,7 +1281,7 @@
                         }
                     }
                     else{
-                        scope.setTaskActionExecutionError("lable.error.activity.survey.not.completed");
+                        scope.setTaskActionExecutionError("lable.error.activity.loanapplication.not.submitted");
                     }
                 }else{
                     scope.doActionAndRefresh(actionName);

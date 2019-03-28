@@ -543,7 +543,7 @@
                     if(isDataTableCompleted()){
                         scope.doActionAndRefresh(actionName);
                     }else{
-                        scope.setTaskActionExecutionError("lable.error.activity.survey.not.completed");
+                        scope.setTaskActionExecutionError("lable.error.activity.activity.not.completed");
                     }
                 }else{
                     scope.doActionAndRefresh(actionName);

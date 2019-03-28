@@ -42,6 +42,19 @@
                     scope.isViewMode = true;
                 });
             };
+
+            scope.doPreTaskActionStep = function (actionName) {
+                if (actionName === 'activitycomplete') {
+                    if (scope.isViewMode) {
+                        scope.doActionAndRefresh(actionName);
+                    } else {
+                        scope.setTaskActionExecutionError("lable.error.associate.client.to.group.to.continue");
+                    }
+                } else {
+                    scope.doActionAndRefresh(actionName);
+                }
+            };
+
         }
 
     });
