@@ -556,7 +556,7 @@
                         scope.doActionAndRefresh(actionName);
                     }
                     else{
-                        scope.setTaskActionExecutionError("lable.error.activity.survey.not.completed");
+                        scope.setTaskActionExecutionError("lable.error.activity.loan.application.not.disbursed");
                     }
                 }else{
                     scope.doActionAndRefresh(actionName);

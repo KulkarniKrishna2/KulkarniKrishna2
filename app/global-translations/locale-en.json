@@ -7886,9 +7886,12 @@
     "error.msg.proposed.loans.not.preclosed" : "Proposed Loans must be closed",
     "error.msg.charge.cannot.be.applied.toclient": "Charge cannot be applied to client",
     "validation.msg.loan.number.of.repayments.greater.than.max.loan.term": "Number of repayments is greater than maximum number of loan term",
-
     "label.self.service.user" : "Self Service Users",
     "label.specify.rejection.reason" : "Specify Rejection Reason",
-    
+    "lable.error.associate.client.to.group.to.continue" : "Associate client to a group to complete the activity",
+    "error.msg.unable.to.generate.sequence.exceeded.max.value" : "Unable to generate sequence as sequence exceeded max value. Please  contact administrator",
+    "lable.error.activity.activity.not.completed" : "Complete/submit the form to complete the activity",
+    "lable.error.activity.loan.application.not.disbursed" : "Disburse the loan to complete the activity",
+
     "------ end of translation file ------": "----------"
 }
