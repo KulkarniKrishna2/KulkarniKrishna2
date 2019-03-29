@@ -19,7 +19,7 @@
 				"graceOnInterestPayment": true,
 				"graceOnArrearsAgeing": true,
 				"syncDisbursementDateWithMeeting": true,
-				"loanPurpose": true
+				"loanPurpose": false
 			},
 			"isHiddenSection": {
 				"interestRecalculationSection": true,
@@ -33,7 +33,11 @@
 			},
 			"isMandatory": {
 			  "loanPurposeId": false
-	  		}
+			  },
+			"loanPurposeGroup":{
+			  "showLoanPurposeWithoutGroup": true,
+			  "showLoanPurposeGroup": false
+			}
 		},
 		"viewLoanAccountDetails": {
 			"isHiddenFeild": {

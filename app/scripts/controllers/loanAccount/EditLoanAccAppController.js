@@ -15,21 +15,29 @@
             scope.repeatsOnDayOfMonthOptions = [-1];
             scope.selectedOnDayOfMonthOptions = [];
             scope.isLoanPurposeEditable= true;
-            scope.canAddCharges=scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.canAddCharge;
-            if(scope.response != undefined){
-                scope.fetchRDAccountOnly = scope.response.uiDisplayConfigurations.loanAccount.savingsAccountLinkage.reStrictLinkingToRDAccount;
-                scope.extenalIdReadOnlyType = scope.response.uiDisplayConfigurations.loanAccount.isReadOnlyField.externalId;
-                scope.submittedOnReadOnlyType = scope.response.uiDisplayConfigurations.loanAccount.isReadOnlyField.submittedOn;
-                scope.firstRepaymentDateReadOnlyType = scope.response.uiDisplayConfigurations.loanAccount.isReadOnlyField.firstRepaymentDate;
-                scope.showLoanPurpose = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.loanPurpose;
-                scope.showPreferredPaymentChannel = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.preferredPaymentChannel;
-                scope.isProductNameReadOnly = scope.response.uiDisplayConfigurations.editJlgLoan.isReadOnlyField.productName;
-                scope.isRestrictEmiPack = scope.response.uiDisplayConfigurations.editJlgLoan.isRestrictEmiPack; 
-            }
+            scope.canAddCharges = true;
+            scope.showLoanPurposeWithoutGroup = false;
+            scope.showLoanPurposeGroup = true;
+            scope.extenalIdReadOnlyType = false;
             
-            if(scope.response && scope.response.uiDisplayConfigurations){
-                scope.showIsDeferPaymentsForHalfTheLoanTerm = scope.response.uiDisplayConfigurations.loanAccount.isShowField.isDeferPaymentsForHalfTheLoanTerm;
+            if (scope.response && scope.response.uiDisplayConfigurations) {
+                scope.isProductNameReadOnly = scope.response.uiDisplayConfigurations.editJlgLoan.isReadOnlyField.productName;
+                scope.isRestrictEmiPack = scope.response.uiDisplayConfigurations.editJlgLoan.isRestrictEmiPack;
+           
+                if (scope.response.uiDisplayConfigurations.loanAccount) {
+                    scope.showLoanPurposeWithoutGroup = scope.response.uiDisplayConfigurations.loanAccount.loanPurposeGroup.showLoanPurposeWithoutGroup;
+                    scope.showLoanPurposeGroup = scope.response.uiDisplayConfigurations.loanAccount.loanPurposeGroup.showLoanPurposeGroup;
+                    scope.showIsDeferPaymentsForHalfTheLoanTerm = scope.response.uiDisplayConfigurations.loanAccount.isShowField.isDeferPaymentsForHalfTheLoanTerm;
+                    scope.canAddCharges = scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.canAddCharge;
+                    scope.fetchRDAccountOnly = scope.response.uiDisplayConfigurations.loanAccount.savingsAccountLinkage.reStrictLinkingToRDAccount;
+                    scope.extenalIdReadOnlyType = scope.response.uiDisplayConfigurations.loanAccount.isReadOnlyField.externalId;
+                    scope.submittedOnReadOnlyType = scope.response.uiDisplayConfigurations.loanAccount.isReadOnlyField.submittedOn;
+                    scope.firstRepaymentDateReadOnlyType = scope.response.uiDisplayConfigurations.loanAccount.isReadOnlyField.firstRepaymentDate;
+                    scope.showLoanPurpose = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.loanPurpose;
+                    scope.showPreferredPaymentChannel = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.preferredPaymentChannel;
+                }
             }
+
             for (var i = 1; i <= 28; i++) {
                 scope.repeatsOnDayOfMonthOptions.push(i);
             }
@@ -47,7 +55,6 @@
             scope.applicableOnDisbursement = 2;
             scope.manualPaymentMode = 3;
 
-            scope.extenalIdReadOnlyType = scope.response.uiDisplayConfigurations.loanAccount.isReadOnlyField.externalId;
             scope.parentGroups = [];
             scope.canDisburseToGroupBankAccounts = false;
             scope.allowBankAccountsForGroups = scope.isSystemGlobalConfigurationEnabled('allow-bank-account-for-groups');
@@ -249,8 +256,6 @@
                 scope.formData.loanIdToClose = scope.loanaccountinfo.closureLoanId;
                 if (scope.loanaccountinfo.brokenPeriodMethodType) {
                     scope.formData.brokenPeriodMethodType = scope.loanaccountinfo.brokenPeriodMethodType.id;
-                }else{
-                    scope.formData.brokenPeriodMethodType = "";
                 }
 
                 if (scope.loanaccountinfo.meeting && (scope.loanaccountinfo.meeting.title.startsWith("centers") || scope.loanaccountinfo.meeting.title.startsWith("groups"))) {
@@ -309,6 +314,9 @@
                 scope.loanaccountinfo = data;
                 if(data.loanEMIPackData){
                     scope.formData.loanEMIPackId = data.loanEMIPackData.id;
+                }
+                if (scope.showLoanPurposeWithoutGroup){
+                    scope.loanPurposeOptions = data.loanPurposeOptions;
                 }
                 scope.paymentModeOptions = data.paymentModeOptions || [];
                 if (data.isTopup && scope.loanaccountinfo.clientActiveLoanOptions.length > 0 && data.loanTopupDetailsData.length > 0) {
@@ -416,7 +424,8 @@
 
                 scope.formData.loanOfficerId = data.loanOfficerId;
                 scope.formData.loanPurposeId = data.loanPurposeId;
-                if(data.loanPurposeId){
+                
+                if(data.loanPurposeId && scope.showLoanPurposeGroup){
                     resourceFactory.loanPurposeGroupResource.getAll({isFetchLoanPurposeDatas : 'true'}, function (loanPurposeGroupsdata) {
                         scope.formData.loanPurposeId = data.loanPurposeId;
                         scope.loanPurposeGroups = loanPurposeGroupsdata;
@@ -509,6 +518,9 @@
                     if(data.interestRatesListPerPeriod != undefined && data.interestRatesListPerPeriod.length > 0){
                        scope.interestRatesListPerPeriod = data.interestRatesListPerPeriod;
                        scope.interestRatesListAvailable = true;
+                    }
+                    if (scope.showLoanPurposeWithoutGroup){
+                        scope.loanPurposeOptions = data.loanPurposeOptions;
                     }
                 });
 
