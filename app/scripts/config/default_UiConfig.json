@@ -86,6 +86,10 @@
 			},
 			"waiveInterest": {
 				"isTotalOutstandingInterest": false
+			},
+			"loanPurposeGroup":{
+				"showLoanPurposeWithoutGroup": false,
+				"showLoanPurposeGroup": true
 			}
 		},
 		"viewLoanAccountDetails": {

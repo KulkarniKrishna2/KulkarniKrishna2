@@ -5,7 +5,7 @@
             scope.clientId = routeParams.clientId;
             scope.groupId = routeParams.groupId;
             scope.restrictDate = new Date();
-            scope.canAddCharges=scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.canAddCharge;
+            scope.canAddCharges = true;
             scope.formData = {};
             scope.temp = {};
             scope.chargeFormData = {}; //For charges
@@ -23,7 +23,7 @@
             scope.interestRatesListAvailable = false;
             scope.isCenter=false;
             scope.installmentAmountSlabChargeType = 1;
-            scope.showIsDeferPaymentsForHalfTheLoanTerm = scope.response.uiDisplayConfigurations.loanAccount.isShowField.isDeferPaymentsForHalfTheLoanTerm;
+            scope.showIsDeferPaymentsForHalfTheLoanTerm = false;
             var SLAB_BASED = 'slabBasedCharge';
             var UPFRONT_FEE = 'upfrontFee';
             scope.paymentModeOptions = [];
@@ -35,7 +35,9 @@
             scope.allowBankAccountsForGroups = scope.isSystemGlobalConfigurationEnabled('allow-bank-account-for-groups');
             scope.allowDisbursalToGroupBankAccounts = scope.isSystemGlobalConfigurationEnabled('allow-multiple-bank-disbursal');
             scope.parentGroups = [];
-
+            scope.showLoanPurposeWithoutGroup = false;
+            scope.showLoanPurposeGroup = true;
+            
             resourceFactory.groupResource.get({groupId: scope.groupId}, function (data) {
                 if(data.groupLevel && data.groupLevel==1)
                 {
@@ -77,15 +79,20 @@
             else if (scope.clientId) {
                 scope.inparams.templateType = 'individual';
             }
+            
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.loanAccount) {
 
-             if(scope.response && scope.response.uiDisplayConfigurations.loanAccount){
-                 
-                 scope.showExternalId = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.externalId;
-                 scope.extenalIdReadOnlyType = scope.response.uiDisplayConfigurations.loanAccount.isReadOnlyField.externalId;
-                 scope.showRepaymentFrequencyNthDayType = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentFrequencyNthDayType;
-                 scope.showRepaymentFrequencyDayOfWeekType = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentFrequencyDayOfWeekType;
-                 scope.showBrokenPeriodType = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.brokenPeriodMethodType;
+                scope.showExternalId = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.externalId;
+                scope.extenalIdReadOnlyType = scope.response.uiDisplayConfigurations.loanAccount.isReadOnlyField.externalId;
+                scope.showRepaymentFrequencyNthDayType = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentFrequencyNthDayType;
+                scope.showRepaymentFrequencyDayOfWeekType = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentFrequencyDayOfWeekType;
+                scope.showBrokenPeriodType = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.brokenPeriodMethodType;
+                scope.showLoanPurposeWithoutGroup = scope.response.uiDisplayConfigurations.loanAccount.loanPurposeGroup.showLoanPurposeWithoutGroup;
+                scope.showLoanPurposeGroup = scope.response.uiDisplayConfigurations.loanAccount.loanPurposeGroup.showLoanPurposeGroup;
+                scope.showIsDeferPaymentsForHalfTheLoanTerm = scope.response.uiDisplayConfigurations.loanAccount.isShowField.isDeferPaymentsForHalfTheLoanTerm;
+                scope.canAddCharges = scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.canAddCharge;
             }
+
             scope.inparams.staffInSelectedOfficeOnly = true;
             if(scope.inparams.templateType == 'individual' || scope.inparams.templateType == 'jlg'){
                 scope.inparams.productApplicableForLoanType = 2;
@@ -148,6 +155,9 @@
                     scope.previewClientLoanAccInfo();
                     scope.canDisburseToGroupBankAccounts = data.product.allowDisbursementToGroupBankAccounts;                    
                     scope.productLoanCharges = data.product.charges || [];
+                    if (scope.showLoanPurposeWithoutGroup){
+                        scope.loanPurposeOptions = data.loanPurposeOptions;
+                    }
                     if(scope.productLoanCharges && scope.productLoanCharges.length > 0){
                         for(var i in scope.productLoanCharges){
                             if(scope.productLoanCharges[i].chargeData){
@@ -198,7 +208,9 @@
                 });
 
                 resourceFactory.loanPurposeGroupResource.getAll(function (data) {
-                    scope.loanPurposeGroups = data;
+                    if (scope.showLoanPurposeGroup) {
+                        scope.loanPurposeGroups = data;
+                    }
                 });
 
                 resourceFactory.loanResource.get({resourceType: 'template', templateType: 'collateral', productId: loanProductId, fields: 'id,loanCollateralOptions'}, function (data) {
