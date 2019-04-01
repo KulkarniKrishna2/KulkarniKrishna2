@@ -15,7 +15,6 @@
             scope.bankAccountTypeOptions = [];
             scope.deFaultBankName = null;
             scope.bankAccountDocuments = [];
-            scope.clientBankAccountDetailAssociationId = routeParams.clientBankAccountDetailAssociationId;
 
             function getEntityType(){
                return scope.commonConfig.bankAccount.entityType;
@@ -27,6 +26,15 @@
 
             function getClientBankAccountDetailAssociationId(){
                 return scope.clientBankAccountDetailAssociationId;
+            }
+
+            function setClientBankAccountDetailAssociationId(){
+                if(routeParams.clientBankAccountDetailAssociationId){
+                    scope.clientBankAccountDetailAssociationId = routeParams.clientBankAccountDetailAssociationId;
+                }
+                else {
+                    scope.clientBankAccountDetailAssociationId = scope.commonConfig.bankAccount.clientBankAccountDetailAssociationId;
+                }
             }
 
             function underTask(){
@@ -134,6 +142,7 @@
             };
 
             function init() {
+                setClientBankAccountDetailAssociationId();
                 populateDetails();
             }
 
