@@ -7886,6 +7886,8 @@
     "error.msg.proposed.loans.not.preclosed" : "Proposed Loans must be closed",
     "error.msg.charge.cannot.be.applied.toclient": "Charge cannot be applied to client",
     "validation.msg.loan.number.of.repayments.greater.than.max.loan.term": "Number of repayments is greater than maximum number of loan term",
+    "error.msg.staff.office.can.not.be.updated" : "Staff's office can not be updated , as it is attached to active {{params[0].value}} accounts {{params[1].value}} ",
+
     "label.self.service.user" : "Self Service Users",
     "label.specify.rejection.reason" : "Specify Rejection Reason",
     "lable.error.associate.client.to.group.to.continue" : "Associate client to a group to complete the activity",
