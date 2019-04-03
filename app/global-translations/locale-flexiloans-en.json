@@ -1,3 +1,5 @@
 {
-  "label.heading.overdraftlimit":"Max Drawing Power"
+  "label.heading.overdraftlimit":"Max Drawing Power",
+  "invalid.branchName.format":"Special characters, Double space, digits and more than 20 characters are not allowed.",
+  "invalid.bankCity.format":"Special characters, Double space, digits and more than 20 characters are not allowed"
 }
