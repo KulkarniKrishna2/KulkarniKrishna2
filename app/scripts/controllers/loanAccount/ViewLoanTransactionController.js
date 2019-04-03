@@ -35,6 +35,10 @@
                    scope.isRejectReasonRequired = scope.response.uiDisplayConfigurations.loanAccount.isMandatory.undoTransactionReason; 
                 }
             }
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewLoanAccountDetails &&
+                scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild){
+                   scope.hideEditTransactions = scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.editTransactions;
+            }
 
             scope.getReversalReasonCodes = function(){
                 resourceFactory.codeValueByCodeNameResources.get({codeName: "Transaction Reversal Reason"}, function (data) {
