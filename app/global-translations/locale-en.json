@@ -7894,6 +7894,8 @@
     "error.msg.unable.to.generate.sequence.exceeded.max.value" : "Unable to generate sequence as sequence exceeded max value. Please  contact administrator",
     "lable.error.activity.activity.not.completed" : "Complete/submit the form to complete the activity",
     "lable.error.activity.loan.application.not.disbursed" : "Disburse the loan to complete the activity",
+    "validation.msg.savingsaccount.transaction.not.valid.cannot.pay.activation.time.charge.is.automated": "Savings activation charge gets automatically paid at the time of activation",
+    "validation.msg.loanapplicationreference.loanApplicationSanctionTrancheDatas.cannot.be.empty": "Please fill the tranche data",
 
     "------ end of translation file ------": "----------"
 }

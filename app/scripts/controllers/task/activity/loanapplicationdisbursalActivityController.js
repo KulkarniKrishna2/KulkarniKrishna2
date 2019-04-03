@@ -86,7 +86,7 @@
                 scope.formData = data;
                 resourceFactory.loanApplicationReferencesTemplateResource.get({}, function (tempData) {
                     scope.paymentModeOptions = tempData.paymentModeOptions;
-                    if(paymentModeOptions.length>0)
+                    if(scope.paymentModeOptions.length>0)
                     {
                         scope.changePaymentTypeOptions(0);
                     }
@@ -306,7 +306,7 @@
 
             scope.previewRepayments = function (isDisplayData) {
 
-                if (scope.feeCharges.length > 0) {
+                if (scope.feeCharges && scope.feeCharges.length > 0) {
                     scope.formRequestData.submitApplication.charges = [];
                     for (var i in scope.feeCharges) {
                         var chargeData = {};
@@ -390,7 +390,7 @@
 
             scope.submit = function () {
                 scope.previewRepayments(false);
-                if (scope.feeCharges.length > 0) {
+                if (scope.feeCharges && scope.feeCharges.length > 0) {
                     scope.formRequestData.submitApplication.charges = [];
                     for (var i in scope.feeCharges) {
                         var chargeData = {};
@@ -402,7 +402,7 @@
                         scope.formRequestData.submitApplication.charges.push(chargeData);
                     }
                 }
-                if (scope.penalCharges.length > 0 && scope.loanaccountinfo.overdueCharges) {
+                if (scope.penalCharges && scope.penalCharges.length > 0 && scope.loanaccountinfo.overdueCharges) {
                     scope.formRequestData.submitApplication.overdueCharges = [];
                     for (var i in scope.penalCharges) {
                         var overdueCharge = scope.loanaccountinfo.overdueCharges.find(function (element) {
