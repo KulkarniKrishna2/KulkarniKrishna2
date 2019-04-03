@@ -61,7 +61,8 @@
 		"viewLoanAccountDetails": {
 			"isHiddenFeild": {
 				"netDisbursedAmount": true,
-				"showProductShortName": true
+				"showProductShortName": true,
+				"editTransactions":true
 			},
 			"displayBankApprovalStatus":true
 		},
@@ -149,7 +150,8 @@
 				"referenceNo": false,
 				"unassignStaffCenter": true,
 				"canCreateSubGroups": false,
-				"showAttendance":true
+				"showAttendance":true,
+				"bulkUndoTransactions":true
 			}			
 		},
 		"createOffice": {

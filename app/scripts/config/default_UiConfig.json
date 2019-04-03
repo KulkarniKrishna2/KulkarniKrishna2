@@ -104,7 +104,8 @@
 				"addCharges": false,
 				"prepayLoanButton": true,
 				"netDisbursedAmount": false,
-				"showProductShortName": false
+				"showProductShortName": false,
+				"editTransactions":false
 			},
 			"displayBankApprovalStatus":false
 		},
@@ -464,7 +465,8 @@
 				"referenceNo": true,
 				"unassignStaffCenter": false,
 				"canCreateSubGroups": true,
-				"showAttendance":false
+				"showAttendance":false,
+				"bulkUndoTransactions":false
 			}
 		},
 		"createOffice": {
