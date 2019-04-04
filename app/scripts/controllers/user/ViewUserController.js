@@ -14,8 +14,9 @@
                         scope.showResetPasssword = true;
                     }
                 }
-                scope.joiningDate = dateFilter(new Date(scope.user.staff.joiningDate), scope.df);
-            
+                if(scope.user.staff.joiningDate){
+                    scope.joiningDate = dateFilter(new Date(scope.user.staff.joiningDate), scope.df);
+                }
             });
            scope.routeToDevice = function (device) {
                 location.path('/organization/registereddevices/' + device.id);

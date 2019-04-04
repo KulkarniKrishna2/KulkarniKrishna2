@@ -7896,6 +7896,7 @@
     "lable.error.activity.loan.application.not.disbursed" : "Disburse the loan to complete the activity",
     "validation.msg.savingsaccount.transaction.not.valid.cannot.pay.activation.time.charge.is.automated": "Savings activation charge gets automatically paid at the time of activation",
     "validation.msg.loanapplicationreference.loanApplicationSanctionTrancheDatas.cannot.be.empty": "Please fill the tranche data",
+    "error.msg.loan.disbursement.date.before.account.activation.date": "Loan disbursement date cannot be before savings account activation date",
 
     "------ end of translation file ------": "----------"
 }
