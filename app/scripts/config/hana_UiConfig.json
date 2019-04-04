@@ -126,6 +126,12 @@
 		},
 		"reportParameterConfiguration": {
 			"defaultReportOutput":"XLS"
-	    }
+	    },
+			"createOffice": {
+				"isHiddenField": {
+					"pincode": true,
+					"villageTown":true
+				}
+			}
 	}
 }

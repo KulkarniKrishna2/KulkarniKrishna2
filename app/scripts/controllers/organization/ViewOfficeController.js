@@ -4,6 +4,21 @@
             scope.charges = [];
             scope.sections = [];
             scope.enableOfficeAddress = scope.isSystemGlobalConfigurationEnabled('enable-office-address');
+            var levelBasedAddressConfig = 'enable_level_based_address';
+            scope.isLevelBasedAddressEnabled = scope.isSystemGlobalConfigurationEnabled(levelBasedAddressConfig);
+            scope.pincode = false;
+            scope.isVillageTownHidden = false;
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createOffice) {
+                if(scope.response.uiDisplayConfigurations.createOffice.isHiddenField){
+                    if(scope.response.uiDisplayConfigurations.createOffice.isHiddenField.pincode){
+                        scope.pincode = scope.response.uiDisplayConfigurations.createOffice.isHiddenField.pincode;
+                    }
+                   if(scope.response.uiDisplayConfigurations.createOffice.isHiddenField.villageTown){
+                    scope.isVillageTownHidden = scope.response.uiDisplayConfigurations.createOffice.isHiddenField.villageTown;
+                   }
+                }
+            }
+
             resourceFactory.officeResource.get({officeId: routeParams.id}, function (data) {
                 scope.office = data;
                 $rootScope.officeName = data.name;
@@ -131,6 +146,10 @@
                 });
             };
 
+            scope.talukaLevelValueExists = function(address){
+                return(scope.isLevelBasedAddressEnabled && (address.addressRegionValueData.Taluka || address.addressRegionValueData.Town || address.addressRegionValueData.VillageTract));
+            };
+
             scope.viewDataTable = function (registeredTableName, data){
                 if (scope.datatabledetails.isMultirow) {
                     location.path("/viewdatatableentry/"+registeredTableName+"/"+scope.office.id+"/"+data.row[0].value);
@@ -216,7 +235,9 @@
                     $modalInstance.dismiss('cancel');
                 };
             };
+            
         }
+
 
     });
     mifosX.ng.application.controller('ViewOfficeController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$rootScope', '$modal', mifosX.controllers.ViewOfficeController]).run(function ($log) {
