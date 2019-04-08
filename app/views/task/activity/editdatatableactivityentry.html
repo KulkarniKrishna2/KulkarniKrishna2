@@ -1,11 +1,11 @@
-<label class="control-label col-sm-3" ng-show="columnHeader.displayName != 'null'">{{ columnHeader.displayName | prettifyDataTableColumn }}
+<label class="control-label col-sm-3" ng-if="!hideField(columnHeader) && columnHeader.displayName != 'null'">{{ columnHeader.displayName | prettifyDataTableColumn }}
     <span ng-show="!columnHeader.isColumnNullable || columnHeader.mandatoryIfVisible" class="required">*</span>
 </label>
-<label class="control-label col-sm-3" ng-show="columnHeader.displayName == 'null'">{{ columnHeader.columnName | prettifyDataTableColumn }}
+<label class="control-label col-sm-3" ng-if="!hideField(columnHeader) && columnHeader.displayName == 'null'">{{ columnHeader.columnName | prettifyDataTableColumn }}
     <span ng-show="!columnHeader.isColumnNullable || columnHeader.mandatoryIfVisible" class="required">*</span>
 </label>
 <div class="col-sm-3">
-    <input ng-show="fieldType(columnHeader.columnDisplayType) == 'TEXT'" type="text" autocomplete="off" ng-model="formData[columnHeader.columnName]" class="form-control" />
+    <input ng-show="(fieldType(columnHeader.columnDisplayType) == 'STRING') && !hideField(columnHeader)" type="text" autocomplete="off" ng-model="formData[columnHeader.columnName]" class="form-control" />
     <input ng-show="isNumericField(columnHeader.columnDisplayType)" type="text" autocomplete="off" ng-model="formData[columnHeader.columnName]" class="form-control" ng-readonly="columnHeader.readOnly" ng-change="evaluateFormulas()"/>
     <input ng-show="fieldType(columnHeader.columnDisplayType) == 'DATE'" type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="formDat[columnHeader.columnName]" is-open="opened{{$index}}" class="form-control" ng-readonly="isDatePickerReadOnly" />
     <div ng-show="fieldType(columnHeader.columnDisplayType) == 'DATETIME'" class="form-inline">
