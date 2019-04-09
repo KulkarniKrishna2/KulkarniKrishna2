@@ -16,7 +16,7 @@
                 scope.formData.lenderNotListed = data.lenderNotListed;
                 scope.formData.loanTypeName = data.loanTypeName;
                 scope.formData.externalLoanPurposeCvName = data.externalLoanPurposeCvName;
-                if(!_.isUndefined(data.status.id) && !_.isNull(data.status.id)){
+                if(!_.isUndefined(data.status) && !_.isUndefined(data.status.id) && !_.isNull(data.status.id)){
                     scope.formData.loanStatusValue = data.status.value;
                 }
                 scope.formData.amountBorrowed = data.amountBorrowed;
@@ -29,11 +29,15 @@
                 scope.formData.dpd30mths24 = data.dpd30Mths24;
                 scope.formData.dpd60mths24 = data.dpd60Mths24;
                 scope.formData.loanTenure = data.loanTenaure;
-                scope.formData.loanTenurePeriodType = data.loanTenurePeriodType.value;
+                if(!_.isUndefined(data.loanTenurePeriodType) && !_.isUndefined(data.loanTenurePeriodType.value)){
+                    scope.formData.loanTenurePeriodType = data.loanTenurePeriodType.value;
+                }
                 scope.formData.repaymentFrequencyMultipleOf = data.repaymentFrequencyMultipleOf;
-                scope.formData.repaymentFrequency = data.repaymentFrequency.value;
+                if(!_.isUndefined(data.repaymentFrequency) && !_.isUndefined(data.repaymentFrequency.value)){
+                    scope.formData.repaymentFrequency = data.repaymentFrequency.value;
+                }
                 scope.formData.archive = data.archive;
-                if (!_.isUndefined(data.timeline.disbursedDate)) {
+                if (!_.isUndefined(data.timeline) && !_.isUndefined(data.timeline.disbursedDate)) {
                     scope.formData.disbursedDate = dateFilter(data.timeline.disbursedDate, scope.df);
                 };
             });
