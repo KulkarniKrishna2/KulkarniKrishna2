@@ -7872,7 +7872,7 @@
     "label.anchor.screenforGstDebitTransactionDetails" : "Screen for GST Pushed Debit transactions",
     "label.anchor.gstDebitTransaction" : "GST Debit transactions",
     "error.msg.proposed.loans.not.preclosed" : "Proposed Loans must be closed",
-    "error.msg.staff.office.can.not.be.updated" : "Staff's office can not be updated , as it is attached to active {{params[0].value}} accounts {{params[1].value}} ",
+    "error.msg.staff.office.can.not.be.updated" : "Staff's office can not be updated , as it is attached to active {{params[0].value}} ",
 
     "label.self.service.user" : "Self Service Users",
     
