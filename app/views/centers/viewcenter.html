@@ -159,7 +159,7 @@
 									<li>
 										<a href="#/transferhistory/{{entityType}}/{{center.id}}" has-permission='READ_TRANSFERHISTORY'>{{'label.button.view.transfer.history' | translate }}</a>
 									</li>
-									<li>
+									<li ng-show = "showAPSCRepayment">
 										<a href="#/centers/{{center.id}}/apscRepayment" has-permission='APSCREPAYMENT_ACCOUNTTRANSFER'>{{'label.button.view.apsc.repayment' | translate }}</a>
 									</li>
 								</ul>
@@ -397,17 +397,18 @@
 						                        <th>{{ 'label.heading.activationdate' | translate }}</th>
 						                        <td><span class="padded-td">{{center.activationDate | DateFormat}}</span>
 						                        </td>
-						                    </tr>
-						                    <tr data-ng-show="center.staffName">
-						                    	<tr>
+											</tr>
+											<tr data-ng-show="center.staffName">
+						                    	<tr ng-hide="showOnlyStaff">
 						                        <th>{{ 'label.heading.originated.loan.officer' | translate }}</th>
 						                        <td><span class="padded-td">{{center.originatedStaffName}}</span>
 						                        </td></tr>
-						                        <tr><th>{{ 'label.heading.managed.by.loan.officer' | translate }}</th>
-						                        <td><span class="padded-td">{{center.staffName}}</span>
+												<tr>
+												<th>{{ 'label.heading.managed.by.loan.officer' | translate }}</th>
+												<td><span class="padded-td">{{center.staffName}}</span>
 						                        </td></tr>
-						                    </tr>
-						                </table>
+											</tr>
+										</table>
 										<br/>
 										<div class="alert alert-warning" role="alert">
 											<h4><strong>{{ 'label.heading.meeting' | translate }}</strong></h4>
