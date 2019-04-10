@@ -470,7 +470,9 @@
 				"referenceNo": true,
 				"unassignStaffCenter": false,
 				"canCreateSubGroups": true,
-				"showAttendance": false
+				"showAttendance": false,
+				"showAPSCRepayment": false,
+				"showOnlyStaff": true
 			}
 		},
 		"createOffice": {
@@ -581,6 +583,19 @@
 		},
 		"shares": {
 			"hidesharesmodule": true
+		},
+		"centers": {
+			"showRefNo": false
+		},
+		"groups": {
+			"showRefNo": false
+		},
+		"clients": {
+			"showRefNo": false
+		},
+		"offices": {
+			"showRefNo": false
 		}
+		
 	}
 }

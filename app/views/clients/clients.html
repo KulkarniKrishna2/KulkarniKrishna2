@@ -96,7 +96,7 @@
                     <thead ng-if="clients.currentPageItems.length > 0">
                         <tr class="graybg">
                             <th>{{'label.heading.name' | translate}}</th>
-                            <th>{{'label.heading.clientreferenceno' | translate}}</th>
+                            <th  ng-if="response.uiDisplayConfigurations.clients.showRefNo">{{'label.heading.clientreferenceno' | translate}}</th>
                             <th>{{'label.heading.clientno' | translate}}</th>
                             <th>{{'label.heading.mobilenumber' | translate}}</th>
                             <th>{{'label.heading.office' | translate}}</th>
@@ -109,7 +109,7 @@
                             <span ng-if = "!displayNameInReverseOrder">{{client.displayName}}</span>
                             <span ng-if = "displayNameInReverseOrder" ng-init="reverseDisplayName(client)">{{client.displayNameInReverseOrder}}</span>
                         </td>
-                        <td class="pointer" data-ng-click="routeTo(client.id)">{{client.referenceNumber}}</td>
+                        <td class="pointer" data-ng-click="routeTo(client.id)"  ng-if="response.uiDisplayConfigurations.clients.showRefNo">{{client.referenceNumber}}</td>
                         <td class="pointer" data-ng-click="routeTo(client.id)">{{client.accountNo}}</td>
                         <td class="pointer" data-ng-click="routeTo(client.id)" ng-show="client.mobileNo">{{client.mobileNo}}</td>
                         <td class="pointer" data-ng-click="routeTo(client.id)" ng-show="!client.mobileNo">{{defaultMobileNumber}}</td>

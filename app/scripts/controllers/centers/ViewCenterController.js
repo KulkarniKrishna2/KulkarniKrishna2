@@ -23,6 +23,8 @@
             scope.showAttendance = !scope.response.uiDisplayConfigurations.viewCenter.isHiddenField.showAttendance;
             scope.isHideCreateEntity = false;
             scope.canCreateSubGroup=scope.response.uiDisplayConfigurations.viewCenter.isHiddenField.canCreateSubGroups;
+            scope.showAPSCRepayment = scope.response.uiDisplayConfigurations.viewCenter.isHiddenField.showAPSCRepayment;
+            scope.showOnlyStaff = scope.response.uiDisplayConfigurations.viewCenter.isHiddenField.showOnlyStaff;
             if(scope.isWorkflowEnabled && scope.hideManageGroup){
                 scope.isHideCreateEntity = true;
             }
