@@ -53,7 +53,7 @@
                             </tr>
                             <tr>
                                 <td>{{'label.heading.lastlogintime' | translate}}:</td>
-                                <td>{{user.lastLoginDate}}</td>
+                                <td>{{user.lastLoginDate | DateFormat}}</td>
                             </tr>
                             <tr>
                                 <td>{{'label.heading.office' | translate}}:</td>
@@ -69,7 +69,7 @@
                             </tr>
                             <tr>
                                     <td>{{'label.heading.joiningDate' | translate}}:</td>
-                                    <td>{{joiningDate}}</td>
+                                    <td>{{user.staff.joiningDate | DateFormat}}</td>
                             </tr>
                             <tr>
                                 <td valign="top">{{'label.heading.roles' | translate}}:</td>
