@@ -5,6 +5,7 @@
             scope.addressId ;
             scope.datatabledetails = {};
             scope.datatabledetails.isData;
+            scope.fromEntity = 'village';
             resourceFactory.DataTablesResource.getAllDataTables({apptable: 'chai_villages', isFetchBasicData: true}, function (data) {
                 scope.datatables = data;
                 if(scope.datatables && scope.datatables[0]){
@@ -257,6 +258,20 @@
 
             scope.hideId = function(row){
                 return  (row.columnName === 'id');
+            };
+
+            scope.viewDataTable = function(registeredTableName, data) {
+                if (scope.datatabledetails.isMultirow) {
+                    var multiURL = "/viewdatatableentry/" + registeredTableName + "/" + scope.villageId + "/" + data.row[0].value;
+                    location.path(multiURL).search({
+                        fromEntity: scope.fromEntity
+                    });
+                } else {
+                    var singleURL = "/viewsingledatatableentry/" + registeredTableName + "/" + scope.villageId;
+                    location.path(singleURL).search({
+                        fromEntity: scope.fromEntity
+                    });
+                }
             };
         }
     });
