@@ -7897,6 +7897,8 @@
     "validation.msg.savingsaccount.transaction.not.valid.cannot.pay.activation.time.charge.is.automated": "Savings activation charge gets automatically paid at the time of activation",
     "validation.msg.loanapplicationreference.loanApplicationSanctionTrancheDatas.cannot.be.empty": "Please fill the tranche data",
     "error.msg.loan.disbursement.date.before.account.activation.date": "Loan disbursement date cannot be before savings account activation date",
+    "validation.msg.loan.number.of.repayments.greater.than.maximum.number.of.repayments" : "Number of repayments are greater than maximum number of repayments",
+    "validation.msg.loanemipack.number.of.repayments.lesser.than.minimum.number.of.repayments" : "Number of repayments are lesser than minimum number of repayments.",
 
     "------ end of translation file ------": "----------"
 }
