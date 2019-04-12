@@ -1,11 +1,9 @@
 <div ng-controller="ReviewBankAccountCommonController">
     <div><api-validate></api-validate></div>
-    <div class="col-md-12 paddedtop">
-        <img ng-src="{{documentImg}}" width="600"/>
-    </div>
-    <div ng-if="bankAccountDocuments.length>0" class="form-group paddedtop">
+    <div class="row">
+    <div ng-if="bankAccountDocuments.length>0" class="form-group paddedtop col-md-6"">
         <span><b>{{'uploadedDocuments' | translate}}:&nbsp;</b></span> 
-        <table class="table width50" >
+        <table class="table" >
             <thead>
                 <tr class="graybg">
                     <th>{{'label.heading.name' | translate}}</th>
@@ -21,8 +19,10 @@
                     </td>
                 </tr>
             </tbody>
-        </table>    
+        </table>
+        <image-viewer image="documentImg" ></image-viewer>    
     </div>
+    <div class="col-md-6">
     <form name="reviewbankaccountdetail" novalidate="" class="form-horizontal" >
     <table class="table" >
         <thead>
@@ -169,4 +169,6 @@
             <a id="edit" ng-click="submit()" class="btn btn-primary" has-permission="ACTIVATE_BANKACCOUNTDETAIL">{{'label.button.approve' | translate}}</a>
         </div>
     </form>
+    </div>
+    </div>
 </div>
