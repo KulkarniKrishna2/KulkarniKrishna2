@@ -21,7 +21,6 @@
             scope.upfrontFee = "Upfront Fee";
             scope.interestRatesListPerPeriod = [];
             scope.interestRatesListAvailable = false;
-            scope.isCenter=false;
             scope.installmentAmountSlabChargeType = 1;
             scope.showIsDeferPaymentsForHalfTheLoanTerm = false;
             var SLAB_BASED = 'slabBasedCharge';
@@ -38,10 +37,14 @@
             scope.showLoanPurposeWithoutGroup = false;
             scope.showLoanPurposeGroup = true;
             
-            resourceFactory.groupResource.get({groupId: scope.groupId}, function (data) {
-                if(data.groupLevel && data.groupLevel==1)
-                {
-                    scope.isCenter=true;
+            resourceFactory.clientResource.get({clientId: routeParams.clientId, associations:'hierarchyLookup'}, function (data) {
+                if (data.groups.length == 1) {
+                    if (data.groups[0].groupLevel == 2) {
+                        scope.group = data.groups[0];
+                    }
+                    if (data.groups[0].groupLevel == 1) {
+                        scope.center = data.groups[0];
+                    }
                 }
             });
 
@@ -113,9 +116,7 @@
                 if (data.clientName) {
                     scope.clientName = data.clientName;
                 }
-                if (data.group) {
-                    scope.groupName = data.group.name;
-                }
+                
                 if(data.interestRatesListPerPeriod != undefined && data.interestRatesListPerPeriod.length > 0){
                     scope.interestRatesListPerPeriod = data.interestRatesListPerPeriod;
                     scope.interestRatesListAvailable = true;

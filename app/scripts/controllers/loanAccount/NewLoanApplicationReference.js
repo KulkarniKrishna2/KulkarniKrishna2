@@ -44,6 +44,17 @@
             scope.loanReferenceTrancheData = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatory.trancheData;
             scope.isMandatoryDisbursementPaymentType = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.disbursementPaymentType;
 
+            resourceFactory.clientResource.get({clientId: routeParams.clientId, associations:'hierarchyLookup'}, function (data) {
+                if (data.groups.length == 1) {
+                    if (data.groups[0].groupLevel == 2) {
+                        scope.group = data.groups[0];
+                    }
+                    if (data.groups[0].groupLevel == 1) {
+                        scope.center = data.groups[0];
+                    }
+                }
+            });
+
             scope.inparams = {resourceType: 'template', activeOnly: 'true'};
             scope.newLoanApplicationLimitAllowed = scope.response.uiDisplayConfigurations.createLoanApplication.newLoanApplicationLimitAllowed;
             if (scope.clientId && scope.groupId && !scope.disbursementToGroupAllowed)  {
@@ -76,9 +87,6 @@
 
                 if (data.clientName) {
                     scope.clientName = data.clientName;
-                }
-                if (data.group) {
-                    scope.groupName = data.group.name;
                 }
             });
 
