@@ -7,6 +7,7 @@
             scope.formData.locale = scope.optlang.code;
             scope.selectedSequences = [];
             scope.productIdApplicableFor = [7,10,201];
+            scope.staffIdApplicableFor = [6];
 
             scope.getAllActiveLoanProducts = function(){
                 resourceFactory.loanProductResource.getAllLoanProducts(function(data) {
