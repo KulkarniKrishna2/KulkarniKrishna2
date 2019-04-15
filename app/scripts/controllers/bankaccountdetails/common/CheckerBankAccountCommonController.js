@@ -89,10 +89,10 @@
                         scope.bankAccountDocuments = data.bankAccountDocuments;
                         for (var i = 0; i < scope.bankAccountDocuments.length; i++) {
                             var docs = {};
-                            docs = $rootScope.hostUrl + API_VERSION + '/' + getEntityType() + '/' + getEntityId() + '/documents/' + scope.bankAccountDocuments[i].id + '/attachment';
+                            docs = $rootScope.hostUrl + API_VERSION + '/' + getEntityType() + '/' + getEntityId() + '/documents/' + scope.bankAccountDocuments[i].id + '/download';
                             scope.bankAccountDocuments[i].docUrl = docs;
                         }
-                        scope.documentImg =  scope.bankAccountDocuments[0].docUrl;
+                        scope.viewDocument(scope.bankAccountDocuments[0]);
                     }
                 });
             }
@@ -149,12 +149,18 @@
             init();
 
             scope.viewDocument = function(document){
+                var url = document.docUrl;
                 for(var tmp in scope.bankAccountDocuments)
                 {
                     tmp.selected = false;
                 }
                 document.selected = true;
-                scope.documentImg = document.docUrl;
+                $http({
+                    method: 'GET',
+                    url: url
+                }).then(function (documentImage) {
+                    scope.documentImg = documentImage.data;
+                });
             }
 
             /*overriding doPreTaskActionStep method of defaultActivityController*/
