@@ -38,7 +38,7 @@
 	                    class="required">*</span></label>
 				<div class="col-sm-3">
 	                <input type="text" autocomplete="off" id="name" name="name" ng-pattern="{{namePattern}}" ng-model="formData.name"
-						    class="form-control" ng-disabled="isNameReadOnly && !createWithoutVillage" required="required" late-Validate/>
+						    class="form-control" ng-disabled="response.uiDisplayConfigurations.createCenter.isReadOnlyField.name && !createWithoutVillage" required="required" late-Validate/>
 					<span class="error" ng-show="createcenterform.name.$invalid && createcenterform.name.$dirty">{{'label.error.name.range' | translate}}</span>
 				</div>
 	            <div class="col-sm-3">
