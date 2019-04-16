@@ -115,6 +115,13 @@
                 }, function (data) {
                     scope.staffs = data.staffOptions;
                     scope.isWorkflowEnabled = (data.isWorkflowEnabled && data.isWorkflowEnableForBranch);
+                    if(scope.selfActivate || (scope.response.uiDisplayConfigurations.createGroup.isAutoPopulate.active && !scope.isWorkflowEnabled)){
+                        scope.formData.active = true;
+                        scope.choice = 1;
+                    }else{
+                        scope.formData.active = false;
+                        scope.choice = 0;
+                    }
                 });
                 resourceFactory.groupTemplateResource.get({officeId: officeId}, function (data) {
                     scope.clients = data.clientOptions;
