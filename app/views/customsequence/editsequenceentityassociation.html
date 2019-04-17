@@ -18,11 +18,12 @@
                         <option value="">{{label.menu.selectentity | translate }}</option>
                     </select>
                 </div>
-
-                <label class="control-label col-sm-2" ng-if="entityNames">{{ 'label.heading.entityname' | translate }}<span class="required">*</span></label>
-                <div class="col-sm-3" ng-if="entityNames">
-                    <select id="entityName" name="entityName" ng-model="entityName" class="form-control" ng-options="entityName for entityName in entityNames" ng-disabled="true" late-validate>
-                    </select>
+                <div ng-if="productIdApplicableFor.indexOf(entityType)>-1 || staffIdApplicableFor.indexOf(entityType)>-1">
+                    <label class="control-label col-sm-2" ng-if="entityNames">{{ 'label.heading.entityname' | translate }}<span class="required">*</span></label>
+                    <div class="col-sm-3" ng-if="entityNames">
+                        <select id="entityName" name="entityName" ng-model="entityName" class="form-control" ng-options="entityName for entityName in entityNames" ng-disabled="true" late-validate>
+                        </select>
+                    </div>
                 </div>
             </div>
 
