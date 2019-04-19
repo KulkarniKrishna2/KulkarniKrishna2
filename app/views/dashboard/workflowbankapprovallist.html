@@ -156,7 +156,7 @@
                                     </td>
                                     <td class=" pointer" ng-click="goToBankApprovalView(workflowBankApproval, taskType.grouping)">
                                         <i tooltip-placement="right" class="icon-circle " ng-style="getColor(workflowBankApproval.workflowLoanStatus.code)"></i>
-                                        {{workflowBankApproval.workflowLoanStatus.value}}
+                                        {{workflowBankApproval.workflowLoanStatus.code | translate}}
                                     </td>    
                                     <td class=" pointer" ng-click="goToBankApprovalView(workflowBankApproval, taskType.grouping)">
                                         {{workflowBankApproval.taskCreatedDate}}
