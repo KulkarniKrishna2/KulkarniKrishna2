@@ -182,7 +182,7 @@
             };
 
             scope.getSavingAccountDetailsTemplateData = function(){
-            resourceFactory.savingsResource.get({accountId: routeParams.id, limit: scope.limit, offset:scope.requestoffset, associations: 'all'}, function (data) {
+            resourceFactory.savingsResource.get({accountId: routeParams.id, limit: scope.limit, offset:scope.requestoffset, orderBy:'transactionDate', sortOrder:'DESC', associations: 'all'}, function (data) {
                 scope.savingaccountdetails = data;
                 $rootScope.savingsAccount = data.savingsProductName;
                 $rootScope.clientId=data.clientId;
