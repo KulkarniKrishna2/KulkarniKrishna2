@@ -23,8 +23,8 @@
         }
         params.offset = offset;
         params.limit = limit;
-        params.orderBy = 'name';
-        params.sortOrder = 'ASC';
+        params.orderBy = 'lastModifiedDate';
+        params.sortOrder = 'DESC';
         resourceFactory.bulkStatementsResource.getAllBankStatement(params, callback);
         };
 
