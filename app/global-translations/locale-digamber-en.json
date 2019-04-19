@@ -1,3 +1,8 @@
 {
-"label.heading.companyname":"Digamber Finance"
+"label.heading.companyname":"Digamber Finance",
+"label.anchor.kotak.approval" : "Head Office Approval",
+"label.tab.kotak.approval.loans" : "Approved Loans",
+"label.tab.kotak.reject.loans" : "Rejected Loans",
+"KotakApproved" : "Approved",
+"KotakRejected" : "Rejected"
 }
