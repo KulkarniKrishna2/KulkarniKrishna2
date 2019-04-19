@@ -312,9 +312,9 @@
                 <hr>
 
 
-                <div class="col-md-12" ng-show="showOrHideValue == 'hide'">
-                    <h4>{{'label.heading.advancedaccountingrules' | translate}}[<a ng-click="showOrHide(showOrHideValue)">{{showOrHideValue}}</a>]
-                    </h4>
+                <h4>{{'label.heading.advancedaccountingrules' | translate}}[<a ng-click="showOrHide(showOrHideValue)">{{showOrHideValue}}</a>]</h4>
+                <div class="col-md-12" ng-if="showOrHideValue == 'hide'">
+                    
                     <div class="col-md-8">{{'label.heading.configurefundsourcesforpaymentchannels' | translate}}</div>
                     <div class="col-md-4">
                         <a class="btn btn-primary" ng-click="addConfigureFundSource()">{{ 'label.button.add' |
@@ -355,6 +355,7 @@
                             </td>
                         </tr>
                     </table>
+                    <div ng-if = "false">
                     <div class="col-md-8">{{'label.heading.mapfeestoincomeaccounts' | translate}}</div>
                     <div class="col-md-4">
                         <a class="btn btn-primary" ng-click="mapFees()">{{ 'label.button.add' | translate }}</a>
@@ -512,6 +513,7 @@
                         </tr>
                     </table>
                 </div>
+            </div>
                 <div class="center">
                     <button id="cancel" ng-click="routeTo()" type="reset" class="btn btn-warning">{{'label.button.cancel'
                         | translate}}

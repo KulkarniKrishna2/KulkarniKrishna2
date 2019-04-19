@@ -6,8 +6,9 @@
             scope.isEmpty = false;
             var queryParams = { accStateId: routeParams.accStateId };
             resourceFactory.AdvancedAccountingGLMapping.get(queryParams, function (data) {
-                scope.accountingMappings = data;
-                scope.isEmpty = !data.hasOwnProperty("fundSourceAccount");
+                scope.accountingMappings = data.glMappings;
+                scope.paymentChannelToFundSourceMappings = data.paymentTypeToFundSourceMappings;
+                scope.isEmpty = !scope.accountingMappings.hasOwnProperty("fundSourceAccount");
             });
         }
     });
