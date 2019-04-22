@@ -561,9 +561,6 @@
                                 if(reqSecondDate < new Date($scope.loanaccountinfo.calendarOptions[0].recurringDates[i])){
                                     $scope.loanAccountFormData.expectedDisbursementDate = dateFilter(new Date($scope.loanaccountinfo.calendarOptions[0].recurringDates[i]),scope.df);
                                     break;
-                                }else if(reqSecondDate  == new Date($scope.loanaccountinfo.calendarOptions[0].recurringDates[i])){
-                                    $scope.loanAccountFormData.expectedDisbursementDate = dateFilter(new Date($scope.loanaccountinfo.calendarOptions[0].recurringDates[i]),scope.df);
-                                    break;
                                 }
                             }
                         }
