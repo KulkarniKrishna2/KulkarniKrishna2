@@ -1355,7 +1355,7 @@
                     location.path(multiURL).search({fromEntity:scope.fromEntity});
                 }else{
                     var singleURL = "/viewsingledatatableentry/"+registeredTableName+"/"+scope.loandetails.id;
-                    location.path(singleURL).search({fromEntity:scope.fromEntity});;
+                    location.path(singleURL).search({fromEntity:scope.fromEntity});
                 }
             };
 
