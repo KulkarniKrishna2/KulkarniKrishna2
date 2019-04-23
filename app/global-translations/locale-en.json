@@ -7875,6 +7875,7 @@
     "error.msg.staff.office.can.not.be.updated" : "Staff's office can not be updated , as it is attached to active {{params[0].value}} accounts {{params[1].value}} ",
 
     "label.self.service.user" : "Self Service Users",
+    "validation.msg.calendar.loans.reschedule.not.be.done.for.this.meeting.date":"Meeting Date Can't be change,Transaction already done for Loans",
     
     "------ end of translation file ------": "----------"
 }
