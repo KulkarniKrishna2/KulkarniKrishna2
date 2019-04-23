@@ -524,6 +524,7 @@
                 scope.dedupeClientId = clientId;
                 scope.popUpHeaderName = "label.heading.client.deduplication.check"
                 scope.includeHTML = 'views/clients/clientdeduplicationcheck.html';
+                scope.isCancelOnclose = true;
                 var templateUrl = 'views/common/openpopup.html';
                 var controller = 'ClientDeduplicationCheckController';
                 popUpUtilService.openFullScreenPopUp(templateUrl, controller, scope);
