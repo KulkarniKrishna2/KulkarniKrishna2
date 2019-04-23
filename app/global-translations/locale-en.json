@@ -6656,6 +6656,7 @@
     "validation.msg.loanproduct.paymentChannelToFundSourceMappings.paymentTypeId.duplicate" : "Remove duplicate entries in Payment channel to fund source mappings.",
     "validation.msg.loanproduct.feeToIncomeAccountMappings.chargeId.duplicate" : "Remove duplicate entries in fee to income account mapping.",
     "validation.msg.loanproduct.penaltyToIncomeAccountMappings.chargeId.duplicate" : "Remove duplicate entries in penalty to income account mappings.",
+    "validation.msg.ACCOUNTING_STATE_TO_GL_MAPPING.paymentChannelToFundSourceMappings.paymentTypeId.duplicate":"Remove duplicate entries in Payment channel to fund source mappings.",
 
     "#RD Product Validation" : "",
     "validation.msg.recurringdeposit.savingsControlAccountId.cannot.be.blank" : "Saving Control cannot be blank.",
