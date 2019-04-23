@@ -96,7 +96,14 @@
             };
 
             scope.cancel = function(){
-                scope.close();
+                if(scope.dedupeClientId){
+                    resourceFactory.clientResource.delete({clientId: scope.dedupeClientId},{}, function (data) {
+                        scope.close();
+                    });
+                }else{
+                    scope.close();
+                }
+                
             }
             scope.tagClientToMatchedClientId = function () {
                 var tagFormData = {};
