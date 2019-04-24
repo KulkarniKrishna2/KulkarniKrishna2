@@ -457,6 +457,8 @@
                             }
                         } else if (data.transactionId) {
                             destination = '/viewtransactions/' + data.transactionId;
+                        } else if(scope.village){
+                            destination = '/viewvillage/' + scope.villageId;
                         } else if (data.officeId) {
                             destination = '/viewoffice/' + data.officeId;
                         }

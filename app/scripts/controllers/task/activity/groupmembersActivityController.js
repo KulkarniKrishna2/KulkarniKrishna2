@@ -15,6 +15,9 @@
             scope.isStaffMandatory = false;
             scope.isStaffRequired = false;
             scope.addressFromVillages = false;
+            scope.paymentModeOptions = [];
+            scope.repaymentTypeOption = [];
+            scope.disbursementTypeOption = [];
 
             scope.changeVillage = function (villageId) {
                 if(villageId != null){
@@ -249,6 +252,10 @@
                     scope.isEmailIdMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.emailId;
                 }
 
+                if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField){
+                    scope.isMandatoryDisbursementPaymentMode = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.disbursementPaymentMode;
+                }
+
                 resourceFactory.clientTemplateResource.get(requestParams, function(data) {
                      scope.offices = data.officeOptions;
                      scope.staffs = data.staffOptions;
@@ -472,6 +479,7 @@
 
             resourceFactory.loanResource.get(scope.inparams, function(data) {
                 scope.loanaccountinfo = data;
+                scope.paymentModeOptions = data.paymentModeOptions ;
 
                 if (data.clientName) {
                     scope.clientName = data.clientName;
@@ -548,7 +556,38 @@
                 }
             });
         };
-
+        
+        scope.changeDisbursalMode = function() {
+            scope.disbursementTypeOption = [];
+            if (scope.isMandatoryDisbursementPaymentMode) {
+                scope.formData.expectedDisbursalPaymentType = null;
+            }
+            if (scope.loanaccountinfo && scope.loanaccountinfo.paymentOptions) {
+                for (var i in scope.loanaccountinfo.paymentOptions) {
+                    if ((scope.loanaccountinfo.paymentOptions[i].paymentMode == undefined ||
+                            scope.loanaccountinfo.paymentOptions[i].paymentMode.id == this.disbursementModeId) &&
+                        (scope.loanaccountinfo.paymentOptions[i].applicableOn == undefined || scope.loanaccountinfo.paymentOptions[i].applicableOn.id != scope.applicableOnRepayment)) {
+                        scope.disbursementTypeOption.push(scope.loanaccountinfo.paymentOptions[i]);
+                    }
+                }
+        
+            }
+        };
+        
+        scope.changeRepaymentMode = function() {
+            scope.repaymentTypeOption = [];
+            if (scope.loanaccountinfo && scope.loanaccountinfo.paymentOptions) {
+                for (var i in scope.loanaccountinfo.paymentOptions) {
+                    if ((scope.loanaccountinfo.paymentOptions[i].paymentMode == undefined ||
+                            scope.loanaccountinfo.paymentOptions[i].paymentMode.id == this.repaymentModeId) &&
+                        (scope.loanaccountinfo.paymentOptions[i].applicableOn == undefined || scope.loanaccountinfo.paymentOptions[i].applicableOn.id != scope.applicableOnDisbursement)) {
+                        scope.repaymentTypeOption.push(scope.loanaccountinfo.paymentOptions[i]);
+        
+                    }
+                }
+            }
+        };
+        
         scope.setPaymentType = function(){
             if (scope.paymentOptions) {
                 if (scope.responseDefaultGisData && scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig && scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.paymentType) {
