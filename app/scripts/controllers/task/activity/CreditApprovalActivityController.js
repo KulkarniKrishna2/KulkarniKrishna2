@@ -198,7 +198,7 @@
                 $scope.isEditpage = false;
                 $scope.autoCheck = false;
                 $scope.updateReview = false;
-                if(!_.isUndefined($scope.reviewData)){
+                if(!_.isUndefined($scope.reviewData) && $scope.reviewData.length > 0){
                     $scope.isEditpage = true;
                 }
 
