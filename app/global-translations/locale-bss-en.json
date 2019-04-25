@@ -301,5 +301,7 @@
   "label.heading.transfer.client.active.loan.savings" : "Active loans and APSC account also will be transferred.",
   "label.input.monthly.family.income": "Monthly Family Income",
   "error.msg.client.deceased" : "Member `{{params[0].value}}` is already marked as deceased.",
+  "label.tab.system.approved" : "System Validated",
+
   "------ end of tensalation file":"---------"
 }
