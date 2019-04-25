@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        AccFreqPostingController: function (scope, resourceFactory, location, dateFilter) {
+        AccFreqPostingController: function (scope, resourceFactory, location, dateFilter,$upload,$rootScope,API_VERSION) {
 
             scope.formData = {};
             scope.formData.crAccounts = [];
@@ -12,6 +12,7 @@
             scope.errordebitevent = false;
             scope.restrictDate = new Date();
             scope.showPaymentDetails = false;
+            scope.resourceId;
 
 
 
@@ -52,7 +53,7 @@
                   scope.allowCreditEntries = false;
                 }
             }
-            
+        
             //events for credits
             scope.addCrAccount = function () {
                 scope.errorcreditevent = false;
@@ -90,6 +91,26 @@
                     scope.allowDebitEntries = true;
                 }
             }
+
+               /**
+             * Documents Related Code
+             */
+            scope.documents = [];
+            scope.docData = {};
+            scope.files = [];
+            scope.onFileSelect = function ($files) {
+                scope.docData.fName = $files[0].name;
+                scope.files.push($files[0]);
+            };
+
+            scope.addDocument = function(){
+                scope.documents.push(scope.docData);
+                scope.docData = {};
+            };
+
+            scope.deleteDocument = function (index) {
+                scope.documents.splice(index, 1);
+            };
 
             scope.submit = function () {
                 var jeTransaction = new Object();
@@ -130,12 +151,56 @@
                 }
 
                 resourceFactory.frequentPostingResource.save(jeTransaction, function (data) {
-                    location.path('/viewtransactions/' + data.resourceId);
+                    scope.resourceId = data.resourceId;
+                    if (scope.documents && scope.documents.length > 0) {
+                        uploadDocumets(data);
+                    } else {
+                        scope.routeTO();
+                    }
                 });
+
+                var docResponse = 0;
+                var uploadURL = null;
+                function uploadDocumets(data) {
+                    docResponse = 0;
+                    uploadURL = $rootScope.hostUrl + API_VERSION + '/journal_entry/' + data.resourceId + '/documents';
+                    if (!_.isUndefined(scope.documents) && scope.documents.length > 0) {
+                        uploadProcessDocumets();
+                    }
+                }
+
+                scope.routeTO = function () {
+                    location.path('/viewtransactions/' + scope.resourceId);
+                }
+                scope.$on('createJournalDocUpload', function (event) {
+                    uploadProcessDocumets();
+                });
+
+                function uploadProcessDocumets() {
+                    $upload.upload({
+                        url: uploadURL,
+                        data: scope.documents[docResponse],
+                        file: scope.files[docResponse]
+                    }).then(function (data) {
+                        // to fix IE not refreshing the model
+                        if (!scope.$$phase) {
+                            scope.$apply();
+                        }
+                        docResponse++;
+                        if (docResponse == scope.documents.length) {
+                            scope.routeTO();
+                        } else {
+                            if ($rootScope.requestsInProgressAPIs["POST" + uploadURL]) {
+                                delete $rootScope.requestsInProgressAPIs["POST" + uploadURL];
+                            }
+                            scope.$emit("createJournalDocUpload");
+                        }
+                    });
+                }
             }
         }
     });
-    mifosX.ng.application.controller('AccFreqPostingController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', mifosX.controllers.AccFreqPostingController]).run(function ($log) {
+    mifosX.ng.application.controller('AccFreqPostingController', ['$scope', 'ResourceFactory', '$location', 'dateFilter','$upload','$rootScope','API_VERSION', mifosX.controllers.AccFreqPostingController]).run(function ($log) {
         $log.info("AccFreqPostingController initialized");
     });
 }(mifosX.controllers || {}));
