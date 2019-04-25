@@ -710,17 +710,17 @@
                     if(loanEMIPack.disbursalAmount2){
                         var loanApplicationSanctionTrancheDatas = {trancheAmount:loanEMIPack.disbursalAmount2};
                         scope.formRequestData.loanApplicationSanctionTrancheDatas.push(loanApplicationSanctionTrancheDatas);
-                        disbursalEMIs.push(loanEMIPack.disbursalEmi2)
+                        disbursalEMIs.push(loanEMIPack.disbursalEmi2);
                     }
                     if(loanEMIPack.disbursalAmount3){
                         var loanApplicationSanctionTrancheDatas = {trancheAmount:loanEMIPack.disbursalAmount3};
                         scope.formRequestData.loanApplicationSanctionTrancheDatas.push(loanApplicationSanctionTrancheDatas);
-                        disbursalEMIs.push(loanEMIPack.disbursalEmi3)
+                        disbursalEMIs.push(loanEMIPack.disbursalEmi3);
                     }
                     if(loanEMIPack.disbursalAmount4){
                         var loanApplicationSanctionTrancheDatas = {trancheAmount:loanEMIPack.disbursalAmount4};
                         scope.formRequestData.loanApplicationSanctionTrancheDatas.push(loanApplicationSanctionTrancheDatas);
-                        disbursalEMIs.push(loanEMIPack.disbursalEmi4)
+                        disbursalEMIs.push(loanEMIPack.disbursalEmi4);
                     }
                     if (scope.formRequestData.loanApplicationSanctionTrancheDatas && scope.formRequestData.loanApplicationSanctionTrancheDatas.length > 0) {
                         if (scope.formRequestData.expectedDisbursementDate != '' && scope.formRequestData.expectedDisbursementDate != undefined) {
@@ -1040,6 +1040,9 @@
             scope.addTranches = function () {
                 var loanApplicationSanctionTrancheDatas = {};
                 loanApplicationSanctionTrancheDatas.fixedEmiAmount = scope.formData.fixedEmiAmount;
+                if(!scope.formRequestData.loanApplicationSanctionTrancheDatas){
+                  scope.formRequestData.loanApplicationSanctionTrancheDatas = [];
+                }
                 scope.formRequestData.loanApplicationSanctionTrancheDatas.push(loanApplicationSanctionTrancheDatas);
             };
 
@@ -1409,6 +1412,14 @@
                     return (!scope.loanaccountinfo.multiDisburseLoan && scope.formData.isFlatInterestRate);    
                 }
                 return false;  
+            };
+
+            scope.showAddTranche = function(){
+                if(scope.formRequestData.loanApplicationSanctionTrancheDatas){
+                    return  scope.formRequestData.loanApplicationSanctionTrancheDatas.length < scope.formData.noOfTranche;
+                }else{
+                    return scope.loanaccountinfo.product.multiDisburseLoan;
+                }
             };
           }
 
