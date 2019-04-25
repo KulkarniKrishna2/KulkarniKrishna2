@@ -34,7 +34,7 @@
                     <td>
                         <table>
                             <tbody>
-                                <tr ng-repeat="workflow in member.workflows track by workflow.id">
+                                <tr ng-repeat="workflow in member.workflows track by workflow.id" ng-if= "workflow.status.code != 'taskStatus.cancelled'">
                                     <td  ng-if="workflow != undefined">
                                         <a type="button" id="workflow.id" class="btn angled-btn btn-default " data-ng-click="goToTask(workflow)">
                                         <span ng-if="workflow.activeChildTask">{{workflow.activeChildTask.name}}</span>
