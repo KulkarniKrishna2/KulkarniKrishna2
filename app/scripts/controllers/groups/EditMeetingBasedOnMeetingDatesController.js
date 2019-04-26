@@ -24,6 +24,7 @@
                 this.formData.reschedulebasedOnMeetingDates = true;
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
+                this.formData.changeMeetingDate = true;
 
                 this.formData.presentMeetingDate = dateFilter(this.formData.presentMeetingDate, scope.df);
                 this.formData.newMeetingDate = dateFilter(this.formData.newMeetingDate, scope.df);
