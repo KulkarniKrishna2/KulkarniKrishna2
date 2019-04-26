@@ -7877,6 +7877,8 @@
 
     "label.self.service.user" : "Self Service Users",
     "validation.msg.calendar.loans.reschedule.not.be.done.for.this.meeting.date":"Meeting Date Can't be change,Transaction already done for Loans",
+    "error.msg.client.dedupe.match":"Potential Match Found in the system `{{params[0].value}}` already exists",
+    "error.msg.client.can.not.have.crn" : "Client associate with loan: `{{params[0].value}}` doesn't have crn",
     
     "------ end of translation file ------": "----------"
 }
