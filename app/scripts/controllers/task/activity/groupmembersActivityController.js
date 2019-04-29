@@ -18,6 +18,8 @@
             scope.paymentModeOptions = [];
             scope.repaymentTypeOption = [];
             scope.disbursementTypeOption = [];
+            scope.applicableOnRepayment = 1;
+            scope.applicableOnDisbursement = 2;
 
             scope.changeVillage = function (villageId) {
                 if(villageId != null){
@@ -92,6 +94,10 @@
 
             if(scope.response.uiDisplayConfigurations.createClient.isMandatoryField.staff){
                 scope.isStaffMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.staff;
+            }
+
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField){
+                scope.isMandatoryDisbursementPaymentMode = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.disbursementPaymentMode;
             }
 
             scope.validateStaff = function(){
@@ -250,10 +256,6 @@
                 if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isMandatoryField) {
                     scope.isMobileNumberMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.mobileNumber;
                     scope.isEmailIdMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.emailId;
-                }
-
-                if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField){
-                    scope.isMandatoryDisbursementPaymentMode = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.disbursementPaymentMode;
                 }
 
                 resourceFactory.clientTemplateResource.get(requestParams, function(data) {
