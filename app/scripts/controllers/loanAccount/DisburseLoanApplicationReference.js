@@ -384,7 +384,7 @@
             if (scope.response && scope.response.uiDisplayConfigurations.loanAccount.isAutoPopulate.interestChargedFromDate) {
                 scope.$watch('formRequestData.disburse.actualDisbursementDate', function () {
                     if (scope.formRequestData.disburse.actualDisbursementDate != '' && scope.formRequestData.disburse.actualDisbursementDate != undefined) {
-                        scope.date.interestChargedFromDate = scope.formRequestData.disburse.actualDisbursementDate;
+                        scope.date.interestChargedFromDate = dateFilter(scope.formRequestData.disburse.actualDisbursementDate, scope.df);
                     }
                 });
             }
