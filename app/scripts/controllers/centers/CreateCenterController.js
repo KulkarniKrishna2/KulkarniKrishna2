@@ -17,15 +17,21 @@
             scope.isNameAutoPopulate = false;
             scope.officeName = "";
             scope.isBranchNameIncluded = false;
-            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createCenter.nameWithBranchName){
-                scope.isBranchNameIncluded = scope.response.uiDisplayConfigurations.createCenter.nameWithBranchName;
-            }
-            if(scope.response.uiDisplayConfigurations.createCenter.isValidateName) {
-                scope.namePattern = scope.response.uiDisplayConfigurations.createCenter.isValidateName.namePattern;
-            }
+            
             if(scope.response && scope.response.uiDisplayConfigurations){
+                scope.isHiddenVillageOption = scope.response.uiDisplayConfigurations.createCenter.isHiddenField.villageOptions;
+                scope.showActivation = !scope.response.uiDisplayConfigurations.createCenter.isHiddenField.activate;
+                scope.showaddclients = !scope.response.uiDisplayConfigurations.createCenter.isHiddenField.addclients;
+                scope.isNameAutoPopulate = scope.response.uiDisplayConfigurations.createCenter.isAutoPopulate.name;
                 scope.loanOfficersOnly = scope.response.uiDisplayConfigurations.createCenter.loanOfficersOnly;
-            }            
+                if(scope.response.uiDisplayConfigurations.createCenter.isValidateName) {
+                    scope.namePattern = scope.response.uiDisplayConfigurations.createCenter.isValidateName.namePattern;
+                }
+                if(scope.response.uiDisplayConfigurations.createCenter.nameWithBranchName){
+                    scope.isBranchNameIncluded = scope.response.uiDisplayConfigurations.createCenter.nameWithBranchName;
+                }
+            }  
+                      
             resourceFactory.centerTemplateResource.get({staffInSelectedOfficeOnly:true,loanOfficersOnly:scope.loanOfficersOnly},function (data) {
                 scope.offices = data.officeOptions;
                 scope.villageCount = data.villageCounter;
@@ -41,13 +47,6 @@
                 }
 
             });
-
-            if(scope.response != undefined){
-                scope.isHiddenVillageOption = scope.response.uiDisplayConfigurations.createCenter.isHiddenField.villageOptions;
-                scope.showActivation = !scope.response.uiDisplayConfigurations.createCenter.isHiddenField.activate;
-                scope.showaddclients = !scope.response.uiDisplayConfigurations.createCenter.isHiddenField.addclients;
-                scope.isNameAutoPopulate = scope.response.uiDisplayConfigurations.createCenter.isAutoPopulate.name;
-            }
 
             scope.$watch('formData.officeId', function() {                
                 scope.changeOffice();
@@ -114,8 +113,9 @@
                 scope.group = item;
             };
 
-            scope.add = function () {
-                if (scope.available != "") {
+            scope.add = function (addedGroup) {
+                scope.available = addedGroup;
+                if (!_.isUndefined(scope.available)) {
                     var temp = {};
                     temp.id = scope.available.id;
                     temp.name = scope.available.name;
