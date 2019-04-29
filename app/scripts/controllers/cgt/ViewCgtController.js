@@ -32,7 +32,7 @@
                         }
                     }
                 }
-                if(scope.cgt.status.value == "NEW" || scope.cgt.status.value == 'COMPLETE' || scope.cgt.status.value == 'REJECT'){
+                if(scope.cgt.status && (scope.cgt.status.value == "NEW" || scope.cgt.status.value == 'COMPLETE' || scope.cgt.status.value == 'REJECT')){
                     isAllCgtDaysCompleted = false;
                 }
                 return isAllCgtDaysCompleted;
