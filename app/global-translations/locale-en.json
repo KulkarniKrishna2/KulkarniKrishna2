@@ -7907,6 +7907,9 @@
     "error.msg.charge.slab.installment.slabChargeType.installment.amount.range.overlapping" :  "Slab installment amount of the charge is overlapping",
     "validation.msg.cgtDay.completedDate.cannot.be.blank" : "Please fill the completed date",
     "error.msg.cgt.global.configuration.not.enabled" : "CGT global configuration is not enabled",
+    "validation.msg.Sequence_Pattern.patterns.cannot.be.empty" : "Add sequence patterns to continue.",
+    "error.msg.data.not.available.sequences.generation.failed" : "Sequence generation failed. Kindly contact system administrator.",
+    "validation.msg.collectionsheet.transactionDate.is.greater.than.date" : "Transaction date cannot be in future.",
 
     "------ end of translation file ------": "----------"
 }
