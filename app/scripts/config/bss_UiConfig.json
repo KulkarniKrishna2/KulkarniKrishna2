@@ -78,7 +78,6 @@
 				"clientType": true,
 				"staff": true,
 				"openSavingsProduct": true
-			}
 			},
 			"isMandatoryField": {
 				"dateOfBirth": true,
