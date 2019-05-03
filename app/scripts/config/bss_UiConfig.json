@@ -79,6 +79,13 @@
 				"staff": true,
 				"openSavingsProduct": true
 			},
+			"isValidateDOBField": {
+				"active": true,
+				"ageCriteria": {
+					"minAge": "18",
+					"maxAge": "58"
+				}
+			},
 			"isMandatoryField": {
 				"dateOfBirth": true,
 				"maritalStatus": true,

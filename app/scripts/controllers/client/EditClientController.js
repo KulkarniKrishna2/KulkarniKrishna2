@@ -229,6 +229,17 @@
                     scope.showNonPersonOptions = true;
                 }
             };
+            scope.isDateOfBirthNotInRange = function(dateOfBirth){
+               if(dateOfBirth && scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.active) {
+                    if(!(dateOfBirth < scope.maxDateOfBirth && dateOfBirth > scope.minDateOfBirth)){
+                        scope.dateOfBirthNotInRange = true;
+                    } else{
+                        scope.dateOfBirthNotInRange = false;
+                    }
+                } else {
+                    scope.dateOfBirthNotInRange = false;
+                } 
+            }
 
             scope.$watch('date.dateOfBirth', function(newValue, oldValue){
                 if(scope.date.dateOfBirth != null)
@@ -271,15 +282,7 @@
                 }else {
                     scope.invalidClassificationId = false;
                 }
-                if(scope.date.dateOfBirth && scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.active) {
-                    if(!(scope.date.dateOfBirth < scope.maxDateOfBirth && scope.date.dateOfBirth > scope.minDateOfBirth)){
-                        scope.dateOfBirthNotInRange = true;
-                    } else{
-                        scope.dateOfBirthNotInRange = false;
-                    }
-                } else {
-                    scope.dateOfBirthNotInRange = false;
-                }
+                
 
                 if(scope.dateOfBirthNotInRange){
                     return false;
