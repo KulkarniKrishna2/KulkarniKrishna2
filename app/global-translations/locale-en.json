@@ -892,7 +892,7 @@
     "label.identificationType":"Select Identification Type",
     "label.input.reopeneddate":"Re Opened Date",
     "label.input.dob.not.range" : "Age should between ",
-    "label.input.year":" year",
+    "label.input.year":" Year",
     "label.input.and": " and",
     "label.input.filterbyamount": "Filter display by Transaction Date, Type, Amount",
     "#Buttons": "..",
@@ -7881,6 +7881,10 @@
     "label.anchor.screenforOfficeTaxMappings":"Screen for Office Tax Mappings",
     "label.anchor.createOfficeTaxMappings":"Create Office Tax Mappings",
     "label.anchor.editOfficeTaxMappings":"Edit Office Tax Mappings",
-
+    "label.anchor.viewinvoice": "View Invoice",
+    "label.anchor.selectmonth": "Select Month",
+    "label.anchor.mustbevalidyear": "Must be a valid year",
+    "label.anchor.officeType": "Office Type",
+    
     "------ end of translation file ------": "----------"
 }
