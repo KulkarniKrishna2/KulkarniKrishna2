@@ -892,7 +892,7 @@
     "label.identificationType":"Select Identification Type",
     "label.input.reopeneddate":"Re Opened Date",
     "label.input.dob.not.range" : "Age should between ",
-    "label.input.year":" year",
+    "label.input.year":" Year",
     "label.input.and": " and",
     "label.input.filterbyamount": "Filter display by Transaction Date, Type, Amount",
     "#Buttons": "..",
@@ -7874,7 +7874,6 @@
     "label.anchor.gstDebitTransaction" : "GST Debit transactions",
     "error.msg.proposed.loans.not.preclosed" : "Proposed Loans must be closed",
     "error.msg.staff.office.can.not.be.updated" : "Staff's office can not be updated , as it is attached to active {{params[0].value}} accounts {{params[1].value}} ",
-
     "label.self.service.user" : "Self Service Users",
     "validation.msg.calendar.loans.reschedule.not.be.done.for.this.meeting.date":"Meeting Date Can't be change,Transaction already done for Loans",
     "error.msg.client.dedupe.match":"Potential Match Found in the system `{{params[0].value}}` already exists",
@@ -7887,6 +7886,10 @@
     "label.anchor.createOfficeTaxMappings":"Create Office Tax Mappings",
     "label.anchor.editOfficeTaxMappings":"Edit Office Tax Mappings",
     "label.anchor.invoiceGeneratedTillDate":"Invoice Generated Till Date",
-
+    "label.anchor.viewinvoice": "View Invoice",
+    "label.anchor.selectmonth": "Select Month",
+    "label.anchor.mustbevalidyear": "Must be a valid year",
+    "label.anchor.officeType": "Office Type",
+    
     "------ end of translation file ------": "----------"
 }

@@ -1,0 +1,82 @@
+<div ng-controller="ViewGstInvoiceController">
+    <ul class="breadcrumb">
+        <li><a href="#/bc">{{'label.anchor.bc' | translate}}</a></li>
+        <li><a href="#/gstinvoicing">{{'label.anchor.gstinvoicing' | translate}}</a></li>
+        <li class="active">{{'label.anchor.viewinvoice' | translate}}</li>
+    </ul>
+
+    <form name="viewGstInvoiceform" novalidate="" class="form-horizontal well" rc-submit="search()">
+        <api-validate></api-validate>
+        <fieldset>
+            <legend>{{'label.anchor.viewinvoice'
+                            | translate}}&nbsp;</legend>
+            <div class="form-group">
+                <label class="control-label col-sm-1">
+                    {{'label.button.month' | translate}}
+                    <span class="required">*</span>
+                </label>
+                <div class="col-sm-3">
+                    <select chosen="months" id="month" name="month" ng-model="formData.month" class="form-control"
+                        ng-options="month.id as month.value for month in months" value="{{state.stateId}}" required
+                        late-validate>
+                        <option value="">{{'label.anchor.selectmonth' | translate}}</option>
+                    </select>
+                    <form-validate valattributeform="viewGstInvoiceform" valattribute="month" />
+                </div>
+                <div>
+                    <label class="control-label col-sm-1">{{'label.input.year' | translate}}<span
+                            class="required">*</span></label>
+                    <div class="col-sm-3">
+                        <input id="year" type="text" autocomplete="off" name="year" ng-model="formData.year"
+                            ng-pattern="/^(19|20)\d{2}$/" class="form-control" required late-validate />
+                        <span ng-show="viewGstInvoiceform.year.$invalid && viewGstInvoiceform.year.$dirty">
+                            <small class="required"
+                                ng-show="viewGstInvoiceform.year.$error.pattern">{{'label.anchor.mustbevalidyear' | translate}}</small>
+                        </span>
+                        <form-validate valattributeform="viewGstInvoiceform" valattribute="year" />
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    <button id="search" type="submit" class="btn btn-primary"
+                        has-permission=''>{{'label.heading.search' | translate }}
+                        <i class="icon-search icon-white"></i></button>
+                </div>
+            </div>
+            <br>
+            <div ng-if="taxInvoiceData.length>0">
+                <table class="table-bordered table view-table" class="width100">
+                    <tr class="graybg">
+                        <th>{{'label.heading.fromdate' | translate}}</th>
+                        <th>{{'label.heading.todate' | translate}}</th>
+                        <th>{{'label.anchor.interestAmountofbc' | translate}}</th>
+                        <th>{{'label.anchor.feesAmountofbc' | translate}}</th>
+                        <th>{{'label.anchor.subtotal' | translate}}</th>
+                        <th>{{'label.anchor.tdsamount' | translate}}</th>
+                        <th>{{'label.anchor.gstAmount' |translate}}</th>
+                        <th>{{'label.anchor.officeType' |translate }}</th>
+                        <th>{{'label.heading.statename' |translate }}</th>
+                    </tr>
+                    <tr ng-repeat="invoice in taxInvoiceData">
+                        <td class="pointer">{{invoice.fromDate | DateFormat}}</td>
+                        <td align="right" class="pointer">
+                            {{invoice.toDate | DateFormat}}</td>
+                        <td align="right" class="pointer">
+                            {{invoice.bcInterestAmount | number:2}}</td>
+                        <td align="right" class="pointer">
+                            {{invoice.bcFeesAmount | number:2}}</td>
+                        <td align="right" class="pointer">
+                            {{invoice.totalBcAmount | number:2}}</td>
+                        <td align="right" class="pointer">
+                            {{invoice.tdsAmount| number:2}}</td>
+                        <td align="right" class="pointer">
+                            {{invoice.gstAmount| number:2}}</td>
+                        <td class="pointer">
+                            {{invoice.officeTypeName}}</td>
+                        <td class="pointer">
+                            {{invoice.stateName}}</td>
+                    </tr>
+                </table>
+            </div>
+        </fieldset>
+    </form>
+</div>

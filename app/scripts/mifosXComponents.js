@@ -683,7 +683,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'accounting/AddLoanProductGSTMappingController',
             'accounting/AddChargesGSTMappingController',
             'accounting/AddSavingsProductGSTMappingController',
-            'accounting/CreateOfficeTaxMappingController'
+            'accounting/CreateOfficeTaxMappingController',
+            'accounting/ViewGstInvoiceController'
         ],
         filters: [
             'StatusLookup',
