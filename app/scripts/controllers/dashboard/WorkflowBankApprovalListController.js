@@ -285,6 +285,7 @@
                 resourceFactory.bulkBankApprovalActionResource.doBulkBankApproval(scope.bulkApprovalFormData, function (data) {
                     route.reload();
                 });
+                route.reload();
             }
 
             scope.createBulkCrnAction = function (approvalIdList) {
