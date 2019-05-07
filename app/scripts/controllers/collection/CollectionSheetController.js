@@ -285,7 +285,7 @@
                         locale :scope.optlang.code, dateFormat : scope.df};
                     scope.productiveCollctionSheetSearchParams = searchParameters;
                     resourceFactory.centerResource.save({'centerId': scope.centerId, command: 'generateCollectionSheet'}, scope.formData, function (data) {
-                        if (data.groups.length > 0) {
+                        if (data.groups && data.groups.length > 0) {
                             scope.collectionsheetdata = scope.parseClientCharge(data);
                             scope.paymentTypeOptions = data.paymentTypeOptions;
                             if(scope.collectionsheetdata != ""){
@@ -312,7 +312,7 @@
                         groupId : scope.groupId, locale :scope.optlang.code, dateFormat : scope.df};
                     scope.productiveCollctionSheetSearchParams = searchParameters;
                     resourceFactory.groupResource.save({'groupId': scope.groupId, command: 'generateCollectionSheet'}, scope.formData, function (data) {
-                        if (data.groups.length > 0) {
+                        if (data.groups && data.groups.length > 0) {
                             scope.collectionsheetdata = scope.parseClientCharge(data);
                             scope.paymentTypeOptions = data.paymentTypeOptions;
                             if(scope.collectionsheetdata != ""){
