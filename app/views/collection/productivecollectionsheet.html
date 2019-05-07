@@ -37,6 +37,9 @@
                 <span>{{'label.heading.branch' | translate}}&nbsp;:{{officeName}}</span>
                 <span class="paddedleft90">{{'label.input.meetingdate' | translate}}&nbsp;:{{meetingDate}}</span>
             </div>
+            <div ng-if = "showErrMsg()" class="error">
+                    {{"label.error.no.centers.are.available.for.the.provided.meeting.date"| translate}}
+            </div>
             <div class="tabbable tabs-below paddedtop">
                 <ul class="nav nav-tabs nav-pills">
                     <li ng-class="{statusactive: selectedTab == center.id}" ng-repeat="center in staffCenterData">

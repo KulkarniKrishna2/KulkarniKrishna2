@@ -7910,6 +7910,11 @@
     "validation.msg.Sequence_Pattern.patterns.cannot.be.empty" : "Add sequence patterns to continue.",
     "error.msg.data.not.available.sequences.generation.failed" : "Sequence generation failed. Kindly contact system administrator.",
     "validation.msg.collectionsheet.transactionDate.is.greater.than.date" : "Transaction date cannot be in future.",
+    "validation.msg.calendar.frequency.is.not.within.expected.range" : "Calender frequency is not within expected range" , 
+    "no.loans.are.present.to.assign.the.fund": "No loans are present to assign the fund" ,
+    "error.msg.client.not.in.center" : "No clients are present in the center", 
+    "error.msg.center.with.active.loan.can.not.update.meeting.date" : "Center meeting date can not be updated as it has active loans" ,
+    "label.error.no.centers.are.available.for.the.provided.meeting.date" :  "No centers are available for the provided meeting date" ,
 
     "------ end of translation file ------": "----------"
 }
