@@ -556,7 +556,9 @@
                 }
                 resourceFactory.loanResource.save({command: 'calculateLoanSchedule'}, this.formData, function (data) {
                     scope.repaymentscheduleinfo = data;
-                    scope.adjustedInterest = data.periods[data.periods.length-1].adjustedInterestAmountDue;                    
+                    if(data.periods.length > 0) {        
+                        scope.adjustedInterest = data.periods[data.periods.length-1].adjustedInterestAmountDue;     
+                    }               
                     scope.previewRepayment = true;
                 });
 
