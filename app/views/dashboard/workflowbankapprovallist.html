@@ -114,13 +114,9 @@
     <div id="home" class="row">
         <div class="col-md-12">
             <div class="card-content no-h-padding">
-                <tabset class="paddedtop paddedbottom10">
-                   <tab ng-repeat="taskType in taskTypes" ng-click="changeInTab(taskType.grouping)"   ng-if = "taskType.showtab" class='{{taskType.active}}'>
-                        <tab-heading>
-                            {{taskType.name | translate}}
-                        </tab-heading>
-                       
-                       
+                <tabset class="paddedtop paddedbottom10" tabset-name="bankApprovalTabset">
+                   <tab heading="{{taskType.name | translate}}" ng-repeat="taskType in taskTypes" select="changeInTab(taskType.grouping)"   ng-if = "taskType.showtab" class='{{taskType.active}}'>
+                        
                         <div class="table-responsive" 
                             data-ng-show="taskPagination.currentPageItems.length > 0">
                             <table id="bankapprovals" class="table table-striped card-table">
