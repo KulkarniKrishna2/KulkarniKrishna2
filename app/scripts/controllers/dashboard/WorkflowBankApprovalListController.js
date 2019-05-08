@@ -283,7 +283,9 @@
                 }
                 scope.bulkApprovalFormData.bankApprovalIdList = approvalIdList;
                 resourceFactory.bulkBankApprovalActionResource.doBulkBankApproval(scope.bulkApprovalFormData, function (data) {
-                    route.reload();
+                    setTimeout(function () {
+                        route.reload();
+                    }, 500);
                 });
                 route.reload();
             }
@@ -303,6 +305,7 @@
 
             scope.changeInTab = function(grouping){
                 scope.filterBy = 'Invalid';
+                scope.tabGrouping = grouping;
                 scope.formData.crnSelectedOption = 'All CRN Status';
                 scope.checkForOption();
                 scope.formData.actionListSelectedOption = 'No Action Selected';
