@@ -7915,6 +7915,10 @@
     "error.msg.client.not.in.center" : "No clients are present in the center", 
     "error.msg.center.with.active.loan.can.not.update.meeting.date" : "Center meeting date can not be updated as it has active loans" ,
     "label.error.no.centers.are.available.for.the.provided.meeting.date" :  "No centers are available for the provided meeting date" ,
+    "tranche.disbursement.charge.cannot.be.used.when.multiple.disbursals.is.disabled": "Tranche Disbursement Charge cannot be used when Multiple Disbursals is disabled",
+    "validation.msg.rescheduleloan.loans.cannot.be.empty" : "Loans to be resheduled cannot be empty",
+    "validation.msg.rescheduleloan.officerId.cannot.be.blank" : "Please select a loan officer",
+	"error.msg.datatable.mandatory.data.not.found": "Please fill the mandatory field" ,
 
     "------ end of translation file ------": "----------"
 }

@@ -19,7 +19,7 @@
             var levelBasedAddressConfig = 'enable_level_based_address';
             scope.isLevelBasedAddressEnabled = scope.isSystemGlobalConfigurationEnabled(levelBasedAddressConfig);
             scope.pincode = false;
-            resourceFactory.officeResource.getAllOffices(function (data) {
+            resourceFactory.officeResource.getAllOffices({onlyActive: true}, function (data) {
                 scope.offices = data;
                 scope.formData.parentId = scope.offices[0].id;
                 scope.changeParentOffice();
