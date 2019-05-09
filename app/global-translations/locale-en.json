@@ -7918,7 +7918,9 @@
     "tranche.disbursement.charge.cannot.be.used.when.multiple.disbursals.is.disabled": "Tranche Disbursement Charge cannot be used when Multiple Disbursals is disabled",
     "validation.msg.rescheduleloan.loans.cannot.be.empty" : "Loans to be resheduled cannot be empty",
     "validation.msg.rescheduleloan.officerId.cannot.be.blank" : "Please select a loan officer",
-	"error.msg.datatable.mandatory.data.not.found": "Please fill the mandatory field" ,
+    "error.msg.datatable.mandatory.data.not.found": "Please fill the mandatory field" ,
+    "validation.msg.loanapplicationreference.trancheAmount.not.greater.than.zero" : "Tranche amount should be greater than zero" ,
+    "error.msg.loan.disburse.amount.must.be.less.than.approved.principal" : " Disbursed amount should be less than approved amount" , 
 
     "------ end of translation file ------": "----------"
 }
