@@ -132,7 +132,8 @@
                                 <th class="col-md-2">{{'label.heading.officeName' | translate}}</th>
                                 <th class="col-md-2">{{'label.heading.clientname' | translate}}({{'label.heading.FCSM.No' | translate}})</th>
                                 <th class="col-md-1">{{'label.heading.loanproduct' | translate}}</th>
-                                <th ng-if="allowBcifOperations" class="col-md-2">{{'label.crn.status' | translate}}</th> 
+                                <th ng-if="allowBcifOperations" class="col-md-1">{{'label.crn.status' | translate}}</th> 
+                                <th class="col-md-1">{{'label.heading.finfluxId' | translate}}</th> 
                                 <th class="col-md-1">{{'label.heading.status' | translate}}</th>
                                 <th class="col-md-2">{{'label.heading.date' | translate}}</th> 
                                 </thead>
@@ -157,6 +158,9 @@
                                     </span>
                                     <span ng-if="getCrnStatus(workflowBankApproval)=='CRN Creation Failed' || getCrnStatus(workflowBankApproval)=='Dedupe Check Failed'"><a style="color:red" ng-click="openErrorMessage(workflowBankApproval)">{{getCrnStatus(workflowBankApproval)}}</a></span>
                                     </td>
+                                    <td class=" pointer" ng-click="goToBankApprovalView(workflowBankApproval, taskType.grouping)">
+                                            {{workflowBankApproval.finfluxId}}
+                                        </td> 
                                     <td class=" pointer" ng-click="goToBankApprovalView(workflowBankApproval, taskType.grouping)">
                                         <i tooltip-placement="right" class="icon-circle " ng-style="getColor(workflowBankApproval.workflowLoanStatus.code)"></i>
                                         {{workflowBankApproval.workflowLoanStatus.code | translate}}
