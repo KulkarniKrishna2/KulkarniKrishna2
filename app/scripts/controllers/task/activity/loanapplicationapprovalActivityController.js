@@ -705,41 +705,43 @@
 
             scope.$watch('formRequestData.loanEMIPackId', function () {
                 if(scope.formRequestData.loanEMIPackId){
-                    var len = scope.loanaccountinfo.loanEMIPacks.length;
-                    var loanEMIPack = {};
-                    for(var i=0; i < len; i++){
-                        if(scope.loanaccountinfo.loanEMIPacks[i].id == scope.formRequestData.loanEMIPackId){
-                            loanEMIPack = scope.loanaccountinfo.loanEMIPacks[i];
-                            break;
+                    if (scope.loanaccountinfo) {
+                        var len = scope.loanaccountinfo.loanEMIPacks.length;
+                        var loanEMIPack = {};
+                        for(var i=0; i < len; i++){
+                            if(scope.loanaccountinfo.loanEMIPacks[i].id == scope.formRequestData.loanEMIPackId){
+                                loanEMIPack = scope.loanaccountinfo.loanEMIPacks[i];
+                                break;
+                            }
                         }
-                    }
-                    scope.formRequestData.loanAmountApproved = loanEMIPack.sanctionAmount;
-                    scope.formRequestData.numberOfRepayments = loanEMIPack.numberOfRepayments;
-                    scope.formRequestData.repaymentPeriodFrequencyEnum = loanEMIPack.repaymentFrequencyType.id;
-                    scope.formRequestData.repayEvery = loanEMIPack.repaymentEvery;
-                    scope.formRequestData.fixedEmiAmount = loanEMIPack.fixedEmi;
-                    scope.formRequestData.termPeriodFrequencyEnum = loanEMIPack.repaymentFrequencyType.id;
-                    scope.formRequestData.termFrequency = parseInt(loanEMIPack.repaymentEvery) * parseInt(loanEMIPack.numberOfRepayments);
-                    var disbursalEMIs = [0];
-                     scope.formRequestData.loanApplicationSanctionTrancheDatas = [];
-                    if(loanEMIPack.disbursalAmount1){
-                        var loanApplicationSanctionTrancheDatas = {trancheAmount:loanEMIPack.disbursalAmount1};
-                        scope.formRequestData.loanApplicationSanctionTrancheDatas.push(loanApplicationSanctionTrancheDatas);
-                    }
-                    if(loanEMIPack.disbursalAmount2){
-                        var loanApplicationSanctionTrancheDatas = {trancheAmount:loanEMIPack.disbursalAmount2};
-                        scope.formRequestData.loanApplicationSanctionTrancheDatas.push(loanApplicationSanctionTrancheDatas);
-                        disbursalEMIs.push(loanEMIPack.disbursalEmi2);
-                    }
-                    if(loanEMIPack.disbursalAmount3){
-                        var loanApplicationSanctionTrancheDatas = {trancheAmount:loanEMIPack.disbursalAmount3};
-                        scope.formRequestData.loanApplicationSanctionTrancheDatas.push(loanApplicationSanctionTrancheDatas);
-                        disbursalEMIs.push(loanEMIPack.disbursalEmi3);
-                    }
-                    if(loanEMIPack.disbursalAmount4){
-                        var loanApplicationSanctionTrancheDatas = {trancheAmount:loanEMIPack.disbursalAmount4};
-                        scope.formRequestData.loanApplicationSanctionTrancheDatas.push(loanApplicationSanctionTrancheDatas);
-                        disbursalEMIs.push(loanEMIPack.disbursalEmi4);
+                        scope.formRequestData.loanAmountApproved = loanEMIPack.sanctionAmount;
+                        scope.formRequestData.numberOfRepayments = loanEMIPack.numberOfRepayments;
+                        scope.formRequestData.repaymentPeriodFrequencyEnum = loanEMIPack.repaymentFrequencyType.id;
+                        scope.formRequestData.repayEvery = loanEMIPack.repaymentEvery;
+                        scope.formRequestData.fixedEmiAmount = loanEMIPack.fixedEmi;
+                        scope.formRequestData.termPeriodFrequencyEnum = loanEMIPack.repaymentFrequencyType.id;
+                        scope.formRequestData.termFrequency = parseInt(loanEMIPack.repaymentEvery) * parseInt(loanEMIPack.numberOfRepayments);
+                        var disbursalEMIs = [0];
+                         scope.formRequestData.loanApplicationSanctionTrancheDatas = [];
+                        if(loanEMIPack.disbursalAmount1){
+                            var loanApplicationSanctionTrancheDatas = {trancheAmount:loanEMIPack.disbursalAmount1};
+                            scope.formRequestData.loanApplicationSanctionTrancheDatas.push(loanApplicationSanctionTrancheDatas);
+                        }
+                        if(loanEMIPack.disbursalAmount2){
+                            var loanApplicationSanctionTrancheDatas = {trancheAmount:loanEMIPack.disbursalAmount2};
+                            scope.formRequestData.loanApplicationSanctionTrancheDatas.push(loanApplicationSanctionTrancheDatas);
+                            disbursalEMIs.push(loanEMIPack.disbursalEmi2);
+                        }
+                        if(loanEMIPack.disbursalAmount3){
+                            var loanApplicationSanctionTrancheDatas = {trancheAmount:loanEMIPack.disbursalAmount3};
+                            scope.formRequestData.loanApplicationSanctionTrancheDatas.push(loanApplicationSanctionTrancheDatas);
+                            disbursalEMIs.push(loanEMIPack.disbursalEmi3);
+                        }
+                        if(loanEMIPack.disbursalAmount4){
+                            var loanApplicationSanctionTrancheDatas = {trancheAmount:loanEMIPack.disbursalAmount4};
+                            scope.formRequestData.loanApplicationSanctionTrancheDatas.push(loanApplicationSanctionTrancheDatas);
+                            disbursalEMIs.push(loanEMIPack.disbursalEmi4);
+                        }
                     }
                     if (scope.formRequestData.loanApplicationSanctionTrancheDatas && scope.formRequestData.loanApplicationSanctionTrancheDatas.length > 0) {
                         if (scope.formRequestData.expectedDisbursementDate != '' && scope.formRequestData.expectedDisbursementDate != undefined) {
