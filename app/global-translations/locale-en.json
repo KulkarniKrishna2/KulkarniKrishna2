@@ -7881,6 +7881,7 @@
     "error.msg.client.can.not.have.crn" : "Client associate with loan: `{{params[0].value}}` doesn't have crn",
     "validation.msg.calendar.current.meeting.date.can.not.be.postponed":"Current meeting date can't be postponed",
     "validation.msg.calendar.new.meeting.date.can.not.be.before.than.current.date":"New Meeting can not be before than current date",
-    
+    "label.heading.finfluxId":"Finflux Id",
+
     "------ end of translation file ------": "----------"
 }
