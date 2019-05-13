@@ -70,7 +70,8 @@
 				"repaymentFrequencyType": false,
 				"submittedOn": false,
 				"firstRepaymentDate": false,
-				"fundOption": false
+				"fundOption": false,
+				"trancheAmount": true
 			},
 			"isAutoPopulate": {
 				"interestChargedFromDate": true
