@@ -23,9 +23,15 @@
             scope.isTrancheAmoumtReadOnly = false;
             scope.loanType="individual";
             scope.showLoanEmiPack = false;
+            scope.isTrancheAmountReadOnlyField = true;
 
-            scope.isHiddenInterestRatePerPeriod = scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.interestRatePerPeriod;
-            scope.isMandatoryInterestRatePerPeriod = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.interestRatePerPeriod;
+            if (scope.response && scope.response.uiDisplayConfigurations) {
+                scope.isHiddenInterestRatePerPeriod = scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.interestRatePerPeriod;
+                scope.isMandatoryInterestRatePerPeriod = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.interestRatePerPeriod;
+                if (scope.response.uiDisplayConfigurations.loanAccount) {
+                    scope.isTrancheAmountReadOnlyField = scope.response.uiDisplayConfigurations.loanAccount.isReadOnlyField.trancheAmount;
+                }
+            }
 
             resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (applicationData) {
                 scope.formData = applicationData;
@@ -959,6 +965,10 @@
 
             scope.showDiscountOnDisbursalAmount = function(){
                 return (scope.loanaccountinfo && !scope.loanaccountinfo.multiDisburseLoan && scope.formData.isFlatInterestRate);
+            };
+
+            scope.isTrancheAmountReadOnly = function(){
+                return (scope.isTrancheAmoumtReadOnly && scope.isTrancheAmountReadOnlyField);
             };
         }
     });

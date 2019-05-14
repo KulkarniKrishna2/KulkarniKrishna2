@@ -9,7 +9,7 @@
             scope.isPendingForApprovalStageEnabled = scope.isSystemGlobalConfigurationEnabled('enable-pending-for-approval-stage');
             scope.isLoanSanctioned = false;
             scope.isTrancheAmoumtReadOnly = false;
-
+            scope.isTrancheAmountReadOnlyField = true;
             scope.onReject = function(){
 
             };
@@ -41,9 +41,14 @@
             scope.loanapplicationApproved=300;
             scope.isShowEditButton = true;
 
-            scope.isHiddenInterestRatePerPeriod = scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.interestRatePerPeriod;
-            scope.isMandatoryInterestRatePerPeriod = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.interestRatePerPeriod;
-            scope.hidePrintReportButton = scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.printReportButton;
+            if (scope.response && scope.response.uiDisplayConfigurations) {
+                scope.isHiddenInterestRatePerPeriod = scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.interestRatePerPeriod;
+                scope.isMandatoryInterestRatePerPeriod = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.interestRatePerPeriod;
+                scope.hidePrintReportButton = scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.printReportButton;
+                if (scope.response.uiDisplayConfigurations.loanAccount) {
+                    scope.isTrancheAmountReadOnlyField = scope.response.uiDisplayConfigurations.loanAccount.isReadOnlyField.trancheAmount;
+                }
+            }
 
             scope.refreshData = function(){
                 resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (applicationData) {
