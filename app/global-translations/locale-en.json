@@ -7921,6 +7921,10 @@
     "error.msg.datatable.mandatory.data.not.found": "Please fill the mandatory field" ,
     "validation.msg.loanapplicationreference.trancheAmount.not.greater.than.zero" : "Tranche amount should be greater than zero" ,
     "error.msg.loan.disburse.amount.must.be.less.than.approved.principal" : " Disbursed amount should be less than approved amount" , 
+    "error.msg.tax.group.id.invalid" : "Tax group is invalid.",
+    "error.msg.loan.application.loan.application.not.in.disbursement.stage" : "Cannot disburse loan application. Kindly contact administrator.",
+    "voter.uid.pan.is.one.these.mandatory." : "Voter or Aadhaar or Pan is mandatory",
+    "error.msg.accounting.closure.for.date" : "Accounting closure  for `{{params[0].value}}`",
 
     "------ end of translation file ------": "----------"
 }

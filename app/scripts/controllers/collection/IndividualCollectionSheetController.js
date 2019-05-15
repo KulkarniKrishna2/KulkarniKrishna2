@@ -172,7 +172,8 @@
                     data.officeId = scope.officeId;
                 }
                 resourceFactory.collectionSheetV2Resource.save({command: 'saveCollectionSheet'}, data, function (data) {
-                    location.path('/viewallcollections');
+                    localStorageService.addToLocalStorage('Success', true);
+                    route.reload();
                 });
             };
 
