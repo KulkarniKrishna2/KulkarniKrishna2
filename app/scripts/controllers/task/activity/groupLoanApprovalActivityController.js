@@ -13,7 +13,6 @@
             var currentIndex = 0;
             scope.taskStatus = scope.taskconfig.status.value;  
             scope.chargeFormData = {}; 
-            scope.loanType="individual";
 
             function populateDetails() {
                 if(scope.taskStatus != undefined && scope.taskStatus != 'completed'){
@@ -678,10 +677,6 @@
                 }
                 if(this.formRequestData.loanAccountNumber != undefined){
                     delete this.formRequestData.loanAccountNumber;
-                }
-                if(this.formValidationData.loanType==scope.loanType && !scope.allowGroupBankAccountInDisburse)
-                {
-                    delete this.formValidationData.groupId;
                 }
                 this.formRequestData.locale = scope.optlang.code;
                 this.formRequestData.dateFormat = scope.df;

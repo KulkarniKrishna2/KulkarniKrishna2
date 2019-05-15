@@ -32,7 +32,7 @@
             scope.applicableOnRepayment = 1;
             scope.applicableOnDisbursement = 2;
             scope.previewRepayment = false;
-
+        
             scope.isMandatoryExpectedDisbursementDate = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.expectedDisbursementDate;
             scope.isMandatoryFirstRepaymentDate = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.firstRepaymentDate;
             scope.isMandatoryRateOfInterest = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.interestRatePerPeriod;
@@ -450,6 +450,9 @@
                 this.formData.accountType = scope.inparams.templateType;
                 if (scope.parentGroups != undefined && scope.parentGroups.length > 0 && !scope.canDisburseToGroupsBanks()) {
                     this.formData.groupId = scope.parentGroups[0].id;
+                }
+                if(scope.inparams.templateType ==='individual' && !scope.allowGroupBankAccountInDisburse) {
+                    delete scope.formData.groupId;
                 }
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
