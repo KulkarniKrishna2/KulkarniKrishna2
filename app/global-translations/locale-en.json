@@ -7925,6 +7925,7 @@
     "error.msg.loan.application.loan.application.not.in.disbursement.stage" : "Cannot disburse loan application. Kindly contact administrator.",
     "voter.uid.pan.is.one.these.mandatory." : "Voter or Aadhaar or Pan is mandatory",
     "error.msg.accounting.closure.for.date" : "Accounting closure  for `{{params[0].value}}`",
+    "Can't.update.staff.to.other.than.parent.staff.when.LoanOfficerToCenterHierarchy.is.enabled" : "Loan Officer To Center Hierarchy enabled. Can't update staff",
 
     "------ end of translation file ------": "----------"
 }

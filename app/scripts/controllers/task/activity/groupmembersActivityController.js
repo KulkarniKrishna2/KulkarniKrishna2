@@ -261,7 +261,7 @@
                 resourceFactory.clientTemplateResource.get(requestParams, function(data) {
                      scope.offices = data.officeOptions;
                      scope.staffs = data.staffOptions;
-                    scope.addClientformData.officeId = scope.group.officeId;
+                     scope.addClientformData.officeId = scope.group.officeId;
                      scope.savingproducts = data.savingProductOptions;
                      scope.genderOptions = data.genderOptions;
                      scope.clienttypeOptions = data.clientTypeOptions;
@@ -281,11 +281,11 @@
                                  break;
                              }
                          }
-                     }
-                     if (scope.groupId) {
-                         if (typeof data.staffId !== "undefined") {
-                             scope.addClientformData.staffId = data.staffId;
-                         }
+                     } 
+                     if (scope.groupId && (typeof data.staffId !== "undefined")) {
+                        scope.addClientformData.staffId = data.staffId;
+                     }else if(scope.group && scope.group.staffId){
+                        scope.addClientformData.staffId = scope.group.staffId;
                      }
                      if (scope.staffId) {
                          for (var i in scope.staffs) {
