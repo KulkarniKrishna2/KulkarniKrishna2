@@ -1,14 +1,19 @@
-<table class="table">
+<div>
+    <table class="table">
     <tr>
-        <th ng-if="uiData.status == 'pending'">{{'label.input.requred.user' |translate}}</th>
+        <th>{{'label.input.requred.user' |translate}}</th>
         <th>{{'label.device.id' | translate}}</th>
+        <th>{{'label.heading.roles' | translate}}</th>
+        <th>{{'label.heading.branch' | translate}}</th>
         <th>{{'label.device.model' | translate}}</th>
         <th>{{'label.heading.action' | translate}}</th>
     </tr>
-    <tr class="pointer-main" ng-repeat="device in registeredDevices track by $index">
+    <tr class="pointer-main" ng-if="registeredDevices.currentPageItems.length > 0" ng-repeat="device in registeredDevices.currentPageItems">
 
-        <td class="pointer" ng-if="uiData.status == 'pending'" ng-click="routeTo(device)">{{device.lastLoggedInUserData.username}}</td>
+        <td class="pointer" ng-click="routeTo(device)">{{device.lastLoggedInUserData.username}}</td>
         <td class="pointer" ng-click="routeTo(device)">{{device.deviceId}}</td>
+        <td class="pointer col-md-2" ng-click="routeTo(device)">{{device.userRoles}}</td>
+        <td class="pointer col-md-2" ng-click="routeTo(device)">{{device.branchName}}</td>
         <td class="pointer" ng-click="routeTo(device)">{{device.deviceModel}}</td>
         <td ng-if="uiData.status == 'pending'">
             <a has-permission='ACTIVATE_REGISTERED_DEVICE' ng-click="deviceAction($index,device,'activate')">{{'label.button.activate' | translate}}</a> |
@@ -21,4 +26,17 @@
             <a has-permission='ACTIVATE_REGISTERED_DEVICE' ng-click="deviceAction($index,device,'activate')">{{'label.button.activate' | translate}}</a>
         </td>
     </tr>
-</table>
+    </table>
+    <ul class="pager">
+        <li class="previous">
+            <a id="prev" ng-click="registeredDevices.previous()" href=""
+                ng-hide="!registeredDevices.hasPrevious()">&larr; {{'label.button.previous' | translate}}
+            </a>
+        </li>
+        <li class="next">
+            <a id="next" ng-click="registeredDevices.next()" href=""
+                ng-hide="!registeredDevices.hasNext()">{{'label.button.next' | translate}} &rarr;
+            </a>
+        </li>
+    </ul>
+</div>
