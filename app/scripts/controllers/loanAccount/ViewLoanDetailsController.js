@@ -377,6 +377,9 @@
                 resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_loan', associatedEntityId: scope.loandetails.loanProductId, isFetchBasicData : false,isFetchAssociateTable: true}, function (data) {
                     scope.datatables = data;
                 });
+                resourceFactory.LoanAdditionalDetailsResource.get({loanId: routeParams.id},function (data){
+                    scope.loanAdditionalDetails = data;
+                });
                 scope.showOriginalSchedule = true;
                 if(scope.loandetails.isInterestRecalculationEnabled && data.status.value == "Active"){
                     
