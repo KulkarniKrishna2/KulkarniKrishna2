@@ -8,7 +8,7 @@
              * Based on the voucher type change the labels
              */
             scope.isUpdatePaymentDetails = false;
-            scope.reportName = 'Journal Voucher';
+            scope.reportName = 'Voucher Entry';
             scope.reportOutputType = 'PDF';
             scope.transactionId=routeParams.transactionId;
             scope.hidePentahoReport = true;
