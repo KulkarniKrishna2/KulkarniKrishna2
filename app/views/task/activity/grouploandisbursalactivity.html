@@ -361,7 +361,7 @@
                                         <span class="required">*</span>:</label>
                                 </td>
                                 <td class="width25 paddedbottom10">
-                                    <input type="text" autocomplete="off" class="form-control" name="transactionAmount" ng-model="formRequestData.disburse.transactionAmount" ng-disabled="formData.approvedData.loanEMIPackData" number-format required/>&nbsp;{{loanaccountinfo.currency.displaySymbol}}
+                                    <input type="text" autocomplete="off" class="form-control" name="transactionAmount" ng-model="formRequestData.disburse.transactionAmount"  number-format required/>&nbsp;{{loanaccountinfo.currency.displaySymbol}}
                                 </td>
 
                                 <td class="width25" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestChargedFromDate == true">
@@ -387,7 +387,7 @@
                                     <label>{{ 'label.input.fixedemiamount' | translate }}:
                                     </label>&nbsp;</td>
                                 <td class="width36 paddedbottom10" ng-if="loanaccountinfo.canDefineInstallmentAmount">
-                                    <input id="fixedEmiAmount" name="fixedEmiAmount" type="text" autocomplete="off" ng-model="formRequestData.disburse.fixedEmiAmount" ng-disabled="formData.approvedData.loanEMIPackData" class="form-control" number-format/>&nbsp;{{loanaccountinfo.currency.displaySymbol}}
+                                    <input id="fixedEmiAmount" name="fixedEmiAmount" type="text" autocomplete="off" ng-model="formRequestData.disburse.fixedEmiAmount"  class="form-control" number-format/>&nbsp;{{loanaccountinfo.currency.displaySymbol}}
                                 </td>
 
                                 <td class="width25">
