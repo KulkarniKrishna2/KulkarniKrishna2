@@ -1831,6 +1831,8 @@
                     gstHeadersResource: defineResource(apiVer + "/pushgsttransactions/headers/:id", {id: '@id'}, {
                         get: {method: 'GET', params: {id: '@id'}},
                         getAll: {method: 'GET', params: {}, isArray: true}
+                    }),
+                    LoanAdditionalDetailsResource: defineResource(apiVer + "/loans/additionaldetails/:loanId", { loanId: '@loanId' }, {
                     })
                 };
             }];
