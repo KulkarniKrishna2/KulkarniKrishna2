@@ -7887,7 +7887,7 @@
     "error.msg.proposed.loans.not.preclosed" : "Proposed Loans must be closed",
     "error.msg.charge.cannot.be.applied.toclient": "Charge cannot be applied to client",
     "validation.msg.loan.number.of.repayments.greater.than.max.loan.term": "Number of repayments is greater than maximum number of loan term",
-    "error.msg.staff.office.can.not.be.updated" : "Staff's office can not be updated , as it is attached to active {{params[0].value}} accounts {{params[1].value}} ",
+    "error.msg.staff.office.can.not.be.updated" : "Staff's office can not be updated , as it is attached to active {{params[0].value}} accounts ",
 
     "label.self.service.user" : "Self Service Users",
     "label.specify.rejection.reason" : "Specify Rejection Reason",
@@ -7927,6 +7927,10 @@
     "error.msg.accounting.closure.for.date" : "Accounting closure  for `{{params[0].value}}`",
     "Can't.update.staff.to.other.than.parent.staff.when.LoanOfficerToCenterHierarchy.is.enabled" : "Loan Officer To Center Hierarchy enabled. Can't update staff",
     "validation.msg.loan.syncDisbursementWithMeeting.must.be.true.or.false" : "Sync repayments with Center meeting is set. Kindly attach meeting to center if not present and sync repayment with meeting",
+    "error.msg.instalment.amount.exceeding.max.amount" : "Installment amount exceeds the maximum amount allowed" ,
+    "validation.msg.FUND.funds.cannot.be.empty" : "Please select a fund" ,
+    "validation.msg.loan.number.of.repayments.lesser.than.min.loan.term" : "Number of repayments lesser than minimum loan term ",
+    "error.msg.work.flow.execution.step.action.no.permission" : "Permission is not provided for the work flow execution step action" ,
 
     "------ end of translation file ------": "----------"
 }
