@@ -93,6 +93,9 @@
                     }
                     if(scope.formRequestData.loanApplicationSanctionTrancheDatas && scope.formRequestData.loanApplicationSanctionTrancheDatas.length > 0){
                         scope.status = 'SUMMARY';
+                        for (var i = 0; i < scope.formRequestData.loanApplicationSanctionTrancheDatas.length; i++) {
+                            scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate = dateFilter(new Date(scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate), scope.df);
+                        }
                     }
                     delete scope.formRequestData.loanAppSanctionId;
                     delete scope.formRequestData.loanApplicationReferenceId;
@@ -594,7 +597,9 @@
                                     }else if(scope.formRequestData.repaymentPeriodFrequencyEnum === 2){
                                         date = date.setMonth(date.getMonth()+(parseInt(scope.formRequestData.repayEvery)*disbursalEMIs[i]));
                                     }
-                                    scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate = dateFilter(date, scope.df);
+                                    if(!isNaN(date)){
+                                        scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate = dateFilter(new Date(date), scope.df);
+                                    }
                                     dateValue = scope.formRequestData.expectedDisbursementDate;
                                     date = new Date(dateValue);
                                 }
@@ -670,7 +675,9 @@
                                     }else if(scope.formRequestData.repaymentPeriodFrequencyEnum === 2){
                                         date = date.setMonth(date.getMonth()+(parseInt(scope.formRequestData.repayEvery)*emiPackNumber));
                                     }
-                                    scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate = dateFilter(date, scope.df);
+                                    if(!isNaN(date)){
+                                        scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate = dateFilter(new Date(date), scope.df);
+                                    }
                                     dateValue = scope.formRequestData.repaymentsStartingFromDate;
                                     date = new Date(dateValue);
                                 }
@@ -688,7 +695,9 @@
                                     }else if(scope.formRequestData.repaymentPeriodFrequencyEnum === 2){
                                         date = date.setMonth(date.getMonth()+(parseInt(scope.formRequestData.repayEvery)*disbursalEMIs[i]));
                                     }
-                                    scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate = dateFilter(date, scope.df);
+                                    if(!isNaN(date)){
+                                        scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate = dateFilter(new Date(date), scope.df);
+                                    }
                                     dateValue = scope.formRequestData.expectedDisbursementDate;
                                     date = new Date(dateValue);
                                 }
@@ -762,7 +771,9 @@
                                     }else if(scope.formRequestData.repaymentPeriodFrequencyEnum === 2){
                                         date = date.setMonth(date.getMonth()+(parseInt(scope.formRequestData.repayEvery)*disbursalEMIs[i]));
                                     }
-                                    scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate = dateFilter(date, scope.df);
+                                    if(!isNaN(date)){
+                                        scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate = dateFilter(new Date(date), scope.df);
+                                    }
                                     dateValue = scope.formRequestData.expectedDisbursementDate;
                                     date = new Date(dateValue);
                                 }
