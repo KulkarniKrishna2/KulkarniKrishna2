@@ -10,7 +10,7 @@
             <legend>{{'label.anchor.gstinvoicing'
                 | translate}}&nbsp;</legend>
             <div class="form-group">
-                <label class="control-label col-sm-2">
+                <label class="control-label col-sm-3">
                     {{'label.input.statename' | translate}}
                     <span class="required">*</span>
                 </label>
@@ -23,13 +23,13 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-sm-2">{{'label.input.fromdate' | translate}}&nbsp;</label>
+                <label class="control-label col-sm-3">{{'label.anchor.invoiceGeneratedTillDate' | translate}}&nbsp;</label>
                 <div class="col-sm-3">
                     <span class="form-control" ng-disabled="true">{{tillTime | DateFormat }}</span>
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-sm-2">{{'label.input.todate' | translate}}:&nbsp;</label>
+                <label class="control-label col-sm-3">{{'label.input.todate' | translate}}:&nbsp;</label>
                 <div class="col-sm-3">
                     <input id="toDate" type="text" autocomplete="off" name="toDate" datepicker-pop="{{df}}" ng-model="formData.toDate"
                         max="restrictDate" ng-disabled="show" class="form-control" ng-readonly="isDatePickerReadOnly" />
