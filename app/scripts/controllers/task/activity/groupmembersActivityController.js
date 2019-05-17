@@ -20,6 +20,7 @@
             scope.disbursementTypeOption = [];
             scope.applicableOnRepayment = 1;
             scope.applicableOnDisbursement = 2;
+            scope.isClientActive = false;
 
             scope.changeVillage = function (villageId) {
                 if(villageId != null){
@@ -98,6 +99,14 @@
 
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField){
                 scope.isMandatoryDisbursementPaymentMode = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.disbursementPaymentMode;
+            }
+
+            if(scope.response && scope.response.uiDisplayConfigurations.createClient.isReadOnlyField.active){
+                scope.isClientActive = scope.response.uiDisplayConfigurations.createClient.isReadOnlyField.active;
+                scope.addClientformData.active = scope.response.uiDisplayConfigurations.createClient.isReadOnlyField.active;
+               scope.choice = 1;
+            }else{
+               scope.choice = 0;
             }
 
             scope.validateStaff = function(){
