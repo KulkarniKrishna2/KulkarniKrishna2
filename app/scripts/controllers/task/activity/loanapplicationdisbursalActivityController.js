@@ -244,13 +244,23 @@
                     if (scope.loanaccountinfo.isLoanProductLinkedToFloatingRate) {
                         scope.formRequestData.submitApplication.isFloatingInterestRate = false;
                     }
-
+                    scope.fetchBankAccountDetails();
                     if(scope.formData.approvedData.amountForUpfrontCollection){
                         scope.formRequestData.submitApplication.amountForUpfrontCollection = scope.formData.approvedData.amountForUpfrontCollection;
                     }
 
                 });
             };
+
+            scope.fetchBankAccountDetails = function () {
+                resourceFactory.bankAccountDetailResources.getAll({
+                    entityType: "clients",
+                    entityId: scope.formData.clientId,
+                    status: "active"
+                }, function (data) {
+                    scope.bankAccountDetails = data;
+                });
+            }
 
             scope.requestApprovalLoanAppRef = function () {
                 resourceFactory.loanApplicationReferencesResource.update({
@@ -467,6 +477,9 @@
 
                 this.formRequestData.locale = scope.optlang.code;
                 this.formRequestData.dateFormat = scope.df;
+                if (scope.formData.bankAccountDetailId) {
+                    this.formRequestData.disburse.bankAccountDetailId = scope.formData.bankAccountDetailId;
+                }
 
                 scope.disburseData = {};
                 angular.copy(scope.formRequestData,scope.disburseData);
@@ -673,6 +686,12 @@
                         $scope.displayDescription = false;
                       }
                 };
+            };
+
+            scope.radioCheckUncheck = function () {
+                if (this.formData.bankAccountDetailId) {
+                    this.formData.bankAccountDetailId = null;
+                }
             };
         }
     });

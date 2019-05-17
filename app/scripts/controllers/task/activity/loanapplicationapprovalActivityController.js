@@ -487,7 +487,9 @@
                 }
 
                 if (this.formValidationData.syncRepaymentsWithMeeting) {
-                    this.formValidationData.calendarId = scope.loanaccountinfo.calendarOptions[0].id;
+                    if(scope.loanaccountinfo.calendarOptions){
+                        this.formValidationData.calendarId = scope.loanaccountinfo.calendarOptions[0].id;
+                    }
                     scope.syncRepaymentsWithMeeting = this.formValidationData.syncRepaymentsWithMeeting;
                 }
                 if (!this.formValidationData.syncRepaymentsWithMeeting) {
