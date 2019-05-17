@@ -7886,6 +7886,7 @@
     "label.anchor.screenforOfficeTaxMappings":"Screen for Office Tax Mappings",
     "label.anchor.createOfficeTaxMappings":"Create Office Tax Mappings",
     "label.anchor.editOfficeTaxMappings":"Edit Office Tax Mappings",
+    "label.anchor.invoiceGeneratedTillDate":"Invoice Generated Till Date",
 
     "------ end of translation file ------": "----------"
 }
