@@ -3250,6 +3250,7 @@
     "label.heading.jobname": "Job Name",
     "label.heading.version": "Version",
     "label.heading.runstarttime": "Run Start Time",
+    "label.heading.runendtime": "Run End Time",
     "label.heading.runtype": "Run Type",
     "label.heading.makercheckertasks": "Maker Checker Tasks",
     "label.heading.makercheckertask.waiting.for.approval":"Waiting For Checker Approval",
