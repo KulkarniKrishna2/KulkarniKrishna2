@@ -7877,6 +7877,10 @@
     "error.msg.staff.office.can.not.be.updated" : "Staff's office can not be updated , as it is attached to active {{params[0].value}} ",
     "label.self.service.user" : "Self Service Users",
     "label.heading.finfluxId":"Finflux Id",
+    "label.anchor.officeTaxMappings":"Office Tax Mappings",
+    "label.anchor.screenforOfficeTaxMappings":"Screen for Office Tax Mappings",
+    "label.anchor.createOfficeTaxMappings":"Create Office Tax Mappings",
+    "label.anchor.editOfficeTaxMappings":"Edit Office Tax Mappings",
 
     "------ end of translation file ------": "----------"
 }
