@@ -8,6 +8,12 @@
             scope.accountOptions = [];
             scope.glClassificationTypeId ;
 
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.glAccount) {
+                if (scope.response.uiDisplayConfigurations.glAccount.isMandatoryField.companyCode) {
+                    scope.isCompanyCodeMandatory = scope.response.uiDisplayConfigurations.glAccount.isMandatoryField.companyCode;
+                }
+            }
+
             resourceFactory.codeValueByCodeNameResources.get({codeName: 'company code for gl accounts',searchConditions:'{"codeValueIsActive":true}'}, function (data) {
                 scope.companyCodeForGlaccountCodeValues = data;
             });

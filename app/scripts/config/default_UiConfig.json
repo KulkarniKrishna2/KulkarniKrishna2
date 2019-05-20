@@ -603,7 +603,11 @@
 		},
 		"offices": {
 			"showRefNo": false
+		},
+		"glAccount": {
+			"isMandatoryField": {
+				"companyCode": false
+			}
 		}
-		
 	}
 }
