@@ -7547,6 +7547,8 @@
     "error.msg.branch.transfer.to.same.office": "Source and destination office can not be same.",
     "label.button.bulk.bank.approval": "Bulk Bank Approval",
     "label.button.blacklist": "Blacklist",
+    "label.heading.blacklistvillage": "Blacklist Village",
+    "label.heading.whitelistvillage": "Whitelist Village",
     "label.input.blacklistdate": "Blacklisted Date",
     "label.input.blacklistreason": "Blacklisted Reason",
     "label.anchor.blacklist": "Blacklist",
@@ -7950,7 +7952,11 @@
     "label.input.filterbynameorstatusorofficeorrefnoforcenter": "Filter by name/status/office/center ref#",
     "label.error.csv.file.is.not.selected": "Please select csv file",
     "error.msg.eod.closure.not.completed.for" : "EOD closure is not completed for previous working day `{{params[0].value}}`. Process EOD to proceed.",
-    
+    "error.msg.rejected.or.closed.village.cannot.be.blacklisted": "Rejected or closed village cannot be blacklisted.",
+    "error.msg.village.is.already.blacklisted": "Village is already blacklisted.",
+    "error.msg.only.blacklisted.village.can.be.whitelisted": "Only blacklisted village can be whitelisted.",
+    "error.msg.cannot.be.processed.as.the.associated.village.is.blacklisted": "Cannot be processed as the associated village is blacklisted",
+    "error.msg.village.status.audit.not.found": "Audit Status of Village with identifier `{{params[0].value}}` does not exist",
 
     "------ end of translation file ------": "----------"
 }
