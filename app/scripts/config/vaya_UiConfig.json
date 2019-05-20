@@ -60,10 +60,6 @@
     "defaultGender":"Female"
     },
     "viewGroup":{
-      "isHiddenField": {
-          "canAddClients": true,
-          "createjlgLoanApplication" : true
-      },
       "searchForActivegroups": false
     },
     "createLoanApplication": {
@@ -96,17 +92,6 @@
         "bankAccountHolderName":"^[a-zA-Z]+([a-zA-Z\\s][a-zA-Z]+)*$"
       },
       "isMakerTwoStepPresent": true      
-    },
-    "viewClient": {
-      "isHiddenField": {
-        "createClient": true,
-        "createLoanApplication": true
-      }
-    },
-    "createJlgLoan": {
-      "isHiddenField": {
-        "jlgLoan": true
-      }
     }
   }
 }

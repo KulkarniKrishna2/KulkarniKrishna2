@@ -92,10 +92,6 @@
       "isMakerTwoStepPresent": true
     },
     "viewGroup":{
-      "isHiddenField": {
-          "canAddClients": true,
-          "createjlgLoanApplication" : true
-        },
       "searchForActivegroups": false
     },
     "createLoanApplication": {
@@ -103,17 +99,6 @@
         "disbursementPaymentType":true
       },
       "newLoanApplicationLimitAllowed" : true
-    },
-    "viewClient": {
-      "isHiddenField": {
-        "createClient": true,
-        "createLoanApplication": true
-      }
-    },
-    "createJlgLoan": {
-      "isHiddenField": {
-        "jlgLoan": true
-      }
     }
   }
 }

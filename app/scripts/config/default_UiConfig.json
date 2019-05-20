@@ -126,8 +126,7 @@
 				"displayNameInReverseOrder": false,
 				"accountNo": false,
 				"referenceNo": true,
-				"enableSmartCard": true,
-				"createLoanApplication": false
+				"enableSmartCard": true
 			},
 			"familyDeatils": {
 				"isHiddenField": {
@@ -397,8 +396,7 @@
 				"meeting": false,
 				"groupName": false,
 				"transferClients": true,
-				"canAddClients": false,
-	  		    "createjlgLoanApplication" : false
+				"canAddClients": true
 			},
 			"searchForActivegroups": false,
 			"isReadOnlyField": {

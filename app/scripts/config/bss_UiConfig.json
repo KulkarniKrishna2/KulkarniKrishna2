@@ -136,7 +136,7 @@
 				"meeting": true,
 				"groupName": true,
 				"transferClients": false,
-				"canAddClients": true
+				"canAddClients": false
 			},
 			"isReadOnlyField": {
 				"groupName": true,
