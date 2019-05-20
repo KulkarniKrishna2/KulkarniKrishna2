@@ -5,7 +5,7 @@
             scope.formData = {};
             scope.formData.crAccounts = [];
             scope.formData.dbAccounts = [];
-            scope.first = {};
+            scope.first = {date:new Date()};
             scope.allowCreditEntries = true;
             scope.allowDebitEntries = true;
             scope.errorcreditevent = false;
