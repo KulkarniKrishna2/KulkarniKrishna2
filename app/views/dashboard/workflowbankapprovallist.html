@@ -16,8 +16,15 @@
             <button class="btn btn-warning " ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
         </div>
     </script>
-    <div>
+    <div ng-if="errorDetails.length>0">
+        <div>
+            <h3>There are exceptions click on refresh to update the records </h3>
+        </div>
         <api-validate></api-validate>
+        <td class="col-sm-1">
+            <a id="cancel" class="btn btn-primary ng-binding" ng-click="changeInTab(tabGrouping)"> <i
+                    class="icon-repeat icon-white"></i>{{'label.button.refresh' | translate}}</a>
+        </td>
     </div>
     <hr/>
         <table class="table">
@@ -108,19 +115,15 @@
                  {{'label.proceed' | translate}}
              </a>
             </td>
+               
             <td class="col-sm-5"></td>
         </tr>
     </table>
     <div id="home" class="row">
         <div class="col-md-12">
             <div class="card-content no-h-padding">
-                <tabset class="paddedtop paddedbottom10">
-                   <tab ng-repeat="taskType in taskTypes" ng-click="changeInTab(taskType.grouping)"   ng-if = "taskType.showtab" class='{{taskType.active}}'>
-                        <tab-heading>
-                            {{taskType.name | translate}}
-                        </tab-heading>
-                       
-                       
+                <tabset class="paddedtop paddedbottom10" tabset-name="bankApprovalTabset">
+                   <tab heading="{{taskType.name | translate}}" ng-repeat="taskType in taskTypes" select="changeInTab(taskType.grouping)"   ng-if = "taskType.showtab" class='{{taskType.active}}'>
                         <div class="table-responsive" 
                             data-ng-show="taskPagination.currentPageItems.length > 0">
                             <table id="bankapprovals" class="table table-striped card-table">
@@ -129,7 +132,8 @@
                                 <th class="col-md-2">{{'label.heading.officeName' | translate}}</th>
                                 <th class="col-md-2">{{'label.heading.clientname' | translate}}({{'label.heading.FCSM.No' | translate}})</th>
                                 <th class="col-md-1">{{'label.heading.loanproduct' | translate}}</th>
-                                <th ng-if="allowBcifOperations" class="col-md-2">{{'label.crn.status' | translate}}</th> 
+                                <th ng-if="allowBcifOperations" class="col-md-1">{{'label.crn.status' | translate}}</th> 
+                                <th class="col-md-1">{{'label.heading.finfluxId' | translate}}</th> 
                                 <th class="col-md-1">{{'label.heading.status' | translate}}</th>
                                 <th class="col-md-2">{{'label.heading.date' | translate}}</th> 
                                 </thead>
@@ -154,6 +158,9 @@
                                     </span>
                                     <span ng-if="getCrnStatus(workflowBankApproval)=='CRN Creation Failed' || getCrnStatus(workflowBankApproval)=='Dedupe Check Failed'"><a style="color:red" ng-click="openErrorMessage(workflowBankApproval)">{{getCrnStatus(workflowBankApproval)}}</a></span>
                                     </td>
+                                    <td class=" pointer" ng-click="goToBankApprovalView(workflowBankApproval, taskType.grouping)">
+                                            {{workflowBankApproval.finfluxId}}
+                                        </td> 
                                     <td class=" pointer" ng-click="goToBankApprovalView(workflowBankApproval, taskType.grouping)">
                                         <i tooltip-placement="right" class="icon-circle " ng-style="getColor(workflowBankApproval.workflowLoanStatus.code)"></i>
                                         {{workflowBankApproval.workflowLoanStatus.code | translate}}

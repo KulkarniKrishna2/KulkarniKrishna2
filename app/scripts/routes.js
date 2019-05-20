@@ -2004,6 +2004,19 @@
             .when('/viewallcollections/:collectionSheetId',{
                 templateUrl: 'views/collection/collectionSheetDetail.html'
             })
+            .when('/gstmapping/officeMappings', {
+                templateUrl: 'views/accounting/office_tax_mappings.html'
+            })
+            .when('/gstmapping/createOfficeMappings', {
+                templateUrl: 'views/accounting/create_office_tax_mapping.html'
+            })
+            .when('/gstmapping/editOfficeMappings/:entityType/:entityId', {
+                templateUrl: 'views/accounting/edit_office_tax_mapping.html'
+            })    
+            .when('/gstinvoicing/view', {
+                templateUrl: 'views/accounting/view_gst_invoice.html'
+            })
+
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

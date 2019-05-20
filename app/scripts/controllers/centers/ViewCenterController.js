@@ -28,6 +28,9 @@
             if(scope.isWorkflowEnabled && scope.hideManageGroup){
                 scope.isHideCreateEntity = true;
             }
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewCenter && scope.response.uiDisplayConfigurations.viewCenter.isHiddenField) {
+                scope.showBulkUndoTransactions = !scope.response.uiDisplayConfigurations.viewCenter.isHiddenField.bulkUndoTransactions;
+            }
             scope.exceedMaxLimit = false;
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);

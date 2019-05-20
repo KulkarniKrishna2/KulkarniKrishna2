@@ -1,0 +1,35 @@
+<div ng-controller="OfficeTaxMappingController">
+    <ul class="breadcrumb">
+        <li><a href="#/bc">{{'label.anchor.bc' | translate}}</a></li>
+        <li><a href="#/gstmapping">{{'label.anchor.gstmapping' | translate}}</a></li>
+        <li class="active">{{'label.anchor.officeTaxMappings' | translate}}</li>
+    </ul>
+    <form name="officeTaxMapping" novalidate="" class="well form-inline" rc-submit="submit()">
+        <api-validate></api-validate>
+
+        <legend>{{'label.anchor.officeTaxMappings'
+            | translate}}&nbsp;</legend>
+        <div class="pull-right">
+            <a id="add" type="submit" has-permission='CREATE_TAX_CONFIGURATION' ng-click="addOffice()"
+                class="btn btn-primary">{{'label.button.add'
+                | translate}}&nbsp;</a>
+        </div>
+        <br>
+        <br>
+        <div>
+            <table class="table" class="width100">
+                <tr class="graybg">
+                    <th>{{'label.button.offices' | translate}}</th>
+                    <th>{{'label.input.taxgroup' | translate}}</th>
+                    <th>{{'label.heading.actions' | translate}}</th>
+                </tr>
+                <tr ng-repeat="officeData in officesData">
+                    <th>{{officeData.name}}</th>
+                    <th>{{officeData.taxGroupName}}</th>
+                    <th style="padding-left: 25px"><a ng-click="edit(officeData.id)"><i
+                                class="icon-edit icon-white"></i></a></th>
+                </tr>
+        </div>
+        </fieldset>
+    </form>
+</div>

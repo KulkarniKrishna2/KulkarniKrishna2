@@ -130,28 +130,28 @@
                                     <td>{{'label.input.interest.receivable.and.due' | translate}}:</td>
                                     <td colspan="3">{{accountingMappings.interestReceivableAndDueAccount.name}}&nbsp;({{accountingMappings.interestReceivableAndDueAccount.glCode}})</td>
                                 </tr>
-                                <!-- <div ng-show = "false">
+       
                                 <tr>
                                     <td colspan="3"><br /></td>
                                 </tr>
-                            
-                                <tr>
-                                    <td>
-                                        <strong>{{'label.heading.advancedaccountingrules' | translate}}</strong>
-                                    </td>
-                                </tr>
-                                <tr class="toppadding bottomborder">
-                                    <td colspan="4">{{'label.heading.fundsourcesforpayment' | translate}}</td>
-                                </tr>
-                                <tr class="bottomborder graybg">
-                                    <td>{{'label.heading.paymenttype' | translate}}</td>
-                                    <td colspan="3">{{'label.heading.fundsource' | translate}}</td>
-                                </tr>
-                                <tr ng-repeat="paymentChannel in loanproduct.paymentChannelToFundSourceMappings">
-                                    <td>{{paymentChannel.paymentType.name}}</td>
-                                    <td colspan="3">{{paymentChannel.fundSourceAccount.name}}&nbsp;({{paymentChannel.fundSourceAccount.glCode}})</td>
-                                </tr>
-                                <tr>
+                            <tr>
+                                <td ng-if="paymentChannelToFundSourceMappings.length>0">
+                                    <strong>{{'label.heading.advancedaccountingrules' | translate}}</strong>
+                                </td>
+                            </tr>
+                            <tr class="toppadding bottomborder">
+                                <td ng-if="paymentChannelToFundSourceMappings.length>0" colspan="4">
+                                    {{'label.heading.fundsourcesforpayment' | translate}}</td>
+                            </tr>
+                            <tr class="bottomborder graybg">
+                                <td ng-if="paymentChannelToFundSourceMappings.length>0">{{'label.heading.paymenttype' | translate}}</td>
+                                <td ng-if="paymentChannelToFundSourceMappings.length>0" colspan="3">{{'label.heading.fundsource' | translate}}</td>
+                            </tr>
+                            <tr ng-repeat="paymentChannel in paymentChannelToFundSourceMappings">
+                                <td>{{paymentChannel.paymentType.name}}</td>
+                                <td colspan="3">{{paymentChannel.fundSourceAccount.name}}&nbsp;({{paymentChannel.fundSourceAccount.glCode}})</td>
+                            </tr>
+                                <!-- <tr>
                                     <td colspan="4"></td>
                                 </tr>
                                 <tr class="toppadding bottomborder">

@@ -225,7 +225,7 @@
                 $scope.isEditpage = false;
                 $scope.autoCheck = false;
                 $scope.updateReview = false;
-                if(!_.isUndefined($scope.reviewData)){
+                if(!_.isUndefined($scope.reviewData) && $scope.reviewData.length > 0){
                     $scope.isEditpage = true;
                 }
 
@@ -293,6 +293,7 @@
                              'dateFormat' : scope.df});
                     }else{
                         loanAccount.isAccChecked = false;
+                        var idx = $scope.preClosureTempFormData.findIndex(x => x.preclosureLoanId == loanAccount.id);
                         if(idx >= 0){
                             $scope.preClosureTempFormData.splice(idx,1);
                         }

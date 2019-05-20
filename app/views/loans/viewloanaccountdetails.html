@@ -339,6 +339,11 @@
                                     data-ng-hide="loandetails.totalOverpaid>0">{{'label.heading.notprovided' | translate}}</span></span>
                             </td>
                         </tr>
+                        <tr ng-if="loanAdditionalDetails.isFldg">
+                            <th class="table-bold-loan">{{'label.anchor.fldg' | translate}}</th>
+                            <td><span class="padded-td">{{'label.heading.yes'| translate}}</span>
+                            </td>
+                        </tr>
                     </table>
 
                 </div>

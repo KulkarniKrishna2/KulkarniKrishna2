@@ -677,7 +677,14 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'bulkoperations/ViewAllCollectionsController',
             'collection/CollectionSheetDetailController',
             'accounting/GSTDebitTransactionDetailsControllers',
-            'accounting/GSTDebitTransactionControllers'
+            'accounting/GSTDebitTransactionControllers',
+            'accounting/OfficeTaxMappingController',
+            'accounting/EditOfficeTaxMappingController',
+            'accounting/AddLoanProductGSTMappingController',
+            'accounting/AddChargesGSTMappingController',
+            'accounting/AddSavingsProductGSTMappingController',
+            'accounting/CreateOfficeTaxMappingController',
+            'accounting/ViewGstInvoiceController'
         ],
         filters: [
             'StatusLookup',

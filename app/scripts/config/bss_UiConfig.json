@@ -24,6 +24,9 @@
 			},
 			"isDefaultValue": {
 				"syncDisbursementWithMeeting": true
+			},
+			"isAutoPopulate": {
+				"interestChargedFromDate": false
 			}
 		},
 		"viewClient": {
@@ -61,7 +64,8 @@
 		"viewLoanAccountDetails": {
 			"isHiddenFeild": {
 				"netDisbursedAmount": true,
-				"showProductShortName": true
+				"showProductShortName": true,
+				"editTransactions":true
 			},
 			"displayBankApprovalStatus":true
 		},
@@ -115,12 +119,6 @@
 		    },
 		    "loanOfficersOnly":false
 		},
-		"editJlgLoan": {
-		    "isReadOnlyField": {
-			    "productName": true
-		    },
-		    "isRestrictEmiPack":true
-	    },
 		"createGroup": {
 			"isHiddenMenu": {
 				"activate": true,
@@ -151,7 +149,8 @@
 				"canCreateSubGroups": false,
 				"showAttendance":true,
 				"showAPSCRepayment": true,
-        		"showOnlyStaff": false
+        		"showOnlyStaff": false,
+				"bulkUndoTransactions":true
 			}			
 		},
 		"createOffice": {
