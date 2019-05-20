@@ -184,7 +184,7 @@
 								  				<i tooltip="{{group.status.value}}" class="icon-stop {{group.status.code | StatusLookup}}" tooltip=""></i> {{group.name}}
 								  			</a>
 								  			<div class="col-md-12 primarydiv" data-ng-hide="group.status.value == 'Closed'">
-									            <button class="btn btn-primary pull-right" ng-click="addMember()" ng-disabled="exceedMaxLimit" has-permission='CREATE_CLIENT' ng-show="isClientCreationEnabled">
+									            <button class="btn btn-primary pull-right" ng-click="addMember()" ng-disabled="exceedMaxLimit" has-permission='CREATE_CLIENT' ng-hide="isClientCreationEnabled">
 									                <i class="icon-plus-sign-alt icon-white"></i>{{ 'label.button.add' | translate }}</button>
 									            <a href="#/membermanage/{{group.id}}" class="btn btn-primary pull-right" has-permission='ASSOCIATECLIENTS_GROUP' ng-hide="isHideCreateEntity">
 									                <i class="icon-edit icon-white"></i>{{'label.button.managemembers' | translate }}</a>
@@ -221,7 +221,7 @@
 
 														</td>
 														<td colspan="3">
-															<a has-permission='CREATE_LOANAPPLICATIONREFERENCE' ng-show="isLoanApplication === true" class="btn btn-primary btn-sm" ng-href="#/newindividualjlgloanapplicationreference/{{group.id}}/{{member.id}}" data-ng-show="isActiveMember(member.status.code)"><i
+															<a has-permission='CREATE_LOANAPPLICATIONREFERENCE' ng-show="isLoanApplication === true && !createjlgLoanApplication" class="btn btn-primary btn-sm" ng-href="#/newindividualjlgloanapplicationreference/{{group.id}}/{{member.id}}" data-ng-show="isActiveMember(member.status.code)"><i
 																	class="icon-plus icon-white"></i></a>
 
 														</td>
