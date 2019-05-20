@@ -28,8 +28,6 @@
             if(scope.isWorkflowEnabled && scope.hideManageGroup){
                 scope.isHideCreateEntity = true;
             }
-            scope.isClientCreationEnabled=scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.canAddClients;
-            scope.createjlgLoanApplication = scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.createjlgLoanApplication;
             scope.exceedMaxLimit = false;
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
