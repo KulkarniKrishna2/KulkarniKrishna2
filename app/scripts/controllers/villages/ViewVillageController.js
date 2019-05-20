@@ -5,6 +5,7 @@
             scope.addressId ;
             scope.datatabledetails = {};
             scope.datatabledetails.isData;
+            scope.fromEntity = 'village';
             resourceFactory.DataTablesResource.getAllDataTables({apptable: 'chai_villages', isFetchBasicData: true}, function (data) {
                 scope.datatables = data;
                 if(scope.datatables && scope.datatables[0]){
@@ -33,17 +34,13 @@
                     scope.datatabledetails.isMultirow = data.columnHeaders[0].columnName == "id" ? true : false;
                     scope.datatabledetails.isColumnData = data.columnData.length > 0 ? true : false;
                     if (scope.datatabledetails.isMultirow == false) {
-                        var indexI = data.columnHeaders.findIndex(x => x.columnName == 'villages_id');
+                        var indexI = data.columnHeaders.findIndex(x => x.columnName === 'villages_id');
                         if (indexI > -1) {
                             data.columnHeaders.splice(indexI, 1);
                         }
                     } else if (scope.datatabledetails.isMultirow == true) {
                         for (var m in data.columnData) {
-                            var indexk = data.columnData[m].row.findIndex(x => x.columnName == 'id');
-                            if (indexk > -1) {
-                                data.columnData[m].row.splice(indexk, 1);
-                            }
-                            var indexJ = data.columnData[m].row.findIndex(x => x.columnName == 'villages_id');
+                            var indexJ = data.columnData[m].row.findIndex(x => x.columnName === 'villages_id');
                             if (indexJ > -1) {
                                 data.columnData[m].row.splice(indexJ, 1);
                             }
@@ -257,6 +254,24 @@
                     location.path('/villageworkflow/'+data.resourceId+'/workflow');
 
                 });
+            };
+
+            scope.hideId = function(row){
+                return  (row.columnName === 'id');
+            };
+
+            scope.viewDataTable = function(registeredTableName, data) {
+                if (scope.datatabledetails.isMultirow) {
+                    var multiURL = "/viewdatatableentry/" + registeredTableName + "/" + scope.villageId + "/" + data.row[0].value;
+                    location.path(multiURL).search({
+                        fromEntity: scope.fromEntity
+                    });
+                } else {
+                    var singleURL = "/viewsingledatatableentry/" + registeredTableName + "/" + scope.villageId;
+                    location.path(singleURL).search({
+                        fromEntity: scope.fromEntity
+                    });
+                }
             };
         }
     });

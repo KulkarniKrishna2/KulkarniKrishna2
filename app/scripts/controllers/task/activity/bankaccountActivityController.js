@@ -4,7 +4,8 @@
             scope.formData = {};
             scope.bankAccountData ={};
             scope.isBankAccountDeatilsAvailable = false;
-            function getBankAssociationsDetails(){
+            scope.bankhtml = "";
+            scope.getBankAssociationsDetails = function (){
                 resourceFactory.bankAccountDetailResource.getAll({entityType: scope.entityType,entityId: scope.entityId}, function (data) {
                         if(!_.isUndefined(data[0])){
                             scope.clientBankAccountDetailAssociationId =  data[0].bankAccountAssociationId;
@@ -23,7 +24,8 @@
                             scope.commonConfig = {};
                         }
                         angular.extend(scope.commonConfig,bankAccountConfig); 
-                        scope.isBankAccountDeatilsAvailable = true;                
+                        scope.isBankAccountDeatilsAvailable = true;   
+                        scope.bankhtml = 'views/bankaccountdetails/common/checker_bank_account_common.html';            
                 });               
             }
 
@@ -53,7 +55,7 @@
                     scope.entityId = scope.taskconfig['clientId'];
                 }
                 
-                getBankAssociationsDetails();
+                 scope.getBankAssociationsDetails();
             };
 
             initTask();

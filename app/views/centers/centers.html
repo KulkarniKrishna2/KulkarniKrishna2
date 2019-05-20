@@ -30,7 +30,7 @@
                 <thead>
                     <tr class="graybg">
                         <th>{{'label.heading.name' | translate}}</th>
-                        <th> {{'label.heading.centerreferenceno' | translate}}</th>
+                        <th ng-if="response.uiDisplayConfigurations.centers.showRefNo"> {{'label.heading.centerreferenceno' | translate}}</th>
                         <th> {{'label.heading.accnum' | translate}}</th>
                         <th> {{'label.heading.centerexternalid' | translate}}</th>
                         <th>{{'label.heading.status' | translate}}</th>
@@ -41,7 +41,7 @@
                 <tbody>
                     <tr class="pointer-main" ng-repeat="center in centers.currentPageItems | orderBy:'name':reverse  | filter:filterText">
                         <td class="pointer" data-ng-click="routeTo(center.id)">{{center.name}}</td>
-                        <td class="pointer" data-ng-click="routeTo(center.id)">{{center.referenceNumber}}</td>
+                        <td class="pointer" data-ng-click="routeTo(center.id)" ng-if="response.uiDisplayConfigurations.centers.showRefNo">{{center.referenceNumber}}</td>
                         <td class="pointer" data-ng-click="routeTo(center.id)">{{center.accountNo}}</td>
                         <td class="pointer" data-ng-click="routeTo(center.id)">{{center.externalId}}</td>
                         <td class="pointer" data-ng-click="routeTo(center.id)">

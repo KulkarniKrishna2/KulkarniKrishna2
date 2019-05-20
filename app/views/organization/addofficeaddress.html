@@ -7,7 +7,7 @@
             <li class="active">{{'label.anchor.add.address' | translate}}</li>
         </ul>
     </div>
-    <form name="clientaddressform" novalidate="" class="form-horizontal well" rc-submit="submit()">
+    <form name="officeaddressform" novalidate="" class="form-horizontal well" rc-submit="submit()">
         <api-validate></api-validate>
         <fieldset>
             <legend>{{'label.heading.addclientaddress' | translate}}</legend>
@@ -23,7 +23,7 @@
                     </select>
                 </div>
                 <div class="col-sm-1 paddinglr0px">
-                        <form-validate ng-if ="isAddressTypeMandatory" valattributeform="clientaddressform" valattribute="addressType"/>
+                        <form-validate ng-if ="isAddressTypeMandatory" valattributeform="officeaddressform" valattribute="addressType"/>
                 </div>
             </div>
 
@@ -40,7 +40,7 @@
                     </select>
                 </div>
                 <div class="col-sm-2">
-                    <form-validate valattributeform="clientaddressform" valattribute="villages"/>
+                    <form-validate valattributeform="officeaddressform" valattribute="villages"/>
                 </div>
             </div>
 
@@ -63,7 +63,7 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" ng-if = "!isVillageTownHidden">
                 <label class="control-label col-sm-2" for="villagename">{{'label.input.villagename' | translate}}<span ng-show="isVillageTownMandatory" class="required">*</span></label>
 
                 <div class="col-sm-3">
@@ -71,7 +71,7 @@
                       ng-required = "isVillageTownMandatory"/>
                 </div>
                 <div class="col-sm-1 paddinglr0px">
-                        <form-validate valattributeform="clientaddressform" valattribute="villageTown"/>
+                        <form-validate valattributeform="officeaddressform" valattribute="villageTown"/>
                 </div>
             </div>
 
@@ -81,14 +81,19 @@
                 </label>
 
                 <div class="col-sm-3">
-                    <select chosen="countries" id="countryId" name="countries" ng-model="formData.countryId" class="form-control"
+                    <select chosen="countries" id="countryId" name="countries" ng-if = "!isLevelBasedAddressEnabled" ng-model="formData.countryId" class="form-control"
                             ng-options="country.countryId as country.countryName for country in countries" ng-disabled ="isCountryReadOnly" value="{{country.countryId}}"
+                            ng-change="changeCountry(formData.countryId)"  required late-validate="">
+                            <option value="">{{'label.menu.selectCountry' | translate}}</option>
+                    </select>
+                    <select chosen="countries" id="countryId" ng-if = "isLevelBasedAddressEnabled" name="countries" ng-model="formData.countryId" class="form-control"
+                            ng-options="country.id as country.name for country in countries" ng-disabled ="isCountryReadOnly" value="{{country.id}}"
                             ng-change="changeCountry(formData.countryId)"  required late-validate="">
                             <option value="">{{'label.menu.selectCountry' | translate}}</option>
                     </select>
                 </div>
                 <div class="col-sm-2">
-                    <form-validate valattributeform="clientaddressform" valattribute="countries"/>
+                    <form-validate valattributeform="officeaddressform" valattribute="countries"/>
                 </div>
             </div>
 
@@ -98,14 +103,19 @@
                 </label>
 
                 <div class="col-sm-3">
-                    <select chosen="states" id="stateId" name="states" ng-model="formData.stateId"  class="form-control"
+                    <select chosen="states" id="stateId" name="states" ng-if = "!isLevelBasedAddressEnabled" ng-model="formData.stateId"  class="form-control"
                             ng-options="state.stateId as state.stateName for state in states" value="{{state.stateId}}"
+                            ng-change="changeState(formData.stateId)" required late-validate="">
+                            <option value="">{{'label.menu.selectState' | translate}}</option>
+                    </select>
+                    <select chosen="states" id="stateId" name="states" ng-if = "isLevelBasedAddressEnabled" ng-model="formData.stateId"  class="form-control"
+                            ng-options="state.id as state.name for state in states" value="{{state.id}}"
                             ng-change="changeState(formData.stateId)" required late-validate="">
                             <option value="">{{'label.menu.selectState' | translate}}</option>
                     </select>
                 </div>
                 <div class="col-sm-2">
-                    <form-validate valattributeform="clientaddressform" valattribute="states"/>
+                    <form-validate valattributeform="officeaddressform" valattribute="states"/>
                 </div>
             </div>
             <div class="form-group">
@@ -114,14 +124,19 @@
                 </label>
 
                 <div class="col-sm-3">
-                    <select chosen="districts" id="districtId" name="districts" ng-model="formData.districtId"  class="form-control"
+                    <select chosen="districts" id="districtId" name="districts" ng-if = "!isLevelBasedAddressEnabled" ng-model="formData.districtId"  class="form-control"
                             ng-options="district.districtId as district.districtName for district in districts" value="{{district.districtId}}"
                             ng-change="changeDistrict(formData.districtId)" required late-validate="">
                             <option value="">{{'label.menu.selectDistrict' | translate}}</option>
                     </select>
+                    <select chosen="districts" id="districtId" name="districts" ng-if = "isLevelBasedAddressEnabled"  ng-model="formData.districtId"  class="form-control"
+                        ng-options="district.id as district.name for district in districts" value="{{district.id}}"
+                        ng-change="changeDistrict(formData.districtId)" required late-validate="">
+                        <option value="">{{'label.menu.selectDistrict' | translate}}</option>
+                    </select>
                 </div>
                 <div class="col-sm-2">
-                    <form-validate valattributeform="clientaddressform" valattribute="districts"/>
+                    <form-validate valattributeform="officeaddressform" valattribute="districts"/>
                 </div>
             </div>
 
@@ -130,16 +145,36 @@
                     {{'label.input.talukname' | translate}} <span class="required">*</span> </label>
                 </label>
                 <div class="col-sm-3">
-                    <select chosen="talukas" id="talukaId" name="talukas"  ng-model="formData.talukaId"
+                    <select chosen="talukas" id="talukaId" name="talukas"  ng-if = "!isLevelBasedAddressEnabled" ng-model="formData.talukaId"
                             ng-options="taluka.talukaId as taluka.talukaName for taluka in talukas"
                             value="{{taluka.talukaId}}"  required late-validate="">
                         <option value="">{{'label.menu.selectTaluka' | translate}}</option>
                     </select>
+                    <select chosen="talukas" id="talukaId" name="talukas"  ng-if = "isLevelBasedAddressEnabled" ng-model="formData.talukaId"
+                            ng-options="taluka.id as taluka.name for taluka in talukas"
+                            value="{{taluka.id}}"  ng-change="changeTaluka(formData.talukaId)" required late-validate="">
+                        <option value="">{{'label.menu.selectTaluka' | translate}}</option>
+                    </select>
                 </div>
                 <div class="col-sm-2">
-                    <form-validate valattributeform="clientaddressform" valattribute="talukas"/>
+                    <form-validate valattributeform="officeaddressform" valattribute="talukas"/>
                 </div>
             </div>
+            <div class="form-group" ng-if="showWardAndVillages">
+                    <label  class="control-label col-sm-2">
+                            {{'label.input.wardAndVillage' | translate}}  <span ng-if="showWardAndVillages" class="required">*</span>
+                    </label>
+                    <div  class="col-sm-2">
+                        <select chosen="wardAndVillages" id="wardAndVillageId" name="wardAndVillages" ng-model="formData.wardAndVillagesId"
+                        ng-options="wardAndVillage.id as wardAndVillage.name for wardAndVillage in wardAndVillages"  
+                        value="{{wardAndVillage.id}}" required late-validate="">
+                        <option value="">{{'label.menu.selectward.village' | translate}}</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-1 paddinglr0px">
+                        <form-validate valattributeform="officeaddressform" valattribute="wardAndVillages"/>
+                    </div>
+                </div>
             <div class="form-group">
                 <label ng-show = "!pincode" class="control-label col-sm-2" for="pincode">{{'label.input.pincode' | translate}}
                     <span class="required">*</span> 
@@ -148,11 +183,11 @@
                 <div class="col-sm-3" ng-if="!pincode">
                     <input type="text" autocomplete="off"  id="pincode" name="pincode" ng-minlength="6" maxlength="6" ng-model="formData.postalCode" class="form-control" ng-pattern= "/^([1-9])([0-9]){5}$/" required/>
                 </div>
-                <span ng-show="clientaddressform.pincode.$error.pattern">
-                    <small class="required" ng-show="clientaddressform.pincode.$error.pattern">{{'invalid.pin.code.format' | translate}}</small>
+                <span ng-show="officeaddressform.pincode.$error.pattern">
+                    <small class="required" ng-show="officeaddressform.pincode.$error.pattern">{{'invalid.pin.code.format' | translate}}</small>
                 </span>
                 <div class="col-sm-2">
-                    <form-validate valattributeform="clientaddressform" valattribute="pincode"/>
+                    <form-validate valattributeform="officeaddressform" valattribute="pincode"/>
                 </div>
             </div>
 

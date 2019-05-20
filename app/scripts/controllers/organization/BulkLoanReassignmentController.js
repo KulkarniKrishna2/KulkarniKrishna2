@@ -20,8 +20,9 @@
             scope.groupMemberData = [];
             scope.clientMemberData = [];
             scope.groupMemberLoanData=[];
+            scope.formData = {};
 
-            resourceFactory.officeResource.getAllOffices(function (data) {
+            resourceFactory.officeResource.getAllOffices({onlyActive: true}, function (data) {
                 scope.offices = data;
             });
             scope.getOfficers = function () {

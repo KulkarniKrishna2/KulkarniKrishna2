@@ -149,7 +149,9 @@
 				"referenceNo": false,
 				"unassignStaffCenter": true,
 				"canCreateSubGroups": false,
-				"showAttendance":true
+				"showAttendance":true,
+				"showAPSCRepayment": true,
+        		"showOnlyStaff": false
 			}			
 		},
 		"createOffice": {
@@ -294,6 +296,18 @@
 			"isHiddenField": {
 				"preCloseDate": true
 			}
+		},
+		"centers": {
+			"showRefNo": true
+		},
+		"groups": {
+			"showRefNo": true
+		},
+		"clients": {
+			"showRefNo": true
+		},
+		"offices": {
+			"showRefNo": true
 		}
 	}
 }

@@ -397,7 +397,9 @@
                 }
 
                 if (this.formValidationData.syncRepaymentsWithMeeting) {
-                    this.formValidationData.calendarId = scope.loanaccountinfo.calendarOptions[0].id;
+                    if(scope.loanaccountinfo.calendarOptions){
+                        this.formValidationData.calendarId = scope.loanaccountinfo.calendarOptions[0].id;
+                    }
                     scope.syncRepaymentsWithMeeting = this.formValidationData.syncRepaymentsWithMeeting;
                 }
                 //delete this.formValidationData.syncRepaymentsWithMeeting;
@@ -489,7 +491,9 @@
                                     } else if (scope.formRequestData.repaymentPeriodFrequencyEnum === 2) {
                                         date = date.setMonth(date.getMonth()+(parseInt(scope.formRequestData.repayEvery) * disbursalEMIs[i]));
                                     }
-                                    scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate = dateFilter(date, scope.df);
+                                    if(!isNaN(date)){
+                                        scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate = dateFilter(new Date(date), scope.df);
+                                    }
                                     dateValue = scope.formRequestData.expectedDisbursementDate;
                                     date = new Date(dateValue);
                                 }
@@ -560,7 +564,9 @@
                                     } else if (scope.formRequestData.repaymentPeriodFrequencyEnum === 2) {
                                         date = date.setMonth(date.getMonth()+(parseInt(scope.formRequestData.repayEvery) * emiPackNumber));
                                     }
-                                    scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate = dateFilter(date, scope.df);
+                                    if(!isNaN(date)){
+                                        scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate = dateFilter(new Date(date), scope.df);
+                                    }
                                     dateValue = scope.formRequestData.repaymentsStartingFromDate;
                                     date = new Date(dateValue);
                                 }
@@ -658,7 +664,9 @@
                                     } else if (scope.formRequestData.repaymentPeriodFrequencyEnum === 2) {
                                         date = date.setMonth(date.getMonth()+(parseInt(scope.formRequestData.repayEvery) * disbursalEMIs[i]));
                                     }
-                                    scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate = dateFilter(date, scope.df);
+                                    if(!isNaN(date)){
+                                        scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate = dateFilter(new Date(date), scope.df);
+                                    }
                                     dateValue = scope.formRequestData.expectedDisbursementDate;
                                     date = new Date(dateValue);
                                 }

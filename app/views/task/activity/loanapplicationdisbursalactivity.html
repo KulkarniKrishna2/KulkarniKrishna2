@@ -707,6 +707,54 @@
                                         </tr>
                                     </table>
 
+                                    <table class="width100">
+                                        <tr>
+                                            <td class="width25">
+                                                <label>{{ 'label.anchor.showbankaccountdetails' | translate}}</label>
+                                            </td>
+                                            <td class="width25 paddedbottom10">
+                                                <a class="btn btn-primary" ng-click="showBankAccountDetails=!showBankAccountDetails">
+                                                    <i ng-show="showBankAccountDetails" class="icon-minus icon-white"></i>
+                                                    <i ng-show="!showBankAccountDetails" class="icon-plus icon-white"></i>
+                                                </a>
+                                            </td>
+                                            <td class="width25"></td>
+                                            <td class="width25 paddedbottom10"></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4">
+                                                <div collapse="!showBankAccountDetails">
+                                                    <div class="form-group">
+                                                        <div ng-if="bankAccountDetails.length > 0">
+                                                            <table class="table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th></th>
+                                                                        <th></th>
+                                                                        <th>{{'label.heading.holdername' | translate}}</th>
+                                                                        <th>{{'label.heading.accountnumber' | translate}}</th>
+                                                                        <th>{{'label.heading.ifsc' | translate}}</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr class="pointer-main" ng-repeat="bankAccountDetail in bankAccountDetails">
+                                                                        <td class="col-md-1"></td>
+                                                                        <td class="col-md-1">
+                                                                            <input type="radio" ng-model="formData.bankAccountDetailId" value="{{bankAccountDetail.id}}" ng-click="radioCheckUncheck()" />
+                                                                        </td>
+                                                                        <td class="col-md-1">{{bankAccountDetail.name}}</td>
+                                                                        <td class="col-md-1">{{bankAccountDetail.accountNumber}}</td>
+                                                                        <td class="col-md-1">{{bankAccountDetail.ifscCode}}</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+
                                     <div class="form-group width100"  ng-if= "canDisburseToGroupsBanks()">
                                         <h4>{{ 'label.heading.group.bank.account.details' | translate}}</h4>
                                         <hr/>

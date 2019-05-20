@@ -6,6 +6,7 @@
             resourceFactory.jobsResource.get(function (data) {
                 scope.jobs = data;
             });
+            scope.isJobRunning = false;
 
             resourceFactory.schedulerResource.get(function (data) {
                 scope.schedulerstatus = data.active === true ? 'Active' : 'Standby';
@@ -58,6 +59,7 @@
             };
 
             scope.runJobSelected = function (jobId, checkbox) {
+                
                 for (var i = 0; i < scope.jobs.length; i++) {
                     if (scope.jobs[i].jobId === jobId) {
                         if (checkbox === true) {
@@ -75,12 +77,16 @@
                 if (jobIdArray.length === 0) {
                     scope.activeall = false;
                 }
+                
 
                 jobIdArray =  _.uniq(jobIdArray);
             };
 
             scope.runSelectedJobs = function () {
-                scope.sentForExecution = [];
+                scope.sentForExecution = [];                
+                if(jobIdArray.length>0){
+                    scope.isJobRunning = true;
+                }
                 for (var i in jobIdArray) {
                     for (var j in scope.jobs) {
                         if (scope.jobs[j].jobId === jobIdArray[i]) {
@@ -96,18 +102,21 @@
             };
 
             scope.suspendJobs = function () {
+                scope.isJobRunning = false;
                 resourceFactory.schedulerResource.save({command : 'stop'}, {}, function(data) {
                     route.reload();
                 });
             };
 
             scope.activeJobs = function () {
+                scope.isJobRunning = false;
                 resourceFactory.schedulerResource.save({command : 'start'}, {}, function(data) {
                     route.reload();
                 });
             };
 
             scope.refresh = function () {
+                scope.isJobRunning = false;
                 route.reload();
             };
         }

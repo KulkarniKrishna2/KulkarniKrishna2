@@ -108,36 +108,62 @@
                                 <span class="padded-td">{{address.addressLineTwo}}</span>
                             </td>
                         </tr>
-                        <tr>
+                        <tr  ng-if = "!isLevelBasedAddressEnabled">
                             <th class="table-bold-loan">{{'label.heading.villagename' | translate}}</th>
-                            <td>
+                            <td> 
                                 <span class="padded-td">{{address.villageTown}}</span>
                             </td>
                         </tr>
                         <tr>
-                            <th class="table-bold-loan">{{'label.heading.talukname' | translate}}</th>
-                            <td>
-                                <span class="padded-td">{{address.talukaData.talukaName}}</span>
-                            </td>
-                        </tr>
-                        <tr>
                             <th class="table-bold-loan">{{'label.heading.countryname' | translate}}</th>
-                            <td>
+                            <td ng-if = "!isLevelBasedAddressEnabled">
                                 <span class="padded-td">{{address.countryData.countryName}}</span>
                             </td>
+                            <td ng-if = "isLevelBasedAddressEnabled">
+								<span class="padded-td">{{address.addressRegionValueData.Country.name}}</span>
+							</td>
                         </tr>
                         <tr>
                             <th class="table-bold-loan">{{'label.heading.statename' | translate}}</th>
-                            <td>
+                            <td ng-if = "!isLevelBasedAddressEnabled">
                                 <span class="padded-td">{{address.stateData.stateName}}</span>
                             </td>
+                            <td ng-if = "isLevelBasedAddressEnabled">
+								<span class="padded-td" ng-if = address.addressRegionValueData.State.name>{{address.addressRegionValueData.State.name}}</span>
+								<span class="padded-td" ng-if = address.addressRegionValueData.Division.name>{{address.addressRegionValueData.Division.name}}</span>
+							</td>
                         </tr>
                         <tr>
                             <th class="table-bold-loan">{{'label.heading.districtname' | translate}}</th>
-                            <td>
+                            <td ng-if = "!isLevelBasedAddressEnabled">
                                 <span class="padded-td">{{address.districtData.districtName}}</span>
                             </td>
+                            <td ng-if = "isLevelBasedAddressEnabled">
+								<span class="padded-td" ng-if = address.addressRegionValueData.District.name>{{address.addressRegionValueData.District.name}}</span>
+								<span class="padded-td" ng-if = address.addressRegionValueData.Township.name>{{address.addressRegionValueData.Township.name}}</span>
+							</td>
                         </tr>
+                        <tr ng-if = "!isLevelBasedAddressEnabled">    
+                                <th class="table-bold-loan">{{'label.heading.talukname' | translate}}</th>
+                                <td>
+                                    <span class="padded-td">{{address.talukaData.talukaName}}</span>
+                                </td>
+                        </tr>
+                        <tr ng-if = "talukaLevelValueExists(address)">
+							<th class="table-bold-loan">{{'label.heading.talukname' | translate}}</th>
+							<td>
+								<span class="padded-td" ng-if = address.addressRegionValueData.Taluka.name>{{address.addressRegionValueData.Taluka.name}}</span>
+								<span class="padded-td" ng-if = address.addressRegionValueData.Town.name>{{address.addressRegionValueData.Town.name}}</span>
+								<span class="padded-td" ng-if = address.addressRegionValueData.VillageTract.name>{{address.addressRegionValueData.VillageTract.name}}</span>
+							</td>
+						</tr>
+						<tr ng-if ="address.addressRegionValueData.Ward.name || address.addressRegionValueData.Village.name">
+							<th class="table-bold-loan">{{'label.heading.wardAndVillage' | translate}}</th>
+							<td>
+								<span class="padded-td" ng-if = address.addressRegionValueData.Ward.name>{{address.addressRegionValueData.Ward.name}}</span>
+								<span class="padded-td" ng-if = address.addressRegionValueData.Village.name>{{address.addressRegionValueData.Village.name}}</span>
+							</td>
+						</tr>
                         <tr ng-if="!pincode">
                             <th class="table-bold-loan">{{'label.heading.pincode' | translate}}</th>
                             <td>

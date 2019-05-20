@@ -4,6 +4,21 @@
             scope.charges = [];
             scope.sections = [];
             scope.enableOfficeAddress = scope.isSystemGlobalConfigurationEnabled('enable-office-address');
+            var levelBasedAddressConfig = 'enable_level_based_address';
+            scope.isLevelBasedAddressEnabled = scope.isSystemGlobalConfigurationEnabled(levelBasedAddressConfig);
+            scope.pincode = false;
+            scope.isVillageTownHidden = false;
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createOffice) {
+                if(scope.response.uiDisplayConfigurations.createOffice.isHiddenField){
+                    if(scope.response.uiDisplayConfigurations.createOffice.isHiddenField.pincode){
+                        scope.pincode = scope.response.uiDisplayConfigurations.createOffice.isHiddenField.pincode;
+                    }
+                   if(scope.response.uiDisplayConfigurations.createOffice.isHiddenField.villageTown){
+                    scope.isVillageTownHidden = scope.response.uiDisplayConfigurations.createOffice.isHiddenField.villageTown;
+                   }
+                }
+            }
+
             resourceFactory.officeResource.get({officeId: routeParams.id}, function (data) {
                 scope.office = data;
                 $rootScope.officeName = data.name;
@@ -21,17 +36,13 @@
                     scope.datatabledetails.isMultirow = data.columnHeaders[0].columnName == "id" ? true : false;
                     scope.datatabledetails.isColumnData = data.columnData.length > 0 ? true : false;
                     if (scope.datatabledetails.isMultirow == false) {
-                        var indexI = data.columnHeaders.findIndex(x => x.columnName == 'office_id');
+                        var indexI = data.columnHeaders.findIndex(x => x.columnName === 'office_id');
                         if (indexI > -1) {
                             data.columnHeaders.splice(indexI, 1);
                         }
                     } else if (scope.datatabledetails.isMultirow == true) {
                         for (var m in data.columnData) {
-                            var indexk = data.columnData[m].row.findIndex(x => x.columnName == 'id');
-                            if (indexk > -1) {
-                                data.columnData[m].row.splice(indexk, 1);
-                            }
-                            var indexJ = data.columnData[m].row.findIndex(x => x.columnName == 'office_id');
+                            var indexJ = data.columnData[m].row.findIndex(x => x.columnName === 'office_id');
                             if (indexJ > -1) {
                                 data.columnData[m].row.splice(indexJ, 1);
                             }
@@ -131,6 +142,10 @@
                 });
             };
 
+            scope.talukaLevelValueExists = function(address){
+                return(scope.isLevelBasedAddressEnabled && (address.addressRegionValueData.Taluka || address.addressRegionValueData.Town || address.addressRegionValueData.VillageTract));
+            };
+
             scope.viewDataTable = function (registeredTableName, data){
                 if (scope.datatabledetails.isMultirow) {
                     location.path("/viewdatatableentry/"+registeredTableName+"/"+scope.office.id+"/"+data.row[0].value);
@@ -216,7 +231,13 @@
                     $modalInstance.dismiss('cancel');
                 };
             };
+
+            scope.hideId = function(row){
+                return  (row.columnName === 'id');
+            };
+            
         }
+
 
     });
     mifosX.ng.application.controller('ViewOfficeController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$rootScope', '$modal', mifosX.controllers.ViewOfficeController]).run(function ($log) {

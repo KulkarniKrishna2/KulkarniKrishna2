@@ -86,7 +86,7 @@
                 scope.formData = data;
                 resourceFactory.loanApplicationReferencesTemplateResource.get({}, function (tempData) {
                     scope.paymentModeOptions = tempData.paymentModeOptions;
-                    if(paymentModeOptions.length>0)
+                    if(scope.paymentModeOptions.length>0)
                     {
                         scope.changePaymentTypeOptions(0);
                     }
@@ -244,13 +244,23 @@
                     if (scope.loanaccountinfo.isLoanProductLinkedToFloatingRate) {
                         scope.formRequestData.submitApplication.isFloatingInterestRate = false;
                     }
-
+                    scope.fetchBankAccountDetails();
                     if(scope.formData.approvedData.amountForUpfrontCollection){
                         scope.formRequestData.submitApplication.amountForUpfrontCollection = scope.formData.approvedData.amountForUpfrontCollection;
                     }
 
                 });
             };
+
+            scope.fetchBankAccountDetails = function () {
+                resourceFactory.bankAccountDetailResources.getAll({
+                    entityType: "clients",
+                    entityId: scope.formData.clientId,
+                    status: "active"
+                }, function (data) {
+                    scope.bankAccountDetails = data;
+                });
+            }
 
             scope.requestApprovalLoanAppRef = function () {
                 resourceFactory.loanApplicationReferencesResource.update({
@@ -306,7 +316,7 @@
 
             scope.previewRepayments = function (isDisplayData) {
 
-                if (scope.feeCharges.length > 0) {
+                if (scope.feeCharges && scope.feeCharges.length > 0) {
                     scope.formRequestData.submitApplication.charges = [];
                     for (var i in scope.feeCharges) {
                         var chargeData = {};
@@ -390,7 +400,7 @@
 
             scope.submit = function () {
                 scope.previewRepayments(false);
-                if (scope.feeCharges.length > 0) {
+                if (scope.feeCharges && scope.feeCharges.length > 0) {
                     scope.formRequestData.submitApplication.charges = [];
                     for (var i in scope.feeCharges) {
                         var chargeData = {};
@@ -402,7 +412,7 @@
                         scope.formRequestData.submitApplication.charges.push(chargeData);
                     }
                 }
-                if (scope.penalCharges.length > 0 && scope.loanaccountinfo.overdueCharges) {
+                if (scope.penalCharges && scope.penalCharges.length > 0 && scope.loanaccountinfo.overdueCharges) {
                     scope.formRequestData.submitApplication.overdueCharges = [];
                     for (var i in scope.penalCharges) {
                         var overdueCharge = scope.loanaccountinfo.overdueCharges.find(function (element) {
@@ -467,6 +477,9 @@
 
                 this.formRequestData.locale = scope.optlang.code;
                 this.formRequestData.dateFormat = scope.df;
+                if (scope.formData.bankAccountDetailId) {
+                    this.formRequestData.disburse.bankAccountDetailId = scope.formData.bankAccountDetailId;
+                }
 
                 scope.disburseData = {};
                 angular.copy(scope.formRequestData,scope.disburseData);
@@ -673,6 +686,12 @@
                         $scope.displayDescription = false;
                       }
                 };
+            };
+
+            scope.radioCheckUncheck = function () {
+                if (this.formData.bankAccountDetailId) {
+                    this.formData.bankAccountDetailId = null;
+                }
             };
         }
     });

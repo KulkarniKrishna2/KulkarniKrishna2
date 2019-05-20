@@ -245,7 +245,7 @@
             scope.download = function(document){
                 var url = $rootScope.hostUrl + document.docUrl;
                 var documentType = document.fileName.substr(document.fileName.lastIndexOf('.') + 1);
-                CommonUtilService.downloadFile(url,documentType);
+                commonUtilService.downloadFile(url,documentType);
             };
         }
     });

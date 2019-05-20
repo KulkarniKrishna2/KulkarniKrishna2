@@ -354,6 +354,7 @@
                     if(scope.issubmitcontinue)
                     {
                         scope.formData={};
+                        scope.formDat = {};
                         scope.count=++scope.count;
                         scope.issubmitcontinue = false ;
                     }

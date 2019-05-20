@@ -33,7 +33,7 @@
             scope.requiredFieldErrorMessage = "Required field";
             scope.savingsGroupsTotal = [];
             scope.isWithDrawForSavingsIncludedInCollectionSheet = false;
-
+            scope.formData = {};
 
             resourceFactory.configurationResource.get({configName:'reason-code-allowed'}, function (data) {
                 scope.showRejectReason = data.enabled;
@@ -59,6 +59,8 @@
                         centerIdArray.push({id: scope.staffCenterData[i].id, calendarId: scope.staffCenterData[i].collectionMeetingCalendar.id});
                     }
                     scope.getAllGroupsByCenter(data[0].meetingFallCenters[0].id, data[0].meetingFallCenters[0].collectionMeetingCalendar.id);
+                } else {
+                    scope.submitNextShow = false;
                 }
             });
 
@@ -201,7 +203,7 @@
                     }
                     if (angular.isNumber(scope.defaultAttendanceValue)) {
                         scope.defaultClientAttendanceType = scope.defaultAttendanceValue;
-                    } else {
+                    } else if (scope.collectionsheetdata.attendanceTypeOptions) {
                         scope.defaultClientAttendanceType = scope.collectionsheetdata.attendanceTypeOptions[0].id
                     }
                     scope.savingsgroups = data.groups;
@@ -222,28 +224,32 @@
             };
 
             scope.clientsAttendanceArray = function (groups) {
-                var gl = groups.length;
-                for (var i = 0; i < gl; i++) {
-                    scope.clients = groups[i].clients;
-                    var cl = scope.clients.length;
-                    for (var j = 0; j < cl; j++) {
-                        scope.client = scope.clients[j];
-                        if (scope.client.attendanceType.id === 0) {
-                            scope.client.attendanceType.id = 1;
+                if (!_.isUndefined(groups)) {
+                    var gl = groups.length;
+                    for (var i = 0; i < gl; i++) {
+                        scope.clients = groups[i].clients;
+                        var cl = scope.clients.length;
+                        for (var j = 0; j < cl; j++) {
+                            scope.client = scope.clients[j];
+                            if (scope.client.attendanceType.id === 0) {
+                                scope.client.attendanceType.id = 1;
+                            }
                         }
                     }
                 }
             };
 
             scope.clientsAttendanceList = function (groups) {
-                var gl = groups.length;
-                for (var i = 0; i < gl; i++) {
-                    scope.clients = groups[i].clients;
-                    var cl = scope.clients.length;
-                    for (var j = 0; j < cl; j++) {
-                        scope.client = scope.clients[j];
-                        if (scope.client.attendanceType.id === 0) {
-                            scope.client.attendanceType = 1;
+                if (!_.isUndefined(groups)) {
+                    var gl = groups.length;
+                    for (var i = 0; i < gl; i++) {
+                        scope.clients = groups[i].clients;
+                        var cl = scope.clients.length;
+                        for (var j = 0; j < cl; j++) {
+                            scope.client = scope.clients[j];
+                            if (scope.client.attendanceType.id === 0) {
+                                scope.client.attendanceType = 1;
+                            }
                         }
                     }
                 }
@@ -281,8 +287,9 @@
             };
 
             scope.submit = function () {
-                
-                scope.formData.calendarId = scope.calendarId;
+                if(scope.calendarId) {
+                    scope.formData.calendarId = scope.calendarId;
+                }
                 scope.formData.dateFormat = scope.df;
                 scope.formData.locale = scope.optlang.code;
                 scope.formData.transactionDate = dateFilter(routeParams.meetingDate, scope.df);
@@ -421,22 +428,24 @@
 
             scope.updateAttendenceData = function () {
                 var clientsAttendanceDetails =[];
-                scope.groups = scope.savingsgroups;
-                var gl = scope.groups.length;
-                for (var i = 0; i < gl; i++) {
-                    scope.clients = scope.groups[i].clients;
-                    var cl = scope.clients.length;
-                    for (var j = 0; j < cl; j++) {
-                        var attendence = {};
-                        attendence.clientId = scope.clients[j].clientId;
-                        attendence.reasonId = scope.clients[j].reasonId;
-                        attendence.reason = scope.clients[j].reason;
-                        attendence.attendanceType = scope.clients[j].attendanceType;
-                        if (attendence.clientId) {
-                            clientsAttendanceDetails.push(attendence);
+                if (scope.savingsgroups) {
+                    scope.groups = scope.savingsgroups;
+                    var gl = scope.groups.length;
+                    for (var i = 0; i < gl; i++) {
+                        scope.clients = scope.groups[i].clients;
+                        var cl = scope.clients.length;
+                        for (var j = 0; j < cl; j++) {
+                            var attendence = {};
+                            attendence.clientId = scope.clients[j].clientId;
+                            attendence.reasonId = scope.clients[j].reasonId;
+                            attendence.reason = scope.clients[j].reason;
+                            attendence.attendanceType = scope.clients[j].attendanceType;
+                            if (attendence.clientId) {
+                                clientsAttendanceDetails.push(attendence);
+                            }
                         }
-                    }
-                };
+                    };
+                }
                 scope.formData.clientsAttendance = clientsAttendanceDetails;
             };
 
@@ -781,8 +790,13 @@
                
             };
 
+            scope.showErrMsg = function (){
+                return (!(scope.submitNextShow || scope.submitShow || scope.forcedSubmit));
+            };
+
         }
     });
+
     mifosX.ng.application.controller('ProductiveCollectionSheetController', ['$scope', '$routeParams', 'ResourceFactory', 'dateFilter', '$location','$modal', mifosX.controllers.ProductiveCollectionSheetController]).run(function ($log) {
         $log.info("ProductiveCollectionSheetController initialized");
     });

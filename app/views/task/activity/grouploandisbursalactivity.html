@@ -361,7 +361,7 @@
                                         <span class="required">*</span>:</label>
                                 </td>
                                 <td class="width25 paddedbottom10">
-                                    <input type="text" autocomplete="off" class="form-control" name="transactionAmount" ng-model="formRequestData.disburse.transactionAmount" ng-disabled="formData.approvedData.loanEMIPackData" number-format required/>&nbsp;{{loanaccountinfo.currency.displaySymbol}}
+                                    <input type="text" autocomplete="off" class="form-control" name="transactionAmount" ng-model="formRequestData.disburse.transactionAmount"  number-format required/>&nbsp;{{loanaccountinfo.currency.displaySymbol}}
                                 </td>
 
                                 <td class="width25" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestChargedFromDate == true">
@@ -387,7 +387,7 @@
                                     <label>{{ 'label.input.fixedemiamount' | translate }}:
                                     </label>&nbsp;</td>
                                 <td class="width36 paddedbottom10" ng-if="loanaccountinfo.canDefineInstallmentAmount">
-                                    <input id="fixedEmiAmount" name="fixedEmiAmount" type="text" autocomplete="off" ng-model="formRequestData.disburse.fixedEmiAmount" ng-disabled="formData.approvedData.loanEMIPackData" class="form-control" number-format/>&nbsp;{{loanaccountinfo.currency.displaySymbol}}
+                                    <input id="fixedEmiAmount" name="fixedEmiAmount" type="text" autocomplete="off" ng-model="formRequestData.disburse.fixedEmiAmount"  class="form-control" number-format/>&nbsp;{{loanaccountinfo.currency.displaySymbol}}
                                 </td>
 
                                 <td class="width25">
@@ -454,6 +454,53 @@
 
                                             <div class="col-sm-3">
                                                 <input id="bankNumber" class="form-control" type="text" autocomplete="off" ng-model="formRequestData.disburse.bankNumber">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        <table class="width100">
+                            <tr>
+                                <td class="width25">
+                                    <label>{{ 'label.anchor.showbankaccountdetails' | translate}}</label>
+                                </td>
+                                <td class="width25 paddedbottom10">
+                                    <a class="btn btn-primary" ng-click="showBankAccountDetails=!showBankAccountDetails">
+                                        <i ng-show="showBankAccountDetails" class="icon-minus icon-white"></i>
+                                        <i ng-show="!showBankAccountDetails" class="icon-plus icon-white"></i>
+                                    </a>
+                                </td>
+                                <td class="width25"></td>
+                                <td class="width25 paddedbottom10"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <div collapse="!showBankAccountDetails">
+                                        <div class="form-group">
+                                            <div ng-if="bankAccountDetails.length > 0">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th>{{'label.heading.holdername' | translate}}</th>
+                                                            <th>{{'label.heading.accountnumber' | translate}}</th>
+                                                            <th>{{'label.heading.ifsc' | translate}}</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="pointer-main" ng-repeat="bankAccountDetail in bankAccountDetails">
+                                                            <td class="col-md-1"></td>
+                                                            <td class="col-md-1">
+                                                                <input type="radio" ng-model="formData.bankAccountDetailId" value="{{bankAccountDetail.id}}" ng-click="radioCheckUncheck()" />
+                                                            </td>
+                                                            <td class="col-md-1">{{bankAccountDetail.name}}</td>
+                                                            <td class="col-md-1">{{bankAccountDetail.accountNumber}}</td>
+                                                            <td class="col-md-1">{{bankAccountDetail.ifscCode}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>

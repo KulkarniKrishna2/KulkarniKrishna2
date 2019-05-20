@@ -218,10 +218,20 @@
                     if (scope.loanaccountinfo.isLoanProductLinkedToFloatingRate) {
                         scope.formRequestData.submitApplication.isFloatingInterestRate = false;
                     }
-
+                    scope.fetchBankAccountDetails();
                 });
             };
 
+            scope.fetchBankAccountDetails = function () {
+                resourceFactory.bankAccountDetailResources.getAll({
+                    entityType: "clients",
+                    entityId: scope.formData.clientId,
+                    status: "active"
+                }, function (data) {
+                    scope.bankAccountDetails = data;
+                });
+            }
+            
             scope.requestApprovalLoanAppRef = function() {
                 resourceFactory.loanApplicationReferencesResource.update({
                     loanApplicationReferenceId: scope.loanApplicationReferenceId,
@@ -419,6 +429,9 @@
 
                 this.formRequestData.submitApplication.locale = scope.optlang.code;
                 this.formRequestData.submitApplication.dateFormat = scope.df;
+                if (scope.formData.bankAccountDetailId) {
+                    this.formRequestData.disburse.bankAccountDetailId = scope.formData.bankAccountDetailId;
+                }
 
                 if (this.formRequestData.disburse.actualDisbursementDate) {
                     this.formRequestData.disburse.actualDisbursementDate = dateFilter(new Date(this.formRequestData.disburse.actualDisbursementDate), scope.df)
@@ -519,6 +532,12 @@
             scope.displayOnNoActiveLoanApplication = function(){
                return  ((scope.taskStatus != undefined && scope.taskStatus === 'completed') || scope.loanApplications.length <= 0);
             }
+
+            scope.radioCheckUncheck = function () {
+                if (this.formData.bankAccountDetailId) {
+                    this.formData.bankAccountDetailId = null;
+                }
+            };
         }
     });
     mifosX.ng.application.controller('groupLoanDisbursalActivityController', ['$controller', '$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', mifosX.controllers.groupLoanDisbursalActivityController]).run(function($log) {

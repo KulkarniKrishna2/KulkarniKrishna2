@@ -22,6 +22,8 @@
                 scope.liabilityAccountOptions = scope.product.accountingMappingOptions.liabilityAccountOptions || [];
                 scope.incomeAccountOptions = scope.product.accountingMappingOptions.incomeAccountOptions || [];
                 scope.expenseAccountOptions = scope.product.accountingMappingOptions.expenseAccountOptions || [];
+                scope.incomeAndLiabilityAccountOptions = scope.incomeAccountOptions.concat(scope.liabilityAccountOptions);
+
                 scope.formData = {
                     name: data.name,
                     shortName: data.shortName,
@@ -115,7 +117,7 @@
                         chargeId: fees.charge.id,
                         incomeAccountId: fees.incomeAccount.id,
                         chargeOptions: scope.product.chargeOptions,
-                        incomeAccountOptions: scope.incomeAccountOptions
+                        incomeAccountOptions: scope.incomeAndLiabilityAccountOptions
                     })
                 });
 
@@ -170,9 +172,9 @@
                 scope.chargeOptions = scope.product.chargeOptions || [];
                 scope.specificIncomeaccounts.push({
                     chargeId: scope.chargeOptions.length > 0 ? scope.chargeOptions[0].id : '',
-                    incomeAccountId: scope.incomeAccountOptions.length > 0 ? scope.incomeAccountOptions[0].id : '',
+                    incomeAccountId: scope.incomeAndLiabilityAccountOptions.length > 0 ? scope.incomeAndLiabilityAccountOptions[0].id : '',
                     chargeOptions: scope.chargeOptions,
-                    incomeAccountOptions: scope.incomeAccountOptions
+                    incomeAccountOptions: scope.incomeAndLiabilityAccountOptions
                 });
             }
 

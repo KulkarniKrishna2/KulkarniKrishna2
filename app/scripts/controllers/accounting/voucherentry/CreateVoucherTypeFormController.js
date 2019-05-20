@@ -44,12 +44,9 @@
                     transactionId: routeParams.transactionId
                 };
             }
-            resourceFactory.codeValueByCodeNameResources.get({codeName: 'company code for gl accounts',searchConditions:'{"codeValueIsActive":true}'}, function (data) {
-                scope.companyCodeForGlaccountCodeValues = data;
-                if (data != null) {
-                    if (data.length > 0) {
-                        scope.formData.companyCodeForGlaccountCodeValues = data[0].id;
-                    }
+            resourceFactory.codeValueByCodeNameResources.get({codeName: 'company code for gl accounts',searchConditions:'{"codeValueIsActive":true}'}, function (data) {  
+                if (!_.isUndefined(data)) {
+                    scope.companyCodeForGlaccountCodeValues = data;
                 }
             });
 

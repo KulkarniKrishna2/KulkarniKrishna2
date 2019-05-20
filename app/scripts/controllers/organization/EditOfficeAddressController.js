@@ -15,18 +15,36 @@
             scope.isVillageTownMandatory = false;
             scope.isCountryReadOnly = false;
             scope.isAddressTypeMandatory = false;
-            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createOffice && scope.response.uiDisplayConfigurations.createOffice.isHiddenField.pincode) {
-                scope.pincode = scope.response.uiDisplayConfigurations.createOffice.isHiddenField.pincode;
-            }
-            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createOffice && scope.response.uiDisplayConfigurations.createOffice.isMandatoryField.villageTown) {
-                scope.isVillageTownMandatory = scope.response.uiDisplayConfigurations.createOffice.isMandatoryField.villageTown;
-            }
+            scope.showWardAndVillages = false;
+            scope.wardAndVillages = [];
+            scope.formAddress = [];
+            scope.isVillageTownHidden = false;
+            var levelVasedAddressConfig = 'enable_level_based_address';
+            scope.isLevelBasedAddressEnabled = scope.isSystemGlobalConfigurationEnabled(levelVasedAddressConfig);
+
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createOffice) {
+                if(scope.response.uiDisplayConfigurations.createOffice.isHiddenField){
+                    if(scope.response.uiDisplayConfigurations.createOffice.isHiddenField.pincode){
+                        scope.pincode = scope.response.uiDisplayConfigurations.createOffice.isHiddenField.pincode;
+                    }
+                    if(scope.response.uiDisplayConfigurations.createOffice.isHiddenField.villageTown){
+                        scope.isVillageTownHidden = scope.response.uiDisplayConfigurations.createOffice.isHiddenField.villageTown;
+                    }
+                }
+                
+                if (scope.response.uiDisplayConfigurations.createOffice.isMandatoryField) {
+                    if(scope.response.uiDisplayConfigurations.createOffice.isMandatoryField.villageTown){
+                        scope.isVillageTownMandatory = scope.response.uiDisplayConfigurations.createOffice.isMandatoryField.villageTown;
+                    }
+                    if(scope.response.uiDisplayConfigurations.createOffice.isMandatoryField.addressType){
+                        scope.isAddressTypeMandatory = scope.response.uiDisplayConfigurations.createOffice.isMandatoryField.addressType;
+                    }
+                }
+            }      
             if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.defaultGISConfig.isReadOnlyField.countryName) {
                 scope.isCountryReadOnly = scope.response.uiDisplayConfigurations.defaultGISConfig.isReadOnlyField.countryName;
             }
-            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createOffice && scope.response.uiDisplayConfigurations.createOffice.isMandatoryField.addressType) {
-                scope.isAddressTypeMandatory = scope.response.uiDisplayConfigurations.createOffice.isMandatoryField.addressType;
-            }
+            
             resourceFactory.addressTemplateResource.get({}, function (data) {
                 scope.addressType = data.addressTypeOptions;
                 scope.countries = data.countryDatas;
@@ -50,74 +68,271 @@
                     if (data.postalCode) {
                         scope.formData.postalCode = data.postalCode;
                     }
-                    scope.districts = data.stateData.districtDatas
-                    scope.states = data.countryData.statesDatas;
-                    if (data.stateData && data.stateData.stateId) {
-                        scope.formData.stateId = data.stateData.stateId;
-                    }
-                    if (data.countryData && data.countryData.countryId) {
-                        scope.formData.countryId = data.countryData.countryId;
-                    }
-                    for (var i in scope.districts) {
-                        if (data.talukaData.districtId == scope.districts[i].districtId) {
-                            scope.talukas = scope.districts[i].talukaDatas;
+                    if(scope.isLevelBasedAddressEnabled){
+                        scope.addressData = data.addressData;
+                        scope.addressLevels = data.addressLevels;
+
+                        if (data.addressRegionValueData && data.addressRegionValueData.Country) {
+                            scope.formData.countryId = data.addressRegionValueData.Country.id;
                         }
-                    }
-                    if (data.talukaData && data.talukaData.talukaId) {
-                        scope.formData.talukaId = data.talukaData.talukaId;
-                        scope.formData.districtId = data.talukaData.districtId;
-                    }
+
+                        for(var i in scope.addressLevels){
+                            if(scope.addressLevels[i].identifier === 'country'){
+                                scope.countries = data.addressData[scope.addressLevels[i].identifier];
+                                break;
+                            }
+                        }
+
+                        if (data.addressRegionValueData.Division && data.addressRegionValueData.Division.id ) {
+                            scope.formData.stateId = data.addressRegionValueData.Division.id;
+                        }
+
+                        var levelLists = ['division', 'state']
+                        for(var i in scope.addressLevels){
+                            if(levelLists.indexOf(scope.addressLevels[i].identifier) >= 0 ){
+                                scope.statesTemp = scope.addressData[scope.addressLevels[i].identifier];
+                                break;
+                            }
+                        }
+                        scope.states = _.filter(scope.statesTemp, function (state) {
+                            return state.parentId == scope.formData.countryId;
+                        });
+
+                        if (data.addressRegionValueData.Township && data.addressRegionValueData.Township.id ) {
+                            scope.formData.districtId = data.addressRegionValueData.Township.id;
+                        }
+
+                        levelLists = ['township','district'];
+                        for(var i in scope.addressLevels){
+                            if(levelLists.indexOf(scope.addressLevels[i].identifier) >= 0 ){
+                                scope.districtsTemp = scope.addressData[scope.addressLevels[i].identifier];
+                                break;
+                            }
+                        }
+
+                        scope.districts = _.filter(scope.districtsTemp, function (district) {
+                            return district.parentId == scope.formData.stateId;
+                        });
+
+                        levelLists = ['taluka','town','ward','villagetract']; 
+                        var talukasTemp = [];            
+                        for(var i in scope.addressLevels){
+                            if((levelLists.indexOf(scope.addressLevels[i].identifier) >= 0) && scope.addressData[scope.addressLevels[i].identifier] != null ){
+                                talukasTemp = talukasTemp.concat(scope.addressData[scope.addressLevels[i].identifier]);
+                            }
+                        }
+                        scope.talukas = _.filter(talukasTemp, function (taluka) {
+                            return taluka.parentId == scope.formData.districtId;
+                        });
+
+                        if (data.addressRegionValueData.Taluka && data.addressRegionValueData.Taluka.id ) {
+                            scope.formData.talukaId = data.addressRegionValueData.Taluka.id;
+                        }else if(data.addressRegionValueData.Town && data.addressRegionValueData.Town.id){
+                            scope.formData.talukaId  = data.addressRegionValueData.Town.id;
+                            if(data.addressRegionValueData.Ward && data.addressRegionValueData.Ward.id){
+                            scope.formAddress.wardAndVillagesId  = data.addressRegionValueData.Ward.id;
+                            scope.showWardAndVillages = true;
+                        }
+                        }else if(data.addressRegionValueData.VillageTract && data.addressRegionValueData.VillageTract.id){
+                            scope.formData.talukaId  = data.addressRegionValueData.VillageTract.id;
+                            if(data.addressRegionValueData.Village && data.addressRegionValueData.Village.id){
+                            scope.formAddress.wardAndVillagesId  = data.addressRegionValueData.Village.id;
+                            scope.showWardAndVillages = true;
+                        }
+                        }else if(data.addressRegionValueData.Ward && data.addressRegionValueData.Ward.id){
+                            scope.formData.talukaId  = data.addressRegionValueData.Ward.id;
+                        }
+
+                        if(scope.talukas.length >0 && scope.formData.talukaId){
+                            scope.isShowTaluka= true;
+                        }
+
+                        if(scope.showWardAndVillages){
+                            levelLists = ['wardleaf','village']; 
+                            scope.wardAndVillagesTemp = [];            
+                            for(var i in scope.addressLevels){
+                                if(levelLists.indexOf(scope.addressLevels[i].identifier) >= 0 ){
+                                    scope.wardAndVillagesTemp =  scope.wardAndVillagesTemp.concat(scope.addressData[scope.addressLevels[i].identifier]);
+                                }
+                            }
+                            scope.wardAndVillages = _.filter(scope.wardAndVillagesTemp, function (wardAndVillages) {
+                                return wardAndVillages.parentId == (scope.formData.talukaId);
+                            });
+                        }
+                
+                    }else{
+                        scope.districts = data.stateData.districtDatas;
+                        scope.states = data.countryData.statesDatas;
+                        if (data.stateData && data.stateData.stateId) {
+                            scope.formData.stateId = data.stateData.stateId;
+                        }
+                        if (data.countryData && data.countryData.countryId) {
+                            scope.formData.countryId = data.countryData.countryId;
+                        }
+                        if(data.districtData && data.districtData.districtId){
+                            scope.formData.districtId = data.districtData.districtId;
+                        }
+                        for(var i in scope.districts){
+                            if( data.districtData && data.districtData.districtId == scope.districts[i].districtId){
+                                scope.talukas = scope.districts[i].talukaDatas;
+                                if(scope.talukas.length >0){
+                                    scope.isShowTaluka= true;
+                                }
+                            }
+                        }
+                        if (data.talukaData && data.talukaData.talukaId) {
+                            scope.formData.talukaId = data.talukaData.talukaId;
+                        }
+                    }          
                 });
-            };
+            }
 
             scope.changeCountry = function (countryId) {
-                if (countryId != null) {
-                    scope.selectCountry = _.filter(scope.countries, function (country) {
-                        return country.countryId == countryId;
-                    })
-                    if (scope.formData.stateId) {
-                        delete scope.formData.stateId;
-                    }
-                    if (scope.formData.districtId) {
-                        delete scope.formData.districtId;
-                    }
-                    if (scope.formData.talukaId) {
-                        delete scope.formData.talukaId;
-                    }
-                    scope.states = scope.selectCountry[0].statesDatas;
-                    scope.districts = null;
-                    scope.talukas = null;
+                if (scope.formData.stateId) {
+                    delete scope.formData.stateId;
+                }
+                if (scope.formData.districtId) {
+                    delete scope.formData.districtId;
+                }
+                if(scope.formData.talukaId){
+                    delete scope.formData.talukaId;
+                }
+                if(scope.formAddress.wardAndVillagesId){
+                    delete scope.formAddress.wardAndVillagesId;
+                }
+                scope.states = null;
+                scope.districts = null;
+                scope.talukas = null;
+                scope.wardAndVillages = null;
 
+                if (countryId != null) {
+                    if(scope.isLevelBasedAddressEnabled){
+                        scope.selectCountry = _.filter(scope.countries, function (country) {
+                        return country.id == countryId;
+                        });
+                        var levelLists = ['division', 'state']
+                        for(var i in scope.addressLevels){
+                            if(levelLists.indexOf(scope.addressLevels[i].identifier) >= 0 ){
+                                scope.statesTemp = scope.addressData[scope.addressLevels[i].identifier];
+                                break;
+                            }
+                        }
+                        scope.states = _.filter(scope.statesTemp, function (state) {
+                            return state.parentId == countryId;
+                        });
+                     }else{
+                        scope.selectCountry = _.filter(scope.countries, function (country) {
+                        return country.countryId == countryId;
+                        });
+                        scope.states = scope.selectCountry[0].statesDatas;
+                     }
                 }
             };
 
             scope.changeState = function (stateId) {
+                if (scope.formData.districtId) {
+                    delete scope.formData.districtId;
+                }
+                if(scope.formData.talukaId){
+                    delete scope.formData.talukaId;
+                }
+                if(scope.formAddress.wardAndVillagesId){
+                    delete scope.formAddress.wardAndVillagesId;
+                }
+               
+                scope.districts = null;
+                scope.talukas = null;
+                scope.wardAndVillages = null;
+
                 if (stateId != null) {
-                    scope.selectState = _.filter(scope.states, function (state) {
+                    if(scope.isLevelBasedAddressEnabled){
+                        scope.selectState = _.filter(scope.states, function (state) {
+                        return state.id == stateId;
+                        });
+                        var levelLists = ['township','district'];             
+                        for(var i in scope.addressLevels){
+                            if(levelLists.indexOf(scope.addressLevels[i].identifier) >= 0 ){
+                                scope.districtsTemp = scope.addressData[scope.addressLevels[i].identifier];
+                                break;
+                            }
+                        }
+                        scope.districts = _.filter(scope.districtsTemp, function (district) {
+                            return district.parentId == stateId;
+                        });
+                    }else{
+                        scope.selectState = _.filter(scope.states, function (state) {
                         return state.stateId == stateId;
-                    })
-                    if (scope.formData.districtId) {
-                        delete scope.formData.districtId;
+                        });
+                        scope.districts = scope.selectState[0].districtDatas;
                     }
-                    if (scope.formData.talukaId) {
-                        delete scope.formData.talukaId;
-                    }
-                    scope.districts = scope.selectState[0].districtDatas;
-                    scope.talukas = null;
                 }
             };
 
             scope.changeDistrict = function (districtId) {
+                if(scope.formData.talukaId){
+                    delete scope.formData.talukaId;
+                }
+                if(scope.formAddress.wardAndVillagesId){
+                    delete scope.formAddress.wardAndVillagesId;
+                }
+                scope.talukas = null;
+                scope.wardAndVillages = null;
+
                 if (districtId != null) {
                     scope.talukas = null;
-                    scope.selectDistrict = _.filter(scope.districts, function (districts) {
-                        return districts.districtId == districtId;
-                    })
-
-                    if (scope.formData.talukaId) {
-                        delete scope.formData.talukaId;
+                    if(scope.isLevelBasedAddressEnabled){
+                        scope.selectDistrict = _.filter(scope.districts, function (districts) {
+                            return districts.id == districtId;
+                        });
+                        var levelLists = ['taluka','town','ward','villagetract']; 
+                        var talukasTemp = [];            
+                        for(var i in scope.addressLevels){
+                            if((levelLists.indexOf(scope.addressLevels[i].identifier) >= 0) && scope.addressData[scope.addressLevels[i].identifier] != null ){
+                                talukasTemp = talukasTemp.concat(scope.addressData[scope.addressLevels[i].identifier]);
+                            }
+                        }
+                        scope.talukas = _.filter(talukasTemp, function (taluka) {
+                            return taluka.parentId == districtId;
+                        });
+                        scope.isShowTaluka = (scope.talukas.length > 0);
+                        scope.formAddress.wardAndVillagesId = null;
+                        scope.formData.addressRegionValueId = null;
+                    }else{
+                        scope.selectDistrict = _.filter(scope.districts, function (districts) {
+                            return districts.districtId == districtId;
+                        });
+                        scope.talukas = scope.selectDistrict[0].talukaDatas;
+                        if(scope.talukas.length > 0){
+                            scope.isShowTaluka = true;
+                        }else{
+                            scope.isShowTaluka= false;
+                        }
                     }
-                    scope.talukas = scope.selectDistrict[0].talukaDatas;
+                }
+            };
+
+            scope.changeTaluka = function (talukaId) {
+                if(scope.formAddress.wardAndVillagesId){
+                    delete scope.formAddress.wardAndVillagesId;
+                }
+                scope.wardAndVillages = null;
+
+                if (talukaId != null) {
+                    scope.selectWardAndVillage = _.filter(scope.talukas, function (taluka) {
+                        return taluka.id == talukaId;
+                    })
+                    scope.formData.addressRegionValueId = talukaId;
+
+                    var levelLists = ['wardleaf','village'];   
+                    scope.wardAndVillagesTemp = [];            
+                    for(var i in scope.addressLevels){
+                        if(levelLists.indexOf(scope.addressLevels[i].identifier) >= 0 ){
+                            scope.wardAndVillagesTemp =   scope.wardAndVillagesTemp.concat(scope.addressData[scope.addressLevels[i].identifier]);
+                        }
+                    }
+                    scope.wardAndVillages = _.filter(scope.wardAndVillagesTemp, function (wardAndVillages) {
+                        return wardAndVillages.parentId == talukaId});
+                    scope.showWardAndVillages = (scope.wardAndVillages.length > 0); 
                 }
             };
 
@@ -127,6 +342,17 @@
                 scope.formData.dateFormat = scope.df;
                 scope.formData.addressId = scope.addressId;
                 scope.formData.addressTypes = [scope.addressTypeId];
+
+                if(scope.isLevelBasedAddressEnabled){
+                    if (scope.formData.talukaId){
+                        scope.formData.addressRegionValueId = scope.formData.talukaId;
+                    }
+                    if(scope.formAddress.wardAndVillagesId == null || scope.formAddress.wardAndVillagesId == ""){
+                        delete scope.formAddress.wardAndVillagesId;
+                    }else if (scope.formAddress.wardAndVillagesId){
+                        scope.formData.addressRegionValueId = scope.formAddress.wardAndVillagesId;
+                    }
+                }
 
                 if (scope.formData.countryId == null || scope.formData.countryId == "") {
                     delete scope.formData.countryId;

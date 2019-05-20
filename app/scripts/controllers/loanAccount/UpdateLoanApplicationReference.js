@@ -527,10 +527,8 @@
                                 scope.loanaccountinfo.paymentOptions[i].paymentMode.id==scope.disbursementMode) && 
                                 (scope.loanaccountinfo.paymentOptions[i].applicableOn== undefined || scope.loanaccountinfo.paymentOptions[i].applicableOn.id != scope.applicableOnRepayment)){
                                 scope.disbursementTypeOption.push(scope.loanaccountinfo.paymentOptions[i]);
-                            }else{
-                                if(scope.formData && scope.formData.expectedDisbursalPaymentType){
-                                    scope.formData.expectedDisbursalPaymentType = undefined;
-                                }                               
+                            } else if (scope.formData && !scope.formData.expectedDisbursalPaymentType){
+                                    scope.formData.expectedDisbursalPaymentType = undefined;                               
                             }
                         }
                 }

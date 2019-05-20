@@ -5,18 +5,59 @@
         </li>
         <li class="active">{{'label.anchor.manage.devices' | translate}}</li>
     </ul>
+    <div>
+    <div class="form-horizontal">
+        <form>
+        <fieldset>
+            <div class="form-group"></div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.device.id' | translate }}
+                </label>
+                    <div class="col-sm-3">
+                        <input placeholder="deviceId" type="text" id="deviceId" name="deviceId" ng-model="searchConditions.deviceId" class="form-control"/>
+                    </div>
+                <div class="col-sm-3">
+                <label class="control-label col-sm-2">{{'label.input.office' | translate}}</label>
+                <div class="col-sm-3">{{office.id}}
+                <select chosen="officeOptions" id="offices" ng-model="searchConditions.officeId"        class="form-control" ng-change="changeOffice(searchConditions.officeId)" 
+                ng-options="office.id as office.name for office in officeOptions" value="{{office.id}}">
+                <option value="">{{'label.selectone' | translate}}</option>
+                </select>
+                </div>
+                </div>
+                <div class="col-sm-2"></div>
 
+            </div>
+            <div class="form-group">  
+                <label class="control-label col-sm-2">{{'label.input.user' | translate}}</label>
+                <div class="col-sm-3">
+                <select chosen="userOptions" id="users" ng-model="searchConditions.userId" class="form-control"
+                ng-options="user.id as user.username for user in userOptions" value="{{user.id}}">
+                <option value="">{{'label.selectone' | translate}}</option>
+                </select>
+                </div>
+            </div>
+            <div class="col-md-offset-5">
+                        <button id="reset" type="button" data-ng-click="resetSearchData()" class="btn btn-primary">{{'label.button.reset'| translate}}</button>
+                        <button id="search" type="button" data-ng-click="searchData(uiData.status)" class="btn btn-primary"
+                                has-permission='READ_REGISTERED_DEVICE'>{{'label.button.search'| translate}}
+                        </button>
+                    </div>
+        </fieldset>
+        </form>
+    </div>    
+    </div>
     <div class="container">
         <h2>{{'label.device.list' |translate}}</h2>
-
+    
         <tabset has-permission='READ_REGISTERED_DEVICE'>
-            <tab heading="{{'label.pending.devices' | translate}}" select="fetchDevices('pending')">
+            <tab heading="{{'label.pending.devices' | translate}}" select="searchData('pending')">
                 <div ng-if="uiData.status == 'pending'" ng-include="'views/organization/registereddevices/listdevices.html'"></div>
             </tab>
-            <tab heading="{{'label.activated.devices' | translate}}" select="fetchDevices('activated')">
+            <tab heading="{{'label.activated.devices' | translate}}" select="searchData('activated')">
                 <div ng-if="uiData.status == 'activated'" ng-include="'views/organization/registereddevices/listdevices.html'"></div>
             </tab>
-            <tab heading="{{'label.deactivated.devices' | translate}}" select="fetchDevices('deactivated')">
+            <tab heading="{{'label.deactivated.devices' | translate}}" select="searchData('deactivated')">
                 <div ng-if="uiData.status == 'deactivated'" ng-include="'views/organization/registereddevices/listdevices.html'"></div>
             </tab>
         </tabset>

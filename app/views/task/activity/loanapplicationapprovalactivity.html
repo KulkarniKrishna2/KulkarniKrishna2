@@ -594,16 +594,16 @@
                                             <span>{{formRequestData.loanEMIPackData.fixedEmi}}</span>
                                         </td>
                                         <td class="col-md-1" ng-show="formRequestData.loanEMIPackData.disbursalAmount1">
-                                            <span>{{formData.loanEMIPackData.disbursalAmount1}}</span>
+                                            <span>{{formRequestData.loanEMIPackData.disbursalAmount1}}</span>
                                         </td>
                                         <td class="col-md-1" ng-show="formRequestData.loanEMIPackData.disbursalAmount2">
-                                            <span>{{formData.loanEMIPackData.disbursalAmount2}}</span>
+                                            <span>{{formRequestData.loanEMIPackData.disbursalAmount2}}</span>
                                         </td>
                                         <td class="col-md-1" ng-show="formRequestData.loanEMIPackData.disbursalAmount3">
-                                            <span>{{formData.loanEMIPackData.disbursalAmount3}}</span>
+                                            <span>{{formRequestData.loanEMIPackData.disbursalAmount3}}</span>
                                         </td>
                                         <td class="col-md-1" ng-show="formRequestData.loanEMIPackData.disbursalAmount4">
-                                            <span>{{formData.loanEMIPackData.disbursalAmount4}}</span>
+                                            <span>{{formRequestData.loanEMIPackData.disbursalAmount4}}</span>
                                         </td>
                                     </tr>
                                                     </tbody>
@@ -715,10 +715,11 @@
                                                    ng-model="formRequestData.maxOutstandingLoanBalance"
                                                    class="form-control"
                                                    number-format/>&nbsp;
+
                                             <a href="javascript:void(0)"
                                                title="{{ 'label.button.addtranch' | translate }}"
                                                ng-click="addTranches()"
-                                               ng-show="formRequestData.loanApplicationSanctionTrancheDatas.length < formData.noOfTranche">
+                                               ng-show="showAddTranche()">
                                                 <i class="icon-plus icon-white"></i>
                                             </a>
                                         </td>
@@ -758,7 +759,7 @@
                                                    number-format type="text" autocomplete="off"
                                                    ng-model="disbursementDetail.trancheAmount"
                                                    placeholder="{{'label.input.principal' | translate}}" required
-                                                   late-validate="">
+                                                   late-validate="" ng-readonly = "isTrancheAmountReadOnly()">
 
                                             <form-validate valattributeform="approveloanapplicationform"
                                                            valattribute="trancheAmount"/>

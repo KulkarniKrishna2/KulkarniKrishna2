@@ -474,7 +474,7 @@
                             </td>
                             <td class="pointer"
                                 data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
-                                {{transaction.transactionType.value}}
+                                {{getSpecificTransactionType(transaction)}}
                             </td>
                             <td class="pointer"
                                 data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
@@ -514,6 +514,16 @@
                         </div>
 
                     </div>
+                    <ul class="pager">
+                        <li class="previous">
+                            <a id="prev" ng-click="previousSavingsTransactionsDataRequest()" href=""
+                               ng-hide="requestoffset == 0"> &larr; {{'label.button.previous' | translate}}</a>
+                        </li>
+                        <li class="next">
+                            <a id="next" ng-click="nextSavingsTransactionsDataRequest()" href=""
+                               ng-hide="savingaccountdetails.transactions.length != limit">{{'label.button.next' | translate}} &rarr;</a>
+                        </li>
+                    </ul>
                 </tab>
                 <tab heading="{{datatable.registeredTableDisplayName == null ? datatable.registeredTableName : datatable.registeredTableDisplayName}}" ng-repeat="datatable in datatables" has-permission='READ_{{datatable.registeredTableName}}'
                      select="dataTableChange(datatable)">

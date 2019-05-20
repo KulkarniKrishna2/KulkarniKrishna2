@@ -13,6 +13,8 @@
             scope.amountToBePaid = 0;
             scope.netOverdraftLimit = 0;
             scope.sections = [];
+            scope.requestoffset = 0;
+            scope.limit = 10;
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.savingsAccount &&
                 scope.response.uiDisplayConfigurations.savingsAccount.overDraft) {
                 if(scope.response.uiDisplayConfigurations.savingsAccount.overDraft.isHiddenField &&
@@ -179,7 +181,8 @@
                 };
             };
 
-            resourceFactory.savingsResource.get({accountId: routeParams.id, associations: 'all'}, function (data) {
+            scope.getSavingAccountDetailsTemplateData = function(){
+            resourceFactory.savingsResource.get({accountId: routeParams.id, limit: scope.limit, offset:scope.requestoffset, orderBy:'transactionDate', sortOrder:'DESC', associations: 'all'}, function (data) {
                 scope.savingaccountdetails = data;
                 $rootScope.savingsAccount = data.savingsProductName;
                 $rootScope.clientId=data.clientId;
@@ -417,6 +420,8 @@
                     scope.datatables = data;
                 });
             });
+            }
+            scope.getSavingAccountDetailsTemplateData();
 
             scope.amountTobePaid = function(){
                if( scope.savingaccountdetails.summary.accountBalance < 0 ){
@@ -452,17 +457,13 @@
                     scope.datatabledetails.isMultirow = data.columnHeaders[0].columnName == "id" ? true : false;
                     scope.datatabledetails.isColumnData = data.columnData.length > 0 ? true : false;
                     if (scope.datatabledetails.isMultirow == false) {
-                        var indexI = data.columnHeaders.findIndex(x => x.columnName == 'savings_account_id');
+                        var indexI = data.columnHeaders.findIndex(x => x.columnName === 'savings_account_id');
                         if (indexI > -1) {
                             data.columnHeaders.splice(indexI, 1);
                         }
                     } else if (scope.datatabledetails.isMultirow == true) {
                         for (var m in data.columnData) {
-                            var indexk = data.columnData[m].row.findIndex(x => x.columnName == 'id');
-                            if (indexk > -1) {
-                                data.columnData[m].row.splice(indexk, 1);
-                            }
-                            var indexJ = data.columnData[m].row.findIndex(x => x.columnName == 'savings_account_id');
+                            var indexJ = data.columnData[m].row.findIndex(x => x.columnName === 'savings_account_id');
                             if (indexJ > -1) {
                                 data.columnData[m].row.splice(indexJ, 1);
                             }
@@ -719,6 +720,34 @@
                     scope.netOverdraftLimit = overdraftLimit - totalcharges;                     
                 }
             };
+
+            scope.hideId = function(row){
+                return  (row.columnName === 'id');
+            };
+
+            scope.getSpecificTransactionType = function(transaction){
+                if(transaction.isAccountTransfer){
+                    return transaction.transactionType.value + " (Account Transfer)";
+                }
+                return transaction.transactionType.value;
+            }
+
+            scope.previousSavingsTransactionsDataRequest= function(){
+                if(scope.requestoffset != 0){
+                    scope.requestoffset = scope.requestoffset - scope.limit;
+                    if(scope.requestoffset <= 0){
+                        scope.requestoffset = 0;
+                    }
+                    scope.getSavingAccountDetailsTemplateData();
+                }
+            } 
+
+            scope.nextSavingsTransactionsDataRequest= function(){
+                if(scope.savingaccountdetails.transactions.length == scope.limit){
+                    scope.requestoffset = scope.requestoffset + scope.limit;
+                    scope.getSavingAccountDetailsTemplateData();
+                }
+            } 
         }
     });
     mifosX.ng.application.controller('ViewSavingDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location','$modal', '$route', 'dateFilter', '$sce', '$rootScope', 'API_VERSION', '$http', mifosX.controllers.ViewSavingDetailsController]).run(function ($log) {

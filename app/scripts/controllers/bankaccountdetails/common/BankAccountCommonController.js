@@ -96,7 +96,7 @@
                 scope.bankAccountDocuments = scope.bankData.bankAccountDocuments || [];
                 for (var i = 0; i < scope.bankAccountDocuments.length; i++) {
                     var docs = {};
-                    docs = $rootScope.hostUrl + API_VERSION + '/' + getEntityType() + '/' + getEntityId() + '/documents/' + scope.bankAccountDocuments[i].id + '/attachment';
+                    docs = $rootScope.hostUrl + API_VERSION + '/' + getEntityType() + '/' + getEntityId() + '/documents/' + scope.bankAccountDocuments[i].id + '/download';
                     scope.bankAccountDocuments[i].docUrl = docs;
                 }
             }
@@ -415,7 +415,13 @@
             };
 
             scope.viewDocument = function (document) {
-                scope.documentImg = document.docUrl;
+                var url = document.docUrl;
+                $http({
+                    method: 'GET',
+                    url: url
+                }).then(function (documentImage) {
+                    scope.documentImg = documentImage.data;
+                });
             }
 
             scope.deleteDocument = function (documentId) {

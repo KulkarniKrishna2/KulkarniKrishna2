@@ -1,12 +1,12 @@
 <div class="col-md-12">
-    <form name="checkerbankaccountdetail" novalidate="" rc-submit="onSubmit()" class="form-horizontal" autocomplete="off">
+    <form name="checkerbankaccountdetail" novalidate=""  class="form-horizontal" autocomplete="off">
         <api-validate></api-validate>
         <fieldset>
 
             <legend>{{'label.anchor.checkerbankaccountdetails' | translate}}</legend>
             <div class="row">
                 <div class="col-md-7" ng-if="bankAccountDocuments.length>0">
-                    <table class="table  " >
+                    <table class="table">
                         <thead>
                         <tr class="graybg">
                             <th>{{'label.heading.name' | translate}}</th>
@@ -214,7 +214,7 @@
                     </div>
                     <div class="text-center">
                         <a id="cancel" ng-click="cancel()" ng-show="viewConfig.hasData" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
-                        <button id="save" type="submit" class="btn btn-primary"  has-permission='CHECKERINFO_BANKACCOUNTDETAIL'>{{'label.button.save' | translate}}</button>
+                        <button id="save" type="button"  ng-click = "onSubmit()" class="btn btn-primary"  has-permission='CHECKERINFO_BANKACCOUNTDETAIL'>{{'label.button.save' | translate}}</button>
                     </div>
                 </div>
 

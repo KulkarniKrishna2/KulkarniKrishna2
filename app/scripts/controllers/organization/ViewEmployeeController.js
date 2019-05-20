@@ -1,8 +1,9 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewEmployeeController: function (scope, routeParams, resourceFactory) {
+        ViewEmployeeController: function (scope, routeParams, resourceFactory, location) {
             scope.employee = [];
             scope.employeeDatatablesLoaded = false;
+            scope.fromEntity = 'staff';
             resourceFactory.employeeResource.get({staffId: routeParams.id}, function (data) {
                 scope.employee = data;
             });
@@ -33,17 +34,13 @@
                     scope.datatabledetails.isColumnData = data.columnData.length > 0 ? true : false;
                     scope.datatabledetails.isMultirow = data.columnHeaders[0].columnName == "id" ? true : false;
                     if (scope.datatabledetails.isMultirow == false) {
-                        var indexI = data.columnHeaders.findIndex(x => x.columnName == 'staff_id');
+                        var indexI = data.columnHeaders.findIndex(x => x.columnName === 'staff_id');
                         if (indexI > -1) {
                             data.columnHeaders.splice(indexI, 1);
                         }
                     } else if (scope.datatabledetails.isMultirow == true) {
                         for (var m in data.columnData) {
-                            var indexk = data.columnData[m].row.findIndex(x => x.columnName == 'id');
-                            if (indexk > -1) {
-                                data.columnData[m].row.splice(indexk, 1);
-                            }
-                            var indexJ = data.columnData[m].row.findIndex(x => x.columnName == 'staff_id');
+                            var indexJ = data.columnData[m].row.findIndex(x => x.columnName === 'staff_id');
                             if (indexJ > -1) {
                                 data.columnData[m].row.splice(indexJ, 1);
                             }
@@ -144,10 +141,28 @@
                     
                 });
             };
+
+            scope.hideId = function(row){
+                return  (row.columnName === 'id');
+            };
+
+            scope.viewDataTable = function(registeredTableName, data) {
+                if (scope.datatabledetails.isMultirow) {
+                    var multiURL = "/viewdatatableentry/" + registeredTableName + "/" + scope.employee.id + "/" + data.row[0].value;
+                    location.path(multiURL).search({
+                        fromEntity: scope.fromEntity
+                    });
+                } else {
+                    var singleURL = "/viewsingledatatableentry/" + registeredTableName + "/" + scope.employee.id;
+                    location.path(singleURL).search({
+                        fromEntity: scope.fromEntity
+                    });
+                }
+            };
             
         }
     });
-    mifosX.ng.application.controller('ViewEmployeeController', ['$scope', '$routeParams', 'ResourceFactory', mifosX.controllers.ViewEmployeeController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewEmployeeController', ['$scope', '$routeParams', 'ResourceFactory', '$location', mifosX.controllers.ViewEmployeeController]).run(function ($log) {
         $log.info("ViewEmployeeController initialized");
     });
 }(mifosX.controllers || {}));
