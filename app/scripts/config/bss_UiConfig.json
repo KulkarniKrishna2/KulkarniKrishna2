@@ -24,6 +24,9 @@
 			},
 			"isDefaultValue": {
 				"syncDisbursementWithMeeting": true
+			},
+			"isAutoPopulate": {
+				"interestChargedFromDate": false
 			}
 		},
 		"viewClient": {
