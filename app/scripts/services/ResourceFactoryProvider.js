@@ -1833,6 +1833,10 @@
                         getAll: {method: 'GET', params: {}, isArray: true}
                     }),
                     LoanAdditionalDetailsResource: defineResource(apiVer + "/loans/additionaldetails/:loanId", { loanId: '@loanId' }, {
+                    }),
+                    viewTaxInvoiceTemplate: defineResource(apiVer + "/accounting/taxinvoice/view/template", {}, {
+                    }),
+                    viewTaxInvoiceData: defineResource(apiVer + "/accounting/taxinvoice/view", {}, {
                     })
                 };
             }];

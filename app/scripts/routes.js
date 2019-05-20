@@ -2013,6 +2013,9 @@
             .when('/gstmapping/editOfficeMappings/:entityType/:entityId', {
                 templateUrl: 'views/accounting/edit_office_tax_mapping.html'
             })
+            .when('/gstinvoicing/view', {
+                templateUrl: 'views/accounting/view_gst_invoice.html'
+            })
 
         $locationProvider.html5Mode(false);
     };
