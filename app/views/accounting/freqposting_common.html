@@ -45,7 +45,7 @@
             </select>
 
             <input id="debits[{{$index}}]" type="text" autocomplete="off" class="input-sm form-control" number-format
-                   ng-model="dbAccount.debitAmount">
+            placeholder="{{'label.heading.amount'| translate }}" ng-model="dbAccount.debitAmount">
             <a ng-click="removeDebitAccount($index)">&nbsp;<i
                     class="icon-remove icon-white"></i></a>
             <div  class="form-inline paddedbottom10"> {{amountInwords}} </div>       
@@ -58,7 +58,7 @@
                     ng-options="(creditAccount.name +' ('+ creditAccount.glCode +')') for creditAccount in formData.rule.creditAccounts">
             </select>
             <input id="credits[{{$index}}]" type="text" autocomplete="off" class="input-sm form-control" number-format
-                   ng-model="crAccount.crAmount">
+            placeholder="{{'label.heading.amount'| translate }}" ng-model="crAccount.crAmount">
             <a ng-click="removeCrAccount($index)">&nbsp;<i class="icon-remove icon-white"></i></a>
             <div  class="form-inline paddedbottom10"> {{amountInwords}} </div>
         </div>
