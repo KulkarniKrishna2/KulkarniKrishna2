@@ -4,9 +4,15 @@
             scope.repeatsOnDayOfMonthOptions = [];
             scope.selectedOnDayOfMonthOptions = [];
             scope.showAsTextBox = true;
+            var hideRepeatsOptionsList = ['daily','yearly'];
+            scope.showAllMeetingReccurenceOptions = true;
             for (var i = 1; i <= 28; i++) {
                 scope.repeatsOnDayOfMonthOptions.push(i);
             }
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.meeting) {
+                scope.showAllMeetingReccurenceOptions = scope.response.uiDisplayConfigurations.meeting.showAllRepeatsOptions;
+            }
+
             resourceFactory.attachMeetingResource.get({groupOrCenter: routeParams.entityType, groupOrCenterId: routeParams.id,
                 templateSource: 'template'}, function (data) {
                 scope.entityType = routeParams.entityType;
@@ -21,6 +27,14 @@
                     {id: 3, value: "monthly"},
                     {id: 4, value: "yearly"}
                 ];
+                if (!scope.showAllMeetingReccurenceOptions) {
+                    var temp = scope.repeatsOptions;
+                    for (var i in temp) {
+                        if (hideRepeatsOptionsList.indexOf(temp[i].value) >= 0) {
+                            scope.repeatsOptions.splice(i, 1);
+                        }
+                    }
+                }
                 scope.locationOptions = data.meetingLocations;
                 scope.repeatsEveryOptions = ["1", "2", "3"];
                 //to display default in select boxes

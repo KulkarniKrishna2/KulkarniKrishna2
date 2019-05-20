@@ -5,14 +5,21 @@
             scope.repeatsOnDayOfMonthOptions = [];
             scope.selectedOnDayOfMonthOptions = [];
             scope.showAsTextBox = false;
+            var hideRepeatsOptionsList = ['daily','yearly'];
+            scope.showAllMeetingReccurenceOptions = true;
             for (var i = 1; i <= 28; i++) {
                 scope.repeatsOnDayOfMonthOptions.push(i);
             }
-            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.editCalendar.editableFields) {
-                scope.repeat = scope.response.uiDisplayConfigurations.editCalendar.editableFields.repeat;
-                scope.repeatsevery = scope.response.uiDisplayConfigurations.editCalendar.editableFields.repeatsevery;
-                scope.repeatson = scope.response.uiDisplayConfigurations.editCalendar.editableFields.repeatson;
-             }                         
+            if (scope.response && scope.response.uiDisplayConfigurations) {
+                if (scope.response.uiDisplayConfigurations.editCalendar.editableFields) {
+                    scope.repeat = scope.response.uiDisplayConfigurations.editCalendar.editableFields.repeat;
+                    scope.repeatsevery = scope.response.uiDisplayConfigurations.editCalendar.editableFields.repeatsevery;
+                    scope.repeatson = scope.response.uiDisplayConfigurations.editCalendar.editableFields.repeatson;
+                }
+                if (scope.response.uiDisplayConfigurations.meeting) {
+                    scope.showAllMeetingReccurenceOptions = scope.response.uiDisplayConfigurations.meeting.showAllRepeatsOptions;
+                }
+            }
             resourceFactory.attachMeetingResource.get({groupOrCenter: routeParams.entityType, groupOrCenterId: routeParams.groupOrCenterId,
                 templateSource: routeParams.calendarId, template: 'true'}, function (data) {
                 scope.entityType = routeParams.entityType;
@@ -27,6 +34,14 @@
                     {id: 3, value: "monthly"},
                     {id: 4, value: "yearly"}
                 ];
+                if (!scope.showAllMeetingReccurenceOptions) {
+                    var temp = scope.repeatsOptions;
+                    for (var i in temp) {
+                        if (hideRepeatsOptionsList.indexOf(temp[i].value) >= 0) {
+                            scope.repeatsOptions.splice(i, 1);
+                        }
+                    }
+                }
                 scope.locationOptions = data.meetingLocations;
                 var today  =  new Date();
                 if(data.meetingTime == undefined){

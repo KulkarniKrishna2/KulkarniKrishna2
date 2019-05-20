@@ -91,6 +91,9 @@
     },
     "createLoanApplication": {
       "newLoanApplicationLimitAllowed" : true
-    }
+    },
+    "meeting": {
+			"showAllRepeatsOptions": false
+		}
   }
 }

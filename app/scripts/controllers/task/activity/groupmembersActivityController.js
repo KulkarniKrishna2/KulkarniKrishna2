@@ -326,6 +326,7 @@
 
                     });
                  });
+                 scope.setChoice();
              };
 
              scope.showManageMemberView = function() {
