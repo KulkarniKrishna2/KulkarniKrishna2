@@ -60,7 +60,7 @@
                                 ng-options="(debitAccount.name +' ('+ debitAccount.glCode +')') for debitAccount in glAccounts | orderBy:'glCode'" class="form-control">
                             <option class="displaynone" value="">{{'label.selectdebit' | translate}}</option>
                         </select>&nbsp;&nbsp;
-	                    <input type="text" autocomplete="off" class="input-small form-control" number-format ng-model="dbAccount.debitAmount">
+	                    <input type="text" autocomplete="off" class="input-small form-control" placeholder="{{'label.heading.amount'| translate }}" number-format ng-model="dbAccount.debitAmount">
 	                    &nbsp;<a ng-click="removeDebitAccount($index)">&nbsp;<i class="icon-remove icon-white"></i></a>
 	                    <div  class="form-inline paddedbottom10"> {{amountInwords}} </div>
 	                </div>
@@ -71,7 +71,7 @@
 						        ng-options="(creditAccount.name + ' ('+ creditAccount.glCode + ')') for creditAccount in glAccounts | orderBy:'glCode'" class="form-control">
 						    <option class="displaynone" value="">{{'label.selectcredit' | translate}}</option>
 						</select>&nbsp;&nbsp;
-	                  	<input type="text" autocomplete="off" class="input-small form-control" number-format ng-model="crAccount.crAmount">&nbsp;
+	                  	<input type="text" autocomplete="off" class="input-small form-control" placeholder="{{'label.heading.amount'| translate }}" number-format ng-model="crAccount.crAmount">&nbsp;
 	                	<a ng-click="removeCrAccount($index)">&nbsp;<i class="icon-remove icon-white"></i></a>
 	                    <div  class="form-inline paddedbottom10"> {{amountInwords}} </div>
 	                </div>

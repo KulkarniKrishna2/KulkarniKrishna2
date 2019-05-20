@@ -138,7 +138,7 @@
                                     <ng-form name="camountForm{{$index}}">
                                         <div class="form-group">
                                             <input type="text" autocomplete="off" class="form-control" id="camount{{$index}}"
-                                                   name="camount"
+                                                   name="camount" placeholder="{{'label.heading.amount'| translate }}"
                                                    ng-model="account.amount"
                                                    number-format required late-validate=""/>
                                         </div>
@@ -236,7 +236,7 @@
                                     <ng-form name="damountForm{{$index}}">
                                         <div class="form-group">
                                             <input type="text" autocomplete="off" class="form-control" id="damount{{$index}}"
-                                                   name="damount"
+                                                   name="damount" placeholder="{{'label.heading.amount'| translate }}"
                                                    ng-model="account.amount"
                                                    number-format required late-validate=""/>
                                         </div>
