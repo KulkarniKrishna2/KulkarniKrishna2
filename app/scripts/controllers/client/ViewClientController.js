@@ -84,6 +84,7 @@
                 scope.activateOnReinitiate = scope.response.uiDisplayConfigurations.viewClient.activateOnReinitiate;
                 scope.hideVillage = scope.response.uiDisplayConfigurations.entityType.isHiddenMenu.village;
              }
+             scope.createLoanApplication = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.createLoanApplication;
         
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
@@ -483,8 +484,8 @@
     
                     scope.isLoanApplication = scope.isSystemGlobalConfigurationEnabled('loan-application');
                     for(var i in scope.buttonsArray.singlebuttons){
-                        if(scope.buttonsArray.singlebuttons[i].taskPermissionName === 'CREATE_LOANAPPLICATIONREFERENCE'){
-                            scope.buttonsArray.singlebuttons[i].isEnableButton = scope.isLoanApplication;
+                        if(scope.buttonsArray.singlebuttons[i].taskPermissionName === 'CREATE_LOANAPPLICATIONREFERENCE' && scope.isLoanApplication && !scope.createLoanApplication){
+                            scope.buttonsArray.singlebuttons[i].isEnableButton = scope.isLoanApplication;                     
                         }
                         if(scope.buttonsArray.singlebuttons[i].taskPermissionName === 'CREATE_SAVINGSACCOUNT'){
                             scope.buttonsArray.singlebuttons[i].isEnableButton = scope.isSavingAccountEnable;

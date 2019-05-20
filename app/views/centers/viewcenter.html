@@ -231,7 +231,7 @@
 												<a has-permission='CREATE_JLG_LOAN' class="btn btn-primary btn-sm" ng-href="#/newindividualjlgloanaccount/{{group.id}}/{{client.id}}" data-ng-show="isActiveMember(client.status.code)"><i
 														class="icon-plus icon-white"></i>{{ 'label.button.jlgloan' | translate }}</a>
 											</td>
-                                            <td ng-if="isLoanApplication">
+                                            <td ng-if="isLoanApplication && !createjlgLoanApplication">
                                                 <a has-permission='CREATE_LOANAPPLICATIONREFERENCE' class="btn btn-primary btn-sm" ng-href="#/newindividualjlgloanapplicationreference/{{group.id}}/{{client.id}}" data-ng-show="isActiveMember(client.status.code)"><i
                                                         class="icon-plus icon-white"></i></a>
                                             </td>
@@ -287,7 +287,7 @@
 									<div class="panel-body">
 										<div class="list-group">
 											<div class="col-md-12 primarydiv">
-									            <a href="#/addmember?officeId={{center.officeId}}&staffId={{center.staffId}}&centerId={{center.id}}" class="btn btn-primary pull-right" has-permission='CREATE_CLIENT'>
+									            <a href="#/addmember?officeId={{center.officeId}}&staffId={{center.staffId}}&centerId={{center.id}}" class="btn btn-primary pull-right" ng-hide="isClientCreationEnabled" has-permission='CREATE_CLIENT'>
 									                <i class="icon-plus-sign-alt icon-white"></i>{{ 'label.button.add' | translate }}</a>
 									            <a href="#/membermanage/{{center.id}}" class="btn btn-primary pull-right" has-permission='ASSOCIATECLIENTS_CENTER'>
 									                <i class="icon-edit icon-white"></i>{{'label.button.managemembers' | translate }}</a>
