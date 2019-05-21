@@ -24,6 +24,10 @@
 			},
 			"isDefaultValue": {
 				"syncDisbursementWithMeeting": true
+			},
+			"loanPurposeGroup":{
+				"showLoanPurposeWithoutGroup": false,
+				"showLoanPurposeGroup": true
 			}
 		},
 		"viewClient": {
