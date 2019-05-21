@@ -608,6 +608,9 @@
 			"isMandatoryField": {
 				"companyCode": false
 			}
-		}
+		},
+		"meeting": {
+			"showAllRepeatsOptions": true
+		}	
 	}
 }

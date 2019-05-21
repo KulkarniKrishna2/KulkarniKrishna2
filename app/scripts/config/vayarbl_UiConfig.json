@@ -99,6 +99,9 @@
         "disbursementPaymentType":true
       },
       "newLoanApplicationLimitAllowed" : true
-    }
+    },
+    "meeting": {
+			"showAllRepeatsOptions": false
+		}
   }
 }
