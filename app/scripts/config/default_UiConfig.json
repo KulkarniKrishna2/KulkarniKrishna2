@@ -89,8 +89,8 @@
 				"isTotalOutstandingInterest": false
 			},
 			"loanPurposeGroup":{
-				"showLoanPurposeWithoutGroup": false,
-				"showLoanPurposeGroup": true
+				"showLoanPurposeWithoutGroup": true,
+				"showLoanPurposeGroup": false
 			}
 		},
 		"viewLoanAccountDetails": {
