@@ -2,6 +2,7 @@
     <tr>
         <th ng-if="uiData.status == 'pending'">{{'label.input.requred.user' |translate}}</th>
         <th>{{'label.device.id' | translate}}</th>
+        <th>{{'label.imei.number' | translate }}</th>
         <th>{{'label.device.model' | translate}}</th>
         <th>{{'label.heading.action' | translate}}</th>
     </tr>
@@ -9,6 +10,7 @@
 
         <td class="pointer" ng-if="uiData.status == 'pending'" ng-click="routeTo(device)">{{device.lastLoggedInUserData.username}}</td>
         <td class="pointer" ng-click="routeTo(device)">{{device.deviceId}}</td>
+        <td class="pointer" ng-click="routeTo(device)">{{device.imeiNumber}}</td>
         <td class="pointer" ng-click="routeTo(device)">{{device.deviceModel}}</td>
         <td ng-if="uiData.status == 'pending'">
             <a has-permission='ACTIVATE_REGISTERED_DEVICE' ng-click="deviceAction($index,device,'activate')">{{'label.button.activate' | translate}}</a> |
