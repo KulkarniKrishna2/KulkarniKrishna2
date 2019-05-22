@@ -19,7 +19,7 @@
                 scope.offices = data.allowedOffices;
                 scope.availableRoles = data.availableRoles;
             });
-            resourceFactory.codeValueByCodeNameResources.get({ codeName: 'Customer Identifier' }, function (codeValueData) {
+            resourceFactory.codeValueByCodeNameResources.get({ codeName: 'Customer Identifier',searchConditions:'{"codeValueIsActive":true}'}, function (codeValueData) {
                 scope.documentTypeOptions = codeValueData;
             });
 
