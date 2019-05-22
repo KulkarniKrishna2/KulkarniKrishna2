@@ -31,6 +31,7 @@
             scope.loanRejectReason = {};
             scope.showText = false;
             scope.showRejectReason = false;
+            scope.isShowReasonDropDown = false;
 
             resourceFactory.configurationResource.get({configName:'reason-code-allowed'}, function (data) {
                 scope.showRejectReason = data.enabled;
@@ -295,7 +296,9 @@
                             scope.clientsAttendanceArray(data.groups);
                             updateAttendanceTypeOptions();
                             //scope.total(data);
+                            scope.colectionsSheetsCopy = [];
                             scope.savingsgroups = data.groups;
+                            angular.copy(scope.savingsgroups,scope.colectionsSheetsCopy);
                             scope.sumTotalDueCollection();
                             scope.isWithDrawForSavingsIncludedInCollectionSheet = data.isWithDrawForSavingsIncludedInCollectionSheet;
                             scope.isClientChargesIncludedInCollectoonSheet = data.isClientChargesIncludedInCollectoonSheet;
@@ -323,7 +326,9 @@
                             scope.clientsAttendanceList(data.groups);
                             updateAttendanceTypeOptions();
                             //scope.total(data);
+                            scope.colectionsSheetsCopy = [];
                             scope.savingsgroups = data.groups;
+                            angular.copy(scope.savingsgroups,scope.colectionsSheetsCopy);
                             scope.isWithDrawForSavingsIncludedInCollectionSheet = data.isWithDrawForSavingsIncludedInCollectionSheet;
                             scope.isClientChargesIncludedInCollectoonSheet = data.isClientChargesIncludedInCollectoonSheet;
                             scope.sumTotalDueCollection();
@@ -924,6 +929,14 @@
                     }
                 } 
             };
+            scope.validateAmount = function(groupIndex,clientIndex,loanIndex,updateLoanAmount){
+                var loanAmount = scope.colectionsSheetsCopy[groupIndex].clients[clientIndex].loans[loanIndex].totalDue;
+                if(!_.isUndefined(loanAmount) && (loanAmount != updateLoanAmount)){
+                    scope.savingsgroups[groupIndex].clients[clientIndex].loans[loanIndex].isShowReasonDropDown = true;
+                }else{
+                    scope.savingsgroups[groupIndex].clients[clientIndex].loans[loanIndex].isShowReasonDropDown = false;
+                }
+            }
 
         }
     })
