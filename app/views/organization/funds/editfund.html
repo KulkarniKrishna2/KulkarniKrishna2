@@ -91,7 +91,7 @@
                     </label>
                     <div class="col-sm-3">
                         <div >
-                            <input id="assignmentStartDate" ng-disabled="isOwn"  type="text" autocomplete="off" name="assignmentStartDate" datepicker-pop="yyyy-MM-dd"
+                            <input id="assignmentStartDate" ng-disabled="isOwn"  type="text" autocomplete="off" name="assignmentStartDate" datepicker-pop="{{df}}"
                                    ng-model="formData.assignmentStartDate" date-disabled="disabled(date, mode)" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"  required />
                         </div>
                     </div>
@@ -105,7 +105,7 @@
                     </label>
                     <div class="col-sm-3">
                         <div >
-                            <input id="assignmentEndDate" ng-disabled="isOwn"  type="text" autocomplete="off" name="assignmentEndDate" datepicker-pop="yyyy-MM-dd"
+                            <input id="assignmentEndDate" ng-disabled="isOwn"  type="text" autocomplete="off" name="assignmentEndDate" datepicker-pop="{{df}}"
                                    ng-model="formData.assignmentEndDate" date-disabled="disabled(date, mode)" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"   required />
                         </div>
                     </div>
@@ -136,7 +136,7 @@
                     </label>
                     <div class="col-sm-3">
                         <div >
-                            <input id="sanctionedDate" ng-disabled="isLoanAssigned || isOwn"  type="text" autocomplete="off" name="sanctionedDate" datepicker-pop="yyyy-MM-dd"
+                            <input id="sanctionedDate" ng-disabled="isLoanAssigned || isOwn"  type="text" autocomplete="off" name="sanctionedDate" datepicker-pop="{{df}}"
                                    ng-model="formData.sanctionedDate" date-disabled="disabled(date, mode)" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"   required />
                         </div>
                     </div>
@@ -163,7 +163,7 @@
                     </label>
                     <div class="col-sm-3">
                         <div >
-                            <input id="disbursedDate"  ng-disabled="isLoanAssigned || isOwn" type="text" autocomplete="off" name="disbursedDate" datepicker-pop="yyyy-MM-dd"
+                            <input id="disbursedDate"  ng-disabled="isLoanAssigned || isOwn" type="text" autocomplete="off" name="disbursedDate" datepicker-pop="{{df}}"
                                    ng-model="formData.disbursedDate" date-disabled="disabled(date, mode)" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"   required />
                         </div>
                     </div>
@@ -201,7 +201,7 @@
                     </label>
                     <div class="col-sm-3">
                         <div >
-                            <input id="maturityDate"  ng-disabled="isLoanAssigned || isOwn" type="text" autocomplete="off" name="maturityDate" datepicker-pop="yyyy-MM-dd"
+                            <input id="maturityDate"  ng-disabled="isLoanAssigned || isOwn" type="text" autocomplete="off" name="maturityDate" datepicker-pop="{{df}}"
                                    ng-model="formData.maturityDate" date-disabled="disabled(date, mode)" is-open="opened" min="'2000-01-01'" max="restrictDate" class="form-control"   required />
                         </div>
                     </div>
