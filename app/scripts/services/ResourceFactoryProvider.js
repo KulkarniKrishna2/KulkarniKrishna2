@@ -1845,6 +1845,8 @@
                     viewTaxInvoiceTemplate: defineResource(apiVer + "/accounting/taxinvoice/view/template", {}, {
                     }),
                     viewTaxInvoiceData: defineResource(apiVer + "/accounting/taxinvoice/view", {}, {
+                    }),
+                    deactivatedUserResource: defineResource(apiVer + "/users/:userId/deactivated", { userId: '@userId' }, {
                     })
                 };
             }];
