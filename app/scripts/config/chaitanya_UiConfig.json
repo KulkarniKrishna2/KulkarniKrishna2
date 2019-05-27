@@ -211,7 +211,10 @@
       "defaultCompanyCode": "CIFCPL"
     },
     "workflow": {
-      "showReschedule": true
+      "showReschedule": true,
+      "initiateWorkflow": {
+				"showInitiateOnCompletion": true
+			}
       },
     "glAccount": {
       "isMandatoryField": {
