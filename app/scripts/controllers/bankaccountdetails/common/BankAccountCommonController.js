@@ -310,7 +310,11 @@
 
             function init() {
                 if (scope.commonConfig.bankAccount.eventType && scope.commonConfig.bankAccount.eventType === "create") {
-                    populateTemplate()
+                    if (scope.commonConfig.bankAccount.clientBankAccountDetailAssociationId) {
+                        populateDetails();
+                    } else {
+                        populateTemplate();
+                    }
                 } else {
                     populateDetails();
                 }
