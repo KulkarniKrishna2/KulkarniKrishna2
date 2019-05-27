@@ -7891,6 +7891,8 @@
     "label.anchor.selectmonth": "Select Month",
     "label.anchor.mustbevalidyear": "Must be a valid year",
     "label.anchor.officeType": "Office Type",
+    "label.anchor.deActivatedUsers": "Deactivated Users",
+    "label.anchor.reactivateUser": "Reactivate User",
     
     "------ end of translation file ------": "----------"
 }
