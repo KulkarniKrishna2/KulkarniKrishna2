@@ -1849,6 +1849,10 @@
                     codeResource: defineResource(apiVer + "/codes/lookup", {}, {
                         getAll: {method: 'GET', params: {}, isArray: true}
                     }),
+                    viewTaxInvoiceData: defineResource(apiVer + "/accounting/taxinvoice/view", {}, {
+                    }),
+                    deactivatedUserResource: defineResource(apiVer + "/users/:userId/deactivated", { userId: '@userId' }, {
+                    })
                 };
             }];
         }

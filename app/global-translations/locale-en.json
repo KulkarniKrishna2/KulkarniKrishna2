@@ -7978,6 +7978,17 @@
     "validation.msg.savingsproduct.closeDate.cannot.be.before.start.date" : "Product close date cannot be before start date" ,
     "validation.msg.recurringdeposit.closeDate.cannot.be.before.start.date" : "Product close date cannot be before start date" ,
 
-
+    "label.heading.finfluxId":"Finflux Id",
+    "label.anchor.officeTaxMappings":"Office Tax Mappings",
+    "label.anchor.screenforOfficeTaxMappings":"Screen for Office Tax Mappings",
+    "label.anchor.createOfficeTaxMappings":"Create Office Tax Mappings",
+    "label.anchor.editOfficeTaxMappings":"Edit Office Tax Mappings",
+    "label.anchor.viewinvoice": "View Invoice",
+    "label.anchor.selectmonth": "Select Month",
+    "label.anchor.mustbevalidyear": "Must be a valid year",
+    "label.anchor.officeType": "Office Type",
+    "label.anchor.deactivated.users": "Deactivated Users",
+    "label.anchor.reactivate.user": "Reactivate User",
+    
     "------ end of translation file ------": "----------"
 }

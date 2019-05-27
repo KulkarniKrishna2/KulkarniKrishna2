@@ -678,7 +678,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'bulkoperations/ViewAllCollectionsController',
             'collection/CollectionSheetDetailController',
             'accounting/GSTDebitTransactionDetailsControllers',
-            'accounting/GSTDebitTransactionControllers'
+            'accounting/GSTDebitTransactionControllers',
+            'user/ReactivateUserController'
         ],
         filters: [
             'StatusLookup',
