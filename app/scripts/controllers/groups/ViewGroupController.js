@@ -10,6 +10,7 @@
             scope.openSaving = true;
             scope.editMeeting = false;
             scope.sections = [];
+            scope.showInitiateOnCompletion = false;
             scope.allowBankAccountForGroups = scope.isSystemGlobalConfigurationEnabled('allow-bank-account-for-groups');
             scope.isHideAccountNumber = scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.accountNo;
             scope.isHideReferenceNumber = scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.referenceNo;
@@ -20,6 +21,10 @@
             scope.isHideCreateEntity = false;
             scope.isShowTransferClients=scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.transferClients;
             scope.isClientCreationEnabled=scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.canAddClients;
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow){
+                scope.showInitiateOnCompletion = scope.response.uiDisplayConfigurations.workflow.initiateWorkflow.showInitiateOnCompletion;
+            }           
+
             if(scope.isWorkflowEnabled && scope.hideManageMember){
                 scope.isHideCreateEntity = true;
             }
@@ -409,7 +414,14 @@
             scope.hideId = function(row){
                 return  (row.columnName === 'id');
             };
-
+            
+            scope.showInitiateWorkflow = function() {
+                if (!scope.showInitiateOnCompletion) {
+                    return scope.group.isActiveExistingWorkflow;
+                } else {
+                    return true;
+                }
+            };
         }
     });
     mifosX.ng.application.controller('ViewGroupController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', 'dateFilter', '$modal', '$rootScope', mifosX.controllers.ViewGroupController]).run(function ($log) {
