@@ -34,7 +34,7 @@
     </tr>
     <tr ng-show="formData.productId && showLoanPurpose">
         <td ng-show = "loanPurposeGroups" ><label>{{ 'label.input.loanpurposegroup' | translate }}<span span class="required" ng-show="response.uiDisplayConfigurations.loanAccount.isMandatory.loanPurposeId">*</span></label></td>
-        <td class="paddedbottom10" ng-show = "loanPurposeGroups" >
+        <td class="paddedbottom10" ng-if = "loanPurposeGroups" >
             <select chosen="loanPurposeGroups" id="loanPurposeGroupId" name="loanPurposeGroup" ng-model="loanPurposeGroupId"
                     ng-options="loanPurposeGroup.id as loanPurposeGroup.name for loanPurposeGroup in loanPurposeGroups | orderBy:'name':reverse" value="{{loanPurposeGroup.id}}"
                     class="form-control width170px"  ng-change="onLoanPurposeGroupChange(loanPurposeGroupId,true)"
