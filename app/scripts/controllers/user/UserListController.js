@@ -64,7 +64,7 @@
             };
 
             var fetchDeactivatedUser = function (offset, limit, callback) {
-                resourceFactory.deactivatedUserListResource.query({
+                resourceFactory.deactivatedUserResource.query({
                     offset: offset,
                     limit: limit,
                     searchString: scope.filterText
