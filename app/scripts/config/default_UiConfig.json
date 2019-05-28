@@ -3,8 +3,7 @@
 	"uiDisplayConfigurations": {
 		"loginSecurity": {
 			"isEnabledCaptcha": false,
-			"isEnabledRecaptcha": false,
-			"isEnabledPatchca": false,
+			"defaultCaptcha":"Patchca",
 			"isEnabledLdap": false
 		},
 		"browserSecurity": {

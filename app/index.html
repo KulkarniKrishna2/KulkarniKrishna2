@@ -105,16 +105,16 @@
                                                 required id="pwd" style="border-radius: 5px;">
                                         </div>
 
-                                        <span ng-if="mainUIConfigData.loginSecurity.isEnabledCaptcha">
-                                            <div ng-if="mainUIConfigData.loginSecurity.isEnabledPatchca">
+                                        <span ng-if="mainUIConfigData.loginSecurity.isEnabledCaptcha || enableCaptchaOnFailedLogInAttempts">
+                                            <div ng-if="mainUIConfigData.loginSecurity.defaultCaptcha === 'Patchca'">
                                                 <span><img src="data:image/png;base64,{{captchaData.base64EncodedImage}}"></span> <span class="pad-left-10"><a class="btn btn-default pad-left-10" ng-click="refreshPatchca()" href="javascript:void(null);"> <i class="icon-refresh"></i></a></span>
                                             </div>
-                                            <div ng-if="mainUIConfigData.loginSecurity.isEnabledPatchca">
+                                            <div ng-if="mainUIConfigData.loginSecurity.defaultCaptcha === 'Patchca'">
                                                 <input type="text" autocomplete="off" data-ng-model="captchaFormData.captchaEntered" placeholder="{{ 'label.input.captcha' | translate }}"
                                                        class="input-sm form-control" required id="captcha" minlength="6" maxlength="6" style="border-radius: 5px;">
                                                 <br>
                                             </div>
-                                            <span ng-if="mainUIConfigData.loginSecurity.isEnabledRecaptcha">
+                                            <span ng-if="mainUIConfigData.loginSecurity.defaultCaptcha === 'Recaptcha'">
                                                 <div style="margin-left: 14px;" vc-recaptcha theme="'light'" key="reCaptchaModel.siteKey" on-create="setWidgetId(widgetId)"
                                                     on-success="setResponse(response)"></div>
                                                 <br>

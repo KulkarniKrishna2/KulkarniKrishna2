@@ -2992,6 +2992,7 @@
     "label.button.unlock": "unlock",
     "label.input.captcha": "Enter Captcha",
     "error.captcha.verification.failed": "Captcha Verification failed",
+    "error.captcha.verification.required":"Captcha Verification Required",
 
     "#Tooltip": "..",
     "label.tooltip.overridepasswordexpiry": "Determines if passwords do not expire for this user even if global configuration for password expiry is enabled",
