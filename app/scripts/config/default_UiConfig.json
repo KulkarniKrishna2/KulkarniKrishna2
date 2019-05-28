@@ -3,8 +3,7 @@
 	"uiDisplayConfigurations": {
 		"loginSecurity": {
 			"isEnabledCaptcha": false,
-			"isEnabledRecaptcha": false,
-			"isEnabledPatchca": false,
+			"defaultCaptcha":"Patchca",
 			"isEnabledLdap": false
 		},
 		"browserSecurity": {
@@ -89,8 +88,8 @@
 				"isTotalOutstandingInterest": false
 			},
 			"loanPurposeGroup":{
-				"showLoanPurposeWithoutGroup": false,
-				"showLoanPurposeGroup": true
+				"showLoanPurposeWithoutGroup": true,
+				"showLoanPurposeGroup": false
 			}
 		},
 		"viewLoanAccountDetails": {

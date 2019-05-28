@@ -3,8 +3,7 @@
 	"uiDisplayConfigurations": {
 		"loginSecurity": {
 			"isEnabledCaptcha": true,
-			"isEnabledRecaptcha": false,
-			"isEnabledPatchca": true,
+			"defaultCaptcha":"Patchca",
 			"isEnabledLdap": false
 		},
 		"browserSecurity": {
@@ -24,6 +23,10 @@
 			},
 			"isDefaultValue": {
 				"syncDisbursementWithMeeting": true
+			},
+			"loanPurposeGroup":{
+				"showLoanPurposeWithoutGroup": false,
+				"showLoanPurposeGroup": true
 			}
 		},
 		"viewClient": {

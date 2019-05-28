@@ -2992,6 +2992,7 @@
     "label.button.unlock": "unlock",
     "label.input.captcha": "Enter Captcha",
     "error.captcha.verification.failed": "Captcha Verification failed",
+    "error.captcha.verification.required":"Captcha Verification Required",
 
     "#Tooltip": "..",
     "label.tooltip.overridepasswordexpiry": "Determines if passwords do not expire for this user even if global configuration for password expiry is enabled",
@@ -7931,6 +7932,8 @@
     "validation.msg.FUND.funds.cannot.be.empty" : "Please select a fund" ,
     "validation.msg.loan.number.of.repayments.lesser.than.min.loan.term" : "Number of repayments lesser than minimum loan term ",
     "error.msg.work.flow.execution.step.action.no.permission" : "Permission is not provided for the work flow execution step action" ,
+    "error.msg.unable.to.disburse.due.to.client.and.loan.bank.account.mismatch" : "Unable to disburse loan. Selected bank account is not mapped to client.",
+    "error.msg.document.save" : "Unable to save the document. Kindly try again.",
 
     "------ end of translation file ------": "----------"
 }
