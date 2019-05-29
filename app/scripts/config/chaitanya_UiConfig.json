@@ -109,7 +109,8 @@
         "showGroupExternalId" : false,
       "showSubmittedOn" : false,
       "showStaff" : false,
-      "addclients" : false
+      "addclients" : false,
+      "addGroups" : false
       }
     },
     "createGroup": {

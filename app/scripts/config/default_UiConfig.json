@@ -257,7 +257,8 @@
 				"showSubmittedOn": true,
 				"showStaff": true,
 				"addclients": true,
-				"activate": false
+				"activate": false,
+				"addGroups": true
 			},
 			"isAutoPopulate": {
 				"name": true
