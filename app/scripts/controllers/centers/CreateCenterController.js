@@ -21,7 +21,7 @@
             if(scope.response && scope.response.uiDisplayConfigurations){
                 scope.isHiddenVillageOption = scope.response.uiDisplayConfigurations.createCenter.isHiddenField.villageOptions;
                 scope.showActivation = !scope.response.uiDisplayConfigurations.createCenter.isHiddenField.activate;
-                scope.showaddclients = !scope.response.uiDisplayConfigurations.createCenter.isHiddenField.addclients;
+                scope.showaddGroups = !scope.response.uiDisplayConfigurations.createCenter.isHiddenField.addGroups;
                 scope.isNameAutoPopulate = scope.response.uiDisplayConfigurations.createCenter.isAutoPopulate.name;
                 scope.loanOfficersOnly = scope.response.uiDisplayConfigurations.createCenter.loanOfficersOnly;
                 if(scope.response.uiDisplayConfigurations.createCenter.isValidateName) {
