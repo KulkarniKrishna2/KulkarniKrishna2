@@ -1838,7 +1838,7 @@
                     }),
                     viewTaxInvoiceData: defineResource(apiVer + "/accounting/taxinvoice/view", {}, {
                     }),
-                    deactivatedUserListResource: defineResource(apiVer + "/users/deactivated/:userId", { userId: '@userId' }, {
+                    deactivatedUserResource: defineResource(apiVer + "/users/:userId/deactivated", {userId: '@userId'}, {
                     })
                 };
             }];

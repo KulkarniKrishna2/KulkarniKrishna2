@@ -2,7 +2,7 @@
     mifosX.controllers = _.extend(module, {
         ReactivateUserController: function (scope, resourceFactory, routeParams, commonUtilService, location) {
             scope.formData = {};
-            resourceFactory.deactivatedUserListResource.get({ userId: routeParams.id }, function (data) {
+            resourceFactory.deactivatedUserResource.get({ userId: routeParams.id }, function (data) {
                 scope.formData = data;
             });
             scope.submit = function () {
