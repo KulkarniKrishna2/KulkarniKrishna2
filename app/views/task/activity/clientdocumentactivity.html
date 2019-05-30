@@ -51,7 +51,7 @@
                 <td>{{clientdocument.description}}</td>
                 <td>{{clientdocument.fileName}}</td>
                 <td>
-                    <a ng-if="clientdocument.id" ng-click="download(clientdocument)"><i class="icon-cloud-download"></i></a>&nbsp;
+                    <a ng-if="clientdocument.id" ng-click="download(clientdocument)" has-permission='DOWNLOAD_DOCUMENT'><i class="icon-cloud-download"></i></a>&nbsp;
                     <a ng-if="!isTaskCompleted() && clientdocument.id" ng-click="deleteDocument(clientdocument,$index, key)"><i class="icon-remove"></i></a>
                     <a ng-if="clientdocument.id && clientdocument.reportIdentifier" ng-click="reGenerateDocument(clientdocument)"><i class="icon-repeat"></i></a>
                     <a ng-if="!clientdocument.id" ng-click="generateDocument(clientdocument)" tooltip="{{'label.tooltip.generate.document' | translate}}"><i class="icon-link"></i></a>
