@@ -7934,6 +7934,7 @@
     "error.msg.work.flow.execution.step.action.no.permission" : "Permission is not provided for the work flow execution step action" ,
     "error.msg.unable.to.disburse.due.to.client.and.loan.bank.account.mismatch" : "Unable to disburse loan. Selected bank account is not mapped to client.",
     "error.msg.document.save" : "Unable to save the document. Kindly try again.",
+    "error.msg.mandatory.files.not.attached":"File is mandatory",
 
     "------ end of translation file ------": "----------"
 }

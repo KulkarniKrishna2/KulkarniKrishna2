@@ -1839,6 +1839,9 @@
                     }),
                     loanApplicationRejectReasonsResource: defineResource(apiVer + "/loanapplicationreferences/rejectreasons/template",{}, {
                         get: {method: 'GET', params: {},isArray:true}
+                    }),
+                    multipleFileUploadResource: defineResource(apiVer + "/:entityType/:entityId/utilizationchecks",{entityType:'@entityType',entityId:'@entityId'}, {
+                        upload: {method: 'POST', headers: {'Content-Type': undefined},transformRequest: angular.identity, params: {}}
                     })
                 };
             }];

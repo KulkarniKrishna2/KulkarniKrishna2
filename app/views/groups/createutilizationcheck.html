@@ -88,7 +88,7 @@
                                     </select>
                                 </ng-form>
                             </td>
-                            <td class="col-md-3">
+                            <td class="col-md-4">
                                 <span>
                                     <ng-form name="principalAmountForm" rc-submit="submit()">
                                         <input type="text" autocomplete="off"
@@ -105,7 +105,7 @@
 
                             </td>
                             <td class="col-md-1"><span ng-show="utilizationDetails.percentailOfUsage">{{utilizationDetails.percentailOfUsage}}%</span></td>
-                            <td class="col-md-5">
+                            <td class="col-md-4">
                                 <ng-form name="commentForm" rc-submit="submit()">
                                     <textarea type="text" autocomplete="off"
                                               id="comment"
@@ -114,10 +114,14 @@
                                               class="form-control"/>
                                 </ng-form>
                             </td>
-                            <td class="col-md-2">
+                            <td class="col-md-1">
+                            <input id="file" type="file"  ng-file-select="onFileSelect($files,parentIndex,$index)">
+                            </td>
+                            <td class="col-md-1">
                                 <button class="btn btn-primary" type="button"
                                         ng-click="deleteLoanPurpose(parentIndex,$index)"><i
-                                        class="icon-remove icon-white icon-small"></i></button>
+                                        class="icon-remove icon-white icon-small"></i>
+                                </button>
                             </td>
                         </tr>
                         </tbody>
