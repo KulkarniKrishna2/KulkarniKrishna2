@@ -164,7 +164,7 @@
                 timer = $timeout(function () {
                     delete scope.loginCredentials.password;
                     delete scope.loginCredentials.otp;
-                    scope.loginCredentials = {};
+                    delete scope.loginCredentials.captchaDetails;
                 }, 2000);
             });
 
