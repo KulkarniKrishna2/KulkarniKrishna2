@@ -53,7 +53,7 @@
             var levelVasedAddressConfig = 'enable_level_based_address';
             scope.isLevelBasedAddressEnabled = scope.isSystemGlobalConfigurationEnabled(levelVasedAddressConfig);
 
-            if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.enableSmartCard && scope.response){
+            if(scope.response && scope.response.uiDisplayConfigurations.viewClient.isHiddenField.enableSmartCard){
                 scope.enableSmartCard =  scope.response.uiDisplayConfigurations.viewClient.isHiddenField.enableSmartCard;
             }
             scope.isStalePeriodExceeded = false;
@@ -74,9 +74,10 @@
                 scope.houseHoldExpenses = scope.response.uiDisplayConfigurations.cashFlow.hiddenFields.houseHoldExpenses;
              }
             scope.enableClientVerification = scope.isSystemGlobalConfigurationEnabled('client-verification');
-            scope.activateOnReinitiate = scope.response.uiDisplayConfigurations.viewClient.activateOnReinitiate;
             if(scope.response && scope.response.uiDisplayConfigurations) {
                 scope.isSavingAccountEnable = scope.response.uiDisplayConfigurations.viewClient.createSavingAccount;
+                scope.activateOnReinitiate = scope.response.uiDisplayConfigurations.viewClient.activateOnReinitiate;
+                scope.hideVillage = scope.response.uiDisplayConfigurations.entityType.isHiddenMenu.village;
              }
         
             scope.routeToLoan = function (id) {
@@ -118,7 +119,6 @@
                 }
             };
             
-            scope.hideVillage = scope.response.uiDisplayConfigurations.entityType.isHiddenMenu.village;
             function constructActiveLoanSummary() {
                 if (scope.existingLoans) {
                     for (var i in scope.existingLoans) {
@@ -824,23 +824,29 @@
                 $scope.onFileSelect = function ($files) {
                     scope.file = $files[0];
                 };
+                $scope.formatErr = false;
                 $scope.upload = function () {
                     if (scope.file) {
-                        $upload.upload({
-                            url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents',
-                            data: {
-                                name: 'clientSignature',
-                                description: 'client signature'
-                            },
-                            file: scope.file
-                        }).then(function (imageData) {
-                            // to fix IE not refreshing the model
-                            if (!scope.$$phase) {
-                                scope.$apply();
-                            }
-                            $modalInstance.close('upload');
-                            route.reload();
-                        });
+                        if (scope.file.type != "application/pdf" && !scope.file.type.includes("image")) {
+                            $scope.formatErr = true;
+                            $scope.signformatErrMsg = "label.error.files.can.be.image.or.of.type.pdf";
+                        } else {
+                            $upload.upload({
+                                url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents',
+                                data: {
+                                    name: 'clientSignature',
+                                    description: 'client signature'
+                                },
+                                file: scope.file
+                            }).then(function (imageData) {
+                                // to fix IE not refreshing the model
+                                if (!scope.$$phase) {
+                                    scope.$apply();
+                                }
+                                $modalInstance.close('upload');
+                                route.reload();
+                            });
+                        }
                     }
                 };
                 $scope.cancel = function () {
@@ -1442,15 +1448,15 @@
                         for (var i = 0; i < docsData.data.length; ++i) {
                             if (docsData.data[i].name == 'clientSignature') {
                                 docId = docsData.data[i].id;
-                                scope.signature_url = $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + docId + '/attachment';
+                                scope.signature_url = $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + docId + '/download';
                             }
                         }
                     if (scope.signature_url != null) {
                         http({
                             method: 'GET',
-                                url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + docId + '/attachment'
+                                url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + docId + '/download'
                     }).then(function (docsData) {
-                            $scope.largeImage = scope.signature_url;
+                            $scope.largeImage = docsData.data;
                         });
                     }
                     });
