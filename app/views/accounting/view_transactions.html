@@ -237,7 +237,7 @@
                                 <td>{{document.description}}</td>
                                 <td>{{document.fileName}}</td>
                                 <td>
-                                    <a target="_blank" ng-click="download(document)">
+                                    <a target="_blank" ng-click="download(document)" has-permission='DOWNLOAD_DOCUMENT'>
                                         <i class="icon-cloud-download"></i>
                                     </a>&nbsp;
                                     <a ng-click="deleteDocument(document.id,$index)" has-permission='DELETE_DOCUMENT'>

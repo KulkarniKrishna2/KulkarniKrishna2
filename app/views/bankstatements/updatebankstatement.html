@@ -49,7 +49,7 @@
                 <input type="file" id="cpifFile" ng-required="false" ng-file-select="onCpifFileSelect($files)" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel">
             </div>
             <div class="col-sm-3">
-                {{cpifFileName}}&nbsp;<a target="_blank" href="{{cpifFileURI}}"><i class="icon-cloud-download"></i></a>
+                {{cpifFileName}}&nbsp;<a target="_blank" href="{{cpifFileURI}}" has-permission='DOWNLOAD_DOCUMENT'><i class="icon-cloud-download"></i></a>
             </div>
         </div>
         <div class="form-group">
@@ -58,7 +58,7 @@
                 <input type="file" id="orgFile"  ng-file-select="onOrgFileSelect($files)" ng-required="false">
             </div>
             <div class="col-sm-3" ng-show="isOrgFilePresent">
-                {{orgFileName}}&nbsp;<a target="_blank" href="{{orgFileURI}}"><i class="icon-cloud-download"></i></a>
+                {{orgFileName}}&nbsp;<a target="_blank" href="{{orgFileURI}}" has-permission='DOWNLOAD_DOCUMENT'><i class="icon-cloud-download"></i></a>
             </div>
         </div>
 
