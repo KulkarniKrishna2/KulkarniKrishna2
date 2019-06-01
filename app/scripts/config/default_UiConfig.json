@@ -127,7 +127,8 @@
 				"displayNameInReverseOrder": false,
 				"accountNo": false,
 				"referenceNo": true,
-				"enableSmartCard": true
+				"enableSmartCard": true,
+				"initiateCreditBureau": false
 			},
 			"familyDeatils": {
 				"isHiddenField": {

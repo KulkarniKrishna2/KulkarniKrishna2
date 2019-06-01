@@ -34,7 +34,8 @@
 				"createClient": true,
 				"accountNo": true,
 				"referenceNo": false,
-				"enableSmartCard": false
+				"enableSmartCard": false,
+				"initiateCreditBureau": true
 			},
 			"familyDeatils": {
 				"isHiddenField": {

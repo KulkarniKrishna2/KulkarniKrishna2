@@ -967,7 +967,6 @@
                 $scope.editLoanAccountdata.transactionProcessingStrategyId = $scope.loanaccountinfo.transactionProcessingStrategyId;
                 if(!_.isUndefined($scope.loanaccountinfo.calendarOptions)){
                     $scope.editLoanAccountdata.calendarId = $scope.loanaccountinfo.calendarOptions[0].id;
-                    $scope.editLoanAccountdata.syncDisbursementWithMeeting = true;
                 }
 
 

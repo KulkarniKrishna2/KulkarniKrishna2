@@ -5,6 +5,7 @@
         <th>{{'label.device.id' | translate}}</th>
         <th>{{'label.heading.roles' | translate}}</th>
         <th>{{'label.heading.branch' | translate}}</th>
+        <th>{{'label.imei.number' | translate }}</th>
         <th>{{'label.device.model' | translate}}</th>
         <th>{{'label.heading.action' | translate}}</th>
     </tr>
@@ -14,6 +15,7 @@
         <td class="pointer" ng-click="routeTo(device)">{{device.deviceId}}</td>
         <td class="pointer col-md-2" ng-click="routeTo(device)">{{device.userRoles}}</td>
         <td class="pointer col-md-2" ng-click="routeTo(device)">{{device.branchName}}</td>
+        <td class="pointer" ng-click="routeTo(device)">{{device.imeiNumber}}</td>
         <td class="pointer" ng-click="routeTo(device)">{{device.deviceModel}}</td>
         <td ng-if="uiData.status == 'pending'">
             <a has-permission='ACTIVATE_REGISTERED_DEVICE' ng-click="deviceAction($index,device,'activate')">{{'label.button.activate' | translate}}</a> |

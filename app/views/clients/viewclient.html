@@ -1495,7 +1495,7 @@
 		<tab heading="{{ 'label.heading.bureau' | translate }}" has-permission='READ_CREDIT_BUREAU_REPORT' ng-hide="isClosedClient" select="getCreditBureauReportSummary()">
 			<div class="span gray-head">
 				<div class="pull-right">
-					<button type="button" class="btn btn-primary" ng-click="initiateCreditBureauEnquiry();" has-permission='READ_CREDIT_BUREAU_REPORT'>{{'label.button.initiate.credit.bureau.enquiry' | translate}}</button>
+					<button type="button" ng-hide="hideInitiateCreditBureau" class="btn btn-primary" ng-click="initiateCreditBureauEnquiry();" has-permission='READ_CREDIT_BUREAU_REPORT'>{{'label.button.initiate.credit.bureau.enquiry' | translate}}</button>
 				</div>
 			</div>
 			<div ng-if="creditBureauEnquiries && creditBureauEnquiries.length > 0">

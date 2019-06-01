@@ -25,10 +25,11 @@
             scope.dedupeMatchFound = null;
             scope.crnNumberMandatory = false;
             scope.showCrnMandatoryMessage = false;
+            scope.getNoCrn = false;
             scope.actionList = ['No Action Selected','Bulk Approval'];
             if (scope.allowBcifOperations) {
                 scope.actionList.push('Bulk Crn Creation');
-                scope.crnSearchList = ['All CRN Status', 'Custom CRN Search', 'BCIF Error', 'Dedupe Error', 'CRN Exists', 'Dedupe Match Found', 'No Dedupe Match'];
+                scope.crnSearchList = ['All CRN Status', 'Custom CRN Search', 'BCIF Error', 'Dedupe Error', 'CRN Exists', 'Dedupe Match Found', 'No Dedupe Match','No CRN'];
                 scope.formData.crnSelectedOption = scope.crnSearchList[0];
                 scope.isShowBulkOperationsButton = true;
             }
@@ -76,7 +77,7 @@
                     scope.disableProceedButton = false;
                     var size = pageItems.length;
                     for (var i = 0; i < size; i++) {
-                        if ((pageItems[i].bcifCrnId == undefined || pageItems[i].bcifCrnId == null) && (pageItems[i].dedupeMatchExists != undefined && pageItems[i].dedupeMatchExists == 'NO_MATCH_FOUND')) {
+                        if ((pageItems[i].bcifCrnId == undefined || pageItems[i].bcifCrnId == null) && ((pageItems[i].dedupeMatchExists != undefined && pageItems[i].dedupeMatchExists == 'NO_MATCH_FOUND')|| pageItems[i].crnErrorCode || pageItems[i].crnErrorDescription)) {
                             scope.checkBoxDisable[i] = false;
                         }
                         else {
@@ -105,6 +106,7 @@
                     scope.crnStatus = null;
                     scope.dedupeMatchFound = null;
                     scope.crnNumberMandatory = true;
+                    scope.getNoCrn = false;
                 }
                 if (scope.formData.crnSelectedOption == 'BCIF Error') {
                     scope.showCrnTextBox = false;
@@ -114,6 +116,7 @@
                     scope.crnStatus = null;
                     scope.dedupeMatchFound = null;
                     scope.crnNumberMandatory = false;
+                    scope.getNoCrn = false;
                 }
                 if (scope.formData.crnSelectedOption == 'Dedupe Error') {
                     scope.showCrnTextBox = false;
@@ -123,6 +126,7 @@
                     scope.crnStatus = null;
                     scope.dedupeMatchFound = null;
                     scope.crnNumberMandatory = false;
+                    scope.getNoCrn = false;
                 }
                 if (scope.formData.crnSelectedOption == 'CRN Exists') {
                     scope.showCrnTextBox = false;
@@ -132,6 +136,7 @@
                     scope.crnStatus = 1;
                     scope.dedupeMatchFound = null;
                     scope.crnNumberMandatory = false;
+                    scope.getNoCrn = false;
                 }
                 if (scope.formData.crnSelectedOption == 'No Dedupe Match') {
                     scope.showCrnTextBox = false;
@@ -141,6 +146,7 @@
                     scope.crnStatus = null;
                     scope.dedupeMatchFound = 0;
                     scope.crnNumberMandatory = false;
+                    scope.getNoCrn = false;
                 }
                 if (scope.formData.crnSelectedOption == 'Dedupe Match Found') {
                     scope.showCrnTextBox = false;
@@ -150,6 +156,7 @@
                     scope.crnStatus = null;
                     scope.dedupeMatchFound = 1;
                     scope.crnNumberMandatory = false;
+                    scope.getNoCrn = false;
                 }
                 if (scope.formData.crnSelectedOption == 'All CRN Status') {
                     scope.showCrnTextBox = false;
@@ -160,6 +167,18 @@
                     scope.dedupeMatchFound = null;
                     scope.crnNumberMandatory = false;
                     scope.formData.crnNumber = null;
+                    scope.getNoCrn = false;
+                }
+                if (scope.formData.crnSelectedOption == 'No CRN') {
+                    scope.showCrnTextBox = false;
+                    scope.crnNumberValue = null;
+                    scope.bcifStatus = null;
+                    scope.dedupeStatus = null;
+                    scope.crnStatus = null;
+                    scope.dedupeMatchFound = null;
+                    scope.crnNumberMandatory = false;
+                    scope.formData.crnNumber = null;
+                    scope.getNoCrn = true;
                 }
             }
             resourceFactory.officeDropDownResource.getAllOffices({}, function(officelist){
@@ -181,7 +200,8 @@
                     bcifStatus : scope.bcifStatus,
                     dedupeStatus : scope.dedupeStatus,
                     crnStatus : scope.crnStatus,
-                    dedupeMatchFound : scope.dedupeMatchFound
+                    dedupeMatchFound : scope.dedupeMatchFound,
+                    noCrn:scope.getNoCrn
                 }, callback);
 
             };
@@ -317,6 +337,7 @@
                 scope.crnStatus = null;
                 scope.formData.workflowLoanStatus = null;
                 scope.dedupeMatchFound = null;
+                scope.getNoCrn = false;
                 if(grouping == 'ManualApprove'){
                     scope.workflowLoanStatusList = [];
                     scope.workflowLoanStatusList = ['UnderKotakApproval', 'ODUReviewed', 'KotakApproved', 'CreditReviewed'];
