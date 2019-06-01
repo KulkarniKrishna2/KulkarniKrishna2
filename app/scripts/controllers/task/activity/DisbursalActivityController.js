@@ -401,7 +401,6 @@
                     $scope.editLoanAccountdata.transactionProcessingStrategyId = $scope.loanaccountinfo.transactionProcessingStrategyId;
                     if(!_.isUndefined($scope.loanaccountinfo.calendarOptions)){
                         $scope.editLoanAccountdata.calendarId = $scope.loanaccountinfo.calendarOptions[0].id;
-                        $scope.editLoanAccountdata.syncDisbursementWithMeeting = true;
                     }
 
 
@@ -904,14 +903,14 @@
                             method: "POST", body: JSON.stringify(this.formData)});
 
 
-                   //tracking request body formation 
+                   /*//tracking request body formation 
                     $scope.taskTrackingFormData = {};
                     $scope.taskTrackingFormData.taskInfoTrackArray = [];
                     $scope.taskTrackingFormData.taskInfoTrackArray = $scope.taskInfoTrackArray.slice();
                     var relativeTrackUrl = "tasktracking/clientlevel";
                     requestSequence = requestSequence + 1;
                     $scope.batchRequests.push({requestId: requestSequence, relativeUrl: relativeTrackUrl,
-                                method: "POST", body: JSON.stringify($scope.taskTrackingFormData)});
+                                method: "POST", body: JSON.stringify($scope.taskTrackingFormData)});*/
 
                     //batch call
                     resourceFactory.batchResource.post({'enclosingTransaction':true},$scope.batchRequests, function (data) {

@@ -50,8 +50,12 @@
             scope.pincode = false;
             scope.sections = [];
             scope.displayNameInReverseOrder = false;
+            scope.hideInitiateCreditBureau = false;
             if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.enableSmartCard && scope.response){
                 scope.enableSmartCard =  scope.response.uiDisplayConfigurations.viewClient.isHiddenField.enableSmartCard;
+            }
+            if(scope.response && scope.response.uiDisplayConfigurations.viewClient.isHiddenField.initiateCreditBureau){
+                scope.hideInitiateCreditBureau = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.initiateCreditBureau;
             }
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewClient.isHiddenField.pincode) {
                 scope.pincode = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.pincode;

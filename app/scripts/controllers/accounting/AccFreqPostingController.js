@@ -53,7 +53,7 @@
                   scope.allowCreditEntries = false;
                 }
             }
-        
+
             //events for credits
             scope.addCrAccount = function () {
                 scope.errorcreditevent = false;
