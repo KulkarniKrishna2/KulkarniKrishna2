@@ -7935,6 +7935,8 @@
     "error.msg.unable.to.disburse.due.to.client.and.loan.bank.account.mismatch" : "Unable to disburse loan. Selected bank account is not mapped to client.",
     "error.msg.document.save" : "Unable to save the document. Kindly try again.",
     "error.msg.mandatory.files.not.attached":"File is mandatory",
+    "label.button.upload.image":"Upload Image",
+    "label.heading.upload.image":"Upload Image",
 
     "------ end of translation file ------": "----------"
 }
