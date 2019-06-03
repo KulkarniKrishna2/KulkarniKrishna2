@@ -299,10 +299,10 @@
 							{{'label.input.villages' | translate}}  <span class="required">*</span>
 						</label>
 						<div class="col-sm-3">
-							<select chosen="villages" id="villageId" name="villages" ng-model="formAddressData.villageId" class="form-control"
+							<select chosen="villages" id="villageId" name="villages" ng-model="villageId" class="form-control"
 									ng-options="village.villageId as village.villageName for village in villages"
 									value="{{village.villageId}}"
-									ng-change="changeVillage(formAddressData.villageId)" required late-validate="">
+									ng-change="changeVillage(villageId)" required late-validate="">
 								<option value="">{{'label.menu.selectVillages' | translate}}</option>
 							</select>
 						</div>
