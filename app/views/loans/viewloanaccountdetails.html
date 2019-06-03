@@ -1438,7 +1438,7 @@
                                   <td>{{document.fileName}}</td>
                                   <td >
                                       <a ng-show="document.id" target="_blank" 
-                                      ng-click = "download(document)"><i class="icon-cloud-download"></i></a>&nbsp;
+                                      ng-click = "download(document)" has-permission='DOWNLOAD_DOCUMENT'><i class="icon-cloud-download"></i></a>&nbsp;
                                       <a ng-show="document.id" ng-click="deleteDocument(document,$index, key)"><i class="icon-remove"></i></a>
                                       <a ng-show="document.id && document.reportIdentifier" ng-click="reGenerateDocument(document)"><i class="icon-repeat"></i></a>
                                       <a ng-hide="document.id" ng-click="generateDocument(document)"><i class="icon-link"></i></a>
