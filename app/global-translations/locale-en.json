@@ -7937,6 +7937,9 @@
     "error.msg.mandatory.files.not.attached":"File is mandatory",
     "label.button.upload.image":"Upload Image",
     "label.heading.upload.image":"Upload Image",
+    "label.error.only.files.of.type.image.are.allowed": "Only images are allowed",
+    "label.error.no.file.is.selected": "Please select a file",
+    "label.error.files.can.be.image.or.of.type.pdf" : "Only files of type pdf or images are allowed ",
 
     "------ end of translation file ------": "----------"
 }
