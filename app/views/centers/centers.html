@@ -10,7 +10,7 @@
             <div class="form-group">
                 <div class="col-lg-6">
                     <div class="input-group">
-                        <input data-ng-model="searchText" type="text" autocomplete="off" placeholder="{{'label.input.searchByNameExternalIdforcenter' | translate}}"
+                        <input data-ng-model="searchText" type="text" autocomplete="off" placeholder="{{showRefNo ? 'label.input.searchbynameorexternalidorrefnoforcenter' : 'label.input.searchbynameorexternalidforcenter' | translate}}"
                             class="form-control" />
                         <span class="input-group-btn">
                             <button class="btn btn-primary form-control">
@@ -21,7 +21,7 @@
                 </div>
                 <div class="col-md-4">
                     <input ng-autofocus="true" ng-model="filterText" type="text" autocomplete="off" ng-keyup="onFilter()"
-                        class="span form-control" placeholder="{{'label.input.filterbynameorstatusorofficeforcenter' | translate}}" />
+                        class="span form-control" placeholder="{{showRefNo ? 'label.input.filterbynameorstatusorofficeorrefnoforcenter' : 'label.input.filterbynameorstatusorofficeforcenter' | translate}}" />
                 </div>
             </div>
         </form>

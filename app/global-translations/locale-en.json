@@ -283,8 +283,8 @@
     "label.input.comments": "Comments",
     "label.input.closurereasons": "Closure reason",
     "label.input.enteractivationdate": "Enter activation date",
-    "label.input.filterbynameorstatusoroffice": "Filter by name/status/office/group ref#",
-    "label.input.filterbynameorstatusorofficeforcenter": "Filter by name/status/office/center ref#",
+    "label.input.filterbynameorstatusoroffice": "Filter by name/status/office",
+    "label.input.filterbynameorstatusorofficeforcenter": "Filter by name/status/office",
     "label.input.filterbyname": "Filter by name",
     "label.input.transactiondate": "Transaction date",
     "label.input.subsidyreleasedate": "Subsidy Release Date",
@@ -1185,8 +1185,8 @@
     "#Inputs": "..",
     "label.input.select.groups": "Select and add groups",
     "label.input.searchforgroup": "Search for a Group",
-    "label.input.searchByNameExternalId": "Find by name/externalId/group ref#",
-    "label.input.searchByNameExternalIdforcenter": "Find by name/externalId/center ref#",
+    "label.input.searchbynameorexternalidorrefno": "Find by name/externalId/group ref#",
+    "label.input.searchbynameorexternalidorrefnoforcenter": "Find by name/externalId/center ref#",
     "#Misc Labels": "..",
     "label.selectcenter": "Select center",
     "label.selectclients": "Select clients",
@@ -7940,6 +7940,11 @@
     "label.error.only.files.of.type.image.are.allowed": "Only images are allowed",
     "label.error.no.file.is.selected": "Please select a file",
     "label.error.files.can.be.image.or.of.type.pdf" : "Only files of type pdf or images are allowed ",
+    "label.input.searchbynameorexternalid": "Find by name/externalId",
+    "label.input.searchbynameorexternalidforcenter": "Find by name/externalId",
+    "label.input.filterbynameorstatusorofficeorrefno": "Filter by name/status/office/group ref#",
+    "label.input.filterbynameorstatusorofficeorrefnoforcenter": "Filter by name/status/office/center ref#",
+    
 
     "------ end of translation file ------": "----------"
 }

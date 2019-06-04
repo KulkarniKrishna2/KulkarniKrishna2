@@ -12,8 +12,10 @@
 	        	<i class="icon-circle {{center.status.code | StatusLookup}}"></i>
 	        	<i class="icon-map-marker"></i>
 	            <strong>{{center.name}} </strong>
-	            <small>
-					<i class="icon-barcode"></i> {{ 'label.heading.centerreferenceno' | translate }}: {{center.referenceNumber}} |
+	            <small ng-show="!isHideReferenceNumber">
+					<i class="icon-barcode" ></i> {{ 'label.heading.centerreferenceno' | translate }}: {{center.referenceNumber}} |
+				</small>
+				<small>
 	            	<i class="icon-barcode"></i> {{ 'label.heading.accnum' | translate }}: {{center.accountNo}} |
 					<i class="icon-building" ></i>{{ 'label.heading.office' | translate }}: "{{getOfficeName(center.officeName,center.officeReferenceNumber)}}"
 				</small>

@@ -27,8 +27,10 @@
 				<small data-ng-show="client.clientClassification.name">
 					{{ 'label.input.clientclassification' | translate }}: {{client.clientClassification.name}} |
 				</small>
-	            <small>
+	            <small data-ng-show="!refNo">
 					{{ 'label.heading.clientreferenceno' | translate }}: {{client.referenceNumber}} |
+	            </small>
+				<small>
 	            	{{ 'label.heading.clientno' | translate }}: {{client.accountNo}} |
 	            	{{ 'label.input.clientexternalid' | translate }}: {{client.externalId}} |
 	            	{{ 'label.input.staff' | translate }}: {{client.staffName}} |

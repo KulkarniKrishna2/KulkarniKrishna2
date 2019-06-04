@@ -4,8 +4,16 @@
             scope.isSearchData = true;
             scope.clientsPerPage = 15;
             scope.isWorkflowEnabled = scope.isSystemGlobalConfigurationEnabled('work-flow');
-            scope.hideCreateClient = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.createClient;
             scope.isHideCreateEntity = false;
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewClient && 
+                scope.response.uiDisplayConfigurations.viewClient.isHiddenField){
+                if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.createClient){
+                    scope.hideCreateClient = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.createClient;
+                }
+                if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.referenceNo){
+                    scope.refNo = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.referenceNo;
+                }
+            }
             if(scope.isWorkflowEnabled && scope.hideCreateClient){
                 scope.isHideCreateEntity = true;
             }

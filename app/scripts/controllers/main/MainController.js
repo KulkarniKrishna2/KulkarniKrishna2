@@ -30,6 +30,10 @@
             scope.showCollections = false;
             scope.searchRule = true;
             scope.searchRuleLabel = 'label.tooltip.exactsearch';
+            if(scope.response && scope.response.uiDisplayConfigurations &&  scope.response.uiDisplayConfigurations.navBar && scope.response.uiDisplayConfigurations.navBar.isHiddenField && 
+                scope.response.uiDisplayConfigurations.navBar.isHiddenField.kotakApproval){
+                scope.isHideKotakApproval = scope.response.uiDisplayConfigurations.navBar.isHiddenField.kotakApproval;
+            }
             if(!scope.islogofoldernamefetched && $rootScope.tenantIdentifier && $rootScope.tenantIdentifier != "default"){
                 scope.islogofoldernamefetched = true;
                 $http.get('scripts/config/LogoConfig.json').success(function(datas) {
