@@ -77,7 +77,7 @@
                     scope.disableProceedButton = false;
                     var size = pageItems.length;
                     for (var i = 0; i < size; i++) {
-                        if ((pageItems[i].bcifCrnId == undefined || pageItems[i].bcifCrnId == null) && ((pageItems[i].dedupeMatchExists != undefined && pageItems[i].dedupeMatchExists == 'NO_MATCH_FOUND')|| pageItems[i].crnErrorCode || pageItems[i].crnErrorDescription)) {
+                        if ((pageItems[i].bcifCrnId == undefined || pageItems[i].bcifCrnId == null) && (pageItems[i].dedupeMatchExists != undefined && pageItems[i].dedupeMatchExists == 'NO_MATCH_FOUND')) {
                             scope.checkBoxDisable[i] = false;
                         }
                         else {
