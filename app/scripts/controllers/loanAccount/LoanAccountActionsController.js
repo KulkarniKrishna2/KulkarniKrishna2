@@ -51,7 +51,8 @@
             scope.isInvalid = false;
             scope.isValueDateEnabled = scope.isSystemGlobalConfigurationEnabled('enable-value-date-for-loan-transaction');
             scope.showValueDateField = false;
-            
+            scope.isPaymentModeMandatory = false;
+            scope.isPaymentTypeMandatory = false;
             resourceFactory.configurationResource.get({configName: scope.glimAsGroupConfigName}, function (configData) {
                 if(configData){
                     scope.glimPaymentAsGroup = configData.enabled;
@@ -323,10 +324,16 @@
                     scope.showAmountField = true;
             };
 
+            scope.updatePaymentTypeOptions = function(){
+                if(scope.formData.paymentTypeId){
+                   delete scope.formData.paymentTypeId;
+               }
+               scope.getPaymentTypeOtions();
+            };
 
             scope.getPaymentTypeOtions = function(){
                 scope.paymentTypeOptions =[];
-                if( scope.paymentTypes){
+                if(scope.paymentTypes){
                         var type = scope.applicableOnRepayment;
                         if(scope.action!="disburse"){
                             type = scope.applicableOnDisbursement;
@@ -509,6 +516,10 @@
                     if (scope.isValueDateEnabled) {
                         scope.showValueDateField = true;
                     }
+                    if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.loanAccount.isMandatory) {
+                        scope.isPaymentModeMandatory = scope.response.uiDisplayConfigurations.loanAccount.isMandatory.transactionPaymentMode;
+                        scope.isPaymentTypeMandatory = scope.response.uiDisplayConfigurations.loanAccount.isMandatory.transactionPaymentType;
+                    }
                     resourceFactory.glimResource.getAllByLoan({loanId: scope.accountId}, function (glimData) {
                         scope.GLIMData = glimData;
                         if(glimData.length>0 ){
@@ -541,7 +552,9 @@
                     scope.isTransaction = true;
                     scope.showAmountField = true;
                     scope.taskPermissionName = 'REPAYMENT_LOAN';
-                    scope.isRecieptNumbermandatory = scope.response.uiDisplayConfigurations.paymentDetails.isMandatory.receiptNumber;
+                    if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.paymentDetails){
+                        scope.isRecieptNumbermandatory = scope.response.uiDisplayConfigurations.paymentDetails.isMandatory.receiptNumber;
+                    }
 
                     break;
                 case "prepayment":
@@ -1401,7 +1414,6 @@
             };
 
             scope.$watch('formData.paymentTypeId', function () {
-                scope.paymentTypeOptions = [];
                 scope.getPaymentTypeOtions();
             }, true);
 

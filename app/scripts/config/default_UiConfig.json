@@ -46,7 +46,9 @@
 				"repaymentsStartingFromDate": false,
 				"loanPurposeId": false,
 				"undoTransactionReason": false,
-				"isPreclosureReasonEnabled": false
+				"isPreclosureReasonEnabled": false,
+				"transactionPaymentMode": false,
+				"transactionPaymentType": false
 			},
 			"isHiddenSection": {
 				"interestRecalculationSection": false,

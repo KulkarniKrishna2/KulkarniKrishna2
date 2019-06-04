@@ -9,7 +9,9 @@
         "interestChargedFromDate": true
       },
       "isMandatory": {
-        "isPreclosureReasonEnabled" : true
+        "isPreclosureReasonEnabled" : true,
+        "transactionPaymentMode": true,
+				"transactionPaymentType": true
       }
     },
     "createCenter": {

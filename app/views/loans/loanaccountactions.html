@@ -544,24 +544,34 @@
 
     <div ng-show="isTransaction">
         <div  class="form-group">
-            <label class="control-label col-sm-2" for="paymentTypeId">{{ 'label.input.paymentmode' | translate}}</label>
-
+            <label class="control-label col-sm-2" for="paymentTypeId">{{ 'label.input.paymentmode' | translate}}
+                <span ng-show="isPaymentModeMandatory" class="required">*</span>
+            </label>
             <div class="col-sm-3">
                 <select id="paymentMode" name="paymentMode" ng-model="paymentMode"
                             ng-options="paymentModeOption.id as paymentModeOption.value for paymentModeOption in paymentModeOptions"
-                            value="{{paymentModeOption.id}}" ng-change="getPaymentTypeOtions()"  class="form-control"
-                            >
+                            value="{{paymentModeOption.id}}" ng-change="updatePaymentTypeOptions()"  class="form-control"
+                            ng-required="isPaymentModeMandatory">
                             <option value="">{{'label.selectone' | translate}}</option>
                        </select>
             </div>
+            <div class="col-sm-3">
+                <form-validate valattributeform="loanactionform" valattribute="paymentMode"/>
+            </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-sm-2" for="paymentTypeId">{{ 'label.input.paymenttype' | translate}}</label>
-
+            <label class="control-label col-sm-2" for="paymentTypeId">{{ 'label.input.paymenttype' | translate}}
+                <span ng-show="isPaymentTypeMandatory" class="required">*</span>
+            </label>
             <div class="col-sm-3">
-                <select id="paymentTypeId" ng-model="formData.paymentTypeId" class="form-control"
+                <select id="paymentTypeId" ng-model="formData.paymentTypeId" class="form-control" name="paymentTypeId"
                         ng-options="paymentType.id as paymentType.name for paymentType in paymentTypeOptions"
-                        value="{{paymentType.id}}"></select>
+                        value="{{paymentType.id}}" ng-required="isPaymentTypeMandatory" required> 
+                        <option value="">{{'label.selectone' | translate}}</option>
+                    </select>
+            </div>
+            <div class="col-sm-3">
+                <form-validate valattributeform="loanactionform" valattribute="paymentTypeId"/>
             </div>
         </div>
         <div class="form-group" ng-if="showPaymentTypeForChargeDisbursement">
