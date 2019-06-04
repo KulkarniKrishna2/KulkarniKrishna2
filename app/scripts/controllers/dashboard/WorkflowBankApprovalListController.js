@@ -326,7 +326,6 @@
             scope.changeInTab = function(grouping){
                 scope.filterBy = 'Invalid';
                 scope.tabGrouping = grouping;
-                delete scope.errorDetails;
                 scope.formData.crnSelectedOption = 'All CRN Status';
                 scope.checkForOption();
                 scope.formData.actionListSelectedOption = 'No Action Selected';
