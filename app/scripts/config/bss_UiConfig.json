@@ -311,6 +311,11 @@
 		},
 		"offices": {
 			"showRefNo": true
+		},
+		"navBar": {
+			"isHiddenField":{
+				"kotakApproval": false 
+			}
 		}
 	}
 }

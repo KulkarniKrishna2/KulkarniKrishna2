@@ -542,7 +542,8 @@
 			"hiddenFields": {
 				"groups": false,
 				"savings": false,
-				"loanApplication": false
+				"loanApplication": false,
+				"referenceNo": true
 			}
 		},
 		"workflowDashboard": {
@@ -614,6 +615,11 @@
 		},
 		"meeting": {
 			"showAllRepeatsOptions": true
+		},
+		"navBar": {
+			"isHiddenField":{
+				"kotakApproval": true 
+			}
 		}	
 	}
 }

@@ -14,6 +14,9 @@
                 if (scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.groupName) {
                     scope.hideGroupName = scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.groupName;
                 }
+                if (scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.referenceNo) {
+                    scope.showRefNo =  !scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.referenceNo;
+                }
             }
 
             scope.itemsPerPage = 15;

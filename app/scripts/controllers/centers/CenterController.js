@@ -15,6 +15,10 @@
                 }, callback);
             };
 
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.centers && 
+                scope.response.uiDisplayConfigurations.centers.showRefNo){
+                scope.showRefNo =  scope.response.uiDisplayConfigurations.centers.showRefNo;
+            }
             scope.searchConditions = {};
             scope.searchData = function () {
                 scope.centers = paginatorUsingOffsetService.paginate(fetchFunction, scope.itemsPerPage);

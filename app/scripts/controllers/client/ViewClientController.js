@@ -52,27 +52,32 @@
             scope.displayNameInReverseOrder = false;
             var levelVasedAddressConfig = 'enable_level_based_address';
             scope.isLevelBasedAddressEnabled = scope.isSystemGlobalConfigurationEnabled(levelVasedAddressConfig);
-
-            if(scope.response && scope.response.uiDisplayConfigurations.viewClient.isHiddenField.enableSmartCard){
-                scope.enableSmartCard =  scope.response.uiDisplayConfigurations.viewClient.isHiddenField.enableSmartCard;
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewClient &&
+                scope.response.uiDisplayConfigurations.viewClient.isHiddenField){
+                if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.enableSmartCard){
+                    scope.enableSmartCard =  scope.response.uiDisplayConfigurations.viewClient.isHiddenField.enableSmartCard;
+                }
+                if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.pincode){
+                    scope.pincode = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.pincode;
+                }
+                if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.displayNameInReverseOrder){
+                    scope.displayNameInReverseOrder = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.displayNameInReverseOrder;
+                }
+                if(scope.response.uiDisplayConfigurations.cashFlow.hiddenFields.assetDetails){
+                    scope.assetDetails = scope.response.uiDisplayConfigurations.cashFlow.hiddenFields.assetDetails;
+                }
+                if(scope.response.uiDisplayConfigurations.cashFlow.hiddenFields.houseHoldExpenses){
+                    scope.houseHoldExpenses = scope.response.uiDisplayConfigurations.cashFlow.hiddenFields.houseHoldExpenses;
+                }
+                if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.referenceNo){
+                    scope.refNo = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.referenceNo;
+                }
             }
             scope.isStalePeriodExceeded = false;
-            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewClient.isHiddenField.pincode) {
-                scope.pincode = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.pincode;
-            }
-            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewClient.isHiddenField.displayNameInReverseOrder) {
-                scope.displayNameInReverseOrder = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.displayNameInReverseOrder;
-            }
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createNewLoan &&
                 scope.response.uiDisplayConfigurations.createNewLoan.isHiddenField && scope.response.uiDisplayConfigurations.createNewLoan.isHiddenField.newLoan) {
                 scope.hideNewLoan = scope.response.uiDisplayConfigurations.createNewLoan.isHiddenField.newLoan;
             }
-            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.cashFlow.hiddenFields.assetDetails) {
-               scope.assetDetails = scope.response.uiDisplayConfigurations.cashFlow.hiddenFields.assetDetails;
-            }
-            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.cashFlow.hiddenFields.houseHoldExpenses) {
-                scope.houseHoldExpenses = scope.response.uiDisplayConfigurations.cashFlow.hiddenFields.houseHoldExpenses;
-             }
             scope.enableClientVerification = scope.isSystemGlobalConfigurationEnabled('client-verification');
             if(scope.response && scope.response.uiDisplayConfigurations) {
                 scope.isSavingAccountEnable = scope.response.uiDisplayConfigurations.viewClient.createSavingAccount;
