@@ -7944,6 +7944,7 @@
     "label.input.searchbynameorexternalidforcenter": "Find by name/externalId",
     "label.input.filterbynameorstatusorofficeorrefno": "Filter by name/status/office/group ref#",
     "label.input.filterbynameorstatusorofficeorrefnoforcenter": "Filter by name/status/office/center ref#",
+    "label.error.csv.file.is.not.selected": "Please select csv file",
     
 
     "------ end of translation file ------": "----------"
