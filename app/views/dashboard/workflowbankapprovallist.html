@@ -16,15 +16,8 @@
             <button class="btn btn-warning " ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
         </div>
     </script>
-    <div ng-if="errorDetails.length>0">
-        <div>
-            <h3>There are exceptions click on refresh to update the records </h3>
-        </div>
+    <div>
         <api-validate></api-validate>
-        <td class="col-sm-1">
-            <a id="cancel" class="btn btn-primary ng-binding" ng-click="changeInTab(tabGrouping)"> <i
-                    class="icon-repeat icon-white"></i>{{'label.button.refresh' | translate}}</a>
-        </td>
     </div>
     <hr/>
         <table class="table">
@@ -115,7 +108,6 @@
                  {{'label.proceed' | translate}}
              </a>
             </td>
-               
             <td class="col-sm-5"></td>
         </tr>
     </table>
@@ -124,6 +116,7 @@
             <div class="card-content no-h-padding">
                 <tabset class="paddedtop paddedbottom10" tabset-name="bankApprovalTabset">
                    <tab heading="{{taskType.name | translate}}" ng-repeat="taskType in taskTypes" select="changeInTab(taskType.grouping)"   ng-if = "taskType.showtab" class='{{taskType.active}}'>
+                        
                         <div class="table-responsive" 
                             data-ng-show="taskPagination.currentPageItems.length > 0">
                             <table id="bankapprovals" class="table table-striped card-table">
