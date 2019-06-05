@@ -8,6 +8,8 @@
             scope.isFileNotSlected = false;
             scope.funds = [];
             scope.isSuccess = false;
+            scope.showSelectFileErrMsg = false;
+            scope.showCsvFileErrMsg = false;
             resourceFactory.fundsResource.getAllFunds({command:'active'},function (data) {
                 scope.funds = data;
             });
@@ -17,19 +19,35 @@
             };
 
             scope.submit = function () {
+                scope.showSelectFileErrMsg = false;
                 scope.file = [scope.csvFile];
                 scope.isSuccess = false;
                 scope.formData.csvFileSize = scope.csvFileSize;
-                $upload.upload({
-                    url: $rootScope.hostUrl + API_VERSION + '/funds/'+scope.formData.fund+'/assign',
-                    data: scope.formData,
-                    file: scope.file
-                }).then(function (data) {
-                    if (!scope.$$phase) {
-                        scope.$apply();
+                if (scope.csvFileSize > 0) {
+                    scope.fileName = scope.file[0].name;
+                    var fileExtension = scope.fileName.substring(scope.fileName.lastIndexOf('.')+1,scope.fileName.length);
+                    if(fileExtension !=="csv"){
+                        scope.showCsvFileErrMsg = true;
+                    }else{
+                        $upload.upload({
+                            url: $rootScope.hostUrl + API_VERSION + '/funds/' + scope.formData.fund + '/assign',
+                            data: scope.formData,
+                            file: scope.file
+                        }).then(function(data) {
+                            if (!scope.$$phase) {
+                                scope.$apply();
+                            }
+                            scope.isSuccess = true;
+                            var index = scope.funds.findIndex(x => x.id == scope.formData.fund)
+                            if (index > -1) {
+                                scope.fundName = scope.funds[index].name;
+                            }
+                        });
                     }
-                    scope.isSuccess = true;
-                });
+                    
+                } else {
+                    scope.showSelectFileErrMsg = true;
+                }
             };
         }
     });

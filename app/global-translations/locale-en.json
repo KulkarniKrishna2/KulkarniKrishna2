@@ -7933,6 +7933,18 @@
     "error.msg.work.flow.execution.step.action.no.permission" : "Permission is not provided for the work flow execution step action" ,
     "error.msg.unable.to.disburse.due.to.client.and.loan.bank.account.mismatch" : "Unable to disburse loan. Selected bank account is not mapped to client.",
     "error.msg.document.save" : "Unable to save the document. Kindly try again.",
+    "error.msg.mandatory.files.not.attached":"File is mandatory",
+    "label.button.upload.image":"Upload Image",
+    "label.heading.upload.image":"Upload Image",
+    "label.error.only.files.of.type.image.are.allowed": "Only images are allowed",
+    "label.error.no.file.is.selected": "Please select a file",
+    "label.error.files.can.be.image.or.of.type.pdf" : "Only files of type pdf or images are allowed ",
+    "label.input.searchbynameorexternalid": "Find by name/externalId",
+    "label.input.searchbynameorexternalidforcenter": "Find by name/externalId",
+    "label.input.filterbynameorstatusorofficeorrefno": "Filter by name/status/office/group ref#",
+    "label.input.filterbynameorstatusorofficeorrefnoforcenter": "Filter by name/status/office/center ref#",
+    "label.error.csv.file.is.not.selected": "Please select csv file",
+    
 
     "------ end of translation file ------": "----------"
 }
