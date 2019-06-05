@@ -845,6 +845,9 @@
     "label.heading.clientguarantees": "Loans Guaranteed",
     "label.heading.chargesoverview": "Charges Overview",
     "label.heading.image.name": "Image Name",
+    "label.heading.documentupload": "Document Upload",
+    "label.heading.bankdetails": "Bank Details",
+    "label.heading.viewadditionaldetails": "View Additional Details",
 
     "#Anchors": "..",
     "label.anchor.clients": "Clients",
@@ -2686,6 +2689,7 @@
     "label.account.deposit.frequency": "Deposit Frequency",
     "label.account.closed.on.date": "Closed on Date",
     "label.heading.interest.calculation.date": "Interest Recalculation Date",
+    "label.selectfilename": "Select File Name",
 
     "#tool tip for saving products": "..",
     "label.tooltip.productname": "A unique identifier for the saving product",

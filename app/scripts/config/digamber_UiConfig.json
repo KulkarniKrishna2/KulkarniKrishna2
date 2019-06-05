@@ -1,10 +1,33 @@
 {
-  "enableUIDisplayConfiguration": true,
-  "uiDisplayConfigurations": {
-   		"bulkJLGLoanAccount":{
-		    "isMandatory":{
-			    "fundId":true
-		    }
-	    }
-    }
+	"enableUIDisplayConfiguration": true,
+	"uiDisplayConfigurations": {
+		"bulkJLGLoanAccount": {
+			"isMandatory": {
+				"fundId": true
+			}
+		},
+		"bankAccountDetails": {
+			"isMandatory": {
+				"bankAccountHolderName": true,
+				"bankAccountNumber": true,
+				"accountType": false,
+				"bankIFSCCode": true,
+				"bankName": false,
+				"bankCity": false,
+				"mobileNumber": false,
+				"lastTransactionDate": false,
+				"docFile": false
+			},
+			"regexValidations": {
+				"mobileNumber": "^\\d{10}$",
+				"bankIFSCCode": "^[A-Za-z]{4}0[A-Z0-9a-z]{6}$",
+				"bankAccountNumber": "^[0-9]{1,50}$"
+			}
+		},
+		"workflow": {
+			"AdditionalDetailsValidation": {
+				"profileRatingPercentage": 100
+			}
+		}
+	}
 }
