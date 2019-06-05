@@ -7,6 +7,7 @@
             scope.file = [];
             scope.formData = {};
             scope.formData.loanUtilizationCheckDetails = [];
+            scope.submitted = false;
 
             if (scope.entityType === "center") {
                 resourceFactory.loanUtilizationCheckCenterTemplate.get({centerId: scope.entityId}, function (data) {
@@ -115,10 +116,11 @@
             };
 
             scope.submit = function () {
+                scope.submitted = true;
                 scope.formData.loanUtilizationCheckDetails = [];
                 scope.formData.auditDoneById = scope.currentSession.user.userId;
                 scope.submitData = [];
-                scope.errorDetails = [];
+                delete scope.errorDetails;
                 angular.copy(scope.loanCenterTemplate, scope.submitData);
                 scope.isSubmitAllow = true;
                 for (var i in scope.submitData) {
@@ -196,15 +198,15 @@
                     }
 
                     if (scope.entityType === "center") {
-                        scope.entityType = "centers"
-                        resourceFactory.multipleFileUploadResource.upload({entityType:scope.entityType,entityId: scope.entityId}, formData, function (data) {
+                        scope.entityTypeParam = "centers"
+                        resourceFactory.multipleFileUploadResource.upload({entityType:scope.entityTypeParam,entityId: scope.entityId}, formData, function (data) {
                             location.path('/viewcenter/' + scope.entityId);
                         });
                     }
 
                     if (scope.entityType === "group") {
-                        scope.entityType = "groups"
-                        resourceFactory.multipleFileUploadResource.upload({entityType:scope.entityType,entityId: scope.entityId}, formData, function (data) {
+                        scope.entityTypeParam = "groups"
+                        resourceFactory.multipleFileUploadResource.upload({entityType:scope.entityTypeParam,entityId: scope.entityId}, formData, function (data) {
                             location.path('/group/' + scope.entityId + '/listgrouploanutillization/');
                         });
                     }
@@ -224,6 +226,9 @@
             };
 
             function errorDetails(){
+                if(_.isUndefined(scope.errorDetails)){
+                    scope.errorDetails = [];
+                }
                 scope.isSubmitAllow = false;
                 var errorObj = new Object();
                 errorObj.args = {
