@@ -216,10 +216,12 @@
 
             scope.resetCollectionReasons = function(amount , index){
                 if(amount>0 && index>=0){
-                    scope.loanRejectReason[index].codeReasonId = undefined;
-                    scope.loanRejectReason[index].reasonId = undefined;
-                    scope.loanRejectReason[index].reason = undefined;
-                    scope.isDescriptionAvailable(scope.loanRejectReason[index]);
+                    if(!_.isUndefined(scope.loanRejectReason[index])){
+                        scope.loanRejectReason[index].codeReasonId = undefined;
+                        scope.loanRejectReason[index].reasonId = undefined;
+                        scope.loanRejectReason[index].reason = undefined;
+                        scope.isDescriptionAvailable(scope.loanRejectReason[index]);
+                    }                   
                 }
             };
 
@@ -390,15 +392,13 @@
             scope.validateForMandatoryCollectionReason = function(data){                
                 for(var i in data){
                     if(data[i].transactionAmount==0){
-                        if(data[i].reasonId==undefined){
-                            if(scope.loanRejectReason[data[i].loanId]==undefined){
-                                scope.loanRejectReason[data[i].loanId] = {};                                
-                            }
+                        if(scope.loanRejectReason[data[i].loanId].reasonId==undefined){
+                            scope.loanRejectReason[data[i].loanId] = {};                                
                             scope.loanRejectReason[data[i].loanId].error = scope.requiredFieldErrorMessage;
                             return false;
                         }else{
                             scope.isDescriptionAvailable(scope.loanRejectReason[data[i].loanId]);
-                                if(scope.showText==true && data[i].reason == undefined){
+                                if(scope.showText==true && scope.loanRejectReason[data[i].loanId].reason == undefined){
                                     scope.loanRejectReason[data[i].loanId].error = scope.requiredFieldErrorMessage;
                                     return false;
                                 }else{
@@ -460,8 +460,8 @@
                                 }
                             }
                         }
-                    }
-                } 
+                    }               
+                }
             };
             scope.sumTotalDueCollection = function () {
                 scope.totalDueCollection = [];
