@@ -1,0 +1,38 @@
+<div class="modal-header silver">
+    <div>
+        <h3 ng-hide="isBlacklisted" class="bolder">{{'label.heading.blacklistvillage' | translate}}</h3>
+        <h3 ng-show="isBlacklisted" class="bolder">{{'label.heading.whitelistvillage' | translate}}</h3>
+    </div>
+    <hr>
+    <div class="modal-body" style="height:150px">
+        <api-validate></api-validate>
+        <div ng-show="error != null" class="error">
+            {{'label.error' | translate}}: {{error}}
+        </div>
+        <div class="form-group" ng-hide="isBlacklisted">
+            <label class="control-label col-sm-3">{{ 'label.heading.rejectionreason' | translate }}<span class="required">*</span></label>
+            <div class="col-sm-4">
+                <select id="reasonCvId" ng-model="villageActionData.reasonCvId" ng-options="reason.id as reason.name for reason in blacklistingReasons"
+                    value="{{reason.id}}" class="form-control" required late-Validate>
+                    <option value="">{{'label.selectone' | translate}}</option>
+                </select>
+            </div>
+            <div class="col-sm-5" ng-hide="villageActionData.reasonCvId">
+                <span class="error">{{'label.requiredfield' | translate}}</span>
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <label class="control-label col-sm-3">{{'label.heading.notes' | translate}}</label>
+            <div class="col-sm-4">
+                <textarea class="input-sm form-control" id="reasonDescription" name="reasonDescription" ng-model="villageActionData.reasonDescription" />
+                </div>
+        </div>
+        <br/>
+    </div>
+    <div  class="col-md-offset-3 paddedleft paddedbottom">
+        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+        <button class="btn btn-primary" ng-hide = "isBlacklisted" ng-click="blacklistVillage()">{{'label.button.blacklist' | translate}}</button>
+        <button class="btn btn-primary" ng-show = "isBlacklisted" ng-click="whitelistVillage()">{{'label.button.whitelist' | translate}}</button>
+    </div>
+</div>
