@@ -244,7 +244,7 @@
                             scope.updateChargeForSlab(data);
                         }
                         else {
-                            if(data.chargeCalculationType.value == scope.slabBasedCharge && data.slabs.length > 0){
+                            if((data.chargeCalculationType.value == scope.slabBasedCharge || data.isSlabBased) && data.slabs.length > 0){
                                 for(var i in data.slabs) {
                                     var slabBasedValue = null;
                                     if (scope.loanaccountinfo.loanEMIPacks != undefined && scope.formData.loanEMIPackId != undefined) {
@@ -327,7 +327,7 @@
             scope.updateSlabBasedAmountChargeAmount = function(loanAmountRequested, numberOfRepayments){
                 if(loanAmountRequested != '' && loanAmountRequested != undefined && numberOfRepayments != '' && numberOfRepayments != undefined){
                     for(var i in scope.charges){
-                        if(scope.charges[i].chargeCalculationType.value == scope.slabBasedCharge && scope.charges[i].slabs.length > 0) {
+                        if((scope.charges[i].chargeCalculationType.value == scope.slabBasedCharge || scope.charges[i].isSlabBased) && scope.charges[i].slabs.length > 0) {
                             if(scope.isGLIM){
                                 scope.charges[i].amount = scope.updateSlabBasedChargeForGlim(scope.charges[i]);
                                 scope.updateChargeForSlab(scope.charges[i]);
