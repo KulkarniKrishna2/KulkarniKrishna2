@@ -50,7 +50,7 @@
             });
 
             scope.fetchDocumentCategories = function () {
-                var documentCategories = [];
+                scope.documentCategories = [];
                 if (!_.isUndefined(scope.formData.documentTypeId)) {
                     var columnIndex = scope.documenttypes.findIndex(x => x.id == scope.formData.documentTypeId) || 0;
                     var docType = scope.documenttypes[columnIndex];
@@ -59,13 +59,13 @@
                             'name': docType.name
                         }));
                         if (matchedSubTypes.length > 0) {
-                            documentCategories = matchedSubTypes[0].values;
+                            for(var i in matchedSubTypes[0].values){
+                                scope.documentCategories.push(matchedSubTypes[0].values[i]);
+                            }
                         }
                     });
-                } else {
-                    scope.formData.subCategoryTypeId = "";
                 }
-                return documentCategories;
+                return scope.documentCategories;
             };
 
             scope.validateRsaIdnumber=function()
