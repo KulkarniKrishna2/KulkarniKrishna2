@@ -1,0 +1,88 @@
+<div ng-controller="CGTRequestActivityController">
+    <div>
+        <span style="text-align:left">{{'label.info.totalmembers' | translate}} :
+            {{summary.activeClients}}&nbsp;&nbsp;{{'label.info.activeborrowers'
+            | translate}} : {{summary.activeBorrowers}}</span>
+    </div>
+    <div>
+        <api-validate></api-validate>
+    </div>
+    <div>
+        <div>
+            <table class="table">
+                <thead>
+                    <th class="col-md-1"><input type="checkbox" ng-model="centerDetails.isAllChecked" data-toggle="tooltip"
+                            data-placement="top" ng-change="validateAllClients(centerDetails, centerDetails.isAllChecked)"
+                            tooltip="{{'label.input.selectall' | translate}}" data-ng-disabled="isAllClientFinishedThisTask" /></th>
+                    <th class="col-md-2">{{'label.heading.name' | translate}}</th>
+                    <th class="col-md-2">{{'label.heading.FCSM.No' | translate}}</th>
+                    <th class="col-md-2">{{'label.heading.loanproduct' | translate}}</th>
+                    <th class="col-md-2">{{'label.heading.loanpack'| translate}}</th>
+                    <th class="col-md-2">{{'label.heading.loanpurpose' | translate}}</th>
+                    <th class="col-md-1">{{'label.heading.processingfee' | translate}}</th>
+                    <th class="col-md-1">{{'label.heading.single.double.insurance' | translate}}</th>
+                    <th class="col-md-1"></th>
+                    <th class="col-md-1">{{'label.heading.reject' | translate}}</th>
+                </thead>
+                <tbody ng-repeat="groupMember in centerDetails.subGroupMembers | filter : isActiveSubGroup | orderBy : 'fcsmNumber'">
+                    <tr class="background-gold">
+                        <td colspan="9">
+                            <span>{{groupMember.fcsmNumber}}
+                            </span>
+                        </td>
+                        <td class="col-mod-1">
+                            <a type="button" class="btn btn-danger btn-xs" ng-disabled="{{taskData.possibleActions.length == 0}}"
+                                ng-click="groupRejection(groupMember)" tooltip="{{'label.button.reject' | translate}}">
+                                <i class="icon-remove-circle pointer"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr ng-repeat="activeClientMember in groupMember.memberData | filter : isActiveMember | orderBy : 'fcsmNumber'"
+                        ng-class="activeClientMember.color" ng-if="!activeClientMember.isClientFinishedThisTask">
+                        <td class="col-md-1"><input class="pull-left" type="checkbox" ng-hide="activeClientMember.status.code == 'clientStatusType.onHold'"
+                                ng-disabled="activeClientMember.isClientFinishedThisTask" ng-model="activeClientMember.isMemberChecked"
+                                ng-change="
+                        captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, activeClientMember.isMemberChecked)">
+                        </td>
+                        <td class="col-md-2">{{activeClientMember.displayName}} <i ng-if="activeClientMember.isClientVerified"
+                                class="btn btn-success icon-ok-sign"></i>
+                        </td>
+                        <td class="col-md-2">{{activeClientMember.fcsmNumber}}</td>
+                        <td class="col-md-1 cell-overflow">{{activeClientMember.loanAccountBasicData.loanProductName}}</td>
+                        <td class="col-md-1">{{activeClientMember.loanAccountBasicData.loanEMIPackData.sanctionAmount |
+                            number}}</td>
+                        <td class="col-md-2 cell-overflow">{{activeClientMember.loanAccountBasicData.loanPurposeName}}</td>
+                        <td class="col-md-1"><span ng-repeat="item in filterCharges(activeClientMember.loanAccountBasicData.charges,1)">{{item.amount
+                                | number}} &nbsp;</span></td>
+                        <td class="col-md-1"><span ng-repeat="item in filterCharges(activeClientMember.loanAccountBasicData.charges, 2)">{{item.amount
+                                | number}} &nbsp;</span>&nbsp;&nbsp;<span ng-repeat="item in filterCharges(activeClientMember.loanAccountBasicData.charges, 3)">{{item.amount
+                                | number}} &nbsp;</span></td>
+                        <td class="col-md-1">
+                            <a type="button" class="btn btn-default btn-xs" ng-click="editLoan(activeClientMember.loanAccountBasicData,groupMember.id)"
+                                ng-disabled="activeClientMember.isClientFinishedThisTask" title="{{'label.button.edit.loan' | translate}}">
+                                <i class="icon-edit icon-white pointer"></i>
+                            </a>
+                        </td>
+                        <td class="col-md-1">
+                            <a type="button" class="btn btn-danger btn-xs" ng-hide="activeClientMember.status.code == 'clientStatusType.onHold'"
+                                ng-click="clientRejection(activeClientMember)" tooltip="{{'label.button.reject' | translate}}"
+                                ng-disabled="activeClientMember.isClientFinishedThisTask">
+                                <i class="icon-remove-circle pointer"></i>
+                            </a>
+                            <a type="button" class="btn btn-danger btn-xs" ng-show="activeClientMember.status.code == 'clientStatusType.onHold'"
+                                ng-click="releaseClient(activeClientMember.id)" tooltip="{{'label.button.relase.client' | translate}}"
+                                ng-disabled="activeClientMember.isClientFinishedThisTask">
+                                <i class="icon-unlock pointer"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="col-md-offset-11">
+                <button type="button" data-ng-disabled="isAllClientFinishedThisTask" ng-click="moveMembersToNextStep()"
+                    class="btn btn-primary">{{'label.button.save' | translate}}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
