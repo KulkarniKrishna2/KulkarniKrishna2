@@ -425,25 +425,41 @@
                     angular.copy(clientMembers, data.glims);
                     var amount = 0;
                     for(var i in data.glims){
-                         if (data.chargeCalculationType.value == scope.slabBasedCharge || data.isSlabBased && data.slabs){
-                            if(data.glims[i].isClientSelected==true){
-                                var slabBasedValue = scope.getSlabBasedAmount(data.slabs, data.glims[i].transactionAmount, scope.formData.numberOfRepayments);
-                                if (slabBasedValue != null) {
-                                    data.glims[i].upfrontChargeAmount = slabBasedValue;
-                                    amount = amount + data.glims[i].upfrontChargeAmount;
-                                }
-                            }
-
-                        } else if (data.chargeCalculationType.value == scope.flatCharge){
-                            if(data.glims[i].isClientSelected==true){
-                                data.glims[i].upfrontChargeAmount = data.amount;
-                                amount = amount + data.glims[i].upfrontChargeAmount;
-                            }
+                        if(data.glims[i].isClientSelected){
+                            if(data.chargeCalculationType.value == scope.slabBasedCharge || data.isSlabBased){
+                                var slabBasedValue = scope.getSlabBasedAmount(data.slabs,scope.formData.principal,scope.formData.numberOfRepayments);
+                                    if(slabBasedValue != null){
+                                        data.glims[i].upfrontChargeAmount = slabBasedValue; 
+                                        amount = amount + data.glims[i].upfrontChargeAmount;
+                                    }else{
+                                        data.glims[i].upfrontChargeAmount = undefined;
+                                        amount = undefined;
+                                    }                              
                             
+                            } else if (data.chargeCalculationType.value == scope.flatCharge){
+                                    data.glims[i].upfrontChargeAmount = data.amount;
+                                    amount = amount + data.glims[i].upfrontChargeAmount;
+                                    
+                            }
+                        }else{
+                            data.glims[i].upfrontChargeAmount = 0;
+                            amount = 0;
+                        }
+                    }
+                    data.amountOrPercentage = amount;
+                    return data;
+
+                }else{
+                    if(data.chargeCalculationType.value == scope.slabBasedCharge || data.isSlabBased){  
+                        var slabBasedValue = scope.getSlabBasedAmount(data.slabs,scope.formData.principal, scope.formData.numberOfRepayments);
+                        if(slabBasedValue != null){
+                            data.amountOrPercentage = slabBasedValue;
+                        }else {
+                            data.amountOrPercentage = undefined;
                         }
                     }
                 }
-                data.amount = amount;
+                return data;
             }
 
             scope.deleteCharge = function (index) {
@@ -837,6 +853,27 @@
                     
                 }
             }, true);
+
+            scope.updateSlabBasedAmountOnChangePrincipalOrRepayment = function(){
+                if(scope.formData.principal != '' && scope.formData.principal != undefined && scope.formData.numberOfRepayments != '' && scope.formData.numberOfRepayments != undefined){
+                    for(var i in scope.charges){
+                        if((scope.charges[i].chargeCalculationType.value == scope.slabBasedCharge || scope.charges[i].isSlabBased) && scope.charges[i].slabs.length > 0) {
+                            if(scope.isGLIM){
+                                scope.charges[i].amount = scope.updateSlabBasedChargeForGlim(scope.charges[i]);
+                                scope.updateChargeForSlab(scope.charges[i]);
+                            }else{
+                                var slabBasedValue = scope.getSlabBasedAmount(scope.charges[i].slabs,scope.formData.principal, scope.formData.numberOfRepayments);
+                                if(slabBasedValue != null) {
+                                    scope.charges[i].amount = slabBasedValue;
+                                } else {
+                                    scope.charges[i].amount = undefined;
+                                }
+                            }
+
+                        }
+                    }
+                }
+            };
             
         }
     });
