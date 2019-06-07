@@ -63,6 +63,10 @@
     "defaultGender":"Female"
     },
     "viewGroup":{
+      "isHiddenField": {
+          "canAddClients": true,
+          "createjlgLoanApplication" : true
+      },
       "searchForActivegroups": false
     },
     "createLoanApplication": {
@@ -98,6 +102,17 @@
     },
     "meeting": {
 			"showAllRepeatsOptions": false
-		}
+		},
+    "viewClient": {
+      "isHiddenField": {
+        "createClient": true,
+        "createLoanApplication": true
+      }
+    },
+    "createJlgLoan": {
+      "isHiddenField": {
+        "jlgLoan": true
+      }
+    }
   }
 }
