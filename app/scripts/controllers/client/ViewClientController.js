@@ -72,6 +72,12 @@
                 if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.referenceNo){
                     scope.refNo = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.referenceNo;
                 }
+                if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.blackList){
+                    scope.showBlackList = !scope.response.uiDisplayConfigurations.viewClient.isHiddenField.blackList;
+                }
+                if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.whiteList){
+                    scope.showWhiteList = !scope.response.uiDisplayConfigurations.viewClient.isHiddenField.whiteList;
+                }
             }
             scope.isStalePeriodExceeded = false;
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createNewLoan &&
@@ -461,7 +467,11 @@
                         }
                         scope.buttons.splice(0, 1, activateOption);
                     }
-                    if(data.status.value == "Active" && data.subStatus && data.subStatus.value == "Blacklist"){
+                    if(!showBlackList){
+                        scope.buttons.splice(8,1);
+                    }
+                    
+                    if(showWhiteList && data.status.value == "Active" && data.subStatus && data.subStatus.value == "Blacklist"){
                         var whitelistButton = {
                             name: "label.button.whitelist",
                             href: "#/client",
@@ -469,7 +479,7 @@
                             icon: "icon-ok-sign ng-scope",
                             taskPermissionName: "WHITELIST_CLIENT"
                         };
-                        scope.buttons.splice(9, 1, whitelistButton);
+                        scope.buttons.splice(8, 1, whitelistButton);
                     }
     
                     scope.buttonsArray = {
