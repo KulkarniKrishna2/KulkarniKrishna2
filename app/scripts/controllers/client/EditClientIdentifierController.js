@@ -162,6 +162,14 @@
                if(scope.first.documentExpiryDate){
                     this.formData.documentExpiryDate = dateFilter(scope.first.documentExpiryDate, scope.df);
                 }
+                if(this.formData.documentTypeId){
+                    for(var i in scope.documenttypes){
+                        if(scope.documenttypes[i].name === "Aadhaar"){
+                            this.formData.documentKey = this.formData.documentKey.replace(/ +/g, "");
+                            break;
+                        }
+                    }
+                }
                 resourceFactory.clientIdenfierResource.update({clientId: scope.clientId, id: scope.id}, this.formData, function (data) {
                     location.path('/viewclient/' + data.clientId);
                 });
