@@ -20,9 +20,9 @@
                 if(scope.response.uiDisplayConfigurations.createClient.isValidateFirstName) {
                     scope.firstNamePattern = scope.response.uiDisplayConfigurations.createClient.isValidateFirstName.firstNamePattern;
                 }
-                if(scope.response.uiDisplayConfigurations.viewClient.familyDeatils.ageCriteria){
-                    scope.familyMemberMinAge = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.ageCriteria.minAge;
-                    scope.familyMemberMaxAge = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.ageCriteria.maxAge;
+                if(scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isValidateDOBField.active && scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isValidateDOBField.ageCriteria){
+                    scope.familyMemberMinAge = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isValidateDOBField.ageCriteria.minAge;
+                    scope.familyMemberMaxAge = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isValidateDOBField.ageCriteria.maxAge;
                 }
                 resourceFactory.centerWorkflowResource.get({ centerId: scope.centerId, eventType : scope.eventType, associations: 'groupMembers,profileratings,loanaccounts,clientcbcriteria' }, function (data) {
                     scope.centerDetails = data;

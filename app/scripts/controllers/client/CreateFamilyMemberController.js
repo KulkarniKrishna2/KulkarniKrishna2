@@ -16,9 +16,9 @@
             if(scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isValidateFirstName) {
                     scope.firstNamePattern = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isValidateFirstName.firstNamePattern;
                 }
-            if(scope.response.uiDisplayConfigurations.viewClient.familyDeatils.ageCriteria){
-                    scope.familyMemberMinAge = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.ageCriteria.minAge;
-                    scope.familyMemberMaxAge = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.ageCriteria.maxAge;
+            if(scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isValidateDOBField.active && scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isValidateDOBField.ageCriteria){
+                    scope.familyMemberMinAge = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isValidateDOBField.ageCriteria.minAge;
+                    scope.familyMemberMaxAge = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isValidateDOBField.ageCriteria.maxAge;
                 }
             if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewClient && scope.response.uiDisplayConfigurations.viewClient.familyDeatils && scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isMandatoryField) {
                 scope.isAgeMandatory = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isMandatoryField.age;
