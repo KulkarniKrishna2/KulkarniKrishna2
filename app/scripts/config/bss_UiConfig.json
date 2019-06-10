@@ -155,7 +155,8 @@
 				"unassignStaffCenter": true,
 				"canCreateSubGroups": false,
 				"showAttendance":true,
-				"bulkUndoTransactions":true
+				"bulkUndoTransactions":true,
+				"attachmeeting" : true
 			}			
 		},
 		"createOffice": {
@@ -256,7 +257,8 @@
 			"editableFields": {
 				"repeat": true,
 				"repeatsevery": true,
-				"repeatson": true
+				"repeatson": true,
+				"meetStartDate": true
 			}
 		},
 		"regexFormats":{

@@ -12,6 +12,7 @@
                 scope.repeat = scope.response.uiDisplayConfigurations.editCalendar.editableFields.repeat;
                 scope.repeatsevery = scope.response.uiDisplayConfigurations.editCalendar.editableFields.repeatsevery;
                 scope.repeatson = scope.response.uiDisplayConfigurations.editCalendar.editableFields.repeatson;
+                scope.meetStartDate = scope.response.uiDisplayConfigurations.editCalendar.editableFields.meetStartDate;
              }                         
             resourceFactory.attachMeetingResource.get({groupOrCenter: routeParams.entityType, groupOrCenterId: routeParams.groupOrCenterId,
                 templateSource: routeParams.calendarId, template: 'true'}, function (data) {

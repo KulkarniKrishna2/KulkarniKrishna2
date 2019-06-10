@@ -121,7 +121,7 @@
                         class="required">*</span></label>
                 <div class="col-sm-3">
                     <input id="startDate" type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="first.date"
-                           is-open="opened" min="minDate" max="'2020-06-22'" class="form-control" ng-readonly="isDatePickerReadOnly"/>
+                           is-open="opened" min="minDate" max="'2020-06-22'" class="form-control" ng-readonly="isDatePickerReadOnly" ng-disabled = "meetStartDate"/>
                 </div>
             </div>
             <div class="col-md-offset-2">
@@ -129,7 +129,7 @@
                     | translate}}</a>
                 <a ng-show="entityType=='groups'" class="btn btn-default" href="#/viewgroup/{{groupOrCenterId}}">{{'label.button.cancel'
                     | translate}}</a>
-                <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_MEETING'>{{'label.button.save' | translate}}</button>
+                <button id="save" type="submit" class="btn btn-primary" has-permission='UPDATE_MEETING'>{{'label.button.save' | translate}}</button>
             </div>
 	   </fieldset>
     </form>
