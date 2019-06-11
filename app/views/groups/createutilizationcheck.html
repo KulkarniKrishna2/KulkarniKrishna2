@@ -7,6 +7,7 @@
         <li><a href="#/viewgroup/{{entityId}}">{{'label.anchor.viewgroup' | translate}}</a></li>
         <li class="active">{{'label.anchor.createluc' | translate}}</li>
     </ul>
+    <form name="createUtilizationCheckForm" novalidate="" rc-submit="submit()">
     <api-validate></api-validate>
     <br/>
     <div class="col-sm-12" style="overflow: auto">
@@ -53,7 +54,7 @@
                                     <span>{{centerTemplate.principalAmount}}</span>
                                 </td>
                                 <td class="col-md-3">
-                                    <ng-form name="auditDoneOn" rc-submit="submit()">
+                                    <ng-form name="auditDoneOn" novalidate="" rc-submit="submit()">
                                         <input id="submittedon"
                                                type="text" autocomplete="off"
                                                name="submittedon"
@@ -61,7 +62,10 @@
                                                ng-model="centerTemplate.auditDoneOn"
                                                is-open="opened1"
                                                max="restrictDate"
-                                               class="form-control" ng-readonly="isDatePickerReadOnly"/>
+                                               class="form-control" ng-readonly="isDatePickerReadOnly" ng-required="true"/>
+                                               <div class = "col-sm-3" ng-show="submitted && auditDoneOn.submittedon.$error.required">
+                                                    <span class="error">{{ 'label.requirefield' | translate }}</span>
+                                                </div>
                                     </ng-form>
                                 </td>
                             </tr>
@@ -90,7 +94,7 @@
                             </td>
                             <td class="col-md-4">
                                 <span>
-                                    <ng-form name="principalAmountForm" rc-submit="submit()">
+                                    <ng-form name="principalAmountForm" novalidate="" rc-submit="submit()">
                                         <input type="text" autocomplete="off"
                                                id="principalAmountId"
                                                name="principalAmount"
@@ -98,8 +102,10 @@
                                                class="form-control"
                                                ng-pattern="/^(?!0+$)\d+$/"
                                                maxlength="9"
-                                               ng-change="percentail(parentIndex,$index)"/>
-
+                                               ng-change="percentail(parentIndex,$index)" ng-required="true"/>
+                                        <div class = "col-sm-3" ng-show="submitted && principalAmountForm.principalAmount.$error.required">
+                                            <span class="error">{{ 'label.requirefield' | translate }}</span>
+                                        </div>
                                     </ng-form>
                                 </span>
 
@@ -148,4 +154,5 @@
         </div>
         <br>
     </div>
+    </form>
 </div>

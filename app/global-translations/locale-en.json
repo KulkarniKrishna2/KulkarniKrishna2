@@ -7957,6 +7957,7 @@
     "error.msg.only.blacklisted.village.can.be.whitelisted": "Only blacklisted village can be whitelisted.",
     "error.msg.cannot.be.processed.as.the.associated.village.is.blacklisted": "Cannot be processed as the associated village is blacklisted",
     "error.msg.village.status.audit.not.found": "Audit Status of Village with identifier `{{params[0].value}}` does not exist",
+    "validation.msg.loanutilizationcheck.parameter.amount.loanUtilizationCVId.is.one.of.these.mandatory" : "Amount cannot be empty",
 
     "------ end of translation file ------": "----------"
 }

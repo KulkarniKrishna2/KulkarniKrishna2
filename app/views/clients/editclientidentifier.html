@@ -17,7 +17,7 @@
                 <div class="col-sm-3">
                     <select id="documentTypeId" ng-model="formData.documentTypeId"
                             ng-options="documenttype.id as documenttype.name for documenttype in documenttypes"
-                            value="{{documenttype.id}}" required="required" class="form-control">
+                            value="{{documenttype.id}}" required="required" class="form-control" ng-change="fetchDocumentCategories()">
                     </select>
                 </div>
             </div>
@@ -29,6 +29,7 @@
                     <select id="subCategoryTypeId" ng-model="formData.subCategoryTypeId"
                             ng-options="documentCategory.id as documentCategory.name for documentCategory in documentCategories"
                             value="{{documentCategory.id}}" class="form-control">
+                            <option value="">{{'label.selectone' | translate}}</option>
                     </select>
                 </div>
             </div>
@@ -38,10 +39,14 @@
                         class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <select id="status" ng-model="formData.status"
+                    <select id="status" ng-model="formData.status" name="status"
                             ng-options="status.id as status.value for status in statusTypes"
                             value="{{status.id}}" required="required" class="form-control">
+                            <option value="">{{'label.selectone' | translate}}</option>
                     </select>
+                </div>
+                <div class="col-sm-2">
+                        <form-validate valattributeform="clientidentifierform" valattribute="status"/>
                 </div>
             </div>
              <div class="form-group" ng-hide="isHideDocumentIssueDate">
@@ -67,6 +72,9 @@
                 <div class="col-sm-3">
                     <input id="documentKey" type="text" autocomplete="off" name="identification" ng-model="formData.documentKey"
                            required="required" class="form-control" required late-Validate/>
+                </div>
+                <div class="col-sm-2">
+                        <form-validate valattributeform="clientidentifierform" valattribute="identification"/>
                 </div>
                 <div class="col-sm-3" id="col-sm-2" >
                     <button type="button" id="validate" ng-click="validateRsaIdnumber()" ng-show="response.uiDisplayConfigurations.clientIdentifier.identitiesMatchLuhnsAlgorithm.clientIdentifierValidation" >{{'label.button.validate' | translate}} </button>

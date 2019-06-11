@@ -30,10 +30,20 @@
             scope.showCollections = false;
             scope.searchRule = true;
             scope.searchRuleLabel = 'label.tooltip.exactsearch';
-            if(scope.response && scope.response.uiDisplayConfigurations &&  scope.response.uiDisplayConfigurations.navBar && scope.response.uiDisplayConfigurations.navBar.isHiddenField && 
-                scope.response.uiDisplayConfigurations.navBar.isHiddenField.kotakApproval){
-                scope.isHideKotakApproval = scope.response.uiDisplayConfigurations.navBar.isHiddenField.kotakApproval;
-            }
+            if(scope.response && scope.response.uiDisplayConfigurations){
+                if(scope.response.uiDisplayConfigurations.navBar && scope.response.uiDisplayConfigurations.navBar.isHiddenField && 
+                    scope.response.uiDisplayConfigurations.navBar.isHiddenField.kotakApproval){
+                    scope.showKotakApproval = !scope.response.uiDisplayConfigurations.navBar.isHiddenField.kotakApproval;
+                }
+                if(scope.response.uiDisplayConfigurations.accounting && scope.response.uiDisplayConfigurations.accounting.isHiddenField && 
+                    scope.response.uiDisplayConfigurations.accounting.isHiddenField.postTransactionTypeEntries){
+                    scope.showPostTransactionTypeEntries = !scope.showscope.response.uiDisplayConfigurations.accounting.isHiddenField.postTransactionTypeEntries;
+                }
+                if(scope.response.uiDisplayConfigurations.organization && scope.response.uiDisplayConfigurations.organization.isHiddenField && 
+                    scope.response.uiDisplayConfigurations.organization.isHiddenField.transfer){
+                     scope.showTransfer = !scope.response.uiDisplayConfigurations.organization.isHiddenField.transfer;
+                }
+            }  
             if(!scope.islogofoldernamefetched && $rootScope.tenantIdentifier && $rootScope.tenantIdentifier != "default"){
                 scope.islogofoldernamefetched = true;
                 $http.get('scripts/config/LogoConfig.json').success(function(datas) {

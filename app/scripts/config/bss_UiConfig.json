@@ -34,7 +34,9 @@
 				"createClient": true,
 				"accountNo": true,
 				"referenceNo": false,
-				"enableSmartCard": false
+				"enableSmartCard": false,
+				"blackList": false,
+				"whiteList": false
 			},
 			"familyDeatils": {
 				"isHiddenField": {
@@ -64,7 +66,8 @@
 		"viewLoanAccountDetails": {
 			"isHiddenFeild": {
 				"netDisbursedAmount": true,
-				"showProductShortName": true
+				"showProductShortName": true,
+				"prudentialWriteOff": false
 			},
 			"displayBankApprovalStatus":true
 		},
@@ -139,7 +142,7 @@
 				"meeting": true,
 				"groupName": true,
 				"transferClients": false,
-				"canAddClients": false
+				"canAddClients": true
 			},
 			"isReadOnlyField": {
 				"groupName": true,
@@ -315,6 +318,16 @@
 		"navBar": {
 			"isHiddenField":{
 				"kotakApproval": false 
+			}
+		},
+		"accounting": {
+			"isHiddenField":{
+				"postTransactionTypeEntries": false 
+			}
+		},
+		"organization": {
+			"isHiddenField":{
+				"transfer": false
 			}
 		}
 	}

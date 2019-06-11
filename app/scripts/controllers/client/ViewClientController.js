@@ -72,6 +72,16 @@
                 if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.referenceNo){
                     scope.refNo = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.referenceNo;
                 }
+                if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.blackList){
+                    scope.showBlackList = !scope.response.uiDisplayConfigurations.viewClient.isHiddenField.blackList;
+                }
+                if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.whiteList){
+                    scope.showWhiteList = !scope.response.uiDisplayConfigurations.viewClient.isHiddenField.whiteList;
+                }
+                if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.createLoanApplication){
+                    scope.createLoanApplication = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.createLoanApplication;
+                }
+                
             }
             scope.isStalePeriodExceeded = false;
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createNewLoan &&
@@ -460,7 +470,11 @@
                         }
                         scope.buttons.splice(0, 1, activateOption);
                     }
-                    if(data.status.value == "Active" && data.subStatus && data.subStatus.value == "Blacklist"){
+                    if(!scope.showBlackList){
+                        scope.buttons.splice(8,1);
+                    }
+                    
+                    if(scope.showWhiteList && data.status.value == "Active" && data.subStatus && data.subStatus.value == "Blacklist"){
                         var whitelistButton = {
                             name: "label.button.whitelist",
                             href: "#/client",
@@ -468,7 +482,7 @@
                             icon: "icon-ok-sign ng-scope",
                             taskPermissionName: "WHITELIST_CLIENT"
                         };
-                        scope.buttons.splice(9, 1, whitelistButton);
+                        scope.buttons.splice(8, 1, whitelistButton);
                     }
     
                     scope.buttonsArray = {
@@ -483,8 +497,8 @@
     
                     scope.isLoanApplication = scope.isSystemGlobalConfigurationEnabled('loan-application');
                     for(var i in scope.buttonsArray.singlebuttons){
-                        if(scope.buttonsArray.singlebuttons[i].taskPermissionName === 'CREATE_LOANAPPLICATIONREFERENCE'){
-                            scope.buttonsArray.singlebuttons[i].isEnableButton = scope.isLoanApplication;
+                        if(scope.buttonsArray.singlebuttons[i].taskPermissionName === 'CREATE_LOANAPPLICATIONREFERENCE' && scope.isLoanApplication && !scope.createLoanApplication){
+                            scope.buttonsArray.singlebuttons[i].isEnableButton = scope.isLoanApplication;                     
                         }
                         if(scope.buttonsArray.singlebuttons[i].taskPermissionName === 'CREATE_SAVINGSACCOUNT'){
                             scope.buttonsArray.singlebuttons[i].isEnableButton = scope.isSavingAccountEnable;

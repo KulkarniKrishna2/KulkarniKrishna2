@@ -6,8 +6,10 @@
             scope.first = {};
             scope.documenttypes = [];
             scope.statusTypes =[];
-            scope.isHideDocumentIssueDate=scope.response.uiDisplayConfigurations.clientIdentifier.hiddenFields.documentIssueDate;
-            scope.isHideDocumentExpiryDate=scope.response.uiDisplayConfigurations.clientIdentifier.hiddenFields.documentExpiryDate;
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.clientIdentifier){
+                scope.isHideDocumentIssueDate=scope.response.uiDisplayConfigurations.clientIdentifier.hiddenFields.documentIssueDate;
+                scope.isHideDocumentExpiryDate=scope.response.uiDisplayConfigurations.clientIdentifier.hiddenFields.documentExpiryDate;
+            }
                 resourceFactory.clientIdenfierTemplateResource.get({clientId: routeParams.clientId}, function (data) {
                 scope.documenttypes = data.allowedDocumentTypes;
                 scope.allowedDocumentTypesSubCategories = data.allowedDocumentTypesSubCategories;
@@ -21,20 +23,20 @@
             });
             
             scope.fetchDocumentCategories = function () {
-                var documentCategories = [];
+                scope.documentCategories = [];
                 if(!_.isUndefined(scope.formData.documentTypeId)) {
                     var columnIndex = scope.documenttypes.findIndex(x => x.id==scope.formData.documentTypeId) || 0;
                     var docType = scope.documenttypes[columnIndex];
                     _.each(scope.allowedDocumentTypesSubCategories, function (categories) {
                         var matchedSubTypes = ($filter('filter')(categories,  { 'name' : docType.name }));
                         if (matchedSubTypes.length > 0) {
-                            documentCategories = matchedSubTypes[0].values;
+                            for(var i in matchedSubTypes[0].values){
+                                scope.documentCategories.push(matchedSubTypes[0].values[i]);
+                            }
                         }
                     });
-                } else {
-                    scope.formData.subCategoryTypeId = "";
                 }
-                return documentCategories;
+                return scope.documentCategories;
             };
 
             scope.validateRsaIdnumber=function()

@@ -34,6 +34,7 @@
             scope.savingsGroupsTotal = [];
             scope.isWithDrawForSavingsIncludedInCollectionSheet = false;
             scope.formData = {};
+            scope.isShowReasonDropDown = false;
 
             resourceFactory.configurationResource.get({configName:'reason-code-allowed'}, function (data) {
                 scope.showRejectReason = data.enabled;
@@ -197,7 +198,7 @@
                 resourceFactory.centerResource.save({'centerId': scope.centerId, command: 'generateCollectionSheet'}, scope.formData, function (data) {
                     scope.collectionsheetdata = data;
                     scope.attendanceTypeOptions = scope.response.uiDisplayConfigurations.attendanceTypeOptions;
-
+                    scope.colectionsSheetsCopy = [];
                     if (!_.isUndefined(scope.attendanceTypeOptions)) {
                         scope.collectionsheetdata.attendanceTypeOptions = scope.attendanceTypeOptions;
                     }
@@ -207,6 +208,7 @@
                         scope.defaultClientAttendanceType = scope.collectionsheetdata.attendanceTypeOptions[0].id
                     }
                     scope.savingsgroups = data.groups;
+                    angular.copy(scope.savingsgroups,scope.colectionsSheetsCopy);
                     scope.isWithDrawForSavingsIncludedInCollectionSheet = data.isWithDrawForSavingsIncludedInCollectionSheet;
                     scope.clientsAttendanceArray(data.groups);
                     scope.clientsAttendanceList(data.groups);
@@ -793,6 +795,15 @@
             scope.showErrMsg = function (){
                 return (!(scope.submitNextShow || scope.submitShow || scope.forcedSubmit));
             };
+
+            scope.validateAmount = function(groupIndex,clientIndex,loanIndex,updateLoanAmount){
+                var loanAmount = scope.colectionsSheetsCopy[groupIndex].clients[clientIndex].loans[loanIndex].totalDue;
+                if(!_.isUndefined(loanAmount) && (loanAmount != updateLoanAmount)){
+                    scope.savingsgroups[groupIndex].clients[clientIndex].loans[loanIndex].isShowReasonDropDown = true;
+                }else{
+                    scope.savingsgroups[groupIndex].clients[clientIndex].loans[loanIndex].isShowReasonDropDown = false;
+                }
+            }
 
         }
     });

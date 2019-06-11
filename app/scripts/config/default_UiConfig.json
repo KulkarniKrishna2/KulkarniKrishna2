@@ -111,7 +111,8 @@
 				"addCharges": false,
 				"prepayLoanButton": true,
 				"netDisbursedAmount": false,
-				"showProductShortName": false
+				"showProductShortName": false,
+				"prudentialWriteOff": true
 			},
 			"displayBankApprovalStatus": false
 		},
@@ -127,7 +128,10 @@
 				"displayNameInReverseOrder": false,
 				"accountNo": false,
 				"referenceNo": true,
-				"enableSmartCard": true
+				"enableSmartCard": true,
+				"createLoanApplication": false,
+				"blackList": true,
+				"whiteList": true
 			},
 			"familyDeatils": {
 				"isHiddenField": {
@@ -398,7 +402,8 @@
 				"meeting": false,
 				"groupName": false,
 				"transferClients": true,
-				"canAddClients": true
+				"canAddClients": false,
+	  		    "createjlgLoanApplication" : false
 			},
 			"searchForActivegroups": false,
 			"isReadOnlyField": {
@@ -624,6 +629,16 @@
 		"navBar": {
 			"isHiddenField":{
 				"kotakApproval": true 
+			}
+		},
+		"accounting": {
+			"isHiddenField":{
+				"postTransactionTypeEntries": true 
+			}
+		},
+		"organization": {
+			"isHiddenField":{
+				"transfer": true
 			}
 		}	
 	}
