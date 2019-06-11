@@ -54,6 +54,9 @@
                 if (scope.response.uiDisplayConfigurations.createClient.isHiddenField.clientType) {
                     scope.isHideclientType = scope.response.uiDisplayConfigurations.createClient.isHiddenField.clientType;
                 }
+                if (scope.response.uiDisplayConfigurations.createClient.isHiddenField.middleName){
+                    scope.showMiddleName = !scope.response.uiDisplayConfigurations.createClient.isHiddenField.middleName;
+                }
             }
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
                 scope.response.uiDisplayConfigurations.createClient.isMandatoryField && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.externalId){
