@@ -1,0 +1,50 @@
+<div class="col-md-12" ng-controller="CreateTalukaController">
+    <ul class="breadcrumb">
+        <li>
+            <a href="#/districts/{{districtId}}">{{'label.view.viewdistricts' | translate}}</a>
+        </li>
+        <li class="active">{{'label.anchor.createtaluka' | translate}}</li>
+    </ul>
+    <form name="createtalukaform" novalidate="" class="form-horizontal well" rc-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset>
+            <legend>{{'label.heading.createtaluka' | translate}}</legend>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.district' | translate }} :</label>
+                <div class="col-sm-3">
+                    {{districtData.districtName}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.taluka.name' | translate }}
+                    <span class="required">*</span>
+                </label>
+
+                <div class="col-sm-3">
+                    <input type="text" id="talukaName" name="talukaName" ng-model="formData.talukaName" class="form-control" required late-Validate/>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="createtalukaform" valattribute="talukaName" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.talukacode' | translate }}
+                    <span class="required">*</span>
+                </label>
+
+                <div class="col-sm-3">
+                    <input type="text" id="isoTalukaCode" name="isoTalukaCode" ng-model="formData.isoTalukaCode" class="form-control" required
+                        late-Validate/>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="createtalukaform" valattribute="isoTalukaCode" />
+                </div>
+            </div>
+
+            <div class="col-md-offset-5">
+                <a id="cancel" href="#/districts/{{districtId}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_TALUKA'>{{'label.button.save' | translate}}</button>
+            </div>
+        </fieldset>
+    </form>
+</div>
