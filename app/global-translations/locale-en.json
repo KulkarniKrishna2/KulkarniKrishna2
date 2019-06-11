@@ -7951,6 +7951,24 @@
     "label.anchor.officeType": "Office Type",
     "label.anchor.deactivated.users": "Deactivated Users",
     "label.anchor.reactivate.user": "Reactivate User",
+
+    "label.heading.createdistrict" : "Create District",
+     "label.heading.viewdistrict" : "View District",
+     "label.input.district.name" : "District Name",
+     "label.input.districtcode" : "District Code",
+     "label.view.viewdistricts" : "View District",
+     "label.anchor.createdistrict" : "Create District",
+     "label.button.createdistrict" : "Create District",
+     "label.button.createtaluka" : "Create Taluka",
+     "label.heading.districtdetails" : "District Details",
+     "label.anchor.viewdistrict" : "View District",
+     "label.heading.taluka.name" : "Taluka Name",
+     "label.heading.taluka.code" : "Taluka Code",
+     "label.anchor.createtaluka" : "Create Taluka",
+     "label.input.taluka.name" : "Taluka Name",
+     "label.input.talukacode" : "Taluka Code",
+     "label.heading.createtaluka" : "Create Taluka",
+     "error.msg.taluka.with.id.can.not.be.deleted" :"Taluka can not be deleted.",
     
     "------ end of translation file ------": "----------"
 }

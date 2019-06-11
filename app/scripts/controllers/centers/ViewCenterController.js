@@ -32,6 +32,7 @@
                 scope.showBulkUndoTransactions = !scope.response.uiDisplayConfigurations.viewCenter.isHiddenField.bulkUndoTransactions;
             }
             scope.exceedMaxLimit = false;
+            scope.isShowAttachmeeting = !scope.response.uiDisplayConfigurations.viewCenter.isHiddenField.attachmeeting;
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
             };

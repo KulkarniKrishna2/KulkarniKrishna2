@@ -151,7 +151,8 @@
 				"showAttendance":true,
 				"showAPSCRepayment": true,
         		"showOnlyStaff": false,
-				"bulkUndoTransactions":true
+				"bulkUndoTransactions":true,
+				"attachmeeting" : true
 			}			
 		},
 		"createOffice": {
@@ -252,7 +253,8 @@
 			"editableFields": {
 				"repeat": true,
 				"repeatsevery": true,
-				"repeatson": true
+				"repeatson": true,
+				"meetStartDate": true
 			}
 		},
 		"regexFormats":{
