@@ -467,7 +467,8 @@
 				"unassignStaffCenter": false,
 				"canCreateSubGroups": true,
 				"showAttendance":false,
-				"bulkUndoTransactions":false
+				"bulkUndoTransactions":false,
+				"attachmeeting" : false
 			}
 		},
 		"createOffice": {
@@ -547,7 +548,8 @@
 			"editableFields": {
 				"repeat": false,
 				"repeatsevery": false,
-				"repeatson": false
+				"repeatson": false,
+				"meetStartDate": false
 			}
 		},
 		"regexFormats":{

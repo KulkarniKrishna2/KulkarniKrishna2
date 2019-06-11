@@ -8,6 +8,7 @@
             scope.showOrHideSearch = false;
             scope.formData = {};
             scope.isDateOfBirthMandatory = false;
+            scope.isValidAge = true;
 
             scope.salutationOptions = [];
             scope.relationshipOptions = [];
@@ -266,6 +267,14 @@
                                 }
                             }
                         }
+                    }
+                }
+            };
+            scope.validateAge = function(){
+                scope.isValidAge = false;
+                if(scope.formData.age){
+                    if(scope.minAge <= scope.formData.age && scope.formData.age <= scope.maxAge){
+                        scope.isValidAge = true;
                     }
                 }
             };

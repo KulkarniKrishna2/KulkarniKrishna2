@@ -1,0 +1,86 @@
+<form name="viewbankform" novalidate="" class="form-horizontal" ng-controller="ViewDistrictController" rc-submit="submit()">
+    <div>
+        <ul class="breadcrumb">
+            <li>
+                <a href="#/districts">{{'label.view.viewdistricts' | translate}}</a>
+            </li>
+            <li class="active">{{'label.anchor.viewdistrict' | translate}}</li>
+        </ul>
+    </div>
+    <div class="pull-right btn-group" ng-show="isAllowTalukaCreation">
+        <a has-permission="CREATE_TALUKA" href="#/districts/{{districtId}}/newtalukas" class="btn btn-primary">
+            <i class="icon-plus icon-white"></i>{{ 'label.button.createtaluka' | translate }}</a>
+    </div>
+    <br>
+    <api-validate></api-validate>
+    <legend>{{'label.heading.districtdetails' | translate}}</legend>
+    <div class="col-md-12 form-horizontal">        
+        <table class="table">
+            <tr>
+                <td class="col-sm-2" align="right">
+                    <b>{{ 'label.input.district.name' | translate }} :</b>
+                </td>
+                <td class="col-sm-10" align="left">
+                    <label>{{districtData.districtName}}</label>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-sm-2" align="right">
+                    <b>{{ 'label.input.districtcode' | translate }} :</b>
+                </td>
+                <td class="col-sm-10" align="left">
+                    <label>{{districtData.isoDistrictCode}}</label>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-sm-2" align="right">
+                    <b>{{ 'label.input.status' | translate }} :</b>
+                </td>
+                <td class="col-sm-10" align="left">
+                    <label>{{districtData.status.value}}</label>
+                </td>
+            </tr>
+
+            <tr ng-show="districtData.status.id==100" has-permission='ACTIVATE_DISTRICT'>
+                <td class="col-sm-2" align="right">
+                    <b>{{ 'label.heading.action' | translate }} :</b>
+                </td>
+                <td class="col-sm-10" align="left">
+                    <label>
+                        <button id="save" ng-click="activate()" class="btn btn-primary" has-permission='ACTIVATE_DISTRICT'>{{'label.button.activate' | translate}}</button>
+                        <button id="save" ng-click="rejectDistrict()" class="btn btn-primary" has-permission='REJECT_DISTRICT'>{{'label.button.reject' | translate}}</button>
+                    </label>
+                </td>
+            </tr>
+        </table>
+        <table class="table well" ng-show="districtData.talukaDatas.length > 0" has-permission='READ_TALUKA'>
+            <thead>
+                <tr class="graybg">
+                    <th>{{'label.heading.taluka.name' | translate}}</th>
+                    <th>{{'label.heading.taluka.code' | translate}}</th>
+                    <th>{{'label.heading.action' | translate}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="taluka in districtData.talukaDatas">
+
+                    <td>{{taluka.talukaName}}</td>
+                    <td>{{taluka.isoTalukaCode}}</td>
+                    <td>
+                        <button type="button" has-permission="DELETE_TALUKA" ng-click="deleteTaluka(taluka.talukaId)" class="btn btn-primary ng-binding">
+                            <i class="icon-trash icon-white"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+
+
+
+
+
+</form>

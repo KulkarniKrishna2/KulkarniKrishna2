@@ -108,7 +108,18 @@
                         delete scope.formData.talukaId;
                     }
                     scope.districts = scope.selectState[0].districtDatas;
+                    scope.getActiveDistricts();
                 }
+            }
+            scope.activeStatus = 300;
+            scope.getActiveDistricts = function(){
+                var tempDist = [];
+                for(var i in scope.districts){
+                    if(scope.districts[i].status.id==scope.activeStatus){
+                        tempDist.push(scope.districts[i]);
+                    }
+                }
+                scope.districts = tempDist;
             }
             scope.changeDistrict = function (districtId) {
                 if (districtId != null) {
