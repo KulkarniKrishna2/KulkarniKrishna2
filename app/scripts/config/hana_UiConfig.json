@@ -76,6 +76,9 @@
 				"openSavingsProduct": true,
 				"villageTown": true,
 				"pincode": true
+			},
+			"isValidateFirstName": {
+				"firstNamePattern": "/^([^0-9]*)$/"
 			}
 		},
 		"viewClient": {
@@ -127,11 +130,14 @@
 		"reportParameterConfiguration": {
 			"defaultReportOutput":"XLS"
 	    },
-			"createOffice": {
-				"isHiddenField": {
-					"pincode": true,
-					"villageTown":true
-				}
+		"createOffice": {
+			"isHiddenField": {
+				"pincode": true,
+				"villageTown":true
 			}
+		},
+		"regexFormats": {
+			"lastName": "\/^([^0-9]*)$\/"
+		}
 	}
 }

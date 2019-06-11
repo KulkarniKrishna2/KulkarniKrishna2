@@ -78,6 +78,10 @@
                 if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.whiteList){
                     scope.showWhiteList = !scope.response.uiDisplayConfigurations.viewClient.isHiddenField.whiteList;
                 }
+                if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.createLoanApplication){
+                    scope.createLoanApplication = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.createLoanApplication;
+                }
+                
             }
             scope.isStalePeriodExceeded = false;
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createNewLoan &&
@@ -90,7 +94,6 @@
                 scope.activateOnReinitiate = scope.response.uiDisplayConfigurations.viewClient.activateOnReinitiate;
                 scope.hideVillage = scope.response.uiDisplayConfigurations.entityType.isHiddenMenu.village;
              }
-             scope.createLoanApplication = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.createLoanApplication;
         
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
@@ -467,11 +470,11 @@
                         }
                         scope.buttons.splice(0, 1, activateOption);
                     }
-                    if(!showBlackList){
+                    if(!scope.showBlackList){
                         scope.buttons.splice(8,1);
                     }
                     
-                    if(showWhiteList && data.status.value == "Active" && data.subStatus && data.subStatus.value == "Blacklist"){
+                    if(scope.showWhiteList && data.status.value == "Active" && data.subStatus && data.subStatus.value == "Blacklist"){
                         var whitelistButton = {
                             name: "label.button.whitelist",
                             href: "#/client",
