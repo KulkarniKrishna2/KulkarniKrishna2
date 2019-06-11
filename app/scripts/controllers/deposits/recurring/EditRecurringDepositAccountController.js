@@ -72,7 +72,7 @@
 
                 if (data.expectedFirstDepositOnDate) {
                     var expectedFirstDepositOnDate = dateFilter(data.expectedFirstDepositOnDate, scope.df);
-                    scope.formData.expectedFirstDepositOnDate = new Date(expectedFirstDepositOnDate);
+                    scope.formData.expectedFirstDepositOnDate.date = new Date(expectedFirstDepositOnDate);
                 }
 
                 var depositPeriodFrequencyId = (_.isNull(data.depositPeriodFrequency) || _.isUndefined(data.depositPeriodFrequency)) ? '' : data.depositPeriodFrequency.id;
@@ -202,7 +202,7 @@
 
             scope.submit = function () {
                 if (this.formData.submittedOnDate)  this.formData.submittedOnDate = dateFilter(this.formData.submittedOnDate, scope.df);
-                if (this.formData.expectedFirstDepositOnDate)  this.formData.expectedFirstDepositOnDate = dateFilter(this.formData.expectedFirstDepositOnDate, scope.df);
+                if (this.formData.expectedFirstDepositOnDate)  this.formData.expectedFirstDepositOnDate = dateFilter(this.formData.expectedFirstDepositOnDate.date, scope.df);
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 this.formData.monthDayFormat = "dd MMM";
