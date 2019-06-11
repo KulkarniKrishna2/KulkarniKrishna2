@@ -51,6 +51,10 @@
                      location.path('/districtworkflow/'+data.resourceId+'/workflow');
                 });
             };
+
+            scope.routeToDistrict = function(id){
+                location.path('/districts/'+id);
+            }
         }
     });
     mifosX.ng.application.controller('DistrictController', ['$scope', 'ResourceFactory', '$location', mifosX.controllers.DistrictController]).run(function ($log) {

@@ -685,7 +685,10 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'accounting/AddSavingsProductGSTMappingController',
             'accounting/CreateOfficeTaxMappingController',
             'accounting/ViewGstInvoiceController',
-            'user/ReactivateUserController'
+            'user/ReactivateUserController',
+            'districts/CreateDistrictController',
+            'districts/ViewDistrictController',
+            'districts/CreateTalukaController'
         ],
         filters: [
             'StatusLookup',
