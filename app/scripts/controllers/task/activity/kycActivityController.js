@@ -146,6 +146,12 @@
                     scope.formData={};
                 }
             };
+
+            scope.download = function(file){
+                var url = scope.hostUrl + file.docUrl;
+                var fileType = file.fileName.substr(file.fileName.lastIndexOf('.') + 1);
+                commonUtilService.downloadFile(url,fileType);
+            };
         }
     });
     mifosX.ng.application.controller('kycActivityController', ['$controller','$scope', 'ResourceFactory', 'API_VERSION', '$location', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', 'CommonUtilService', mifosX.controllers.kycActivityController]).run(function ($log) {

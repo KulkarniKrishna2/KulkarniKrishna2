@@ -1,12 +1,13 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreateCenterLoanUtilization: function (scope, routeParams, resourceFactory, location, $modal, route, dateFilter) {
+        CreateCenterLoanUtilization: function (scope, routeParams, resourceFactory, location, $modal, route, dateFilter, http,$upload,$rootScope,API_VERSION) {
             scope.styleHalfScreenWidth = {"width" : parseFloat(window.innerWidth/2).toFixed(0)+"px"};
             scope.entityType = routeParams.entityType;
             scope.entityId = routeParams.entityId;
-
+            scope.file = [];
             scope.formData = {};
             scope.formData.loanUtilizationCheckDetails = [];
+            scope.submitted = false;
 
             if (scope.entityType === "center") {
                 resourceFactory.loanUtilizationCheckCenterTemplate.get({centerId: scope.entityId}, function (data) {
@@ -68,6 +69,18 @@
                         }
                     }
                 }
+                if (scope.loanCenterTemplate[parentIndex] && !angular.isUndefined(scope.loanCenterTemplate[parentIndex].files)) {
+                    if (!_.isUndefined(scope.loanCenterTemplate[parentIndex].files)) {
+                        if (!_.isUndefined(scope.loanCenterTemplate[parentIndex].files[index])) {
+                            delete scope.loanCenterTemplate[parentIndex].files.splice(index, 1);
+                            if (!_.isUndefined(scope.loanCenterTemplate[parentIndex].files)) {
+                                if (scope.loanCenterTemplate[parentIndex].files.length == 0) {
+                                    delete scope.loanCenterTemplate[parentIndex].files;
+                                }
+                            }
+                        }
+                    }
+                }
             };
 
             scope.percentail = function (parentIndex, index) {
@@ -103,11 +116,13 @@
             };
 
             scope.submit = function () {
+                scope.submitted = true;
                 scope.formData.loanUtilizationCheckDetails = [];
                 scope.formData.auditDoneById = scope.currentSession.user.userId;
                 scope.submitData = [];
+                delete scope.errorDetails;
                 angular.copy(scope.loanCenterTemplate, scope.submitData);
-
+                scope.isSubmitAllow = true;
                 for (var i in scope.submitData) {
                     if (scope.submitData[i].loanUtilizationCheckDetail && scope.submitData[i].loanUtilizationCheckDetail.utilizationDetails) {
 
@@ -120,12 +135,18 @@
                                 }
                                 scope.formData.loanUtilizationCheckDetails.push(loanUtilizationCheckDetail);
                                 break;
-                            }
+                            }                            
                         }
+                        
                     }
                 }
+                for(var i in scope.loanCenterTemplate){
+                    scope.formData.loanUtilizationCheckDetails[i].files = scope.loanCenterTemplate[i].files;
+                }
+
 
                 scope.requestFormData = [];
+                scope.fileFormData = [];
                 for(var i in scope.formData.loanUtilizationCheckDetails){
                     if(scope.formData.loanUtilizationCheckDetails[i].loanId){
                         var data = {};
@@ -152,30 +173,74 @@
                                 }
                             }
                         }
+                        if(!_.isUndefined(scope.formData.loanUtilizationCheckDetails[i].files) && scope.formData.loanUtilizationCheckDetails[i].files.length > 0){
+                            if(scope.formData.loanUtilizationCheckDetails[i].utilizationDetails.size === scope.formData.loanUtilizationCheckDetails[i].files.size){
+                                for(var n in scope.formData.loanUtilizationCheckDetails[i].files){
+                                   if(scope.formData.loanUtilizationCheckDetails[i].files[n]){
+                                      scope.fileFormData.push(scope.formData.loanUtilizationCheckDetails[i].files[n]);
+                                    }
+                                }         
+                            }else{
+                               errorDetails();       
+                            } 
+                        }else{
+                            errorDetails();
+                        }
                     }
                 };
+                if(scope.isSubmitAllow){
+                    scope.formReqData = {};
+                    scope.formReqData.loanUtilizationChecks = scope.requestFormData || [];
+                    var formData = new FormData();
+                    formData.append('formDataJson', JSON.stringify(scope.formReqData));
+                    for (var i = 0 ; i < scope.fileFormData.length ; i ++){
+                        formData.append('files', scope.fileFormData[i]);
+                    }
 
-                scope.formReqData = {};
-                scope.formReqData.loanUtilizationChecks = scope.requestFormData || [];
-                scope.formReqData.locale = scope.optlang.code;
-                scope.formReqData.dateFormat = scope.df;
+                    if (scope.entityType === "center") {
+                        scope.entityTypeParam = "centers"
+                        resourceFactory.multipleFileUploadResource.upload({entityType:scope.entityTypeParam,entityId: scope.entityId}, formData, function (data) {
+                            location.path('/viewcenter/' + scope.entityId);
+                        });
+                    }
 
-                if (scope.entityType === "center") {
-                    resourceFactory.centerLoanUtilizationCheck.save({centerId: scope.entityId}, scope.formReqData, function (data) {
-                        location.path('/viewcenter/' + scope.entityId);
-                    });
+                    if (scope.entityType === "group") {
+                        scope.entityTypeParam = "groups"
+                        resourceFactory.multipleFileUploadResource.upload({entityType:scope.entityTypeParam,entityId: scope.entityId}, formData, function (data) {
+                            location.path('/group/' + scope.entityId + '/listgrouploanutillization/');
+                        });
+                    }
                 }
-
-                if (scope.entityType === "group") {
-                    resourceFactory.groupLoanUtilizationCheck.save({groupId: scope.entityId}, scope.formReqData, function (data) {
-                        location.path('/group/' + scope.entityId + '/listgrouploanutillization/');
-                    });
-                }
+                
             };
+
+
+            scope.onFileSelect = function ($files,parentIndex,index) {
+                if(!_.isUndefined(scope.loanCenterTemplate[parentIndex].files)){
+                     scope.loanCenterTemplate[parentIndex].files[index] = $files[0]; 
+                }else{
+                scope.loanCenterTemplate[parentIndex].files = [];
+                scope.loanCenterTemplate[parentIndex].files[index] = $files[0]; 
+                }
+                    
+            };
+
+            function errorDetails(){
+                if(_.isUndefined(scope.errorDetails)){
+                    scope.errorDetails = [];
+                }
+                scope.isSubmitAllow = false;
+                var errorObj = new Object();
+                errorObj.args = {
+                    params: []
+                };
+                errorObj.args.params.push({value: 'error.msg.mandatory.files.not.attached'});
+                scope.errorDetails[0] = errorObj;
+            }
 
         }
     });
-    mifosX.ng.application.controller('CreateCenterLoanUtilization', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$modal', '$route', 'dateFilter', mifosX.controllers.CreateCenterLoanUtilization]).run(function ($log) {
+    mifosX.ng.application.controller('CreateCenterLoanUtilization', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$modal', '$route', 'dateFilter','$http','$upload','$rootScope','API_VERSION', mifosX.controllers.CreateCenterLoanUtilization]).run(function ($log) {
         $log.info("CreateCenterLoanUtilization initialized");
     });
 

@@ -31,7 +31,9 @@
             scope.loanRejectReason = {};
             scope.showText = false;
             scope.showRejectReason = false;
-
+            scope.isShowReasonDropDown = false;
+            scope.isRejectReasonMandatory = false;
+            
             resourceFactory.configurationResource.get({configName:'reason-code-allowed'}, function (data) {
                 scope.showRejectReason = data.enabled;
             });
@@ -44,6 +46,12 @@
             }
             if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.collectionSheet && scope.response.uiDisplayConfigurations.collectionSheet.attendanceType) {
                 scope.defaultAttendanceValue = scope.response.uiDisplayConfigurations.collectionSheet.attendanceType.defaultValue;
+            }
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow &&
+                scope.response.uiDisplayConfigurations.workflow.isMandatory){
+                if(scope.response.uiDisplayConfigurations.workflow.isMandatory.rejectReason){
+                   scope.isRejectReasonMandatory = scope.response.uiDisplayConfigurations.workflow.isMandatory.rejectReason; 
+                }
             }
             resourceFactory.officeResource.getAllOffices(function (data) {
                 scope.offices = data;
@@ -295,7 +303,9 @@
                             scope.clientsAttendanceArray(data.groups);
                             updateAttendanceTypeOptions();
                             //scope.total(data);
+                            scope.colectionsSheetsCopy = [];
                             scope.savingsgroups = data.groups;
+                            angular.copy(scope.savingsgroups,scope.colectionsSheetsCopy);
                             scope.sumTotalDueCollection();
                             scope.isWithDrawForSavingsIncludedInCollectionSheet = data.isWithDrawForSavingsIncludedInCollectionSheet;
                             scope.isClientChargesIncludedInCollectoonSheet = data.isClientChargesIncludedInCollectoonSheet;
@@ -323,7 +333,9 @@
                             scope.clientsAttendanceList(data.groups);
                             updateAttendanceTypeOptions();
                             //scope.total(data);
+                            scope.colectionsSheetsCopy = [];
                             scope.savingsgroups = data.groups;
+                            angular.copy(scope.savingsgroups,scope.colectionsSheetsCopy);
                             scope.isWithDrawForSavingsIncludedInCollectionSheet = data.isWithDrawForSavingsIncludedInCollectionSheet;
                             scope.isClientChargesIncludedInCollectoonSheet = data.isClientChargesIncludedInCollectoonSheet;
                             scope.sumTotalDueCollection();
@@ -727,7 +739,7 @@
             };
 
             scope.resetCollectionReasons = function(amount, index){
-                if(amount>0 && index>=0){
+                if(amount>0 && index>=0 && scope.loanRejectReason && scope.loanRejectReason.length>0){
                     scope.loanRejectReason[index].codeReasonId = undefined;
                     scope.loanRejectReason[index].reasonId = undefined;
                     scope.loanRejectReason[index].reason = undefined;
@@ -834,7 +846,7 @@
                         location.path('/viewallcollections');
                     },
                         function(data){
-                            if(data.data.errors[0].userMessageGlobalisationCode == "error.msg.Collection.has.already.been.added") {
+                            if(data && data.data.errors[0].userMessageGlobalisationCode == "error.msg.Collection.has.already.been.added") {
                                 scope.forcedSubmit = true;
                                 scope.formData.forcedSubmitOfCollectionSheet = true;
                                 scope.collectionsheetdata = "";
@@ -857,23 +869,27 @@
 
             scope.updateAttendenceData = function () {
                 var clientsAttendanceDetails =[];
-                scope.groups = scope.savingsgroups;
-                var gl = scope.groups.length;
-                for (var i = 0; i < gl; i++) {
-                    scope.clients = scope.groups[i].clients;
-                    var cl = scope.clients.length;
-                    for (var j = 0; j < cl; j++) {
-                        var attendence = {};
-                        attendence.clientId = scope.clients[j].clientId;
-                        attendence.reasonId = scope.clients[j].reasonId;
-                        attendence.reason = scope.clients[j].reason;
-                        attendence.attendanceType = scope.clients[j].attendanceType;
-                        if (attendence.clientId) {
-                            clientsAttendanceDetails.push(attendence);
-                        }
+                if(scope.savingsgroups){
+                    scope.groups = scope.savingsgroups;
+                    if(scope.groups && scope.groups.length>0){
+                        var gl = scope.groups.length;
+                        for (var i = 0; i < gl; i++) {
+                            scope.clients = scope.groups[i].clients;
+                            var cl = scope.clients.length;
+                            for (var j = 0; j < cl; j++) {
+                                var attendence = {};
+                                attendence.clientId = scope.clients[j].clientId;
+                                attendence.reasonId = scope.clients[j].reasonId;
+                                attendence.reason = scope.clients[j].reason;
+                                attendence.attendanceType = scope.clients[j].attendanceType;
+                                if (attendence.clientId) {
+                                    clientsAttendanceDetails.push(attendence);
+                                }
+                            }
+                        };
+                        scope.formData.clientsAttendance = clientsAttendanceDetails;
                     }
-                };
-                scope.formData.clientsAttendance = clientsAttendanceDetails;
+                }
             };
 
 
@@ -924,6 +940,14 @@
                     }
                 } 
             };
+            scope.validateAmount = function(groupIndex,clientIndex,loanIndex,updateLoanAmount){
+                var loanAmount = scope.colectionsSheetsCopy[groupIndex].clients[clientIndex].loans[loanIndex].totalDue;
+                if(!_.isUndefined(loanAmount) && (loanAmount != updateLoanAmount)){
+                    scope.savingsgroups[groupIndex].clients[clientIndex].loans[loanIndex].isShowReasonDropDown = true;
+                }else{
+                    scope.savingsgroups[groupIndex].clients[clientIndex].loans[loanIndex].isShowReasonDropDown = false;
+                }
+            }
 
         }
     })

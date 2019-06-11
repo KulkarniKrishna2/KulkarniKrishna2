@@ -27,8 +27,10 @@
 				<small data-ng-show="client.clientClassification.name">
 					{{ 'label.input.clientclassification' | translate }}: {{client.clientClassification.name}} |
 				</small>
-	            <small>
+	            <small data-ng-show="!refNo">
 					{{ 'label.heading.clientreferenceno' | translate }}: {{client.referenceNumber}} |
+	            </small>
+				<small>
 	            	{{ 'label.heading.clientno' | translate }}: {{client.accountNo}} |
 	            	{{ 'label.input.clientexternalid' | translate }}: {{client.externalId}} |
 	            	{{ 'label.input.staff' | translate }}: {{client.staffName}} |
@@ -132,7 +134,7 @@
 		</script>
     <script type="text/ng-template" id="photo-dialog.html">
         <div class="modal-header silver">
-            <img ng-src="{{largeImage}}" alt="Avatar">
+            <img ng-src="{{largeImage}}" alt="Avatar" width="100%" height="100%"/>
         </div>
         <div class="modal-body ">
             <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
@@ -141,7 +143,7 @@
     <script type="text/ng-template" id="clientSignature.html">
         <div class="modal-header silver">
             <img ng-src="{{largeImage}}" alt="Signature" width="100%" height="100%">
-        </div>
+		</div>
         <div class="modal-body ">
             <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
         </div>
@@ -228,8 +230,11 @@
 	    </div>
 	    <div class="modal-body">
 	        <api-validate></api-validate>
-	        <br>
-	        <input type="file" ng-file-select="onFileSelect($files)">
+			<br>
+			<div ng-if="formatErr" class="error">
+				{{signformatErrMsg | translate}}
+			</div>
+	        <input type="file" ng-file-select="onFileSelect($files)" accept="application/pdf,image/*">
 	    </div>
 	    <div class="modal-footer">
 	        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
@@ -900,7 +905,7 @@
 		                    {{file.fileName}}&nbsp;&nbsp;
 		                    <a target="_blank" data-ng-click="openViewDocument(file)" has-permission='READ_DOCUMENT'><i
 		                            class="icon-eye-open text-success"></i></a>
-		                    <a target="_blank" ng-click = "download(file)" has-permission='READ_DOCUMENT'><i
+		                    <a target="_blank" ng-click = "download(file)" has-permission='DOWNLOAD_DOCUMENT'><i
 		                            class="icon-cloud-download"></i></a>
 		                  </span>
 		            </td>
@@ -1088,7 +1093,7 @@
 			            	</span>
 			            </td>
 			            <td>
-			                <a ng-show="clientdocument.id" target="_blank" ng-click = "download(clientdocument)"><i class="icon-cloud-download"></i></a>&nbsp;
+			                <a ng-show="clientdocument.id" target="_blank" has-permission='DOWNLOAD_DOCUMENT' ng-click = "download(clientdocument)"><i class="icon-cloud-download"></i></a>&nbsp;
 			                <a ng-show="clientdocument.id" ng-click="deleteDocument(clientdocument)"><i class="icon-remove"></i></a>
 							<a ng-show="clientdocument.id && clientdocument.reportIdentifier" ng-click="reGenerateDocument(clientdocument)"><i class="icon-repeat"></i></a>
 							<a ng-hide="clientdocument.id" ng-click="generateDocument(clientdocument)"><i class="icon-link"></i></a>

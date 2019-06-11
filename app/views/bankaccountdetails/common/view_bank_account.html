@@ -80,7 +80,7 @@
     </div>
     
     <div class="col-md-offset-2 paddedleft paddedtop" >
-        <a id="attachDocument" ng-if="editable()" ng-click="uploadDocument()" class="btn btn-primary" has-permission='UPDATE_BANKACCOUNTDETAIL'>{{'label.button.attach.document' | translate}}</a>
+        <a id="attachDocument" ng-if="editable()" ng-click="uploadDocument()" class="btn btn-primary" has-permission='UPDATE_BANKACCOUNTDETAIL'>{{'label.button.upload.image' | translate}}</a>
         <a ng-if="editable()" id="edit" ng-click="edit()" class="btn btn-primary" has-permission='UPDATE_BANKACCOUNTDETAIL'>{{'label.button.edit' | translate}}</a>
         <button ng-if="deletable()" id="delete" class="btn btn-primary" ng-click="delete()" has-permission='DELETE_BANKACCOUNTDETAIL'>{{'label.button.delete' | translate}}</button>
         <button ng-if="approvable()" id="activate" class="btn btn-primary" ng-click="activate()" has-permission='ACTIVATE_BANKACCOUNTDETAIL'>{{'label.button.activate' | translate}}</button>
@@ -89,12 +89,15 @@
 
         <script type="text/ng-template" id="uploadDocument.html">
         <div class="modal-header silver">
-            <h3 class="bolder">{{'label.heading.attach.documents' | translate}}</h3>
+            <h3 class="bolder">{{'label.heading.upload.image' | translate}}</h3>
         </div>
         <div class="modal-body">
         <form name="uploadDocument" novalidate="" class="form-horizontal" autocomplete="off">
             <api-validate></api-validate>
             <br>
+            <div ng-if="docformatErr" class="error">
+				{{docformatErrMsg | translate}}
+			</div>
             <div class="form-group">
                 <label class="control-label col-sm-2" for="name">{{'label.input.name' | translate}}
                 <span class="required">*</span></label>
@@ -102,7 +105,7 @@
                     <input ng-autofocus="true" type="text" autocomplete="off" id="name" name="name" ng-model="data.documentName" class="form-control" required late-Validate/>
                     <form-validate valattributeform="uploadDocument" valattribute="name"/>
                 </div>
-                <input type="file" ng-file-select="onFileSelect($files)">
+                <input type="file" ng-file-select="onFileSelect($files)" accept="image/*">
             </div>
         </div>
         <div class="modal-footer">

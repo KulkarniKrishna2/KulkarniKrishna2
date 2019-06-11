@@ -20,22 +20,41 @@
             scope.numberOfDebits = 1;
             scope.error = null;
 
-            if(scope.response){           
-                scope.isCompanyCodeMandatory = scope.response.uiDisplayConfigurations.addJournalEntry.isMandatoryField.companyCode;            
-            }
-
-            resourceFactory.accountCoaResource.getAllAccountCoas({manualEntriesAllowed: true, usage: 1, disabled: false, companyCode:0}, function (data) {
-                scope.glAccounts = data;
-            });
-
-            resourceFactory.codeValueByCodeNameResources.get({codeName: 'company code for gl accounts',searchConditions:'{"codeValueIsActive":true}'}, function (data) {
-               scope.companyCodeForGlaccountCodeValues = data;
-               if (data != null) {
-                if (data.length > 0) {
-                    scope.formData.companyCodeForGlaccountCodeValues = data[0].id;
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.addJournalEntry) {
+                if (scope.response.uiDisplayConfigurations.addJournalEntry.isMandatoryField.companyCode) {
+                    scope.isCompanyCodeMandatory = scope.response.uiDisplayConfigurations.addJournalEntry.isMandatoryField.companyCode;
+                }
+                if (scope.response.uiDisplayConfigurations.addJournalEntry.isDefaultCompanyCode) {
+                    scope.isDefaultCompanyCode = scope.response.uiDisplayConfigurations.addJournalEntry.isDefaultCompanyCode;
+                }
+                if (scope.response.uiDisplayConfigurations.addJournalEntry.defaultCompanyCode) {
+                    scope.defaultCompanyCode = scope.response.uiDisplayConfigurations.addJournalEntry.defaultCompanyCode;
                 }
             }
+
+            resourceFactory.accountCoaResource.getAllAccountCoas({ manualEntriesAllowed: true, usage: 1, disabled: false }, function (data) {
+                scope.originalGlAccounts = data;
+                resourceFactory.codeValueByCodeNameResources.get({ codeName: 'company code for gl accounts', searchConditions: '{"codeValueIsActive":true}' }, function (data) {
+                    scope.companyCodeForGlaccountCodeValues = data;
+                    if (data != null && data.length > 0) {
+                        if (scope.isDefaultCompanyCode) {
+                            for (var i = 0; i < data.length; i++) {
+                                if (data[i].name == scope.defaultCompanyCode) {
+                                    scope.formData.companyCodeForGlaccountCodeValues = data[i].id;
+                                    scope.glAccounts = _.filter(scope.originalGlAccounts, function (glAccount) {
+                                        return glAccount.companyCode.name === scope.defaultCompanyCode;
+                                    });
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    else {
+                        scope.glAccounts = scope.originalGlAccounts;
+                    }
+                });
             });
+            
 
             resourceFactory.paymentTypeResource.getAll( function (data) {
                 scope.paymentTypes = data;
@@ -101,10 +120,15 @@
                 }
             }
 
-            scope.changeAccountsAsPerCompanyCodes = function(companyCodeForGlaccountCode){
-                resourceFactory.accountCoaResource.getAllAccountCoas({manualEntriesAllowed: true, usage: 1, disabled: false, companyCode:companyCodeForGlaccountCode}, function (data) {
-                    scope.glAccounts = data;
-                });
+            scope.changeAccountsAsPerCompanyCodes = function (companyCodeForGlaccountCode) {
+                if (companyCodeForGlaccountCode != undefined && companyCodeForGlaccountCode != 0) {
+                    scope.glAccounts = _.filter(scope.originalGlAccounts, function (glAccount) {
+                        return glAccount.companyCode.id === companyCodeForGlaccountCode;
+                    });
+                }
+                else {
+                    scope.glAccounts = scope.originalGlAccounts;
+                }
             }
 
             scope.submit = function () {

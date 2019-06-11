@@ -692,10 +692,7 @@
                 if (scope.formAddressData.talukaId == null || scope.formAddressData.talukaId == ""){
                     delete scope.formAddressData.talukaId;
                 }
-                if (scope.formAddressData.villageId){
-                    delete scope.formAddressData.villageId;
-                }
-
+                
                 if(scope.enableClientAddress){
                     this.formData.addresses=scope.formDataList;
                 }

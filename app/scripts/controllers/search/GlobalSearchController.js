@@ -6,20 +6,26 @@
             scope.groups=false;
             scope.savings=false;
             scope.loanApplication=false;
-            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.globalSearch.hiddenFields.groups) {
-                scope.groups = scope.response.uiDisplayConfigurations.globalSearch.hiddenFields.groups;
-             }
-             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.globalSearch.hiddenFields.savings) {
-                scope.savings = scope.response.uiDisplayConfigurations.globalSearch.hiddenFields.savings;
-             }
-             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.globalSearch.hiddenFields.loanApplication) {
-                scope.loanApplication = scope.response.uiDisplayConfigurations.globalSearch.hiddenFields.loanApplication;
-             }
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.globalSearch && 
+                scope.response.uiDisplayConfigurations.globalSearch.hiddenFields) {
+                if(scope.response.uiDisplayConfigurations.globalSearch.hiddenFields.groups){
+                    scope.groups = scope.response.uiDisplayConfigurations.globalSearch.hiddenFields.groups;
+                }
+                if(scope.response.uiDisplayConfigurations.globalSearch.hiddenFields.savings){
+                    scope.savings = scope.response.uiDisplayConfigurations.globalSearch.hiddenFields.savings;
+                }
+                if(scope.response.uiDisplayConfigurations.globalSearch.hiddenFields.loanApplication){
+                    scope.loanApplication = scope.response.uiDisplayConfigurations.globalSearch.hiddenFields.loanApplication;
+                }
+                if(scope.response.uiDisplayConfigurations.globalSearch.hiddenFields.referenceNo){
+                    scope.showreferenceno = !scope.response.uiDisplayConfigurations.globalSearch.hiddenFields.referenceNo;
+                }
+            }
             resourceFactory.userTemplateResource.get(function (data) {
                 scope.offices = data.allowedOffices;
                 scope.availableRoles = data.availableRoles;
             });
-            resourceFactory.codeValueByCodeNameResources.get({ codeName: 'Customer Identifier' }, function (codeValueData) {
+            resourceFactory.codeValueByCodeNameResources.get({ codeName: 'Customer Identifier',searchConditions:'{"codeValueIsActive":true}'}, function (codeValueData) {
                 scope.documentTypeOptions = codeValueData;
             });
 
@@ -30,13 +36,11 @@
             };
             scope.showoffice = true;
             scope.showstaff = true;
-            scope.showreferenceno = true;
             scope.showexternalid = true;
             scope.showmobile = true;
             scope.identity = true;
             scope.showname = true;
             scope.showaccountno = true;
-
 
             scope.validate = function () {
 
@@ -89,11 +93,10 @@
                 scope.selectedsearch = searchScope;
                 scope.currentScope = searchScope;
                 scope.formData = {} ;
-
+               
                 if (scope.selectedsearch == "groups" || scope.selectedsearch == "centers") {
                     scope.showoffice = true;
                     scope.showstaff = true;
-                    scope.showreferenceno = true;
                     scope.showexternalid = true;
                     scope.showmobile = false;
                     scope.identity = false;
@@ -114,7 +117,6 @@
                 if (scope.selectedsearch == "clients") {
                     scope.showoffice = true;
                     scope.showstaff = true;
-                    scope.showreferenceno = true;
                     scope.showexternalid = true;
                     scope.showmobile = true;
                     scope.identity = true;

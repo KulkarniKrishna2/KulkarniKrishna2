@@ -3,8 +3,7 @@
 	"uiDisplayConfigurations": {
 		"loginSecurity": {
 			"isEnabledCaptcha": false,
-			"isEnabledRecaptcha": false,
-			"isEnabledPatchca": false,
+			"defaultCaptcha":"Patchca",
 			"isEnabledLdap": false
 		},
 		"browserSecurity": {
@@ -47,7 +46,9 @@
 				"repaymentsStartingFromDate": false,
 				"loanPurposeId": false,
 				"undoTransactionReason": false,
-				"isPreclosureReasonEnabled": false
+				"isPreclosureReasonEnabled": false,
+				"transactionPaymentMode": false,
+				"transactionPaymentType": false
 			},
 			"isHiddenSection": {
 				"interestRecalculationSection": false,
@@ -89,8 +90,8 @@
 				"isTotalOutstandingInterest": false
 			},
 			"loanPurposeGroup":{
-				"showLoanPurposeWithoutGroup": false,
-				"showLoanPurposeGroup": true
+				"showLoanPurposeWithoutGroup": true,
+				"showLoanPurposeGroup": false
 			}
 		},
 		"viewLoanAccountDetails": {
@@ -111,7 +112,8 @@
 				"prepayLoanButton": true,
 				"netDisbursedAmount": false,
 				"showProductShortName": false,
-				"editTransactions":false
+				"editTransactions":false,
+				"prudentialWriteOff": true
 			},
 			"displayBankApprovalStatus": false
 		},
@@ -128,7 +130,10 @@
 				"accountNo": false,
 				"referenceNo": true,
 				"enableSmartCard": true,
-				"initiateCreditBureau": false
+				"initiateCreditBureau": false,
+				"createLoanApplication": false,
+				"blackList": true,
+				"whiteList": true
 			},
 			"familyDeatils": {
 				"isHiddenField": {
@@ -260,7 +265,8 @@
 				"showSubmittedOn": true,
 				"showStaff": true,
 				"addclients": true,
-				"activate": false
+				"activate": false,
+				"addGroups": true
 			},
 			"isAutoPopulate": {
 				"name": true
@@ -392,7 +398,8 @@
 				"meeting": false,
 				"groupName": false,
 				"transferClients": true,
-				"canAddClients": true
+				"canAddClients": false,
+	  		    "createjlgLoanApplication" : false
 			},
 			"searchForActivegroups": false,
 			"isReadOnlyField": {
@@ -425,12 +432,18 @@
 			"CGTValidation": {
 				"profileRatingPercentage": ""
 			},
+			"AdditionalDetailsValidation": {
+				"profileRatingPercentage": ""
+			},
 			"showReschedule": false,
 			"showCreateTask": false,
 			"disableVillageDropDown": false,
 			"hideReject": false,
 			"isReadOnlyField": {
 				"createSubGroupDate": false
+			},
+			"initiateWorkflow": {
+				"showInitiateOnCompletion": false
 			}
 		},
 		"globalSearchScope": {
@@ -516,12 +529,16 @@
 			"isMandatoryFields": {
 				"costCenter": false,
 				"companyCode": false
-			}
+			},
+			"isDefaultCompanyCode": false,
+			"defaultCompanyCode": ""
 		},
 		"addJournalEntry": {
 			"isMandatoryField": {
 				"companyCode": false
-			}
+			},
+			"isDefaultCompanyCode": false,
+			"defaultCompanyCode": ""
 		},
 		"cashFlow": {
 			"hiddenFields": {
@@ -533,7 +550,8 @@
 			"hiddenFields": {
 				"groups": false,
 				"savings": false,
-				"loanApplication": false
+				"loanApplication": false,
+				"referenceNo": true
 			}
 		},
 		"workflowDashboard": {
@@ -598,7 +616,29 @@
 		},
 		"offices": {
 			"showRefNo": false
-		}
-		
+		},
+		"glAccount": {
+			"isMandatoryField": {
+				"companyCode": false
+			}
+		},
+		"meeting": {
+			"showAllRepeatsOptions": true
+		},
+		"navBar": {
+			"isHiddenField":{
+				"kotakApproval": true 
+			}
+		},
+		"accounting": {
+			"isHiddenField":{
+				"postTransactionTypeEntries": true 
+			}
+		},
+		"organization": {
+			"isHiddenField":{
+				"transfer": true
+			}
+		}	
 	}
 }

@@ -1852,7 +1852,9 @@
                         getStateData: {method: 'GET', params: {countryId: '@countryId',stateId: '@stateId'}}
                     }),
                     talukaResource: defineResource(apiVer + "/districts/:districtId/talukas/:talukaId", {districtId: '@districtId',talukaId: '@talukaId'}, {
-                        
+                    }),   
+                    multipleFileUploadResource: defineResource(apiVer + "/:entityType/:entityId/utilizationchecks",{entityType:'@entityType',entityId:'@entityId'}, {
+                        upload: {method: 'POST', headers: {'Content-Type': undefined},transformRequest: angular.identity, params: {}}
                     })
                 };
             }];

@@ -41,14 +41,25 @@
             scope.hideNetDisbursedAmount = false;
             scope.options = [];
             scope.hideWriteoff = false;
-            if(scope.response != undefined){
-                scope.hidePrepayButton = scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.prepayLoanButton;
+            if(scope.response && scope.response.uiDisplayConfigurations){
                 scope.showRetryBankTransaction = scope.response.uiDisplayConfigurations.loanAccount.isShowField.retryBankTransaction;
                 scope.hideWriteoff = scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.writeOff;
                 scope.hidePreviewSchedule = scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.previewSchedule;
                 scope.showSavingToDisburse = scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.linkAccountId;
-                scope.hideNetDisbursedAmount = scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.netDisbursedAmount;
                 scope.showBankApprovalStatus = scope.response.uiDisplayConfigurations.viewLoanAccountDetails.displayBankApprovalStatus;
+            
+                if(scope.response.uiDisplayConfigurations.viewLoanAccountDetails && 
+                    scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild){
+                    if(scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.prepayLoanButton){
+                        scope.hidePrepayButton = scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.prepayLoanButton;
+                    }
+                    if(scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.netDisbursedAmount){
+                        scope.hideNetDisbursedAmount = scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.netDisbursedAmount;
+                    }
+                    if(scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.prudentialWriteOff){
+                        scope.showPrudentialWriteOff = !scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.prudentialWriteOff;
+                    }
+                } 
             }
             if(scope.showBankApprovalStatus){
                 resourceFactory.bankApprovalStatusResource.get({loanId: routeParams.id}, function (bankLoanStatusData) {
@@ -620,10 +631,6 @@
                                 isHidden:scope.hideWriteoff
                             },
                             {
-                                name: "button.prudentialwriteoff",
-                                taskPermissionName: 'PRUDENTIAL_WRITEOFF'
-                            },
-                            {
                                 name: "button.close-rescheduled",
                                 taskPermissionName: 'CLOSEASRESCHEDULED_LOAN'
                             },
@@ -675,6 +682,13 @@
                         ]
 
                     };
+                    
+                    if(scope.showPrudentialWriteOff){
+                       scope.buttons.options.push({
+                            name: "button.prudentialwriteoff",
+                            taskPermissionName: 'PRUDENTIAL_WRITEOFF'
+                        });
+                    }
 
                     if(data.loanApplicationReferenceId && data.loanApplicationReferenceId > 0){
                         scope.buttons.options.push({

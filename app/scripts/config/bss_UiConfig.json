@@ -3,8 +3,7 @@
 	"uiDisplayConfigurations": {
 		"loginSecurity": {
 			"isEnabledCaptcha": true,
-			"isEnabledRecaptcha": false,
-			"isEnabledPatchca": true,
+			"defaultCaptcha":"Patchca",
 			"isEnabledLdap": false
 		},
 		"browserSecurity": {
@@ -27,6 +26,10 @@
 			},
 			"isAutoPopulate": {
 				"interestChargedFromDate": false
+			},
+			"loanPurposeGroup":{
+				"showLoanPurposeWithoutGroup": false,
+				"showLoanPurposeGroup": true
 			}
 		},
 		"viewClient": {
@@ -35,7 +38,9 @@
 				"accountNo": true,
 				"referenceNo": false,
 				"enableSmartCard": false,
-				"initiateCreditBureau": true
+				"initiateCreditBureau": true,
+				"blackList": false,
+				"whiteList": false
 			},
 			"familyDeatils": {
 				"isHiddenField": {
@@ -66,7 +71,8 @@
 			"isHiddenFeild": {
 				"netDisbursedAmount": true,
 				"showProductShortName": true,
-				"editTransactions":true
+				"editTransactions":true,
+				"prudentialWriteOff": false
 			},
 			"displayBankApprovalStatus":true
 		},
@@ -135,7 +141,7 @@
 				"meeting": true,
 				"groupName": true,
 				"transferClients": false,
-				"canAddClients": false
+				"canAddClients": true
 			},
 			"isReadOnlyField": {
 				"groupName": true,
@@ -310,6 +316,21 @@
 		},
 		"offices": {
 			"showRefNo": true
+		},
+		"navBar": {
+			"isHiddenField":{
+				"kotakApproval": false 
+			}
+		},
+		"accounting": {
+			"isHiddenField":{
+				"postTransactionTypeEntries": false 
+			}
+		},
+		"organization": {
+			"isHiddenField":{
+				"transfer": false
+			}
 		}
 	}
 }

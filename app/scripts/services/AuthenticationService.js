@@ -49,7 +49,6 @@
                 var accesPayload = {
                     client_id: 'community-app',
                     grant_type: 'refresh_token',
-                    client_secret: '123',
                     refresh_token: refreshToken
                 };
                 httpService.post("/fineract-provider/api/oauth/token", accesPayload)
@@ -88,7 +87,6 @@
                 var formData = {};
                 formData.client_id = 'community-app';
                 formData.grant_type = 'OTP';
-                formData.client_secret = '123';
                 formData.otp_token = credentials.otpTokenId;
                 formData.otp = credentials.otp;
                 httpService.post("/fineract-provider/api/oauth/token", formData)
@@ -122,7 +120,6 @@
                 data.password = credentials.password;
                 data.client_id = 'community-app';
                 data.grant_type = 'password';
-                data.client_secret = '123';
                 data.isPasswordEncrypted = isPasswordEncrypted.toString();
                 if(credentials.captchaDetails !=undefined){
                     data.captcha_reference_id= credentials.captchaDetails.captcha_reference_id;

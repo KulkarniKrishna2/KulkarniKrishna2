@@ -84,7 +84,7 @@
 							</select>
 						</div>
 						<div class="col-sm-1 paddinglr0px">
-							<form-validate ng-if="isAddressTypeMandatory" valattributeform="createclientform" valattribute="addressType" />
+							<form-validate ng-if="isAddressTypeMandatory" valattributeform="createofficeform" valattribute="addressType" />
 						</div>
 						<div class="col-sm-1">
 						</div>
@@ -115,7 +115,7 @@
 								<input type="text" autocomplete="off"  id="villagename" name="villageTown" ng-model="formAddressData.villageTown" class="form-control" ng-required="isVillageTownMandatory"/>
 							</div>
 							<div class="col-sm-1 paddinglr0px">
-								<form-validate valattributeform="createclientform" valattribute="villageTown" />
+								<form-validate valattributeform="createofficeform" valattribute="villageTown" />
 							</div>
 					</div>	
 					<div class="form-group">
@@ -138,7 +138,7 @@
 						</select>
 						</div>
 						<div class="col-sm-1 paddinglr0px">
-							<form-validate valattributeform="createclientform" valattribute="countries" />
+							<form-validate valattributeform="createofficeform" valattribute="countries" />
 						</div>
 						<div class="col-sm-1">
 						</div>
@@ -162,7 +162,7 @@
 						</select>
 						</div>
 						<div class="col-sm-1 paddinglr0px">
-							<form-validate valattributeform="createclientform" valattribute="states" />
+							<form-validate valattributeform="createofficeform" valattribute="states" />
 						</div>
 						<label class="control-label col-sm-1">
 							{{'label.input.districtname' | translate}}
@@ -182,7 +182,7 @@
 						</select>
 						</div>
 						<div class="col-sm-1 paddinglr0px">
-							<form-validate valattributeform="createclientform" valattribute="districts" />
+							<form-validate valattributeform="createofficeform" valattribute="districts" />
 						</div>
 						<div class="col-sm-1">
 						</div>
@@ -203,7 +203,7 @@
 								<option value="">{{'label.menu.selectTaluka' | translate}}</option>
 							</select>
 							<div ng-if="showTalukas" class="col-sm-1 paddinglr0px">
-								<form-validate valattributeform="createclientform" valattribute="talukas"/>
+								<form-validate valattributeform="createofficeform" valattribute="talukas"/>
 							</div>
 						</div>
 						
@@ -218,10 +218,10 @@
 							</select>
 						</div>
 						<div ng-if="showWardAndVillages" class="col-sm-1 paddinglr0px">
-							<form-validate valattributeform="createclientform" valattribute="wardAndVillages"/>
+							<form-validate valattributeform="createofficeform" valattribute="wardAndVillages"/>
 						</div>
 						<div class="col-sm-1 paddinglr0px">
-							<form-validate valattributeform="createclientform" valattribute="talukas" />
+							<form-validate valattributeform="createofficeform" valattribute="talukas" />
 						</div>
 						<label ng-show="!pincode" class="control-label col-sm-1" for="pincode">{{'label.input.pincode' | translate}}
 							<span class="required">*</span>
@@ -232,9 +232,9 @@
 								ng-pattern="/^([1-9])([0-9]){5}$/" ng-minlength="6" maxlength="6" ng-model="formAddressData.postalCode" class="form-control"
 								required/>
 						</div>
-						<span class="required" ng-show="submitted && createclientform.pincode.$error.required">{{'label.error.required'|translate}}</span>
-						<span ng-show="createclientform.pincode.$error.pattern">
-							<small class="required" ng-show="createclientform.pincode.$error.pattern">{{'invalid.pin.code.format' | translate}}</small>
+						<span class="required" ng-show="submitted && createofficeform.pincode.$error.required">{{'label.error.required'|translate}}</span>
+						<span ng-show="createofficeform.pincode.$error.pattern">
+							<small class="required" ng-show="createofficeform.pincode.$error.pattern">{{'invalid.pin.code.format' | translate}}</small>
 						</span>
 						<div class="col-sm-1">
 						</div>
@@ -248,7 +248,7 @@
 	            <a id="cancel" href="#/offices">
 	                <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
 	            </a>
-	            <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_OFFICE'>{{'label.button.save' | translate}}</button>
+	            <button id="save" type="submit" ng-click = "submitted=true" class="btn btn-primary" has-permission='CREATE_OFFICE'>{{'label.button.save' | translate}}</button>
 	        </div>
 	    </fieldset>
 	</form>

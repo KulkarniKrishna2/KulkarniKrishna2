@@ -310,7 +310,11 @@
 
             function init() {
                 if (scope.commonConfig.bankAccount.eventType && scope.commonConfig.bankAccount.eventType === "create") {
-                    populateTemplate()
+                    if (scope.commonConfig.bankAccount.clientBankAccountDetailAssociationId) {
+                        populateDetails();
+                    } else {
+                        populateTemplate();
+                    }
                 } else {
                     populateDetails();
                 }
@@ -375,12 +379,14 @@
             };
 
             var uploadDocumentCtrl = function ($scope, $modalInstance) {
+                $scope.docformatErr = false;
                 $scope.data = {
                     documentName: ""
                 };
 
                 $scope.onFileSelect = function ($files) {
                     scope.docFile = $files[0];
+                    $scope.docformatErr = false;
                 };
 
                 $scope.upload = function () {
@@ -392,20 +398,25 @@
                         name: $scope.data.documentName
                     };
                     if (scope.docFile) {
-                        submitAccountDocuments(function (documentId) {
-                            if (documentId != undefined) {
-                                scope.formData.documents = [];
-                                for (var j in scope.bankAccountDocuments) {
-                                    scope.formData.documents.push(scope.bankAccountDocuments[j].id);
+                        if (!scope.docFile.type.includes("image")) {
+                            $scope.docformatErr = true;
+                            $scope.docformatErrMsg = "label.error.only.files.of.type.image.are.allowed";
+                        } else {
+                            submitAccountDocuments(function (documentId) {
+                                if (documentId != undefined) {
+                                    scope.formData.documents = [];
+                                    for (var j in scope.bankAccountDocuments) {
+                                        scope.formData.documents.push(scope.bankAccountDocuments[j].id);
+                                    }
+                                    scope.formData.documents.push(documentId);
                                 }
-                                scope.formData.documents.push(documentId);
-                            }
-                            scope.formData.locale = scope.optlang.code;
-                            scope.formData.dateFormat = scope.df;
-                            scope.formData.lastTransactionDate = dateFilter(scope.formData.lastTransactionDate, scope.df);
-                            updateData();
-                        });
-                        $modalInstance.close('upload');
+                                scope.formData.locale = scope.optlang.code;
+                                scope.formData.dateFormat = scope.df;
+                                scope.formData.lastTransactionDate = dateFilter(scope.formData.lastTransactionDate, scope.df);
+                                updateData();
+                            });
+                            $modalInstance.close('upload');
+                        }
                     }
                 };
 

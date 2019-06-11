@@ -31,6 +31,10 @@
             if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewCenter && scope.response.uiDisplayConfigurations.viewCenter.isHiddenField) {
                 scope.showBulkUndoTransactions = !scope.response.uiDisplayConfigurations.viewCenter.isHiddenField.bulkUndoTransactions;
             }
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewGroup && scope.response.uiDisplayConfigurations.viewGroup.isHiddenField) {
+                scope.isClientCreationEnabled = scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.canAddClients;
+                scope.createjlgLoanApplication = scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.createjlgLoanApplication;
+            }
             scope.exceedMaxLimit = false;
             scope.isShowAttachmeeting = !scope.response.uiDisplayConfigurations.viewCenter.isHiddenField.attachmeeting;
             scope.routeToLoan = function (id) {

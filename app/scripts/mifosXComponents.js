@@ -688,7 +688,12 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'user/ReactivateUserController',
             'districts/CreateDistrictController',
             'districts/ViewDistrictController',
-            'districts/CreateTalukaController'
+            'districts/CreateTalukaController',
+            'task/activity/AdditionalDetailsActivityController',
+            'task/activity/CGTRequestActivityController',
+            'task/popup/EditLoanController',
+            'task/activity/GRTRequestActivityController',
+            'task/activity/GRTConfirmationActivityController'
         ],
         filters: [
             'StatusLookup',

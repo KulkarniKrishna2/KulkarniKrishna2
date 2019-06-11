@@ -44,7 +44,7 @@
             <td>{{bankStatement.name}}</td>
             <td>{{bankStatement.description}}</td>
             <td>{{bankStatement.cpifFileName}}<a target="_blank" 
-             ng-click = "download(bankStatement)"><i class="icon-cloud-download"></i></a></td>
+             ng-click = "download(bankStatement)" has-permission='DOWNLOAD_DOCUMENT'><i class="icon-cloud-download"></i></a></td>
             <td>{{bankStatement.lastModifiedByName}}</td>
             <td>{{bankStatement.lastModifiedDate}}</td>
             <td>

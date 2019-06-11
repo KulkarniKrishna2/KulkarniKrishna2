@@ -52,35 +52,50 @@
             scope.displayNameInReverseOrder = false;
             var levelVasedAddressConfig = 'enable_level_based_address';
             scope.isLevelBasedAddressEnabled = scope.isSystemGlobalConfigurationEnabled(levelVasedAddressConfig);
-
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewClient &&
+                scope.response.uiDisplayConfigurations.viewClient.isHiddenField){
+                if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.enableSmartCard){
+                    scope.enableSmartCard =  scope.response.uiDisplayConfigurations.viewClient.isHiddenField.enableSmartCard;
+                }
+                if(scope.response && scope.response.uiDisplayConfigurations.viewClient.isHiddenField.initiateCreditBureau){
+                    scope.hideInitiateCreditBureau = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.initiateCreditBureau;
+                }
+                if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.pincode){
+                    scope.pincode = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.pincode;
+                }
+                if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.displayNameInReverseOrder){
+                    scope.displayNameInReverseOrder = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.displayNameInReverseOrder;
+                }
+                if(scope.response.uiDisplayConfigurations.cashFlow.hiddenFields.assetDetails){
+                    scope.assetDetails = scope.response.uiDisplayConfigurations.cashFlow.hiddenFields.assetDetails;
+                }
+                if(scope.response.uiDisplayConfigurations.cashFlow.hiddenFields.houseHoldExpenses){
+                    scope.houseHoldExpenses = scope.response.uiDisplayConfigurations.cashFlow.hiddenFields.houseHoldExpenses;
+                }
+                if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.referenceNo){
+                    scope.refNo = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.referenceNo;
+                }
+                if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.blackList){
+                    scope.showBlackList = !scope.response.uiDisplayConfigurations.viewClient.isHiddenField.blackList;
+                }
+                if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.whiteList){
+                    scope.showWhiteList = !scope.response.uiDisplayConfigurations.viewClient.isHiddenField.whiteList;
+                }
+                if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.createLoanApplication){
+                    scope.createLoanApplication = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.createLoanApplication;
+                }
+                
+            }
             scope.isStalePeriodExceeded = false;
-            scope.hideInitiateCreditBureau = false;
-            if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.enableSmartCard && scope.response){
-                scope.enableSmartCard =  scope.response.uiDisplayConfigurations.viewClient.isHiddenField.enableSmartCard;
-            }
-            if(scope.response && scope.response.uiDisplayConfigurations.viewClient.isHiddenField.initiateCreditBureau){
-                scope.hideInitiateCreditBureau = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.initiateCreditBureau;
-            }
-            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewClient.isHiddenField.pincode) {
-                scope.pincode = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.pincode;
-            }
-            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewClient.isHiddenField.displayNameInReverseOrder) {
-                scope.displayNameInReverseOrder = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.displayNameInReverseOrder;
-            }
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createNewLoan &&
                 scope.response.uiDisplayConfigurations.createNewLoan.isHiddenField && scope.response.uiDisplayConfigurations.createNewLoan.isHiddenField.newLoan) {
                 scope.hideNewLoan = scope.response.uiDisplayConfigurations.createNewLoan.isHiddenField.newLoan;
             }
-            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.cashFlow.hiddenFields.assetDetails) {
-               scope.assetDetails = scope.response.uiDisplayConfigurations.cashFlow.hiddenFields.assetDetails;
-            }
-            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.cashFlow.hiddenFields.houseHoldExpenses) {
-                scope.houseHoldExpenses = scope.response.uiDisplayConfigurations.cashFlow.hiddenFields.houseHoldExpenses;
-             }
             scope.enableClientVerification = scope.isSystemGlobalConfigurationEnabled('client-verification');
-            scope.activateOnReinitiate = scope.response.uiDisplayConfigurations.viewClient.activateOnReinitiate;
             if(scope.response && scope.response.uiDisplayConfigurations) {
                 scope.isSavingAccountEnable = scope.response.uiDisplayConfigurations.viewClient.createSavingAccount;
+                scope.activateOnReinitiate = scope.response.uiDisplayConfigurations.viewClient.activateOnReinitiate;
+                scope.hideVillage = scope.response.uiDisplayConfigurations.entityType.isHiddenMenu.village;
              }
         
             scope.routeToLoan = function (id) {
@@ -122,7 +137,6 @@
                 }
             };
             
-            scope.hideVillage = scope.response.uiDisplayConfigurations.entityType.isHiddenMenu.village;
             function constructActiveLoanSummary() {
                 if (scope.existingLoans) {
                     for (var i in scope.existingLoans) {
@@ -459,7 +473,11 @@
                         }
                         scope.buttons.splice(0, 1, activateOption);
                     }
-                    if(data.status.value == "Active" && data.subStatus && data.subStatus.value == "Blacklist"){
+                    if(!scope.showBlackList){
+                        scope.buttons.splice(8,1);
+                    }
+                    
+                    if(scope.showWhiteList && data.status.value == "Active" && data.subStatus && data.subStatus.value == "Blacklist"){
                         var whitelistButton = {
                             name: "label.button.whitelist",
                             href: "#/client",
@@ -467,12 +485,16 @@
                             icon: "icon-ok-sign ng-scope",
                             taskPermissionName: "WHITELIST_CLIENT"
                         };
+<<<<<<< HEAD
                         for (var i in scope.buttons) {
                             if (scope.buttons[i].name == 'label.button.blacklist') {
                                 scope.buttons.splice(i,1,whitelistButton);
                                 break;
                             }
                         }
+=======
+                        scope.buttons.splice(8, 1, whitelistButton);
+>>>>>>> V19.03.01
                     }
     
                     scope.buttonsArray = {
@@ -487,8 +509,8 @@
     
                     scope.isLoanApplication = scope.isSystemGlobalConfigurationEnabled('loan-application');
                     for(var i in scope.buttonsArray.singlebuttons){
-                        if(scope.buttonsArray.singlebuttons[i].taskPermissionName === 'CREATE_LOANAPPLICATIONREFERENCE'){
-                            scope.buttonsArray.singlebuttons[i].isEnableButton = scope.isLoanApplication;
+                        if(scope.buttonsArray.singlebuttons[i].taskPermissionName === 'CREATE_LOANAPPLICATIONREFERENCE' && scope.isLoanApplication && !scope.createLoanApplication){
+                            scope.buttonsArray.singlebuttons[i].isEnableButton = scope.isLoanApplication;                     
                         }
                         if(scope.buttonsArray.singlebuttons[i].taskPermissionName === 'CREATE_SAVINGSACCOUNT'){
                             scope.buttonsArray.singlebuttons[i].isEnableButton = scope.isSavingAccountEnable;
@@ -833,23 +855,29 @@
                 $scope.onFileSelect = function ($files) {
                     scope.file = $files[0];
                 };
+                $scope.formatErr = false;
                 $scope.upload = function () {
                     if (scope.file) {
-                        $upload.upload({
-                            url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents',
-                            data: {
-                                name: 'clientSignature',
-                                description: 'client signature'
-                            },
-                            file: scope.file
-                        }).then(function (imageData) {
-                            // to fix IE not refreshing the model
-                            if (!scope.$$phase) {
-                                scope.$apply();
-                            }
-                            $modalInstance.close('upload');
-                            route.reload();
-                        });
+                        if (scope.file.type != "application/pdf" && !scope.file.type.includes("image")) {
+                            $scope.formatErr = true;
+                            $scope.signformatErrMsg = "label.error.files.can.be.image.or.of.type.pdf";
+                        } else {
+                            $upload.upload({
+                                url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents',
+                                data: {
+                                    name: 'clientSignature',
+                                    description: 'client signature'
+                                },
+                                file: scope.file
+                            }).then(function (imageData) {
+                                // to fix IE not refreshing the model
+                                if (!scope.$$phase) {
+                                    scope.$apply();
+                                }
+                                $modalInstance.close('upload');
+                                route.reload();
+                            });
+                        }
                     }
                 };
                 $scope.cancel = function () {
@@ -1451,15 +1479,15 @@
                         for (var i = 0; i < docsData.data.length; ++i) {
                             if (docsData.data[i].name == 'clientSignature') {
                                 docId = docsData.data[i].id;
-                                scope.signature_url = $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + docId + '/attachment';
+                                scope.signature_url = $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + docId + '/download';
                             }
                         }
                     if (scope.signature_url != null) {
                         http({
                             method: 'GET',
-                                url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + docId + '/attachment'
+                                url: $rootScope.hostUrl + API_VERSION + '/clients/' + routeParams.id + '/documents/' + docId + '/download'
                     }).then(function (docsData) {
-                            $scope.largeImage = scope.signature_url;
+                            $scope.largeImage = docsData.data;
                         });
                     }
                     });

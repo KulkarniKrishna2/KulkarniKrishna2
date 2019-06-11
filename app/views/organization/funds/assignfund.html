@@ -3,15 +3,16 @@
         <li ><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
         <li class="active">{{'label.anchor.assignfund' | translate}}</li>
     </ul>
-    <form name="assignfundform" novalidate="" class="form-horizontal well" rc-submit="submit()">
+    <form name="assignfundform" novalidate="" ng-hide="isSuccess" class="form-horizontal well" rc-submit="submit()">
         <div class="form-horizontal">
             <api-validate></api-validate>
-            <fieldset>
-                <div class="form-group" ng-show="isSuccess">
-                    <label class="control-label col-sm-6 pull-left">
-                        <h2>{{'label.success.fund.assigned.to.loans' | translate}}</h2>
-                    </label>
-                </div>    
+            <div ng-if="showSelectFileErrMsg" class="error">
+                    {{"label.error.no.file.is.selected"| translate}}
+            </div>
+            <div ng-if="showCsvFileErrMsg" class="error">
+                {{"label.error.csv.file.is.not.selected"| translate}}
+            </div>
+            <fieldset>  
                 <div class="form-group">
                     <div>
                         <label class="control-label col-sm-2">
@@ -49,5 +50,18 @@
                     <button id="save" type="submit" has-permission='ASSIGN_FUND' class="btn btn-primary">{{'label.button.assignfund' | translate}}</button>
                 </div>
             </fieldset>
+            </div>
             </form>
+            <form name="viewassignedfundform" ng-show="isSuccess" class="form-horizontal well">
+                    <api-validate></api-validate>
+                    <fieldset>
+                        <table>
+                            <th>{{'label.success.fund.assigned.to.loans' | translate}}</th>
+                            <tr>
+                                <td class="col-sm-4">{{'label.input.fundname' | translate}}</td>
+                                <td class="col-sm-4">{{fundName}}</td>
+                            </tr>
+                        </table>
+                    </fieldset>
+                </form>
         </div>

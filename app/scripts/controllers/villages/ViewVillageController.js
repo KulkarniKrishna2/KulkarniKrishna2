@@ -6,6 +6,7 @@
             scope.datatabledetails = {};
             scope.datatabledetails.isData;
             scope.fromEntity = 'village';
+            scope.isBlacklisted = false;
             resourceFactory.DataTablesResource.getAllDataTables({apptable: 'chai_villages', isFetchBasicData: true}, function (data) {
                 scope.datatables = data;
                 if(scope.datatables && scope.datatables[0]){
@@ -22,6 +23,11 @@
                 scope.village.timeline.activatedOnDate = dateFilter(scope.activationDate, scope.df);
                 scope.submittedDate = new Date(scope.village.timeline.submittedOnDate);
                 scope.village.timeline.submittedOnDate = dateFilter(scope.submittedDate, scope.df);
+                if (data.status) {
+                    if (data.status.code == 'villageStatusType.blacklisted') {
+                        scope.isBlacklisted = true;
+                    }
+                }
             });
 
             scope.dataTableChange = function (datatable) {
@@ -273,6 +279,46 @@
                     });
                 }
             };
+
+            scope.performVillageAction = function () {
+                var templateUrl = 'views/villages/villageactions.html';
+                $modal.open({
+                    templateUrl: templateUrl,
+                    controller: villageActionsCtrl,
+                    windowClass: 'modalwidth700',
+                    resolve: {
+                        villageData: function () {
+                            return {
+                                'villageId': scope.village.villageId,
+                                'isBlacklisted': scope.isBlacklisted
+                            };
+                        }
+                    }
+                });
+            };
+           
+            var villageActionsCtrl = function ($scope, $modalInstance, villageData) {
+                $scope.isBlacklisted = villageData.isBlacklisted;
+                $scope.villageActionData = {};
+                resourceFactory.codeValueByCodeNameResources.get({ codeName: "VillageBlacklistReason" }, function (codeValueData) {
+                    $scope.blacklistingReasons = codeValueData;
+                });
+                $scope.blacklistVillage = function () {
+                    resourceFactory.villageResource.save({ villageId: villageData.villageId, command: 'blacklist' }, $scope.villageActionData, function (data) {
+                        $modalInstance.close();
+                        location.path('/villages');
+                    });
+                }
+                $scope.whitelistVillage = function () {
+                    resourceFactory.villageResource.save({ villageId: villageData.villageId, command: 'whitelist' }, $scope.villageActionData, function (data) {
+                        $modalInstance.close();
+                        location.path('/villages');
+                    });
+                }
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            }
         }
     });
     mifosX.ng.application.controller('ViewVillageController', ['$scope', '$routeParams', '$location', 'ResourceFactory', 'dateFilter', '$route', '$modal', '$rootScope', mifosX.controllers.ViewVillageController]).run(function ($log) {

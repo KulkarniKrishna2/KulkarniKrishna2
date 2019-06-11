@@ -109,7 +109,8 @@
         "showGroupExternalId" : false,
       "showSubmittedOn" : false,
       "showStaff" : false,
-      "addclients" : false
+      "addclients" : false,
+      "addGroups" : false
       }
     },
     "createGroup": {
@@ -195,19 +196,31 @@
     "creditBureau":{
       "getlimit":3
     },
-    "voucherTypeForm":{
+    "voucherTypeForm": {
       "isMandatoryFields": {
-        "costCenter":true,
-        "companyCode":true
-      }
+        "costCenter": true,
+        "companyCode": true
+      },
+      "isDefaultCompanyCode": true,
+      "defaultCompanyCode": "CIFCPL"
     },
-    "addJournalEntry":{
+    "addJournalEntry": {
+      "isMandatoryField": {
+        "companyCode": true
+      },
+      "isDefaultCompanyCode": true,
+      "defaultCompanyCode": "CIFCPL"
+    },
+    "workflow": {
+      "showReschedule": true,
+      "initiateWorkflow": {
+				"showInitiateOnCompletion": true
+			}
+      },
+    "glAccount": {
       "isMandatoryField": {
         "companyCode":true
       }
-    },
-    "workflow": {
-      "showReschedule": true
     }
   }
 }
