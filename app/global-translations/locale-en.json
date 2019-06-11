@@ -646,6 +646,8 @@
     "label.heading.welcome.message": "Welcome to Finflux",
     "label.heading.finflux": "FINFLUX",
     "label.heading.dashboard": "Dashboard",
+    "label.heading.verify": "Verify",
+    "label.heading.reject": "Reject",
     "label.heading.workflow.task.dashboard": "Workflow Task Dashboard",
     "label.heading.workflow.tasks": "Task List",
     "label.heading.workflow.status": "Workflow Status",
@@ -848,6 +850,8 @@
     "label.heading.documentupload": "Document Upload",
     "label.heading.bankdetails": "Bank Details",
     "label.heading.viewadditionaldetails": "View Additional Details",
+    "label.heading.housevisit": "House Visit",
+    "label.heading.verifyDocuments": "Verify Document",
 
     "#Anchors": "..",
     "label.anchor.clients": "Clients",
