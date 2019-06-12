@@ -90,8 +90,12 @@
                     clientDocumentsResource: defineResource(apiVer + "/clients/:clientId/documents/:documentId", {clientId: '@clientId', documentId: '@documentId'}, {
                         getAllClientDocuments: {method: 'GET', params: {}, isArray: true}
                     }),
+                    documentsTemplateResource: defineResource(apiVer + "/clients/:clientId/documents/template", {clientId: '@clientId'}, {
+                        getTemplate: {method: 'GET', params: {} }
+                    }),
                     documentsResource: defineResource(apiVer + "/:entityType/:entityId/documents/:documentId", {entityType: '@entityType', entityId: '@entityId',documentId: '@documentId'}, {
-                        getAllDocuments: {method: 'GET', params: {}, isArray: true}
+                        getAllDocuments: {method: 'GET', params: {}, isArray: true},
+                        update: {method: 'PUT', headers: {'Content-Type': undefined},transformRequest: angular.identity, params: {}}
                     }),
                     clientAccountResource: defineResource(apiVer + "/clients/:clientId/accounts", {clientId: '@clientId'}, {
                         getAllClients: {method: 'GET', params: {}}
