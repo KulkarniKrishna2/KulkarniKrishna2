@@ -724,11 +724,14 @@
 
                         _.each(client.loans, function (loan) {
                             var totalDue = scope.getLoanTotalDueAmount(loan);
-                            var loanTransaction = {
-                                loanId: loan.loanId,
-                                transactionAmount: totalDue
-                            };
-                            scope.bulkRepaymentTransactions.push(loanTransaction);
+                            if(totalDue != 0){
+                                var loanTransaction = {
+                                    loanId: loan.loanId,
+                                    transactionAmount: totalDue
+                                };
+                                scope.bulkRepaymentTransactions.push(loanTransaction);
+                            }
+                            
                         });
                     });
                 }
