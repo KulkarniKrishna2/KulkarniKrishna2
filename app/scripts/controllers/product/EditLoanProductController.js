@@ -975,8 +975,8 @@
                 this.formData.transactionTypeToLoanPortfolioMappings = scope.transactionTypeToLoanPortfolioMappings
                 this.formData.dateFormat = scope.df;
                 this.formData.locale = scope.optlang.code;
-                this.formData.startDate = reqFirstDate;
-                this.formData.closeDate = reqSecondDate;
+                this.formData.startDate = reqFirstDate ? reqFirstDate : ""; 
+                this.formData.closeDate = reqSecondDate ? reqSecondDate : ""; 
 
                 //Interest recalculation data
                 if (this.formData.isInterestRecalculationEnabled) {

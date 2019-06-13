@@ -159,7 +159,6 @@
                 this.formData.dateFormat = scope.df;
                 this.formData.monthDayFormat = "dd MMM";
                 this.formData.charges = [];
-
                 if (scope.clientId) this.formData.clientId = scope.clientId;
                 if (scope.groupId) this.formData.groupId = scope.groupId;
                 if (scope.centerId) this.formData.centerId = scope.centerId;
@@ -185,6 +184,8 @@
                 this.formData.charts.push(copyChartData(scope.chart));//add chart details
                 this.formData = removeEmptyValues(this.formData);
                 this.formData.isCalendarInherited = (_.isNull(this.formData.isCalendarInherited) || _.isUndefined(this.formData.isCalendarInherited)) ? false : this.formData.isCalendarInherited;
+                this.formData.startDate = dateFilter(scope.date.first, scope.df);
+                this.formData.closeDate = dateFilter(scope.date.second, scope.df);
 
                 if (scope.formData.expectedFirstDepositOnDate) {
                     this.formData.expectedFirstDepositOnDate = dateFilter(scope.formData.expectedFirstDepositOnDate, scope.df);

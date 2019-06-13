@@ -48,6 +48,18 @@
 					<input type="text" autocomplete="off" id="externalId" name="externalId" class="form-control" ng-model="formData.externalId"/>
 				</div>
 			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2">{{ 'label.input.startdate' | translate }}</label>
+				<div class="col-sm-3">
+					<input id="startDate" sort type="text" autocomplete="off" class="form-control" datepicker-pop="{{df}}" ng-model="date.first" is-open="opened" min="minDate" max="'2020-06-22'" ng-readonly="isDatePickerReadOnly" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2">{{ 'label.input.closedate' | translate }}</label>
+				<div class="col-sm-3">
+					<input id="closeDate" sort type="text" autocomplete="off" class="form-control" datepicker-pop="{{df}}" ng-model="date.second" is-open="opened1" min="minDate" max="'2020-06-22'" ng-readonly="isDatePickerReadOnly" />
+				</div>
+			</div>
 	        <h3>{{ 'label.heading.currency' | translate }}</h3>
 			<hr>
 			<div class="form-group">
