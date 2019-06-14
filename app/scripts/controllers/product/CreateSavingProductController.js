@@ -207,6 +207,8 @@
                 this.formData.feeToIncomeAccountMappings = scope.feeToIncomeAccountMappings;
                 this.formData.penaltyToIncomeAccountMappings = scope.penaltyToIncomeAccountMappings;
                 this.formData.charges = scope.chargesSelected;
+                this.formData.startDate = dateFilter(scope.date.first, scope.df);
+                this.formData.closeDate = dateFilter(scope.date.second, scope.df);
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 delete this.formData.isAllowInterestRateChart;

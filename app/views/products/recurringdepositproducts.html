@@ -12,12 +12,18 @@
         <tr class="graybg">
             <th>{{'label.heading.name' | translate}}</th>
             <th>{{'label.heading.shortname' | translate}}</th>
+            <th>{{'label.heading.expirydate' | translate}}</th>
+            <th>{{'label.heading.status' | translate}}</th>
         </tr>
         </thead>
         <tbody>
         <tr class="pointer-main" ng-repeat="product in depositproducts | orderBy:'name':reverse | filter:filterText">
             <td class="pointer" data-ng-click="routeTo(product.id)">{{product.name}}</td>
             <td class="pointer" data-ng-click="routeTo(product.id)">{{product.shortName}}</td>
+            <td class="pointer" data-ng-click="routeTo(product.id)">{{product.closeDate | DateFormat}}</td>
+            <td class="pointer" data-ng-click="routeTo(product.id)">
+                <i class="icon-stop {{product.status | StatusLookup}}" tooltip="{{'label.tooltip.' + product.status | translate}}" tooltip-placement="right"></i>
+            </td>
         </tr>
         </tbody>
     </table>

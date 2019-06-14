@@ -76,7 +76,9 @@
                     "officeStatus.pending": "statuspending",
                     "districtStatus.rejected":"statusrejected",
                     "districtStatus.active": "statusactive",
-                    "districtStatus.pending": "statuspending"
+                    "districtStatus.pending": "statuspending",
+                    "savingProduct.active": "statusactive",
+                    "depositProduct.active": "statusactive"
                 }
 
                 return cssClassNameLookup[input];
