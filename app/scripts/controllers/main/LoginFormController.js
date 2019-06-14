@@ -6,6 +6,7 @@
              */
             scope.reCaptchaResponse = null;
             scope.widgetId = null;
+            scope.enableCaptchaOnFailedLogInAttempts = false;
 
             scope.reCaptchaModel = {
                 siteKey: '6Lfum2IUAAAAAM3WJUx4akRuNEiYLN6J-TI__37d'
@@ -30,8 +31,8 @@
             };*/
 
             scope.reCaptchaSubmit = function () {
-                if (scope.mainUIConfigData.loginSecurity && scope.mainUIConfigData.loginSecurity.isEnabledCaptcha) {
-                    if (scope.mainUIConfigData.loginSecurity.isEnabledRecaptcha) {
+                if (scope.mainUIConfigData.loginSecurity && (scope.mainUIConfigData.loginSecurity.isEnabledCaptcha || scope.enableCaptchaOnFailedLogInAttempts)) {
+                    if (scope.mainUIConfigData.loginSecurity.defaultCaptcha === 'Recaptcha') {
                         delete scope.authenticationErrorMessage;
                         delete scope.authenticationFailed;
                         if (vcRecaptchaService.getResponse() === "") { //if string is empty
@@ -80,8 +81,8 @@
             scope.captchaPanel = false;
 
             scope.login = function () {
-                if (scope.mainUIConfigData.loginSecurity && scope.mainUIConfigData.loginSecurity.isEnabledCaptcha) {
-                    if (scope.mainUIConfigData.loginSecurity.isEnabledPatchca) {
+                if (scope.mainUIConfigData.loginSecurity && (scope.mainUIConfigData.loginSecurity.isEnabledCaptcha || scope.enableCaptchaOnFailedLogInAttempts)) {
+                    if (scope.mainUIConfigData.loginSecurity.defaultCaptcha === 'Patchca') {
                         scope.loginCredentials.captchaDetails = {
                             captcha: scope.captchaFormData.captchaEntered,
                             captcha_reference_id: scope.captchaData.captchaReferenceId
@@ -116,7 +117,7 @@
             };
 
             scope.refreshPatchca = function(){
-                if (scope.mainUIConfigData.loginSecurity && scope.mainUIConfigData.loginSecurity.isEnabledPatchca) {
+                if (scope.mainUIConfigData.loginSecurity && (scope.mainUIConfigData.loginSecurity.isEnabledCaptcha || scope.enableCaptchaOnFailedLogInAttempts) &&  scope.mainUIConfigData.loginSecurity.defaultCaptcha === 'Patchca' ) {
                     resourceFactory.captchaResource.generate({}, function (data) {
                         scope.captchaData = data;
                         scope.loginCredentials.captchaDetails = undefined;
@@ -138,6 +139,9 @@
             };
 
             scope.$on("UserAuthenticationFailureEvent", function (event, data, status) {
+                if(data.captcha_mandatory){
+                    scope.enableCaptchaOnFailedLogInAttempts = true;
+                }
                 scope.hideLoginPannel = false;
                 delete scope.loginCredentials.password;
                 delete scope.loginCredentials.otp;
@@ -153,12 +157,14 @@
 
             scope.$on("UserAuthenticationSuccessEvent", function (event, data) {
                 scope.hideLoginPannel = false;
+                scope.enableCaptchaOnFailedLogInAttempts = false;
                 scope.load = false;
                 scope.authenticationFailed = false;
                 scope.otpPanel = false;
                 timer = $timeout(function () {
                     delete scope.loginCredentials.password;
                     delete scope.loginCredentials.otp;
+                    delete scope.loginCredentials.captchaDetails;
                 }, 2000);
             });
 
@@ -206,7 +212,7 @@
                     //clear the old authorization token
                     httpService.cancelAuthorization();
                     scope.authenticationFailed = false;
-                    if (scope.mainUIConfigData.loginSecurity.isEnabledPatchca) {
+                    if (scope.mainUIConfigData.loginSecurity && (scope.mainUIConfigData.loginSecurity.isEnabledCaptcha || scope.enableCaptchaOnFailedLogInAttempts) && scope.mainUIConfigData.loginSecurity.defaultCaptcha === 'Patchca') {
                         scope.resetPassword = false;
                         scope.refreshPatchca();
                         scope.loginCredentials.password = '';
