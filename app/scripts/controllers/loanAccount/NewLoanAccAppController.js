@@ -261,6 +261,27 @@
                     }
                 }
             });
+            scope.$watch('formData.numberOfRepayments', function(){
+                if(scope.formData.principal != '' && scope.formData.principal != undefined && scope.formData.numberOfRepayments != '' && scope.formData.numberOfRepayments != undefined){
+                    for(var i in scope.charges){
+                        if((scope.charges[i].chargeCalculationType.value == scope.slabBasedCharge || scope.charges[i].isSlabBased) && scope.charges[i].slabs.length > 0) {
+                                if(scope.isGLIM){
+                                    scope.charges[i].amount = scope.updateSlabBasedChargeForGlim(scope.charges[i]);
+                                    scope.updateChargeForSlab(scope.charges[i]);
+                                }else{
+                                    var slabBasedValue = scope.getSlabBasedAmount(scope.charges[i].slabs, scope.formData.principal, scope.formData.numberOfRepayments);
+                                    if (slabBasedValue != null) {
+                                        scope.charges[i].amount = slabBasedValue;
+                                    } else {
+                                        scope.charges[i].amount = undefined;
+                                    }
+
+                            }
+                            
+                        }
+                    }
+                }
+            });
 
             scope.$watch('loanaccountinfo.overdueCharges', function(){
                 if(scope.loanaccountinfo && scope.loanaccountinfo.overdueCharges){
