@@ -16,6 +16,7 @@
             scope.endDate = {};//required for date formatting
             scope.isPrimaryGroupingByAmount = false;
             scope.isInterestCalculationFromProductChart = false;
+            scope.date = {};
 
             resourceFactory.recurringDepositProductResource.get({resourceType: 'template'}, function (data) {
                 scope.product = data;

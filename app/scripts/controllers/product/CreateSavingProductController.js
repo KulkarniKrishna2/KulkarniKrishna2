@@ -15,6 +15,7 @@
             scope.effectiveFromDateRequired = false;
             scope.interestRateRequired = false;
             scope.onDayTypeOptions = commonUtilService.onDayTypeOptions();
+            scope.date = {};
             resourceFactory.savingProductResource.get({resourceType: 'template'}, function (data) {
                 scope.product = data;
                 scope.product.chargeOptions = scope.product.chargeOptions || [];
