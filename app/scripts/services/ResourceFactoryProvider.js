@@ -1848,6 +1848,9 @@
                     }),
                     multipleFileUploadResource: defineResource(apiVer + "/:entityType/:entityId/utilizationchecks",{entityType:'@entityType',entityId:'@entityId'}, {
                         upload: {method: 'POST', headers: {'Content-Type': undefined},transformRequest: angular.identity, params: {}}
+                    }),
+                    grtCompletionResource: defineResource(apiVer + "/grt/completiondetails", {}, {
+                        update: { method: 'PUT', params: {} }
                     })
                 };
             }];

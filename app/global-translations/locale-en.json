@@ -7973,6 +7973,16 @@
     "validation.msg.cgt.endTime.cannot.be.blank":"CGT End Time cannot be blank",
     "validation.msg.cgt.cgtCompletedDate.cannot.be.blank": "CGT Date cannot be blank",
     "validation.msg.cgt.cgtCompletedDate.is.greater.than.date": "CGT Date cannot be future date",
-
+    "label.heading.grt.date": "GRT Date",
+    "label.tooltip.upload.grt.photo": "Upload GRT Photo",
+    "error.msg.grt.photo.not.uploaded": "Please Upload GRT Photo",
+    "label.tooltip.view.grt.photo": "View GRT Photo",
+    "label.heading.center.meeting.details": "Center Meeting Details",
+    "error.msg.calendar.instance.for.center.not.found": "Please Attach center meeting",
+    "error.msg.starttime.cannot.be.after.end.time": "Start time cannot be after End time",
+    "validation.msg.GRT.startTime.cannot.be.blank": "Please Enter GRT start time ",
+    "validation.msg.GRT.endTime.cannot.be.blank": "Please Enter GRT end time ",
+    "validation.msg.GRT.grtDate.is.greater.than.date": "GRT Date cannot be a future date",
+    
     "------ end of translation file ------": "----------"
 }
