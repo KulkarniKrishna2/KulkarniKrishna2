@@ -4,7 +4,11 @@
             scope.offices = [];
             scope.isTreeView = false;
             var idToNodeMap = {};
-
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.offices 
+                 && scope.response.uiDisplayConfigurations.offices.showRefNo){
+                    scope.showRefNo = scope.response.uiDisplayConfigurations.offices.showRefNo;
+            }
+            
             scope.routeTo = function (id) {
                 location.path('/viewoffice/' + id);
             };
