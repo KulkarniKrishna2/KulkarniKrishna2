@@ -35,6 +35,7 @@
             scope.isWithDrawForSavingsIncludedInCollectionSheet = false;
             scope.formData = {};
             scope.isShowReasonDropDown = false;
+            scope.showErrMsg = false;
 
             resourceFactory.configurationResource.get({configName:'reason-code-allowed'}, function (data) {
                 scope.showRejectReason = data.enabled;
@@ -62,6 +63,7 @@
                     scope.getAllGroupsByCenter(data[0].meetingFallCenters[0].id, data[0].meetingFallCenters[0].collectionMeetingCalendar.id);
                 } else {
                     scope.submitNextShow = false;
+                    scope.showErrMsg = true;
                 }
             });
 
@@ -361,7 +363,7 @@
                         }
                     }
                 }, function(data){
-                    if(data.data.errors[0].userMessageGlobalisationCode == "error.msg.Collection.has.already.been.added") {
+                    if(data && data.data && data.data.errors[0].userMessageGlobalisationCode == "error.msg.Collection.has.already.been.added") {
                         scope.forcedSubmit = true;
                         scope.submitShow = false;
                         scope.submitNextShow = false;
@@ -382,8 +384,6 @@
                                 if(isTextRequired==true && data[i].reason == undefined){
                                     scope.clientsAttendance[i].error = scope.requiredFieldErrorMessage;
                                     return false;
-                                }else{
-                                    scope.clientsAttendance[i].error = undefined;
                                 }
                         }
                     }
@@ -793,10 +793,6 @@
                     $modalInstance.dismiss('cancel');
                 };
                
-            };
-
-            scope.showErrMsg = function (){
-                return (!(scope.submitNextShow || scope.submitShow || scope.forcedSubmit));
             };
 
             scope.validateAmount = function(groupIndex,clientIndex,loanIndex,updateLoanAmount){
