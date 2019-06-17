@@ -806,7 +806,7 @@
                 });
                 scope.updateAttendenceData();
 
-                if(scope.showPaymentDetails && scope.paymentDetail.paymentTypeId != ""){
+                if(scope.showPaymentDetails && scope.paymentDetail && scope.paymentDetail.paymentTypeId != ""){
                     scope.formData.paymentTypeId = scope.paymentDetail.paymentTypeId;
                     scope.formData.accountNumber = scope.paymentDetail.accountNumber;
                     scope.formData.checkNumber = scope.paymentDetail.checkNumber;
@@ -869,32 +869,26 @@
 
             scope.updateAttendenceData = function () {
                 var clientsAttendanceDetails =[];
-                if(scope.savingsgroups){
-                    scope.groups = scope.savingsgroups;
-                    if(scope.groups && scope.groups.length>0){
-                        var gl = scope.groups.length;
-                        for (var i = 0; i < gl; i++) {
-                            scope.clients = scope.groups[i].clients;
-                            var cl = scope.clients.length;
-                            for (var j = 0; j < cl; j++) {
-                                var attendence = {};
-                                attendence.clientId = scope.clients[j].clientId;
-                                attendence.reasonId = scope.clients[j].reasonId;
-                                attendence.reason = scope.clients[j].reason;
-                                attendence.attendanceType = scope.clients[j].attendanceType;
-                                if (attendence.clientId) {
-                                    clientsAttendanceDetails.push(attendence);
-                                }
+                scope.groups = scope.savingsgroups;
+                if(scope.groups && scope.groups.length>0){
+                    var gl = scope.groups.length;
+                    for (var i = 0; i < gl; i++) {
+                        scope.clients = scope.groups[i].clients;
+                        var cl = scope.clients.length;
+                        for (var j = 0; j < cl; j++) {
+                            var attendence = {};
+                            attendence.clientId = scope.clients[j].clientId;
+                            attendence.reasonId = scope.clients[j].reasonId;
+                            attendence.reason = scope.clients[j].reason;
+                            attendence.attendanceType = scope.clients[j].attendanceType;
+                            if (attendence.clientId) {
+                                clientsAttendanceDetails.push(attendence);
                             }
-                        };
-                        scope.formData.clientsAttendance = clientsAttendanceDetails;
-                    }
+                        }
+                    };
+                    scope.formData.clientsAttendance = clientsAttendanceDetails;
                 }
             };
-
-
-
-            
 
             scope.updatebulkRepaymentTransactionsWithReason = function(){
                 for(var i in scope.bulkRepaymentTransactions){
