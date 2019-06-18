@@ -107,7 +107,7 @@
   "label.input.filterbynameorstatusorofficeforcenter": "Filter by name/status/fieldoffice/center ref#",
   "label.input.branchoffice": "Field Branch office",
   "label.input.filterbynameaccno": "Filter display by name/client#/staff/field office",
-  "label.input.filterbynameexternalid" : "Filter display by name/field office",
+  "label.input.filterbynameexternalid" : "Filter by name/external id/office ref#",
   "label.input.filterclosuresbyoffice":"Filter By Field Office",
   "label.select.one.office" : "----select one field office---",
   "label.input.applicableoffices": "Applicable field offices",
