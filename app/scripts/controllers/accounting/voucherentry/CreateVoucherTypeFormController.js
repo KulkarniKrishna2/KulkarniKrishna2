@@ -38,10 +38,10 @@
                 if (scope.response.uiDisplayConfigurations.voucherTypeForm.isMandatoryFields.companyCode) {
                     scope.isCompanyCodeMandatory = scope.response.uiDisplayConfigurations.voucherTypeForm.isMandatoryFields.companyCode;
                 }
-                if (scope.response.uiDisplayConfigurations.voucherTypeForm.isDefaultCompanyCode) {
+                if (scope.response.uiDisplayConfigurations.voucherTypeForm) {
                     scope.isDefaultCompanyCode = scope.response.uiDisplayConfigurations.voucherTypeForm.isDefaultCompanyCode;
                 }
-                if (scope.response.uiDisplayConfigurations.voucherTypeForm.defaultCompanyCode) {
+                if (scope.response.uiDisplayConfigurations.voucherTypeForm.isDefaultCompanyCode) {
                     scope.defaultCompanyCode = scope.response.uiDisplayConfigurations.voucherTypeForm.defaultCompanyCode;
                 }
             }
@@ -66,6 +66,8 @@
                                 break;
                             }
                         }
+                    }else{
+                        scope.getVoucherTemplate(0);
                     }
                 }
                 else {
