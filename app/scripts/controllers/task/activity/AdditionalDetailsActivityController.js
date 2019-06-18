@@ -1096,8 +1096,7 @@
                         $scope.formData,
                         function (data) {
                             refreshAndShowSummaryView();
-                            scope.reComputeProfileRating($scope.clientId);
-                        });
+                            });
                 };
 
                 $scope.close = function () {
@@ -1161,8 +1160,6 @@
                             }
                             if (data[l].tagValue) {
                                 pushDocumentToTag(data[l], data[l].tagValue);
-                            } else {
-                                pushDocumentToTag(data[l], 'uploadedDocuments');
                             }
                         }
                         getAdditionalDocumentNames();
@@ -1188,6 +1185,7 @@
 
                 $scope.deleteDoc = function (documentId, index, tagValue) {
                     resourceFactory.documentsResource.delete({ entityType: $scope.entityType, entityId: $scope.entityId, documentId: documentId.id }, '', function (data) {
+                        scope.reComputeProfileRating($scope.clientId);
                         getClientAdditionalDocuments();
                     });
                 };
@@ -1207,7 +1205,7 @@
                         }
                         $scope.formData = {};
                         angular.element('#file').val(null);
-                        reComputeProfileRating($scope.clientId);
+                        scope.reComputeProfileRating($scope.clientId);
                     });
                 };
 
@@ -1352,7 +1350,7 @@
                         function (data) {
                             $scope.clientBankAccountDetailAssociationId = data.resourceId;
                             populateDetails();
-                            reComputeProfileRating($scope.clientId);
+                            scope.reComputeProfileRating($scope.clientId);
                         });
                 };
 
@@ -1396,6 +1394,7 @@
                         entityId: $scope.entityId,
                         clientBankAccountDetailAssociationId: getClientBankAccountDetailAssociationId()
                     }, $scope.formData, function (data) {
+                        scope.reComputeProfileRating($scope.clientId);
                         populateDetails();
                     });
                 }
@@ -1471,7 +1470,7 @@
                                         clientBankAccountDetailAssociationId: getClientBankAccountDetailAssociationId()
                                     }, bankAccountDetails.formData, function (data) {
                                         populateDetails();
-                                        reComputeProfileRating($scope.clientId);
+                                        scope.reComputeProfileRating($scope.clientId);
                                     });
                                 }
                             });
