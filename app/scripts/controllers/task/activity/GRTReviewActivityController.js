@@ -6,6 +6,8 @@
             }));
 
             scope.formData = {};
+            scope.loanIdsForm = {};
+            scope.loanIds = [];
 
             function initTask() {
                 scope.$parent.clientsCount();
@@ -90,6 +92,17 @@
                 }
             }
 
+            scope.addLoan = function (value, loanId) {
+                if (value) {
+                    scope.loanIds.push(loanId);
+                } else {
+                    var indexOfLoanId = scope.loanIds.indexOf(loanId);
+                    if (indexOfLoanId >= 0) {
+                        scope.loanIds.splice(indexOfLoanId, 1);
+                    }
+                }
+            };
+
             function getGRTDocuments() {
                 resourceFactory.documentsResource.query({ entityType: 'groups', entityId: scope.centerDetails.subGroupMembers[0].id }, function (data) {
                     scope.grtdocuments = data;
@@ -133,10 +146,12 @@
                 scope.taskTrackingFormData = {};
                 scope.taskTrackingFormData.taskInfoTrackArray = [];
                 scope.taskTrackingFormData.taskInfoTrackArray = scope.taskInfoTrackArray.slice();
-                resourceFactory.clientLevelTaskTrackingResource.save(scope.taskTrackingFormData, function (trackRespose) {
-                    initTask();
-                })
-
+                scope.loanIdsForm.loans = scope.loanIds;
+                resourceFactory.taskTrackingBulkLoanApprovalResource.update(scope.loanIdsForm, function (data) {
+                    resourceFactory.clientLevelTaskTrackingResource.save(scope.taskTrackingFormData, function (trackRespose) {
+                        initTask();
+                    });
+                });
             }
 
 
@@ -368,9 +383,11 @@
                             if (activeClientMember.status.code != 'clientStatusType.onHold' && !activeClientMember.isClientFinishedThisTask) {
                                 centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = true;
                                 scope.captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, activeClientMember.isMemberChecked);
+                                scope.addLoan(activeClientMember.isMemberChecked, activeClientMember.loanAccountBasicData.id);
                             }
                         } else {
                             centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = false;
+                            scope.addLoan(activeClientMember.isMemberChecked, activeClientMember.loanAccountBasicData.id);
                         }
 
                     }
