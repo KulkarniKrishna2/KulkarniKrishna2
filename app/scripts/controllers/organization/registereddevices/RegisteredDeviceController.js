@@ -1,7 +1,7 @@
 (function (module) {
   mifosX.controllers = _.extend(module, {
 
-    RegisteredDeviceController: function (scope, resourceFactory, location,paginatorUsingOffsetService) {
+    RegisteredDeviceController: function (scope, resourceFactory, location,paginatorUsingOffsetService,route) {
       scope.devicesPerPage = 15;
       scope.searchConditions = {};
       scope.uiData = {};
@@ -59,12 +59,12 @@
           'registeredDeviceId': device.id,
           'command': command
         }, {}, function (data) {
-          scope.registeredDevices.splice(index, 1);
+            route.reload();
         });
       }
     }
   });
-  mifosX.ng.application.controller('RegisteredDeviceController', ['$scope', 'ResourceFactory', '$location','PaginatorUsingOffsetService', mifosX.controllers.RegisteredDeviceController]).run(function ($log) {
+  mifosX.ng.application.controller('RegisteredDeviceController', ['$scope', 'ResourceFactory', '$location','PaginatorUsingOffsetService','$route', mifosX.controllers.RegisteredDeviceController]).run(function ($log) {
     $log.info("RegisteredDeviceController initialized");
   });
 }(mifosX.controllers || {}));
