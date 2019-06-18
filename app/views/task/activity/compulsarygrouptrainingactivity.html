@@ -1,0 +1,194 @@
+<div ng-controller="CompulsaryGroupTrainingActivityController">
+    <div>
+        <api-validate></api-validate>
+    </div>
+    <form>
+        <table class="table" width="100%">
+            <tr>
+                <td ng-if="isSingleGroupInCenter">
+                    <label>{{'label.heading.cgt.date' | translate}}</label>
+                </td>
+                <td ng-if="isSingleGroupInCenter">
+                    <input id="submittedon" type="text" autocomplete="off" name="submittedon" datepicker-pop="{{df}}"
+                        ng-model="formData.cgtCompletedDate" is-open="opened1" min="'2000-01-01'" max="restrictDate"
+                        class="form-control col-sm-2" ng-readonly="isDatePickerReadOnly" required />
+                </td>
+                <td ng-if="isSingleGroupInCenter">
+                    <label>{{'label.anchor.start.time' | translate}}</label>
+                </td>
+                <td ng-if="isSingleGroupInCenter">
+                    <input type="time" id="startTime" name="startTime" ng-model="formData.startTime" placeholder="HH:mm"
+                        required />
+                </td>
+                <td ng-if="isSingleGroupInCenter">
+                    <label>{{'label.anchor.end.time' | translate}}</label>
+                </td>
+                <td ng-if="isSingleGroupInCenter">
+                    <input type="time" id="endTime" name="endTime" ng-model="formData.endTime" placeholder="HH:mm"
+                        required />
+                </td>
+                <td ng-if="isSingleGroupInCenter">
+                    <div class="float: center">
+                        <a><i class="icon-cloud-upload icon-2x" ng-click="uploadCGTPic()" tooltip="{{ 'label.tooltip.cgt.photo' | translate}}"></i></a>
+                    </div>
+                </td>
+                <td class="float: right">
+                    <span>{{'label.info.totalmembers' | translate}} :
+                        {{summary.activeClients}}&nbsp;&nbsp;{{'label.info.activeborrowers'
+                        | translate}} : {{summary.activeBorrowers}}</span>
+                </td>
+            </tr>
+        </table>
+        <div>
+            <div>
+                <table class="table">
+                    <thead>
+                        <th class="col-md-1"><input type="checkbox" ng-model="centerDetails.isAllChecked" data-toggle="tooltip"
+                                data-placement="top" ng-change="validateAllClients(centerDetails, centerDetails.isAllChecked)"
+                                tooltip="{{'label.input.selectall' | translate}}" data-ng-disabled="isAllClientFinishedThisTask" /></th>
+                        <th class="col-md-2">{{'label.heading.name' | translate}}</th>
+                        <th class="col-md-2">{{'label.heading.FCSM.No' | translate}}</th>
+                        <th class="col-md-2">{{'label.heading.loanproduct' | translate}}</th>
+                        <th class="col-md-2">{{'label.heading.loanpack'| translate}}</th>
+                        <th class="col-md-2">{{'label.heading.loanpurpose' | translate}}</th>
+                        <th class="col-md-1">{{'label.heading.processingfee' | translate}}</th>
+                        <th class="col-md-1">{{'label.heading.single.double.insurance' | translate}}</th>
+                        <th class="col-md-1"></th>
+                        <th class="col-md-1">{{'label.heading.reject' | translate}}</th>
+                    </thead>
+                    <tbody ng-repeat="groupMember in centerDetails.subGroupMembers | filter : isActiveSubGroup | orderBy : 'fcsmNumber'">
+                        <tr class="background-gold">
+                            <td colspan="9">
+                                <span>{{groupMember.fcsmNumber}}
+                                </span>
+                            </td>
+                            <td class="col-mod-1">
+                                <a type="button" class="btn btn-danger btn-xs" ng-disabled="{{taskData.possibleActions.length == 0}}"
+                                    ng-click="groupRejection(groupMember)" tooltip="{{'label.button.reject' | translate}}">
+                                    <i class="icon-remove-circle pointer"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr ng-repeat="activeClientMember in groupMember.memberData | filter : isActiveMember | orderBy : 'fcsmNumber'"
+                            ng-class="activeClientMember.color" ng-if="!activeClientMember.isClientFinishedThisTask">
+                            <td class="col-md-1"><input class="pull-left" type="checkbox" ng-hide="activeClientMember.status.code == 'clientStatusType.onHold'"
+                                    ng-disabled="activeClientMember.isClientFinishedThisTask" ng-model="activeClientMember.isMemberChecked"
+                                    ng-change="addLoan(activeClientMember.isMemberChecked,activeClientMember.loanAccountBasicData.id);
+                        captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, activeClientMember.isMemberChecked)">
+                            </td>
+                            <td class="col-md-2">{{activeClientMember.displayName}} <i ng-if="activeClientMember.isClientVerified"
+                                    class="btn btn-success icon-ok-sign"></i>
+                            </td>
+                            <td class="col-md-2">{{activeClientMember.fcsmNumber}}</td>
+                            <td class="col-md-1 cell-overflow">
+                                {{activeClientMember.loanAccountBasicData.loanProductName}}
+                            </td>
+                            <td class="col-md-1">
+                                {{activeClientMember.loanAccountBasicData.loanEMIPackData.sanctionAmount | number}}</td>
+                            <td class="col-md-2 cell-overflow">
+                                {{activeClientMember.loanAccountBasicData.loanPurposeName}}
+                            </td>
+                            <td class="col-md-1"><span ng-repeat="item in filterCharges(activeClientMember.loanAccountBasicData.charges,1)">{{item.amount
+                                    | number}}
+                                    &nbsp;</span></td>
+                            <td class="col-md-1"><span ng-repeat="item in filterCharges(activeClientMember.loanAccountBasicData.charges, 2)">{{item.amount
+                                    | number}}
+                                    &nbsp;</span>&nbsp;&nbsp;<span ng-repeat="item in filterCharges(activeClientMember.loanAccountBasicData.charges, 3)">{{item.amount
+                                    | number}}
+                                    &nbsp;</span></td>
+                            <td class="col-md-1">
+                                <a type="button" class="btn btn-default btn-xs" ng-click="editLoan(activeClientMember.loanAccountBasicData,groupMember.id)"
+                                    ng-disabled="activeClientMember.isClientFinishedThisTask" title="{{'label.button.edit.loan' | translate}}">
+                                    <i class="icon-edit icon-white pointer"></i>
+                                </a>
+                            </td>
+                            <td class="col-md-1">
+                                <a type="button" class="btn btn-danger btn-xs" ng-hide="activeClientMember.status.code == 'clientStatusType.onHold'"
+                                    ng-click="clientRejection(activeClientMember)" tooltip="{{'label.button.reject' | translate}}"
+                                    ng-disabled="activeClientMember.isClientFinishedThisTask">
+                                    <i class="icon-remove-circle pointer"></i>
+                                </a>
+                                <a type="button" class="btn btn-danger btn-xs" ng-show="activeClientMember.status.code == 'clientStatusType.onHold'"
+                                    ng-click="releaseClient(activeClientMember.id)" tooltip="{{'label.button.relase.client' | translate}}"
+                                    ng-disabled="activeClientMember.isClientFinishedThisTask">
+                                    <i class="icon-unlock pointer"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="col-md-offset-11">
+                    <button type="button" data-ng-disabled="isAllClientFinishedThisTask" ng-click="submit()" class="btn btn-primary">{{'label.button.save'
+                        | translate}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <script type="text/ng-template" id="uploadCGTPic.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.tooltip.upload.cgt.photo' | translate}}</h3>
+        </div>
+        <api-validate></api-validate>
+        <div>
+        <form name="documentuploadform" novalidate="" class="row form-horizontal" rc-submit="submitDocument()">
+                <fieldset>
+                    <div ng-if="cgtdocuments.length == 0" class="row paddedleft paddedtop">
+                        <div class="col-md-3">
+                                <input type="text"  ng-model="docFormData.name" class="form-control"
+                                placeholder="{{'label.input.name'|translate}}"/>
+                            <form-validate valattributeform="documentuploadform" valattribute="name" />
+                        </div>
+
+                        <div class="col-md-4">
+                            <textarea  ng-model="docFormData.description" class="form-control"
+                                placeholder="{{'label.input.file.description'|translate}}"></textarea>
+                        </div>
+
+                        <div class="col-md-4">
+                            <input type="file" id="file" ng-file-select="onFileSelect($files)" ng-required="isFileMandatory" />
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <br>
+        <div>
+            <table class="table"  ng-if="cgtdocuments.length > 0" >
+                <thead>
+                    <tr class="graybg">
+                        <th>{{'label.heading.name' | translate}}</th>
+                        <th>{{'label.heading.description' | translate}}</th>
+                        <th>{{'label.heading.filename' | translate}}</th>
+                        <th>{{'label.heading.actions' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="doc in cgtdocuments">
+                        <td>{{doc.name}}</td>
+                        <td>{{doc.description}}</td>
+                        <td>{{doc.fileName}}</td>
+                        <td>
+                            <a target="_blank" data-ng-click="openViewDocument(doc)"
+                                has-permission='READ_DOCUMENT'>
+                                <i class="icon-eye-open text-success"></i>
+                            </a>&nbsp;
+                            <a ng-if="doc.id" ng-click="deleteDoc(doc,$index)"><i
+                                    class="icon-remove"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button ng-if ="cgtdocuments.length==0"class="btn btn-primary" ng-click="upload()">{{'label.button.upload' | translate}}</button>
+        </div>
+        </script>
+    <script type="text/ng-template" id="viewUploadedDocument.html">
+			<div style="position: fixed; top:20%; right:10%; width:600px; height: 500px;">
+				<view-document-directive ng-entity-type="{{data.parentEntityType}}" ng-entity-id="{{data.parentEntityId}}" ng-document-id="{{data.id}}"></view-document-directive>
+			</div>
+        </script>
+</div>
