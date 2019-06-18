@@ -697,7 +697,9 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'task/activity/HouseVisitActivityController',
             'task/activity/CompulsaryGroupTrainingActivityController',
             'task/activity/GRTActivityController',
-            'task/activity/GRTReviewActivityController'
+            'task/activity/GRTReviewActivityController',
+            'task/activity/CGTConfirmationActivityController',
+            'task/popup/ViewClientAdditionalDetailsController'
         ],
         filters: [
             'StatusLookup',

@@ -1,24 +1,18 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        GRTReviewActivityController: function ($controller, scope, routeParams, $modal, resourceFactory, location, dateFilter, route, $http, $rootScope, $route, $upload, API_VERSION, popUpUtilService) {
-            angular.extend(this, $controller('defaultActivityController', {
-                $scope: scope
-            }));
-
-            scope.formData = {};
-            scope.loanIdsForm = {};
-            scope.loanIds = [];
+        CGTConfirmationActivityController: function ($controller, scope, $modal, resourceFactory, dateFilter, popUpUtilService) {
+            angular.extend(this, $controller('defaultActivityController', { $scope: scope }));
 
             function initTask() {
                 scope.$parent.clientsCount();
-                scope.isAllClientFinishedThisTask = true;
-                scope.taskInfoTrackArray = [];
                 scope.centerId = scope.taskconfig.centerId;
+                scope.taskInfoTrackArray = [];
+                scope.isAllClientFinishedThisTask = true;
                 scope.isLoanPurposeEditable = true;
                 resourceFactory.centerWorkflowResource.get({
                     centerId: scope.centerId,
                     eventType: scope.eventType,
-                    associations: 'groupMembers,profileratings,loanaccounts,clientcbcriteria,collectionMeetingCalendar'
+                    associations: 'groupMembers,loanaccounts,clientcbcriteria'
                 }, function (data) {
                     scope.centerDetails = data;
                     scope.rejectTypes = data.rejectTypes;
@@ -26,17 +20,14 @@
                     scope.groupClosureReasons = data.groupClosureReasons;
                     scope.officeId = scope.centerDetails.officeId;
                     scope.centerDetails.isAllChecked = false;
-                    //logic to get GRT activity details
-                    scope.getGRTActivityDetails(data);
                     //logic to disable and highlight member
                     for (var i = 0; i < scope.centerDetails.subGroupMembers.length; i++) {
                         if (scope.centerDetails.subGroupMembers[i].memberData) {
                             for (var j = 0; j < scope.centerDetails.subGroupMembers[i].memberData.length; j++) {
-
                                 var clientLevelTaskTrackObj = scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelTaskTrackingData;
                                 var clientLevelCriteriaObj = scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelCriteriaResultData;
-                                scope.centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = false;
                                 scope.centerDetails.subGroupMembers[i].memberData[j].allowLoanRejection = false;
+                                scope.centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = false;
                                 if (clientLevelTaskTrackObj == undefined) {
                                     scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
                                     scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-none";
@@ -76,105 +67,9 @@
 
                     }
                 });
+
             };
             initTask();
-
-            scope.getGRTActivityDetails = function (centerDetails) {
-                if (centerDetails && centerDetails.subGroupMembers && centerDetails.subGroupMembers.length == 1) {
-                    var groupId = centerDetails.subGroupMembers[0].id;
-                    scope.isSingleGroupInCenter = true;
-                    resourceFactory.grtCompletionResource.get({ groupId: groupId }, function (data) {
-                        scope.grtCompletionDetails = data;
-                    });
-                    getGRTDocuments();
-                } else {
-                    scope.isSingleGroupInCenter = false;
-                }
-            }
-
-            scope.addLoan = function (value, loanId) {
-                if (value) {
-                    scope.loanIds.push(loanId);
-                } else {
-                    var indexOfLoanId = scope.loanIds.indexOf(loanId);
-                    if (indexOfLoanId >= 0) {
-                        scope.loanIds.splice(indexOfLoanId, 1);
-                    }
-                }
-            };
-
-            function getGRTDocuments() {
-                resourceFactory.documentsResource.query({ entityType: 'groups', entityId: scope.centerDetails.subGroupMembers[0].id }, function (data) {
-                    scope.grtdocuments = data;
-                });
-            };
-
-            scope.openViewDocument = function () {
-                $modal.open({
-                    templateUrl: 'viewUploadedDocument.html',
-                    controller: viewUploadedDocumentCtrl,
-                    resolve: {
-                        documentDetail: function () {
-                            return scope.grtdocuments;
-                        }
-                    }
-                });
-            };
-
-            var viewUploadedDocumentCtrl = function ($scope, $modalInstance, documentDetail) {
-                $scope.data = documentDetail[0];
-                $scope.close = function () {
-                    $modalInstance.close('close');
-                };
-            };
-
-            scope.filterCharges = function (chargeData, categoryId) {
-                if (chargeData != undefined) {
-                    var chargesCategory = _.groupBy(chargeData, function (value) {
-                        return value.chargeCategoryType.id;
-                    });
-                    return chargesCategory[categoryId];
-                }
-            }
-
-
-            scope.moveMembersToNextStep = function () {
-                scope.errorDetails = [];
-                if (scope.taskInfoTrackArray.length == 0) {
-                    return scope.errorDetails.push([{ code: 'error.msg.select.atleast.one.member' }])
-                }
-                scope.taskTrackingFormData = {};
-                scope.taskTrackingFormData.taskInfoTrackArray = [];
-                scope.taskTrackingFormData.taskInfoTrackArray = scope.taskInfoTrackArray.slice();
-                scope.loanIdsForm.loans = scope.loanIds;
-                resourceFactory.taskTrackingBulkLoanApprovalResource.update(scope.loanIdsForm, function (data) {
-                    resourceFactory.clientLevelTaskTrackingResource.save(scope.taskTrackingFormData, function (trackRespose) {
-                        initTask();
-                    });
-                });
-            }
-
-
-
-            //lona account edit 
-            scope.editLoan = function (loanAccountBasicData, groupId) {
-                scope.groupId = groupId;
-                scope.loanAccountBasicData = loanAccountBasicData;
-                var templateUrl = 'views/task/popup/editLoan.html';
-                var controller = 'EditLoanController';
-                popUpUtilService.openFullScreenPopUp(templateUrl, controller, scope);
-            }
-
-            // view center meeting
-            scope.viewCenterMeeting = function () {
-                scope.centerId = scope.centerDetails.id;
-                scope.popUpHeaderName = "label.heading.center.meeting.details";
-                scope.includeHTML = 'views/task/activity/centermeetingactivity.html';
-                var templateUrl = 'views/common/openpopup.html';
-                var controller = 'CenterMeetingActivityController';
-                popUpUtilService.openFullScreenPopUp(templateUrl, controller, scope);
-
-            }
 
             scope.releaseClient = function (clientId) {
                 var releaseClientFormData = {};
@@ -185,13 +80,11 @@
                 resourceFactory.clientResource.save(queryParams, releaseClientFormData, function (data) {
                     initTask();
                 });
-
             }
 
             //client reject reason method call
             scope.clientRejection = function (member) {
                 var templateUrl = 'views/task/popup/closeclient.html';
-
                 $modal.open({
                     templateUrl: templateUrl,
                     controller: clientCloseCtrl,
@@ -217,6 +110,7 @@
                     }
                 });
             }
+
             var clientCloseCtrl = function ($scope, $modalInstance, memberParams) {
                 $scope.df = scope.df;
                 $scope.error = null;
@@ -233,12 +127,6 @@
                 if (memberParams.loanId) {
                     $scope.loanId = memberParams.loanId;
                 }
-                /*if(!memberParams.allowLoanRejection){
-                    var idx = $scope.rejectTypes.findIndex(x => x.code == 'rejectType.loanRejection');
-                    if(idx >= 0){
-                        $scope.rejectTypes.splice(idx,1);
-                    }    
-                }*/
                 $scope.clientClosureReasons = scope.clientClosureReasons;
                 $scope.rejectClientData.closureDate = dateFilter(new Date(), scope.df);
                 $scope.cancelClientClose = function () {
@@ -287,81 +175,6 @@
 
             }
 
-            scope.groupRejection = function (member) {
-                var templateUrl = 'views/task/popup/closegroup.html';
-                $modal.open({
-                    templateUrl: templateUrl,
-                    controller: groupCloseCtrl,
-                    windowClass: 'modalwidth700',
-                    resolve: {
-                        memberParams: function () {
-                            return {
-                                'memberId': member.id,
-                                'memberName': member.name,
-                                'fcsmNumber': member.fcsmNumber
-                            };
-                        }
-                    }
-                });
-            }
-            var groupCloseCtrl = function ($scope, $modalInstance, memberParams) {
-                $scope.df = scope.df;
-                $scope.error = null;
-                $scope.isError = false;
-                $scope.isClosureDate = true;
-                $scope.isReason = true;
-                $scope.rejectGroupData = {};
-                $scope.memberName = memberParams.memberName;
-                $scope.fcsmNumber = memberParams.fcsmNumber;
-                $scope.rejectGroupData.locale = scope.optlang.code;
-                $scope.rejectGroupData.dateFormat = scope.df;
-                $scope.rejectGroupData.closureDate = dateFilter(new Date(), scope.df);
-                $scope.groupClosureReasons = scope.groupClosureReasons;
-
-                $scope.cancelGroupClose = function () {
-                    $modalInstance.dismiss('cancel');
-                };
-
-                $scope.submitGroupClose = function () {
-                    $scope.isError = false;
-                    if ($scope.rejectGroupData.closureReasonId == undefined || $scope.rejectGroupData.closureReasonId == null) {
-                        $scope.isReason = false;
-                        $scope.isError = true;
-                    }
-                    if ($scope.rejectGroupData.closureDate == undefined || $scope.rejectGroupData.closureDate == null || $scope.rejectGroupData.closureDate.length == 0) {
-                        $scope.isClosureDate = false;
-                        $scope.isError = true;
-                    }
-                    if ($scope.isError) {
-                        return false;
-                    }
-                    if ($scope.rejectGroupData.closureDate) {
-                        $scope.rejectGroupData.closureDate = dateFilter($scope.rejectGroupData.closureDate, scope.df);
-                    }
-                    resourceFactory.groupResource.save({ groupId: memberParams.memberId, command: 'close' }, $scope.rejectGroupData, function (data) {
-                        $modalInstance.dismiss('cancel');
-                        initTask();
-                    });
-                };
-            }
-
-            scope.captureMembersToNextStep = function (clientId, loanId, isChecked) {
-                if (isChecked) {
-                    scope.taskInfoTrackArray.push(
-                        {
-                            'clientId': clientId,
-                            'currentTaskId': scope.taskData.id,
-                            'loanId': loanId
-                        })
-                } else {
-                    var idx = scope.taskInfoTrackArray.findIndex(x => x.clientId == clientId);
-                    if (idx >= 0) {
-                        scope.taskInfoTrackArray.splice(idx, 1);
-                        scope.centerDetails.isAllChecked = false;
-                    }
-
-                }
-            }
             scope.isActiveMember = function (activeClientMember) {
                 if (activeClientMember.status.code == 'clientStatusType.onHold' || activeClientMember.status.code == 'clientStatusType.active') {
                     return true;
@@ -374,6 +187,14 @@
                 }
                 return false;
             }
+
+            scope.validateClient = function (activeClientMember) {
+                if (activeClientMember) {
+                    return (activeClientMember.status.code === 'clientStatusType.onHold');
+                }
+                return true;
+            };
+
             scope.validateAllClients = function (centerDetails, isAllChecked) {
                 scope.taskInfoTrackArray = [];
                 for (var i in centerDetails.subGroupMembers) {
@@ -382,20 +203,98 @@
                         if (isAllChecked) {
                             if (activeClientMember.status.code != 'clientStatusType.onHold' && !activeClientMember.isClientFinishedThisTask) {
                                 centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = true;
-                                scope.captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, activeClientMember.isMemberChecked);
-                                scope.addLoan(activeClientMember.isMemberChecked, activeClientMember.loanAccountBasicData.id);
+                                if (activeClientMember.loanAccountBasicData) {
+                                    scope.captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, activeClientMember.isMemberChecked);
+                                } else {
+                                    scope.captureMembersToNextStep(activeClientMember.id, null, activeClientMember.isMemberChecked);
+                                }
                             }
                         } else {
                             centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = false;
-                            scope.addLoan(activeClientMember.isMemberChecked, activeClientMember.loanAccountBasicData.id);
                         }
 
                     }
                 }
             }
+
+            scope.captureMembersToNextStep = function (clientId, loanId, isChecked) {
+                if (isChecked) {
+                    if (loanId) {
+                        scope.taskInfoTrackArray.push(
+                            {
+                                'clientId': clientId,
+                                'loanId': loanId,
+                                'currentTaskId': scope.taskData.id
+                            })
+                    } else {
+                        scope.taskInfoTrackArray.push(
+                            {
+                                'clientId': clientId,
+                                'currentTaskId': scope.taskData.id
+                            })
+                    }
+
+                } else {
+                    var idx = scope.taskInfoTrackArray.findIndex(x => x.clientId == clientId);
+                    if (idx >= 0) {
+                        scope.taskInfoTrackArray.splice(idx, 1);
+                        scope.centerDetails.isAllChecked = false;
+                    }
+
+                }
+            }
+
+            scope.moveMembersToNextStep = function () {
+                scope.errorDetails = [];
+                if (scope.taskInfoTrackArray.length == 0) {
+                    return scope.errorDetails.push([{ code: 'error.msg.select.atleast.one.member' }])
+                }
+
+                scope.taskTrackingFormData = {};
+                scope.taskTrackingFormData.taskInfoTrackArray = [];
+
+                scope.taskTrackingFormData.taskInfoTrackArray = scope.taskInfoTrackArray.slice();
+
+                resourceFactory.clientLevelTaskTrackingResource.save(scope.taskTrackingFormData, function (trackRespose) {
+                    initTask();
+                })
+            }
+
+            scope.filterCharges = function (chargeData, categoryId) {
+                if (chargeData != undefined) {
+                    var chargesCategory = _.groupBy(chargeData, function (value) {
+                        return value.chargeCategoryType.id;
+                    });
+                    return chargesCategory[categoryId];
+                }
+            }
+
+            scope.viewAdditionalDetails = function (groupId, activeClientMember) {
+                scope.popUpHeaderName = "label.heading.cgt.confirmation"
+                scope.includeHTML = 'views/task/popup/viewclientadditionaldetails.html';
+                scope.activeClientMember = activeClientMember;
+                var templateUrl = 'views/common/openpopup.html';
+                var controller = 'ViewClientAdditionalDetailsController';
+                popUpUtilService.openFullScreenPopUp(templateUrl, controller, scope);
+            };
+
+            //loan account edit 
+
+            scope.refreshTask = function () {
+                initTask();
+            }
+
+            scope.editLoan = function (loanAccountBasicData, groupId) {
+                scope.groupId = groupId;
+                scope.loanAccountBasicData = loanAccountBasicData;
+                var templateUrl = 'views/task/popup/editLoan.html';
+                var controller = 'EditLoanController';
+                popUpUtilService.openFullScreenPopUp(templateUrl, controller, scope);
+            }
+
         }
     });
-    mifosX.ng.application.controller('GRTReviewActivityController', ['$controller', '$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', '$route', '$http', '$rootScope', '$route', '$upload', 'API_VERSION', 'PopUpUtilService', mifosX.controllers.GRTReviewActivityController]).run(function ($log) {
-        $log.info("GRTReviewActivityController initialized");
+    mifosX.ng.application.controller('CGTConfirmationActivityController', ['$controller', '$scope', '$modal', 'ResourceFactory', 'dateFilter', 'PopUpUtilService', mifosX.controllers.CGTConfirmationActivityController]).run(function ($log) {
+        $log.info("CGTConfirmationActivityController initialized");
     });
 }(mifosX.controllers || {}));

@@ -851,7 +851,7 @@
     "label.heading.bankdetails": "Bank Details",
     "label.heading.viewadditionaldetails": "View Additional Details",
     "label.heading.housevisit": "House Visit",
-    "label.heading.verifyDocuments": "Verify Document",
+    "label.heading.verifyDocuments": "Verify Documents",
 
     "#Anchors": "..",
     "label.anchor.clients": "Clients",
@@ -8020,6 +8020,7 @@
     "validation.msg.GRT.startTime.cannot.be.blank": "Please Enter GRT start time ",
     "validation.msg.GRT.endTime.cannot.be.blank": "Please Enter GRT end time ",
     "validation.msg.GRT.grtDate.is.greater.than.date": "GRT Date cannot be a future date",
-    
+    "label.heading.cgt.confirmation": "CGT Confirmation",
+
     "------ end of translation file ------": "----------"
 }

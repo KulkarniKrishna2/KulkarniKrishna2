@@ -1864,7 +1864,10 @@
                     }),
                     grtCompletionResource: defineResource(apiVer + "/grt/completiondetails", {}, {
                         update: { method: 'PUT', params: {} }
-                    })
+                    }),
+                    taskTrackingBulkLoanApprovalResource: defineResource(apiVer +"/tasktracking/bulkloanapproval", {}, {
+                        update: { method: 'PUT', params: {} }
+                    }),
                 };
             }];
         }
