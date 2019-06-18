@@ -1,0 +1,122 @@
+<div>
+    <h3 class="client-title">
+        <i class="icon-circle {{clientDetails.status.code | StatusLookup}}"></i>
+        <small ng-if="client.subStatus.description">
+            [{{clientDetails.subStatus.description}}]
+        </small>
+        <strong ng-if="!displayNameInReverseOrder">{{clientDetails.displayName}} </strong>
+        <strong ng-if="displayNameInReverseOrder">{{clientDetails.displayNameInReverseOrder}} </strong>
+        <small>
+            {{ 'label.heading.clientreferenceno' | translate }}: {{clientDetails.referenceNumber}}
+        </small>
+    </h3>
+</div>
+
+<tabset class="overflowhidden marginbottom0" tabset-name="memberTabset">
+    <tab heading="{{'label.heading.verifyDocuments' | translate}}">
+        <br />
+        <div class="col-md-12">
+            <div ng-repeat="(key, value) in clientdocuments">
+                <h3>{{key | translate}}</h3>
+                <table class="table" ng-show="value.length > 0">
+                    <thead>
+                        <tr class="graybg">
+                            <th>{{'label.heading.name' | translate}}</th>
+                            <th>{{'label.heading.description' | translate}}</th>
+                            <th>{{'label.heading.filename' | translate}}</th>
+                            <th>{{'label.heading.status' | translate}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="clientdocument in value">
+                            <td>{{clientdocument.name}}</td>
+                            <td>{{clientdocument.description}}</td>
+                            <td>{{clientdocument.fileName}}&nbsp;<a target="_blank" data-ng-click="openViewDocument(clientdocument)"
+                                    has-permission='READ_DOCUMENT'>
+                                    <i class="icon-eye-open text-success"></i>
+                                </a></td>
+                            <td>{{clientdocument.status.value}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </tab>
+
+    <tab heading="{{'label.anchor.bankaccountdetails' | translate}}">
+        <div class="col-md-12">
+            <api-validate></api-validate>
+            <legend>{{'label.anchor.bankaccountdetails' | translate}}</legend>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group paddedtop">
+                        <span><b>{{'label.input.holdername' | translate}}:&nbsp;</b></span>
+                        <span>{{bankAccountData.name}}</span>
+                    </div>
+                    <div class="form-group paddedtop">
+                        <span><b>{{'label.input.accountnumber' | translate}}:&nbsp;</b></span>
+                        <span>{{bankAccountData.accountNumber}}</span>
+                    </div>
+                    <div class="form-group paddedtop">
+                        <span><b>{{'label.input.accounttype' | translate}}:&nbsp;</b></span>
+                        <span>{{bankAccountData.accountType.code | translate}}</span>
+                    </div>
+                    <div class="form-group paddedtop">
+                        <span><b>{{'label.heading.status' | translate}}:&nbsp;</b></span>
+                        <span>{{bankAccountData.status.value | translate}}</span>
+                    </div>
+                    <div class="form-group paddedtop">
+                        <span><b>{{'label.input.ifsccode' | translate}}:&nbsp;</b></span>
+                        <span>{{bankAccountData.ifscCode}}</span>
+                    </div>
+                    <div class="form-group paddedtop">
+                        <span><b>{{'label.input.bankname' | translate}}:&nbsp;</b></span>
+                        <span>{{bankAccountData.bankName}}</span>
+                    </div>
+                    <div class="form-group paddedtop">
+                        <span><b>{{'label.input.branchName' | translate}}:&nbsp;</b></span>
+                        <span>{{bankAccountData.branchName}}</span>
+                    </div>
+                    <div class="form-group paddedtop">
+                        <span><b>{{'label.input.bankcity' | translate}}:&nbsp;</b></span>
+                        <span>{{bankAccountData.bankCity}}</span>
+                    </div>
+                    <div class="form-group paddedtop">
+                        <span><b>{{'label.input.mobilenumber' | translate}}:&nbsp;</b></span>
+                        <span>{{bankAccountData.mobileNumber}}</span>
+                    </div>
+                    <div class="form-group paddedtop" ng-if="bankAccountData.email">
+                        <span><b>{{'label.input.email' | translate}}:&nbsp;</b></span>
+                        <span>{{bankAccountData.email}}</span>
+                    </div>
+                </div>
+                <div class="col-md-6" ng-if="bankAccountDocuments.length>0">
+                    <span><b>{{'label.input.attachments' | translate}}:&nbsp;</b></span>
+                    <table class="table">
+                        <thead>
+                            <tr class="graybg">
+                                <th>{{'label.heading.name' | translate}}</th>
+                                <th>{{'label.heading.filename' | translate}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="document in bankAccountDocuments">
+                                <td>{{document.name}}</td>
+                                <td><span>{{document.fileName}}&nbsp;&nbsp;&nbsp;<a target="_blank" data-ng-click="viewDocument(document)"><i
+                                                class="icon-eye-open text-success"></i></a></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <image-viewer image="documentImg"></image-viewer>
+                </div>
+            </div>
+        </div>
+    </tab>
+</tabset>
+
+<script type="text/ng-template" id="viewUploadedDocument.html">
+			<div style="position: fixed; top:20%; right:10%; width:600px; height: 500px;">
+				<view-document-directive ng-entity-type="{{data.parentEntityType}}" ng-entity-id="{{data.parentEntityId}}" ng-document-id="{{data.id}}"></view-document-directive>
+			</div>
+        </script>
