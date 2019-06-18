@@ -5,8 +5,11 @@
             scope.choice = 0;
             scope.allowed = [];
             scope.restricted = [];
+            
             resourceFactory.loanProductResource.getProductmix({loanProductId: routeParams.id, resourceType: 'productmix'}, function (data) {
                 scope.productmix = data;
+                scope.productId = data.productId;
+                scope.productName = data.productName;
                 scope.allowedProducts = data.allowedProducts;
                 scope.restrictedProducts = data.restrictedProducts;
             });
