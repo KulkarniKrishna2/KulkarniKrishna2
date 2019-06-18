@@ -101,7 +101,7 @@
                     </div>
                 </td>
                 <td class="pointer" data-ng-click="routeTo(transaction.id)">
-                    <div ng-if="transaction.transactionId.toString().indexOf('L')>=0 && transaction.entityId! = undefined">
+                    <div ng-if="transaction.transactionId.toString().indexOf('L')>=0 && transaction.entityId">
                     {{"L:"+transaction.entityId}}
                         </div>
                     <div ng-if="transaction.transactionId.toString().indexOf('S')>=0">
