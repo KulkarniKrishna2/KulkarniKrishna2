@@ -846,7 +846,7 @@
                         location.path('/viewallcollections');
                     },
                         function(data){
-                            if(data && data.data.errors[0].userMessageGlobalisationCode == "error.msg.Collection.has.already.been.added") {
+                            if(data && data.data && data.data.errors[0].userMessageGlobalisationCode == "error.msg.Collection.has.already.been.added") {
                                 scope.forcedSubmit = true;
                                 scope.formData.forcedSubmitOfCollectionSheet = true;
                                 scope.collectionsheetdata = "";

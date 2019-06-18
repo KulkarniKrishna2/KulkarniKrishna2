@@ -98,9 +98,9 @@
 	
 	    <div class="form-group">
 	    	<div class="col-sm-2">
-		        <button class="btn btn-primary" ng-click="previewCollectionSheet()">{{'label.button.collectionsheet' |
+		        <a class="btn btn-primary" ng-click="previewCollectionSheet()">{{'label.button.collectionsheet' |
 		            translate}}
-		            <i class="icon-circle-arrow-right"></i></button>
+		            <i class="icon-circle-arrow-right"></i></a>
 			</div>
 	    </div>
 	</div>
@@ -404,10 +404,10 @@
                     data-ng-click="showPaymentDetailsFn()"
                     >{{'label.button.addpaymentdetail'| translate}}
 			</button>
-	        <button id="save" type="submit" ng-disabled="collectionsheetform.$invalid == true" class="btn btn-primary" ng-show="collectionsheetdata"
-	                ng-click="submit()">{{'label.button.save' | translate}}
+	        <button id="save" type="submit" ng-disabled="collectionsheetform.$invalid == true" class="btn btn-primary" ng-show="collectionsheetdata">
+				{{'label.button.save' | translate}}
 	        </button>
-			<button id="save" type="submit" class="btn btn-warning" ng-show="forcedSubmit" ng-click="submit()">
+			<button id="save" type="submit" class="btn btn-warning" ng-show="forcedSubmit">
 				{{'label.button.forcedsubmit' | translate}}
 			</button>
 	    </div>
