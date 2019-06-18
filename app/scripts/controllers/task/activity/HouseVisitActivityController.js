@@ -909,8 +909,6 @@
                             }
                             if (data[l].tagValue) {
                                 pushDocumentToTag(data[l], data[l].tagValue);
-                            } else {
-                                pushDocumentToTag(data[l], 'uploadedDocuments');
                             }
                         }
                         getAdditionalDocumentNames();
