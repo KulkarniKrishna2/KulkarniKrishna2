@@ -19,6 +19,7 @@
             scope.numberOfCredits = 1;
             scope.numberOfDebits = 1;
             scope.error = null;
+            scope.isCompanyCodeMandatory = false;
 
             if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.addJournalEntry) {
                 if (scope.response.uiDisplayConfigurations.addJournalEntry.isMandatoryField.companyCode) {
@@ -31,9 +32,11 @@
                     scope.defaultCompanyCode = scope.response.uiDisplayConfigurations.addJournalEntry.defaultCompanyCode;
                 }
             }
-
             resourceFactory.accountCoaResource.getAllAccountCoas({ manualEntriesAllowed: true, usage: 1, disabled: false }, function (data) {
                 scope.originalGlAccounts = data;
+                if(!scope.isCompanyCodeMandatory){
+                    scope.glAccounts = scope.originalGlAccounts;
+                }
                 resourceFactory.codeValueByCodeNameResources.get({ codeName: 'company code for gl accounts', searchConditions: '{"codeValueIsActive":true}' }, function (data) {
                     scope.companyCodeForGlaccountCodeValues = data;
                     if (data != null && data.length > 0) {

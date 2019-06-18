@@ -22,7 +22,7 @@
 	                <option value="">{{'label.selectoffice' | translate}}</option>
 	            </select>
 	        </div>
-	        <div class="col-sm-3">
+	        <div class="col-sm-8">
 	            <form-validate valattributeform="collectionsheetform" valattribute="office"/>
 	        </div>
 	    </div>
@@ -35,7 +35,7 @@
 	            <input type="text" autocomplete="off" id="transactionDate" name="transactiondate" datepicker-pop="{{df}}"
 	                   ng-model="date.transactionDate" is-open="opened" class="form-control" ng-readonly="isDatePickerReadOnly" required/>
 	        </div>
-			<div class="col-sm-3">
+			<div class="col-sm-8">
 				<form-validate valattributeform="collectionsheetform" valattribute="transactiondate"/>
 			</div>
 	    </div>
@@ -98,9 +98,9 @@
 	
 	    <div class="form-group">
 	    	<div class="col-sm-2">
-		        <button class="btn btn-primary" ng-click="previewCollectionSheet()">{{'label.button.collectionsheet' |
+		        <a class="btn btn-primary" ng-click="previewCollectionSheet()">{{'label.button.collectionsheet' |
 		            translate}}
-		            <i class="icon-circle-arrow-right"></i></button>
+		            <i class="icon-circle-arrow-right"></i></a>
 			</div>
 	    </div>
 	</div>
@@ -184,7 +184,7 @@
 	                                    class="input-sm form-control" data-ng-change="getLoanSubReasonValues(loan.loanId,loanRejectReason[loan.loanId].codeReasonId)" ng-required="isRejectReasonMandatory" required late-validate>
 	                                    <option value="">{{'label.selectone' | translate}}</option></select>
 									</div>
-									<div class="col-sm-2">
+									<div class="col-sm-8">
 										<form-validate valattributeform="collectionsheetform" valattribute="loanReasonCodeType"/>
 									</div>
 	                                <br/>
@@ -197,7 +197,7 @@
 										data-ng-change="isDescriptionAvailable(loanRejectReason[loan.loanId])" ng-required="isRejectReasonMandatory" required late-validate>
 	                                    <option value="">{{'label.selectone' | translate}}</option></select>
 									</div>
-									<div class="col-sm-2">
+									<div class="col-sm-8">
 										<form-validate valattributeform="collectionsheetform" valattribute="loanReasonCode"/>
 									</div>
 	                                <br/>
@@ -258,7 +258,7 @@
                                     class="input-sm form-control" data-ng-change="getValues(client.clientId,client.codeReasonId)" ng-required="isRejectReasonMandatory" required late-validate>
                                     <option value="">{{'label.selectone' | translate}}</option></select>
 								</div>
-								<div class="col-sm-2">
+								<div class="col-sm-8">
 									<form-validate valattributeform="collectionsheetform" valattribute="attendanceReasonCodeType"/>
 								</div>
                                 <br/>
@@ -272,7 +272,7 @@
 									data-ng-change="initDescription(rejectFormData.reasonCode)" ng-required="isRejectReasonMandatory" required late-validate>
                                     <option value="">{{'label.selectone' | translate}}</option></select>
 								</div>
-								<div class="col-sm-2">
+								<div class="col-sm-8">
 									<form-validate valattributeform="collectionsheetform" valattribute="attendanceReasonCode"/>
 								</div>
                                 <br/>
@@ -404,10 +404,10 @@
                     data-ng-click="showPaymentDetailsFn()"
                     >{{'label.button.addpaymentdetail'| translate}}
 			</button>
-	        <button id="save" type="submit" ng-disabled="collectionsheetform.$invalid == true" class="btn btn-primary" ng-show="collectionsheetdata"
-	                ng-click="submit()">{{'label.button.save' | translate}}
+	        <button id="save" type="submit" ng-disabled="collectionsheetform.$invalid == true" class="btn btn-primary" ng-show="collectionsheetdata">
+				{{'label.button.save' | translate}}
 	        </button>
-			<button id="save" type="submit" class="btn btn-warning" ng-show="forcedSubmit" ng-click="submit()">
+			<button id="save" type="submit" class="btn btn-warning" ng-show="forcedSubmit">
 				{{'label.button.forcedsubmit' | translate}}
 			</button>
 	    </div>

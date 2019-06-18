@@ -1,0 +1,206 @@
+<div>
+    <div class="modal-header silver">
+        <h3 class="bolder">
+            {{'label.heading.housevisit' | translate}}
+            <i class="icon-remove pointer pull-right" ng-click="close()"></i>
+        </h3>
+    </div>
+    <div class="modal-body well">
+        <div class="margin-plus-10px">
+            <div>
+                <h3 class="client-title">
+                    <i class="icon-circle {{clientDetails.status.code | StatusLookup}}"></i>
+                    <small ng-if="client.subStatus.description">
+                        [{{clientDetails.subStatus.description}}]
+                    </small>
+                    <strong ng-if="!displayNameInReverseOrder">{{clientDetails.displayName}} </strong>
+                    <strong ng-if="displayNameInReverseOrder">{{clientDetails.displayNameInReverseOrder}} </strong>
+                    <small>
+                        {{ 'label.heading.clientreferenceno' | translate }}: {{clientDetails.referenceNumber}}
+                    </small>
+                </h3>
+            </div>
+
+            <tabset class="overflowhidden marginbottom0" tabset-name="memberTabset">
+                <tab heading="{{'label.heading.verifyDocuments' | translate}}">
+                    <br />
+                    <div class="col-md-12">
+                        <div ng-repeat="(key, value) in clientdocuments">
+                            <h3>{{key | translate}}</h3>
+                            <table class="table" ng-show="value.length > 0">
+                                <thead>
+                                    <tr class="graybg">
+                                        <th>{{'label.heading.name' | translate}}</th>
+                                        <th>{{'label.heading.description' | translate}}</th>
+                                        <th>{{'label.heading.filename' | translate}}</th>
+                                        <th>{{'label.heading.actions' | translate}}</th>
+                                        <th>{{'label.heading.status' | translate}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="clientdocument in value">
+                                        <td>{{clientdocument.name}}</td>
+                                        <td>{{clientdocument.description}}</td>
+                                        <td>{{clientdocument.fileName}}</td>
+                                        <td>
+                                            <a target="_blank" data-ng-click="openViewDocument(clientdocument)"
+                                                has-permission='READ_DOCUMENT'>
+                                                <i class="icon-eye-open text-success"></i>
+                                            </a>&nbsp;
+                                            <a ng-if="clientdocument.id && (clientdocument.status.id == 1 || 
+                                            clientdocument.status.id == 3)" ng-click="deleteDoc(clientdocument,$index, key)"><i
+                                                    class="icon-remove"></i></a>&nbsp;
+                                            <a ng-if="clientdocument.id && (clientdocument.status.id == 1 || 
+                                            clientdocument.status.id == 3)" 
+                                            has-permission='UPDATE_DOCUMENT'
+                                            ng-click="verifyDoc(clientdocument,$index, key)"><i tooltip="{{ 'label.heading.verify' | translate}}"
+                                                    class="icon-check-sign icon-white"></i></a>&nbsp;
+                                            <a ng-if="clientdocument.id && (clientdocument.status.id == 1 || 
+                                            clientdocument.status.id == 2)"
+                                            has-permission='UPDATE_DOCUMENT' ng-click="rejectDoc(clientdocument,$index, key)"><i tooltip="{{ 'label.heading.reject' | translate}}"
+                                                    class="icon-ban-circle icon-white"></i></a>
+                                        </td>
+                                        <td>{{clientdocument.status.value}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </tab>
+
+                <tab heading="{{'label.heading.bankdetails' | translate}}">
+                    <div ng-if="viewConfig.showSummary" class="col-md-12">
+                        <api-validate></api-validate>
+                        <legend>{{'label.anchor.bankaccountdetails' | translate}}</legend>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group paddedtop">
+                                    <span><b>{{'label.input.holdername' | translate}}:&nbsp;</b></span>
+                                    <span>{{bankAccountData.name}}</span>
+                                </div>
+                                <div class="form-group paddedtop">
+                                    <span><b>{{'label.input.accountnumber' | translate}}:&nbsp;</b></span>
+                                    <span>{{bankAccountData.accountNumber}}</span>
+                                </div>
+                                <div class="form-group paddedtop">
+                                    <span><b>{{'label.input.accounttype' | translate}}:&nbsp;</b></span>
+                                    <span>{{bankAccountData.accountType.code | translate}}</span>
+                                </div>
+                                <div class="form-group paddedtop">
+                                    <span><b>{{'label.heading.status' | translate}}:&nbsp;</b></span>
+                                    <span>{{bankAccountData.status.value | translate}}</span>
+                                </div>
+                                <div class="form-group paddedtop">
+                                    <span><b>{{'label.input.ifsccode' | translate}}:&nbsp;</b></span>
+                                    <span>{{bankAccountData.ifscCode}}</span>
+                                </div>
+                                <div class="form-group paddedtop">
+                                    <span><b>{{'label.input.bankname' | translate}}:&nbsp;</b></span>
+                                    <span>{{bankAccountData.bankName}}</span>
+                                </div>
+                                <div class="form-group paddedtop">
+                                    <span><b>{{'label.input.branchName' | translate}}:&nbsp;</b></span>
+                                    <span>{{bankAccountData.branchName}}</span>
+                                </div>
+                                <div class="form-group paddedtop">
+                                    <span><b>{{'label.input.bankcity' | translate}}:&nbsp;</b></span>
+                                    <span>{{bankAccountData.bankCity}}</span>
+                                </div>
+                                <div class="form-group paddedtop">
+                                    <span><b>{{'label.input.mobilenumber' | translate}}:&nbsp;</b></span>
+                                    <span>{{bankAccountData.mobileNumber}}</span>
+                                </div>
+                                <div class="form-group paddedtop" ng-if="bankAccountData.email">
+                                    <span><b>{{'label.input.email' | translate}}:&nbsp;</b></span>
+                                    <span>{{bankAccountData.email}}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6" ng-if="bankAccountDocuments.length>0">
+                                <span><b>{{'label.input.attachments' | translate}}:&nbsp;</b></span>
+                                <table class="table">
+                                    <thead>
+                                        <tr class="graybg">
+                                            <th>{{'label.heading.name' | translate}}</th>
+                                            <th>{{'label.heading.filename' | translate}}</th>
+                                            <th>{{'label.heading.actions' | translate}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="document in bankAccountDocuments">
+                                            <td>{{document.name}}</td>
+                                            <td><span>{{document.fileName}}&nbsp;
+                                            </td>
+                                            <td>
+                                                <a target="_blank" data-ng-click="viewDocument(document)"><i class="icon-eye-open text-success"></i></a></span>
+                                                <a ng-show="document.id" ng-click="deleteDocument(document.id)"
+                                                    has-permission='UPDATE_BANKACCOUNTDETAIL'><i class="icon-remove"></i></a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <image-viewer image="documentImg"></image-viewer>
+                            </div>
+                        </div>
+                        <div class="col-md-offset-2 paddedleft paddedtop">
+                            <a id="attachDocument" ng-if="approvable()" ng-click="uploadBankAccountDocument()" class="btn btn-primary"
+                                has-permission='UPDATE_BANKACCOUNTDETAIL'>{{'label.button.attach.document'
+                                | translate}}</a>
+                            <a id="edit" ng-if="approvable()" ng-click="edit()" class="btn btn-primary" has-permission='UPDATE_BANKACCOUNTDETAIL'>{{'label.button.edit'
+                                | translate}}</a>
+                            <button ng-if="deletable()" id="delete" class="btn btn-primary" ng-click="delete()" has-permission='DELETE_BANKACCOUNTDETAIL'>{{'label.button.delete' | translate}}</button>
+                            <button ng-if="approvable()" id="activate" class="btn btn-primary" ng-click="activate()" has-permission='ACTIVATE_BANKACCOUNTDETAIL'>{{'label.button.activate' | translate}}</button> 
+                        </div>
+                        <div>
+                        </div>
+                    </div>
+                </tab>
+            </tabset>
+        </div>
+
+        <script type="text/ng-template" id="viewUploadedDocument.html">
+			<div style="position: fixed; top:20%; right:10%; width:600px; height: 500px;">
+				<view-document-directive ng-entity-type="{{data.parentEntityType}}" ng-entity-id="{{data.parentEntityId}}" ng-document-id="{{data.id}}"></view-document-directive>
+			</div>
+        </script>
+        <script type="text/ng-template" id="uploadBankAccountDocument.html">
+            <div class="modal-header silver">
+                <h3 class="bolder">{{'label.heading.attach.documents' | translate}}</h3>
+            </div>
+            <div class="modal-body">
+            <form name="uploadDocument" novalidate="" class="form-horizontal" autocomplete="off">
+                <api-validate></api-validate>
+                <br>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="name">{{'label.input.name' | translate}}
+                    <span class="required">*</span></label>
+                    <div class="col-sm-3">
+                        <input ng-autofocus="true" type="text" autocomplete="off" id="name" name="name" ng-model="data.documentName" class="form-control" required late-Validate/>
+                        <form-validate valattributeform="uploadDocument" valattribute="name"/>
+                    </div>
+                    <input type="file" ng-file-select="onFileSelect($files)">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+                <button class="btn btn-primary" ng-click="upload()">{{'label.button.upload' | translate}}</button>
+            </div>
+            </script>
+        <script type="text/ng-template" id="delete.html">
+            <div class="modal-header silver">
+                <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+            </div>
+            <div class="modal-body">
+                <api-validate></api-validate>
+               
+                <div ng-show="error != null" class="error">
+                    {{'label.error' | translate}}: {{error}}
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-warning" ng-click="cancelDelete()">{{'label.button.cancel' | translate}}</button>
+                <button class="btn btn-primary" ng-click="submitDelete()">{{'label.heading.delete' | translate}}</button>
+            </div>
+        </script>
+    </div>
+</div>
+</div>

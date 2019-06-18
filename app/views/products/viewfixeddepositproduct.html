@@ -35,10 +35,18 @@
     <td>{{'label.heading.shortname' | translate}} :</td>
     <td colspan="3">{{depositproduct.shortName}}</td>
 </tr>
-    <tr>
-        <td>{{'label.heading.externalId' | translate}} :</td>
-        <td colspan="3">{{depositproduct.externalId}}</td>
-    </tr>
+<tr>
+    <td>{{'label.heading.externalId' | translate}} :</td>
+    <td colspan="3">{{depositproduct.externalId}}</td>
+</tr>
+<tr ng-show="depositproduct.startDate">
+    <td>{{'label.heading.startdate' | translate}}:</td>
+    <td colspan="3">{{depositproduct.startDate | DateFormat}}</td>
+</tr>
+<tr ng-show="depositproduct.closeDate">
+    <td>{{'label.heading.closedate' | translate}}:</td>
+    <td colspan="3">{{depositproduct.closeDate | DateFormat}}</td>
+</tr>
 <tr>
     <td colspan="4"><br/></td>
 </tr>

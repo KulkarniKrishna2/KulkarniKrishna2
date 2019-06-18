@@ -650,6 +650,10 @@
                 scope.updateSlabBasedCharges();
             });
 
+            scope.$watch('formData.numberOfRepayments ', function(){
+                scope.updateSlabBasedCharges();
+            });
+
             scope.updateSlabBasedCharges = function(){         
                 if(scope.formData.principal != '' && scope.formData.principal != undefined){
                     for(var i in scope.charges){

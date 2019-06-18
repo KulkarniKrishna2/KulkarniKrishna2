@@ -28,6 +28,11 @@
 			"AdditionalDetailsValidation": {
 				"profileRatingPercentage": 100
 			}
+		},
+		"createCenter": {
+			"isReadOnlyField": {
+				"active": true
+			}
 		}
 	}
 }

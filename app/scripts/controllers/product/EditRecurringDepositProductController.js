@@ -8,7 +8,7 @@
             scope.specificIncomeaccounts = [];
             scope.penaltySpecificIncomeaccounts = [];
             scope.configureFundOption = {};
-
+            scope.date = {};
             //interest rate chart details
             scope.chart = {};
             scope.restrictDate = new Date();
@@ -29,6 +29,12 @@
                 var minDepositTermTypeId = (_.isNull(data.minDepositTermType) || _.isUndefined(data.minDepositTermType)) ? '' : data.minDepositTermType.id;
                 var maxDepositTermTypeId = (_.isNull(data.maxDepositTermType) || _.isUndefined(data.maxDepositTermType)) ? '' : data.maxDepositTermType.id;
                 var inMultiplesOfDepositTermTypeId = (_.isNull(data.inMultiplesOfDepositTermType) || _.isUndefined(data.inMultiplesOfDepositTermType)) ? '' : data.inMultiplesOfDepositTermType.id;
+                if (data.startDate) {
+                    scope.date.first = new Date(data.startDate);
+                }
+                if (data.closeDate) {
+                    scope.date.second = new Date(data.closeDate);
+                }
                 scope.formData = {
                     name: data.name,
                     shortName: data.shortName,
@@ -205,9 +211,9 @@
                 scope.feeToIncomeAccountMappings = [];
                 scope.penaltyToIncomeAccountMappings = [];
                 scope.chargesSelected = [];
-
                 var temp = '';
-
+                var reqFirstDate = dateFilter(scope.date.first, scope.df);
+                var reqSecondDate = dateFilter(scope.date.second, scope.df);
                 //configure fund sources for payment channels
                 for (var i in scope.configureFundOptions) {
                     temp = {
@@ -247,10 +253,15 @@
                 this.formData.penaltyToIncomeAccountMappings = scope.penaltyToIncomeAccountMappings;
                 this.formData.isInterestCalculationFromProductChart = scope.isInterestCalculationFromProductChart;
                 this.formData.charges = scope.chargesSelected;
+                this.formData.startDate = dateFilter(scope.date.first, scope.df);
+                this.formData.closeDate = dateFilter(scope.date.second, scope.df);
                 this.formData.locale = scope.optlang.code;
+                this.formData.dateFormat = scope.df;
                 this.formData.charts = [];//declare charts array
                 this.formData.charts.push(copyChartData(scope.chart));//add chart details
                 this.formData = removeEmptyValues(this.formData);
+                this.formData.startDate = reqFirstDate ? reqFirstDate : ""; 
+                this.formData.closeDate = reqSecondDate ? reqSecondDate : "";
                 resourceFactory.recurringDepositProductResource.update({productId: routeParams.productId}, this.formData, function (data) {
                     location.path('/viewrecurringdepositproduct/' + data.resourceId);
                 });

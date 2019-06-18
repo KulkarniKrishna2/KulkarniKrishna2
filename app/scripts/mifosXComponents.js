@@ -693,7 +693,11 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'task/activity/CGTRequestActivityController',
             'task/popup/EditLoanController',
             'task/activity/GRTRequestActivityController',
-            'task/activity/GRTConfirmationActivityController'
+            'task/activity/GRTConfirmationActivityController',
+            'task/activity/HouseVisitActivityController',
+            'task/activity/CompulsaryGroupTrainingActivityController',
+            'task/activity/GRTActivityController',
+            'task/activity/GRTReviewActivityController'
         ],
         filters: [
             'StatusLookup',

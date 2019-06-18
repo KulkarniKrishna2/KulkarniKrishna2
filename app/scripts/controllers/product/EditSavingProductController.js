@@ -12,6 +12,7 @@
             scope.originalInterestRateChart = [];
             scope.interestRateChart = [];
             scope.updatedInterestRateChart = [];
+            scope.date = {};
 
             scope.formData.isAllowInterestRateChart = false;
             scope.isAllowInterestRateChartDisabled = false;
@@ -23,7 +24,12 @@
                 scope.incomeAccountOptions = scope.product.accountingMappingOptions.incomeAccountOptions || [];
                 scope.expenseAccountOptions = scope.product.accountingMappingOptions.expenseAccountOptions || [];
                 scope.incomeAndLiabilityAccountOptions = scope.incomeAccountOptions.concat(scope.liabilityAccountOptions);
-
+                if (data.startDate) {
+                    scope.date.first = new Date(data.startDate);
+                }
+                if (data.closeDate) {
+                    scope.date.second = new Date(data.closeDate);
+                }
                 scope.formData = {
                     name: data.name,
                     shortName: data.shortName,
@@ -285,7 +291,8 @@
                 scope.chargesSelected = [];
 
                 var temp = '';
-
+                var reqFirstDate = dateFilter(scope.date.first, scope.df);
+                var reqSecondDate = dateFilter(scope.date.second, scope.df);
                 //configure fund sources for payment channels
                 for (var i in scope.configureFundOptions) {
                     temp = {
@@ -324,6 +331,8 @@
                 this.formData.feeToIncomeAccountMappings = scope.feeToIncomeAccountMappings;
                 this.formData.penaltyToIncomeAccountMappings = scope.penaltyToIncomeAccountMappings;
                 this.formData.charges = scope.chargesSelected;
+                this.formData.startDate = reqFirstDate ? reqFirstDate : ""; 
+                this.formData.closeDate = reqSecondDate ? reqSecondDate : ""; 
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 if(!this.formData.minRequiredOpeningBalance){

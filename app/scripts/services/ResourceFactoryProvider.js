@@ -90,8 +90,12 @@
                     clientDocumentsResource: defineResource(apiVer + "/clients/:clientId/documents/:documentId", {clientId: '@clientId', documentId: '@documentId'}, {
                         getAllClientDocuments: {method: 'GET', params: {}, isArray: true}
                     }),
+                    documentsTemplateResource: defineResource(apiVer + "/clients/:clientId/documents/template", {clientId: '@clientId'}, {
+                        getTemplate: {method: 'GET', params: {} }
+                    }),
                     documentsResource: defineResource(apiVer + "/:entityType/:entityId/documents/:documentId", {entityType: '@entityType', entityId: '@entityId',documentId: '@documentId'}, {
-                        getAllDocuments: {method: 'GET', params: {}, isArray: true}
+                        getAllDocuments: {method: 'GET', params: {}, isArray: true},
+                        update: {method: 'PUT', headers: {'Content-Type': undefined},transformRequest: angular.identity, params: {}}
                     }),
                     clientAccountResource: defineResource(apiVer + "/clients/:clientId/accounts", {clientId: '@clientId'}, {
                         getAllClients: {method: 'GET', params: {}}
@@ -1235,6 +1239,8 @@
                         completeCgtDay: {method: 'PUT', parms: {action: '@action'}},
                         getCgtDaysById: {method: 'GET', parms: {}, isArray: false}
                     }),
+                    cgtDetailsResource: defineResource(apiVer + "/cgt/details", {}, {
+                    }),
                     bankAccountTransferResource: defineResource(apiVer + "/banktransaction/:bankTransferId", {bankTransferId:"@bankTransferId", entityType: "@entityType",entityId: '@entityId',command:'@command'}, {
                         getAll: {method: 'GET', params: {}, isArray: true},
                         save: {method: 'POST', params: {}}
@@ -1855,6 +1861,9 @@
                     }),   
                     multipleFileUploadResource: defineResource(apiVer + "/:entityType/:entityId/utilizationchecks",{entityType:'@entityType',entityId:'@entityId'}, {
                         upload: {method: 'POST', headers: {'Content-Type': undefined},transformRequest: angular.identity, params: {}}
+                    }),
+                    grtCompletionResource: defineResource(apiVer + "/grt/completiondetails", {}, {
+                        update: { method: 'PUT', params: {} }
                     })
                 };
             }];
