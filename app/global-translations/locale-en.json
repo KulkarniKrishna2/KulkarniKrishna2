@@ -874,7 +874,6 @@
 
     "#Inputs": "..",
     "label.input.filterbynameaccno": "Filter display by name/client#/staff/office",
-    "label.input.filterbynameexternalid": "Filter display by name/office",
     "label.input.searchByNameAccNo": "Find by name/mobile#/client#/externalId/identifier#",
     "label.input.searchByNamwExternalId": "Find by name/externalId",
     "label.input.selectclientimage": "Select client image",
@@ -3116,7 +3115,7 @@
     "label.input.openedon": "Opened on",
     "label.input.parentoffice": "Parent office",
     "label.input.newfund": "New Fund",
-    "label.input.filterbynameexternalid": "Filter by name/external id/office ref#",
+    "label.input.filterbynameexternalid": "Filter by name/external id ",
     "label.input.fromAccountId": "From Account Id",
     "label.input.tosavingsofficer": "To Savings Officer",
     "label.input.percentage": "Percentage",

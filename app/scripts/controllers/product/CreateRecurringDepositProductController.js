@@ -16,6 +16,7 @@
             scope.endDate = {};//required for date formatting
             scope.isPrimaryGroupingByAmount = false;
             scope.isInterestCalculationFromProductChart = false;
+            scope.date = {};
 
             resourceFactory.recurringDepositProductResource.get({resourceType: 'template'}, function (data) {
                 scope.product = data;
@@ -119,9 +120,7 @@
                 scope.feeToIncomeAccountMappings = [];
                 scope.penaltyToIncomeAccountMappings = [];
                 scope.chargesSelected = [];
-
                 var temp = '';
-
                 //configure fund sources for payment channels
                 for (var i in scope.configureFundOptions) {
                     temp = {
@@ -160,6 +159,8 @@
                 this.formData.feeToIncomeAccountMappings = scope.feeToIncomeAccountMappings;
                 this.formData.penaltyToIncomeAccountMappings = scope.penaltyToIncomeAccountMappings;
                 this.formData.charges = scope.chargesSelected;
+                this.formData.startDate = dateFilter(scope.date.first, scope.df);
+                this.formData.closeDate = dateFilter(scope.date.second, scope.df);
                 this.formData.locale = scope.optlang.code;
                 this.formData.charts = [];//declare charts array
                 this.formData.charts.push(copyChartData(scope.chart));//add chart details
