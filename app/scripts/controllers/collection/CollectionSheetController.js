@@ -933,6 +933,7 @@
                         }
                     }
                 } 
+                return scope.showText;
             };
             scope.validateAmount = function(groupIndex,clientIndex,loanIndex,updateLoanAmount){
                 var loanAmount = scope.colectionsSheetsCopy[groupIndex].clients[clientIndex].loans[loanIndex].totalDue;

@@ -156,10 +156,14 @@
                                 </div>
                                 <br/>
                             </div>
-                            <div class="form-group" ng-show="loan.totalDue==0 && showText && showRejectReason">
-                                <label class="control-label col-sm-3" >{{'label.input.description' | translate}}<span ng-if="isRejectReasonMandatory" class="required">*</span></label>
+                            <div class="form-group" ng-if="showRejectReason && (isDescriptionAvailable(loanRejectReason[loan.loanId])==true)">
+                                <label class="control-label col-sm-4" >{{'label.input.description' | translate}}<span ng-if="isRejectReasonMandatory" class="required">*</span></label>
                                 <div class="col-sm-8">
-                                    <textarea row="3" col="3" id="loanRejectReason[loan.loanId].reason" name="loanRejectReason[loan.loanId].reason" ng-model="loanRejectReason[loan.loanId].reason"  class="form-control"></textarea>
+                                    <textarea row="3" col="3" id="loanRejectReason[loan.loanId].reason" name="loanReasonDescription" ng-model="loanRejectReason[loan.loanId].reason"  class="form-control"
+                                    ng-required="isRejectReasonMandatory" required late-validate></textarea>
+                                </div>
+                                <div class="control-label col-sm-8">
+                                    <form-validate valattributeform="productivecollectionsheetform" valattribute="loanReasonDescription"/>
                                 </div>
                                 <br/>
                             </div>
@@ -234,7 +238,7 @@
                                         </div>
                                         
                                         <div class="form-group" ng-show="isTextAvailable(client) && showRejectReason">
-                                            <label class="control-label col-sm-3" >{{'label.input.description' | translate}}<span ng-if="isRejectReasonMandatory" class="required">*</span></label>
+                                            <label class="control-label col-sm-4" >{{'label.input.description' | translate}}<span ng-if="isRejectReasonMandatory" class="required">*</span></label>
                                             <div class="col-sm-8">
                                                 <textarea row="3" col="3" id="client.reason" name="client.reason" ng-model="client.reason"  class="form-control"></textarea>
                                             </div>

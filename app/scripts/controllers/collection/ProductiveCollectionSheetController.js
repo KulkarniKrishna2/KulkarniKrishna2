@@ -464,6 +464,7 @@
                         }
                     }               
                 }
+                return scope.showText;
             };
             scope.sumTotalDueCollection = function () {
                 scope.totalDueCollection = [];
