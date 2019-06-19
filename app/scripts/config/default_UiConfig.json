@@ -155,7 +155,16 @@
 			"takeSurveyName": "",
 			"surveyEntityTypeId": "",
 			"activateOnReinitiate": true,
-			"createSavingAccount": true
+			"createSavingAccount": true,
+			"cashFlow": {
+				"hiddenFields": {
+					"assetDetails": false,
+					"houseHoldExpenses": false,
+					"allExpenses" : false,
+					"isPrimaryIncome" : false,
+          			"isRemmitanceIncome" : false
+				}
+			}
 		},
 		"collectionSheet": {
 			"isAutoPopulate": {

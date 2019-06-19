@@ -63,6 +63,17 @@
         "editTranches": true
       }
     },
+    "viewClient": {
+			"cashFlow": {
+				"hiddenFields": {
+					"assetDetails": false,
+          "houseHoldExpenses": true,
+          "allExpenses" : true,
+          "isPrimaryIncome" : true,
+          "isRemmitanceIncome" : true
+				}
+			}
+		},
     "createClient": {
       "isReadOnlyField": {
         "staff": false,
