@@ -89,6 +89,10 @@
                 formData.grant_type = 'OTP';
                 formData.otp_token = credentials.otpTokenId;
                 formData.otp = credentials.otp;
+                if(credentials.captchaDetails !=undefined){
+                    formData.captcha_reference_id= credentials.captchaDetails.captcha_reference_id;
+                    formData.captcha = credentials.captchaDetails.captcha;
+                }
                 httpService.post("/fineract-provider/api/oauth/token", formData)
                     .success(getUserDetails)
                     .error(onFailure);
