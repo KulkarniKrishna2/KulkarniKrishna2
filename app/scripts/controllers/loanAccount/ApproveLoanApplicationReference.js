@@ -381,7 +381,7 @@
                 }
                 //delete this.formValidationData.syncRepaymentsWithMeeting;
 
-                if (scope.formRequestData.expectedDisbursementDate) {
+                if (scope.response.uiDisplayConfigurations.loanAccount.isAutoPopulate.interestChargedFromDate && scope.formRequestData.expectedDisbursementDate) {
                     this.formValidationData.interestChargedFromDate = reqThirdDate;
                 }
 

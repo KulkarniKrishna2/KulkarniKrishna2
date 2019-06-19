@@ -73,7 +73,7 @@
 				"trancheAmount": true
 			},
 			"isAutoPopulate": {
-				"interestChargedFromDate": true
+				"interestChargedFromDate": false
 			},
 			"isDefaultValue": {
 				"syncDisbursementWithMeeting": false,

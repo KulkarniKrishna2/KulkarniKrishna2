@@ -6,7 +6,10 @@
             scope.status = 'SUMMARY';
             scope.loanApplicationReferenceId = scope.taskconfig['loanApplicationId'];
             scope.clientId = scope.taskconfig['clientId'];
+            if (scope.response && scope.response.uiDisplayConfigurations.loanAccount.isAutoPopulate.interestChargedFromDate) {
+                scope.isAutoUpdateInterestStartDate = scope.response.uiDisplayConfigurations.loanAccount.isAutoPopulate.interestChargedFromDate;
 
+            }
             scope.onApproval = function(){
                 location.path('/approveloanapplicationreference/' + getLoanApplicationId());
             };
@@ -321,7 +324,7 @@
                 }
                 //delete this.formValidationData.syncRepaymentsWithMeeting;
 
-                if (scope.formRequestData.expectedDisbursementDate) {
+                if (scope.isAutoUpdateInterestStartDate && scope.formRequestData.expectedDisbursementDate) {
                     this.formValidationData.interestChargedFromDate = reqThirdDate;
                 }
 
