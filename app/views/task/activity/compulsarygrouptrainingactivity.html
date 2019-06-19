@@ -76,8 +76,8 @@
                                     ng-change="addLoan(activeClientMember.isMemberChecked,activeClientMember.loanAccountBasicData.id);
                         captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, activeClientMember.isMemberChecked)">
                             </td>
-                            <td class="col-md-2">{{activeClientMember.displayName}} <i ng-if="activeClientMember.isClientVerified"
-                                    class="btn btn-success icon-ok-sign"></i>
+                            <td class="col-md-2">
+                                <a href="" ng-disabled="activeClientMember.isClientFinishedThisTask" ng-click="viewAdditionalDetails(activeClientMember)">{{activeClientMember.displayName}}</a>
                             </td>
                             <td class="col-md-2">{{activeClientMember.fcsmNumber}}</td>
                             <td class="col-md-1 cell-overflow">
@@ -136,8 +136,7 @@
                 <fieldset>
                     <div ng-if="cgtdocuments.length == 0" class="row paddedleft paddedtop">
                         <div class="col-md-3">
-                                <input type="text"  ng-model="docFormData.name" class="form-control"
-                                placeholder="{{'label.input.name'|translate}}"/>
+                                <input type="text"  ng-model="docFormData.name" class="form-control" ng-disabled="true"/>
                             <form-validate valattributeform="documentuploadform" valattribute="name" />
                         </div>
 

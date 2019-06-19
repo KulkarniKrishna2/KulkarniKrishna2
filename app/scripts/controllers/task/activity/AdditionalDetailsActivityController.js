@@ -1107,22 +1107,19 @@
                 // Document upload part
 
                 function initDocumentUploadTask() {
-                    $scope.documentTagOptions = [];
                     $scope.formData = {};
-                    $scope.isFileNameMandatory = true;
                     $scope.isUploadDocumentTagMandatory = true;
                     $scope.isFileMandatory = true;
                     $scope.entityType = 'clients';
                     $scope.entityId = $scope.clientId;
                     $scope.documentTagName = 'Client Document Tags';
                     getClientAdditionalDocuments();
-                    getClientDocumentTags();
                 };
 
                 initDocumentUploadTask();
 
                 function getAdditionalDocumentNames() {
-                    resourceFactory.codeValueByCodeNameResources.get({ codeName: 'AdditionalDocumentNames' }, function (codeValueData) {
+                    resourceFactory.codeValueByCodeNameResources.get({ codeName: $scope.documentTagName }, function (codeValueData) {
                         $scope.additionalDocumentNames = [];
                         $scope.availableDocumentNames = [];
                         $scope.additionalDocumentNames = codeValueData;
@@ -1143,13 +1140,6 @@
                         }
                     }
                 }
-
-                function getClientDocumentTags() {
-                    resourceFactory.codeValueByCodeNameResources.get({ codeName: $scope.documentTagName }, function (codeValueData) {
-                        $scope.documentTagOptions = [];
-                        $scope.documentTagOptions = codeValueData;
-                    });
-                };
 
                 function getClientAdditionalDocuments() {
                     resourceFactory.clientDocumentsResource.getAllClientDocuments({ clientId: $scope.clientId }, function (data) {
@@ -1190,6 +1180,15 @@
                     });
                 };
 
+                $scope.setFileName = function () {
+                    for (var i in $scope.additionalDocumentNames) {
+                        if ($scope.additionalDocumentNames[i].id == $scope.formData.tagIdentifier) {
+                            $scope.filename = $scope.additionalDocumentNames[i].name;
+                            $scope.formData.name = $scope.filename;
+                        }
+                    }
+                }
+
                 $scope.submitDocument = function () {
                     $upload.upload({
                         url: $rootScope.hostUrl + API_VERSION + '/' + $scope.entityType + '/' + $scope.entityId + '/documents',
@@ -1204,6 +1203,7 @@
                             }
                         }
                         $scope.formData = {};
+                        $scope.filename = '';
                         angular.element('#file').val(null);
                         scope.reComputeProfileRating($scope.clientId);
                     });

@@ -7986,6 +7986,14 @@
     "validation.msg.GRT.grtDate.is.greater.than.date": "GRT Date cannot be a future date",
     "label.heading.cgt.confirmation": "CGT Confirmation",
     "label.mandatory.fields.cannot.be.blank" : "Please fill the mandatory fields" ,
+    "label.heading.cgt.activity": "CGT Activity",
+    "label.heading.cgt.request": "CGT Request",
+    "label.tooltip.view.cgt.photo": "View CGT Photo",
+    "label.heading.cgt.review": "CGT Review",
+    "error.msg.cgt.details.not.found": "CGT Details for group with id `{{params[0].value}}` does not exist",
+    "label.tooltip.view.cgt.completed.location": "View CGT Completed Location",
+    "label.tooltip.view.document.captured.location": "view document captured location",
+    "label.input.filename": "File Name",
 
     "------ end of translation file ------": "----------"
 }

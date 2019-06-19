@@ -31,6 +31,9 @@
                     for (var l = 0; l < data.length; l++) {
                         if (data[l].id) {
                             data[l].docUrl = documentsURL(data[l]);
+                            if (!_.isUndefined(data[l].geoTag)) {
+                                data[l].location = JSON.parse(data[l].geoTag);
+                            }
                         }
                         if (data[l].tagValue) {
                             pushDocumentToTag(data[l], data[l].tagValue);
