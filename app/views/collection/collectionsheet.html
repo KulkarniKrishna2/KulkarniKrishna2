@@ -202,11 +202,15 @@
 									</div>
 	                                <br/>
 	                            </div>
-	                            <div class="form-group" ng-show="showText && showRejectReason">
-	                                <label class="col-sm-4" >{{'label.input.description' | translate}}<span  class="required" if="isRejectReasonMandatory">*</span></label>
+	                            <div class="form-group" ng-if="showRejectReason && (isDescriptionAvailable(loanRejectReason[loan.loanId])==true)">
+	                                <label class="col-sm-8" >{{'label.input.description' | translate}}<span  class="required" if="isRejectReasonMandatory">*</span></label>
 	                                <div class="col-sm-8">
-	                                    <textarea row="3" col="3" id="loanRejectReason[loan.loanId].reason" name="loanRejectReason[loan.loanId].reason" ng-model="loanRejectReason[loan.loanId].reason"  class="form-control"></textarea>
-	                                </div>
+										<textarea row="3" col="3" id="loanRejectReason[loan.loanId].reason" name="loanReasonDescription" ng-model="loanRejectReason[loan.loanId].reason"  class="form-control" 
+										ng-required="isRejectReasonMandatory" required late-validate></textarea>
+									</div>
+									<div class="col-sm-8">
+										<form-validate valattributeform="collectionsheetform" valattribute="loanReasonDescription"/>
+									</div>
 	                                <br/>
 	                            </div>
 							</span>
