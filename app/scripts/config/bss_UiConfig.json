@@ -161,7 +161,10 @@
 			}			
 		},
 		"createOffice": {
-			"selfActive": true
+			"selfActive": true,
+			"isHiddenField": {
+				"referenceNo": false
+			}
 		},
 		"createJlgLoan": {
 			"isHiddenField": {

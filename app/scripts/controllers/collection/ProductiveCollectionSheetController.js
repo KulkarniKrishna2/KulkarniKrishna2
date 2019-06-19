@@ -212,7 +212,6 @@
                     scope.savingsgroups = data.groups;
                     angular.copy(scope.savingsgroups,scope.colectionsSheetsCopy);
                     scope.isWithDrawForSavingsIncludedInCollectionSheet = data.isWithDrawForSavingsIncludedInCollectionSheet;
-                    scope.clientsAttendanceArray(data.groups);
                     scope.clientsAttendanceList(data.groups);
                     scope.sumTotalDueCollection();
                 });
@@ -226,22 +225,6 @@
                         scope.loanRejectReason[index].reason = undefined;
                         scope.isDescriptionAvailable(scope.loanRejectReason[index]);
                     }                   
-                }
-            };
-
-            scope.clientsAttendanceArray = function (groups) {
-                if (!_.isUndefined(groups)) {
-                    var gl = groups.length;
-                    for (var i = 0; i < gl; i++) {
-                        scope.clients = groups[i].clients;
-                        var cl = scope.clients.length;
-                        for (var j = 0; j < cl; j++) {
-                            scope.client = scope.clients[j];
-                            if (scope.client.attendanceType.id === 0) {
-                                scope.client.attendanceType.id = 1;
-                            }
-                        }
-                    }
                 }
             };
 
