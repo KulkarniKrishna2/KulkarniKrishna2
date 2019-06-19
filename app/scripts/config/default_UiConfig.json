@@ -445,6 +445,10 @@
 			},
 			"initiateWorkflow": {
 				"showInitiateOnCompletion": false
+			},
+			"deceasedWorkflow": {
+				"showPolicy" : false,
+				"showMarkAsDeceased" : false
 			}
 		},
 		"globalSearchScope": {
