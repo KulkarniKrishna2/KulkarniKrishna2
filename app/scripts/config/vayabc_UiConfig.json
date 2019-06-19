@@ -36,6 +36,10 @@
       "isMandatory": {
         "rejectReason":true,
         "rejectDescription": true
+      },
+      "deceasedWorkflow": {
+        "showPolicy" : true,
+        "showMarkAsDeceased" : true
       }
     },
     "collectionSheet": {
