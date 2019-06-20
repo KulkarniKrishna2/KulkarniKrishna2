@@ -7948,6 +7948,7 @@
     "label.error.csv.file.is.not.selected": "Please select csv file",
     "error.msg.eod.closure.not.completed.for" : "EOD closure is not completed for previous working day `{{params[0].value}}`. Process EOD to proceed.",
     "validation.msg.loanutilizationcheck.parameter.amount.loanUtilizationCVId.is.one.of.these.mandatory" : "Amount cannot be empty",
+    "label.mandatory.fields.cannot.be.blank" : "Please fill the mandatory fields" ,
 
     "------ end of translation file ------": "----------"
 }
