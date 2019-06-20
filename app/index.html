@@ -129,13 +129,31 @@
                                 <div ng-if="otpPanel">
                                     <form autocomplete="off" class="form col-md-8 form-horizontal" role="form">
                                         <label class="error" data-ng-show="authenticationFailed">
-                                            <strong>{{ 'error.msg.otp.login.failed' | translate }}</strong>
+                                            <strong>{{ authenticationErrorMessage | translate }}</strong>
                                         </label>
+                                        <!--label class="error" data-ng-show="authenticationFailed">
+                                            <strong>{{ 'error.msg.otp.login.failed' | translate }}</strong>
+                                        </label-->
                                         <div class="form-group">
                                             <h4 class="col-md-6">{{'label.input.enter.otp' | translate}}</h4>
                                             <input type="password" autocomplete="off" data-ng-model="loginCredentials.otp" placeholder="{{ 'label.input.otp' | translate }}" class="input-sm form-control col-md-6"
                                                 required id="opwd" style="border-radius: 5px;">
                                         </div>
+                                        <span ng-if="mainUIConfigData.loginSecurity.isEnabledCaptcha || enableCaptchaOnFailedLogInAttempts">
+                                            <div ng-if="mainUIConfigData.loginSecurity.defaultCaptcha === 'Patchca'">
+                                                <span><img src="data:image/png;base64,{{captchaData.base64EncodedImage}}"></span> <span class="pad-left-10"><a class="btn btn-default pad-left-10" ng-click="refreshPatchca()" href="javascript:void(null);"> <i class="icon-refresh"></i></a></span>
+                                            </div>
+                                            <div ng-if="mainUIConfigData.loginSecurity.defaultCaptcha === 'Patchca'">
+                                                <input type="text" autocomplete="off" data-ng-model="captchaFormData.captchaEntered" placeholder="{{ 'label.input.captcha' | translate }}"
+                                                       class="input-sm form-control" required id="captcha" minlength="6" maxlength="6" style="border-radius: 5px;">
+                                                <br>
+                                            </div>
+                                            <span ng-if="mainUIConfigData.loginSecurity.defaultCaptcha === 'Recaptcha'">
+                                                <div style="margin-left: 14px;" vc-recaptcha theme="'light'" key="reCaptchaModel.siteKey" on-create="setWidgetId(widgetId)"
+                                                    on-success="setResponse(response)"></div>
+                                                <br>
+                                            </span>
+                                        </span>
                                         <div class="form-group" align="center">
                                             <a class="btn btn-warning btn-md" data-ng-click="showLoginScreen()" id="otp-reset">{{ 'label.button.cancel' | translate }}</a>
                                             <button class="btn btn-success btn-md" type="submit" data-ng-click="loginWithOTP()" id="otp-button">{{ 'label.button.verify.otp' | translate }}</button>

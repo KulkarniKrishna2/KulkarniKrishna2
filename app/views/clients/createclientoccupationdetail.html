@@ -56,7 +56,7 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" ng-hide="response.uiDisplayConfigurations.viewClient.cashFlow.allExpenses">
                     <label class="control-label col-sm-2" for="expenses">{{ 'label.input.expenses' | translate }}</label>
 
                     <div class="col-sm-3">
@@ -65,7 +65,7 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" ng-hide="response.uiDisplayConfigurations.viewClient.cashFlow.isPrimaryIncome">
                     <label class="control-label col-sm-2">{{'label.input.isPrimaryIncome' | translate}}</label>
 
                     <div class="col-sm-3">
@@ -73,7 +73,7 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" ng-hide="response.uiDisplayConfigurations.viewClient.cashFlow.isRemmitanceIncome">
                     <label class="control-label col-sm-2">{{'label.input.isRemmitanceIncome' | translate}}</label>
 
                     <div class="col-sm-3">

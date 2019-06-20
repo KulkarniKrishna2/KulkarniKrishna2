@@ -5,9 +5,6 @@
       "isHiddenField": {
         "interestChargedFromDate": true
       },
-      "isAutoPopulate": {
-        "interestChargedFromDate": true
-      },
       "isMandatory": {
         "isPreclosureReasonEnabled" : true,
         "transactionPaymentMode": true,
