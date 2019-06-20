@@ -16,6 +16,9 @@
                    if(scope.response.uiDisplayConfigurations.createOffice.isHiddenField.villageTown){
                     scope.isVillageTownHidden = scope.response.uiDisplayConfigurations.createOffice.isHiddenField.villageTown;
                    }
+                   if(scope.response.uiDisplayConfigurations.createOffice.isHiddenField.referenceNo){
+                    scope.showReferenceNo = !scope.response.uiDisplayConfigurations.createOffice.isHiddenField.referenceNo;
+                   }
                 }
             }
 

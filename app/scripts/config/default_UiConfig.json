@@ -499,7 +499,8 @@
 				"addressType": false
 			},
 			"isHiddenField": {
-				"pincode": false
+				"pincode": false,
+				"referenceNo": true
 			}
 		},
 		"createJlgLoan": {
