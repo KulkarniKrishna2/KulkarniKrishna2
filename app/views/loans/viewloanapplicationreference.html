@@ -15,13 +15,13 @@
             <api-validate></api-validate>
            
             <div ng-show="error != null" class="error">
-                {{'label.error' | translate}}: {{error}}
+                {{'label.error' | translate}}: {{ error | translate}}
             </div>
             <div class="form-group" ng-if ="rejectioReasonsAvailable">
                 <label class="control-label col-sm-3" >{{'label.input.rejectionreason' | translate}}<span ng-if="isRejectReasonMandatory" class="required">*</span></label>
                 <div class="col-sm-4">
-                    <select  id="reasonCode" name="reasonCode" ng-model="code.selectedReason" ng-options="code.name as code.name for code in codes" value="{{code.name}}" 
-                    class="input-sm form-control" data-ng-change="getDependentCodeValues(code.selectedReason)">
+                    <select  id="reasonCode" name="reasonCode" ng-model="rejectFormData.selectedReason" ng-options="code.name as code.name for code in codes" value="{{code.name}}" 
+                    class="input-sm form-control" data-ng-change="getDependentCodeValues(rejectFormData.selectedReason)">
                     <option value="">{{'label.selectone' | translate}}</option></select>
                 </div>
                 <br/>
