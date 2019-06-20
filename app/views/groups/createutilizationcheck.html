@@ -63,7 +63,7 @@
                                                is-open="opened1"
                                                max="restrictDate"
                                                class="form-control" ng-readonly="isDatePickerReadOnly" ng-required="true"/>
-                                               <div class = "col-sm-3" ng-show="submitted && auditDoneOn.submittedon.$error.required">
+                                               <div class = "col-sm-12" ng-show="submitted && auditDoneOn.submittedon.$error.required">
                                                     <span class="error">{{ 'label.requirefield' | translate }}</span>
                                                 </div>
                                     </ng-form>
@@ -76,7 +76,7 @@
                     <table class="col-sm-16" ng-style="styleHalfScreenWidth" ng-if="centerTemplate.loanUtilizationCheckDetail.utilizationDetails.length > 0">
                         <tbody>
                         <tr data-ng-repeat="utilizationDetails in centerTemplate.loanUtilizationCheckDetail.utilizationDetails track by $index">
-                            <td class="col-md-5">
+                            <td class="col-md-8">
                                 <ng-form name="loanPurposeForm" rc-submit="submit()">
                                     <select id="loanPurposeId"
                                             name="loanPurpose"
@@ -92,7 +92,7 @@
                                     </select>
                                 </ng-form>
                             </td>
-                            <td class="col-md-4">
+                            <td class="col-md-8">
                                 <span>
                                     <ng-form name="principalAmountForm" novalidate="" rc-submit="submit()">
                                         <input type="text" autocomplete="off"

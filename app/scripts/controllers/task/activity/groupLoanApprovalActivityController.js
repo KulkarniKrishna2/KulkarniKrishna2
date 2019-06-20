@@ -13,7 +13,10 @@
             var currentIndex = 0;
             scope.taskStatus = scope.taskconfig.status.value;  
             scope.chargeFormData = {}; 
+            if (scope.response && scope.response.uiDisplayConfigurations.loanAccount.isAutoPopulate.interestChargedFromDate) {
+                scope.isAutoUpdateInterestStartDate = scope.response.uiDisplayConfigurations.loanAccount.isAutoPopulate.interestChargedFromDate;
 
+            }
             function populateDetails() {
                 if(scope.taskStatus != undefined && scope.taskStatus != 'completed'){
                      resourceFactory.groupResource.get({groupId: scope.groupId, associations: 'clientMembers'}, function(data) {
@@ -404,7 +407,7 @@
                 }
                 //delete this.formValidationData.syncRepaymentsWithMeeting;
 
-                if (scope.formRequestData.expectedDisbursementDate) {
+                if (scope.isAutoUpdateInterestStartDate && scope.formRequestData.expectedDisbursementDate) {
                     this.formValidationData.interestChargedFromDate = reqThirdDate;
                 }
 

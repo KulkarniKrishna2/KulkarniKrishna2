@@ -316,7 +316,7 @@
 																	class="icon-plus icon-white"></i>{{ 'label.button.jlgloanapplication' | translate }}</a>
 
 														</td>
-														<td>
+														<td ng-if="!createjlgLoanApplication">
 															<a has-permission='CREATE_LOANAPPLICATIONREFERENCE' ng-show="isLoanApplication === true" class="btn btn-primary btn-sm" ng-href="#/newindividualjlgloanapplicationreference/{{center.id}}/{{member.id}}" data-ng-show="isActiveMember(member.status.code)"><i
 																	class="icon-plus icon-white"></i></a>
 

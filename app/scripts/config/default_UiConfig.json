@@ -75,7 +75,7 @@
 				"trancheAmount": true
 			},
 			"isAutoPopulate": {
-				"interestChargedFromDate": true
+				"interestChargedFromDate": false
 			},
 			"isDefaultValue": {
 				"syncDisbursementWithMeeting": false,
@@ -163,7 +163,16 @@
 			"takeSurveyName": "",
 			"surveyEntityTypeId": "",
 			"activateOnReinitiate": true,
-			"createSavingAccount": true
+			"createSavingAccount": true,
+			"cashFlow": {
+				"hiddenFields": {
+					"assetDetails": false,
+					"houseHoldExpenses": false,
+					"allExpenses" : false,
+					"isPrimaryIncome" : false,
+          			"isRemmitanceIncome" : false
+				}
+			}
 		},
 		"collectionSheet": {
 			"isAutoPopulate": {
@@ -444,6 +453,10 @@
 			},
 			"initiateWorkflow": {
 				"showInitiateOnCompletion": false
+			},
+			"deceasedWorkflow": {
+				"showPolicy" : false,
+				"showMarkAsDeceased" : false
 			}
 		},
 		"globalSearchScope": {
@@ -496,7 +509,8 @@
 				"addressType": false
 			},
 			"isHiddenField": {
-				"pincode": false
+				"pincode": false,
+				"referenceNo": true
 			}
 		},
 		"createJlgLoan": {

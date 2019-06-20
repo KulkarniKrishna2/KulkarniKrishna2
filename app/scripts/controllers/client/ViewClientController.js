@@ -96,6 +96,10 @@
                 scope.isSavingAccountEnable = scope.response.uiDisplayConfigurations.viewClient.createSavingAccount;
                 scope.activateOnReinitiate = scope.response.uiDisplayConfigurations.viewClient.activateOnReinitiate;
                 scope.hideVillage = scope.response.uiDisplayConfigurations.entityType.isHiddenMenu.village;
+                if (scope.response.uiDisplayConfigurations.workflow && scope.response.uiDisplayConfigurations.workflow.deceasedWorkflow){
+                    scope.showPolicy = scope.response.uiDisplayConfigurations.workflow.deceasedWorkflow.showPolicy;
+                    scope.showMarkAsDeceased = scope.response.uiDisplayConfigurations.workflow.deceasedWorkflow.showMarkAsDeceased;
+                } 
              }
         
             scope.routeToLoan = function (id) {
@@ -424,15 +428,34 @@
                             }
                         ];
                     }
-                    if(data.status.value == "Active" && !scope.response.uiDisplayConfigurations.shares.hidesharesmodule){
-                        scope.buttons.push({
-                            name: "label.button.newshareaccount",
-                            href: "#/createshareaccount",
-                            icon: "icon-plus",
-                            taskPermissionName: "CREATE_SHAREACCOUNT"
-                        });
+                    if(data.status.value == "Active"){
+                        if(!scope.response.uiDisplayConfigurations.shares.hidesharesmodule)
+                        {   scope.buttons.push({
+                                name: "label.button.newshareaccount",
+                                href: "#/createshareaccount",
+                                icon: "icon-plus",
+                                taskPermissionName: "CREATE_SHAREACCOUNT"
+                            });
+                        }
+                        if(scope.showPolicy){
+                            scope.buttons.push({
+                                name: "label.button.viewpolicy",
+                                href: "#/clients",
+                                subhref: "viewpolicy",
+                                icon: "icon-eye-open",
+                                taskPermissionName: "READ_POLICY"
+                            });
+                        }
+                        if(scope.showMarkAsDeceased){
+                            scope.buttons.push({
+                                name: "label.button.markasdeceased",
+                                href: "#/clients",
+                                subhref: "deceasedonboarding",
+                                icon: "icon-plus",
+                                taskPermissionName: "CREATE_DECEASED_WORKFLOW"
+                            });
+                        }   
                     }
-    
                     if (data.status.value == "Pending" || data.status.value == "Active") {
                         if (data.staffId) {
     

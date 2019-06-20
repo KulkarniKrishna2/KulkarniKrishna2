@@ -162,7 +162,10 @@
 			}			
 		},
 		"createOffice": {
-			"selfActive": true
+			"selfActive": true,
+			"isHiddenField": {
+				"referenceNo": false
+			}
 		},
 		"createJlgLoan": {
 			"isHiddenField": {
@@ -193,7 +196,11 @@
 			"hideReject": true,
 			"isReadOnlyField": {
 				"createSubGroupDate": true
-			}
+			},
+			"deceasedWorkflow": {
+        		"showPolicy" : true,
+        		"showMarkAsDeceased" : true
+      		}
 		},
 		"createVillage": {
 			"isReadOnlyField": {

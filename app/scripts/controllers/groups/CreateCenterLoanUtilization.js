@@ -141,9 +141,11 @@
                     }
                 }
                 for(var i in scope.loanCenterTemplate){
-                    scope.formData.loanUtilizationCheckDetails[i].files = scope.loanCenterTemplate[i].files;
+                    var uploadedFile = scope.loanCenterTemplate[i].files;
+                    if(uploadedFile){
+                        scope.formData.loanUtilizationCheckDetails[i].files = uploadedFile;
+                    }
                 }
-
 
                 scope.requestFormData = [];
                 scope.fileFormData = [];
