@@ -475,6 +475,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'task/activity/reviewbankaccountActivityController',
             'task/activity/kycActivityController',
             'task/activity/camActivityController',
+            'task/activity/NewcamActivityController',
             'task/activity/cashflowActivityController',
             'task/activity/criteriacheckActivityController',
             'task/activity/banktransactionActivityController',
