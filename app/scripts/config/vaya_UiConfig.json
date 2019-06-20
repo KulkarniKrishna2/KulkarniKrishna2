@@ -5,13 +5,10 @@
       "isHiddenField": {
         "interestChargedFromDate": true
       },
-      "isAutoPopulate": {
-        "interestChargedFromDate": true
-      },
       "isMandatory": {
         "isPreclosureReasonEnabled" : true, 
         "transactionPaymentMode": true,
-				"transactionPaymentType": true
+        "transactionPaymentType": true
       }
     },
     "createCenter": {
@@ -37,6 +34,10 @@
         "rejectReason":true,
         "rejectDescription": true,
         "rejectCodes":false
+      },
+      "deceasedWorkflow": {
+        "showPolicy" : true,
+        "showMarkAsDeceased" : true
       }
     },
     "collectionSheet": {
@@ -101,8 +102,8 @@
       "isMakerTwoStepPresent": true      
     },
     "meeting": {
-			"showAllRepeatsOptions": false
-		},
+      "showAllRepeatsOptions": false
+    },
     "viewClient": {
       "isHiddenField": {
         "createClient": true,

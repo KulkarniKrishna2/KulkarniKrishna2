@@ -35,6 +35,7 @@
                     scope.firstRepaymentDateReadOnlyType = scope.response.uiDisplayConfigurations.loanAccount.isReadOnlyField.firstRepaymentDate;
                     scope.showLoanPurpose = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.loanPurpose;
                     scope.showPreferredPaymentChannel = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.preferredPaymentChannel;
+                    scope.isAutoUpdateInterestStartDate = scope.response.uiDisplayConfigurations.loanAccount.isAutoPopulate.interestChargedFromDate;
                 }
             }
 
@@ -198,7 +199,7 @@
                 if (scope.loanaccountinfo.timeline.expectedDisbursementDate) {
                     scope.formData.expectedDisbursementDate = new Date(scope.loanaccountinfo.timeline.expectedDisbursementDate);
                 }
-                if (scope.loanaccountinfo.interestChargedFromDate) {
+                if (scope.isAutoUpdateInterestStartDate && scope.loanaccountinfo.interestChargedFromDate) {
                     scope.formData.interestChargedFromDate = new Date(scope.loanaccountinfo.interestChargedFromDate);
                 }
                 if (scope.loanaccountinfo.expectedFirstRepaymentOnDate) {
@@ -389,13 +390,13 @@
                     scope.collateralOptions = data.loanCollateralOptions || [];
                 });
 
-                if(scope.response && scope.response.uiDisplayConfigurations.loanAccount.isAutoPopulate.interestChargedFromDate){
-                    scope.$watch('formData.expectedDisbursementDate ', function(){
+                scope.$watch('formData.expectedDisbursementDate ', function(){
+                    if (scope.response && scope.response.uiDisplayConfigurations.loanAccount.isAutoPopulate.interestChargedFromDate) {
                         if(scope.formData.expectedDisbursementDate != '' && scope.formData.expectedDisbursementDate != undefined){
                             scope.formData.interestChargedFromDate = scope.formData.expectedDisbursementDate;
                         }
-                    });
-                }
+                    }    
+                });
 
                 if (data.clientId) {
                     scope.clientId = data.clientId;
@@ -724,7 +725,9 @@
                 this.formData.loanTermFrequency = scope.loanTerm;
                 this.formData.expectedDisbursementDate = dateFilter(this.formData.expectedDisbursementDate, scope.df);
                 this.formData.submittedOnDate = dateFilter(this.formData.submittedOnDate, scope.df);
-                this.formData.interestChargedFromDate = dateFilter(this.formData.interestChargedFromDate, scope.df);
+                if(!_.isUndefined(this.formData.interestChargedFromDate)){
+                    this.formData.interestChargedFromDate = dateFilter(this.formData.interestChargedFromDate, scope.df);
+                }
                 this.formData.repaymentsStartingFromDate = dateFilter(this.formData.repaymentsStartingFromDate, scope.df);
                 this.formData.recalculationRestFrequencyStartDate = dateFilter(scope.recalculationRestFrequencyStartDate, scope.df);
                 this.formData.recalculationCompoundingFrequencyStartDate = dateFilter(scope.recalculationCompoundingFrequencyStartDate, scope.df);
@@ -813,7 +816,9 @@
                 this.formData.loanType = scope.templateType;
                 this.formData.expectedDisbursementDate = dateFilter(this.formData.expectedDisbursementDate, scope.df);
                 this.formData.submittedOnDate = dateFilter(this.formData.submittedOnDate, scope.df);
-                this.formData.interestChargedFromDate = dateFilter(this.formData.interestChargedFromDate, scope.df);
+                if(!_.isUndefined(this.formData.interestChargedFromDate)){
+                    this.formData.interestChargedFromDate = dateFilter(this.formData.interestChargedFromDate, scope.df);
+                }
                 this.formData.repaymentsStartingFromDate = dateFilter(this.formData.repaymentsStartingFromDate, scope.df);
                 this.formData.recalculationRestFrequencyStartDate = dateFilter(scope.recalculationRestFrequencyStartDate, scope.df);
                 this.formData.recalculationCompoundingFrequencyStartDate = dateFilter(scope.recalculationCompoundingFrequencyStartDate, scope.df);

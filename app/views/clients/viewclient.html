@@ -1263,7 +1263,7 @@
 						<th>{{ 'label.heading.occupationname' | translate }}</th>
 						<th>{{ 'label.heading.quantity' | translate }}</th>
 						<th>{{ 'label.heading.income' | translate }}</th>
-						<th>{{ 'label.heading.expense' | translate }}</th>
+						<th ng-hide="response.uiDisplayConfigurations.viewClient.cashFlow.allExpenses">{{ 'label.heading.expense' | translate }}</th>
 						<th>{{ 'label.heading.net' | translate}}</th>
 						<th>{{}}</th>
 					</tr>
@@ -1279,7 +1279,7 @@
 						<td class="pointer" data-ng-click="">
 							{{incomeAndExpense.totalIncome}}
 						</td>
-						<td class="pointer" data-ng-click="">
+						<td ng-hide="response.uiDisplayConfigurations.viewClient.cashFlow.allExpenses" class="pointer" data-ng-click="">
 							{{incomeAndExpense.totalExpense}}
 						</td>
 						<td>
@@ -1345,7 +1345,7 @@
 				</table>
 			</div>
 		</div>
-         <div ng-hide="houseHoldExpenses">
+         <div ng-hide="houseHoldExpenses || response.uiDisplayConfigurations.viewClient.cashFlow.houseHoldExpenses">
 			<a href="#/clients/{{id}}/createclienthouseholddetails" class="btn btn-primary pull-right"><i
 					class="icon-plus icon-white"></i>
 				{{'label.button.create.household.expense' | translate}}</a>
@@ -1396,7 +1396,7 @@
 									<td>{{'label.input.asset.income' | translate}}:</td>
 									<td>{{totalIncomeAsset}}</td>
 								</tr>
-								<tr>
+								<tr ng-hide="response.uiDisplayConfigurations.viewClient.cashFlow.houseHoldExpenses">
 									<td>{{'label.input.household.expense' | translate}}:</td>
 									<td>{{totalHouseholdExpense}}</td>
 								</tr>
@@ -1429,6 +1429,7 @@
 						<th>{{ 'label.heading.tenure' | translate }}</th>
 						<th>{{ 'label.heading.outstanding.amount' | translate}}</th>
 						<th>{{ 'label.heading.status' | translate}}</th>
+						<th>{{ 'label.heading.fixedEmi' | translate}}</th>
 						<th>{{}}</th>
 					</tr>
 					</thead>
@@ -1451,6 +1452,9 @@
 						</td>
 						<td class="pointer" ng-click="routeToViewExistingLoan(existingLoan.id)">
 							<span>{{existingLoan.loanStatus.value}}</span>
+						</td>
+						<td class="pointer" ng-click="routeToViewExistingLoan(existingLoan.id)">
+							<span>{{existingLoan.installmentAmount}}</span>
 						</td>
 						<td class="pull-right">
 							<button role="button" ng-click="showEditClientExistLoan(existingLoan.id)"

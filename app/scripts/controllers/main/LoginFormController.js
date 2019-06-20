@@ -110,6 +110,14 @@
             };
 
             scope.loginWithOTP = function() {
+                if (scope.mainUIConfigData.loginSecurity && (scope.mainUIConfigData.loginSecurity.isEnabledCaptcha || scope.enableCaptchaOnFailedLogInAttempts)) {
+                    if (scope.mainUIConfigData.loginSecurity.defaultCaptcha === 'Patchca') {
+                        scope.loginCredentials.captchaDetails = {
+                            captcha: scope.captchaFormData.captchaEntered,
+                            captcha_reference_id: scope.captchaData.captchaReferenceId
+                        };
+                    }
+                }
                 scope.load = true;
                 if (scope.loginCredentials && scope.loginCredentials.otp) {
                     authenticationService.authenticateWithOTP(scope.loginCredentials);
@@ -171,6 +179,11 @@
             scope.$on("UserAuthenticationEnterOTPEvent", function (event, data) {
                 scope.otpPanel = true;
                 scope.loginCredentials.otpTokenId = data.otpTokenId;
+                delete scope.authenticationErrorMessage;
+                scope.authenticationFailed = false;
+                if(data.captcha_mandatory){
+                    scope.enableCaptchaOnFailedLogInAttempts = true;
+                }
                 init();
             });
 

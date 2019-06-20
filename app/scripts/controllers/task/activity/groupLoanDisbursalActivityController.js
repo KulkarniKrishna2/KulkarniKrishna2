@@ -266,13 +266,14 @@
                 });
             };
 
-            if (scope.response && scope.response.uiDisplayConfigurations.loanAccount.isAutoPopulate.interestChargedFromDate) {
-                scope.$watch('date.expectedDisbursementDate ', function() {
+            
+            scope.$watch('date.expectedDisbursementDate ', function() {
+                if (scope.response && scope.response.uiDisplayConfigurations.loanAccount.isAutoPopulate.interestChargedFromDate) {
                     if (scope.date.expectedDisbursementDate != '' && scope.date.expectedDisbursementDate != undefined) {
                         scope.date.interestChargedFromDate = scope.date.expectedDisbursementDate;
                     }
-                });
-            }
+                }
+            });
 
             scope.syncRepaymentsWithMeetingchange = function() {
                 if (!scope.formRequestData.submitApplication.syncRepaymentsWithMeeting) {

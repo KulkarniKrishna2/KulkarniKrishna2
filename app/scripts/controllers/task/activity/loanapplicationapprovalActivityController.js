@@ -10,6 +10,10 @@
             scope.isLoanSanctioned = false;
             scope.isTrancheAmoumtReadOnly = false;
             scope.isTrancheAmountReadOnlyField = true;
+            if (scope.response && scope.response.uiDisplayConfigurations.loanAccount.isAutoPopulate.interestChargedFromDate) {
+                scope.isAutoUpdateInterestStartDate = scope.response.uiDisplayConfigurations.loanAccount.isAutoPopulate.interestChargedFromDate;
+
+            }
             scope.onReject = function(){
 
             };
@@ -497,7 +501,7 @@
                 }
                 //delete this.formValidationData.syncRepaymentsWithMeeting;
 
-                if (scope.formRequestData.expectedDisbursementDate) {
+                if (scope.isAutoUpdateInterestStartDate && scope.formRequestData.expectedDisbursementDate) {
                     this.formValidationData.interestChargedFromDate = reqThirdDate;
                 }
 

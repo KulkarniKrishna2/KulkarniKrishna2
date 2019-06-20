@@ -555,7 +555,6 @@
 
                 this.formPreviewRepaymentData.expectedDisbursementDate = dateFilter(this.formData.expectedDisbursementDate,scope.df);
                 this.formPreviewRepaymentData.submittedOnDate = dateFilter(scope.formData.submittedOnDate,scope.df);
-                this.formPreviewRepaymentData.interestChargedFromDate = this.formPreviewRepaymentData.expectedDisbursementDate;
                 this.formPreviewRepaymentData.repaymentsStartingFromDate = dateFilter(this.formData.repaymentsStartingFromDate,scope.df);
                 
                 this.formPreviewRepaymentData.loanTermFrequencyType = this.formData.termPeriodFrequencyEnum;
