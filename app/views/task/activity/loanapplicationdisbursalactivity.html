@@ -557,7 +557,7 @@
                                                 }}&nbsp;<span
                                                         class="required">*</span>:</label></td>
                                             <td class="width25 paddedbottom10">
-                                                <input type="text" autocomplete="off" class="form-control" name="transactionAmount"
+                                                <input type="text" autocomplete="off" class="form-control" name="transactionAmount" ng-readonly="isAmountReadOnly"
                                                        ng-model="formRequestData.disburse.transactionAmount"
                                                        number-format required/>&nbsp;{{loanaccountinfo.currency.displaySymbol}}
                                             </td>
@@ -605,7 +605,7 @@
                                             <td class="width36 paddedbottom10"
                                                 ng-if="loanaccountinfo.canDefineInstallmentAmount">
                                                 <input id="fixedEmiAmount" name="fixedEmiAmount" type="text" autocomplete="off"
-                                                       ng-model="formRequestData.disburse.fixedEmiAmount"
+                                                       ng-model="formRequestData.disburse.fixedEmiAmount" ng-readonly = "isFixedEmiReadOnly"
                                                        class="form-control" number-format/>&nbsp;{{loanaccountinfo.currency.displaySymbol}}
                                             </td>
 
@@ -635,7 +635,116 @@
                                             </td>
                                         </tr>
                                     </table>
+                                    <hr>
+                                    <div ng-if="showEmiDetailsInDisbursement">
+                                    <div ng-show="changeLoanEMIPack">
+                                        <button type="button" ng-click="changeLoanEMIPack=false" class="btn btn-primary ng-binding">{{'label.button.back'| translate}}
+                                        </button>
+                                    </div>                        
+                                    <div ng-hide="changeLoanEMIPack">
+                                        <button type="button" ng-click="changeLoanEMIPack=true" has-permission='UPDATE_LOANAPPLICATIONREFERENCE' class="btn btn-primary ng-binding">{{'label.button.changeemipack'| translate}}
+                                        </button>
+                                    </div>
+                                            <table class="table  table-striped" ng-show="changeLoanEMIPack">
+                                                <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>{{ 'label.heading.sanctionAmount' | translate }}</th>
+                                                    <th>{{ 'label.heading.repaymentEvery' | translate }}</th>
+                                                    <th>{{ 'label.heading.numberOfRepayments' | translate }}</th>
+                                                    <th>{{ 'label.heading.fixedEmi' | translate }}</th>
+                                                    <th ng-show="loanaccountinfo.multiDisburseLoan">{{ 'label.heading.disbursalAmount1' | translate }}</th>
+                                                    <th ng-show="loanaccountinfo.multiDisburseLoan && loanaccountinfo.product.maxTrancheCount > 1">{{ 'label.heading.disbursalAmount2' | translate }}</th>
+                                                    <th ng-show="loanaccountinfo.multiDisburseLoan && loanaccountinfo.product.maxTrancheCount > 2">{{ 'label.heading.disbursalAmount3' | translate }}</th>
+                                                    <th ng-show="loanaccountinfo.multiDisburseLoan && loanaccountinfo.product.maxTrancheCount > 3">{{ 'label.heading.disbursalAmount4' | translate }}</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr data-ng-repeat="loanEMIPack in loanaccountinfo.loanEMIPacks | filter:filterText"
+                                                    ng-if="loanEMIPack.sanctionAmount <= formData.loanEMIPackData.sanctionAmount">
+                                                    <td class="col-md-1">
+                                                        <input type="radio" ng-model="formRequestData.disburse.loanEMIPackId" value="{{loanEMIPack.id}}" ng-change="updateloanEmiPacks()"/>
+                                                    </td>
+                                                    <td class="col-md-1">
+                                                        <span>{{loanEMIPack.sanctionAmount}}</span>
+                                                    </td>
+                                                    <td class="col-md-1">
+                                                        <span>{{loanEMIPack.repaymentEvery}} - {{loanEMIPack.repaymentFrequencyType.value}}</span>
+                                                    </td>
+                                                    <td class="col-md-1">
+                                                        <span>{{loanEMIPack.numberOfRepayments}}</span>
+                                                    </td>
+                                                    <td class="col-md-1">
+                                                        <span>{{loanEMIPack.fixedEmi}}</span>
+                                                    </td>
+                                                    <td class="col-md-1" ng-show="loanaccountinfo.multiDisburseLoan">
+                                                        <span>{{loanEMIPack.disbursalAmount1}}</span>
+                                                    </td>
+                                                    <td class="col-md-1" ng-show="loanaccountinfo.multiDisburseLoan && loanaccountinfo.product.maxTrancheCount > 1">
+                                                        <span>{{loanEMIPack.disbursalAmount2}}</span>
+                                                    </td>
+                                                    <td class="col-md-1" ng-show="loanaccountinfo.multiDisburseLoan && loanaccountinfo.product.maxTrancheCount > 2">
+                                                        <span>{{loanEMIPack.disbursalAmount3}}</span>
+                                                    </td>
+                                                    <td class="col-md-1" ng-show="loanaccountinfo.multiDisburseLoan && loanaccountinfo.product.maxTrancheCount > 3">
+                                                        <span>{{loanEMIPack.disbursalAmount4}}</span>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                    <br>
+                                    <div ng-show="loanaccountinfo.product.multiDisburseLoan && formRequestData.disburse.disbursementData">
+                                    <hr/>
+                                    <label>
+                                        <strong>{{ 'label.heading.tranchedetails' | translate }}</strong>
+                                    </label>
 
+                                    <table class="table width100"
+                                       ng-show="formRequestData.disburse.disbursementData && formRequestData.disburse.disbursementData.length>0">
+                                        <thead>
+                                        <tr class="graybg">
+                                        <th>{{'label.heading.serialno' | translate}}</th>
+                                        <th>{{'label.input.expecteddisbursementon' | translate}}</th>
+                                        <th>{{'label.input.principal' | translate}}</th>
+                                        <th data-ng-show="loanaccountinfo.product.isFlatInterestRate">{{'label.input.discountondisbursalamount' | translate}}</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="disbursementDetail in formRequestData.disburse.disbursementData track by $index">
+                                        <td>{{($index+1)}}</td>
+                                        <td>
+                                            <input id="{{disbursementDetail[$index].expectedTrancheDisbursementDate}}"
+                                                   name="expectedTrancheDisbursementDate" type="text" autocomplete="off"
+                                                   datepicker-pop="{{df}}"
+                                                   placeholder="{{'label.input.expecteddisbursementon' | translate}}"
+                                                   ng-model="disbursementDetail.expectedDisbursementDate"
+                                                   is-open="'openedtranche'+$index" min="minDate" max="'2020-06-22'"
+                                                   class="form-control" ng-disabled = "true"/>
+                                            <form-validate valattributeform="approveloanapplicationform"
+                                                           valattribute="expectedTrancheDisbursementDate"/>
+                                        </td>
+                                        <td>
+                                            <input id="{{disbursementDetail[$index].trancheAmount}}"
+                                                   name="trancheAmount"
+                                                   class="input-sm form-control"
+                                                   number-format type="text" autocomplete="off"
+                                                   ng-model="disbursementDetail.principal"
+                                                   placeholder="{{'label.input.principal' | translate}}" required
+                                                   late-validate="" ng-readonly = "true">
+
+                                            <form-validate valattributeform="approveloanapplicationform"
+                                                           valattribute="trancheAmount"/>
+                                        </td>
+                                        <td data-ng-show="loanaccountinfo.product.isFlatInterestRate">
+                                            <input id="{{disbursementDetail[$index].discountOnDisbursalAmount}}"  class="input-sm form-control" number-format type="text" autocomplete="off" ng-model="disbursementDetail.discountOnDisbursalAmount" name="discountOnDisbursalAmount"
+                                            placeholder="{{'label.input.discountondisbursalamount' | translate}}">
+                                        </td>
+                                        </tr>
+                                    </tbody>
+                                    </table>
+                                    </div>
+                            </div>        
+                                    <hr>        
                                     <table class="width100">
                                         <tr>
                                             <td class="width25"><label>{{ 'label.anchor.showpaymentdetails' |

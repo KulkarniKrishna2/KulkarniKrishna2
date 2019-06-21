@@ -27,7 +27,10 @@
             scope.paymentModeOptions = [];
             scope.paymentTypes = [];
             scope.paymentTypeOptions = [];
-
+            scope.changeLoanEMIPack=false;
+            scope.showEmiDetailsInDisbursement = !scope.response.uiDisplayConfigurations.workflow.loanDisbusal.hiddenField.showEmipack;
+            scope.isAmountReadOnly = scope.response.uiDisplayConfigurations.workflow.loanDisbusal.isReadOnlyField.transactionAmount;
+            scope.isFixedEmiReadOnly = scope.response.uiDisplayConfigurations.workflow.loanDisbusal.isReadOnlyField.fixedEmiAmount;
             scope.filterPaymentTypes = function(data){
                 scope.paymentTypes = [];
                 for(var i in data){
@@ -126,6 +129,11 @@
                             scope.date.expectedDisbursementDate = dateFilter(new Date(scope.formData.approvedData.expectedDisbursementDate), scope.df);
                             if (scope.formData.approvedData.repaymentsStartingFromDate) {
                                 scope.date.repaymentsStartingFromDate = dateFilter(new Date(scope.formData.approvedData.repaymentsStartingFromDate), scope.df);
+                                scope.formRequestData.disburse.repaymentsStartingFromDate = dateFilter(new Date(scope.formData.approvedData.repaymentsStartingFromDate), scope.df);
+                            }
+                            if(scope.formData.approvedData.loanEMIPackData){
+                                scope.formRequestData.submitApplication.loanEMIPackId = scope.formData.approvedData.loanEMIPackData.id;
+                                scope.formRequestData.disburse.loanEMIPackId = scope.formData.approvedData.loanEMIPackData.id;         
                             }
                             if (scope.formData.noOfTranche > 0) {
                                 for (var j in scope.formData.approvedData.loanApplicationSanctionTrancheDatas) {
@@ -247,7 +255,7 @@
                     scope.fetchBankAccountDetails();
                     if(scope.formData.approvedData.amountForUpfrontCollection){
                         scope.formRequestData.submitApplication.amountForUpfrontCollection = scope.formData.approvedData.amountForUpfrontCollection;
-                    }
+                    }                  
 
                 });
             };
@@ -293,16 +301,6 @@
                     }
                 });
             };
-
-            
-            scope.$watch('formRequestData.disburse.actualDisbursementDate', function () {
-                if (scope.response && scope.response.uiDisplayConfigurations.loanAccount.isAutoPopulate.interestChargedFromDate) {
-                    if (scope.formRequestData.disburse.actualDisbursementDate != '' && scope.formRequestData.disburse.actualDisbursementDate != undefined) {
-                        scope.date.interestChargedFromDate = scope.formRequestData.disburse.actualDisbursementDate;
-                    }
-                }
-            });
-
 
             scope.syncRepaymentsWithMeetingchange = function () {
                 if (!scope.formRequestData.submitApplication.syncRepaymentsWithMeeting) {
@@ -439,11 +437,9 @@
                 if (this.formRequestData.submitApplication.syncRepaymentsWithMeeting) {
                     this.formRequestData.submitApplication.calendarId = scope.loanaccountinfo.calendarOptions[0].id;
                 }
-                //delete this.formRequestData.submitApplication.syncRepaymentsWithMeeting;
+                delete this.formRequestData.submitApplication.syncRepaymentsWithMeeting;
 
-                if (scope.date.interestChargedFromDate) {
-                    this.formRequestData.submitApplication.interestChargedFromDate = dateFilter(new Date(scope.date.interestChargedFromDate), scope.df);
-                }
+                
                 if (!scope.date.repaymentsStartingFromDate || scope.date.repaymentsStartingFromDate == "") {
                     this.formRequestData.submitApplication.repaymentsStartingFromDate = undefined;
                 }else{
@@ -466,6 +462,9 @@
                 this.formRequestData.submitApplication.expectedDisbursementDate = dateFilter(new Date(scope.date.expectedDisbursementDate), scope.df);
                 this.formRequestData.submitApplication.submittedOnDate = dateFilter(new Date(scope.formData.submittedOnDate), scope.df);
 
+                if (scope.response.uiDisplayConfigurations.loanAccount.isAutoPopulate.interestChargedFromDate) {
+                    this.formRequestData.submitApplication.interestChargedFromDate = dateFilter(new Date(this.formRequestData.submitApplication.expectedDisbursementDate), scope.df);
+                }
                 this.formRequestData.submitApplication.createStandingInstructionAtDisbursement = scope.formRequestData.createStandingInstructionAtDisbursement;
 
                 this.formRequestData.submitApplication.locale = scope.optlang.code;
@@ -482,10 +481,9 @@
                 if (scope.formData.bankAccountDetailId) {
                     this.formRequestData.disburse.bankAccountDetailId = scope.formData.bankAccountDetailId;
                 }
-
-                scope.disburseData = {};
-                angular.copy(scope.formRequestData,scope.disburseData);
-                delete scope.disburseData.submitApplication.syncRepaymentsWithMeeting;
+                if(_.isUndefined(this.formRequestData.disburse.disbursementData)){
+                    delete this.formRequestData.disburse.loanEMIPackId;
+                } 
                 resourceFactory.loanApplicationReferencesResource.update({
                     loanApplicationReferenceId: scope.loanApplicationReferenceId,
                     command: scope.commandParam
@@ -694,7 +692,77 @@
                 if (this.formData.bankAccountDetailId) {
                     this.formData.bankAccountDetailId = null;
                 }
-            };
+            };           
+                
+            scope.updateExpectedDateTrancheDetails = function(){
+                if (scope.date.expectedDisbursementDate && scope.formRequestData.disburse.disbursementData.length > 0 && scope.loanEMIPack && scope.disbursalEMIs) {
+                    if (scope.date.expectedDisbursementDate != '' && scope.date.expectedDisbursementDate != undefined) {
+                        var dateValue = scope.date.expectedDisbursementDate;
+                        var date = new Date(dateValue);
+                        if (date.toString() != 'Invalid Date') {
+                            var len = scope.formRequestData.disburse.disbursementData.length;
+                            for(var i=0; i < len; i++){
+                                        if(scope.loanEMIPack.repaymentFrequencyType.id === 0){
+                                            date = date.setDate(date.getDate()+(parseInt(scope.loanEMIPack.repaymentEvery)*scope.disbursalEMIs[i]));
+                                        }else if(scope.loanEMIPack.repaymentFrequencyType.id === 1){
+                                            date = date.setDate(date.getDate()+(parseInt(scope.loanEMIPack.repaymentEvery)*7*scope.disbursalEMIs[i]));
+                                        }else if(scope.loanEMIPack.repaymentFrequencyType.id === 2){
+                                            date = date.setMonth(date.getMonth()+(parseInt(scope.loanEMIPack.repaymentEvery)*scope.disbursalEMIs[i]));
+                                        }
+                                if(!isNaN(date)){
+                                    scope.formRequestData.disburse.disbursementData[i].expectedDisbursementDate = dateFilter(new Date(date), scope.df);
+                                }
+                                dateValue = scope.date.expectedDisbursementDate;
+                                date = new Date(dateValue);
+                            }
+                        }
+                    }
+                }
+
+            }
+
+            scope.updateloanEmiPacks = function(){
+                        if(scope.formRequestData.disburse.loanEMIPackId){
+                        if (scope.loanaccountinfo) {
+                        var len = scope.loanaccountinfo.loanEMIPacks.length;
+                        scope.loanEMIPack = {};
+                        for(var i=0; i < len; i++){
+                            if(scope.loanaccountinfo.loanEMIPacks[i].id == scope.formRequestData.disburse.loanEMIPackId){
+                                scope.loanEMIPack = scope.loanaccountinfo.loanEMIPacks[i];
+                                break;
+                            }
+                        }
+                        scope.formRequestData.disburse.transactionAmount = scope.loanEMIPack.sanctionAmount;
+                        scope.formRequestData.disburse.fixedEmiAmount = scope.loanEMIPack.fixedEmi;
+                        scope.disbursalEMIs = [0];
+                         scope.formRequestData.disburse.disbursementData = [];
+                        if(scope.loanEMIPack.disbursalAmount1){
+                            scope.formRequestData.disburse.transactionAmount = scope.loanEMIPack.disbursalAmount1;
+                            var loanApplicationSanctionTrancheDatas = {principal:scope.loanEMIPack.disbursalAmount1};
+                            scope.formRequestData.disburse.disbursementData.push(loanApplicationSanctionTrancheDatas);
+                        }
+                        if(scope.loanEMIPack.disbursalAmount2){
+                            var loanApplicationSanctionTrancheDatas = {principal:scope.loanEMIPack.disbursalAmount2};
+                            scope.formRequestData.disburse.disbursementData.push(loanApplicationSanctionTrancheDatas);
+                            scope.disbursalEMIs.push(scope.loanEMIPack.disbursalEmi2);
+                        }
+                        if(scope.loanEMIPack.disbursalAmount3){
+                            var loanApplicationSanctionTrancheDatas = {principal:scope.loanEMIPack.disbursalAmount3};
+                            scope.formRequestData.disburse.disbursementData.push(loanApplicationSanctionTrancheDatas);
+                            scope.disbursalEMIs.push(scope.loanEMIPack.disbursalEmi3);
+                        }
+                        if(scope.loanEMIPack.disbursalAmount4){
+                            var loanApplicationSanctionTrancheDatas = {principal:scope.loanEMIPack.disbursalAmount4};
+                            scope.formRequestData.disburse.disbursementData.push(loanApplicationSanctionTrancheDatas);
+                            scope.disbursalEMIs.push(scope.loanEMIPack.disbursalEmi4);
+                        }
+                        scope.updateExpectedDateTrancheDetails();
+                        
+                        }
+                    
+                        }
+            }
+
         }
     });
     mifosX.ng.application.controller('loanapplicationdisbursalActivityController', ['$controller','$scope', 'ResourceFactory', '$location', 'dateFilter', '$modal', '$route', '$filter', mifosX.controllers.loanapplicationdisbursalActivityController]).run(function ($log) {

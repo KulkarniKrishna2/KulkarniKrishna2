@@ -60,7 +60,7 @@
     "viewLoanAccountDetails": {
       "isHiddenFeild": {
         "viewReportButton": true,
-        "editTranches": true
+        "editTranches": false
       }
     },
     "viewClient": {
@@ -222,8 +222,17 @@
       "defaultCompanyCode": "CIFCPL"
     },
     "workflow": {
-      "showReschedule": true
-      },
+      "showReschedule": true,
+      "loanDisbusal": {
+        "hiddenField": {
+          "showEmipack": false
+        },
+        "isReadOnlyField": {
+          "transactionAmount": true,
+          "fixedEmiAmount": true
+        }
+      }
+    },
     "glAccount": {
       "isMandatoryField": {
         "companyCode":true
