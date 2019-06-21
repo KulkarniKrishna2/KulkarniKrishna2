@@ -1,6 +1,7 @@
 <div class="col-md-12" ng-controller="clientdocumentActivityController" >
     <form name="clientdocumentform" ng-if="!isTaskCompleted() && uiData.isUploadDocument" novalidate="" class="row form-horizontal"
           rc-submit="submit()">
+        <api-validate></api-validate>
         <fieldset>
             <div class="form-group">
                 <div class="col-sm-2">

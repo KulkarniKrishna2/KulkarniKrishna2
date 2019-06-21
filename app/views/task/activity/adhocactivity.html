@@ -2,7 +2,8 @@
 
   <!-- Submit form, new data    -->
   <form class="form-horizontal"  ng-submit="submit()">
-	  <div ng-if="taskData.entityType.value=='TASK'">
+	<api-validate></api-validate>
+	  	<div ng-if="taskData.entityType.value=='TASK'">
 
 
 		  <div class="row paddedtop15px">
@@ -36,7 +37,7 @@
 			  </div>
 		  </div>
 
-	  </div>
+	  	</div>
 	  <table class="table" ng-if="taskData.entityType.value!='TASK'">
     	<tr>
     		<td>

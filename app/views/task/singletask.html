@@ -24,7 +24,6 @@
         </div>
 
         <div ng-if="canView"  class="col-md-12">
-            <api-validate></api-validate>
             <div class="row well" ng-if="canComplete" ng-include="getActivityView()"></div>
 
             <div ng-if="canComplete==false" class="row">

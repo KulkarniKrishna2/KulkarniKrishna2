@@ -10,6 +10,10 @@
             scope.riskCheckDone = false;
             scope.showRiskDetail =false;
             scope.codes = [];
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow &&
+                scope.response.uiDisplayConfigurations.workflow.isMandatory) {
+                    scope.isRejectReasonMandatory = scope.response.uiDisplayConfigurations.workflow.isMandatory.rejectReason;
+            }
 
             scope.isWorkflowEnabled = false;
 
@@ -176,7 +180,7 @@
             var RejectCtrl = function ($scope, $modalInstance) {
                 $scope.rejectioReasonsAvailable = false;
                 $scope.displayDescription = false;
-                $scope.isRejectReasonMandatory =  scope.isRejectReasonMandatory;
+                $scope.isRejectReasonMandatory = scope.isRejectReasonMandatory;
                 $scope.error = null;
                 $scope.rejectFormData = {};
                 $scope.values = [];
@@ -194,8 +198,9 @@
 
                 $scope.submitReject = function () {
                     if ($scope.rejectioReasonsAvailable == true) {
-                        if (($scope.isRejectReasonMandatory && !$scope.rejectFormData.reasonCode) || $scope.displayDescription && !$scope.rejectFormData.description) {
-                            $scope.error = "label.specify.rejection.reason";
+                        if ($scope.isRejectReasonMandatory && (!$scope.rejectFormData.reasonCode ||
+                             (!_.isUndefined($scope.codes) && !$scope.rejectFormData.selectedReason) || ($scope.displayDescription && !$scope.rejectFormData.description))) {
+                            $scope.error = 'label.mandatory.fields.cannot.be.blank';
                             return false;
                         }
                     }

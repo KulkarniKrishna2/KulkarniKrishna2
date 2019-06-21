@@ -47,6 +47,7 @@
 		</div>
 		<div ng-if="addExistingLoan" class="form-horizontal">
 			 <form name="existingLoan" novalidate="" class="form-horizontal" rc-submit="submit()">
+				<api-validate></api-validate>
 	            <fieldset>
 	                <div class="form-group row">
 	                    <label class="control-label col-sm-2">{{ 'label.input.source' | translate }}<span
@@ -250,6 +251,7 @@
         </div>
         <div ng-if="editExistingLoan">
         	<form name="existingLoan" novalidate="" rc-submit="submit()">
+			<api-validate></api-validate>
             <fieldset>
                 <legend>{{'label.view.edit.existingloan' | translate}}</legend>
 

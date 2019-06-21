@@ -7985,6 +7985,7 @@
     "validation.msg.GRT.endTime.cannot.be.blank": "Please Enter GRT end time ",
     "validation.msg.GRT.grtDate.is.greater.than.date": "GRT Date cannot be a future date",
     "label.heading.cgt.confirmation": "CGT Confirmation",
+    "label.mandatory.fields.cannot.be.blank" : "Please fill the mandatory fields" ,
 
     "------ end of translation file ------": "----------"
 }
