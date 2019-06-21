@@ -34,7 +34,9 @@
                             <td>{{clientdocument.fileName}}&nbsp;<a target="_blank" data-ng-click="openViewDocument(clientdocument)"
                                     has-permission='READ_DOCUMENT'>
                                     <i class="icon-eye-open text-success"></i>
-                                </a></td>
+                                </a>&nbsp;
+                                <a ng-if="clientdocument.location" href="http://maps.google.com/?q={{clientdocument.location.latitude}},{{clientdocument.location.longitude}}"
+                                    target=" "><i class="icon-map-marker" style="color: blue" tooltip="{{ 'label.tooltip.view.document.captured.location' | translate}}"></i></a></td>
                             <td>{{clientdocument.status.value}}</td>
                         </tr>
                     </tbody>

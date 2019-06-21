@@ -1,10 +1,12 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CGTRequestActivityController: function ($controller, scope, $modal, resourceFactory, dateFilter, popUpUtilService) {
+        CGTReviewActivityController: function ($controller, scope, $modal, resourceFactory, dateFilter, popUpUtilService) {
             angular.extend(this, $controller('defaultActivityController', {
                 $scope: scope
             }));
+
             scope.formData = {};
+
             function initTask() {
                 scope.$parent.clientsCount();
                 scope.isAllClientFinishedThisTask = true;
@@ -14,7 +16,7 @@
                 resourceFactory.centerWorkflowResource.get({
                     centerId: scope.centerId,
                     eventType: scope.eventType,
-                    associations: 'groupMembers,profileratings,loanaccounts,clientcbcriteria,collectionMeetingCalendar'
+                    associations: 'groupMembers,loanaccounts,clientcbcriteria,subgroupDocuments'
                 }, function (data) {
                     scope.centerDetails = data;
                     scope.rejectTypes = data.rejectTypes;
@@ -22,6 +24,8 @@
                     scope.groupClosureReasons = data.groupClosureReasons;
                     scope.officeId = scope.centerDetails.officeId;
                     scope.centerDetails.isAllChecked = false;
+                    scope.getCGTActivityDetails(data);
+                    
                     //logic to disable and highlight member
                     for (var i = 0; i < scope.centerDetails.subGroupMembers.length; i++) {
                         if (scope.centerDetails.subGroupMembers[i].memberData) {
@@ -73,6 +77,61 @@
             };
             initTask();
 
+            scope.getCGTActivityDetails = function (centerDetails) {
+                if (centerDetails && centerDetails.subGroupMembers && centerDetails.subGroupMembers.length == 1) {
+                    var groupId = centerDetails.subGroupMembers[0].id;
+                    scope.isSingleGroupInCenter = true;
+                    resourceFactory.cgtDetailsResource.get({ groupId: groupId }, function (data) {
+                        scope.cgtDetails = data;
+                    });
+                    getCGTDocuments();
+                } else {
+                    scope.isSingleGroupInCenter = false;
+                }
+            }
+
+            function getCGTDocuments() {
+                resourceFactory.codeValueByCodeNameResources.get({ codeName: 'groupDocumentNames' }, function (codeValueData) {
+                    groupDocumentNames = codeValueData;
+                    for (var i = 0; i < groupDocumentNames.length; i++) {
+                        if (angular.lowercase(groupDocumentNames[i].name.split(" ").join("")) == 'cgtphoto') {
+                            scope.groupDocumentName = groupDocumentNames[i].name;
+                        }
+                    }
+                    if (scope.centerDetails && scope.centerDetails.subGroupMembers && scope.centerDetails.subGroupMembers.length > 0) {
+                        if (scope.isSingleGroupInCenter && scope.centerDetails.subGroupMembers[0].documentDatas && scope.centerDetails.subGroupMembers[0].documentDatas.length > 0) {
+                            var groupdocuments = scope.centerDetails.subGroupMembers[0].documentDatas;
+                            for (var i in groupdocuments) {
+                                if (groupdocuments[i].name == scope.groupDocumentName)
+                                    scope.cgtDocument = groupdocuments[i];
+                                if (!_.isUndefined(scope.cgtDocument.geoTag)) {
+                                    scope.cgtLocation = JSON.parse(scope.cgtDocument.geoTag);
+                                }
+                            }
+                        }
+                    }
+                });
+            };
+
+            scope.openViewDocument = function () {
+                $modal.open({
+                    templateUrl: 'viewUploadedDocument.html',
+                    controller: viewUploadedDocumentCtrl,
+                    resolve: {
+                        documentDetail: function () {
+                            return scope.cgtDocument;
+                        }
+                    }
+                });
+            };
+
+            var viewUploadedDocumentCtrl = function ($scope, $modalInstance, documentDetail) {
+                $scope.data = documentDetail;
+                $scope.close = function () {
+                    $modalInstance.close('close');
+                };
+            };
+
             scope.filterCharges = function (chargeData, categoryId) {
                 if (chargeData != undefined) {
                     var chargesCategory = _.groupBy(chargeData, function (value) {
@@ -82,8 +141,21 @@
                 }
             }
 
-            //loan account edit 
+            scope.moveMembersToNextStep = function () {
+                scope.errorDetails = [];
+                if (scope.taskInfoTrackArray.length == 0) {
+                    return scope.errorDetails.push([{ code: 'error.msg.select.atleast.one.member' }])
+                }
+                scope.taskTrackingFormData = {};
+                scope.taskTrackingFormData.taskInfoTrackArray = [];
+                scope.taskTrackingFormData.taskInfoTrackArray = scope.taskInfoTrackArray.slice();
+                resourceFactory.clientLevelTaskTrackingResource.save(scope.taskTrackingFormData, function (trackRespose) {
+                    initTask();
+                })
 
+            }
+
+            //loan account edit 
             scope.refreshTask = function () {
                 initTask();
             }
@@ -105,6 +177,7 @@
                 resourceFactory.clientResource.save(queryParams, releaseClientFormData, function (data) {
                     initTask();
                 });
+
             }
 
             //client reject reason method call
@@ -287,7 +360,6 @@
                 }
                 return false;
             }
-
             scope.validateAllClients = function (centerDetails, isAllChecked) {
                 scope.taskInfoTrackArray = [];
                 for (var i in centerDetails.subGroupMembers) {
@@ -306,25 +378,8 @@
                 }
             }
 
-            scope.moveMembersToNextStep = function () {
-                scope.errorDetails = [];
-                if (scope.taskInfoTrackArray.length == 0) {
-                    return scope.errorDetails.push([{ code: 'error.msg.select.atleast.one.member' }])
-                }
-
-                scope.taskTrackingFormData = {};
-                scope.taskTrackingFormData.taskInfoTrackArray = [];
-
-                scope.taskTrackingFormData.taskInfoTrackArray = scope.taskInfoTrackArray.slice();
-
-                resourceFactory.clientLevelTaskTrackingResource.save(scope.taskTrackingFormData, function (trackRespose) {
-                    initTask();
-                })
-
-            }
-
             scope.viewAdditionalDetails = function (activeClientMember) {
-                scope.popUpHeaderName = "label.heading.cgt.request"
+                scope.popUpHeaderName = "label.heading.cgt.review"
                 scope.includeHTML = 'views/task/popup/viewclientadditionaldetails.html';
                 scope.activeClientMember = activeClientMember;
                 var templateUrl = 'views/common/openpopup.html';
@@ -333,7 +388,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('CGTRequestActivityController', ['$controller', '$scope', '$modal', 'ResourceFactory', 'dateFilter', 'PopUpUtilService', mifosX.controllers.CGTRequestActivityController]).run(function ($log) {
-        $log.info("CGTRequestActivityController initialized");
+    mifosX.ng.application.controller('CGTReviewActivityController', ['$controller', '$scope', '$modal', 'ResourceFactory', 'dateFilter', 'PopUpUtilService', mifosX.controllers.CGTReviewActivityController]).run(function ($log) {
+        $log.info("CGTReviewActivityController initialized");
     });
 }(mifosX.controllers || {}));

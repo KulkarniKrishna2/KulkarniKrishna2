@@ -95,7 +95,7 @@
                     }),
                     documentsResource: defineResource(apiVer + "/:entityType/:entityId/documents/:documentId", {entityType: '@entityType', entityId: '@entityId',documentId: '@documentId'}, {
                         getAllDocuments: {method: 'GET', params: {}, isArray: true},
-                        update: {method: 'PUT', headers: {'Content-Type': undefined},transformRequest: angular.identity, params: {}}
+                        update: {method: 'PUT', headers: {'Content-Type': undefined},transformRequest: angular.identity, params: {}},
                     }),
                     clientAccountResource: defineResource(apiVer + "/clients/:clientId/accounts", {clientId: '@clientId'}, {
                         getAllClients: {method: 'GET', params: {}}

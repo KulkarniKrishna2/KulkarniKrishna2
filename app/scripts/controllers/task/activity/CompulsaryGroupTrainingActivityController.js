@@ -146,6 +146,7 @@
             };
             var uploadCGTPicCtrl = function ($scope, $modalInstance, groupParams) {
                 $scope.docFormData = {};
+                $scope.docFormData.name = 'CGT Photo';
                 getCGTDocuments();
                 scope.documents =
                     $scope.onFileSelect = function ($files) {
@@ -451,6 +452,15 @@
                     }
                 }
             }
+
+            scope.viewAdditionalDetails = function (activeClientMember) {
+                scope.popUpHeaderName = "label.heading.cgt.activity"
+                scope.includeHTML = 'views/task/popup/viewclientadditionaldetails.html';
+                scope.activeClientMember = activeClientMember;
+                var templateUrl = 'views/common/openpopup.html';
+                var controller = 'ViewClientAdditionalDetailsController';
+                popUpUtilService.openFullScreenPopUp(templateUrl, controller, scope);
+            };
         }
     });
     mifosX.ng.application.controller('CompulsaryGroupTrainingActivityController', ['$controller', '$scope', '$modal', 'ResourceFactory', 'dateFilter', '$rootScope', '$upload', 'API_VERSION', 'PopUpUtilService', mifosX.controllers.CompulsaryGroupTrainingActivityController]).run(function ($log) {
