@@ -1,6 +1,7 @@
 <div ng-controller="groupLoanApprovalActivityController">
     <div class="col-md-12" ng-if="showLoans">
         <form name="managecoapplicants" class="form-horizontal">
+            <api-validate></api-validate>
             <fieldset>
                 <div ng-if="loanApplications.length > 0">
                     <div class="span gray-head">
@@ -39,6 +40,7 @@
     </div>
     <div class="col-md-12" ng-if="approveForm">
         <form class="form-inline" name="approveloanapplicationform" novalidate="" rc-submit="submit()">
+            <api-validate></api-validate>
             <div class="span gray-head">
                 <span class="boldlabel">
                           <strong>{{ 'label.heading.requested.loanapplication.details' | translate }}</strong>
