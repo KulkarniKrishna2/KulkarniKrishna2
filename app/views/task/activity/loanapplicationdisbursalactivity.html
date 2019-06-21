@@ -3,6 +3,7 @@
         <div class="row client">
             <div ng-if="!isAlreadyDisbursed">
                 <div class="form-horizontal" ng-show="report">
+                    <api-validate></api-validate>
                     <div id="print">
                         <h3 align="center" class="width100">{{'label.heading.companyname' | translate}}</h3>
                         <h3 align="center" class="width100">{{'label.heading.loanrepaymentschedule' | translate}}</h3>
@@ -182,6 +183,7 @@
                 <div ng-hide="report">
                     <form class="well form-inline" name="disburseloanapplicationreferenceform" novalidate=""
                           rc-submit="submit()">
+                        <api-validate></api-validate>
                         <div class="span gray-head">
                     <span class="boldlabel">
                           <strong>{{ 'label.heading.requested.loanapplication.details' | translate }}</strong>

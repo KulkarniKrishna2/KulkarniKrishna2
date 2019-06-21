@@ -1,6 +1,7 @@
 <div class="col-md-12" ng-controller="DeceasedDetailsActivityController">
     <form name="createdeceaseddetailsform" novalidate="" ng-show="!isDeceasedDetailsCreated" class="form-horizontal well"
         rc-submit="submit()">
+        <api-validate></api-validate>
         <fieldset>
             <legend>{{'label.heading.deceaseddetails' | translate}}</legend>
             <div class="form-group">

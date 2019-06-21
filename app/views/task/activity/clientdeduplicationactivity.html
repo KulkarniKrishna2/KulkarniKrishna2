@@ -1,5 +1,6 @@
 <div class="col-md-12" ng-controller="ClientDeDuplicationActivityController">
     <form name="clientactionform" novalidate="" class="form-horizontal" >
+        <api-validate></api-validate>
         <div class="form-group width100" ng-show="client.possibleClientMatches==undefined || client.possibleClientMatches.length==0">
             <label><strong>{{ 'label.heading.no.duplicate.matches' | translate }}</strong></label>
         </div>
