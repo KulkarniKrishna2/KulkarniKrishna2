@@ -29,11 +29,8 @@
                             <fieldset>
                                 <div class="form-group">
                                     <div class="col-sm-2">
-                                        <select id="name" name="name" ng-model="formData.name" class="form-control"
-                                            ng-options="codeValue.name as codeValue.name for codeValue in availableDocumentNames"
-                                            value="{{codeValue.name}}" ng-required="isFileNameMandatory">
-                                            <option value="">{{'label.selectfilename' | translate}}</option>
-                                        </select>
+                                        <input id="name" name="name" type="text" placeholder="{{ 'label.input.filename' | translate }}"
+                                            class="form-control" ng-disabled="true" ng-model="filename" />
                                         <form-validate valattributeform="documentuploadform" valattribute="name" />
                                     </div>
 
@@ -43,7 +40,7 @@
                                     </div>
                                     <div class="col-sm-2">
                                         <select id="tagIdentifier" name="tagIdentifier" ng-model="formData.tagIdentifier"
-                                            class="form-control" ng-options="codeValue.id as codeValue.name for codeValue in documentTagOptions"
+                                            class="form-control" ng-change="setFileName()" ng-options="codeValue.id as codeValue.name for codeValue in availableDocumentNames"
                                             value="{{codeValue.id}}" ng-required="isUploadDocumentTagMandatory">
                                             <option value="">{{'label.selectdocumenttag' | translate}}</option>
                                         </select>

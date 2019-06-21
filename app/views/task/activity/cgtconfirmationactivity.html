@@ -42,7 +42,7 @@
 							 data-placement="top" title="{{'label.tooltip.complete.data.check.to.continue' | translate}}" ng-disabled="validateClient(activeClientMember)"
 							 ng-change="captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, activeClientMember.isMemberChecked)"></input></td>
 						<td class="col-md-2">
-							<a href="" ng-disabled="activeClientMember.isClientFinishedThisTask" ng-click="viewAdditionalDetails(groupMember.id, activeClientMember)">{{activeClientMember.displayName}}</a>
+							<a href="" ng-disabled="activeClientMember.isClientFinishedThisTask" ng-click="viewAdditionalDetails(activeClientMember)">{{activeClientMember.displayName}}</a>
 						</td>
 						<td class="col-md-2">{{activeClientMember.fcsmNumber}}</td>
 						<td class="col-md-1 cell-overflow">{{activeClientMember.loanAccountBasicData.loanProductName}}</td>

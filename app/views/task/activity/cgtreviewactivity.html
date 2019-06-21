@@ -1,11 +1,25 @@
-<div ng-controller="CGTRequestActivityController">
-    <div>
-        <span style="text-align:left">{{'label.info.totalmembers' | translate}} :
-            {{summary.activeClients}}&nbsp;&nbsp;{{'label.info.activeborrowers'
-            | translate}} : {{summary.activeBorrowers}}</span>
-    </div>
+<div ng-controller="CGTReviewActivityController">
     <div>
         <api-validate></api-validate>
+    </div>
+    <div>
+        <div>
+            <span ng-if="isSingleGroupInCenter"><label>{{'label.heading.cgt.date' | translate}}:&nbsp;</label>
+                {{cgtDetails.cgtDate | DateFormat}}&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+            <span ng-if="isSingleGroupInCenter"><label>{{'label.anchor.start.time' | translate}}:&nbsp;</label>
+                {{cgtDetails.cgtStartTime}}&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+            <span ng-if="isSingleGroupInCenter"><label>{{'label.anchor.end.time' | translate}}:&nbsp;</label>
+                {{cgtDetails.cgtEndTime}}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span ng-if="isSingleGroupInCenter && cgtDocument" class="pull center">
+                <a><i ng-click="openViewDocument()" class="icon-eye-open icon-2x" style="color: blue" tooltip="{{ 'label.tooltip.view.cgt.photo' | translate}}"></i></a>
+            </span>&nbsp;&nbsp;
+            <span ng-if="isSingleGroupInCenter && cgtLocation" class="pull center"><a href="http://maps.google.com/?q={{cgtLocation.latitude}},{{cgtLocation.longitude}}"
+                    target=" "><i class="icon-map-marker icon-2x" style="color: blue" tooltip="{{ 'label.tooltip.view.cgt.completed.location' | translate}}"></i></a></span>
+            <span class="pull right">{{'label.info.totalmembers' | translate}} :
+                {{summary.activeClients}}&nbsp;&nbsp;{{'label.info.activeborrowers'
+                | translate}} : {{summary.activeBorrowers}}</span>
+
+        </div>
     </div>
     <div>
         <div>
@@ -41,22 +55,27 @@
                         ng-class="activeClientMember.color" ng-if="!activeClientMember.isClientFinishedThisTask">
                         <td class="col-md-1"><input class="pull-left" type="checkbox" ng-hide="activeClientMember.status.code == 'clientStatusType.onHold'"
                                 ng-disabled="activeClientMember.isClientFinishedThisTask" ng-model="activeClientMember.isMemberChecked"
-                                ng-change="
-                        captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, activeClientMember.isMemberChecked)">
+                                ng-change="addLoan(activeClientMember.isMemberChecked,activeClientMember.loanAccountBasicData.id);
+                            captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, activeClientMember.isMemberChecked)">
                         </td>
                         <td class="col-md-2">
                             <a href="" ng-disabled="activeClientMember.isClientFinishedThisTask" ng-click="viewAdditionalDetails(activeClientMember)">{{activeClientMember.displayName}}</a>
                         </td>
                         <td class="col-md-2">{{activeClientMember.fcsmNumber}}</td>
-                        <td class="col-md-1 cell-overflow">{{activeClientMember.loanAccountBasicData.loanProductName}}</td>
-                        <td class="col-md-1">{{activeClientMember.loanAccountBasicData.loanEMIPackData.sanctionAmount |
-                            number}}</td>
-                        <td class="col-md-2 cell-overflow">{{activeClientMember.loanAccountBasicData.loanPurposeName}}</td>
+                        <td class="col-md-1 cell-overflow">{{activeClientMember.loanAccountBasicData.loanProductName}}
+                        </td>
+                        <td class="col-md-1">
+                            {{activeClientMember.loanAccountBasicData.loanEMIPackData.sanctionAmount | number}}</td>
+                        <td class="col-md-2 cell-overflow">{{activeClientMember.loanAccountBasicData.loanPurposeName}}
+                        </td>
                         <td class="col-md-1"><span ng-repeat="item in filterCharges(activeClientMember.loanAccountBasicData.charges,1)">{{item.amount
-                                | number}} &nbsp;</span></td>
+                                | number}}
+                                &nbsp;</span></td>
                         <td class="col-md-1"><span ng-repeat="item in filterCharges(activeClientMember.loanAccountBasicData.charges, 2)">{{item.amount
-                                | number}} &nbsp;</span>&nbsp;&nbsp;<span ng-repeat="item in filterCharges(activeClientMember.loanAccountBasicData.charges, 3)">{{item.amount
-                                | number}} &nbsp;</span></td>
+                                | number}}
+                                &nbsp;</span>&nbsp;&nbsp;<span ng-repeat="item in filterCharges(activeClientMember.loanAccountBasicData.charges, 3)">{{item.amount
+                                | number}}
+                                &nbsp;</span></td>
                         <td class="col-md-1">
                             <a type="button" class="btn btn-default btn-xs" ng-click="editLoan(activeClientMember.loanAccountBasicData,groupMember.id)"
                                 ng-disabled="activeClientMember.isClientFinishedThisTask" title="{{'label.button.edit.loan' | translate}}">
@@ -85,4 +104,9 @@
             </div>
         </div>
     </div>
+    <script type="text/ng-template" id="viewUploadedDocument.html">
+            <div style="position: fixed; top:20%; right:10%; width:600px; height: 500px;">
+                <view-document-directive ng-entity-type="{{data.parentEntityType}}" ng-entity-id="{{data.parentEntityId}}" ng-document-id="{{data.id}}"></view-document-directive>
+            </div>
+        </script>
 </div>

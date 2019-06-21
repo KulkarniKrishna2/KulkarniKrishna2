@@ -269,7 +269,7 @@
                 }
             }
 
-            scope.viewAdditionalDetails = function (groupId, activeClientMember) {
+            scope.viewAdditionalDetails = function (activeClientMember) {
                 scope.popUpHeaderName = "label.heading.cgt.confirmation"
                 scope.includeHTML = 'views/task/popup/viewclientadditionaldetails.html';
                 scope.activeClientMember = activeClientMember;
