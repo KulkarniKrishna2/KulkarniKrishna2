@@ -105,6 +105,7 @@
     </div>
     <div class="row paddedtop" ng-if="transferData.status.id == 1">
         <form name="banktransactionsubmitform" novalidate="" class="form-horizontal">
+            <api-validate></api-validate>
             <fieldset>
                 <div class="form-group" >
                     <label class="control-label col-sm-2">{{'label.transfer.type' | translate}}<span class="required">*</span></label>

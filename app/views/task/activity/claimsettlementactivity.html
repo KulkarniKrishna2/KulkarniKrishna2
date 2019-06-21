@@ -1,5 +1,6 @@
 <div class="col-md-12" ng-controller="ClaimSettlementActivityController">
     <form name="createclaimsettlementform" novalidate="" class="form-horizontal well" ng-show="!isClaimSettlementCreated" rc-submit="submit()">
+        <api-validate></api-validate>
         <fieldset>
             <legend>{{'label.heading.claimsettlement' | translate}}</legend>
             <div class="form-group">

@@ -125,6 +125,7 @@
 
     <div ng-if="!isDisplaySurveys" class="client">
         <form name="takesurveyform" novalidate="" class="form-horizontal " rc-submit="submit()">
+            <api-validate></api-validate>
             <fieldset>
                 <div class="form-group">
                     <span class="error" ng-show="!isSurveyDone">{{'lable.error.activity.survey.not.completed'|translate}}</span>

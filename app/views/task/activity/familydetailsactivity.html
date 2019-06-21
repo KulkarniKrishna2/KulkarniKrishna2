@@ -12,6 +12,7 @@
     </script>
     <div ng-if="showform && !isTaskCompleted()">
         <form name="createFamilyDetails" novalidate="" class="form-horizontal" rc-submit="submit()">
+            <api-validate></api-validate>
                 <fieldset>
                     <legend>{{'label.view.add.familymember' | translate}}</legend>
 
