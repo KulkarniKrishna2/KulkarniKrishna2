@@ -35,9 +35,13 @@
                     scope.response.uiDisplayConfigurations.navBar.isHiddenField.kotakApproval){
                     scope.showKotakApproval = !scope.response.uiDisplayConfigurations.navBar.isHiddenField.kotakApproval;
                 }
-                if(scope.response.uiDisplayConfigurations.accounting && scope.response.uiDisplayConfigurations.accounting.isHiddenField && 
-                    scope.response.uiDisplayConfigurations.accounting.isHiddenField.postTransactionTypeEntries){
-                    scope.showPostTransactionTypeEntries = !scope.showscope.response.uiDisplayConfigurations.accounting.isHiddenField.postTransactionTypeEntries;
+                if(scope.response.uiDisplayConfigurations.accounting && scope.response.uiDisplayConfigurations.accounting.isHiddenField){
+                    if(scope.response.uiDisplayConfigurations.accounting.isHiddenField.postTransactionTypeEntries){
+                        scope.showPostTransactionTypeEntries = !scope.showscope.response.uiDisplayConfigurations.accounting.isHiddenField.postTransactionTypeEntries;
+                    }
+                    if(scope.response.uiDisplayConfigurations.accounting.isHiddenField.migrateOpeningBalances){
+                        scope.showMigrateOpeningBalances = !scope.response.uiDisplayConfigurations.accounting.isHiddenField.migrateOpeningBalances;
+                    }
                 }
                 if(scope.response.uiDisplayConfigurations.organization && scope.response.uiDisplayConfigurations.organization.isHiddenField && 
                     scope.response.uiDisplayConfigurations.organization.isHiddenField.transfer){

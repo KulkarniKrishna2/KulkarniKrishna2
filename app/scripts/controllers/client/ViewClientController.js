@@ -52,6 +52,7 @@
             scope.displayNameInReverseOrder = false;
             var levelVasedAddressConfig = 'enable_level_based_address';
             scope.isLevelBasedAddressEnabled = scope.isSystemGlobalConfigurationEnabled(levelVasedAddressConfig);
+            scope.crnNumber = false;
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewClient &&
                 scope.response.uiDisplayConfigurations.viewClient.isHiddenField){
                 if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.enableSmartCard){
@@ -80,6 +81,9 @@
                 }
                 if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.createLoanApplication){
                     scope.createLoanApplication = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.createLoanApplication;
+                }
+                if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.crnNumber){
+                    scope.crnNumber = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.crnNumber;
                 }
                 
             }
