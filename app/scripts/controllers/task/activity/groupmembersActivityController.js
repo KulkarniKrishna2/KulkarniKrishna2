@@ -802,6 +802,10 @@
                 this.addClientformData.savingsProductId = null;
             }
 
+            if(scope.formAddressData){
+                this.addClientformData.addresses = [scope.formAddressData];
+            }
+
             resourceFactory.clientResource.save(this.addClientformData, function(data) {
                 if (scope.pledgeId) {
                     var updatedData = {};
