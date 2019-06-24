@@ -36,7 +36,8 @@
 				"referenceNo": false,
 				"enableSmartCard": false,
 				"blackList": false,
-				"whiteList": false
+				"whiteList": false,
+				"crnNumber" : false
 			},
 			"familyDeatils": {
 				"isHiddenField": {

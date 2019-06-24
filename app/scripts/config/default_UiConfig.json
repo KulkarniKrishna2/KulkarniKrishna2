@@ -131,7 +131,8 @@
 				"enableSmartCard": true,
 				"createLoanApplication": false,
 				"blackList": true,
-				"whiteList": true
+				"whiteList": true,
+				"crnNumber" : true
 			},
 			"familyDeatils": {
 				"isHiddenField": {
@@ -647,7 +648,8 @@
 		},
 		"accounting": {
 			"isHiddenField":{
-				"postTransactionTypeEntries": true 
+				"postTransactionTypeEntries": true,
+				"migrateOpeningBalances": false 
 			}
 		},
 		"organization": {

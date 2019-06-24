@@ -114,6 +114,11 @@
       "isHiddenField": {
         "jlgLoan": true
       }
-    }
+    },
+    "accounting": {
+			"isHiddenField":{
+				"migrateOpeningBalances": true 
+			}
+		}
   }
 }

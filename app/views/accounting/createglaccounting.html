@@ -86,7 +86,7 @@
 					<form-validate valattributeform="createglaccountingform" valattribute="glClassificationType"/>
 				</div>
 			</div>
-			<div class="form-group">
+			<div class="form-group" ng-if = "isCompanyCodeMandatory">
 				<label class="control-label col-sm-2">{{'label.input.companycodeforglaccounts' | translate}}<span ng-if="isCompanyCodeMandatory" class="required">*</span></label>
 				<div class="col-sm-3">
 					<select id="companyCodeForGlaccountCodeValues" name="companyCodeForGlaccountCodeValues" ng-model="formData.companyCodeForGlaccountCodeValues"

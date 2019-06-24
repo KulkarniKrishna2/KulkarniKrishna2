@@ -26,7 +26,8 @@
 			scope.sections = [];
             scope.isReverseDisabled = false;
             scope.isReversalEntry = false;
-            if(scope.journalEntryTransactionId != null && scope.journalEntryTransactionId !=""){
+            var alphabets= "[a-zA-Z]";
+            if(scope.journalEntryTransactionId != null && scope.journalEntryTransactionId !="" && scope.journalEntryTransactionId.match(alphabets)){
                 scope.journalEntryTransactionId = scope.journalEntryTransactionId.substring(1,scope.journalEntryTransactionId.length);
             }
 
@@ -354,7 +355,7 @@
             var uploadURL = null;
             scope.uploadDocuments = function () {
                 docResponse = 0;
-                uploadURL = $rootScope.hostUrl + API_VERSION + '/journal_entry/' + scope.entityId + '/documents';
+                uploadURL = $rootScope.hostUrl + API_VERSION + '/journal_entry/' + scope.journalEntryTransactionId + '/documents';
                 if(!_.isUndefined(scope.newDocuments) && scope.newDocuments.length > 0){
                         uploadProcessDocumets();
                 }
@@ -407,7 +408,7 @@
             scope.getDocuments = function () {
                 resourceFactory.documentsResource.getAllDocuments({
                     entityType: 'journal_entry',
-                    entityId: scope.entityId
+                    entityId: scope.journalEntryTransactionId
                 }, function (data) {
                     for (var l in data) {
                         var loandocs = {};

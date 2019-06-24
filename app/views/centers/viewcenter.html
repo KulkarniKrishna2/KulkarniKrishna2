@@ -199,13 +199,13 @@
 										</tr>
 
 										<tbody ng-repeat="group in groupMemberAccountList  | orderBy : 'referenceNumber'">
-										<tr ng-show="group.isShowLoanDetailsInCenterPageEnabled" class="pointer graybg">
+										<tr ng-show="group.isShowLoanDetailsInCenterPageEnabled" class="pointer graybg" class="text-center">
 											<th colspan="13" class="pointer" data-ng-click="routeToGroup(group.id)">
 												<i tooltip="Group" class="icon-group icon-small"></i>&nbsp;
 												<i tooltip-placement="right" tooltip="{{group.status.value}}" class="icon-stop {{group.status.code | StatusLookup}}"></i>
-												<span ng-if="!isHideAccountNumber">{{group.accountNo}}-</span>{{group.name}}
+												<span ng-if="!isHideAccountNumber" >{{group.accountNo}}-</span>{{group.name}}
 											</th>
-                                            <th colspan="4">{{ 'label.heading.actions' | translate }}</th>
+                                            <th class="text-center" colspan="4">{{ 'label.heading.actions' | translate }}</th>
 
                                         </tr>
 										<tr ng-show="!group.isShowLoanDetailsInCenterPageEnabled" class="pointer graybg">
@@ -227,13 +227,11 @@
 												<a has-permission='CREATE_LOAN' class="btn btn-primary btn-sm" ng-href="#/newindividualjlgloanaccount/{{group.id}}/{{client.id}}" data-ng-show="isActiveMember(client.status.code)" ng-hide="isHideJlgLoan"><i
 														class="icon-plus icon-white"></i>{{ 'label.button.jlgloan' | translate }}</a>
 											</td>
-											<td align="center" colspan="4" ng-if="isHideJlgLoan">
-												<a has-permission='CREATE_JLG_LOAN' class="btn btn-primary btn-sm" ng-href="#/newindividualjlgloanaccount/{{group.id}}/{{client.id}}" data-ng-show="isActiveMember(client.status.code)"><i
-														class="icon-plus icon-white"></i>{{ 'label.button.jlgloan' | translate }}</a>
-											</td>
-                                            <td ng-if="isLoanApplication && !createjlgLoanApplication">
-                                                <a has-permission='CREATE_LOANAPPLICATIONREFERENCE' class="btn btn-primary btn-sm" ng-href="#/newindividualjlgloanapplicationreference/{{group.id}}/{{client.id}}" data-ng-show="isActiveMember(client.status.code)"><i
-                                                        class="icon-plus icon-white"></i></a>
+											<td align="center" colspan="4">
+												<a has-permission='CREATE_JLG_LOAN' class="btn btn-primary btn-sm" ng-href="#/newindividualjlgloanaccount/{{group.id}}/{{client.id}}" ng-if="isActiveMember(client.status.code) && isHideJlgLoan"><i
+													class="icon-plus icon-white"></i>{{ 'label.button.jlgloan' | translate }}</a>&nbsp;
+												<a has-permission='CREATE_LOANAPPLICATIONREFERENCE' class="btn btn-primary btn-sm" ng-href="#/newindividualjlgloanapplicationreference/{{group.id}}/{{client.id}}" ng-if="isActiveMember(client.status.code) && isLoanApplication && !createjlgLoanApplication"><i
+													class="icon-plus icon-white"></i></a>
                                             </td>
 										</tr>
 										<tr colspan="16" ng-repeat-end ng-show="group.isShowLoanDetailsInCenterPageEnabled" class="pointer" ng-repeat="loan in client.loanAccountSummaryDatas">
