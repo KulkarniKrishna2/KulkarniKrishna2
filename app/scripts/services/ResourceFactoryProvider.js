@@ -1839,6 +1839,9 @@
                     }),
                     loanApplicationRejectReasonsResource: defineResource(apiVer + "/loanapplicationreferences/rejectreasons/template",{}, {
                         get: {method: 'GET', params: {},isArray:true}
+                    }),
+                    creditBureauEnquiryHistoryResource: defineResource(apiVer + "/enquiry/creditbureau/history/:entityType/:entityId", {entityType: '@entityType',entityId: '@entityId'}, {
+                        getAll: {method: 'GET', params: {}, isArray: true}
                     })
                 };
             }];

@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewClientController: function (scope, routeParams, route, location, resourceFactory, http, $modal, API_VERSION, $rootScope, $upload, dateFilter, commonUtilService, localStorageService) {
+        ViewClientController: function (scope, routeParams, route, location, resourceFactory, http, $modal, API_VERSION, $rootScope, $upload, dateFilter, commonUtilService, localStorageService,$sce,paginatorUsingOffsetService) {
             
             if(!_.isUndefined($rootScope.isClientAdditionalDetailTabActive)){
                 delete $rootScope.isClientAdditionalDetailTabActive;
@@ -56,7 +56,6 @@
             if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.enableSmartCard && scope.response){
                 scope.enableSmartCard =  scope.response.uiDisplayConfigurations.viewClient.isHiddenField.enableSmartCard;
             }
-            scope.isStalePeriodExceeded = false;
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewClient.isHiddenField.pincode) {
                 scope.pincode = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.pincode;
             }
@@ -77,8 +76,12 @@
             scope.activateOnReinitiate = scope.response.uiDisplayConfigurations.viewClient.activateOnReinitiate;
             if(scope.response && scope.response.uiDisplayConfigurations) {
                 scope.isSavingAccountEnable = scope.response.uiDisplayConfigurations.viewClient.createSavingAccount;
-             }
-        
+            }
+            scope.showViewCBHistoryReport = !scope.response.uiDisplayConfigurations.creditBureau.isHiddenField.viewHistoryCBReportButton;
+            scope.limitForCBHistory = scope.response.uiDisplayConfigurations.creditBureau.getEnquiryHistoryLimit;
+            scope.fetchType = "history";
+            scope.showHistoryHeading = false;
+            
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
             };
@@ -108,7 +111,7 @@
             };
 
             scope.initiateCreditBureauEnquiry = function () {
-                if (!scope.isStalePeriodExceeded) {
+                if (!_.isUndefined(scope.isStalePeriodExceeded) && !scope.isStalePeriodExceeded) {
                     $modal.open({
                         templateUrl: 'confirmCbEnquiry.html',
                         controller: confirmCbEnquiryCtrl
@@ -324,6 +327,12 @@
            
             scope.routeToViewCBReport = function (id) {
                location.path('/clients/'+scope.clientId+'/view/creditbureau/'+id+'/summary');
+            };
+
+            scope.routeToViewCBReportHistory = function (id) {
+                scope.fetchType = "history";
+                location.path('/clients/'+scope.clientId+'/view/creditbureau/'+id+'/summary').search({
+                        fetchType:scope.fetchType});
             };
 
             scope.routeToShareAccount = function(id) {
@@ -1853,11 +1862,39 @@
             scope.hideId = function(row){
                 return  (row.columnName === 'id');
             };
+            var viewCBEnquiryHistory = function(offset,limit,callback){
+                resourceFactory.creditBureauEnquiriesResource.getAll({limit:limit,offset:offset,fetchType:scope.fetchType},{
+                    entityType: "client",
+                    entityId: scope.clientId
+                }, callback);
+            }
+            scope.viewCreditBureauEnquiryHistory = function () {
+                scope.showHistoryHeading = true;
+                scope.creditBureauEnquiriesHistory = paginatorUsingOffsetService.paginate(viewCBEnquiryHistory, scope.limitForCBHistory);
+            };
+
+            scope.openViewDocument = function(enquiryId, reportEntityType) {
+                var reportEntityType = "CreditBureau";
+                var url = $rootScope.hostUrl + '/fineract-provider/api/v1/enquiry/creditbureau/' + reportEntityType + '/' +
+                    enquiryId + '/attachment';
+                url = $sce.trustAsResourceUrl(url);
+                http.get(url, { responseType: 'arraybuffer' }).
+                success(function(data, status, headers, config) {
+                    var supportedContentTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'application/pdf', 'application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.presentationml.presentation', 'text/html', 'application/xml', 'text/plain'];
+                    var contentType = headers('Content-Type');
+                    var file = new Blob([data], { type: contentType });
+                    var fileContent = URL.createObjectURL(file);
+                    if (supportedContentTypes.indexOf(contentType) > -1) {
+                        var docData = $sce.trustAsResourceUrl(fileContent);
+                        window.open(docData);
+                    }
+                });
+            };
 
         }
     });
 
-    mifosX.ng.application.controller('ViewClientController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$http', '$modal', 'API_VERSION', '$rootScope', '$upload', 'dateFilter', 'CommonUtilService', 'localStorageService', mifosX.controllers.ViewClientController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewClientController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$http', '$modal', 'API_VERSION', '$rootScope', '$upload', 'dateFilter', 'CommonUtilService', 'localStorageService','$sce','PaginatorUsingOffsetService', mifosX.controllers.ViewClientController]).run(function ($log) {
         $log.info("ViewClientController initialized");
     });
 }(mifosX.controllers || {}));

@@ -7947,6 +7947,8 @@
     "label.input.filterbynameorstatusorofficeorrefno": "Filter by name/status/office/group ref#",
     "label.input.filterbynameorstatusorofficeorrefnoforcenter": "Filter by name/status/office/center ref#",
     "label.error.csv.file.is.not.selected": "Please select csv file",
+    "label.heading.creditbureau.history.report":"Credit Bureau History Report",
+    "label.button.view.credit.bureau.enquiry.history":"view Credit Bureau History",
     
 
     "------ end of translation file ------": "----------"
