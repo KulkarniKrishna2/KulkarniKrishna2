@@ -44,13 +44,17 @@
             scope.loanapplicationInApproval = 200;
             scope.loanapplicationApproved=300;
             scope.isShowEditButton = true;
-
+            scope.isMandatoryRepaymentsStartingFromDate = false;
+            
             if (scope.response && scope.response.uiDisplayConfigurations) {
                 scope.isHiddenInterestRatePerPeriod = scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.interestRatePerPeriod;
                 scope.isMandatoryInterestRatePerPeriod = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.interestRatePerPeriod;
                 scope.hidePrintReportButton = scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.printReportButton;
                 if (scope.response.uiDisplayConfigurations.loanAccount) {
                     scope.isTrancheAmountReadOnlyField = scope.response.uiDisplayConfigurations.loanAccount.isReadOnlyField.trancheAmount;
+                    if(scope.response.uiDisplayConfigurations.loanAccount.isMandatory && scope.response.uiDisplayConfigurations.loanAccount.isMandatory.repaymentsStartingFromDate){
+                        scope.isMandatoryRepaymentsStartingFromDate = scope.response.uiDisplayConfigurations.loanAccount.isMandatory.repaymentsStartingFromDate;
+                    }
                 }
             }
 
