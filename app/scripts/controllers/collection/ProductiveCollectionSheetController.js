@@ -312,7 +312,7 @@
                     searchParameters.staffId = params.staffId
                 }
                 if(scope.centerId){
-                    searchParameters.centerId = params.centerId
+                    searchParameters.centerId = scope.centerId
                 }
                 scope.productiveCollctionSheetSearchParams = searchParameters;
                 if (scope.productiveCollctionSheetSearchParams.transactionDate != undefined && scope.productiveCollctionSheetSearchParams.transactionDate != null) {
