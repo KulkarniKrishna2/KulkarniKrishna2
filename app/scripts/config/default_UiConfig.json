@@ -435,6 +435,15 @@
 					"clientAddress": true
 				}
 			},
+			"loanDisbusal": {
+				"hiddenField": {
+					"showEmipack": true
+				},
+				"isReadOnlyField": {
+					"transactionAmount": false,
+					"fixedEmiAmount": false
+				}
+			},
 			"isMandatory": {
 				"rejectReason": false,
 				"rejectDescription": false,

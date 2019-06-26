@@ -1527,10 +1527,9 @@
             };
 
             scope.showEdit = function(disbursementDetail){
-                if(scope.response && scope.response.uiDisplayConfigurations && (!disbursementDetail.actualDisbursementDate || disbursementDetail.actualDisbursementDate == null)
-                    && ((scope.status == 'Submitted and pending approval' && !scope.response.uiDisplayConfigurations.
-                        viewLoanAccountDetails.isHiddenFeild.editTranches) || (scope.status =='Approved' && !scope.response.uiDisplayConfigurations.
-                        viewLoanAccountDetails.isHiddenFeild.editTranches) || scope.status == 'Active')){
+                if(scope.response && scope.response.uiDisplayConfigurations && ((scope.status == 'Submitted and pending approval' && !scope.response.uiDisplayConfigurations.
+                        viewLoanAccountDetails.isHiddenFeild.editTranches)|| (scope.status =='Approved' && !scope.response.uiDisplayConfigurations.
+                        viewLoanAccountDetails.isHiddenFeild.editTranches) || (scope.status == 'Active' && (!disbursementDetail.actualDisbursementDate || disbursementDetail.actualDisbursementDate == null)))){
                     return true;
                 }
                 return false;
@@ -1629,7 +1628,7 @@
                 if(scope.totalDisbursedAmount == scope.loandetails.approvedPrincipal || scope.return == false){
                     return false;
                 }
-                if(scope.count == 0 && action == 'deletedisbursedetails'){
+                if(scope.count == 1 && action == 'deletedisbursedetails'){
                     return false;
                 }
 
