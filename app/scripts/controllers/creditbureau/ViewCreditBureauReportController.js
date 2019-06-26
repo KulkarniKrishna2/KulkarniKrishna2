@@ -3,17 +3,18 @@
         ViewCreditBureauReportController: function(scope, resourceFactory, location, routeParams, route, $modal, $http, $rootScope, $sce, commonUtilService) {
             scope.clientId = routeParams.clientId;
             scope.enquiryId = routeParams.enquiryId;
+            scope.fetchType = routeParams.fetchType;
             scope.isResponPresent = false;
             scope.entityType = "client";
             scope.creditBureauEnquiry = {};
             scope.reportEntityType = "CreditBureau";
             scope.isShowForceCreaditBureau = false;
             scope.creditBureauFormdata = { 'locale': scope.optlang.code };
-
             resourceFactory.creditBureauEnquiriesResource.getAll({
                 entityType: scope.entityType,
                 entityId: scope.clientId,
-                creditBureauEnquiryId: scope.enquiryId
+                creditBureauEnquiryId: scope.enquiryId,
+                fetchType:scope.fetchType
             }, function(data) {
                 scope.creditBureauEnquiries = data;
                 if (scope.creditBureauEnquiries && scope.creditBureauEnquiries.length > 0) {
@@ -36,7 +37,7 @@
 
             scope.creditBureauReport = function() {
                 resourceFactory.clientCreditBureauEnquiry.save({ 'clientId': scope.clientId }, scope.creditBureauFormdata, function(data) {
-                    location.path('/viewclient/' + scope.clientId);
+                    location.path('/viewclient/' + scope.clientId).search({});
                 });
             };
 
@@ -261,11 +262,11 @@
             };
 
             scope.initiateCreditBureauReport = function() {
-                location.path('/create/creditbureau/client/' + scope.clientId);
+                location.path('/create/creditbureau/client/' + scope.clientId).search({});
             };
 
             scope.cancel = function() {
-                location.path('/viewclient/' + scope.clientId);
+                location.path('/viewclient/' + scope.clientId).search({});
             };
 
             scope.refreshCreditBureauReport = function() {

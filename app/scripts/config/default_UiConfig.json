@@ -483,7 +483,11 @@
 			"newLoanApplicationLimitAllowed": false
 		},
 		"creditBureau": {
-			"getlimit": 3
+			"isHiddenField":{
+				"viewHistoryCBReportButton":true
+			},
+			"getlimit": 3,
+			"getEnquiryHistoryLimit":15
 		},
 		"viewCenter": {
 			"isHiddenField": {
