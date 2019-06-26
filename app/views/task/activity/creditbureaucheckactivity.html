@@ -26,6 +26,7 @@
 					<th class="col-md-1"></th>
 					<th class="col-md-1"></th>
 					<th class="col-md-1"></th>
+					<th ng-hide= "isSendToCBReviewHidden" class="col-md-1">{{'label.heading.cb.review.status' | translate}}</th>
 					<th class="col-md-1">{{'label.heading.reject' | translate}}</th>
 				</thead>
 				<tbody ng-repeat="groupMember in centerDetails.subGroupMembers | filter : isActiveSubGroup | orderBy : 'fcsmNumber'">
@@ -34,6 +35,7 @@
 							<span>{{groupMember.fcsmNumber}}
 							</span>
 						</td>
+						<td ng-hide= "isSendToCBReviewHidden"></td>
 						<td class="col-md-1">
 							<a type="button" class="btn btn-danger btn-xs" ng-hide="eventType == 'loancycle'" ng-disabled="{{taskData.possibleActions.length == 0}}" ng-click="groupRejection(groupMember)"
 							    tooltip="{{'label.button.reject' | translate}}">
@@ -87,13 +89,19 @@
 							</a>
 						</td>
 						<td class="col-md-1">
-							<a type="button" ng-if="activeClientMember.clientLevelCriteriaResultData.score > 0 && 
-						               activeClientMember.clientLevelCriteriaResultData.score < 5" ng-disabled="activeClientMember.isClientFinishedThisTask"
-							    data-ng-click="captureReviewReason(activeClientMember.loanAccountBasicData.clientId,
-                                   activeClientMember.loanAccountBasicData.id,
-                                   activeClientMember.loanAccountBasicData.loanProposalReviewData)" class="btn btn-danger btn-xs">{{'label.button.review' | translate}}
+							<a type="button" ng-if="activeClientMember.clientLevelCriteriaResultData.score > 0 && activeClientMember.clientLevelCriteriaResultData.score < 5
+							 && !isreviewCBHidden" ng-disabled="activeClientMember.isClientFinishedThisTask"
+								data-ng-click="captureReviewReason(activeClientMember.loanAccountBasicData.clientId,activeClientMember.loanAccountBasicData.id,activeClientMember.loanAccountBasicData.loanProposalReviewData)"
+								class="btn btn-danger btn-xs">{{'label.button.review' | translate}}
 							</a>
 						</td>
+						<td class="col-md-1" ng-if="!isSendToCBReviewHidden && activeClientMember.cbCriteriaReviewData">
+							<div ng-if="activeClientMember.cbCriteriaReviewData.isApproved">{{'label.anchor.cb.passed' | translate}}</div>
+							<div ng-if="activeClientMember.cbCriteriaReviewData.isRejected">{{'label.anchor.cb.rejected' | translate}}</div>
+							<div ng-if="!activeClientMember.cbCriteriaReviewData.isApproved && !activeClientMember.cbCriteriaReviewData.isRejected">
+								{{'label.heading.cb.review' | translate}}</div>
+						</td>
+						<td class="col-md-1" ng-if="!isSendToCBReviewHidden && !activeClientMember.cbCriteriaReviewData"></td>
 						<td class="col-md-1">
 							<a class="btn btn-danger btn-xs" ng-hide="hideClient(activeClientMember)" ng-click="clientRejection(activeClientMember)"
 							    tooltip="{{'label.button.reject' | translate}}" ng-disabled="activeClientMember.isClientFinishedThisTask">

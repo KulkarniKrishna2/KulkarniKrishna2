@@ -1537,6 +1537,7 @@
     "label.transactionreverse": "Transaction reversed successfully.  A new journal entry has been created to reverse this transaction",
     "label.delete": "Delete",
     "label.edit": "Edit",
+    "label.all.loan.officer": "All Loan Officers",
 
 
     "#Enumeration & Error Messages": "..",
@@ -7992,6 +7993,12 @@
     "label.input.filename": "File Name",
     "label.heading.view.client.additional.details": "View Client Additional Details",
     "label.tooltip.view.grt.completed.location": "View GRT Completed Location",
+    "label.heading.cb.review": "CB Review",
+    "label.heading.cb.review.status": "CB Review Status",
+    "label.heading.spouse.name": "Spouse Name",
+    "label.heading.uid": "UID",
+    "label.anchor.cb.passed": "CB Passed",
+    "label.anchor.cb.rejected": "CB Rejected",
 
     "------ end of translation file ------": "----------"
 }

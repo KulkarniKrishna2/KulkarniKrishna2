@@ -1855,6 +1855,9 @@
                     taskTrackingBulkLoanApprovalResource: defineResource(apiVer +"/tasktracking/bulkloanapproval", {}, {
                         update: { method: 'PUT', params: {} }
                     }),
+                    cbReviewResource: defineResource(apiVer + "/cb/criteriareview/:reviewId", { reviewId: '@reviewId' }, {
+                        update: { method: 'PUT' }
+                    }),
                 };
             }];
         }

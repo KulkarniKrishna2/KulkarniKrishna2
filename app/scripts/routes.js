@@ -2004,6 +2004,9 @@
             .when('/viewallcollections/:collectionSheetId',{
                 templateUrl: 'views/collection/collectionSheetDetail.html'
             })
+            .when('/cbreview', {
+                templateUrl: 'views/dashboard/cbreview.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

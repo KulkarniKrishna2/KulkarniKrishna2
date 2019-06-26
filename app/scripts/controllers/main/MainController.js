@@ -47,6 +47,9 @@
                     scope.response.uiDisplayConfigurations.organization.isHiddenField.transfer){
                      scope.showTransfer = !scope.response.uiDisplayConfigurations.organization.isHiddenField.transfer;
                 }
+                if (scope.response.uiDisplayConfigurations.workflow && scope.response.uiDisplayConfigurations.workflow.hiddenFields) {
+                    scope.isSendToCBReviewHidden = scope.response.uiDisplayConfigurations.workflow.hiddenFields.sendToCBReview;
+                };
             }  
             if(!scope.islogofoldernamefetched && $rootScope.tenantIdentifier && $rootScope.tenantIdentifier != "default"){
                 scope.islogofoldernamefetched = true;
