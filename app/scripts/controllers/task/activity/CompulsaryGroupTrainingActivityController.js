@@ -30,7 +30,7 @@
                     scope.officeId = scope.centerDetails.officeId;
                     scope.centerDetails.isAllChecked = false;
                     scope.checkForSingleGroupCenter(scope.centerDetails);
-                    getCGTDocuments();
+                    scope.getLatestCgtPhoto();
                     //logic to disable and highlight member
                     for (var i = 0; i < scope.centerDetails.subGroupMembers.length; i++) {
                         if (scope.centerDetails.subGroupMembers[i].memberData) {
@@ -81,6 +81,26 @@
                 });
             };
             initTask();
+
+            scope.getLatestCgtPhoto = function() {
+                resourceFactory.codeValueByCodeNameResources.get({ codeName: 'groupDocumentNames' }, function (codeValueData) {
+                    groupDocumentNames = codeValueData;
+                    for (var i = 0; i < groupDocumentNames.length; i++) {
+                        if (angular.lowercase(groupDocumentNames[i].name.split(" ").join("")) == 'cgtphoto') {
+                            scope.groupDocumentName = groupDocumentNames[i].name;
+                        }
+                    }
+                    resourceFactory.documentsResource.getAllDocuments({ entityType: 'groups', entityId: scope.centerDetails.subGroupMembers[0].id }, function (data) {
+                        groupDocuments = data;
+                        scope.isCGTPhotoUploaded = false;
+                        for (var i in groupDocuments) {
+                            if (groupDocuments[i].name == scope.groupDocumentName) {
+                                scope.isCGTPhotoUploaded = true;
+                            }
+                        }
+                    });
+                });
+            };
 
             scope.filterCharges = function (chargeData, categoryId) {
                 if (chargeData != undefined) {
@@ -146,8 +166,8 @@
             };
             var uploadCGTPicCtrl = function ($scope, $modalInstance, groupParams) {
                 $scope.docFormData = {};
-                $scope.docFormData.name = 'CGT Photo';
-                getCGTDocuments();
+                $scope.docFormData.name = scope.groupDocumentName;
+                getLatestCgtPhoto();
                 scope.documents =
                     $scope.onFileSelect = function ($files) {
                         $scope.file = $files[0];
@@ -164,14 +184,19 @@
                                 scope.$apply();
                             }
                             $scope.docFormData = {};
-                            getCGTDocuments();
+                            $scope.docFormData.name = scope.groupDocumentName;
+                            getLatestCgtPhoto();
                         });
                     }
                 };
+
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
                 };
 
+                $scope.close = function () {
+                    $modalInstance.dismiss('close');
+                };
 
                 $scope.openViewDocument = function (documentDetail) {
                     $modal.open({
@@ -192,32 +217,25 @@
                     };
                 };
 
-                function getCGTDocuments() {
-                    resourceFactory.documentsResource.query({ entityType: 'groups', entityId: scope.centerDetails.subGroupMembers[0].id }, function (data) {
-                        $scope.cgtdocuments = data;
-                        if (data && data.length > 0) {
-                            scope.isCGTPhotoUploaded = true;
-                        } else {
-                            scope.isCGTPhotoUploaded = false;
+                function getLatestCgtPhoto() {
+                    resourceFactory.documentsResource.getAllDocuments({ entityType: 'groups', entityId: scope.centerDetails.subGroupMembers[0].id }, function (data) {
+                        groupDocuments = data;
+                        $scope.isCGTPhotoUploaded = false;
+                        for (var i in groupDocuments) {
+                            if (groupDocuments[i].name == scope.groupDocumentName) {
+                                $scope.cgtDocument = groupDocuments[i];
+                                $scope.isCGTPhotoUploaded = true;
+                                scope.isCGTPhotoUploaded = true;
+                            }
                         }
                     });
                 };
 
                 $scope.deleteDoc = function (document) {
                     resourceFactory.documentsResource.delete({ entityType: 'groups', entityId: scope.centerDetails.subGroupMembers[0].id, documentId: document.id }, '', function (data) {
-                        getCGTDocuments();
+                        getLatestCgtPhoto();
                     });
                 };
-            };
-
-            function getCGTDocuments() {
-                resourceFactory.documentsResource.query({ entityType: 'groups', entityId: scope.centerDetails.subGroupMembers[0].id }, function (data) {
-                    if (data && data.length > 0) {
-                        scope.isCGTPhotoUploaded = true;
-                    } else {
-                        scope.isCGTPhotoUploaded = false;
-                    }
-                });
             };
 
             scope.checkForSingleGroupCenter = function (centerDetails) {
@@ -454,7 +472,7 @@
             }
 
             scope.viewAdditionalDetails = function (activeClientMember) {
-                scope.popUpHeaderName = "label.heading.cgt.activity"
+                scope.popUpHeaderName = "label.heading.view.client.additional.details"
                 scope.includeHTML = 'views/task/popup/viewclientadditionaldetails.html';
                 scope.activeClientMember = activeClientMember;
                 var templateUrl = 'views/common/openpopup.html';

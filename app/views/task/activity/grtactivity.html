@@ -90,9 +90,8 @@
                                     ng-change="addLoan(activeClientMember.isMemberChecked,activeClientMember.loanAccountBasicData.id);
                         captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, activeClientMember.isMemberChecked)">
                             </td>
-                            <td class="col-md-2">{{activeClientMember.displayName}} <i
-                                    ng-if="activeClientMember.isClientVerified"
-                                    class="btn btn-success icon-ok-sign"></i>
+                            <td class="col-md-2">
+                                <a href="" ng-disabled="activeClientMember.isClientFinishedThisTask" ng-click="viewAdditionalDetails(activeClientMember)">{{activeClientMember.displayName}}</a>
                             </td>
                             <td class="col-md-2">{{activeClientMember.fcsmNumber}}</td>
                             <td class="col-md-1 cell-overflow">
@@ -153,10 +152,10 @@
                     <div>
                     <form name="documentuploadform" novalidate="" class="row form-horizontal" rc-submit="submitDocument()">
                             <fieldset>
-                                <div ng-if="grtdocuments.length == 0" class="row paddedleft paddedtop">
+                                <div ng-if="!isGRTPhotoUploaded" class="row paddedleft paddedtop">
                                     <div class="col-md-3">
                                             <input type="text"  ng-model="docFormData.name" class="form-control"
-                                            placeholder="{{'label.input.name'|translate}}"/>
+                                            placeholder="{{'label.input.name'|translate}}" ng-disabled="true"/>
                                         <form-validate valattributeform="documentuploadform" valattribute="name" />
                                     </div>
 
@@ -174,7 +173,7 @@
                     </div>
                     <br>
                     <div>
-                        <table class="table"  ng-if="grtdocuments.length > 0" >
+                        <table class="table"  ng-if="isGRTPhotoUploaded" >
                             <thead>
                                 <tr class="graybg">
                                     <th>{{'label.heading.name' | translate}}</th>
@@ -184,16 +183,16 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="doc in grtdocuments">
-                                    <td>{{doc.name}}</td>
-                                    <td>{{doc.description}}</td>
-                                    <td>{{doc.fileName}}</td>
+                                <tr>
+                                    <td>{{grtDocument.name}}</td>
+                                    <td>{{grtDocument.description}}</td>
+                                    <td>{{grtDocument.fileName}}</td>
                                     <td>
-                                        <a target="_blank" data-ng-click="openViewDocument(doc)"
+                                        <a  ng-if="grtDocument.id" target="_blank" data-ng-click="openViewDocument(grtDocument)"
                                             has-permission='READ_DOCUMENT'>
                                             <i class="icon-eye-open text-success"></i>
                                         </a>&nbsp;
-                                        <a ng-if="doc.id" ng-click="deleteDoc(doc,$index)"><i
+                                        <a ng-if="grtDocument.id" ng-click="deleteDoc(grtDocument,$index)"><i
                                                 class="icon-remove"></i></a>
                                     </td>
                                 </tr>
@@ -201,8 +200,9 @@
                         </table>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-                        <button ng-if ="grtdocuments.length==0"class="btn btn-primary" ng-click="upload()">{{'label.button.upload' | translate}}</button>
+                        <button ng-if ="!isGRTPhotoUploaded" class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+                        <button ng-if ="isGRTPhotoUploaded" class="btn btn-primary" ng-click="close()">{{'label.button.close' | translate}}</button>
+                        <button ng-if ="!isGRTPhotoUploaded" class="btn btn-primary" ng-click="upload()">{{'label.button.upload' | translate}}</button>
                     </div>
                     </script>
 

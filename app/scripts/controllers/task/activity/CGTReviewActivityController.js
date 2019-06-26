@@ -102,10 +102,11 @@
                         if (scope.isSingleGroupInCenter && scope.centerDetails.subGroupMembers[0].documentDatas && scope.centerDetails.subGroupMembers[0].documentDatas.length > 0) {
                             var groupdocuments = scope.centerDetails.subGroupMembers[0].documentDatas;
                             for (var i in groupdocuments) {
-                                if (groupdocuments[i].name == scope.groupDocumentName)
+                                if (groupdocuments[i].name == scope.groupDocumentName) {
                                     scope.cgtDocument = groupdocuments[i];
-                                if (!_.isUndefined(scope.cgtDocument.geoTag)) {
-                                    scope.cgtLocation = JSON.parse(scope.cgtDocument.geoTag);
+                                    if (!_.isUndefined(scope.cgtDocument.geoTag)) {
+                                        scope.cgtLocation = JSON.parse(scope.cgtDocument.geoTag);
+                                    }
                                 }
                             }
                         }
@@ -379,7 +380,7 @@
             }
 
             scope.viewAdditionalDetails = function (activeClientMember) {
-                scope.popUpHeaderName = "label.heading.cgt.review"
+                scope.popUpHeaderName = "label.heading.view.client.additional.details"
                 scope.includeHTML = 'views/task/popup/viewclientadditionaldetails.html';
                 scope.activeClientMember = activeClientMember;
                 var templateUrl = 'views/common/openpopup.html';

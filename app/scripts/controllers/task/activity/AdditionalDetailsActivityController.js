@@ -33,7 +33,7 @@
                     for (var i = 0; i < scope.centerDetails.subGroupMembers.length; i++) {
                         if (scope.centerDetails.subGroupMembers[i].memberData) {
                             for (var j = 0; j < scope.centerDetails.subGroupMembers[i].memberData.length; j++) {
-
+                                reComputeProfileRating(scope.centerDetails.subGroupMembers[i].memberData[j].id);
                                 var clientLevelTaskTrackObj = scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelTaskTrackingData;
                                 var clientLevelCriteriaObj = scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelCriteriaResultData;
                                 scope.centerDetails.subGroupMembers[i].memberData[j].allowLoanRejection = false;
@@ -193,7 +193,7 @@
                 initTask();
             };
 
-            scope.reComputeProfileRating = function (clientId) {
+            function reComputeProfileRating(clientId) {
                 scope.profileRatingData = {};
                 resourceFactory.computeProfileRatingTemplate.get(function (response) {
                     for (var i in response.scopeEntityTypeOptions) {
@@ -1069,7 +1069,7 @@
                         clientId: $scope.clientId
                     }, $scope.formData, function (data) {
                         refreshAndShowSummaryView();
-                        scope.reComputeProfileRating($scope.clientId);
+                        reComputeProfileRating($scope.clientId);
                     });
                 };
 
@@ -1112,6 +1112,7 @@
                     $scope.isFileMandatory = true;
                     $scope.entityType = 'clients';
                     $scope.entityId = $scope.clientId;
+                    $scope.isFileSelected = false;
                     $scope.documentTagName = 'Client Document Tags';
                     getClientAdditionalDocuments();
                 };
@@ -1167,6 +1168,7 @@
 
                 $scope.onFileSelect = function ($files) {
                     $scope.file = $files[0];
+                    $scope.isFileSelected = true;
                 };
 
                 function documentsURL(document) {
@@ -1175,7 +1177,7 @@
 
                 $scope.deleteDoc = function (documentId, index, tagValue) {
                     resourceFactory.documentsResource.delete({ entityType: $scope.entityType, entityId: $scope.entityId, documentId: documentId.id }, '', function (data) {
-                        scope.reComputeProfileRating($scope.clientId);
+                        reComputeProfileRating($scope.clientId);
                         getClientAdditionalDocuments();
                     });
                 };
@@ -1205,7 +1207,8 @@
                         $scope.formData = {};
                         $scope.filename = '';
                         angular.element('#file').val(null);
-                        scope.reComputeProfileRating($scope.clientId);
+                        $scope.isFileSelected = false;
+                        reComputeProfileRating($scope.clientId);
                     });
                 };
 
@@ -1350,7 +1353,7 @@
                         function (data) {
                             $scope.clientBankAccountDetailAssociationId = data.resourceId;
                             populateDetails();
-                            scope.reComputeProfileRating($scope.clientId);
+                            reComputeProfileRating($scope.clientId);
                         });
                 };
 
@@ -1394,7 +1397,7 @@
                         entityId: $scope.entityId,
                         clientBankAccountDetailAssociationId: getClientBankAccountDetailAssociationId()
                     }, $scope.formData, function (data) {
-                        scope.reComputeProfileRating($scope.clientId);
+                        reComputeProfileRating($scope.clientId);
                         populateDetails();
                     });
                 }
@@ -1470,7 +1473,7 @@
                                         clientBankAccountDetailAssociationId: getClientBankAccountDetailAssociationId()
                                     }, bankAccountDetails.formData, function (data) {
                                         populateDetails();
-                                        scope.reComputeProfileRating($scope.clientId);
+                                        reComputeProfileRating($scope.clientId);
                                     });
                                 }
                             });

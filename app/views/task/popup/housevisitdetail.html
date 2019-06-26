@@ -23,48 +23,67 @@
 
             <tabset class="overflowhidden marginbottom0" tabset-name="memberTabset">
                 <tab heading="{{'label.heading.verifyDocuments' | translate}}">
-                    <br />
-                    <div class="col-md-12">
-                        <div ng-repeat="(key, value) in clientdocuments">
-                            <h3>{{key | translate}}</h3>
-                            <table class="table" ng-show="value.length > 0">
-                                <thead>
-                                    <tr class="graybg">
-                                        <th>{{'label.heading.name' | translate}}</th>
-                                        <th>{{'label.heading.description' | translate}}</th>
-                                        <th>{{'label.heading.filename' | translate}}</th>
-                                        <th>{{'label.heading.actions' | translate}}</th>
-                                        <th>{{'label.heading.status' | translate}}</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr ng-repeat="clientdocument in value">
-                                        <td>{{clientdocument.name}}</td>
-                                        <td>{{clientdocument.description}}</td>
-                                        <td>{{clientdocument.fileName}}</td>
-                                        <td>
-                                            <a target="_blank" data-ng-click="openViewDocument(clientdocument)"
-                                                has-permission='READ_DOCUMENT'>
-                                                <i class="icon-eye-open text-success"></i>
-                                            </a>&nbsp;
-                                            <a ng-if="clientdocument.id && (clientdocument.status.id == 1 || 
-                                            clientdocument.status.id == 3)" ng-click="deleteDoc(clientdocument,$index, key)"><i
-                                                    class="icon-remove"></i></a>&nbsp;
-                                            <a ng-if="clientdocument.id && (clientdocument.status.id == 1 || 
-                                            clientdocument.status.id == 3)" 
-                                            has-permission='UPDATE_DOCUMENT'
-                                            ng-click="verifyDoc(clientdocument,$index, key)"><i tooltip="{{ 'label.heading.verify' | translate}}"
-                                                    class="icon-check-sign icon-white"></i></a>&nbsp;
-                                            <a ng-if="clientdocument.id && (clientdocument.status.id == 1 || 
-                                            clientdocument.status.id == 2)"
-                                            has-permission='UPDATE_DOCUMENT' ng-click="rejectDoc(clientdocument,$index, key)"><i tooltip="{{ 'label.heading.reject' | translate}}"
-                                                    class="icon-ban-circle icon-white"></i></a>
-                                        </td>
-                                        <td>{{clientdocument.status.value}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <br />
+                        <div class="col-md-12">
+                            <form name="documentuploadform" novalidate="" class="row form-horizontal" rc-submit="submitDocument()">
+                                <fieldset>
+                                    <div class="form-group">
+                                        <div class="col-sm-2">
+                                            <input id="name" name="name" type="text" placeholder="{{ 'label.input.filename' | translate }}"
+                                                class="form-control" ng-disabled="true" ng-model="filename" />
+                                            <form-validate valattributeform="documentuploadform" valattribute="name" />
+                                        </div>
+                        
+                                        <div class="col-sm-2">
+                                            <textarea rows="1" cols="15" ng-model="formData.description" class="form-control" placeholder="{{'label.input.file.description'|translate}}"></textarea>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <select id="tagIdentifier" name="tagIdentifier" ng-model="formData.tagIdentifier" class="form-control" ng-change="setFileName()"
+                                                ng-options="codeValue.id as codeValue.name for codeValue in availableDocumentNames" value="{{codeValue.id}}"
+                                                ng-required="isUploadDocumentTagMandatory">
+                                                <option value="">{{'label.selectdocumenttag' | translate}}</option>
+                                            </select>
+                                            <form-validate valattributeform="documentuploadform" valattribute="tagIdentifier" />
+                                        </div>
+                        
+                                        <div class="col-sm-3">
+                                            <input type="file" id="file" ng-file-select="onFileSelect($files)" ng-required="isFileMandatory" />
+                                        </div>
+                        
+                                        <div class="col-md-2">
+                                            <button id="save" type="submit" ng-show="isFileSelected" has-permission='CREATE_DOCUMENT' class="btn btn-primary">{{'label.button.upload'
+                                                | translate}}</button>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </form>
                         </div>
+                        <br />
+                    <div class="col-md-12">
+                        <h3>{{'uploadedDocuments' | translate}}</h3>
+                        <table class="table">
+                            <thead>
+                                <tr class="graybg">
+                                    <th>{{'label.heading.name' | translate}}</th>
+                                    <th>{{'label.heading.description' | translate}}</th>
+                                    <th>{{'label.heading.filename' | translate}}</th>
+                                    <th>{{'label.heading.actions' | translate}}</th>
+                                </tr>
+                            </thead>
+                            <tbody ng-repeat="(key, value) in clientdocuments">
+                                <tr ng-repeat="clientdocument in value">
+                                    <td>{{clientdocument.name}}</td>
+                                    <td>{{clientdocument.description}}</td>
+                                    <td>{{clientdocument.fileName}}</td>
+                                    <td>
+                                        <a target="_blank" data-ng-click="openViewDocument(clientdocument)" has-permission='READ_DOCUMENT'>
+                                            <i class="icon-eye-open text-success"></i>
+                                        </a>&nbsp;
+                                        <a ng-if="clientdocument.id" ng-click="deleteDoc(clientdocument,$index, key)"><i class="icon-remove"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </tab>
 
@@ -145,15 +164,297 @@
                             <a id="attachDocument" ng-if="approvable()" ng-click="uploadBankAccountDocument()" class="btn btn-primary"
                                 has-permission='UPDATE_BANKACCOUNTDETAIL'>{{'label.button.attach.document'
                                 | translate}}</a>
-                            <a id="edit" ng-if="approvable()" ng-click="edit()" class="btn btn-primary" has-permission='UPDATE_BANKACCOUNTDETAIL'>{{'label.button.edit'
+                            <a id="edit" ng-click="edit()" class="btn btn-primary" has-permission='UPDATE_BANKACCOUNTDETAIL'>{{'label.button.edit'
                                 | translate}}</a>
-                            <button ng-if="deletable()" id="delete" class="btn btn-primary" ng-click="delete()" has-permission='DELETE_BANKACCOUNTDETAIL'>{{'label.button.delete' | translate}}</button>
                             <button ng-if="approvable()" id="activate" class="btn btn-primary" ng-click="activate()" has-permission='ACTIVATE_BANKACCOUNTDETAIL'>{{'label.button.activate' | translate}}</button> 
                         </div>
                         <div>
                         </div>
                     </div>
+
+                    <!-- Edit Bank Account Details -->
+                    <div ng-if="!viewConfig.showSummary" class="col-md-12">
+                            <form name="bankaccountdetail" novalidate="" rc-submit="submit()" class="form-horizontal"
+                                autocomplete="off">
+                                <fieldset>
+                                    <legend>{{'label.anchor.bankaccountdetails' | translate}}</legend>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-3">
+                                            {{'label.input.holdername' | translate}}<span ng-if="isMandatoryFields.bankAccountHolderName"
+                                                class="required">*</span>
+                                        </label>
+                                        <div class="col-sm-3">
+                                            <input name="bankAccountHolderName" id="bankAccountHolderName" ng-model="formData.name"
+                                                type="text" autocomplete="off" maxlength="50" class="form-control"
+                                                ng-required="isMandatoryFields.bankAccountHolderName" />
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <form-validate valattributeform="bankaccountdetail" valattribute="bankAccountHolderName" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-3">{{'label.input.accountnumber' | translate}}
+                                            <span ng-show="isMandatoryFields.bankAccountNumber" class="required">*</span></label>
+    
+                                        <div class="col-sm-3">
+                                            <input name="bankAccountNumberRepeat" id="bankAccountNumberRepeat" ng-model="repeatFormData.accountNumberRepeat"
+                                                type="password" ng-pattern="regexPattern('bankAccountHolderName')"
+                                                maxlength="50" class="form-control" ng-required="isMandatoryFields.bankAccountNumber" />
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <span ng-show="bankaccountdetail.bankAccountNumberRepeat.$error.pattern">
+                                                <small class="required">{{'invalid.accountnumber.format' | translate}}</small>
+                                            </span>
+                                            <span ng-show="formData.accountNumber != undefined && formData.accountNumber != repeatFormData.accountNumberRepeat">
+                                                <small class="required">{{'label.mismatch.account.number' | translate}}</small>
+                                            </span>
+                                            <form-validate valattributeform="bankaccountdetail" valattribute="bankAccountNumberRepeat" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-3">{{'label.input.accountnumber.repeat' |
+                                            translate}}
+                                            <span ng-show="isMandatoryFields.bankAccountNumber" class="required">*</span></label>
+    
+                                        <div class="col-sm-3">
+                                            <input name="bankAccountNumber" id="bankAccountNumber" ng-model="formData.accountNumber"
+                                                type="text" autocomplete="off" ng-pattern="regexPattern('bankAccountHolderName')"
+                                                maxlength="50" class="form-control" ng-required="isMandatoryFields.bankAccountNumber"
+                                                onpaste="return false;" />
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <span ng-show="bankaccountdetail.bankAccountNumber.$error.pattern">
+                                                <small class="required">{{'invalid.accountnumber.format' | translate}}</small>
+                                            </span>
+                                            <form-validate valattributeform="bankaccountdetail" valattribute="bankAccountNumber" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-3">{{'label.input.accounttype' | translate}}</label>
+                                        </label>
+                                        <div class="col-sm-3">
+                                            <select id="accountType" name="accountType" ng-model="formData.accountTypeId"
+                                                class="form-control" ng-options="accountType.id as accountType.value for accountType in bankAccountTypeOptions"
+                                                value="{{accountType.id}}">
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <form-validate valattributeform="bankaccountdetail" valattribute="accountType" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-3">{{'label.input.ifsccode' | translate}}
+                                            <span ng-show="isMandatoryFields.bankIFSCCode" class="required">*</span></label>
+    
+                                        <div class="col-sm-3">
+                                            <input name="bankIFSCCodeRepeat" id="bankIFSCCodeRepeat" ng-model="repeatFormData.ifscCodeRepeat"
+                                                minlength="11" maxlength="11" type="password" ng-pattern="regexPattern('bankIFSCCode')"
+                                                class="form-control" ng-required="isMandatoryFields.bankIFSCCode" />
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <span ng-show="bankaccountdetail.bankIFSCCodeRepeat.$error.pattern">
+                                                <small class="required">{{'inavalid.ifsc.format' | translate}}</small>
+                                            </span>
+                                            <span ng-show="formData.ifscCode != undefined && formData.ifscCode != repeatFormData.ifscCodeRepeat">
+                                                <small class="required">{{'label.mismatch.ifsc.number' | translate}}</small>
+                                            </span>
+                                            <form-validate code="bankaccountdetail" valattribute="bankIFSCCodeRepeat" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-3">{{'label.input.ifsccode.repeat' | translate}}
+                                            <span ng-show="isMandatoryFields.bankIFSCCode" class="required">*</span></label>
+    
+                                        <div class="col-sm-3">
+                                            <input name="bankIFSCCode" id="bankIFSCCode" ng-model="formData.ifscCode"
+                                                ng-minlength="11" maxlength="11" type="text" autocomplete="off" ng-pattern="regexPattern('bankIFSCCode')"
+                                                class="form-control" ng-required="isMandatoryFields.bankIFSCCode" onpaste="return false;" />
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <span ng-show="bankaccountdetail.bankIFSCCode.$invalid && bankaccountdetail.bankIFSCCode.$dirty">
+                                                <small class="required" ng-show="isMandatoryFields.bankIFSCCode">
+                                                    {{'error.msg.invalid.ifscCode' | translate}}</small></span>
+                                            <span ng-show="bankaccountdetail.bankIFSCCode.$error.minlength">
+                                                <small class="required"> {{'error.msg.ifsc.minimum.number' | translate}}</small>
+                                            </span>
+                                            <form-validate valattributeform="bankaccountdetail" valattribute="bankIFSCCode" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-3">{{'label.input.bankname' | translate}}
+                                        </label>
+                                        <div class="col-sm-3">
+                                            <input name="bankName" id="bankName" ng-model="formData.bankName" type="text"
+                                                autocomplete="off" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-3">{{'label.input.branchName' | translate}}
+                                        </label>
+                                        <div class="col-sm-3">
+                                            <input name="branchName" id="branchName" ng-model="formData.branchName" type="text"
+                                                autocomplete="off" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-3">{{'label.input.bankcity' | translate}}
+                                        </label>
+                                        <div class="col-sm-3">
+                                            <input name="bankCity" id="bankCity" ng-model="formData.bankCity" type="text"
+                                                autocomplete="off" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-3">{{'label.input.mobilenumber' | translate}}
+                                        </label>
+                                        <div class="col-sm-3">
+                                            <input name="mobileNumber" id="mobileNumber" ng-model="formData.mobileNumber"
+                                                type="text" autocomplete="off" class="form-control" ng-pattern="/^[1-9][0-9]{9}$/"
+                                                ng-minlength="10" maxlength="10" />
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <span ng-show="bankaccountdetail.mobileNumber.$invalid && bankaccountdetail.mobileNumber.$dirty">
+                                                <small class="required" ng-show="bankaccountdetail.mobileNumber.$error.pattern">
+                                                    {{'label.must.be.ten.digits.numeric' | translate}}
+                                                </small>
+                                            </span>
+                                            <form-validate valattributeform="bankaccountdetail" valattribute="mobileNumber" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-offset-2 paddedleft">
+                                        <a id="cancel" ng-click="cancel()" ng-show="viewConfig.hasData" class="btn btn-default">{{'label.button.cancel'
+                                            | translate}}</a>
+                                        <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_BANKACCOUNTDETAIL'>{{'label.button.save'
+                                            | translate}}</button>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
                 </tab>
+
+                <tab heading="{{'label.heading.cashflow' | translate}}" select="getCashFlow()">
+                        <div ng-if="showSummary">
+                                <div class="form-horizontal">
+                                    <h3>{{'label.heading.occupationdetails' | translate}}</h3>
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>{{ 'label.heading.occupationname' | translate }}</th>
+                                            <th>{{ 'label.heading.income' | translate }}</th>
+                                            <th>{{ 'label.heading.expense' | translate }}</th>
+                                            <th>{{ 'label.heading.net' | translate}}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-if="incomeAndExpense.incomeExpenseData.cashFlowCategoryData.categoryEnum.id == 1" ng-repeat="incomeAndExpense in incomeAndExpenses">
+                                            <td >
+                                                {{incomeAndExpense.incomeExpenseData.name}}
+                                            </td>
+                                            <td data-ng-click="">
+                                                {{incomeAndExpense.totalIncome}}
+                                            </td>
+                                            <td  data-ng-click="">
+                                                {{incomeAndExpense.totalExpense}}
+                                            </td>
+                                            <td>
+                                                <span>{{incomeAndExpense.totalIncome - incomeAndExpense.totalExpense}}</span>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <legend></legend>
+                        
+                                <div class="form-horizontal">
+                                    <h3>{{'label.heading.assetdetails' | translate}}</h3>
+                                    <br>
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>{{ 'label.heading.assetname' | translate }}</th>
+                                            <th>{{ 'label.heading.quantity' | translate }}</th>
+                                            <th>{{ 'label.heading.default.income' | translate }}</th>
+                                            <th>{{ 'label.heading.total.income' | translate }}</th>
+                                            <th>{{ 'label.heading.expense' | translate }}</th>
+                                            <th>{{ 'label.heading.net' | translate}}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-if="incomeAndExpense.incomeExpenseData.cashFlowCategoryData.categoryEnum.id == 2" ng-repeat="incomeAndExpense in incomeAndExpenses">
+                                            <td  data-ng-click="">
+                                                {{incomeAndExpense.incomeExpenseData.name}}
+                                            </td>
+                                            <td  data-ng-click="">
+                                                {{incomeAndExpense.quintity}}
+                                            </td>
+                                            <td  data-ng-click="">
+                                                {{incomeAndExpense.defaultIncome}}
+                                            </td>
+                                            <td  data-ng-click="">
+                                                {{incomeAndExpense.totalIncome}}
+                                            </td>
+                                            <td  data-ng-click="">
+                                                {{incomeAndExpense.totalExpense}}
+                                            </td>
+                                            <td>
+                                                <span>{{incomeAndExpense.totalIncome - incomeAndExpense.totalExpense}}</span>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <legend></legend>
+                        
+                                <div class="form-horizontal">
+                                    <h3>{{'label.heading.householddetails' | translate}}</h3>
+                                    <br>
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>{{ 'label.heading.expensename' | translate }}</th>
+                                            <th>{{ 'label.heading.expense' | translate }}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-if="incomeAndExpense.incomeExpenseData.cashFlowCategoryData.typeEnum.id == 2" ng-repeat="incomeAndExpense in incomeAndExpenses">
+                                            <td  data-ng-click="">
+                                                {{incomeAndExpense.incomeExpenseData.name}}
+                                            </td>
+                                            <td  data-ng-click="">
+                                                {{incomeAndExpense.totalExpense}}
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                        
+                                <div class="">
+                                    <h3 class="bolder">{{'label.view.summary' | translate}}</h3>
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <table class="table table-bordered table-striped">
+                                                <tr>
+                                                    <td>{{'label.input.occ.income' | translate}}:</td>
+                                                    <td>{{totalIncomeOcc}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>{{'label.input.asset.income' | translate}}:</td>
+                                                    <td>{{totalIncomeAsset}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>{{'label.input.household.expense' | translate}}:</td>
+                                                    <td>{{totalHouseholdExpense}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>{{'label.input.net.surplex' | translate}}:</td>
+                                                    <td>{{totalIncomeOcc + totalIncomeAsset - totalHouseholdExpense}}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </tab>
             </tabset>
         </div>
 
@@ -185,22 +486,6 @@
                 <button class="btn btn-primary" ng-click="upload()">{{'label.button.upload' | translate}}</button>
             </div>
             </script>
-        <script type="text/ng-template" id="delete.html">
-            <div class="modal-header silver">
-                <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
-            </div>
-            <div class="modal-body">
-                <api-validate></api-validate>
-               
-                <div ng-show="error != null" class="error">
-                    {{'label.error' | translate}}: {{error}}
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-warning" ng-click="cancelDelete()">{{'label.button.cancel' | translate}}</button>
-                <button class="btn btn-primary" ng-click="submitDelete()">{{'label.heading.delete' | translate}}</button>
-            </div>
-        </script>
+        </div>
     </div>
-</div>
 </div>

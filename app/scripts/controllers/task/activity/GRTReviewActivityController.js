@@ -18,7 +18,7 @@
                 resourceFactory.centerWorkflowResource.get({
                     centerId: scope.centerId,
                     eventType: scope.eventType,
-                    associations: 'groupMembers,profileratings,loanaccounts,clientcbcriteria,collectionMeetingCalendar'
+                    associations: 'groupMembers,profileratings,loanaccounts,clientcbcriteria,collectionMeetingCalendar,subgroupDocuments'
                 }, function (data) {
                     scope.centerDetails = data;
                     scope.rejectTypes = data.rejectTypes;
@@ -104,8 +104,25 @@
             };
 
             function getGRTDocuments() {
-                resourceFactory.documentsResource.query({ entityType: 'groups', entityId: scope.centerDetails.subGroupMembers[0].id }, function (data) {
-                    scope.grtdocuments = data;
+                resourceFactory.codeValueByCodeNameResources.get({ codeName: 'groupDocumentNames' }, function (codeValueData) {
+                    groupDocumentNames = codeValueData;
+                    for (var i = 0; i < groupDocumentNames.length; i++) {
+                        if (angular.lowercase(groupDocumentNames[i].name.split(" ").join("")) == 'grtphoto') {
+                            scope.groupDocumentName = groupDocumentNames[i].name;
+                        }
+                    }
+                    if (scope.centerDetails && scope.centerDetails.subGroupMembers && scope.centerDetails.subGroupMembers.length > 0) {
+                        if (scope.isSingleGroupInCenter && scope.centerDetails.subGroupMembers[0].documentDatas && scope.centerDetails.subGroupMembers[0].documentDatas.length > 0) {
+                            var groupdocuments = scope.centerDetails.subGroupMembers[0].documentDatas;
+                            for (var i in groupdocuments) {
+                                if (groupdocuments[i].name == scope.groupDocumentName)
+                                    scope.grtDocument = groupdocuments[i];
+                                if (!_.isUndefined(scope.grtDocument.geoTag)) {
+                                    scope.grtLocation = JSON.parse(scope.grtDocument.geoTag);
+                                }
+                            }
+                        }
+                    }
                 });
             };
 
@@ -115,14 +132,14 @@
                     controller: viewUploadedDocumentCtrl,
                     resolve: {
                         documentDetail: function () {
-                            return scope.grtdocuments;
+                            return scope.grtDocument;
                         }
                     }
                 });
             };
 
             var viewUploadedDocumentCtrl = function ($scope, $modalInstance, documentDetail) {
-                $scope.data = documentDetail[0];
+                $scope.data = documentDetail;
                 $scope.close = function () {
                     $modalInstance.close('close');
                 };
@@ -393,6 +410,15 @@
                     }
                 }
             }
+
+            scope.viewAdditionalDetails = function (activeClientMember) {
+                scope.popUpHeaderName = "label.heading.view.client.additional.details"
+                scope.includeHTML = 'views/task/popup/viewclientadditionaldetails.html';
+                scope.activeClientMember = activeClientMember;
+                var templateUrl = 'views/common/openpopup.html';
+                var controller = 'ViewClientAdditionalDetailsController';
+                popUpUtilService.openFullScreenPopUp(templateUrl, controller, scope);
+            };
         }
     });
     mifosX.ng.application.controller('GRTReviewActivityController', ['$controller', '$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', '$route', '$http', '$rootScope', '$route', '$upload', 'API_VERSION', 'PopUpUtilService', mifosX.controllers.GRTReviewActivityController]).run(function ($log) {

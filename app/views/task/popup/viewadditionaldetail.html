@@ -52,16 +52,16 @@
                                     </div>
 
                                     <div class="col-md-2">
-                                        <button id="save" type="submit" has-permission='CREATE_DOCUMENT' class="btn btn-primary">{{'label.button.upload'
+                                        <button ng-show="isFileSelected" id="save" type="submit" has-permission='CREATE_DOCUMENT' class="btn btn-primary">{{'label.button.upload'
                                             | translate}}</button>
                                     </div>
                                 </div>
                             </fieldset>
                         </form>
                         <br>
-                        <div ng-repeat="(key, value) in clientdocuments">
-                            <h3>{{key | translate}}</h3>
-                            <table class="table" ng-show="value.length > 0">
+                        <div>
+                            <h3>{{'uploadedDocuments' | translate}}</h3>
+                            <table class="table">
                                 <thead>
                                     <tr class="graybg">
                                         <th>{{'label.heading.name' | translate}}</th>
@@ -70,7 +70,7 @@
                                         <th>{{'label.heading.actions' | translate}}</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody ng-repeat="(key, value) in clientdocuments">
                                     <tr ng-repeat="clientdocument in value">
                                         <td>{{clientdocument.name}}</td>
                                         <td>{{clientdocument.description}}</td>
