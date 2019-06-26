@@ -471,6 +471,10 @@
 			"deceasedWorkflow": {
 				"showPolicy" : false,
 				"showMarkAsDeceased" : false
+			},
+			"hiddenFields": {
+				"reviewCB": true,
+				"sendToCBReview": true
 			}
 		},
 		"globalSearchScope": {

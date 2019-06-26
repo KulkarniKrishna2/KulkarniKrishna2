@@ -1,0 +1,162 @@
+<div class="col-md-12" data-ng-controller="CBReviewController">
+    <div>
+        <h3 class="paddedleft">
+            <strong>{{'label.heading.cb.review' | translate}}</strong>
+        </h3>
+    </div>
+    <div>
+        <api-validate></api-validate>
+    </div>
+    <hr />
+    <form name="cbReviewFilterForm" novalidate="" class="form-horizontal well" rc-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset>
+            <div class="form-group">
+                <div class=" col-sm-6">
+                    <div class="form-group">
+
+                        <div class="col-sm-6">
+                            <select chosen="offices" id="office" ng-model="formData.officeId" class="form-control"
+                                ng-options="office.id as office.name for office in offices" value="{{office.id}}"
+                                ng-change="getOfficeTemplateData()" data-placeholder="Office">
+                                <option value="">{{'label.alloffice' | translate}}</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6">
+                            <select chosen="centerOptions" id="center" ng-model="formData.centerId" class="form-control"
+                                ng-options="center.id as center.name+' ('+center.referenceNumber+')' for center in centerOptions"
+                                value="{{center.id}}" data-placeholder="Center">
+                                <option value="">{{'label.allCenters' | translate}}</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+
+                        <div class="col-sm-6">
+                            <select chosen="loanOfficers" id="loanOfficer" ng-model="formData.loanOfficerId"
+                                class="form-control"
+                                ng-options="loanOfficer.id as loanOfficer.displayName for loanOfficer in loanOfficers"
+                                value="{{loanOfficer.id}}" data-placeholder="loanOfficer">
+                                <option value="">{{'label.all.loan.officer' | translate}}</option>
+                            </select>
+                        </div>
+
+                        <div class="col-sm-6 center">
+                            <button class="btn btn-primary" ng-click="getWorkflowCBReviewData()"><i
+                                    class="icon-search"></i>{{'label.button.fetchdetails' | translate}}</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-1"></div>
+                <div ng-if="cbReviewData.length > 0" class="col-sm-4">
+                    <table class="table-bordered table view-table">
+                        <tr>
+                            <td>{{'label.info.totalmembers' | translate}}</td>
+                            <td>{{totalMembers}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.anchor.cb.passed' | translate}}</td>
+                            <td>{{cbPassedMembers}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.anchor.cb.rejected' | translate}}</td>
+                            <td>{{cbRejectedMembers}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{'label.heading.cb.review' | translate}}</td>
+                            <td>{{cbReviewMembers}}</td>
+                        </tr>
+                    </table>
+
+                </div>
+                <div class="col-sm-1"></div>
+            </div>
+        </fieldset>
+    </form>
+    <div id="home" class="row">
+        <div class="col-md-12">
+            <div class="table-responsive" data-ng-show="cbReviewData.length > 0">
+                <table id="bankapprovals" class="table">
+                    <thead>
+                        <th class="col-md-1">
+                            {{'label.heading.clientname' | translate}}</th>
+                        <th class="col-md-1">{{'label.heading.spouse.name' | translate}}</th>
+                        <th class="col-md-1">{{'label.heading.amount.outstanding' | translate}}</th>
+                        <th class="col-md-1">{{'label.heading.dpd' | translate}}</th>
+                        <th class="col-md-1">{{'label.heading.arrears.amount' | translate}}</th>
+                        <th class="col-md-1">{{'label.heading.applied.amount' | translate}}</th>
+                        <th class="col-md-1">{{'label.heading.recommended.amount' | translate}}</th>
+                        <th class="col-md-1">{{'label.heading.uid'| translate}}</th>
+                        <th class="col-md-1">{{'label.heading.status'| translate}}</th>
+                        <th class="col-md-1">{{'label.heading.actions'| translate}}</th>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="reviewData in cbReviewData" ng-class="reviewData.color">
+                            <td class=" pointer">{{reviewData.clientName}}</td>
+                            <td class=" pointer">{{reviewData.spouseName}}</td>
+                            <td class=" pointer">{{reviewData.existingLoansSummaryData.totalOutstanding}}</td>
+                            <td class=" pointer">{{reviewData.existingLoansSummaryData.totalDPD}}</td>
+                            <td class=" pointer">{{reviewData.existingLoansSummaryData.totalArrears}}</td>
+                            <td class=" pointer">{{reviewData.appliedLoanAmount}}</td>
+                            <td class=" pointer">{{reviewData.recommenedAmount}}</td>
+                            <td class=" pointer">{{reviewData.uid}}</td>
+                            <td class=" pointer">{{reviewData.status | translate}}</td>
+                            <td class=" pointer">&nbsp;
+                                <a ng-hide="reviewData.isRejected || reviewData.isApproved" title="Approve"
+                                    has-permission='APPROVE_CB_CRITERIA_REVIEW'
+                                    data-ng-click="approveAction('approve',reviewData.reviewId)"><i style="color: green"
+                                        class="icon-ok-sign"></i>
+                                </a>&nbsp;
+                                <a ng-hide="reviewData.isRejected || reviewData.isApproved" title="Reject"
+                                    has-permission='REJECT_CB_CRITERIA_REVIEW'
+                                    data-ng-click="rejectAction('reject',reviewData.reviewId)">
+                                    <i style="color: red" class="icon-remove-circle pointer"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <ul class="pager">
+                    <li class="previous">
+                        <a id="prev" ng-click="previousRequest()" ng-hide="requestoffset == 0">&larr;
+                            {{'label.button.previous' | translate}}</a>
+                    </li>
+                    <li class="next">
+                        <a id="next" ng-click="nextRequest()"
+                            ng-hide="cbReviewData.length != limit">{{'label.button.next' | translate}} &rarr;</a></li>
+                </ul>
+            </div>
+
+            <div class="" style="padding:10px;" data-ng-hide="cbReviewData &&  cbReviewData.length > 0">
+                <div class="alert alert-info" style="border-style: dashed;">
+                    <span class="fa fa-info-circle"></span> {{'info.message.taskList.noTasks' | translate}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/ng-template" id="approve.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.approve' | translate}}</h3>
+        </div>
+        <div class="modal-body ">
+            <api-validate></api-validate>
+            <br>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="approve()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+    <script type="text/ng-template" id="reject.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.reject' | translate}}</h3>
+        </div>
+        <div class="modal-body ">
+            <api-validate></api-validate>
+            <br>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="reject()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+</div>
+</div>
