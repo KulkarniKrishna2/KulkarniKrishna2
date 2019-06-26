@@ -16,18 +16,17 @@
     <tab heading="{{'label.heading.verifyDocuments' | translate}}">
         <br />
         <div class="col-md-12">
-            <div ng-repeat="(key, value) in clientdocuments">
-                <h3>{{key | translate}}</h3>
-                <table class="table" ng-show="value.length > 0">
+            <div>
+                <h3>{{'uploadedDocuments' | translate}}</h3>
+                <table class="table">
                     <thead>
                         <tr class="graybg">
                             <th>{{'label.heading.name' | translate}}</th>
                             <th>{{'label.heading.description' | translate}}</th>
                             <th>{{'label.heading.filename' | translate}}</th>
-                            <th>{{'label.heading.status' | translate}}</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody  ng-repeat="(key, value) in clientdocuments">
                         <tr ng-repeat="clientdocument in value">
                             <td>{{clientdocument.name}}</td>
                             <td>{{clientdocument.description}}</td>
@@ -37,7 +36,6 @@
                                 </a>&nbsp;
                                 <a ng-if="clientdocument.location" href="http://maps.google.com/?q={{clientdocument.location.latitude}},{{clientdocument.location.longitude}}"
                                     target=" "><i class="icon-map-marker" style="color: blue" tooltip="{{ 'label.tooltip.view.document.captured.location' | translate}}"></i></a></td>
-                            <td>{{clientdocument.status.value}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -115,6 +113,130 @@
             </div>
         </div>
     </tab>
+
+    <tab heading="{{'label.heading.cashflow' | translate}}" select="getCashFlow()">
+        <div ng-if="showSummary">
+                <div class="form-horizontal">
+                    <h3>{{'label.heading.occupationdetails' | translate}}</h3>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>{{ 'label.heading.occupationname' | translate }}</th>
+                            <th>{{ 'label.heading.income' | translate }}</th>
+                            <th>{{ 'label.heading.expense' | translate }}</th>
+                            <th>{{ 'label.heading.net' | translate}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-if="incomeAndExpense.incomeExpenseData.cashFlowCategoryData.categoryEnum.id == 1" ng-repeat="incomeAndExpense in incomeAndExpenses">
+                            <td >
+                                {{incomeAndExpense.incomeExpenseData.name}}
+                            </td>
+                            <td data-ng-click="">
+                                {{incomeAndExpense.totalIncome}}
+                            </td>
+                            <td  data-ng-click="">
+                                {{incomeAndExpense.totalExpense}}
+                            </td>
+                            <td>
+                                <span>{{incomeAndExpense.totalIncome - incomeAndExpense.totalExpense}}</span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <legend></legend>
+        
+                <div class="form-horizontal">
+                    <h3>{{'label.heading.assetdetails' | translate}}</h3>
+                    <br>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>{{ 'label.heading.assetname' | translate }}</th>
+                            <th>{{ 'label.heading.quantity' | translate }}</th>
+                            <th>{{ 'label.heading.default.income' | translate }}</th>
+                            <th>{{ 'label.heading.total.income' | translate }}</th>
+                            <th>{{ 'label.heading.expense' | translate }}</th>
+                            <th>{{ 'label.heading.net' | translate}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-if="incomeAndExpense.incomeExpenseData.cashFlowCategoryData.categoryEnum.id == 2" ng-repeat="incomeAndExpense in incomeAndExpenses">
+                            <td  data-ng-click="">
+                                {{incomeAndExpense.incomeExpenseData.name}}
+                            </td>
+                            <td  data-ng-click="">
+                                {{incomeAndExpense.quintity}}
+                            </td>
+                            <td  data-ng-click="">
+                                {{incomeAndExpense.defaultIncome}}
+                            </td>
+                            <td  data-ng-click="">
+                                {{incomeAndExpense.totalIncome}}
+                            </td>
+                            <td  data-ng-click="">
+                                {{incomeAndExpense.totalExpense}}
+                            </td>
+                            <td>
+                                <span>{{incomeAndExpense.totalIncome - incomeAndExpense.totalExpense}}</span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <legend></legend>
+        
+                <div class="form-horizontal">
+                    <h3>{{'label.heading.householddetails' | translate}}</h3>
+                    <br>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>{{ 'label.heading.expensename' | translate }}</th>
+                            <th>{{ 'label.heading.expense' | translate }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-if="incomeAndExpense.incomeExpenseData.cashFlowCategoryData.typeEnum.id == 2" ng-repeat="incomeAndExpense in incomeAndExpenses">
+                            <td  data-ng-click="">
+                                {{incomeAndExpense.incomeExpenseData.name}}
+                            </td>
+                            <td  data-ng-click="">
+                                {{incomeAndExpense.totalExpense}}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+        
+                <div class="">
+                    <h3 class="bolder">{{'label.view.summary' | translate}}</h3>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <table class="table table-bordered table-striped">
+                                <tr>
+                                    <td>{{'label.input.occ.income' | translate}}:</td>
+                                    <td>{{totalIncomeOcc}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'label.input.asset.income' | translate}}:</td>
+                                    <td>{{totalIncomeAsset}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'label.input.household.expense' | translate}}:</td>
+                                    <td>{{totalHouseholdExpense}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'label.input.net.surplex' | translate}}:</td>
+                                    <td>{{totalIncomeOcc + totalIncomeAsset - totalHouseholdExpense}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </tab>
 </tabset>
 
 <script type="text/ng-template" id="viewUploadedDocument.html">

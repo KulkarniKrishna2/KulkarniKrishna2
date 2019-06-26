@@ -50,8 +50,8 @@
                                 ng-model="activeClientMember.isMemberChecked"
                                 ng-change="captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, activeClientMember.isMemberChecked)">
                         </td>
-                        <td class="col-md-2">{{activeClientMember.displayName}} <i
-                                ng-if="activeClientMember.isClientVerified" class="btn btn-success icon-ok-sign"></i>
+                        <td class="col-md-2">
+                            <a href="" ng-disabled="activeClientMember.isClientFinishedThisTask" ng-click="viewAdditionalDetails(activeClientMember)">{{activeClientMember.displayName}}</a>
                         </td>
                         <td class="col-md-2">{{activeClientMember.fcsmNumber}}</td>
                         <td class="col-md-1 cell-overflow">{{activeClientMember.loanAccountBasicData.loanProductName}}

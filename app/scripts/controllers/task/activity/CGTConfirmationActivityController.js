@@ -270,7 +270,7 @@
             }
 
             scope.viewAdditionalDetails = function (activeClientMember) {
-                scope.popUpHeaderName = "label.heading.cgt.confirmation"
+                scope.popUpHeaderName = "label.heading.view.client.additional.details"
                 scope.includeHTML = 'views/task/popup/viewclientadditionaldetails.html';
                 scope.activeClientMember = activeClientMember;
                 var templateUrl = 'views/common/openpopup.html';

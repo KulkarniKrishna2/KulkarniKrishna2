@@ -10,14 +10,16 @@
                 {{grtCompletionDetails.grtStartTime}}&nbsp;&nbsp;|&nbsp;&nbsp;</span>
             <span ng-if="isSingleGroupInCenter"><label>{{'label.anchor.end.time' | translate}}:&nbsp;</label>
                 {{grtCompletionDetails.grtEndTime}}&nbsp;&nbsp;&nbsp;&nbsp;</span>
-            <span ng-if="isSingleGroupInCenter && grtdocuments.length>0" class="pull center">
+            <span ng-if="isSingleGroupInCenter && grtDocument" class="pull center">
                 <a><i ng-click="openViewDocument()" class="icon-eye-open icon-2x" style="color: blue"
                         tooltip="{{ 'label.tooltip.view.grt.photo' | translate}}"></i></a>
             </span>&nbsp;&nbsp;
             <span ng-if="isSingleGroupInCenter">
-                <a><i ng-click="viewCenterMeeting()" class="icon-map-marker icon-2x" style="color: blue"
+                <a><i ng-click="viewCenterMeeting()" class="glyphicon glyphicon-calendar" style="color: blue"
                         tooltip="{{ 'label.heading.meetingdetails' | translate}}"></i></a>
-            </span>
+            </span>&nbsp;&nbsp;
+            <span ng-if="isSingleGroupInCenter && grtLocation" class="pull center"><a href="http://maps.google.com/?q={{grtLocation.latitude}},{{grtLocation.longitude}}"
+                target=" "><i class="icon-map-marker icon-2x" style="color: blue" tooltip="{{ 'label.tooltip.view.grt.completed.location' | translate}}"></i></a></span>
             <span class="pull right">{{'label.info.totalmembers' | translate}} : {{summary.activeClients}}&nbsp;&nbsp;{{'label.info.activeborrowers'
                                                         | translate}} : {{summary.activeBorrowers}}</span>
 
@@ -66,9 +68,9 @@
                                 ng-change="addLoan(activeClientMember.isMemberChecked,activeClientMember.loanAccountBasicData.id);
                             captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, activeClientMember.isMemberChecked)">
                         </td>
-                        <td class="col-md-2">{{activeClientMember.displayName}} <i
-                                ng-if="activeClientMember.isClientVerified" class="btn btn-success icon-ok-sign"></i>
-                        </td>
+						<td class="col-md-2">
+							<a href="" ng-disabled="activeClientMember.isClientFinishedThisTask" ng-click="viewAdditionalDetails(activeClientMember)">{{activeClientMember.displayName}}</a>
+						</td>
                         <td class="col-md-2">{{activeClientMember.fcsmNumber}}</td>
                         <td class="col-md-1 cell-overflow">{{activeClientMember.loanAccountBasicData.loanProductName}}
                         </td>
