@@ -133,7 +133,8 @@
 				"initiateCreditBureau": false,
 				"createLoanApplication": false,
 				"blackList": true,
-				"whiteList": true
+				"whiteList": true,
+				"crnNumber" : true
 			},
 			"familyDeatils": {
 				"isHiddenField": {
@@ -430,6 +431,15 @@
 					"clientAddress": true
 				}
 			},
+			"loanDisbusal": {
+				"hiddenField": {
+					"showEmipack": true
+				},
+				"isReadOnlyField": {
+					"transactionAmount": false,
+					"fixedEmiAmount": false
+				}
+			},
 			"isMandatory": {
 				"rejectReason": false,
 				"rejectDescription": false,
@@ -646,7 +656,8 @@
 		},
 		"accounting": {
 			"isHiddenField":{
-				"postTransactionTypeEntries": true 
+				"postTransactionTypeEntries": true,
+				"migrateOpeningBalances": false 
 			}
 		},
 		"organization": {

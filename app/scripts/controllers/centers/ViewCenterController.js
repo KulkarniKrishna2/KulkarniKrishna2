@@ -13,28 +13,48 @@
             scope.isLoanApplication = scope.isSystemGlobalConfigurationEnabled('loan-application');
             $rootScope.centerId = routeParams.id
             scope.sections = [];
-            scope.isHideAccountNumber = scope.response.uiDisplayConfigurations.viewCenter.isHiddenField.accountNo;
-            scope.isHideReferenceNumber = scope.response.uiDisplayConfigurations.viewCenter.isHiddenField.referenceNo;
             scope.isWorkflowEnabled = scope.isSystemGlobalConfigurationEnabled('work-flow');
-            scope.hideManageGroup = scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.createGroup;
-            scope.isHideJlgLoan = scope.response.uiDisplayConfigurations.createJlgLoan.isHiddenField.jlgLoan;
-            scope.showProductShortName = scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.showProductShortName;
-            scope.showUnAssignStaffButton = !scope.response.uiDisplayConfigurations.viewCenter.isHiddenField.unassignStaffCenter;
-            scope.showAttendance = !scope.response.uiDisplayConfigurations.viewCenter.isHiddenField.showAttendance;
             scope.isHideCreateEntity = false;
-            scope.canCreateSubGroup=scope.response.uiDisplayConfigurations.viewCenter.isHiddenField.canCreateSubGroups;
-            scope.showAPSCRepayment = scope.response.uiDisplayConfigurations.viewCenter.isHiddenField.showAPSCRepayment;
-            scope.showOnlyStaff = scope.response.uiDisplayConfigurations.viewCenter.isHiddenField.showOnlyStaff;
+            scope.isClientCreationEnabled = false;
+            scope.createjlgLoanApplication = false;
+            scope.canCreateSubGroup = true;
+            scope.showAPSCRepayment = false;
+            scope.showOnlyStaff = true;
+            scope.hideManageGroup = false;
+            scope.isHideJlgLoan = false;
+            scope.showProductShortName = false;
+            scope.showUnAssignStaffButton = true;
+            scope.showAttendance = true;
+            scope.isHideAccountNumber = false;
+            scope.isHideReferenceNumber = true;
             if(scope.isWorkflowEnabled && scope.hideManageGroup){
                 scope.isHideCreateEntity = true;
             }
-            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewCenter && scope.response.uiDisplayConfigurations.viewCenter.isHiddenField) {
-                scope.showBulkUndoTransactions = !scope.response.uiDisplayConfigurations.viewCenter.isHiddenField.bulkUndoTransactions;
+
+            if (scope.response && scope.response.uiDisplayConfigurations) {
+                if(scope.response.uiDisplayConfigurations.viewGroup.isHiddenField){
+                    scope.isClientCreationEnabled = scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.canAddClients;
+                    scope.createjlgLoanApplication = scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.createjlgLoanApplication;
+                    scope.hideManageGroup = scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.createGroup;
+                }
+                if(scope.response.uiDisplayConfigurations.viewCenter.isHiddenField){
+                    scope.canCreateSubGroup = scope.response.uiDisplayConfigurations.viewCenter.isHiddenField.canCreateSubGroups;
+                    scope.showAPSCRepayment = scope.response.uiDisplayConfigurations.viewCenter.isHiddenField.showAPSCRepayment;
+                    scope.showOnlyStaff = scope.response.uiDisplayConfigurations.viewCenter.isHiddenField.showOnlyStaff;
+                    scope.showUnAssignStaffButton = !scope.response.uiDisplayConfigurations.viewCenter.isHiddenField.unassignStaffCenter;
+                    scope.showAttendance = !scope.response.uiDisplayConfigurations.viewCenter.isHiddenField.showAttendance;
+                    scope.isHideAccountNumber = scope.response.uiDisplayConfigurations.viewCenter.isHiddenField.accountNo;
+                    scope.isHideReferenceNumber = scope.response.uiDisplayConfigurations.viewCenter.isHiddenField.referenceNo;
+                    scope.showBulkUndoTransactions = !scope.response.uiDisplayConfigurations.viewCenter.isHiddenField.bulkUndoTransactions;
+                }
+                if(scope.response.uiDisplayConfigurations.createJlgLoan.isHiddenField){
+                    scope.isHideJlgLoan = scope.response.uiDisplayConfigurations.createJlgLoan.isHiddenField.jlgLoan;
+                }
+                if(scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild){
+                    scope.showProductShortName = scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.showProductShortName;
+                }
             }
-            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewGroup && scope.response.uiDisplayConfigurations.viewGroup.isHiddenField) {
-                scope.isClientCreationEnabled = scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.canAddClients;
-                scope.createjlgLoanApplication = scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.createjlgLoanApplication;
-            }
+        
             scope.exceedMaxLimit = false;
             scope.isShowAttachmeeting = !scope.response.uiDisplayConfigurations.viewCenter.isHiddenField.attachmeeting;
             scope.routeToLoan = function (id) {

@@ -40,7 +40,8 @@
 				"enableSmartCard": false,
 				"initiateCreditBureau": true,
 				"blackList": false,
-				"whiteList": false
+				"whiteList": false,
+				"crnNumber" : false
 			},
 			"familyDeatils": {
 				"isHiddenField": {

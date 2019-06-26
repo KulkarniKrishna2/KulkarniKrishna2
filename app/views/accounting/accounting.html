@@ -31,7 +31,7 @@
 
                 <p class="list-group-item-text">{{ 'label.listof.financialactivity.accountmappings' | translate}}</p>
             </a>
-            <a class="list-group-item" href="#/openingbalances" has-permission='READ_JOURNALENTRY'>
+            <a class="list-group-item" href="#/openingbalances" has-permission='READ_JOURNALENTRY' ng-if = "showMigrateOpeningBalances">
                 <h4 class="list-group-item-heading"><i class="icon-dollar icon-large"></i>&nbsp;&nbsp;{{
                     'label.heading.define.openingbalances' | translate}}</h4>
 

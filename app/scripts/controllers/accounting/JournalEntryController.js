@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        JournalEntryController: function (scope, resourceFactory, location, dateFilter, routeParams, localStorageService) {
+        JournalEntryController: function (scope, resourceFactory, location, dateFilter, routeParams, localStorageService, $rootScope, API_VERSION, $upload) {
 
             scope.formData = {};
             scope.formData.crAccounts = [{}];
@@ -134,6 +134,25 @@
                 }
             }
 
+            /** Documents Related Code **/
+ 
+            scope.documents = [];
+            scope.docData = {};
+            scope.files = [];
+            scope.onFileSelect = function ($files) {
+                scope.docData.fName = $files[0].name;
+                scope.files.push($files[0]);
+            };
+
+            scope.addDocument = function () {
+                scope.documents.push(scope.docData);
+                scope.docData = {};
+            };
+
+            scope.deleteDocument = function (index) {
+                scope.documents.splice(index, 1);
+            };
+
             scope.submit = function () {
                 var jeTransaction = new Object();
                 var reqDate = dateFilter(scope.first.date, scope.df);
@@ -177,12 +196,54 @@
                 localStorageService.addToCookies('currencyCode', this.formData.currencyCode);
 
                 resourceFactory.journalEntriesResource.save(jeTransaction, function (data) {
-                    location.path('/journalentry/' + data.transactionId+"/"+data.resourceId);
+                    scope.resourceId = data.resourceId;
+                    if (scope.documents && scope.documents.length > 0) {
+                        uploadDocumets(data);
+                    } else {
+                        scope.viewTransaction();
+                    }
                 });
+
+                var docResponse = 0;
+                var uploadURL = null;
+                function uploadDocumets(data) {
+                    docResponse = 0;
+                    uploadURL = $rootScope.hostUrl + API_VERSION + '/journal_entry/' + data.resourceId + '/documents';
+                    if (!_.isUndefined(scope.documents) && scope.documents.length > 0) {
+                        uploadProcessDocumets();
+                    }
+                }
+
+                scope.$on('createJournalDocUpload', function (event) {
+                    uploadProcessDocumets();
+                });
+
+                function uploadProcessDocumets() {
+                    $upload.upload({
+                        url: uploadURL,
+                        data: scope.documents[docResponse],
+                        file: scope.files[docResponse]
+                    }).then(function (data) {
+                        // to fix IE not refreshing the model
+                        if (!scope.$$phase) {
+                            scope.$apply();
+                        }
+                        docResponse++;
+                        if (docResponse == scope.documents.length) {
+                            scope.viewTransaction();
+                        } else {
+                            if ($rootScope.requestsInProgressAPIs["POST" + uploadURL]) {
+                                delete $rootScope.requestsInProgressAPIs["POST" + uploadURL];
+                            }
+                            scope.$emit("createJournalDocUpload");
+                        }
+                    });
+                }
+
             }
         }
     });
-    mifosX.ng.application.controller('JournalEntryController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$routeParams', 'localStorageService', mifosX.controllers.JournalEntryController]).run(function ($log) {
+    mifosX.ng.application.controller('JournalEntryController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$routeParams', 'localStorageService', '$rootScope', 'API_VERSION', '$upload', mifosX.controllers.JournalEntryController]).run(function ($log) {
         $log.info("JournalEntryController initialized");
     });
 }(mifosX.controllers || {}));

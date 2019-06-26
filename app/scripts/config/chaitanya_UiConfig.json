@@ -60,7 +60,7 @@
     "viewLoanAccountDetails": {
       "isHiddenFeild": {
         "viewReportButton": true,
-        "editTranches": true
+        "editTranches": false
       }
     },
     "viewClient": {
@@ -226,8 +226,17 @@
       "showReschedule": true,
       "initiateWorkflow": {
 				"showInitiateOnCompletion": true
-			}
-      },
+			},
+      "loanDisbusal": {
+        "hiddenField": {
+          "showEmipack": false
+        },
+        "isReadOnlyField": {
+          "transactionAmount": true,
+          "fixedEmiAmount": true
+        }
+      }
+    },
     "glAccount": {
       "isMandatoryField": {
         "companyCode":true
