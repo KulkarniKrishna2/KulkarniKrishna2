@@ -22,7 +22,7 @@
                     scope.cbRejectedMembers = 0;
                     scope.cbReviewMembers = 0;
                     for (var i = 0; i < scope.cbReviewData.length; i++) {
-                        if (scope.cbReviewData[i].isApproved) {
+                        if (scope.cbReviewData[i].isApproved ||(!scope.cbReviewData[i].isRejected && scope.cbReviewData[i].criteriaCheckScore ==5)) {
                             scope.cbReviewData[i].status = 'label.anchor.cb.passed';
                             scope.cbReviewData[i].color = "background-grey";
                             scope.cbPassedMembers = scope.cbPassedMembers + 1;
