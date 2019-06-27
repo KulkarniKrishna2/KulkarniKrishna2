@@ -7949,6 +7949,8 @@
     "error.msg.eod.closure.not.completed.for" : "EOD closure is not completed for previous working day `{{params[0].value}}`. Process EOD to proceed.",
     "validation.msg.loanutilizationcheck.parameter.amount.loanUtilizationCVId.is.one.of.these.mandatory" : "Amount cannot be empty",
     "label.mandatory.fields.cannot.be.blank" : "Please fill the mandatory fields" ,
+    "label.anchor.view.reassign.staff" : "View Reassign Staff",
+    "label.view.reassign.staff" : "View Reassign Staff Request",
 
     "------ end of translation file ------": "----------"
 }

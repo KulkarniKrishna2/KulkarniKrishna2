@@ -660,7 +660,8 @@
 		},
 		"organization": {
 			"isHiddenField":{
-				"transfer": true
+				"transfer": true,
+				"initiateBulkTransfer": true
 			}
 		}	
 	}
