@@ -6,7 +6,7 @@
     <div class="row paddedleft paddedtop">
         <div class="col-sm-6 col-md-6">
             <div class="list-group">
-                <a class="list-group-item" href="#/initiatebulktransfer" has-permission='INITIATE_TRANSFER_ENTITIES'>
+                <a class="list-group-item" ng-if="showBulkTransfer" href="#/initiatebulktransfer" has-permission='INITIATE_TRANSFER_ENTITIES'>
                     <h4 class="list-group-item-heading"><i class="icon-circle-arrow-right"></i>&nbsp;&nbsp;
                     {{'label.anchor.initiate.bulk.transfer' | translate}}</h4>
 
@@ -26,9 +26,9 @@
             <div class="list-group">
                 <a class="list-group-item" href="#/bulktransfer" has-permission='READ_TRANSFER_ENTITY_REQUEST'>
                     <h4 class="list-group-item-heading"><i class="icon-circle-arrow-right"></i>&nbsp;&nbsp;
-                    {{'label.anchor.view.bulk.transfer' | translate}}</h4>
+                    {{'label.anchor.view.reassign.staff' | translate}}</h4>
 
-                    <p class="list-group-item-text">{{'label.view.bulk.transfer' | translate}}</p>
+                    <p class="list-group-item-text">{{'label.view.reassign.staff' | translate}}</p>
                 </a>
             </div>
         </div>

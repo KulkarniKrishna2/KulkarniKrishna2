@@ -2,7 +2,12 @@
     mifosX.controllers = _.extend(module, {
         BulkTransferController: function (scope, resourceFactory, location, dateFilter, routeParams) {
             scope.bulkTransfers  = [];
-
+            scope.showBulkTransfer = true;
+            if(scope.response.uiDisplayConfigurations.organization && scope.response.uiDisplayConfigurations.organization.isHiddenField){
+                if(scope.response.uiDisplayConfigurations.organization.isHiddenField.initiateBulkTransfer){
+                    scope.showBulkTransfer = !scope.response.uiDisplayConfigurations.organization.isHiddenField.initiateBulkTransfer;
+                }
+            }
             scope.initPage = function () {
             	resourceFactory.bulkTransferResource.getAll({},function (data) {
                     scope.bulkTransfers = data;
