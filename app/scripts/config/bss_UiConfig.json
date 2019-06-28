@@ -189,7 +189,8 @@
 			"hideReject": true,
 			"isReadOnlyField": {
 				"createSubGroupDate": true
-			}
+			},
+			"showMembersStepsInfo": true
 		},
 		"createVillage": {
 			"isReadOnlyField": {

@@ -1873,7 +1873,7 @@
                 scope.creditBureauEnquiriesHistory = paginatorUsingOffsetService.paginate(viewCBEnquiryHistory, scope.limitForCBHistory);
             };
 
-            scope.openViewDocument = function(enquiryId, reportEntityType) {
+            scope.viewEnquiryDocument = function(enquiryId, reportEntityType) {
                 var reportEntityType = "CreditBureau";
                 var url = $rootScope.hostUrl + '/fineract-provider/api/v1/enquiry/creditbureau/' + reportEntityType + '/' +
                     enquiryId + '/attachment';
