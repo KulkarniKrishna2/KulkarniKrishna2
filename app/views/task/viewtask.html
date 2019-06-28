@@ -63,7 +63,7 @@
                         <div class="col-md-6"> {{'label.heading.meetingStartDate' | translate}}:&nbsp;{{centerData.meetingStartDate | DateFormat}}</div>
                         <div class="col-md-6">{{'label.heading.nextMeetigDate' | translate}}: &nbsp;{{centerData.nextMeetigDate | DateFormat}}</div>
                     </div>
-                <div class="row">
+                <div class="row" ng-if="showMembersStepsInfo">
                         <a class="btn btn-info" 
                            style = "text-align: right;float: right;"
                            ng-click="getCWFClientsTaskStepsInfo(centerData.id)">

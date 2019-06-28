@@ -1537,7 +1537,7 @@
 							{{enquiry.status.value}}
 						</td>
 						<td>
-                            <a tooltip="{{'label.button.view.report.file' | translate}}" target="_blank" ng-click="openViewDocument(enquiry.id)">
+                            <a tooltip="{{'label.button.view.report.file' | translate}}" target="_blank" ng-click="viewEnquiryDocument(enquiry.id)">
                             	<i ng-show ="enquiry.isReportAvailable" class="icon-eye-open text-success"></i></a>
                         </td>
 					</tr>
@@ -1581,7 +1581,7 @@
 							{{enquiry.status.value}}
 						</td>
 						<td>
-							<a tooltip="{{'label.button.view.report.file' | translate}}" target="_blank" ng-click="openViewDocument(enquiry.id)">
+							<a tooltip="{{'label.button.view.report.file' | translate}}" target="_blank" ng-click="viewEnquiryDocument(enquiry.id)">
                             	<i ng-show ="enquiry.isReportAvailable" class="icon-eye-open text-success"></i></a>
                         </td>
 					</tr>

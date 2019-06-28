@@ -452,7 +452,8 @@
 			"hideReject": false,
 			"isReadOnlyField": {
 				"createSubGroupDate": false
-			}
+			},
+			"showMembersStepsInfo": false
 		},
 		"globalSearchScope": {
 			"name": "label.search.scope.clients.and.clientIdentifiers",
