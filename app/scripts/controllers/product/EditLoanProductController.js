@@ -203,7 +203,8 @@
                     splitDisbursementForCharges:scope.product.splitDisbursementForCharges,
                     borrowerCycleType : scope.product.borrowerCycleType.id,
                     isOverdueAccountingEnabled: scope.product.isOverdueAccountingEnabled,
-                    isIRDEnabled: scope.product.isPostIRDEnabled
+                    isIRDEnabled: scope.product.isPostIRDEnabled,
+                    loanProductGroupId:scope.product.loanProductGroupId
                 };
                 if(scope.product.splitDisbursementForCharges && scope.product.paymentTypeForChargeDisbursement){
                     scope.formData.paymentTypeIdForChargeDisbursement = scope.product.paymentTypeForChargeDisbursement.id;
