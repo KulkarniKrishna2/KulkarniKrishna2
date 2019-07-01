@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CheckerBankAccountCommonController: function ($controller, scope, routeParams, resourceFactory, location, $modal, route, $window, dateFilter,$upload,$rootScope,API_VERSION,$http,commonUtilService) {
+        CheckerBankAccountCommonController: function ($controller, scope, routeParams, resourceFactory, location, $modal, route, $window, dateFilter,$upload,$rootScope,API_VERSION,$http,commonUtilService,$sce) {
             angular.extend(this, $controller('defaultUIConfigController', {$scope: scope,$key:"bankAccountDetails"}));
             angular.extend(this, $controller('defaultActivityController', {$scope: scope}));
 
@@ -176,9 +176,23 @@
                 scope.doActionAndRefresh(actionName);
             };
 
+            scope.getBankDetails = function(isvalidIfsc){
+                if(scope.formData.ifscCode != undefined && scope.formData.ifscCode === scope.repeatFormData.ifscCodeRepeat && isvalidIfsc){
+                    var url = "https://ifsc.razorpay.com/" + scope.formData.ifscCode;
+                    url = $sce.trustAsResourceUrl(url);
+                    $http({
+                        method: 'GET',
+                        url: url
+                    }).then(function (data) {
+                        scope.bankData = data;
+                        scope.formData.bankName = scope.bankData.BANK;
+                        scope.formData.branchName = scope.bankData.BRANCH;
+                    })
+                }
+            }
         }
     });
-    mifosX.ng.application.controller('CheckerBankAccountCommonController', ['$controller','$scope', '$routeParams', 'ResourceFactory', '$location', '$modal', '$route','$window','dateFilter','$upload', '$rootScope','API_VERSION', '$http', 'CommonUtilService', mifosX.controllers.CheckerBankAccountCommonController]).run(function ($log) {
+    mifosX.ng.application.controller('CheckerBankAccountCommonController', ['$controller','$scope', '$routeParams', 'ResourceFactory', '$location', '$modal', '$route','$window','dateFilter','$upload', '$rootScope','API_VERSION', '$http', 'CommonUtilService', '$sce', mifosX.controllers.CheckerBankAccountCommonController]).run(function ($log) {
         $log.info("CheckerBankAccountCommonController initialized");
     });
 }(mifosX.controllers || {}));
