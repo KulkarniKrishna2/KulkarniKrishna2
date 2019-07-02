@@ -204,7 +204,8 @@
 			"hiddenFields": {
 				"reviewCB": false,
 				"sendToCBReview": true
-			}
+			},
+			"showMembersStepsInfo": true
 		},
 		"createVillage": {
 			"isReadOnlyField": {

@@ -5,6 +5,10 @@
             scope.taskData = {};
             scope.isWorkflowTask = false;
             scope.isSingleTask = false;
+            scope.showMembersStepsInfo = false;
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow.showMembersStepsInfo) {
+                scope.showMembersStepsInfo = scope.response.uiDisplayConfigurations.workflow.showMembersStepsInfo;
+            }
             
             function getTaskId(){
                 if(routeParams.taskId!=undefined){

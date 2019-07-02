@@ -161,8 +161,7 @@
                                     scope.formRequestData.submitApplication.discountOnDisbursalAmount = scope.formData.approvedData.discountOnDisbursalAmount;
                                 }
                             }
-                            if (scope.formData.fixedEmiAmount && _.isUndefined(scope.formData.approvedData.fixedEmiAmount)) {
-                                scope.formData.approvedData.fixedEmiAmount = scope.formData.fixedEmiAmount;
+                            if (scope.formData.fixedEmiAmount && !_.isUndefined(scope.formData.approvedData.fixedEmiAmount)) {
                                 scope.formRequestData.disburse.fixedEmiAmount = scope.formData.approvedData.fixedEmiAmount;
                             }
                             if(scope.formData.approvedData.amountForUpfrontCollection){
@@ -220,7 +219,6 @@
                     scope.formRequestData.submitApplication.repaymentFrequencyType = scope.formData.approvedData.repaymentPeriodFrequency.id;
                     if (scope.formData.approvedData.fixedEmiAmount) {
                         scope.formRequestData.submitApplication.fixedEmiAmount = scope.formData.approvedData.fixedEmiAmount;
-                        scope.formRequestData.disburse.fixedEmiAmount = scope.formData.approvedData.fixedEmiAmount;
                     }
                     if (scope.formData.approvedData.maxOutstandingLoanBalance) {
                         scope.formRequestData.submitApplication.maxOutstandingLoanBalance = scope.formData.approvedData.maxOutstandingLoanBalance;

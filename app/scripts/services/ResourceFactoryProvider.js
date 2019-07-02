@@ -1858,6 +1858,9 @@
                     cbReviewResource: defineResource(apiVer + "/cb/criteriareview/:reviewId", { reviewId: '@reviewId' }, {
                         update: { method: 'PUT' }
                     }),
+                    creditBureauEnquiryHistoryResource: defineResource(apiVer + "/enquiry/creditbureau/history/:entityType/:entityId", {entityType: '@entityType',entityId: '@entityId'}, {
+                        getAll: {method: 'GET', params: {}, isArray: true}
+                    })
                 };
             }];
         }
