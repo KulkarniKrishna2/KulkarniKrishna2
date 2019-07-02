@@ -12,6 +12,14 @@
             scope.clientToGroupTransferType = 200;
             scope.destGroup = {};
             scope.isTransaferToSameGroup = false;
+            scope.referenceNumber = false;
+
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewClient && scope.response.uiDisplayConfigurations.viewClient.isHiddenField){
+                if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.referenceNo){
+                scope.referenceNumber = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.referenceNo;
+                } 
+            }
+            
             resourceFactory.officeResource.getAllOffices(function (data) {
                 scope.offices = data;
             });

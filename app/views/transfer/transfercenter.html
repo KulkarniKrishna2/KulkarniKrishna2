@@ -32,8 +32,11 @@
                 <option value="">{{'label.menu.selectoffice' | translate}}</option>
             </select>
         </div>
-        <div ng-repeat="center in fromCenters" class="col-sm-12" style="margin-top:10px" ng-init="center.checked=false" ng-show="isCenterSelected(center.id)">
-            <input type="checkbox" ng-model="center.checked" ng-change="selectCenters(center)"> {{center.displayName}}-({{center.referenceNumber}})
+        <div ng-repeat="center in fromCenters" class="col-sm-12" style="margin-top:10px" ng-init="center.checked=false" ng-show="isCenterSelected(center.id) && !referenceNumber">
+            <input type="checkbox" ng-model="center.checked" ng-change="selectCenters(center)"> {{center.name}}-({{center.referenceNumber}})
+        </div>
+        <div ng-repeat="center in fromCenters" class="col-sm-12" style="margin-top:10px" ng-init="center.checked=false" ng-show="isCenterSelected(center.id) && referenceNumber">
+            <input type="checkbox" ng-model="center.checked" ng-change="selectCenters(center)"> {{center.name}}
         </div>
     </div>
     <div class="col-sm-6 col-md-6">
