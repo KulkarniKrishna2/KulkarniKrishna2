@@ -312,7 +312,7 @@
 
                             <tr ng-repeat="calendar in loanaccountinfo.calendarOptions">
                                 <td align="center">
-                                    <input type="checkbox" ng-model="formRequestData.submitApplication.syncRepaymentsWithMeeting" ng-change="syncRepaymentsWithMeetingchange()" ng-disabled="response.uiDisplayConfigurations.loanAccount.isReadOnlyField.syncRepaymentsWithMeeting">
+                                    <input type="checkbox" ng-model="syncRepaymentsWithMeeting" ng-change="syncRepaymentsWithMeetingchange()" ng-disabled="response.uiDisplayConfigurations.loanAccount.isReadOnlyField.syncRepaymentsWithMeeting">
                                 </td>
                                 <td>
                                     <label>{{ 'label.input.syncrepaymentswithmeeting' | translate }}</label>
@@ -455,13 +455,33 @@
                                             </tr>
                                         </tbody>
                                     </table>
+                            </div>
                                     <br>
                                 <div ng-show="loanaccountinfo.product.multiDisburseLoan && formRequestData.disburse.disbursementData">
                                     <hr/>
                                     <label>
                                         <strong>{{ 'label.heading.tranchedetails' | translate }}</strong>
                                     </label>
+                                    <table class="width100">
+                                        <tr>
+                                        <td class="width14"><label>{{'label.input.outstandingloanbalance' |
+                                            translate}}:</label>
+                                        </td>
+                                        <td class="width36 paddedbottom10">
+                                            <input id="maxOutstandingLoanBalance" type="text" autocomplete="off"
+                                                   ng-model="loanaccountinfo.maxOutstandingLoanBalance"
+                                                   class="form-control"
+                                                   number-format/>&nbsp;
 
+                                            <a href="javascript:void(0)"
+                                               title="{{ 'label.button.addtranch' | translate }}"
+                                               ng-click="addTranches()"
+                                               ng-show="showAddTranche()">
+                                                <i class="icon-plus icon-white"></i>
+                                            </a>
+                                        </td>
+                                        </tr>
+                                    </table>
                                     <table class="table width100"
                                        ng-show="formRequestData.disburse.disbursementData && formRequestData.disburse.disbursementData.length>0">
                                         <thead>
@@ -470,6 +490,7 @@
                                                 <th>{{'label.input.expecteddisbursementon' | translate}}</th>
                                                 <th>{{'label.input.principal' | translate}}</th>
                                                 <th data-ng-show="loanaccountinfo.product.isFlatInterestRate">{{'label.input.discountondisbursalamount' | translate}}</th>
+                                                <th>{{'label.heading.actions' | translate}}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -482,7 +503,7 @@
                                                    placeholder="{{'label.input.expecteddisbursementon' | translate}}"
                                                    ng-model="disbursementDetail.expectedDisbursementDate"
                                                    is-open="'openedtranche'+$index" min="minDate" max="'2020-06-22'"
-                                                   class="form-control" ng-disabled = "true"/>
+                                                   class="form-control" ng-disabled = "$index == 0"/>
                                                    <form-validate valattributeform="approveloanapplicationform"
                                                            valattribute="expectedTrancheDisbursementDate"/>
                                                 </td>
@@ -493,7 +514,7 @@
                                                    number-format type="text" autocomplete="off"
                                                    ng-model="disbursementDetail.principal"
                                                    placeholder="{{'label.input.principal' | translate}}" required
-                                                   late-validate="" ng-readonly = "true">
+                                                   late-validate=""  ng-blur="validateTransactionAmount($index)">
 
                                                    <form-validate valattributeform="approveloanapplicationform"
                                                            valattribute="trancheAmount"/>
@@ -502,11 +523,14 @@
                                                     <input id="{{disbursementDetail[$index].discountOnDisbursalAmount}}"  class="input-sm form-control" number-format type="text" autocomplete="off" ng-model="disbursementDetail.discountOnDisbursalAmount" name="discountOnDisbursalAmount"
                                                     placeholder="{{'label.input.discountondisbursalamount' | translate}}">
                                                 </td>
+                                                <td><a ng-click="deleteTranches($index)"
+                                                    ng-show="formRequestData.disburse.disbursementData.length > 1">
+                                                    <i class="icon-remove icon-white"></i></a>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>
                         <table class="width100">
                             <tr>
                                 <td class="width25">
