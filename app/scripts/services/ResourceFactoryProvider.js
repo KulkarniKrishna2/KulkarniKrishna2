@@ -1842,6 +1842,9 @@
                     }),
                     multipleFileUploadResource: defineResource(apiVer + "/:entityType/:entityId/utilizationchecks",{entityType:'@entityType',entityId:'@entityId'}, {
                         upload: {method: 'POST', headers: {'Content-Type': undefined},transformRequest: angular.identity, params: {}}
+                    }),
+                    creditBureauEnquiryHistoryResource: defineResource(apiVer + "/enquiry/creditbureau/history/:entityType/:entityId", {entityType: '@entityType',entityId: '@entityId'}, {
+                        getAll: {method: 'GET', params: {}, isArray: true}
                     })
                 };
             }];

@@ -7951,6 +7951,11 @@
     "label.mandatory.fields.cannot.be.blank" : "Please fill the mandatory fields" ,
     "label.anchor.view.reassign.staff" : "View Reassign Staff",
     "label.view.reassign.staff" : "View Reassign Staff Request",
+    "label.heading.creditbureau.history.report":"Credit Bureau History Report",
+    "label.button.view.credit.bureau.enquiry.history":"view Credit Bureau History",
+    "label.input.loanproduct.group":"Product group",
+    "label.select.product.group":"Select product group",
+    "label.heading.loanProduct.group.name":"Product Group Name",
 
     "------ end of translation file ------": "----------"
 }

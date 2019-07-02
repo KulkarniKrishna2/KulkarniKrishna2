@@ -200,7 +200,8 @@
 			"deceasedWorkflow": {
         		"showPolicy" : true,
         		"showMarkAsDeceased" : true
-      		}
+      		},
+			"showMembersStepsInfo": true
 		},
 		"createVillage": {
 			"isReadOnlyField": {

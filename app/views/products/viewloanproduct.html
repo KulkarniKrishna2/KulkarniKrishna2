@@ -29,6 +29,10 @@
     <td>{{'label.heading.description' | translate}} :</td>
     <td colspan="3">{{loanproduct.description}}</td>
 </tr>
+<tr ng-show="loanproduct.loanProductGroupName">
+    <td>{{'label.heading.loanProduct.group.name' | translate}} :</td>
+    <td colspan="3">{{loanproduct.loanProductGroupName}}</td>
+</tr>
 <tr ng-show="loanproduct.shortName">
     <td>{{'label.heading.shortname' | translate}} :</td>
     <td colspan="3">{{loanproduct.shortName}}</td>

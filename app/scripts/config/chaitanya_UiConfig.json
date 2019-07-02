@@ -241,6 +241,11 @@
       "isMandatoryField": {
         "companyCode":true
       }
+    },
+    "creditBureau": {
+      "isHiddenField":{
+        "viewHistoryCBReportButton":false
+      }
     }
   }
 }
