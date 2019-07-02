@@ -4,6 +4,10 @@
             angular.extend(this, $controller('defaultActivityController', { $scope: scope }));
 
             scope.showBulkCBInitiate = false;
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow && scope.response.uiDisplayConfigurations.workflow.hiddenFields) {
+                scope.isreviewCBHidden = scope.response.uiDisplayConfigurations.workflow.hiddenFields.reviewCB;
+                scope.isSendToCBReviewHidden = scope.response.uiDisplayConfigurations.workflow.hiddenFields.sendToCBReview;
+            };
 
             function initTask() {
                 scope.$parent.clientsCount();
@@ -33,6 +37,7 @@
 
                                 var clientLevelTaskTrackObj =  scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelTaskTrackingData;
                                 var clientLevelCriteriaObj =  scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelCriteriaResultData;
+                                var clientCBReviewData = scope.centerDetails.subGroupMembers[i].memberData[j].cbCriteriaReviewData;
                                 scope.centerDetails.subGroupMembers[i].memberData[j].allowLoanRejection = true;
                                 scope.centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = false;
                                 if(clientLevelTaskTrackObj == undefined){
@@ -44,7 +49,7 @@
                                     scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-none";
                                 }else if(clientLevelTaskTrackObj != undefined && clientLevelCriteriaObj != undefined){
                                     if(scope.taskData.id != clientLevelTaskTrackObj.currentTaskId){
-                                        if(clientLevelCriteriaObj.score == 5){
+                                        if(clientLevelCriteriaObj.score == 5 ||(!scope.isSendToCBReviewHidden && clientCBReviewData && clientCBReviewData.isApproved)){
                                             scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
                                             scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-grey";
                                         }else if(clientLevelCriteriaObj.score >= 0 && clientLevelCriteriaObj.score <= 4){
@@ -52,7 +57,7 @@
                                             scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-red";
                                         }
                                     }else if(scope.taskData.id == clientLevelTaskTrackObj.currentTaskId){
-                                        if(clientLevelCriteriaObj.score == 5){
+                                        if(clientLevelCriteriaObj.score == 5  ||(!scope.isSendToCBReviewHidden && clientCBReviewData && clientCBReviewData.isApproved)){
                                             scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = false;
                                             scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-grey";
                                             scope.isAllClientFinishedThisTask = false;
@@ -105,24 +110,23 @@
                 
             };
 
-            scope.getCbEnquiryData = function(enquiryId){
-                resourceFactory.creditBureauReportSummaryByEnquiryIdResource.get({'enquiryId' : enquiryId},function(summary){
+            scope.getCbEnquiryData = function (enquiryId) {
+                resourceFactory.creditBureauReportSummaryByEnquiryIdResource.get({ 'enquiryId': enquiryId }, function (summary) {
                     scope.checkCBData = summary;
-                    if(scope.checkCBData != null && scope.checkCBData.errors == null){
-                        initTask();
-                    }else{
-                        if(scope.checkCBData != null && scope.checkCBData.errors != null){
+                    if (scope.checkCBData != null && scope.checkCBData.errors == null) {
+                            initTask();
+                    } else {
+                        if (scope.checkCBData != null && scope.checkCBData.errors != null) {
                             var errorObj = new Object();
                             errorObj.args = {
                                 params: []
                             };
                             var description = scope.checkCBData.errors[0].description;
-                            errorObj.args.params.push({value: description});
-
+                            errorObj.args.params.push({ value: description });
                             return scope.errorDetails.push(errorObj);
                         }
                     }
-                    
+
                 })
             }
 
@@ -1161,8 +1165,9 @@
                 }
                 return false;
             }
-            scope.disableCBCheck = function(activeClientMember){
-                if(activeClientMember.isClientFinishedThisTask||(activeClientMember.cbExistingLoansSummaryData == undefined && !scope.isCBCheckEnable)){
+            scope.disableCBCheck = function (activeClientMember) {
+                if (activeClientMember.isClientFinishedThisTask || (activeClientMember.cbExistingLoansSummaryData == undefined && !scope.isCBCheckEnable)
+                    || ((!scope.isSendToCBReviewHidden && activeClientMember.cbCriteriaReviewData && !activeClientMember.cbCriteriaReviewData.isApproved))) {
                     return true;
                 }
                 return false;
@@ -1173,11 +1178,20 @@
                     for(var j in centerDetails.subGroupMembers[i].memberData){
                         var activeClientMember = centerDetails.subGroupMembers[i].memberData[j];
                         if(isAllChecked){
-                            if(activeClientMember.status.code != 'clientStatusType.onHold' && !activeClientMember.isClientFinishedThisTask && (activeClientMember.cbExistingLoansSummaryData != undefined || scope.isCBCheckEnable)){
-                                centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = true;
-                                scope.captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, activeClientMember.isMemberChecked);
+                            if (activeClientMember.status.code != 'clientStatusType.onHold' && !activeClientMember.isClientFinishedThisTask && (activeClientMember.cbExistingLoansSummaryData != undefined || scope.isCBCheckEnable)) {
+                                if (!scope.isSendToCBReviewHidden) {
+                                    if (activeClientMember.cbCriteriaReviewData && activeClientMember.cbCriteriaReviewData.isApproved) {
+                                        centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = true;
+                                        scope.captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, activeClientMember.isMemberChecked);
+                                    } else {
+                                        centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = false;
+                                    }
+                                } else {
+                                    centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = true;
+                                    scope.captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, activeClientMember.isMemberChecked);
+                                }
                             }
-                        }else{
+                        } else {
                             centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = false;
                         }
 

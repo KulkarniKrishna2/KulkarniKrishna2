@@ -155,6 +155,7 @@
             };
             var uploadGRTPicCtrl = function ($scope, $modalInstance, groupParams) {
                 $scope.docFormData = {};
+                $scope.docFormData.name = scope.groupDocumentName;;
                 getGRTDocuments();
                 scope.documents =
                     $scope.onFileSelect = function ($files) {
@@ -172,12 +173,18 @@
                                 scope.$apply();
                             }
                             $scope.docFormData = {};
+                            $scope.docFormData.name = scope.groupDocumentName;
                             getGRTDocuments();
                         });
                     }
                 };
+
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
+                };
+
+                $scope.close = function () {
+                    $modalInstance.dismiss('close');
                 };
 
 
@@ -194,15 +201,19 @@
                 };
 
                 function getGRTDocuments() {
-                    resourceFactory.documentsResource.query({ entityType: 'groups', entityId: scope.centerDetails.subGroupMembers[0].id }, function (data) {
-                        $scope.grtdocuments = data;
-                        if (data && data.length > 0) {
-                            scope.isGRTPhotoUploaded = true;
-                        } else {
-                            scope.isGRTPhotoUploaded = false;
+                    resourceFactory.documentsResource.getAllDocuments({ entityType: 'groups', entityId: scope.centerDetails.subGroupMembers[0].id }, function (data) {
+                        groupDocuments = data;
+                        $scope.isGRTPhotoUploaded = false;
+                        for (var i in groupDocuments) {
+                            if (groupDocuments[i].name == scope.groupDocumentName) {
+                                $scope.grtDocument = groupDocuments[i];
+                                $scope.isGRTPhotoUploaded = true;
+                                scope.isGRTPhotoUploaded = true;
+                            }
                         }
                     });
                 };
+
                 var viewUploadedDocumentCtrl = function ($scope, $modalInstance, documentDetail) {
                     $scope.data = documentDetail;
                     $scope.close = function () {
@@ -218,12 +229,22 @@
             };
 
             function getGRTDocuments() {
-                resourceFactory.documentsResource.query({ entityType: 'groups', entityId: scope.centerDetails.subGroupMembers[0].id }, function (data) {
-                    if (data && data.length > 0) {
-                        scope.isGRTPhotoUploaded = true;
-                    } else {
-                        scope.isGRTPhotoUploaded = false;
+                resourceFactory.codeValueByCodeNameResources.get({ codeName: 'groupDocumentNames' }, function (codeValueData) {
+                    groupDocumentNames = codeValueData;
+                    for (var i = 0; i < groupDocumentNames.length; i++) {
+                        if (angular.lowercase(groupDocumentNames[i].name.split(" ").join("")) == 'grtphoto') {
+                            scope.groupDocumentName = groupDocumentNames[i].name;
+                        }
                     }
+                    resourceFactory.documentsResource.getAllDocuments({ entityType: 'groups', entityId: scope.centerDetails.subGroupMembers[0].id }, function (data) {
+                        groupDocuments = data;
+                        scope.isGRTPhotoUploaded = false;
+                        for (var i in groupDocuments) {
+                            if (groupDocuments[i].name == scope.groupDocumentName) {
+                                scope.isGRTPhotoUploaded = true;
+                            }
+                        }
+                    });
                 });
             };
 
@@ -464,6 +485,15 @@
                     }
                 }
             }
+
+            scope.viewAdditionalDetails = function (activeClientMember) {
+                scope.popUpHeaderName = "label.heading.view.client.additional.details"
+                scope.includeHTML = 'views/task/popup/viewclientadditionaldetails.html';
+                scope.activeClientMember = activeClientMember;
+                var templateUrl = 'views/common/openpopup.html';
+                var controller = 'ViewClientAdditionalDetailsController';
+                popUpUtilService.openFullScreenPopUp(templateUrl, controller, scope);
+            };
         }
     });
     mifosX.ng.application.controller('GRTActivityController', ['$controller', '$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', '$route', '$http', '$rootScope', '$route', '$upload', 'API_VERSION', 'PopUpUtilService', mifosX.controllers.GRTActivityController]).run(function ($log) {

@@ -134,7 +134,7 @@
         <div>
         <form name="documentuploadform" novalidate="" class="row form-horizontal" rc-submit="submitDocument()">
                 <fieldset>
-                    <div ng-if="cgtdocuments.length == 0" class="row paddedleft paddedtop">
+                    <div ng-if="!isCGTPhotoUploaded" class="row paddedleft paddedtop">
                         <div class="col-md-3">
                                 <input type="text"  ng-model="docFormData.name" class="form-control" ng-disabled="true"/>
                             <form-validate valattributeform="documentuploadform" valattribute="name" />
@@ -154,7 +154,7 @@
         </div>
         <br>
         <div>
-            <table class="table"  ng-if="cgtdocuments.length > 0" >
+            <table class="table"  ng-if="isCGTPhotoUploaded" >
                 <thead>
                     <tr class="graybg">
                         <th>{{'label.heading.name' | translate}}</th>
@@ -164,16 +164,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="doc in cgtdocuments">
-                        <td>{{doc.name}}</td>
-                        <td>{{doc.description}}</td>
-                        <td>{{doc.fileName}}</td>
+                    <tr>
+                        <td>{{cgtDocument.name}}</td>
+                        <td>{{cgtDocument.description}}</td>
+                        <td>{{cgtDocument.fileName}}</td>
                         <td>
-                            <a target="_blank" data-ng-click="openViewDocument(doc)"
+                            <a ng-if="cgtDocument.id" target="_blank" data-ng-click="openViewDocument(cgtDocument)"
                                 has-permission='READ_DOCUMENT'>
                                 <i class="icon-eye-open text-success"></i>
                             </a>&nbsp;
-                            <a ng-if="doc.id" ng-click="deleteDoc(doc,$index)"><i
+                            <a ng-if="cgtDocument.id" ng-click="deleteDoc(cgtDocument,$index)"><i
                                     class="icon-remove"></i></a>
                         </td>
                     </tr>
@@ -181,8 +181,9 @@
             </table>
         </div>
         <div class="modal-footer">
-            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-            <button ng-if ="cgtdocuments.length==0"class="btn btn-primary" ng-click="upload()">{{'label.button.upload' | translate}}</button>
+            <button ng-if ="!isCGTPhotoUploaded" class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button ng-if ="isCGTPhotoUploaded" class="btn btn-warning" ng-click="close()">{{'label.button.close' | translate}}</button>
+            <button ng-if ="!isCGTPhotoUploaded" class="btn btn-primary" ng-click="upload()">{{'label.button.upload' | translate}}</button>
         </div>
         </script>
     <script type="text/ng-template" id="viewUploadedDocument.html">

@@ -143,6 +143,13 @@
                             accountGlCode: transactionTypeMapping.loanPortfolioAccount.glCode   
                         })
                     });
+                if(scope.loanproduct.loanProductGroupId && scope.loanproduct.templateData.loanProductGroupOptions){
+                    for(var i in scope.loanproduct.templateData.loanProductGroupOptions){
+                        if(scope.loanproduct.templateData.loanProductGroupOptions[i].id == scope.loanproduct.loanProductGroupId){
+                           scope.loanproduct.loanProductGroupName =scope.loanproduct.templateData.loanProductGroupOptions[i].name;
+                        }
+                    }
+                }
             });
 
             scope.scrollto = function (link) {

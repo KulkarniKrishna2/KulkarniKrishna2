@@ -120,6 +120,96 @@
                     scope.documentImg = documentImage.data;
                 });
             }
+
+             // Cash Flow Part
+
+             scope.getCashFlow = function () {
+                scope.showSummary = true;
+                scope.showAddClientoccupationdetailsForm = false;
+                scope.showEditClientoccupationdetailsForm = false;
+                scope.showAddClientassetdetailsForm = false;
+                scope.showEditClientassetdetailsForm = false;
+                scope.showAddClienthouseholddetailsForm = false;
+                scope.showEditClienthouseholddetailsForm = false;
+                scope.totalIncome = 0;
+                refreshAndShowSummaryView();
+            }
+
+            function hideAll() {
+                scope.showSummary = false;
+                scope.showAddClientoccupationdetailsForm = false;
+                scope.showEditClientoccupationdetailsForm = false;
+                scope.showAddClientassetdetailsForm = false;
+                scope.showEditClientassetdetailsForm = false;
+                scope.showAddClienthouseholddetailsForm = false;
+                scope.showEditClienthouseholddetailsForm = false;
+            };
+
+            function incomeAndexpense() {
+                resourceFactory.incomeExpenseAndHouseHoldExpense.getAll({
+                    clientId: scope.clientId
+                }, function (data) {
+                    scope.incomeAndExpenses = data;
+                    scope.tomeaningmeaningtalIncomeOcc = scope.calculateOccupationTotal();
+                    scope.totalIncomeAsset = scope.calculateTotalAsset();
+                    scope.totalHouseholdExpense = scope.calculateTotalExpense();
+                    scope.showSummaryView();
+                });
+            };
+
+            scope.calculateOccupationTotal = function () {
+                var total = 0;
+                angular.forEach(scope.incomeAndExpenses, function (incomeExpense) {
+                    if (!_.isUndefined(incomeExpense.incomeExpenseData.cashFlowCategoryData.categoryEnum) && incomeExpense.incomeExpenseData.cashFlowCategoryData.categoryEnum.id == 1) {
+                        if (!_.isUndefined(incomeExpense.totalIncome) && !_.isNull(incomeExpense.totalIncome)) {
+                            if (!_.isUndefined(incomeExpense.totalExpense) && !_.isNull(incomeExpense.totalExpense)) {
+                                total = total + incomeExpense.totalIncome - incomeExpense.totalExpense;
+                            } else {
+                                total = total + incomeExpense.totalIncome;
+                            }
+                        }
+                    }
+                });
+                return total;
+            };
+
+            scope.calculateTotalAsset = function () {
+                var total = 0;
+                angular.forEach(scope.incomeAndExpenses, function (incomeExpense) {
+                    if (!_.isUndefined(incomeExpense.incomeExpenseData.cashFlowCategoryData.categoryEnum) && incomeExpense.incomeExpenseData.cashFlowCategoryData.categoryEnum.id == 2) {
+                        if (!_.isUndefined(incomeExpense.totalIncome) && !_.isNull(incomeExpense.totalIncome)) {
+                            if (!_.isUndefined(incomeExpense.totalExpense) && !_.isNull(incomeExpense.totalExpense)) {
+                                total = total + incomeExpense.totalIncome - incomeExpense.totalExpense;
+                            } else {
+                                total = total + incomeExpense.totalIncome;
+                            }
+                        }
+                    }
+                });
+                return total;
+            };
+
+            scope.calculateTotalExpense = function () {
+                var total = 0;
+                angular.forEach(scope.incomeAndExpenses, function (incomeExpense) {
+                    if (!_.isUndefined(incomeExpense.incomeExpenseData.cashFlowCategoryData.typeEnum) && incomeExpense.incomeExpenseData.cashFlowCategoryData.typeEnum.id == 2) {
+                        if (!_.isUndefined(incomeExpense.totalExpense) && !_.isNull(incomeExpense.totalExpense)) {
+                            total = total + incomeExpense.totalExpense;
+                        }
+                    }
+                });
+                return total;
+            };
+
+            scope.showSummaryView = function () {
+                hideAll();
+                scope.showSummary = true;
+            };
+
+            function refreshAndShowSummaryView() {
+                incomeAndexpense();
+            };
+
         }
     });
     mifosX.ng.application.controller('ViewClientAdditionalDetailsController', ['$controller', '$scope', '$modal', 'ResourceFactory', 'dateFilter', '$http', '$rootScope', '$upload', 'API_VERSION', mifosX.controllers.ViewClientAdditionalDetailsController]).run(function ($log) {

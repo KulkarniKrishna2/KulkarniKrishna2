@@ -9,8 +9,8 @@
         <thead>
         <tr class="graybg">
             <th>{{'label.heading.status' | translate}}</th>
-            <th>{{'label.heading.from.office' | translate}}</th>
-            <th>{{'label.heading.to.office' | translate}}</th>
+            <th>{{'label.heading.office' | translate}}</th>
+            <th ng-hide="true">{{'label.heading.to.office' | translate}}</th>
             <th>{{'label.heading.from.staff' | translate}}</th>
             <th>{{'label.heading.to.staff' | translate}}</th>
             <th>{{'label.heading.is.transfer.staff' | translate}}</th>
@@ -20,7 +20,7 @@
         <tr ng-repeat="bulkTransfer in bulkTransfers" class="pointer-main" ng-click="routeTo(bulkTransfer.id)">
             <td>{{bulkTransfer.status.value}}</td>
             <td>{{bulkTransfer.fromOffice.name}}</td>
-            <td>{{bulkTransfer.toOffice.name}}</td>
+            <td ng-hide="true">{{bulkTransfer.toOffice.name}}</td>
             <td>{{bulkTransfer.fromStaff.displayName}}</td>
             <td>{{bulkTransfer.toStaff.displayName}}</td>
             <td>{{bulkTransfer.isStaffTransfer}}</td>

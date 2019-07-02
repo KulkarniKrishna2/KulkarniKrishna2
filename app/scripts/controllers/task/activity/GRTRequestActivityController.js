@@ -324,6 +324,15 @@
 
 
             }
+
+            scope.viewAdditionalDetails = function (activeClientMember) {
+                scope.popUpHeaderName = "label.heading.view.client.additional.details"
+                scope.includeHTML = 'views/task/popup/viewclientadditionaldetails.html';
+                scope.activeClientMember = activeClientMember;
+                var templateUrl = 'views/common/openpopup.html';
+                var controller = 'ViewClientAdditionalDetailsController';
+                popUpUtilService.openFullScreenPopUp(templateUrl, controller, scope);
+            };
         }
     });
     mifosX.ng.application.controller('GRTRequestActivityController', ['$controller', '$scope', '$modal', 'ResourceFactory', 'dateFilter', 'PopUpUtilService', mifosX.controllers.GRTRequestActivityController]).run(function ($log) {

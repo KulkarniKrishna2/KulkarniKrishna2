@@ -201,7 +201,12 @@
 			"deceasedWorkflow": {
         		"showPolicy" : true,
         		"showMarkAsDeceased" : true
-      		}
+      		},
+			"hiddenFields": {
+				"reviewCB": false,
+				"sendToCBReview": true
+			},
+			"showMembersStepsInfo": true
 		},
 		"createVillage": {
 			"isReadOnlyField": {

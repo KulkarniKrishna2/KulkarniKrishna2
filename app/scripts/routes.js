@@ -2028,7 +2028,9 @@
             .when('/districts/:districtId/newtalukas', {
                 templateUrl: 'views/districts/createtaluka.html'
             })
-
+            .when('/cbreview', {
+                templateUrl: 'views/dashboard/cbreview.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

@@ -1507,24 +1507,26 @@
 			<div class="span gray-head">
 				<div class="pull-right">
 					<button type="button" ng-hide="hideInitiateCreditBureau" class="btn btn-primary" ng-click="initiateCreditBureauEnquiry();" has-permission='READ_CREDIT_BUREAU_REPORT'>{{'label.button.initiate.credit.bureau.enquiry' | translate}}</button>
+					<button ng-if= "showViewCBHistoryReport" type="button" class="btn btn-primary" ng-click="viewCreditBureauEnquiryHistory();" has-permission='READ_CREDIT_BUREAU_REPORT'>{{'label.button.view.credit.bureau.enquiry.history' | translate}}</button>
 				</div>
 			</div>
 			<div ng-if="creditBureauEnquiries && creditBureauEnquiries.length > 0">
 				<table class="border1px table horizontal-scrollbar vertical-scrollbar">
 					<thead>
 					<tr class="graybg">
-						<th>Initiated On</th>
-						<th>Credit Bureau</th>
-						<th>Enquiry Id</th>
-						<th>Loan Product</th>
-						<th>Amount</th>
-						<th>Status</th>
+						<th>{{'label.heading.initiatedon' | translate}}</th>
+						<th>{{'label.heading.creditbureau' | translate}}</th>
+						<th>{{'label.heading.enquiry.id' | translate}}</th>
+						<th>{{'label.heading.loanproduct' | translate}}</th>
+						<th>{{'label.heading.amount' | translate}}</th>
+						<th>{{'label.heading.status' | translate}}</th>
+						<th>{{'label.heading.actions' | translate}}</th>
 					</tr>
 					</thead>
 					<tbody>
 					<tr class="pointer-main" data-ng-repeat="enquiry in creditBureauEnquiries track by $index">
 						<td class="pointer" data-ng-click="routeToViewCBReport(enquiry.id,$index)">
-							{{enquiry.createdDate| DateFormat}}
+							{{enquiry.createdDate| DateTimeFormat}}
 						</td>
 						<td class="pointer" data-ng-click="routeToViewCBReport(enquiry.id,$index)">
 							{{enquiry.creditBureauProduct.name}}
@@ -1541,9 +1543,69 @@
 						<td class="pointer" data-ng-click="routeToViewCBReport(enquiry.id,$index)">
 							{{enquiry.status.value}}
 						</td>
+						<td>
+                            <a tooltip="{{'label.button.view.report.file' | translate}}" target="_blank" ng-click="viewEnquiryDocument(enquiry.id)">
+                            	<i ng-show ="enquiry.isReportAvailable" class="icon-eye-open text-success"></i></a>
+                        </td>
 					</tr>
 					</tbody>
 				</table>
+			</div>
+			<br>
+			<h2 ng-if= "showHistoryHeading">{{'label.heading.creditbureau.history.report' | translate}}</h2>
+			<br>
+			<div ng-if="creditBureauEnquiriesHistory.currentPageItems && creditBureauEnquiriesHistory.currentPageItems.length > 0">
+				<table class="border1px table horizontal-scrollbar vertical-scrollbar">
+					<thead>
+					<tr class="graybg">
+						<th>{{'label.heading.initiatedon' | translate}}</th>
+						<th>{{'label.heading.creditbureau' | translate}}</th>
+						<th>{{'label.heading.enquiry.id' | translate}}</th>
+						<th>{{'label.heading.loanproduct' | translate}}</th>
+						<th>{{'label.heading.amount' | translate}}</th>
+						<th>{{'label.heading.status' | translate}}</th>
+						<th>{{'label.heading.actions' | translate}}</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr class="pointer-main" data-ng-repeat="enquiry in creditBureauEnquiriesHistory.currentPageItems track by $index">
+						<td class="pointer" data-ng-click="routeToViewCBReportHistory(enquiry.id,$index)">
+							{{enquiry.createdDate| DateTimeFormat}}
+						</td>
+						<td class="pointer" data-ng-click="routeToViewCBReportHistory(enquiry.id,$index)">
+							{{enquiry.creditBureauProduct.name}}
+						</td>
+						<td class="pointer" data-ng-click="routeToViewCBReportHistory(enquiry.id,$index)">
+							{{enquiry.id}}
+						</td>
+						<td class="pointer" data-ng-click="routeToViewCBReportHistory(enquiry.id,$index)">
+							{{enquiry.loanProduct.name}}
+						</td>
+						<td class="pointer" data-ng-click="routeToViewCBReportHistory(enquiry.id,$index)">
+							{{enquiry.enquiryLoanAmount| number}}
+						</td>
+						<td class="pointer" data-ng-click="routeToViewCBReportHistory(enquiry.id,$index)">
+							{{enquiry.status.value}}
+						</td>
+						<td>
+							<a tooltip="{{'label.button.view.report.file' | translate}}" target="_blank" ng-click="viewEnquiryDocument(enquiry.id)">
+                            	<i ng-show ="enquiry.isReportAvailable" class="icon-eye-open text-success"></i></a>
+                        </td>
+					</tr>
+					</tbody>
+				</table>
+				<ul class="pager">
+                    <li class="previous">
+                        <a id="prev" ng-click="creditBureauEnquiriesHistory.previous()" href=""
+                            ng-hide="!creditBureauEnquiriesHistory.hasPrevious()">&larr; {{'label.button.previous' | translate}}
+                        </a>
+                    </li>
+                    <li class="next">
+                        <a id="next" ng-click="creditBureauEnquiriesHistory.next()" href=""
+                            ng-hide="!creditBureauEnquiriesHistory.hasNext()">{{'label.button.next' | translate}} &rarr;
+                        </a>
+                    </li>
+                </ul>
 			</div>
 		</tab>
 

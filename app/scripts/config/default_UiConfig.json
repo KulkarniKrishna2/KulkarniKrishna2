@@ -467,7 +467,12 @@
 			"deceasedWorkflow": {
 				"showPolicy" : false,
 				"showMarkAsDeceased" : false
-			}
+			},
+			"hiddenFields": {
+				"reviewCB": true,
+				"sendToCBReview": true
+			},
+			"showMembersStepsInfo": false
 		},
 		"globalSearchScope": {
 			"name": "label.search.scope.clients.and.clientIdentifiers",
@@ -498,7 +503,11 @@
 			"newLoanApplicationLimitAllowed": false
 		},
 		"creditBureau": {
-			"getlimit": 3
+			"isHiddenField":{
+				"viewHistoryCBReportButton":true
+			},
+			"getlimit": 3,
+			"getEnquiryHistoryLimit":15
 		},
 		"viewCenter": {
 			"isHiddenField": {
@@ -662,7 +671,8 @@
 		},
 		"organization": {
 			"isHiddenField":{
-				"transfer": true
+				"transfer": true,
+				"initiateBulkTransfer": true
 			}
 		}	
 	}
