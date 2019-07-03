@@ -115,10 +115,11 @@
                         if (scope.isSingleGroupInCenter && scope.centerDetails.subGroupMembers[0].documentDatas && scope.centerDetails.subGroupMembers[0].documentDatas.length > 0) {
                             var groupdocuments = scope.centerDetails.subGroupMembers[0].documentDatas;
                             for (var i in groupdocuments) {
-                                if (groupdocuments[i].name == scope.groupDocumentName)
+                                if (groupdocuments[i].name == scope.groupDocumentName) {
                                     scope.grtDocument = groupdocuments[i];
-                                if (!_.isUndefined(scope.grtDocument.geoTag)) {
-                                    scope.grtLocation = JSON.parse(scope.grtDocument.geoTag);
+                                    if (!_.isUndefined(scope.grtDocument.geoTag)) {
+                                        scope.grtLocation = JSON.parse(scope.grtDocument.geoTag);
+                                    }
                                 }
                             }
                         }
