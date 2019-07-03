@@ -27,6 +27,11 @@
             } else {
                 scope.clientBankAccountDetailAssociationId = scope.commonConfig.bankAccount.clientBankAccountDetailAssociationId;
             }
+            scope.showReactivateButton = false;
+            if(!_.isUndefined(routeParams.associationStatus)){
+                scope.fetchInactiveAssociation = "fetchInactiveAssociation";
+                scope.showReactivateButton = true;
+            }
 
             function getEntityType() {
                 return scope.commonConfig.bankAccount.entityType;
@@ -50,6 +55,10 @@
                 scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.bankAccountDetails.bankName &&
                 scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.bankAccountDetails.bankName != "") {
                 scope.deFaultBankName = scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.bankAccountDetails.bankName;
+            }
+            if(scope.response && scope.response.uiDisplayConfigurations &&
+                scope.response.uiDisplayConfigurations.bankAccountDetails){
+                scope.showDeleteButton = scope.response.uiDisplayConfigurations.bankAccountDetails.showDeleteButton;
             }
 
             function constructBankAccountDetails() {
@@ -105,7 +114,8 @@
                 resourceFactory.bankAccountDetailResource.get({
                     entityType: getEntityType(),
                     entityId: getEntityId(),
-                    clientBankAccountDetailAssociationId: getClientBankAccountDetailAssociationId()
+                    clientBankAccountDetailAssociationId: getClientBankAccountDetailAssociationId(),
+                    'command':scope.fetchInactiveAssociation
                 }, function (data) {
                     scope.bankData = data;
                     scope.externalservices = scope.bankData.externalServiceOptions;
@@ -207,11 +217,11 @@
             }
 
             scope.routeToViewBankAccountdetails = function () {
-                location.path('/' + getEntityType() + '/' + getEntityId() + '/bankaccountdetails/' + getClientBankAccountDetailAssociationId());
+                location.path('/' + getEntityType() + '/' + getEntityId() + '/bankaccountdetails/' + getClientBankAccountDetailAssociationId()).search({});
             };
 
             scope.routeToBankAccountdetails = function () {
-                location.path('/' + getEntityType() + '/' + getEntityId() + '/bankaccountdetails');
+                location.path('/' + getEntityType() + '/' + getEntityId() + '/bankaccountdetails').search({});
             };
 
             var submitAccountDocuments = function (postComplete) {
@@ -288,9 +298,18 @@
                 if (scope.isTask) {
                     return false;
                 } else {
-                    return scope.viewConfig.approved;
+                    return (scope.viewConfig.approved && scope.showDeleteButton);
                 }
             };
+
+            scope.undoApprovable = function () {
+                if (scope.isTask) {
+                    return false;
+                } else {
+                    return (scope.viewConfig.approved && !scope.showDeleteButton && !scope.showReactivateButton);
+                }
+            };
+
 
             scope.activate = function () {
                 resourceFactory.bankAccountDetailActionResource.doAction({
@@ -436,6 +455,37 @@
                     scope.formData.documents.splice(scope.formData.documents.indexOf(documentId), 1);
                 }
                 updateData();
+            };
+
+            scope.inActivateAssociation = function () {
+                resourceFactory.bankAccountDetailActionResource.doAction({
+                        entityType: getEntityType(),
+                        entityId: getEntityId(),
+                        clientBankAccountDetailAssociationId: getClientBankAccountDetailAssociationId(),
+                        command: 'inactivateAssociation'
+                    }, scope.formData,
+                    function (data) {
+                        populateDetails();
+                        enableShowSummary();
+                        scope.routeToBankAccountdetails();
+
+                    }
+                );
+            };
+            scope.activateAssociation = function () {
+                resourceFactory.bankAccountDetailActionResource.doAction({
+                        entityType: getEntityType(),
+                        entityId: getEntityId(),
+                        clientBankAccountDetailAssociationId: getClientBankAccountDetailAssociationId(),
+                        command: 'activateAssociation'
+                    }, scope.formData,
+                    function (data) {
+                        populateDetails();
+                        enableShowSummary();
+                        scope.routeToBankAccountdetails();
+
+                    }
+                );
             };
         }
     });
