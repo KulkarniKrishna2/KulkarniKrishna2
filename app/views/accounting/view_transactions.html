@@ -211,7 +211,7 @@
                     </div>
                 </tab>
                 <tab heading="{{'label.input.attachments' | translate}}" select="getDocuments()" has-permission='READ_DOCUMENT'>
-                    <div class="pull-right">
+                    <div class="pull-right" ng-hide="isUploadNewDocuments">
                         <a id="idUploadNewDocuments" ng-click="uploadNewDocuments()" class="btn btn-primary" has-permission='CREATE_DOCUMENT'>
                             <i class="icon-plus icon-white"></i>
                             {{'label.button.upload' | translate}}
@@ -254,11 +254,14 @@
                             <fieldset>
                                 <div class="form-group">
                                     <label class="control-label col-sm-2">{{'label.input.select.bill' | translate}}
-                                        <span class="required"></span>
+                                        <span class="required">*</span>
                                     </label>
                                     <div class="col-sm-3">
                                         <input type="text" autocomplete="off" id="billName" name="billName" ng-model="docData.name" class="form-control" placeholder="{{'label.heading.filename'|translate}}"
-                                        />
+                                        required late-validate/>
+                                    </div>
+                                    <div>
+                                        <form-validate valattributeform="uploadDocumentsFrom" valattribute="billName"/>
                                     </div>
                                     <div class="col-sm-3">
                                         <textarea rows="1" cols="15" ng-model="docData.description" class="form-control" placeholder="{{'label.input.file.description'|translate}}"></textarea>

@@ -149,18 +149,20 @@
             init();
 
             scope.viewDocument = function(document){
-                var url = document.docUrl;
-                for(var tmp in scope.bankAccountDocuments)
-                {
-                    tmp.selected = false;
-                }
-                document.selected = true;
-                $http({
-                    method: 'GET',
-                    url: url
-                }).then(function (documentImage) {
-                    scope.documentImg = documentImage.data;
-                });
+                if(document){
+                    var url = document.docUrl;
+                    for(var tmp in scope.bankAccountDocuments)
+                    {
+                        tmp.selected = false;
+                    }
+                    document.selected = true;
+                    $http({
+                        method: 'GET',
+                        url: url
+                    }).then(function (documentImage) {
+                        scope.documentImg = documentImage.data;
+                    });
+                }  
             }
 
             /*overriding doPreTaskActionStep method of defaultActivityController*/

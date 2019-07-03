@@ -5,6 +5,7 @@
             scope.accountTypes = [];
             scope.usageTypes = [];
             scope.headerTypes = [];
+            scope.isCompanyCodeMandatory = false;
 
             if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.glAccount) {
                 if (scope.response.uiDisplayConfigurations.glAccount.isMandatoryField.companyCode) {
@@ -41,13 +42,15 @@
                 scope.headerTypes = data.assetHeaderAccountOptions;
 
                 scope.changeType();
-
-                for (var i = 0; i < scope.headerTypes.length; i++) {
-                    if(scope.headerTypes[i].id == $routeParams.parent ) {
-                        console.log($routeParams.parent + scope.headerTypes[i].id)
-                        scope.formData.parentId = scope.headerTypes[i].id;
+                if(scope.headerTypes){
+                    for (var i = 0; i < scope.headerTypes.length; i++) {
+                        if(scope.headerTypes[i].id == $routeParams.parent ) {
+                            console.log($routeParams.parent + scope.headerTypes[i].id)
+                            scope.formData.parentId = scope.headerTypes[i].id;
+                        }
                     }
-                }
+
+                } 
 
             });
 
@@ -69,14 +72,14 @@
                     scope.types = data.allowedExpensesTagOptions;
                     scope.headerTypes = data.expenseHeaderAccountOptions;
                 }
-
-                for (var i = 0; i < scope.headerTypes.length; i++) {
-                    if(scope.headerTypes[i].id == $routeParams.parent ) {
-                        console.log($routeParams.parent + scope.headerTypes[i].id)
-                        scope.formData.parentId = scope.headerTypes[i].id;
+                if(scope.headerTypes){
+                    for (var i = 0; i < scope.headerTypes.length; i++) {
+                        if(scope.headerTypes[i].id == $routeParams.parent ) {
+                            console.log($routeParams.parent + scope.headerTypes[i].id)
+                            scope.formData.parentId = scope.headerTypes[i].id;
+                        }
                     }
                 }
-
             }
 
             if($routeParams.parent){
