@@ -184,7 +184,6 @@
                 $scope.error = null;
                 $scope.rejectFormData = {};
                 $scope.values = [];
-                $scope.otherReason = false;
                 if(scope.codes && scope.codes.length >= 1){ 
                     $scope.codes = scope.codes; 
                     $scope.rejectioReasonsAvailable= true;
@@ -214,13 +213,12 @@
                 };
 
                 $scope.getDependentCodeValues = function(codeName){
-                    $scope.otherReason = codeName.indexOf("Others")>-1;
                     $scope.values = $scope.codes[$scope.codes.findIndex(x => x.name == codeName)].values;
                 };
 
                 $scope.initDescription = function(reasonId){
                     $scope.subOtherReason = $scope.values[$scope.values.findIndex(x => x.id == reasonId)].name.indexOf("Other")>-1;
-                    if($scope.subOtherReason==true && $scope.otherReason==true ){
+                    if($scope.subOtherReason==true){
                         $scope.displayDescription = true;
                       }else{
                         $scope.displayDescription = false;
