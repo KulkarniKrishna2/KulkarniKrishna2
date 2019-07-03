@@ -1860,6 +1860,23 @@
                     }),
                     creditBureauEnquiryHistoryResource: defineResource(apiVer + "/enquiry/creditbureau/history/:entityType/:entityId", {entityType: '@entityType',entityId: '@entityId'}, {
                         getAll: {method: 'GET', params: {}, isArray: true}
+                    }),
+                    loanDpDetailsTemplateResource: defineResource(apiVer + "/loandpdetails/loanproducts/:loanProductId/template",{loanProductId: '@loanProductId'},{
+                        getProductsTemplate: {method: 'GET',params:{},isArray: false},
+                        getLoanDpDetailsTemplate: {method: 'GET',params:{loanProductId: '@loanProductId'},isArray: false}
+                    }),
+                    loanDpDetailsResource: defineResource(apiVer+ "/loandpdetails/loanproducts/:loanProductId",{loanProductId: '@loanProductId'},{
+                        get: {method: 'GET', params: {}, isArray: false},
+                        post: {method: 'POST', params: {}},
+                        updateLoanDpDetails:{method:'PUT',params:{}}
+                    }),
+                    loanAccountDpDetailTemplateResource: defineResource(apiVer+ "/loans/:loanId/loanaccountdpdetail/template", {loanId: '@loanId'},{
+                        get: {method: 'GET', params: {}, isArray: false}
+                    }),
+                    loanAccountDpDetailResource: defineResource(apiVer+ "/loans/:loanId/loanaccountdpdetail/:loanAccountDpDetailId",{loanId: '@loanId',loanAccountDpDetailId: '@loanAccountDpDetailId'},{
+                        get: {method: 'GET', params: {}, isArray: false},
+                        save: {method: 'POST', params: {loanId: '@loanId'}},
+                        update: {method: 'PUT', params: {loanId: '@loanId',loanAccountDpDetailId: '@loanAccountDpDetailId'}}
                     })
                 };
             }];

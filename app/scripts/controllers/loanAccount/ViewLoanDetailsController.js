@@ -862,6 +862,14 @@
                 scope.isOverPaidOrGLIM();
                 // fetchBankDetailAssociation();
                 //enableOrDisableLoanLockButtons();
+
+                scope.getLoanAccountDpDetailData = function(){
+                    resourceFactory.loanAccountDpDetailResource.get({loanId: routeParams.id}, function(data){
+                        scope.loanAccountDpDetailData = data;
+                        scope.loanAccountDpDetailData.startDate = dateFilter(new Date(scope.loanAccountDpDetailData.startDate), scope.df);
+    
+                    });
+                }
             });
 
             fetchBankTransferDetails = function(){

@@ -1,0 +1,41 @@
+<div class="col-md-12" ng-controller="ViewLoanDpDetailsController">
+    <ul class="breadcrumb">
+        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
+        <li><a href="#/loandpdetails">{{'label.anchor.dpdetails' | translate}}</a></li>
+        <li class="active">{{'label.anchor.viewdpdetails' | translate}}</li>
+    </ul>
+    <div class="btn-group pull-right">
+        <a href="#/editloandpdetails/loanproduct/{{loanProductId}}" class="btn btn-primary"><i class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
+    </div>
+    <table class="table" width="100%">
+        <tr>
+            <td>
+                <label class="control-label">{{'label.input.drawing.power.frequency.type' | translate}}</label>
+            </td>
+            <td>
+                {{loanProductDrawingPowerDetailsData.frequencyType.value}}
+                <label ng-if="loanProductDrawingPowerDetailsData.frequencyType.id == 1 && loanProductDrawingPowerDetailsData.frequencyDayOfWeekType">
+                    on {{loanProductDrawingPowerDetailsData.frequencyDayOfWeekType.value}}
+                </label>
+                <label ng-if="loanProductDrawingPowerDetailsData.frequencyType.id == 2 && loanProductDrawingPowerDetailsData.frequencyOnDay && loanProductDrawingPowerDetailsData.frequencyNthDay.id == -2">
+                    on day {{loanProductDrawingPowerDetailsData.frequencyOnDay}}
+                </label>
+                <label ng-if="loanProductDrawingPowerDetailsData.frequencyType.id == 2 && loanProductDrawingPowerDetailsData.frequencyNthDay && loanProductDrawingPowerDetailsData.frequencyNthDay.id != -2">
+                    on {{loanProductDrawingPowerDetailsData.frequencyNthDay.value}} {{loanProductDrawingPowerDetailsData.frequencyDayOfWeekType.value}}
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label class="control-label">{{'label.input.drawing.power.frequency.interval' | translate}}</label>
+            </td>
+            <td>
+                {{loanProductDrawingPowerDetailsData.frequencyInterval}}
+            </td>
+        </tr>
+        
+    </table>
+    <div class="col-md-offset-5">
+        <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{'label.button.back' | translate}}</button>
+    </div
+</div>

@@ -691,7 +691,12 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'task/activity/CGTConfirmationActivityController',
             'task/popup/ViewClientAdditionalDetailsController',
             'task/activity/CGTReviewActivityController',
-            'dashboard/CBReviewController'
+            'dashboard/CBReviewController',
+            'bankaccountdetails/common/AddBankAccountDetailsToLoanController',
+            'loandpdetails/LoanDpDetailsController',
+            'loandpdetails/AddLoanDpDetailsController',
+            'loandpdetails/ViewLoanDpDetailsController',
+            'loandpdetails/EditLoanDpDetailsController'
         ],
         filters: [
             'StatusLookup',

@@ -8006,6 +8006,22 @@
     "label.input.loanproduct.group":"Product group",
     "label.select.product.group":"Select product group",
     "label.heading.loanProduct.group.name":"Product Group Name",
+    "label.button.add.dpdetails" : "Add DP Details",
+    "label.anchor.dpdetails" : "Loan DP Details",
+    "label.manageloandpdetails" : "Manage Loan Drawing Power Details",
+    "label.anchor.add.dpdetails" : "Add DP Details",
+    "label.anchor.viewdpdetails" : "View DP Details",
+
+    "label.tab.heading.dpdetails" : "DP Details",
+    "label.heading.dplimitamount" : "Dp Limit Amount",
+    "label.heading.duration" : "Duration",
+    "label.heading.drawing.power.frequency.type" : "Drawing power frequency type",
+    "label.heading.drawing.power.frequency.interval" : "Drawing power frequency interval",
+    "validation.msg.loanAccountDpDetail.dpCalculateOnAmount.is.greater.than.max" : " Amount must be less than 100",
+    "label.heading.dpdetails" : "Drawing Power Details",
+    "label.menu.selectday" : "Select day",
+    "validation.msg.loanDpDetails.frequencyOnDay.cannot.be.blank" : "FrequencyOnDay cannot be blank",
+    "validation.msg.loanDpDetails.frequencyInterval.cannot.be.blank" : "FrequencyInterval cannot be blank",
 
     "------ end of translation file ------": "----------"
 }
