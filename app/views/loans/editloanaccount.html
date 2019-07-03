@@ -741,6 +741,105 @@
                 </tr>
                 </tbody>
             </table>
+            <div ng-if="loanaccountinfo.isDpConfigured">
+                <hr/>
+                <label><strong>{{ 'label.heading.dpdetails' | translate }}</strong></label>
+                <table class="table width100" >
+                    <tr>
+                        <td class="width14" >
+                            <label class="control-label">{{ 'label.input.dplimit' | translate
+                                }}&nbsp;<span class="required">*</span></label></td>
+                        <td class="width36 paddedbottom10" >
+                            <input  id="dpLimitAmount" name="dpLimitAmount" type="text" class="form-control"
+                                ng-model="formData.maxOutstandingLoanBalance" readonly number-format required late-validate>
+                            <form-validate valattributeform="editloanaccountform" valattribute="dpLimitAmount"/>
+                        </td>
+                    </tr>
+                    <td class="width14"><label class="control-label">{{ 'label.input.dplimitfrequency' | translate }}&nbsp;<span
+                        class="required">*</span></label></td>
+                    <td class="width36 paddedbottom10">
+                        <select id="frequencyType" name="frequencyType" class="form-control"
+                        ng-model="loanAccountDpDetailData.frequencyType"
+                        ng-options="type.id as type.value for type in loanProductDpDetailTemplateData.frequencyTypeOptions"
+                        value="{{type.id}}" required late-validate ng-change="resetLoanAccountDpDetails()"></select>
+
+                    <label  ng-if="loanAccountDpDetailData.frequencyType == 2">
+                        <select id="frequencyNthDay" name="frequencyNthDay" class="form-control"
+                        ng-model="loanAccountDpDetailData.frequencyNthDay"
+                        ng-options="nthDayType.id as nthDayType.value for nthDayType in loanProductDpDetailTemplateData.nthDayTypeOptions"
+                        value="{{nthDayType.id}}" ng-change="resetOnDayAndWeekType()" required late-validate>
+                        </select>
+                        <form-validate valattributeform="editloanaccountform" valattribute="frequencyNthDay"/>
+                    </label>
+                    <label ng-if="(loanAccountDpDetailData.frequencyType == 1 || loanAccountDpDetailData.frequencyType == 2 )  && loanAccountDpDetailData.frequencyNthDay != -2">
+                        <select id="frequencyDayOfWeekType" name="frequencyDayOfWeekType" class="form-control"
+                        ng-model="loanAccountDpDetailData.frequencyDayOfWeekType"
+                        ng-options="dayOfWeekType.id as dayOfWeekType.value for dayOfWeekType in loanProductDpDetailTemplateData.dayOfWeekTypeOptions"
+                        value="{{dayOfWeekType.id}}" required late-validate>
+                        <option value="">--{{'label.menu.selectday' | translate}}--</option>
+                        </select>
+                        <form-validate valattributeform="editloanaccountform" valattribute="frequencyDayOfWeekType"/>
+                    </label>
+                    <label ng-if="loanAccountDpDetailData.frequencyType == 2 && loanAccountDpDetailData.frequencyNthDay == -2">
+                        <select id="frequencyOnDay" name="frequencyOnDay" class="form-control"
+                        ng-model="loanAccountDpDetailData.frequencyOnDay"
+                        ng-options="onDayType as onDayType for onDayType in onDayTypeOptions"
+                        value="{{onDayType}}" required late-validate></select>
+                        <form-validate valattributeform="editloanaccountform" valattribute="frequencyOnDay"/>
+                    </label>
+                </td>
+                <td class="width14">
+                    <label class="control-label">{{ 'label.input.dplimitreductionevery' | translate
+                        }}&nbsp;</label></td>
+                <td class="width36 paddedbottom10">
+                    <input id="frequencyInterval" name="frequencyInterval" type="text" class="form-control"
+                    ng-model="loanAccountDpDetailData.frequencyInterval" required late-validate>
+                    <form-validate valattributeform="editloanaccountform" valattribute="frequencyInterval"/>
+                </td>
+            </tr>
+                    <tr>
+                        <td class="width14"><label class="control-label">{{ 'label.input.dplimitcalculationType' | translate }}&nbsp;<span
+                                class="required">*</span></label></td>
+                        <td class="width36 paddedbottom10">
+                            <select id="loanDpLimitCalculationType" name="loanDpLimitCalculationType"
+                                    ng-model="loanAccountDpDetailData.loanDpLimitCalculationType"
+                                    ng-options="type.id as type.value for type in loanDpLimitCalculationTypeOptions"
+                                    value="{{type.id}}" class="form-control width170px" required late-validate>
+                            </select>
+                            <form-validate valattributeform="editloanaccountform" valattribute="loanDpLimitCalculationType"/>
+                        </td>
+                        <td class="width14">
+                            <label class="control-label">{{ 'label.input.amount' | translate
+                                }}&nbsp;<span class="required">*</span></label>
+                        </td>
+                        <td class="width36 paddedbottom10">
+                            <input id="dpCalculateOnAmount" name="dpCalculateOnAmount" type="text" class="form-control"
+                                ng-model="loanAccountDpDetailData.dpCalculateOnAmount" number-format required late-validate>
+                            <form-validate valattributeform="editloanaccountform" valattribute="dpCalculateOnAmount"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="width14">
+                            <label class="control-label">{{ 'label.input.duration' | translate
+                                }}&nbsp;<span class="required">*</span></label></td>
+                        <td class="width36 paddedbottom10">
+                            <input id="dpDuration" name="dpDuration" type="text" class="form-control"
+                                ng-model="loanAccountDpDetailData.dpDuration" number-format required late-validate maxlength="4">
+                            <form-validate valattributeform="editloanaccountform" valattribute="dpDuration"/>
+                        </td>
+
+                        <td class="width14">
+                            <label ng-show="formData.productId" class="control-label">{{ 'label.input.dp.start.date' | translate
+                                }}&nbsp;<span class="required">*</span></label>
+                        </td>
+                        <td class="width36 paddedbottom10">
+                            <input id="dpStartDate" name="dpStartDate" type="text" datepicker-pop="dd MMMM yyyy"
+                                ng-model="loanAccountDpDetailData.dpStartDate" is-open="opened" class="form-control" required late-validate/>
+                            <form-validate valattributeform="editloanaccountform" valattribute="dpStartDate"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </div>
         <div class="col-md-12" ng-if="canDisburseToGroupsBanks()">
             <hr/>

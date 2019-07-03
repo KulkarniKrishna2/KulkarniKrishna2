@@ -2007,6 +2007,18 @@
             .when('/cbreview', {
                 templateUrl: 'views/dashboard/cbreview.html'
             })
+            .when('/loandpdetails', {
+                templateUrl: 'views/loandpdetails/loandpdetails.html'
+            })
+            .when('/addloandpdetails/loanproduct/:id', {
+                templateUrl: 'views/loandpdetails/addloandpdetails.html'
+            })
+            .when('/viewloandpdetails/loanproduct/:id', {
+                templateUrl: 'views/loandpdetails/viewloandpdetails.html'
+            })
+            .when('/editloandpdetails/loanproduct/:id',{
+                templateUrl: 'views/loandpdetails/editloandpdetails.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {
