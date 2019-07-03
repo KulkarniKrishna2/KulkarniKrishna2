@@ -6616,7 +6616,7 @@
     "label.button.retry": "Retry",
     "label.button.rerun": "ReRun",
     "label.input.view.closed.transactions": "View Closed Transactions",
-    "error.msg.bank.account.detail.not.found": "BankAccountDetail for entity with '{{params[0].value}}' does not exist",
+    "error.msg.bank.account.detail.not.found": "BankAccountDetail for entity with '{{params[0].value}}' status with '{{params[1].value}}' does not exist",
     "error.msg.bank.account.detail.already.exist": "BankAccountDetail for entity with '{{params[0].value}}' already exist",
     "error.msg.unable.to.delete.bank.account.since.all.bank.transactions.are.not.in.closed.or.rejected.status": "To delete a bank account linked to loan all bank transactions must be closed or rejected.",
     "error.msg.unable.to.delete.bank.account.since.bank.is.linked.with.active.loan.account": "Unable to delete a bank account, bank account is linked with active loan account",
@@ -7952,6 +7952,7 @@
     "label.input.loanproduct.group":"Product group",
     "label.select.product.group":"Select product group",
     "label.heading.loanProduct.group.name":"Product Group Name",
-
+    "label.heading.inactive.bank.account.details" :"Inactive Bank Account Details",
+    "error.msg.bank.account.association.invalid.status" : "Invalid bank account details association status",
     "------ end of translation file ------": "----------"
 }

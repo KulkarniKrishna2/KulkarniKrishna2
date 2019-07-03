@@ -186,7 +186,9 @@
       "isAutoPopulate":{
         "bankName": "MASTER"
       },
-      "isMakerTwoStepPresent": false
+      "isMakerTwoStepPresent": false,
+      "showDeleteButton": false,
+      "showInactiveBankAccountDetails":true
     },
     "paymentDetails": {
       "isMandatory": {

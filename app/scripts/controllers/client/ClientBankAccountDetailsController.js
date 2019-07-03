@@ -8,17 +8,28 @@
             scope.groupData = {};
             scope.showAddBankAccountsButton = false;
             scope.allowMultipleBankAccountsForClient = scope.isSystemGlobalConfigurationEnabled('allow-multiple-bank-accounts-to-clients');
+            scope.showInactiveBankAccountDetails = scope.response.uiDisplayConfigurations.bankAccountDetails.showInactiveBankAccountDetails;
 
             function populateDetails() {
                resourceFactory.bankAccountDetailResources.getAll({entityType: scope.entityType,entityId: scope.entityId}, function (data) {
                     scope.bankAccountDetails = data;
                     scope.showAddButton(data);
                 });
+               if(scope.showInactiveBankAccountDetails){
+                    scope.status="inactive";
+                    resourceFactory.bankAccountDetailResources.getAll({entityType: scope.entityType,entityId: scope.entityId,status:scope.status}, function (data) {
+                    scope.inActivebankAccountDetails = data;
+                });
+               }
             }
             populateDetails();
 
             scope.routeTo = function (clientBankAccountDetailAssociationId) {
                 location.path('/'+scope.entityType+'/'+scope.entityId+'/bankaccountdetails/'+clientBankAccountDetailAssociationId);
+            };
+            scope.routeTowithQueryParam = function (clientBankAccountDetailAssociationId) {
+                scope.statusParam = "inactive";
+                location.path('/'+scope.entityType+'/'+scope.entityId+'/bankaccountdetails/'+clientBankAccountDetailAssociationId).search({'associationStatus':scope.statusParam});
             };
 
             scope.showAddButton = function (data) {
@@ -30,6 +41,9 @@
                     }
                 }
 
+            }
+            scope.showInActiveBankDetails = function(){
+                return (scope.showInactiveBankAccountDetails && scope.inActivebankAccountDetails && scope.inActivebankAccountDetails.length > 0)
             }
         }
     });
