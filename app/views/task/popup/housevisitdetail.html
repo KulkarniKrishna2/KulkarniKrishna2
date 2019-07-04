@@ -249,7 +249,7 @@
                                         <div class="col-sm-3">
                                             <input name="bankIFSCCodeRepeat" id="bankIFSCCodeRepeat" ng-model="repeatFormData.ifscCodeRepeat"
                                                 minlength="11" maxlength="11" type="password" ng-pattern="regexPattern('bankIFSCCode')"
-                                                class="form-control" ng-required="isMandatoryFields.bankIFSCCode" />
+                                                class="form-control" ng-required="isMandatoryFields.bankIFSCCode"   ng-blur="getBankDetails(!bankaccountdetail.bankIFSCCode.$error.pattern)"/>
                                         </div>
                                         <div class="col-sm-2">
                                             <span ng-show="bankaccountdetail.bankIFSCCodeRepeat.$error.pattern">
@@ -268,7 +268,7 @@
                                         <div class="col-sm-3">
                                             <input name="bankIFSCCode" id="bankIFSCCode" ng-model="formData.ifscCode"
                                                 ng-minlength="11" maxlength="11" type="text" autocomplete="off" ng-pattern="regexPattern('bankIFSCCode')"
-                                                class="form-control" ng-required="isMandatoryFields.bankIFSCCode" onpaste="return false;" />
+                                                class="form-control" ng-required="isMandatoryFields.bankIFSCCode" onpaste="return false;"   ng-blur="getBankDetails(!bankaccountdetail.bankIFSCCode.$error.pattern)"/>
                                         </div>
                                         <div class="col-sm-3">
                                             <span ng-show="bankaccountdetail.bankIFSCCode.$invalid && bankaccountdetail.bankIFSCCode.$dirty">
