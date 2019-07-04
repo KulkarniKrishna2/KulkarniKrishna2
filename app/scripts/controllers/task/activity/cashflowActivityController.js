@@ -9,7 +9,13 @@
             scope.showEditClientassetdetailsForm = false;
             scope.showAddClienthouseholddetailsForm = false;
             scope.showEditClienthouseholddetailsForm = false;
-             scope.totalIncome = 0;
+            scope.totalIncome = 0;
+            scope.showExpenseAmount = true;
+            scope.showHouseHoldExpense = true;
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow && scope.response.uiDisplayConfigurations.workflow.isHiddenField){
+                scope.showExpenseAmount = !scope.response.uiDisplayConfigurations.workflow.isHiddenField.expenseAmount;
+                scope.showHouseHoldExpense = !scope.response.uiDisplayConfigurations.workflow.isHiddenField.houseHoldExpense;
+            }
 
             function hideAll(){
                 scope.showSummary = false;

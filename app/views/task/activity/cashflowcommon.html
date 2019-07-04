@@ -8,7 +8,7 @@
                 <tr>
                     <th>{{ 'label.heading.occupationname' | translate }}</th>
                     <th>{{ 'label.heading.income' | translate }}</th>
-                    <th>{{ 'label.heading.expense' | translate }}</th>
+                    <th ng-if="showExpenseAmount">{{ 'label.heading.expense' | translate }}</th>
                     <th>{{ 'label.heading.net' | translate}}</th>
                     <th>{{}}</th>
                 </tr>
@@ -21,7 +21,7 @@
                     <td data-ng-click="">
                         {{incomeAndExpense.totalIncome}}
                     </td>
-                    <td  data-ng-click="">
+                    <td  data-ng-click="" ng-if="showExpenseAmount">
                         {{incomeAndExpense.totalExpense}}
                     </td>
                     <td>
@@ -54,7 +54,7 @@
                     <th>{{ 'label.heading.quantity' | translate }}</th>
                     <th>{{ 'label.heading.default.income' | translate }}</th>
                     <th>{{ 'label.heading.total.income' | translate }}</th>
-                    <th>{{ 'label.heading.expense' | translate }}</th>
+                    <th ng-if="showExpenseAmount">{{ 'label.heading.expense' | translate }}</th>
                     <th>{{ 'label.heading.net' | translate}}</th>
                     <th>{{}}</th>
                 </tr>
@@ -73,7 +73,7 @@
                     <td  data-ng-click="">
                         {{incomeAndExpense.totalIncome}}
                     </td>
-                    <td  data-ng-click="">
+                    <td  data-ng-click="" ng-if="showExpenseAmount">
                         {{incomeAndExpense.totalExpense}}
                     </td>
                     <td>
@@ -93,7 +93,7 @@
         </div>
         <legend></legend>
 
-        <div class="form-horizontal">
+        <div class="form-horizontal" ng-if="showHouseHoldExpense">
             <h3>{{'label.heading.householddetails' | translate}}
                 <button ng-click="addClienthouseholddetails()" ng-show="!isTaskCompleted()" class="btn-primary"><i class="icon-plus"></i></button>
                 <button ng-click="addClienthouseholddetails()" ng-show="isTaskCompleted()" has-permission="EDIT_TASK" class="btn-primary"><i class="icon-plus"></i></button></h3>
@@ -207,7 +207,7 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" ng-if="showExpenseAmount">
                     <label class="control-label col-sm-2">{{ 'label.input.expenses' | translate }}</label>
 
                     <div class="col-sm-3">
@@ -297,7 +297,7 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" ng-if="showExpenseAmount">
                     <label class="control-label col-sm-2">{{ 'label.input.expenses' | translate }}</label>
 
                     <div class="col-sm-3">
@@ -393,7 +393,7 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" ng-if="showExpenseAmount">
                     <label class="control-label col-sm-2">{{ 'label.input.expenses' | translate }}</label>
 
                     <div class="col-sm-3">
@@ -489,7 +489,7 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" ng-if="showExpenseAmount">
                     <label class="control-label col-sm-2">{{ 'label.input.expenses' | translate }}</label>
 
                     <div class="col-sm-3">
@@ -526,7 +526,7 @@
         </form>
     </div>
 
-    <div ng-if="showAddClienthouseholddetailsForm" >
+    <div ng-if="showAddClienthouseholddetailsForm && showHouseHoldExpense" >
         
         <form name="showAddClienthouseholddetailsForm" novalidate="" class="form-horizontal"
               ng-submit="addClienthouseholddetailsSubmit()">
@@ -592,7 +592,7 @@
         </form>
     </div>
 
-    <div ng-if="showEditClienthouseholddetailsForm">
+    <div ng-if="showEditClienthouseholddetailsForm && showHouseHoldExpense">
         
         <form name="showEditClienthouseholddetailsForm" novalidate="" class="form-horizontal"
               ng-submit="editClienthouseholddetailsSubmit()">

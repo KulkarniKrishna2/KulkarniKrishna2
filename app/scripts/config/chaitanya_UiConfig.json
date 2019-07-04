@@ -233,7 +233,13 @@
           "transactionAmount": true,
           "fixedEmiAmount": true
         }
-      }
+      },
+      "isHiddenField": {
+				"surveyWeight" : true,
+        "surveyMaxScore" : true,
+        "expenseAmount" : true,
+        "houseHoldExpense" : true
+			}
     },
     "glAccount": {
       "isMandatoryField": {

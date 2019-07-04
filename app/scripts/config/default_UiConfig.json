@@ -455,7 +455,13 @@
 			"isReadOnlyField": {
 				"createSubGroupDate": false
 			},
-			"showMembersStepsInfo": false
+			"showMembersStepsInfo": false,
+			"isHiddenField": {
+				"surveyWeight" : false,
+				"surveyMaxScore" : false,
+				"expenseAmount" : false,
+				"houseHoldExpense" : false
+			}
 		},
 		"globalSearchScope": {
 			"name": "label.search.scope.clients.and.clientIdentifiers",
