@@ -1845,7 +1845,10 @@
                     }),
                     creditBureauEnquiryHistoryResource: defineResource(apiVer + "/enquiry/creditbureau/history/:entityType/:entityId", {entityType: '@entityType',entityId: '@entityId'}, {
                         getAll: {method: 'GET', params: {}, isArray: true}
-                    })
+                    }),
+                    codeResource: defineResource(apiVer + "/codes/lookup", {}, {
+                        getAll: {method: 'GET', params: {}, isArray: true}
+                    }),
                 };
             }];
         }
