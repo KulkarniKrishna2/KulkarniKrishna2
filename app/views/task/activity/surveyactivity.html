@@ -29,7 +29,7 @@
                 &nbsp;|&nbsp;
             </span>
 
-            <span>
+            <span ng-if="showSurveyMaxScore">
                 <span>{{'label.survey.component.max.score' | translate}}:</span>
                 <span>{{surveys[0].maxScore | number}}</span>
                 &nbsp;|&nbsp;
@@ -58,9 +58,9 @@
                 <tr class="graybg">
                     <th>{{'label.survey.component' | translate}}</th>
                     <th>{{'label.heading.questionname' | translate}}</th>
-                    <th>{{'label.survey.component.weight' | translate}}</th>
+                    <th ng-if="showSurveyWeight">{{'label.survey.component.weight' | translate}}</th>
                     <th>{{'label.heading.answername' | translate}}</th>
-                    <th>{{'label.survey.component.max.score' | translate}}</th>
+                    <th ng-if="showSurveyMaxScore">{{'label.survey.component.max.score' | translate}}</th>
                     <th>{{'label.survey.component.actual.score' | translate}}</th>
                 </tr>
                 <tr ng-repeat="displaySurveyData in displaySurveyDatas">
@@ -75,7 +75,7 @@
                     <td ng-if="!displaySurveyData.isComponentData">
                         <span>{{displaySurveyData.questionName}}&nbsp;</span>
                     </td>
-                    <td ng-if="!displaySurveyData.isComponentData">
+                    <td ng-if="!displaySurveyData.isComponentData && showSurveyWeight">
                         <span>{{displaySurveyData.questionWeightage | number}}</span>&nbsp;
                     </td>
                     <td ng-if="!displaySurveyData.isComponentData">
@@ -94,13 +94,13 @@
                             </div>
                         </div>
                     </td>
-                    <td ng-if="!displaySurveyData.isComponentData">
+                    <td ng-if="!displaySurveyData.isComponentData && showSurveyMaxScore">
                         <span>{{displaySurveyData.maxScore | number}}</span>&nbsp;
                     </td>
                     <td ng-if="!displaySurveyData.isComponentData">
                         <span>{{displaySurveyData.actualScore | number}}</span>&nbsp;
                     </td>
-                    <td ng-if="displaySurveyData.isComponentData">
+                    <td ng-if="displaySurveyData.isComponentData && showSurveyWeight">
                         <span>
                             <strong>{{displaySurveyData.weightage | number}}</strong>
                         </span>&nbsp;
@@ -108,7 +108,7 @@
                     <td ng-if="displaySurveyData.isComponentData">
                         <span></span>&nbsp;
                     </td>
-                    <td ng-if="displaySurveyData.isComponentData">
+                    <td ng-if="displaySurveyData.isComponentData && showSurveyMaxScore">
                         <span>
                             <strong>{{displaySurveyData.maxScore | number}}</strong>
                         </span>&nbsp;
