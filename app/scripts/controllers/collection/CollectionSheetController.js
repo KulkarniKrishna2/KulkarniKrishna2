@@ -940,7 +940,7 @@
                 angular.forEach(data.groups, function (group) {
                     angular.forEach(group.clients,function(client){
                         angular.forEach(client.loans,function(loan){
-                            if(!_.isUndefined(loan.installmentAmount) && (loan.installmentAmount < loan.principalOutstanding)){
+                            if(!_.isUndefined(loan.installmentAmount) && (loan.principalDue == loan.principalOutstanding)){
                                 loan.totalDue = loan.installmentAmount;
                             }
                         });
