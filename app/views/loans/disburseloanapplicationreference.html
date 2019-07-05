@@ -398,6 +398,11 @@
                                             </td>
                                             <td>{{formData.approvedData.approvedOnDate }}</td>
                                         </tr>
+                                        <tr ng-show="showUpfrontAmount">
+                                            <td><label>{{ 'label.input.amountforupfrontcollection' | translate }}:</label>&nbsp;
+                                            </td>
+                                            <td>{{formData.approvedData.amountForUpfrontCollection}}</td>
+                                        </tr>
                                     </table>
                                 </div>
                                 <div class="col-md-6">
@@ -691,6 +696,15 @@
                                                         ng-options="paymentType.id as paymentType.name for paymentType in disbursementTypeOption"
                                                         value="{{paymentType.id}}"></select>
                                             </td>
+                                            <tr data-ng-show="(showUpfrontAmount || !loanaccountinfo.loanEMIPacks) && loanaccountinfo.allowUpfrontCollection">
+                                                <td class="width25">
+                                                    <label>{{ 'label.input.amountforupfrontcollection' | translate }}</label>
+                                                </td>
+                                                <td class="width25 paddedbottom10">
+                                                    <input id="amountForUpfrontCollection" type="text" autocomplete="off" ng-model="formRequestData.submitApplication.amountForUpfrontCollection"
+                                                           class="form-control" number-format/>
+                                                </td>
+                                            </tr>
 
                                         </tr>
                                     </table>

@@ -209,41 +209,41 @@
                             <div class="col-md-6">
                                 <table class="table table-bordered table-striped">
                                     <tr>
-                                        <td><label>{{ 'label.input.product' | translate }}<span
+                                        <th><label>{{ 'label.input.product' | translate }}<span
                                                 class="required">*</span>:&nbsp;
                                         </label>
                                             <i class="icon-question-sign"
                                                tooltip="{{'label.tooltip.product' | translate}}"></i>
-                                        </td>
+                                        </th>
                                         <td>{{formData.loanProductName}}</td>
                                     </tr>
                                     <tr>
-                                        <td><label>{{ 'label.input.loanpurpose' | translate }}:&nbsp;</label>
+                                        <th><label>{{ 'label.input.loanpurpose' | translate }}:&nbsp;</label>
                                             <i class="icon-question-sign"
-                                               tooltip="{{'label.tooltip.loanpurpose' | translate}}"></i></td>
+                                               tooltip="{{'label.tooltip.loanpurpose' | translate}}"></i></th>
                                         <td>{{formData.loanPurpose.name}}</td>
                                     </tr>
                                     <tr ng-hide="loanaccountinfo.loanEMIPacks">
-                                        <td><label>{{ 'label.input.numofrepayments' | translate }}&nbsp;<span
-                                                class="required"></span>:</label></td>
+                                        <th><label>{{ 'label.input.numofrepayments' | translate }}&nbsp;<span
+                                                class="required"></span>:</label></th>
                                         <td>{{formData.numberOfRepayments}}</td>
                                     </tr>
                                     <tr ng-if="false && loanaccountinfo.canDefineInstallmentAmount" ng-hide="loanaccountinfo.loanEMIPacks">
-                                        <td><label>{{ 'label.input.fixedemiamount' | translate }}:</label>&nbsp;</td>
+                                        <th><label>{{ 'label.input.fixedemiamount' | translate }}:</label>&nbsp;</th>
                                         <td>
                                             {{formData.fixedEmiAmount}}&nbsp;{{loanaccountinfo.currency.displaySymbol}}
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><label>{{ 'label.input.submittedon' | translate }}:</label>&nbsp;</td>
+                                        <th><label>{{ 'label.input.submittedon' | translate }}:</label>&nbsp;</th>
                                         <td>{{formData.submittedOnDate | DateFormat}}</td>
                                     </tr>
                                     <tr ng-show="formData.loanAccountNum">
-                                        <td><label>{{ 'label.input.loanaccountnumber' | translate }}:</label>&nbsp;</td>
+                                        <th><label>{{ 'label.input.loanaccountnumber' | translate }}:</label>&nbsp;</th>
                                         <td>{{formData.loanAccountNum}}</td>
                                     </tr>
-                                    <tr ng-hide="loanaccountinfo.loanEMIPackData">
-                                       <td><label>{{ 'label.input.amountforupfrontcollection' | translate }}:</label>&nbsp;</td>
+                                    <tr ng-show="showUpfrontAmount || !loanaccountinfo.loanEMIPackData">
+                                       <th><label>{{ 'label.input.amountforupfrontcollection' | translate }}:</label>&nbsp;</th>
                                         <td>{{formData.amountForUpfrontCollection}}</td>
                                     </tr>
                                     <tr ng-if="formData.discountOnDisbursalAmount">
@@ -641,6 +641,15 @@
                                 <tr ng-show="loanaccountinfo.loanEMIPacks && changeLoanEMIPack" class="width100">
                                     <td colspan="4">
                                         <input ng-autofocus="true" ng-model="filterText" type="text" autocomplete="off" ng-keyup="onFilter()" class="form-control width100" placeholder="{{'label.input.filterbytext' | translate}}"/>
+                                    </td>
+                                </tr>
+                                <tr ng-show="(showUpfrontAmount || !loanaccountinfo.loanEMIPacks) && loanaccountinfo.allowUpfrontCollection">
+                                    <td class="width19">
+                                        <label>{{ 'label.input.amountforupfrontcollection' | translate }}</label>
+                                    </td>
+                                    <td class="width36 paddedbottom10">
+                                        <input id="amountForUpfrontCollection" type="text" ng-model="formRequestData.amountForUpfrontCollection"
+                                        class="form-control" number-format/>
                                     </td>
                                 </tr>
                                 <tr ng-show="loanaccountinfo.loanEMIPacks" class="width100">

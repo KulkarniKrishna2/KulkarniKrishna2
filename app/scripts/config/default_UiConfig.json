@@ -478,7 +478,8 @@
 				"firstRepaymentDate": true,
 				"interestRatePerPeriod": true,
 				"tranchedata": true,
-				"printReportButton": false
+				"printReportButton": false,
+				"upfrontAmount":true
 			},
 			"isMandatoryField": {
 				"expectedDisbursementDate": false,
