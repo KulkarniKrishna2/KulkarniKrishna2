@@ -7955,6 +7955,7 @@
     "label.heading.inactive.bank.account.details" :"Inactive Bank Account Details",
     "error.msg.bank.account.association.invalid.status" : "Invalid bank account details association status",
     "label.heading.amountforupfrontcollection" : "Amount To Be Collected Upfront",
-    
+    "label.button.populate.emi.amount":"Populate EMI",
+    "label.button.populate.totalDue.amount":"Populate TotalDue",
     "------ end of translation file ------": "----------"
 }

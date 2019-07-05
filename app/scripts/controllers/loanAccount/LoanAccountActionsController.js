@@ -514,7 +514,7 @@
                         if(glimData.length>0 ){
                             scope.isGLIM = true;
                         }
-                        resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'repayment'}, function (data) {
+                        resourceFactory.loanTrxnsV2TemplateResource.get({loanId: scope.accountId, command: 'repayment'}, function (data) {
                             scope.paymentTypes = data.paymentTypeOptions;                            
                             scope.paymentModeOptions = data.paymentModeOptions;
                             scope.updatePaymentType(data.expectedPaymentId);
