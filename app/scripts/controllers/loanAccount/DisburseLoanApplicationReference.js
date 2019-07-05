@@ -38,7 +38,11 @@
             scope.isInvalid = false;
             scope.applicableOnRepayment = 1;
             scope.paymentTypes = [];
-
+            scope.showUpfrontAmount = true;
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createLoanApplication &&
+                scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField && scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.upfrontAmount) {
+                scope.showUpfrontAmount = !scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.upfrontAmount;
+            }
             resourceFactory.loanApplicationReferencesTemplateResource.get({
                 loanApplicationReferenceId: scope.loanApplicationReferenceId
             }, function (data) {

@@ -634,6 +634,15 @@
                                                         value="{{paymentType.id}}"></select>
                                             </td>
                                         </tr>
+                                        <tr data-ng-show="(showUpfrontAmount || !loanaccountinfo.loanEMIPacks) && loanaccountinfo.allowUpfrontCollection">
+                                            <td>
+                                                <label>{{ 'label.input.amountforupfrontcollection' | translate }}</label>
+                                            </td>
+                                            <td>
+                                                <input id="amountForUpfrontCollection" type="text" autocomplete="off" ng-model="formRequestData.submitApplication.amountForUpfrontCollection"
+                                                       class="form-control" number-format/>
+                                            </td>
+                                        </tr>
                                     </table>
                                     <hr>
                                     <div ng-if="showEmiDetailsInDisbursement">
@@ -1050,6 +1059,10 @@
                                 <td><span class="padded-td">{{loandetails.summary.totalOverdue | number}}<span
                                         data-ng-hide="loandetails.summary.totalOverdue>=0">{{'label.heading.notprovided' | translate}}</span></span>
                                 </td>
+                            </tr>
+                            <tr ng-show="showUpfrontAmount">
+                                <th class="table-bold-loan">{{'label.heading.amountforupfrontcollection' | translate}}</th>
+                                <td><span class="padded-td">{{loandetails.amountForUpfrontCollection | number}}</span></td>
                             </tr>
                         </table>
 

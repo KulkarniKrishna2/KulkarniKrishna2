@@ -7954,5 +7954,7 @@
     "label.heading.loanProduct.group.name":"Product Group Name",
     "label.heading.inactive.bank.account.details" :"Inactive Bank Account Details",
     "error.msg.bank.account.association.invalid.status" : "Invalid bank account details association status",
+    "label.heading.amountforupfrontcollection" : "Amount To Be Collected Upfront",
+    
     "------ end of translation file ------": "----------"
 }

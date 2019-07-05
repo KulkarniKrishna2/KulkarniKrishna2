@@ -41,6 +41,12 @@
             };
             
             scope.amountInvalid = false;
+            scope.showUpfrontAmount = true;
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createLoanApplication &&
+                scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField && scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.upfrontAmount) {
+                scope.showUpfrontAmount = !scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.upfrontAmount;
+            }
+            
             resourceFactory.loanApplicationReferencesTemplateResource.get({}, function (data) {
                 scope.paymentTypes = data.paymentOptions;
                 if (scope.paymentTypes) {
@@ -722,6 +728,9 @@
                         for(var i=0; i < len; i++){
                             if(scope.loanaccountinfo.loanEMIPacks[i].id == scope.formRequestData.disburse.loanEMIPackId){
                                 scope.loanEMIPack = scope.loanaccountinfo.loanEMIPacks[i];
+                                if(scope.showUpfrontAmount){
+                                    scope.formRequestData.submitApplication.amountForUpfrontCollection = scope.loanaccountinfo.loanEMIPacks[i].fixedEmi;
+                                }
                                 break;
                             }
                         }
@@ -750,7 +759,6 @@
                             scope.disbursalEMIs.push(scope.loanEMIPack.disbursalEmi4);
                         }
                         scope.updateExpectedDateTrancheDetails();
-                        
                         }
                     
                         }
