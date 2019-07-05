@@ -1842,6 +1842,9 @@
                     }),
                     creditBureauEnquiryHistoryResource: defineResource(apiVer + "/enquiry/creditbureau/history/:entityType/:entityId", {entityType: '@entityType',entityId: '@entityId'}, {
                         getAll: {method: 'GET', params: {}, isArray: true}
+                    }),
+                    loanTrxnsV2TemplateResource: defineResource(apiVer2 + "/loans/:loanId/transactions/template", {loanId: '@loanId'}, {
+                        get: {method: 'GET', params: {}}
                     })
                 };
             }];

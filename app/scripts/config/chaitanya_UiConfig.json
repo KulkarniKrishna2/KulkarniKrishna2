@@ -253,6 +253,11 @@
       "isHiddenField":{
         "viewHistoryCBReportButton":false
       }
+    },
+    "collectionSheet": {
+      "isAutoPopulate": {
+        "showEmiAmount": true
+      }
     }
   }
 }

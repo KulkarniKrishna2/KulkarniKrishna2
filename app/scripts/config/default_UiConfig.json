@@ -169,7 +169,8 @@
 		"collectionSheet": {
 			"isAutoPopulate": {
 				"paymentTypeOption": true,
-				"cashPaymentType": false
+				"cashPaymentType": false,
+				"showEmiAmount": false
 			},
 			"isHiddenFeild": {
 				"newtransactionDate": false,
