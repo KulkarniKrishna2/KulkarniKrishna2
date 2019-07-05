@@ -75,15 +75,37 @@
                   <strong class="ng-binding">{{'label.heading.documents' | translate}}</strong>
             </span>
         </div>
-        <div class="col-md-3" ng-repeat="document in clientdocumentverifications" ng-if="document.documents!=undefined && document.documents.length > 0">
-            <div >{{document.documentType.name}}</div>
-            <span ng-repeat="file in document.documents">
-					<a ng-click="showImageModal(file.name,hostUrl+file.docUrl)"><img ng-if="file.type.includes('image')" class="img-border" ng-src="{{hostUrl}}{{file.docUrl}}" width="50" height="50"></a>
-					<span ng-if="!file.type.includes('image')">{{file.name}}&nbsp;&nbsp;</span>
-
-					<a target="_blank" href="{{hostUrl}}{{file.docUrl}}" has-permission='READ_DOCUMENT'><i
-                            class="icon-cloud-download"></i></a>
-				</span>
+        <div ng-if="identitydocuments.length > 0">
+            <table class="table family-detail">
+                <thead>
+                    <tr>
+                        <th class="col-md-3"><h5><strong>{{'label.heading.documenttype' | translate}}</strong></h5></th>
+                        <th class="col-md-3"><h5><strong>{{'label.heading.name' | translate}}</strong></h5></th>
+                        <th class="col-md-3"><h5><strong>{{'label.heading.filename' | translate}}</strong></h5></th>
+                        <th class="col-md-3"><h5><strong>{{'label.heading.actions' | translate}}</strong></h5></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class= "client-family-details" ng-repeat="identitydocument in identitydocuments" >
+                        <td>{{identitydocument.documentType.name}}</td>
+                        <td colspan="9">
+                            <table width="100%" ng-repeat="document in identitydocument.documents">
+                                <tbody>
+                                    <tr>
+                                        <td class="col-md-4">{{document.name}}</td>
+                                        <td class="col-md-4">{{document.fileName}}</td>
+                                        <td class="col-md-4">
+                                            <a target="_blank" ng-click = "download(document)"><i class="icon-cloud-download"></i></a>&nbsp;
+                                            <a target="_blank" ng-click="viewIdentityDocument(document)">
+                                                    <i class="icon-eye-open text-success"></i></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    </tbody>
+            </table>
         </div>
     </div>
 

@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        NewcamActivityController: function ($controller, scope, resourceFactory, API_VERSION, location, dateFilter, http, routeParams, API_VERSION, $rootScope,localStorageService,$modal, $sce) {
+        NewcamActivityController: function ($controller, scope, resourceFactory, API_VERSION, location, dateFilter, http, routeParams, API_VERSION, $rootScope,localStorageService,$modal, $sce, CommonUtilService) {
             angular.extend(this, $controller('defaultActivityController', {$scope: scope}));
             scope.approveloanapplicationdetails = "";
             scope.status = 'SUMMARY';
@@ -22,18 +22,6 @@
                 scope.entityId = scope.loanApplicationReferenceId;
             };
             initTask();
-
-            scope.onApproval = function(){
-                location.path('/approveloanapplicationreference/' + getLoanApplicationId());
-            };
-
-            scope.onReject = function(){
-
-            };
-
-            function getLoanApplicationId(){
-                return scope.taskconfig['loanApplicationId'];
-            }
 
             scope.restrictDate = new Date();
 
@@ -76,41 +64,40 @@
                                     for (var l in data) {
 
                                         var loandocs = {};
-                                        loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier;
+                                        loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment';
                                         data[l].docUrl = loandocs;
+    
                                     }
                                     scope.identitydocuments[j].documents = data;
                                 }
                             }
                         });
                     }
+                    console.log(scope.identitydocuments);
+                    
                 });
 
-                try{
-                    resourceFactory.workDetailResource.get({clientId: scope.clientId}, function (data) {
-                        scope.workData = data;
+                scope.viewIdentityDocument = function(document){
+                    var url = $rootScope.hostUrl + document.docUrl;
+                    url = $sce.trustAsResourceUrl(url);
+                    http.get(url, { responseType: 'arraybuffer' }).
+                    success(function(data, status, headers, config) {
+                        var supportedContentTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'application/pdf', 'application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.presentationml.presentation', 'text/html', 'application/xml', 'text/plain'];
+                        var contentType = headers('Content-Type');
+                        var file = new Blob([data], { type: contentType });
+                        var fileContent = URL.createObjectURL(file);
+                        if (supportedContentTypes.indexOf(contentType) > -1) {
+                            var docData = $sce.trustAsResourceUrl(fileContent);
+                            window.open(docData);
+                        }
                     });
-                }catch(err){
-
                 }
+                
 
                 resourceFactory.familyDetails.getAll({clientId: scope.clientId}, function (data) {
                     scope.familyMembers = data;
                 });
-
-                try{
-                    resourceFactory.clientDocumentVerificationResource.get({clientId: scope.clientId}, function (data) {
-                        var accessToken = localStorageService.getFromLocalStorage("tokendetails").access_token;
-                        for (var l in data) {
-                            for( i in data[l].documents){
-                                data[l].documents[i].docUrl = API_VERSION + '/clients/' + scope.clientId + '/documents/' + data[l].documents[i].id + '/attachment?tenantIdentifier=' + $rootScope.tenantIdentifier+'&access_token='+accessToken;;
-                            }
-                        }
-                        scope.clientdocumentverifications = data;
-                    });
-                }catch(err){
-
-                }
+   
             }
             scope.incomeAndexpense = function(){
                 resourceFactory.incomeExpenseAndHouseHoldExpense.getAll({clientId: scope.clientId},function(data){
@@ -349,32 +336,6 @@
                 }
             };
 
-            scope.rejectApprovalLoanAppRef = function () {
-                resourceFactory.loanApplicationReferencesResource.update({
-                    loanApplicationReferenceId: scope.loanApplicationReferenceId,
-                    command: 'reject'
-                }, {}, function (data) {
-                    location.path('/viewclient/' + scope.formData.clientId);
-                });
-            };
-
-            scope.calculateTermFrequency = function () {
-                scope.formRequestData.termFrequency = (scope.formRequestData.repayEvery * scope.formRequestData.numberOfRepayments);
-                scope.formRequestData.termPeriodFrequencyEnum  = scope.formRequestData.repaymentPeriodFrequencyEnum;
-            };
-
-            scope.syncRepaymentsWithMeetingchange = function () {
-                if (!scope.formValidationData.syncRepaymentsWithMeeting) {
-                    scope.formValidationData.syncDisbursementWithMeeting = false;
-                }
-            };
-
-            scope.syncDisbursementWithMeetingchange = function () {
-                if (scope.formValidationData.syncDisbursementWithMeeting) {
-                    scope.formValidationData.syncRepaymentsWithMeeting = true;
-                }
-            };
-
             scope.$watch('formRequestData.expectedDisbursementDate', function () {
                 if (scope.formRequestData.loanApplicationSanctionTrancheDatas && scope.formRequestData.loanApplicationSanctionTrancheDatas[0]) {
                     if (scope.formRequestData.expectedDisbursementDate != '' && scope.formRequestData.expectedDisbursementDate != undefined) {
@@ -447,62 +408,7 @@
                 });
             };
 
-            scope.cancel = function () {
-                if (scope.formData.groupId) {
-                    location.path('/viewgroup/' + scope.formData.groupId);
-                } else if (scope.formData.clientId) {
-                    location.path('/viewclient/' + scope.formData.clientId);
-                }
-            };
-
-            scope.addTranches = function () {
-                var loanApplicationSanctionTrancheDatas = {};
-                loanApplicationSanctionTrancheDatas.fixedEmiAmount = scope.formData.fixedEmiAmount;
-                scope.formRequestData.loanApplicationSanctionTrancheDatas.push(loanApplicationSanctionTrancheDatas);
-            };
-
-            scope.deleteTranches = function (index) {
-                scope.formRequestData.loanApplicationSanctionTrancheDatas.splice(index, 1);
-            };
-
-            scope.addCharge = function () {
-                if (scope.chargeFormData.chargeId) {
-                    resourceFactory.chargeResource.get({chargeId: this.chargeFormData.chargeId, template: 'true'}, function (data) {
-                        data.chargeId = data.id;
-                        if(scope.productLoanCharges && scope.productLoanCharges.length > 0){
-                            for(var i in scope.productLoanCharges){
-                                if(scope.productLoanCharges[i].chargeData){
-                                    if(data.chargeId == scope.productLoanCharges[i].chargeData.id){
-                                        data.isMandatory = scope.productLoanCharges[i].isMandatory;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                        scope.charges.push(data);
-                        scope.chargeFormData.chargeId = undefined;
-                    });
-                }
-            };
-
-            scope.deleteCharge = function (index) {
-                scope.charges.splice(index, 1);
-            };
-
             scope.report = false;
-
-            scope.printDiv = function(print) {
-                var printContents = document.getElementById(print).innerHTML;
-                var popupWin = window.open('', '_blank', 'width=300,height=300');
-                popupWin.document.open();
-                popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="styles/repaymentscheduleprintstyle.css" />' +
-                    '</head><body onload="window.print()">' + printContents + '<br><br><table class="table"><tr><td width="210"><h4>Credit Officer</h4></td><td width="210"><h4>Branch Manager</h4></td><td><h4>Customer Signature</h4></td></tr></table></body></html>');
-                popupWin.document.close();
-            };
-
-            scope.backToLoanDetails = function () {
-                scope.report = false;
-            };
 
             scope.$on('activityApprove', function (event, data) {
                 if (!_.isUndefined(scope.approveloanapplicationform) && scope.approveloanapplicationform.$valid) {
@@ -579,180 +485,7 @@
             scope.cbStatusSuccess="SUCCESS";
             scope.cbStatusError="ERROR";
 
-
-
-            function constructActiveLoanSummary() {
-                if (scope.existingLoans) {
-                    for (var i in scope.existingLoans) {
-                        var existingLoan = scope.existingLoans[i];
-                        var isValidData = false;
-                        if (scope.loanId) {
-                            if (scope.loanId == scope.existingLoans[i].loanId) {
-                                isValidData = true;
-                            }
-                        } else if (scope.loanApplicationReferenceId == scope.existingLoans[i].loanApplicationId) {
-                            isValidData = true;
-                        }
-                        if (isValidData == true && existingLoan.source && existingLoan.source.name === 'Credit Bureau') {
-                            if (existingLoan.loanStatus && existingLoan.loanStatus.id === 300) {
-                                if (_.isUndefined(scope.activeLoan)) {
-                                    scope.viewCreditBureauReport = true;
-                                    scope.activeLoan = {};
-                                    scope.activeLoan.summaries = [];
-                                    scope.activeLoan.totalSummary = {};
-                                    scope.activeLoan.totalSummary.noOfActiveLoans = 0;
-                                    scope.activeLoan.totalSummary.totalOutstandingAmount = 0;
-                                    scope.activeLoan.totalSummary.totalEMIAmount = 0;
-                                    scope.activeLoan.totalSummary.totalOverDueAmount = 0;
-                                }
-                                if (existingLoan.lenderName) {
-                                    var isLenderPresent = false;
-                                    var summaty = {};
-                                    if (!isLenderPresent) {
-                                        summaty.lenderName = existingLoan.lenderName;
-                                        summaty.customerSince = existingLoan.disbursedDate;
-                                        summaty.noOfActiveLoans = 1;
-                                        summaty.totalOutstandingAmount = existingLoan.currentOutstanding;
-                                        summaty.totalEMIAmount = convertEMIAmountToMonthlyAmount(existingLoan);
-                                        summaty.disbursalDate = existingLoan.disbursedDate;
-                                        summaty.totalOverDueAmount = existingLoan.amtOverdue;
-                                        scope.activeLoan.summaries.push(summaty);
-                                    }
-                                    scope.activeLoan.totalSummary.noOfActiveLoans += 1;
-                                    scope.activeLoan.totalSummary.totalOutstandingAmount += existingLoan.currentOutstanding;
-                                    scope.activeLoan.totalSummary.totalEMIAmount += convertEMIAmountToMonthlyAmount(existingLoan);
-                                    scope.activeLoan.totalSummary.totalOverDueAmount += existingLoan.amtOverdue;
-                                }
-                            }
-                        }
-                    }
-                    if (!_.isUndefined(scope.activeLoan) && !_.isUndefined(scope.activeLoan.summaries)) {
-                        if (scope.activeLoan.summaries.length > 0) {
-                            scope.isReportPresent = true;
-                        }
-                    }
-                }
-            };
-
-            function convertEMIAmountToMonthlyAmount(existingLoan) {
-                if (existingLoan.loanTenurePeriodType.value.toLowerCase() === 'months') {
-                    return existingLoan.installmentAmount;
-                } else if (existingLoan.loanTenurePeriodType.value.toLowerCase() === 'weeks') {
-                    if (existingLoan.repaymentFrequencyMultipleOf && existingLoan.repaymentFrequencyMultipleOf === 2) {
-                        return convertBIWeeklyEMIAmountToMonthly(existingLoan);
-                    } else {
-                        return convertWeeklyEMIAmountToMonthly(existingLoan);
-                    }
-                } else if (existingLoan.loanTenurePeriodType.value.toLowerCase() === 'days') {
-                    return convertDailyEMIAmountToMonthly(existingLoan);
-                } else {
-                    return 0.00;
-                }
-            };
-
-            function convertWeeklyEMIAmountToMonthly(existingLoan) {
-                return (existingLoan.installmentAmount / 7) * 30;
-            };
-
-            function convertBIWeeklyEMIAmountToMonthly(existingLoan) {
-                return (existingLoan.installmentAmount / 14) * 30;
-            };
-
-            function convertDailyEMIAmountToMonthly(existingLoan) {
-                return existingLoan.installmentAmount * 30;
-            };
-
-            function constructClosedLoanSummary() {
-                if (scope.existingLoans) {
-                    for (var i in scope.existingLoans) {
-                        var existingLoan = scope.existingLoans[i];
-                        var isValidData = false;
-                        if (scope.loanId) {
-                            if (scope.loanId == scope.existingLoans[i].loanId) {
-                                isValidData = true;
-                            }
-                        } else if (scope.loanApplicationReferenceId == scope.existingLoans[i].loanApplicationId) {
-                            isValidData = true;
-                        }
-                        if (isValidData == true && existingLoan.source && existingLoan.source.name === 'Credit Bureau') {
-                            if (existingLoan.loanStatus && existingLoan.loanStatus.id === 600) {
-                                if (_.isUndefined(scope.closedLoan)) {
-                                    scope.closedLoan = {};
-                                    scope.closedLoan.summaries = [];
-                                    scope.closedLoan.totalSummary = {};
-                                    scope.closedLoan.totalSummary.noOfClosedLoans = 0;
-                                    scope.closedLoan.totalSummary.totalDisbursalAmount = 0;
-                                    scope.closedLoan.totalSummary.totalWriteOffAmount = 0;
-                                }
-                                if (existingLoan.lenderName) {
-                                    var isLenderPresent = false;
-                                    var summaty = {};
-                                    if (!isLenderPresent) {
-                                        summaty.lenderName = existingLoan.lenderName;
-                                        summaty.customerSince = existingLoan.disbursedDate;
-                                        summaty.noOfClosedLoans = 1;
-                                        summaty.totalDisbursalAmount = existingLoan.amountBorrowed;
-                                        if (existingLoan.closedDate) {
-                                            summaty.lastClosureDate = existingLoan.closedDate;
-                                        }
-                                        summaty.totalWriteOffAmount = existingLoan.writtenOffAmount;
-                                        scope.closedLoan.summaries.push(summaty);
-                                    }
-                                    scope.closedLoan.totalSummary.noOfClosedLoans += 1;
-                                    scope.closedLoan.totalSummary.totalDisbursalAmount += existingLoan.amountBorrowed;
-                                    scope.closedLoan.totalSummary.totalWriteOffAmount += existingLoan.writtenOffAmount;
-                                }
-                            }
-                        }
-                        if (!_.isUndefined(scope.closedLoan) && !_.isUndefined(scope.closedLoan.summaries)) {
-                            if (scope.closedLoan.summaries.length > 0) {
-                                scope.isReportPresent = true;
-                            }
-                        }
-                    }
-                }
-            };
-
             scope.isReportPresent = false;
-            function constructLoanSummary() {
-                if (!_.isUndefined(scope.activeLoan)) {
-                    delete scope.activeLoan;
-                }
-                if (!_.isUndefined(scope.closedLoan)) {
-                    delete scope.closedLoan;
-                }
-                constructActiveLoanSummary();
-                constructClosedLoanSummary();
-                findcustomerSinceFromEachMFI();
-            };
-
-            function findcustomerSinceFromEachMFI() {
-                if (scope.activeLoan && scope.activeLoan.summaries && scope.activeLoan.summaries.length > 0) {
-                    if (scope.closedLoan && scope.closedLoan.summaries && scope.closedLoan.summaries.length > 0) {
-                        for (var i in scope.activeLoan.summaries) {
-                            for (var j in scope.closedLoan.summaries) {
-                                if (scope.activeLoan.summaries[i].lenderName === scope.closedLoan.summaries[j].lenderName) {
-                                    if (scope.activeLoan.summaries[i].customerSince > scope.closedLoan.summaries[j].customerSince) {
-                                        scope.activeLoan.summaries[i].customerSince = scope.closedLoan.summaries[j].customerSince
-                                    } else if (scope.closedLoan.summaries[j].customerSince > scope.activeLoan.summaries[i].customerSince) {
-                                        scope.closedLoan.summaries[i].customerSince = scope.activeLoan.summaries[j].customerSince
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            };
-
-            var confirmCbEnquiryCtrl = function ($scope, $modalInstance) {
-                $scope.initiateCBEnquiry = function () {
-                    $modalInstance.close('initiateCBEnquiry');
-                    location.path('/create/creditbureau/client/' + scope.clientId);
-                };
-                $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
-                };
-            };
 
             scope.routeToViewCBReport = function (id) {
                 location.path('/clients/'+scope.clientId+'/view/creditbureau/'+id+'/summary');
@@ -763,59 +496,6 @@
                  location.path('/clients/'+scope.clientId+'/view/creditbureau/'+id+'/summary').search({
                          fetchType:scope.fetchType});
              };
-
-            scope.routeToLoanNextAction = function (loan) {
-                var loanId = loan.id;
-                var trancheDisbursalId = undefined;
-                if(loan.productId){
-                    scope.isTrancheDisbursalCreditCheck = scope.isSystemGlobalConfigurationEnabled('tranche-disbursal-credit-check');
-                    if (scope.isTrancheDisbursalCreditCheck == true) {
-                        scope.isCreditCheck = scope.isSystemGlobalConfigurationEnabled('credit-check');
-                        if (scope.isCreditCheck == true) {
-                            resourceFactory.loanProductResource.getCreditbureauLoanProducts({
-                                loanProductId: loan.productId,
-                                associations: 'creditBureaus',
-                                clientId : scope.clientId
-                            }, function (creditbureauLoanProduct) {
-                                scope.creditbureauLoanProduct = creditbureauLoanProduct;
-                                if (scope.creditbureauLoanProduct.isActive == true) {
-                                    scope.isCBCheckReq = true;
-                                    var multiTranchDataRequest = "multiDisburseDetails,emiAmountVariations";
-                                    var loanApplicationReferenceId = "loanApplicationReferenceId";
-                                    resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: loanId,  associations:multiTranchDataRequest+",loanApplicationReferenceId", exclude: 'guarantors'}, function (data) {
-                                        scope.loandetails = data;
-                                        if(!_.isUndefined(scope.loandetails.disbursementDetails)){
-                                            var expectedDisbursementDate = undefined;
-                                            for(var i in scope.loandetails.disbursementDetails){
-                                                if(_.isUndefined(scope.loandetails.disbursementDetails[i].actualDisbursementDate)){
-                                                    if(_.isUndefined(expectedDisbursementDate)){
-                                                        expectedDisbursementDate = scope.loandetails.disbursementDetails[i].expectedDisbursementDate;
-                                                        trancheDisbursalId = scope.loandetails.disbursementDetails[i].id;
-                                                    }else{
-                                                        if(expectedDisbursementDate > scope.loandetails.disbursementDetails[i].expectedDisbursementDate){
-                                                            expectedDisbursementDate = scope.loandetails.disbursementDetails[i].expectedDisbursementDate;
-                                                            trancheDisbursalId = scope.loandetails.disbursementDetails[i].id;
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        routeToLoanNextActionUrl(loanId,trancheDisbursalId);
-                                    });
-                                }else{
-                                    routeToLoanNextActionUrl(loanId,trancheDisbursalId);
-                                }
-                            });
-                        }else{
-                            routeToLoanNextActionUrl(loanId,trancheDisbursalId);
-                        }
-                    }else{
-                        routeToLoanNextActionUrl(loanId,trancheDisbursalId);
-                    }
-                }else{
-                    routeToLoanNextActionUrl(loanId,trancheDisbursalId);
-                }
-            };
 
             scope.clientCreditBureauReportSummaryLoaded = false;
             scope.getCreditBureauReportSummary = function () {
@@ -860,6 +540,12 @@
                 scope.creditBureauEnquiriesHistory = paginatorUsingOffsetService.paginate(viewCBEnquiryHistory, scope.limitForCBHistory);
             };
 
+            scope.download = function(file){
+                var url =$rootScope.hostUrl + file.docUrl;
+                var fileType = file.fileName.substr(file.fileName.lastIndexOf('.') + 1);
+                CommonUtilService.downloadFile(url,fileType);
+            }
+
             scope.viewEnquiryDocument = function(enquiryId, reportEntityType) {
                 var reportEntityType = "CreditBureau";
                 var url = $rootScope.hostUrl + '/fineract-provider/api/v1/enquiry/creditbureau/' + reportEntityType + '/' +
@@ -879,23 +565,9 @@
             };
 
             scope.isReportPresent = false;
-          /*  function constructLoanSummary() {
-                if (!_.isUndefined(scope.activeLoan)) {
-                    delete scope.activeLoan;
-                }
-                if (!_.isUndefined(scope.closedLoan)) {
-                    delete scope.closedLoan;
-                }
-                constructActiveLoanSummary();
-                constructClosedLoanSummary();
-            };*/
 
             scope.getNumberArray = function(num) {
                 return new Array(num);
-            };
-
-            scope.runCriteriaCheck = function(){
-                scope.taskCriteriaCheck();
             };
 
             scope.showImageModal = function (name, imageUrl) {
@@ -924,7 +596,6 @@
                 scope.formData.outputType = 'PDF';
                 scope.baseURL = $rootScope.hostUrl + API_VERSION + "/runreports/" + encodeURIComponent("TW CAM Report");
                 scope.baseURL += "?output-type=" + encodeURIComponent(scope.formData.outputType)+"&locale="+scope.optlang.code;
-
                 var reportParams = "";
                 var paramName = "R_loanApplicationId";
                 reportParams += encodeURIComponent(paramName) + "=" + encodeURIComponent(scope.loanApplicationReferenceId);
@@ -939,12 +610,14 @@
                     var file = new Blob([data], { type: contentType });
                     var fileContent = URL.createObjectURL(file);
                     scope.viewReportDetails = $sce.trustAsResourceUrl(fileContent);
+                    window.open(scope.viewReportDetails);
                 });
 
             };
+            
         }
     });
-    mifosX.ng.application.controller('NewcamActivityController', ['$controller','$scope', 'ResourceFactory', 'API_VERSION', '$location', 'dateFilter','$http', '$routeParams', 'API_VERSION', '$rootScope','localStorageService','$modal', '$sce', mifosX.controllers.NewcamActivityController]).run(function ($log) {
+    mifosX.ng.application.controller('NewcamActivityController', ['$controller','$scope', 'ResourceFactory', 'API_VERSION', '$location', 'dateFilter','$http', '$routeParams', 'API_VERSION', '$rootScope','localStorageService','$modal', '$sce', 'CommonUtilService', mifosX.controllers.NewcamActivityController]).run(function ($log) {
         $log.info("NewcamActivityController initialized");
     });
 }(mifosX.controllers || {}));

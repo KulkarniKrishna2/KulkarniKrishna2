@@ -7957,5 +7957,7 @@
     "label.heading.amountforupfrontcollection" : "Amount To Be Collected Upfront",
     "label.button.populate.emi.amount":"Populate EMI",
     "label.button.populate.totalDue.amount":"Populate TotalDue",
+    "label.heading.documenttype": "Document type",
+    
     "------ end of translation file ------": "----------"
 }
