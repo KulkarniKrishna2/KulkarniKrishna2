@@ -526,6 +526,11 @@
                                 if (data.penaltyChargesPortion > 0) {
                                     scope.showPenaltyPortionDisplay = true;
                                 }
+                                if(data.fixedEmiAmount){
+                                    scope.showEMIAmountField = true;
+                                    scope.showEmiAmount = true;
+                                    scope.fixedEmiAmount = data.fixedEmiAmount;
+                                }
                             }
                             if(data.loanOverdueChargeData){
                                 scope.penaltyamount = data.penaltyChargesPortion;

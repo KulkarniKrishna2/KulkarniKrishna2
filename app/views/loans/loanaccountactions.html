@@ -535,11 +535,11 @@
 
     <div class="form-group" ng-if="showEMIAmountField  && !(isLoanEmiPackEnabled  && (action =='approve' || action =='disburse'))">
         <label class="control-label col-sm-2" for="fixedEmiAmount">{{ 'label.input.fixedemiamount' | translate}}</label>
-
-        <div class="col-sm-3">
+        <div class="col-sm-3" ng-show = "showEmiAmount">{{fixedEmiAmount | number}}</div>
+        <div class="col-sm-3" ng-hide = "showEmiAmount">
             <input id="transactionAmount" type="text" autocomplete="off" class="form-control" name="amount"
                    ng-model="formData.fixedEmiAmount">
-        </div>
+        </div>       
     </div>
 
     <div ng-show="isTransaction">
