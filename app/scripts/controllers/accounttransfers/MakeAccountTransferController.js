@@ -163,9 +163,9 @@
                
                 resourceFactory.accountTransferResource.save(requestFormData, function (data) {
                     if (params.fromAccountType == 1) {
-                        location.path('/viewloanaccount/' + data.loanId);
+                        location.path('/viewloanaccount/' + params.fromAccountId);
                     } else if (params.fromAccountType == 2) {
-                        location.path('/viewsavingaccount/' + data.savingsId);
+                        location.path('/viewsavingaccount/' + params.fromAccountId);
                     }
                 });
             };
