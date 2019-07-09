@@ -10,7 +10,7 @@
             scope.depositType ;
 
 
-            resourceFactory.savingsResource.get({accountId: routeParams.id, template: 'true'}, function (data) {
+            resourceFactory.savingsResource.get({accountId: routeParams.id, template: 'true', staffInSelectedOfficeOnly: 'true'}, function (data) {
                 if(data.fieldOfficerOptions) {
                     scope.fieldOfficers = data.fieldOfficerOptions;
                     scope.formData.toSavingsOfficerId = data.fieldOfficerOptions[0].id;

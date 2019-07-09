@@ -64,6 +64,7 @@
 
             scope.changeProduct = function () {
                 scope.inparams.productId = scope.formData.productId;
+                scope.inparams.staffInSelectedOfficeOnly = true;
                 resourceFactory.recurringDepositAccountTemplateResource.get(scope.inparams, function (data) {
 
                     scope.data = data;
