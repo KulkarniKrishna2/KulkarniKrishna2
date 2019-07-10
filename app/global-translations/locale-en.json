@@ -7958,6 +7958,11 @@
     "label.button.populate.emi.amount":"Populate EMI",
     "label.button.populate.totalDue.amount":"Populate TotalDue",
     "label.heading.documenttype": "Document type",
+    "label.heading.client.identifier" : " Client Identifier " ,
+    "label.input.applicant.name" : " Applicant Name ", 
+    "label.heading.applicant.image" : "Applicant Image" , 
+    "label.heading.applicant.address" : "Applicant Address" ,
+
     
     "------ end of translation file ------": "----------"
 }
