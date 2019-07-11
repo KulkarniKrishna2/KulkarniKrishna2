@@ -7977,7 +7977,6 @@
     "validation.msg.fixeddeposit.closeDate.cannot.be.before.start.date" : "Product close date cannot be before start date" ,
     "validation.msg.savingsproduct.closeDate.cannot.be.before.start.date" : "Product close date cannot be before start date" ,
     "validation.msg.recurringdeposit.closeDate.cannot.be.before.start.date" : "Product close date cannot be before start date" ,
-
     "label.heading.finfluxId":"Finflux Id",
     "label.anchor.officeTaxMappings":"Office Tax Mappings",
     "label.anchor.screenforOfficeTaxMappings":"Screen for Office Tax Mappings",
@@ -7989,6 +7988,6 @@
     "label.anchor.officeType": "Office Type",
     "label.anchor.deactivated.users": "Deactivated Users",
     "label.anchor.reactivate.user": "Reactivate User",
-    
+    "validation.msg.aadhaar.uniqueId.invalid.format" : "Aadhaar id is invalid",
     "------ end of translation file ------": "----------"
 }
