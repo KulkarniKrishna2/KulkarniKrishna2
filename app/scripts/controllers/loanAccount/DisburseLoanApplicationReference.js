@@ -266,6 +266,10 @@
                         scope.groupName = data.group.name;
                     }
 
+                    if(scope.loanaccountinfo.allowUpfrontCollection && scope.showUpfrontAmount){
+                        scope.upfrontAmount = true;
+                    }
+                    
                     if (scope.loanaccountinfo.calendarOptions) {
                         scope.formRequestData.submitApplication.syncRepaymentsWithMeeting = true;
                         if (scope.response && !scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.syncDisbursementWithMeeting) {
