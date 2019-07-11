@@ -22,6 +22,7 @@
 
             scope.isStaffMandatory = false;
             scope.isStaffRequired = false;
+            scope.showMiddleName = true;
             if($rootScope.tenantIdentifier == "chaitanya"){
                 scope.isDateOfBirthMandatory = true;
             }
