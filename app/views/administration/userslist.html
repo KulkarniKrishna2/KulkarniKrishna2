@@ -21,6 +21,8 @@
         </tab>
         <tab heading="{{'label.self.service.user' | translate}}" select="fetchUsers('selfServiceUser')">
         </tab>
+        <tab heading="{{'label.anchor.deactivated.users' | translate}}" select="fetchUsers('deactivatedUser')">
+        </tab>
     </tabset>
     <table class="table">
         <thead>
@@ -30,6 +32,7 @@
             <th>{{'label.heading.email' | translate}}</th>
             <th>{{'label.heading.lastlogintime' | translate}}</th>
             <th>{{'label.heading.office' | translate}}</th>
+            <th ng-if="currentUserType=='deactivatedUser'">{{'label.heading.actions' | translate}}</th>
         </tr>
         </thead>
         <tbody>
@@ -39,6 +42,10 @@
             <td class="pointer" data-ng-click="routeTo(user.id)">{{user.email}}</td>
             <td class="pointer" data-ng-click="routeTo(user.id)">{{user.lastLoginDate}}</td>
             <td class="pointer" data-ng-click="routeTo(user.id)">{{user.officeName}}</td>
+            <td class="pointer" ng-if="currentUserType=='deactivatedUser'"><button type="button" class="btn btn-primary"
+                    data-ng-click="activateUser(user.id)" has-permission='REACTIVATE_USER'>
+                    {{'label.achor.activate' | translate}}
+                </button></td>
         </tr>
         <tr ng-if="users.isResponsePresent && users.currentPageItems.length == 0">
             <td>
