@@ -117,7 +117,7 @@
                         scope.formData.loanEMIPackId = scope.loanaccountinfo.loanEMIPacks[0].id;
                         scope.formData.loanAmountRequested = scope.loanaccountinfo.loanEMIPacks[0].sanctionAmount;
                         scope.formData.numberOfRepayments = scope.loanaccountinfo.loanEMIPacks[0].numberOfRepayments;
-                        if(scope.showUpfrontAmount){
+                        if(scope.showUpfrontAmount && scope.loanaccountinfo.allowUpfrontCollection){
                             scope.formData.amountForUpfrontCollection = scope.loanaccountinfo.loanEMIPacks[0].fixedEmi;
                         }
                     }else{
@@ -322,7 +322,7 @@
                         if(scope.loanaccountinfo.loanEMIPacks[i].id == scope.formData.loanEMIPackId){
                             var loanAmountRequested = scope.loanaccountinfo.loanEMIPacks[i].sanctionAmount;
                             var numberOfRepayments = scope.loanaccountinfo.loanEMIPacks[i].numberOfRepayments;
-                            if(scope.showUpfrontAmount){
+                            if(scope.showUpfrontAmount && scope.loanaccountinfo.allowUpfrontCollection){
                                 scope.formData.amountForUpfrontCollection = scope.loanaccountinfo.loanEMIPacks[i].fixedEmi;
                             }
                             scope.updateSlabBasedAmountChargeAmount(loanAmountRequested , numberOfRepayments);
@@ -582,7 +582,7 @@
 
 
                 if(this.loanaccountinfo.loanEMIPacks && scope.formData.loanEMIPackId){
-                    if(this.formPreviewRepaymentData.amountForUpfrontCollection && !showUpfrontAmount){
+                    if(this.formPreviewRepaymentData.amountForUpfrontCollection){
                         delete this.formPreviewRepaymentData.amountForUpfrontCollection;
                     }
                     if(this.formPreviewRepaymentData.discountOnDisbursalAmount){

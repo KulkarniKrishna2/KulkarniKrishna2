@@ -42,6 +42,7 @@
             
             scope.amountInvalid = false;
             scope.showUpfrontAmount = true;
+            scope.upfrontAmount = false;
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createLoanApplication &&
                 scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField && scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.upfrontAmount) {
                 scope.showUpfrontAmount = !scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.upfrontAmount;
@@ -193,6 +194,9 @@
                 scope.inparams.productId = loanProductId;
                 resourceFactory.loanResource.get(scope.inparams, function (data) {
                     scope.loanaccountinfo = data;
+                    if(scope.loanaccountinfo.allowUpfrontCollection && scope.showUpfrontAmount){
+                        scope.upfrontAmount = true;
+                    }
                     if (data.clientName) {
                         scope.clientName = data.clientName;
                         if(!data.isClientVerified && scope.enableClientVerification){
@@ -728,7 +732,7 @@
                         for(var i=0; i < len; i++){
                             if(scope.loanaccountinfo.loanEMIPacks[i].id == scope.formRequestData.disburse.loanEMIPackId){
                                 scope.loanEMIPack = scope.loanaccountinfo.loanEMIPacks[i];
-                                if(scope.showUpfrontAmount){
+                                if(scope.upfrontAmount){
                                     scope.formRequestData.submitApplication.amountForUpfrontCollection = scope.loanaccountinfo.loanEMIPacks[i].fixedEmi;
                                 }
                                 break;

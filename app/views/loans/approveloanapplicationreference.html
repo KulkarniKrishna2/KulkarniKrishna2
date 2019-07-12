@@ -242,7 +242,7 @@
                                         <th><label>{{ 'label.input.loanaccountnumber' | translate }}:</label>&nbsp;</th>
                                         <td>{{formData.loanAccountNum}}</td>
                                     </tr>
-                                    <tr ng-show="showUpfrontAmount || !loanaccountinfo.loanEMIPackData">
+                                    <tr ng-show="upfrontAmount">
                                        <th><label>{{ 'label.input.amountforupfrontcollection' | translate }}:</label>&nbsp;</th>
                                         <td>{{formData.amountForUpfrontCollection}}</td>
                                     </tr>
@@ -643,7 +643,7 @@
                                         <input ng-autofocus="true" ng-model="filterText" type="text" autocomplete="off" ng-keyup="onFilter()" class="form-control width100" placeholder="{{'label.input.filterbytext' | translate}}"/>
                                     </td>
                                 </tr>
-                                <tr ng-show="(showUpfrontAmount || !loanaccountinfo.loanEMIPacks) && loanaccountinfo.allowUpfrontCollection">
+                                <tr ng-show="upfrontAmount">
                                     <td class="width19">
                                         <label>{{ 'label.input.amountforupfrontcollection' | translate }}</label>
                                     </td>

@@ -162,7 +162,7 @@
                         }
                         if(scope.loanaccountinfo.loanEMIPacks){
                             scope.formData.loanEMIPackId = scope.loanaccountinfo.loanEMIPacks[0].id;
-                            if(scope.showUpfrontAmount){
+                            if(scope.showUpfrontAmount && scope.loanaccountinfo.allowUpfrontCollection){
                                 scope.formData.amountForUpfrontCollection = scope.loanaccountinfo.loanEMIPacks[0].fixedEmi;
                             }
                         }else{
@@ -215,18 +215,12 @@
                     }else{
                         if(scope.applicationData.loanEMIPackData){
                             scope.formData.loanEMIPackId = scope.applicationData.loanEMIPackData.id;
-                            if(scope.showUpfrontAmount){
-                                scope.updateAmountForUpfrontCollection();
-                            }
                         }else{
                             scope.formData.loanAmountRequested = scope.applicationData.loanAmountRequested;
                             scope.formData.numberOfRepayments = scope.applicationData.numberOfRepayments;
                             scope.formData.repaymentPeriodFrequencyEnum = scope.applicationData.repaymentPeriodFrequency.id;
                             scope.formData.repayEvery = scope.applicationData.repayEvery;
                             scope.formData.fixedEmiAmount = scope.applicationData.fixedEmiAmount;
-                            if(scope.showUpfrontAmount){
-                                scope.formData.amountForUpfrontCollection = scope.formData.fixedEmiAmount;
-                            }
                             delete scope.formData.loanEMIPackId;
                         }
                         scope.formData.externalIdOne = scope.applicationData.externalIdOne;
@@ -317,7 +311,7 @@
                             scope.charges[i] = scope.updateChargeForSlab(scope.charges[i]);
                         }
                     }
-                    if(scope.showUpfrontAmount){
+                    if(scope.showUpfrontAmount && scope.loanaccountinfo.allowUpfrontCollection){
                         scope.updateAmountForUpfrontCollection();
                     }
                 }
@@ -627,7 +621,7 @@
                 }
 
                 if(this.loanaccountinfo.loanEMIPacks && scope.formData.loanEMIPackId){
-                    if(scope.calculateLoanScheduleData.amountForUpfrontCollection){
+                    if(scope.calculateLoanScheduleData.amountForUpfrontCollection && !showUpfrontAmount && !scope.loanaccountinfo.allowUpfrontCollection){
                         delete scope.calculateLoanScheduleData.amountForUpfrontCollection;
                     }
                     if(scope.calculateLoanScheduleData.discountOnDisbursalAmount){
