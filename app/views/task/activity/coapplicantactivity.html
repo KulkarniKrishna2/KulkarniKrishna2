@@ -295,7 +295,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="pointer-main" ng-repeat="applicant in coapplicants">
+                    <tr class="pointer-main" ng-repeat="applicant in coapplicants" ng-click="routeToClient(applicant.clientId)">
                         <td class="pointer">
                             <i class="icon-stop {{applicant.status.code | StatusLookup}}" tooltip="{{applicant.status.value}}"></i>
                         </td>
