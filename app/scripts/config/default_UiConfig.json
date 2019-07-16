@@ -459,7 +459,7 @@
 			"showMembersStepsInfo": false,
 			"isHiddenField": {
 				"surveyWeight" : false,
-				"surveyMaxScore" : false,
+				"surveyScore" : false,
 				"expenseAmount" : false,
 				"houseHoldExpense" : false
 			}

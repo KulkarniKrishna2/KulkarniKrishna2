@@ -239,7 +239,7 @@
       },
       "isHiddenField": {
 				"surveyWeight" : true,
-        "surveyMaxScore" : true,
+        "surveyScore" : true,
         "expenseAmount" : true,
         "houseHoldExpense" : true
 			}

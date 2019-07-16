@@ -16,11 +16,11 @@
             scope.isSurveyForOthers = false;
             scope.isSurveyDone = true;
             scope.showSurveyWeight = true;
-            scope.showSurveyMaxScore = true;
+            scope.showSurveyScore = true;
 
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow && scope.response.uiDisplayConfigurations.workflow.isHiddenField){
                 scope.showSurveyWeight = !scope.response.uiDisplayConfigurations.workflow.isHiddenField.surveyWeight;
-                scope.showSurveyMaxScore = !scope.response.uiDisplayConfigurations.workflow.isHiddenField.surveyMaxScore;
+                scope.showSurveyScore = !scope.response.uiDisplayConfigurations.workflow.isHiddenField.surveyScore;
             }
 
             function initTask() {
