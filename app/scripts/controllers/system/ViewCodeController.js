@@ -6,6 +6,8 @@
             scope.newcode = {};
             scope.codename = {};
             scope.enableparentOptions = false;
+            scope.requestoffset = 0;
+            scope.limit = 15;
             resourceFactory.codeResources.get({codeId: routeParams.id}, function (data) {
                 scope.code = data;
                 scope.codename.name = data.name;
@@ -16,10 +18,14 @@
                     });
                 }
             });
-            resourceFactory.codeValueResource.getAllCodeValues({codeId: routeParams.id}, function (data) {
-                scope.codevalues = data;
-            });
 
+            scope.init = function(){
+                resourceFactory.codeValueResource.getAllCodeValues({codeId: routeParams.id, offset: scope.requestoffset, limit:scope.limit}, function (data) {
+                    scope.codevalues = data;
+                });
+            }
+            scope.init();
+           
             scope.delCode = function () {
                 $modal.open({
                     templateUrl: 'deletecode.html',
@@ -105,6 +111,23 @@
                     $modalInstance.dismiss('cancel');
                 };
             };
+
+            scope.previousCodeValuesRequest= function(){
+                if(scope.requestoffset != 0){
+                    scope.requestoffset = scope.requestoffset - scope.limit;
+                    if(scope.requestoffset <= 0){
+                        scope.requestoffset = 0;
+                    }
+                    scope.init();
+                }
+            } 
+
+            scope.nextCodeValuesRequest= function(){
+                if(scope.codevalues.length == scope.limit){
+                    scope.requestoffset = scope.requestoffset + scope.limit;
+                    scope.init();
+                }
+            } 
 
         }
     });
