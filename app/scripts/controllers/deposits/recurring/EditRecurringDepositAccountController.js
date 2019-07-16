@@ -13,7 +13,7 @@
             scope.fromDate = {}; //required for date formatting
             scope.endDate = {};//required for date formatting
 
-            resourceFactory.recurringDepositAccountResource.get({accountId: scope.accountId, template: 'true', associations: 'charges'}, function (data) {
+            resourceFactory.recurringDepositAccountResource.get({accountId: scope.accountId, template: 'true', associations: 'charges', staffInSelectedOfficeOnly: 'true'}, function (data) {
                 scope.data = data;
                 scope.charges = data.charges || [];
                 if (scope.charges) {
@@ -104,6 +104,7 @@
                 var inparams = {productId: scope.formData.productId};
                 if (scope.formData.clientId) inparams.clientId = scope.formData.clientId;
                 if (scope.formData.groupId) inparams.groupId = scope.formData.groupId;
+                inparams.staffInSelectedOfficeOnly = true;
                 resourceFactory.recurringDepositAccountTemplateResource.get(inparams, function (data) {
 
                     scope.data = data;
