@@ -28,6 +28,9 @@
 			"AdditionalDetailsValidation": {
 				"profileRatingPercentage": 100
 			},
+			"PGFValidation": {
+				"profileRatingPercentage": 80
+			},
 			"hiddenFields": {
 				"reviewCB": true,
 				"sendToCBReview": false
