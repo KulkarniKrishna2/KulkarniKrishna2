@@ -418,27 +418,6 @@
                 }
             });
 
-            scope.doPreTaskActionStep = function(actionName){
-                if(actionName === 'approve'){
-                    if(scope.approvalType != undefined && scope.approvalType == "lenderApprove"){
-                        resourceFactory.loanApplicationReferencesResource.update({
-                            loanApplicationReferenceId: scope.loanApplicationReferenceId,
-                            command: 'lenderApprove'
-                        }, {}, function (data) {
-                            scope.doActionAndRefresh(actionName);
-                        });
-                    }else{
-                        if (!_.isUndefined(scope.approveloanapplicationform) && scope.approveloanapplicationform.$valid) {
-                            scope.submit(function (){
-                                scope.doActionAndRefresh(actionName);
-                            });
-                        }
-                    }
-                }else{
-                    scope.doActionAndRefresh(actionName);
-                }
-            };
-
             scope.calculateOccupationTotal = function(){
                 var total = 0;
                 angular.forEach(scope.incomeAndExpenses, function(data){
