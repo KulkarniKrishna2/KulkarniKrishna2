@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CBReviewController: function (scope, resourceFactory, paginatorUsingOffsetService, $rootScope, $sce, $http, $modal, route, dateFilter) {
+        CBReviewController: function (scope, resourceFactory, paginatorUsingOffsetService, $rootScope, $sce, $http, $modal, route, dateFilter,location) {
             scope.offices = [];
             scope.formData = {};
             scope.limit = 15;
@@ -40,7 +40,10 @@
                 });
             };
 
-
+            scope.routeToViewClient = function(clientId){
+                location.path('/viewclient/' + clientId);
+            };
+            
             scope.getOfficeTemplateData = function () {
                 scope.centerOptions = [];
                 scope.loanOfficers = [];
@@ -124,7 +127,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('CBReviewController', ['$scope', 'ResourceFactory', 'PaginatorUsingOffsetService', '$rootScope', '$sce', '$http', '$modal', '$route', 'dateFilter', mifosX.controllers.CBReviewController]).run(function ($log) {
+    mifosX.ng.application.controller('CBReviewController', ['$scope', 'ResourceFactory', 'PaginatorUsingOffsetService', '$rootScope', '$sce', '$http', '$modal', '$route', 'dateFilter','$location', mifosX.controllers.CBReviewController]).run(function ($log) {
         $log.info("CBReviewController initialized");
     });
 }(mifosX.controllers || {}));
