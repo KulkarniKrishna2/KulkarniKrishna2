@@ -19,7 +19,7 @@
             scope.reschedule = false;
             scope.noDataFound = false;
 
-            resourceFactory.officeResource.getAllOffices(function (data) {
+            resourceFactory.officeResource.getAllOffices({onlyActive: true}, function (data) {
                 scope.offices = data;
             });
 

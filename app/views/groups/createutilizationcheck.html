@@ -81,7 +81,6 @@
                                     <select id="loanPurposeId"
                                             name="loanPurpose"
                                             ng-model="utilizationDetails.loanPurposeId"
-                                            class="form-control"
                                             ng-options="loanPurposeOption.id as loanPurposeOption.name for loanPurposeOption in loanPurposes"
                                             data-placeholder="{{'label.input.selectloanpurpose' | translate}}"
                                             value="{{loanPurposeOption.id}}"
@@ -99,11 +98,10 @@
                                                id="principalAmountId"
                                                name="principalAmount"
                                                ng-model="utilizationDetails.amount"
-                                               class="form-control"
                                                ng-pattern="/^(?!0+$)\d+$/"
-                                               maxlength="9"
+                                               size="12"
                                                ng-change="percentail(parentIndex,$index)" ng-required="true"/>
-                                        <div class = "col-sm-3" ng-show="submitted && principalAmountForm.principalAmount.$error.required">
+                                        <div ng-show="submitted && principalAmountForm.principalAmount.$error.required">
                                             <span class="error">{{ 'label.requirefield' | translate }}</span>
                                         </div>
                                     </ng-form>
@@ -114,10 +112,11 @@
                             <td class="col-md-4">
                                 <ng-form name="commentForm" rc-submit="submit()">
                                     <textarea type="text" autocomplete="off"
-                                              id="comment"
-                                              name="comment"
+                                              id="comment" rows="1" cols="15"
+                                              name="comment" placeholder="{{'label.input.file.description'|translate}}"
                                               ng-model="utilizationDetails.comment"
-                                              class="form-control"/>
+                                              style="resize:none">
+                                            </textarea>
                                 </ng-form>
                             </td>
                             <td class="col-md-1">

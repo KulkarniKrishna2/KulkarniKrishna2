@@ -4,7 +4,7 @@
             scope.offices = [];
             scope.restrictDate = new Date();
 
-            resourceFactory.employeeResource.get({staffId: routeParams.id, template: 'true'}, function (data) {
+            resourceFactory.employeeResource.get({staffId: routeParams.id, template: 'true', onlyActiveOffice: 'true'}, function (data) {
                 scope.offices = data.allowedOffices;
                 scope.staffId = data.id;
                 if (data.joiningDate) {
