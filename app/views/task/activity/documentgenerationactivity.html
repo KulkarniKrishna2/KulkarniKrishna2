@@ -1,0 +1,68 @@
+<div ng-controller="DocumentGenerationActivityController">
+    <div>
+        <api-validate></api-validate>
+    </div>
+    <div>
+        <div>
+            <span style="text-align:left">{{'label.info.totalmembers' | translate}} : {{summary.activeClients}}&nbsp;&nbsp;{{'label.info.activeborrowers'
+                | translate}} : {{summary.activeBorrowers}}</span>
+        </div>
+    </div>
+    <div>
+        <div>
+            <table class="table">
+                <thead>
+                    <th class="col-md-2">{{'label.heading.name' | translate}}</th>
+                    <th class="col-md-2">{{'label.heading.actions' | translate}}</th>
+                </thead>
+                <tbody>
+                    <tr class="background-gold">
+                        <td class="col-md-2">
+                            <span>{{'error.msg.generate.documents' | translate}}
+                            </span>
+                        </td>
+                        <td class="col-md-2">&nbsp;
+                            <a ng-if="!isDocumentGenerated" style="color: blue" ng-click="generateDocuments()"
+                                tooltip="{{'label.tooltip.generate.document' | translate}}"><i
+                                    class="icon-link"></i></a>&nbsp;
+                            <a ng-click="getDocuments(centerDetails)"
+                                tooltip="{{'label.button.refresh' | translate}}"><i class="icon-refresh"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div ng-if="documents.length>0">
+                <legend>{{'label.anchor.generated.documents' | translate}}</legend>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>{{'label.heading.name' | translate}}</th>
+                            <th>{{'label.heading.filename' | translate}}</th>
+                            <th>{{'label.heading.actions' | translate}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="document in documents">
+                            <td>{{document.name}}</td>
+                            <td>{{document.fileName}}</td>
+                            <td>&nbsp;
+                                <a ng-if="document.id" ng-click="download(document)"
+                                    has-permission='DOWNLOAD_DOCUMENT'><i class="icon-cloud-download"></i></a>&nbsp;
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-offset-11">
+                <button type="button" data-ng-disabled="isAllClientFinishedThisTask" ng-click="moveMembersToNextStep()"
+                    class="btn btn-primary">{{'label.button.save' | translate}}
+                </button>
+            </div>
+        </div>
+    </div>
+    <script type="text/ng-template" id="viewUploadedDocument.html">
+            <div style="position: fixed; top:20%; right:10%; width:600px; height: 500px;">
+                <view-document-directive ng-entity-type="{{data.parentEntityType}}" ng-entity-id="{{data.parentEntityId}}" ng-document-id="{{data.id}}"></view-document-directive>
+            </div>
+        </script>
+</div>
