@@ -94,15 +94,15 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="reviewData in cbReviewData" ng-class="reviewData.color">
-                            <td class=" pointer">{{reviewData.clientName}}</td>
-                            <td class=" pointer">{{reviewData.spouseName}}</td>
-                            <td class=" pointer">{{reviewData.existingLoansSummaryData.totalOutstanding}}</td>
-                            <td class=" pointer">{{reviewData.existingLoansSummaryData.totalDPD}}</td>
-                            <td class=" pointer">{{reviewData.existingLoansSummaryData.totalArrears}}</td>
-                            <td class=" pointer">{{reviewData.appliedLoanAmount}}</td>
-                            <td class=" pointer">{{reviewData.recommenedAmount}}</td>
-                            <td class=" pointer">{{reviewData.uid}}</td>
-                            <td class=" pointer">{{reviewData.status | translate}}</td>
+                            <td ng-click="routeToViewClient(reviewData.clientId)" class=" pointer">{{reviewData.clientName}}</td>
+                            <td ng-click="routeToViewClient(reviewData.clientId)" class=" pointer">{{reviewData.spouseName}}</td>
+                            <td ng-click="routeToViewClient(reviewData.clientId)" class=" pointer">{{reviewData.existingLoansSummaryData.totalOutstanding}}</td>
+                            <td ng-click="routeToViewClient(reviewData.clientId)" class=" pointer">{{reviewData.existingLoansSummaryData.totalDPD}}</td>
+                            <td ng-click="routeToViewClient(reviewData.clientId)" class=" pointer">{{reviewData.existingLoansSummaryData.totalArrears}}</td>
+                            <td ng-click="routeToViewClient(reviewData.clientId)" class=" pointer">{{reviewData.appliedLoanAmount}}</td>
+                            <td ng-click="routeToViewClient(reviewData.clientId)" class=" pointer">{{reviewData.recommenedAmount}}</td>
+                            <td ng-click="routeToViewClient(reviewData.clientId)" class=" pointer">{{reviewData.uid}}</td>
+                            <td ng-click="routeToViewClient(reviewData.clientId)" class=" pointer">{{reviewData.status | translate}}</td>
                             <td class=" pointer">&nbsp;
                                 <a ng-hide="reviewData.isRejected || reviewData.isApproved" title="Approve"
                                     has-permission='APPROVE_CB_CRITERIA_REVIEW'
