@@ -8022,6 +8022,8 @@
     "label.menu.selectday" : "Select day",
     "validation.msg.loanDpDetails.frequencyOnDay.cannot.be.blank" : "FrequencyOnDay cannot be blank",
     "validation.msg.loanDpDetails.frequencyInterval.cannot.be.blank" : "FrequencyInterval cannot be blank",
+    "label.anchor.generated.documents":"Generated Documents",
+    "error.msg.generate.documents":"Generate Documents",
 
     "------ end of translation file ------": "----------"
 }

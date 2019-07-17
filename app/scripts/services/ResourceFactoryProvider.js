@@ -1877,7 +1877,11 @@
                         get: {method: 'GET', params: {}, isArray: false},
                         save: {method: 'POST', params: {loanId: '@loanId'}},
                         update: {method: 'PUT', params: {loanId: '@loanId',loanAccountDpDetailId: '@loanAccountDpDetailId'}}
-                    })
+                    }),
+                    taskTrackingGenerateDocumentsResource: defineResource(apiVer + "/tasktracking/generatedocuments", {}, {
+                    }),
+                    documentsWithReportIdentifiersResource: defineResource(apiVer + "/:entityType/:entityId/documents/withreportidentifiers", {}, {
+                    }),
                 };
             }];
         }
