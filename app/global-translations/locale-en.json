@@ -7989,5 +7989,7 @@
     "label.anchor.deactivated.users": "Deactivated Users",
     "label.anchor.reactivate.user": "Reactivate User",
     "validation.msg.aadhaar.uniqueId.invalid.format" : "Aadhaar id is invalid",
+    "label.input.searchbyname" : "Find By Name",
+    
     "------ end of translation file ------": "----------"
 }

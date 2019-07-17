@@ -1,12 +1,44 @@
 <div class="col-md-12" ng-controller="ViewCodeController">
-    <div class="paddedbottom10">
         <ul class="breadcrumb">
             <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
             <li><a href="#/codes">{{'label.anchor.managecodes' | translate}}</a></li>
             <li class="active">{{code.name | translate}}</li>
         </ul>
         <api-validate></api-validate>
+    <div class="form-group">
+        <div class="pull-right">
+            <div class="btn-group">
+                <button type="button" data-ng-hide="code.systemDefined" data-ng-click="showEditCode()" class="btn btn-primary" has-permission='UPDATE_CODE'><i
+                            class="icon-edit icon-white"></i>{{'label.button.editcode' | translate}}
+                </button>
+                <a href="#/editcode/{{code.id}}" class="btn btn-primary"  has-permission='CREATE_CODEVALUE'><i class="icon-plus icon-white"></i>{{'label.button.addcodevalues' | translate}}</a>
+                <a data-ng-click="delCode()" class="btn btn-warning" has-permission='DELETE_CODE' ng-show="code.systemDefined == false"><i
+                            class="icon-trash icon-white"></i>{{'label.button.delete' | translate}}</a>
+            </div>
+        </div>
     </div>
+    <div class="clearfix"></div>
+    <div class="form-horizontal">
+        <br>
+        <form ng-submit="newSearch()" class="form-horizontal">
+            <div class="form-group">
+                <div class="col-lg-6">
+                    <div class="input-group">
+                        <input data-ng-model="searchText" type="text" autocomplete="off" placeholder="{{'label.input.searchbyname' | translate}}"
+                            class="form-control" />
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-primary form-control">
+                                <span class="icon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <input ng-autofocus="true" ng-model="filterText" type="text" autocomplete="off" ng-keyup="onFilter()" class="span form-control" placeholder="{{'label.input.filterbyname' | translate}}">
+                </div>
+            </div>
+        </form>
+    <div>
 
     <script type="text/ng-template" id="deletecode.html">
         <div class="modal-header silver">
@@ -30,19 +62,7 @@
             <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
         </div>
     </script>
-    <div class="form-horizontal well">
-        <div class="row">
-            <div class="pull-right">
-                <div class="btn-group">
-                    <button type="button" data-ng-hide="code.systemDefined" data-ng-click="showEditCode()" class="btn btn-primary" has-permission='UPDATE_CODE'><i
-                            class="icon-edit icon-white"></i>{{'label.button.editcode' | translate}}
-                    </button>
-                    <a href="#/editcode/{{code.id}}" class="btn btn-primary"  has-permission='CREATE_CODEVALUE'><i class="icon-plus icon-white"></i>{{'label.button.addcodevalues' | translate}}</a>
-                    <a data-ng-click="delCode()" class="btn btn-warning" has-permission='DELETE_CODE' ng-show="code.systemDefined == false"><i
-                            class="icon-trash icon-white"></i>{{'label.button.delete' | translate}}</a>
-                </div>
-            </div>
-        </div>
+    <div class="form-horizontal">
         <h3 data-ng-hide="newcode.edit"><strong>{{code.name | translate}}</strong></h3>
 
         <div data-ng-show="newcode.edit">
@@ -88,7 +108,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr data-ng-repeat="codevalue in codevalues">
+                <tr data-ng-repeat="codevalue in codevalues | filter:filterText">
                     <td>
                         <span data-ng-hide="codevalue.edit">{{codevalue.name}}</span>
                         <input data-ng-show="codevalue.edit" name="codevalue" ng-model="formData[codevalue.id].name"
