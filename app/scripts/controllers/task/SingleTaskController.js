@@ -155,6 +155,7 @@
                         if (scope.taskData.status.value == 'completed'){
                             scope.canReschedule = false;
                         }
+
                         scope.$broadcast('postTaskAction',{actionName:actionName});
                         populateNextActions();
                         populateTaskActionLogs();
@@ -300,6 +301,8 @@
                                 }
                             });
                         }
+                    }else if(scope.taskData.status.value == 'inactive'){
+                        $route.reload();
                     }else{
                         scope.canComplete = true;
                     }
