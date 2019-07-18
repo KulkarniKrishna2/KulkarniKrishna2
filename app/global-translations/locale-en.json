@@ -8022,6 +8022,9 @@
     "label.menu.selectday" : "Select day",
     "validation.msg.loanDpDetails.frequencyOnDay.cannot.be.blank" : "FrequencyOnDay cannot be blank",
     "validation.msg.loanDpDetails.frequencyInterval.cannot.be.blank" : "FrequencyInterval cannot be blank",
+    "validation.msg.loanapplicationreference.charges.amount.must.have.less.than.the.allowed.number.of.decimal.places" : "Charge amount `{{params[0].value}}` must have less than allowed number of decimal places `{{params[1].value[0]}}`",
+    "validation.msg.loan.charges.amount.must.have.less.than.the.allowed.number.of.decimal.places" : "Charge amount `{{params[0].value}}` must have less than allowed number of decimal places `{{params[1].value[0]}}`",
+    "validation.msg.loanCharge.amount.amount.must.have.less.than.the.allowed.number.of.decimal.places" : "Charge amount `{{params[0].value}}` must have less than allowed number of decimal places `{{params[1].value[0]}}`",
 
     "------ end of translation file ------": "----------"
 }
