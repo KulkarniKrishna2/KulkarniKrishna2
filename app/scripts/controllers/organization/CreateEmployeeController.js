@@ -3,7 +3,7 @@
         CreateEmployeeController: function (scope, resourceFactory, location, dateFilter) {
             scope.offices = [];
             scope.restrictDate = new Date();
-            resourceFactory.officeResource.getAllOfficesInAlphabeticalOrder(function (data) {
+            resourceFactory.officeResource.getAllOfficesInAlphabeticalOrder({onlyActive: true}, function (data) {
                 scope.offices = data;
                 scope.formData = {
                     isLoanOfficer: true,
