@@ -4,6 +4,7 @@
             scope.codes = [];
             scope.requestoffset=0;
             scope.limit = 15;
+            scope.inparams = {};
             
             scope.routeTo = function (id) {
                 location.path('/viewcode/' + id);
@@ -21,12 +22,10 @@
             };
 
             scope.init = function(){
-                resourceFactory.codeResource.getAll({
-                    offset: scope.requestoffset,
-                    limit: scope.limit,
-                }, function(data){
+                scope.inparams.offset = scope.requestoffset;
+                scope.inparams.limit = scope.limit;
+                resourceFactory.codeResource.getAll(scope.inparams, function(data){
                     scope.codes = data;
-                    
                 });
             }
             scope.init();
@@ -46,7 +45,24 @@
                     scope.requestoffset = scope.requestoffset + scope.limit;
                     scope.init();
                 }
-            } 
+            }
+            
+            scope.searchData = function(){
+                scope.requestoffset=0;
+                scope.limit = 15;
+                scope.init();
+            }
+
+            scope.newSearch = function(){
+                if(!_.isUndefined(scope.searchText) && scope.searchText !== ""){
+                    scope.filterText = undefined;
+                    var codeName = scope.searchText.replace(/(^"|"$)/g, '');
+                    scope.inparams.codeName = codeName;
+                }else{
+                    delete scope.inparams.codeName;
+                }
+                scope.searchData();
+            }
         }
     });
     mifosX.ng.application.controller('CodeController', ['$scope', 'ResourceFactory', '$location', mifosX.controllers.CodeController]).run(function ($log) {

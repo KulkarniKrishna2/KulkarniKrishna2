@@ -8,6 +8,8 @@
             scope.enableparentOptions = false;
             scope.requestoffset = 0;
             scope.limit = 15;
+            scope.inparams = {};
+           
             resourceFactory.codeResources.get({codeId: routeParams.id}, function (data) {
                 scope.code = data;
                 scope.codename.name = data.name;
@@ -20,7 +22,10 @@
             });
 
             scope.init = function(){
-                resourceFactory.codeValueResource.getAllCodeValues({codeId: routeParams.id, offset: scope.requestoffset, limit:scope.limit}, function (data) {
+                scope.inparams.codeId = routeParams.id;
+                scope.inparams.offset = scope.requestoffset;
+                scope.inparams.limit = scope.limit;
+                resourceFactory.codeValueResource.getAllCodeValues(scope.inparams, function (data) {
                     scope.codevalues = data;
                 });
             }
@@ -127,7 +132,24 @@
                     scope.requestoffset = scope.requestoffset + scope.limit;
                     scope.init();
                 }
-            } 
+            }
+            
+            scope.searchData = function(){
+                scope.requestoffset=0;
+                scope.limit = 15;
+                scope.init();
+            }
+
+            scope.newSearch = function(){
+                if(!_.isUndefined(scope.searchText) && scope.searchText !== ""){
+                    scope.filterText = undefined;
+                    var codeValueName = scope.searchText.replace(/(^"|"$)/g, '');
+                    scope.inparams.codeValueName = codeValueName;
+                }else{
+                    delete scope.inparams.codeValueName;
+                }
+                scope.searchData();
+            }
 
         }
     });
