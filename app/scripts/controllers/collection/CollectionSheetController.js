@@ -829,6 +829,10 @@
                 if (scope.productiveCollctionSheetSearchParams.transactionDate != undefined && scope.productiveCollctionSheetSearchParams.transactionDate != null) {
                     scope.formData.searchParams = scope.productiveCollctionSheetSearchParams;
                 }
+                if(scope.errorDetails){
+                    delete scope.errorDetails;
+
+                }
                 if (centerOrGroupResource === "centerResource") {
                     resourceFactory.centerV2Resource.save({'centerId': scope.centerId, command: 'saveCollectionSheet'}, scope.formData, function (data) {
                         location.path('/viewallcollections');

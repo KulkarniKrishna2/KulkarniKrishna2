@@ -1,11 +1,9 @@
 <div ng-controller="BulkLoanApplicationActivityController">
+		<api-validate></api-validate>
 	<div>
 		<span style="text-align:left">{{'label.info.totalmembers' | translate}} : {{summary.activeClients}}&nbsp;&nbsp;{{'label.info.activeborrowers' | translate}} : {{summary.activeBorrowers}}</span>
 	</div>
 	<div>
-		<div>
-			<api-validate></api-validate>
-		</div>
 		<div>
 			<table class="table">
 				<thead>

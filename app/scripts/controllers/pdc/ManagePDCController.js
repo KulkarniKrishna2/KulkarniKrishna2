@@ -65,7 +65,9 @@
             };
 
             scope.actionToBePerformed = function (action) {
-                delete scope.errorDetails;
+                if(scope.errorDetails){
+                    delete scope.errorDetails;
+                }
                 var isPDCSelected = false;
                 scope.isSingleOperation = false;
                 scope.pdcChequeDetails = [];

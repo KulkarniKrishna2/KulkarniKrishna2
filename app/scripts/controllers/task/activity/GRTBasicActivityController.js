@@ -115,9 +115,12 @@
 
             scope.submit = function () {
                 //tracking request validation
-                scope.errorDetails = [];
                 if(scope.taskInfoTrackArray.length == 0){
+                    scope.errorDetails = [];
                     return scope.errorDetails.push([{code: 'error.msg.select.atleast.one.member'}])
+                }
+                if(scope.errorDetails){
+                    delete scope.errorDetails;
                 }
 
                 scope.batchRequests = [];

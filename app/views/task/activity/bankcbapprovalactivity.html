@@ -1,6 +1,7 @@
 <div class="col-md-12 col-sm-12" ng-controller="BankCBApprovalActivityController">
     <div class="row client">
         <form class="form-inline">
+            <api-validate></api-validate>
             <div class="col-md-12">
                 <div class="pull-right">
                     <div ng-hide="isTaskCompleted() || isEnquiryPresentAndSuccess == true">

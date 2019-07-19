@@ -47,7 +47,9 @@
                 }else{
                     return scope.errorDetails.push([{code: 'error.msg.select.atleast.one.task'}])
                 }
-
+                if(scope.errorDetails){
+                    delete scope.errorDetails;
+                }
             }
             scope.toggleAll = function() {
                 var toggleStatus = scope.formData.isAllSelected;

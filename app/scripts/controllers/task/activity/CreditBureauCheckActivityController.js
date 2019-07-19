@@ -84,10 +84,12 @@
             initTask();
 
             scope.initiateCreditBureauReport = function (client) {
+                if(scope.errorDetails){
+                    delete scope.errorDetails;
+                }
                 if(client.pendingCbEnquiryId){
                     scope.refreshData(client.loanAccountBasicData.id,client.pendingCbEnquiryId);
                 }else{
-                    scope.errorDetails=[];
                     scope.entityType = "loan";
                     scope.isForce = false;
                     scope.isClientCBCriteriaToRun = true;
@@ -102,7 +104,6 @@
                         scope.getCbEnquiryData(scope.checkCBData.creditBureauEnquiryId);
                     });
                 }
-                
             };
 
             scope.getCbEnquiryData = function(enquiryId){
@@ -112,6 +113,7 @@
                         initTask();
                     }else{
                         if(scope.checkCBData != null && scope.checkCBData.errors != null){
+                            scope.errorDetails=[];
                             var errorObj = new Object();
                             errorObj.args = {
                                 params: []
@@ -141,11 +143,12 @@
 
 
             scope.initiateBulkCreditBureauReport = function () {
-                scope.errorDetails = [];
                 scope.entityType = "center";
                 scope.isForce = false;
                 scope.isClientCBCriteriaToRun = true;
-
+                if(scope.errorDetails){
+                    delete scope.errorDetails;
+                }
                 resourceFactory.creditBureauBulkReportResource.get({
                     entityType: scope.entityType,
                     entityId:  scope.centerId ,
@@ -156,6 +159,7 @@
                         initTask();
                     }else{
                         if(loansSummary != null && loansSummary[0] && loansSummary[0].errors != null){
+                            scope.errorDetails = [];
                             var errorObj = new Object();
                             var description = loansSummary[0].errors[0].description;
                             errorObj.args = {
@@ -355,6 +359,9 @@
                       
                         $scope.reviewFormData.preclosures = [];
                         $scope.reviewFormData.preclosures = $scope.preClosureTempFormData.slice();
+                    }
+                    if($scope.errorDetails){
+                        delete $scope.errorDetails;
                     }
                     
                     if($scope.isPrepayAtBSSReason || $scope.isErrorneousReason){
@@ -1094,11 +1101,13 @@
             }
             
             scope.moveMembersToNextStep = function(){
-                scope.errorDetails = [];
                 if(scope.taskInfoTrackArray.length == 0){
+                    scope.errorDetails = [];
                     return scope.errorDetails.push([{code: 'error.msg.select.atleast.one.member'}])
                 }
-
+                if(scope.errorDetails){
+                    delete scope.errorDetails;
+                }
                 scope.taskTrackingFormData = {};
                 scope.taskTrackingFormData.taskInfoTrackArray = [];
 
