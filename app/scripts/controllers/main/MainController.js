@@ -262,6 +262,9 @@
                             scope.isGlobalWorkflowEnabled = data.globalConfiguration[i].enabled;
                         } else if (data.globalConfiguration[i].name == 'allow-all-gl-types-for-product-mapping') {
                             scope.allowAllGLTypes = data.globalConfiguration[i].enabled;
+                        }else if (data.globalConfiguration[i].name == 'own institute name') {
+                            scope.isOwnInstituteConfEnable = data.globalConfiguration[i].enabled;
+                            scope.ownInstituteName = data.globalConfiguration[i].value;
                         }
                         data.globalConfiguration[i].showEditvalue = true;
                         scope.configs.push(data.globalConfiguration[i])
