@@ -108,6 +108,9 @@
                 if (!scope.isDocumentGenerated) {
                     return scope.errorDetails.push([{ code: 'error.msg.generate.documents' }])
                 }
+                if(scope.errorDetails){
+                    delete scope.errorDetails;
+                }
                 scope.taskTrackingFormData = {};
                 scope.taskTrackingFormData.taskInfoTrackArray = [];
                 scope.taskTrackingFormData.taskInfoTrackArray = scope.taskInfoTrackArray.slice();

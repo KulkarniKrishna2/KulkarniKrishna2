@@ -77,6 +77,9 @@
                 }
                 this.formData.chargesSelected = scope.chargesSelected;
                 this.formData.locale = scope.optlang.code;
+                if(scope.errorDetails){
+                    delete scope.errorDetails;
+                }
 
                 resourceFactory.shareProduct.post(this.formData, function (data) {
                     location.path('/viewshareproduct/' + data.resourceId);

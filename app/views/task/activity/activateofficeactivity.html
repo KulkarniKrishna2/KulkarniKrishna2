@@ -1,6 +1,7 @@
 <div ng-controller="officeActivationActivityController">
     <div class="col-md-12 col-sm-12">
         <form novalidate="" class="form-horizontal" ng-submit="submit()">
+            <api-validate></api-validate>
             <table class="table-bordered table view-table" style="width: 350px">
                 <tr>
                     <td>{{ 'label.heading.parentoffice' | translate }}</td>
