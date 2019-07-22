@@ -189,6 +189,9 @@
                         }
 
                     }
+                    if(scope.errorDetails){
+                        delete scope.errorDetails;
+                    }
                     if(scope.criteriaData.riskCriteriaId){
                             this.formData.criteriaId = scope.criteriaData.riskCriteriaId;
                             this.formData.approvalLogic = scope.criteriaData.approvalLogic;

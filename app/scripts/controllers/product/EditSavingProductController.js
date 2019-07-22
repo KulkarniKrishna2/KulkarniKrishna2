@@ -339,7 +339,9 @@
                     this.formData.minRequiredOpeningBalance = 0;
                 }
                 delete this.formData.isAllowInterestRateChart;
-                delete scope.errorDetails;
+                if(scope.errorDetails){
+                    delete scope.errorDetails;
+                }
                 resourceFactory.savingProductResource.update({savingProductId: routeParams.id}, this.formData, function (data) {
                     location.path('/viewsavingproduct/' + data.resourceId);
                 });

@@ -26,11 +26,11 @@
                 this.formData.currencyCode = scope.formData.currencyCode;
                 this.formData.credits = [];
                 this.formData.debits = [];
-                scope.errorDetails = [];
                 var noErrors = true;
                 for (var i in scope.allGls) {
                     if (scope.allGls[i].credit && scope.allGls[i].credit != "" && scope.allGls[i].debit && scope.allGls[i].debit != "") {
                         if(noErrors){
+                            scope.errorDetails = [];
                             noErrors = false;
                             var errorObj = new Object();
                             errorObj.code = 'error.msg.accounting.defining.openingbalance.both.credit.debits.are.passed';
@@ -43,7 +43,9 @@
                     }
                 }
                 if(noErrors){
-                    delete scope.errorDetails;
+                    if(scope.errorDetails){
+                        delete scope.errorDetails;
+                    }
                     resourceFactory.journalEntriesResource.save({command:"defineOpeningBalance"}, this.formData, function (data) {
                         location.path('/viewtransactions/' + data.transactionId);
                     });

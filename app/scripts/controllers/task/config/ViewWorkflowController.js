@@ -55,10 +55,13 @@
             };
 
             scope.updateWorkflowStepOrder = function(){
-                  scope.errorDetails = [];
-                 if(scope.sortingLog.length == 0){
-                       return scope.errorDetails.push([{code: 'error.msg.workflow.step.order.not.changed'}]);
-                   }
+                if(scope.sortingLog.length == 0){
+                    scope.errorDetails = [];
+                    return scope.errorDetails.push([{code: 'error.msg.workflow.step.order.not.changed'}]);
+                }
+                if(scope.errorDetails){
+                    delete scope.errorDetails;
+                }
                  this.formData.taskConfigStepsOrderArray = [];
                  for(var i= 0 ; i < scope.sortingLog.length ; i++ ){
                      this.formData.taskConfigStepsOrderArray.push({'id':scope.sortingLog[i],'stepOrder':(i+1)});

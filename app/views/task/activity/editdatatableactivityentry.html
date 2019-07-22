@@ -1,3 +1,5 @@
+<form name="editDatatableActivityEntryForm" novalidate="" >
+<api-validate></api-validate>
 <label class="control-label col-sm-3" ng-if="!hideField(columnHeader) && columnHeader.displayName != 'null'">{{ columnHeader.displayName | prettifyDataTableColumn }}
     <span ng-show="!columnHeader.isColumnNullable || columnHeader.mandatoryIfVisible" class="required">*</span>
 </label>
@@ -55,3 +57,4 @@
         </div>
     </span>
 </div>
+</form>

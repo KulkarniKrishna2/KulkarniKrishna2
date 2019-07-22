@@ -88,11 +88,12 @@
                 scope.submit = function(){
                     scope.formData.locale = scope.optlang.code;
                     scope.formData.isActive = true;
-                    scope.errorDetails=[];
-                    scope.formData.entityIds=[]
+                    scope.formData.entityIds=[];
                     if(scope.isLoanProductEntitySelected){
-                        if(scope.selectedLoanProducts.length == 0)
-                               return scope.errorDetails.push([{code: 'error.msg.validation.select.loanproducts'}]);
+                        if(scope.selectedLoanProducts.length == 0){
+                            scope.errorDetails=[];
+                            return scope.errorDetails.push([{code: 'error.msg.validation.select.loanproducts'}]);
+                        }
                         for(var i in scope.selectedLoanProducts){
                             scope.formData.entityIds.push(scope.selectedLoanProducts[i].id);
                         }
@@ -100,6 +101,9 @@
                     }else{
                         //entityId = -1 represents for all entities of Corresponding TaskConfigEntityType except for TaskConfigEntityType.Loanproduct 
                         scope.formData.entityIds = [-1];
+                    }
+                    if(scope.errorDetails){
+                        delete scope.errorDetails;
                     }
                     resourceFactory.workflowEntityMappingResource.save({taskConfigId : this.formData.taskConfigId}, this.formData, function (data) {
                        location.path('/viewworkflowentitymapping/'+scope.formData.taskConfigId+'/'+scope.formData.entityType);
