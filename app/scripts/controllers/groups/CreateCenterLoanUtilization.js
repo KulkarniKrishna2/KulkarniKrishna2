@@ -143,7 +143,11 @@
                 for(var i in scope.loanCenterTemplate){
                     var uploadedFile = scope.loanCenterTemplate[i].files;
                     if(uploadedFile){
-                        scope.formData.loanUtilizationCheckDetails[i].files = uploadedFile;
+                        var index = scope.formData.loanUtilizationCheckDetails.findIndex(x=>x.loanId == scope.loanCenterTemplate[i].loanId);
+                        if(index > -1){
+                             scope.formData.loanUtilizationCheckDetails[index].files = uploadedFile;
+                        }
+                       
                     }
                 }
 
