@@ -7990,6 +7990,7 @@
     "label.anchor.reactivate.user": "Reactivate User",
     "validation.msg.aadhaar.uniqueId.invalid.format" : "Aadhaar id is invalid",
     "label.input.searchbyname" : "Find By Name",
+    "label.heading.cb.member.id":"CBMemeberId",
     
     "------ end of translation file ------": "----------"
 }
