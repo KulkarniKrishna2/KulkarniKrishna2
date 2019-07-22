@@ -308,8 +308,8 @@
             }
 
             scope.moveMembersToNextStep = function () {
-                scope.errorDetails = [];
                 if (scope.taskInfoTrackArray.length == 0) {
+                    scope.errorDetails = [];
                     return scope.errorDetails.push([{ code: 'error.msg.select.atleast.one.member' }])
                 }
 
@@ -317,7 +317,9 @@
                 scope.taskTrackingFormData.taskInfoTrackArray = [];
 
                 scope.taskTrackingFormData.taskInfoTrackArray = scope.taskInfoTrackArray.slice();
-
+                if(scope.errorDetails){
+                    delete scope.errorDetails;
+                }
                 resourceFactory.clientLevelTaskTrackingResource.save(scope.taskTrackingFormData, function (trackRespose) {
                     initTask();
                 })

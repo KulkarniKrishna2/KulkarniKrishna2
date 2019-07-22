@@ -1,4 +1,5 @@
 <div class="col-md-12" ng-controller="UserActivityController">
+	<api-validate></api-validate>
     <div ng-if="!isCreateuser">
 	    <input ng-model="filterText" type="text" autocomplete="off" class="span marginbottom0px form-control" placeholder="{{'label.input.filterbyname' | translate}}">
 	    <a ng-click="showCreateUser()" class="btn btn-primary pull-right" has-permission='CREATE_USER'><i class="icon-plus icon-white"></i>{{'label.button.createuser' | translate}}</a>

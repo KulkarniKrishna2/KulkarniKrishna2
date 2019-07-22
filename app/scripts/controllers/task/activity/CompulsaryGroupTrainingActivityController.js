@@ -139,6 +139,9 @@
                 scope.taskTrackingFormData = {};
                 scope.taskTrackingFormData.taskInfoTrackArray = [];
                 scope.taskTrackingFormData.taskInfoTrackArray = scope.taskInfoTrackArray.slice();
+                if(scope.errorDetails){
+                    delete scope.errorDetails;
+                }
                 if (scope.isSingleGroupInCenter) {
                     resourceFactory.cgtDetailsResource.save(this.formData, function (trackRespose) {
                         resourceFactory.clientLevelTaskTrackingResource.save(scope.taskTrackingFormData, function (trackRespose) {

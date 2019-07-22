@@ -149,6 +149,9 @@
             };
 
             scope.submit = function () {
+                if(scope.errorDetails){
+                    delete scope.errorDetails;
+                }
                 if(scope.formData.isAllowInterestRateChart == "true" && scope.interestRateChart.length == 0){
                     scope.errorDetails = [];
                     var errorObj = new Object();

@@ -90,8 +90,9 @@
                       return false;
                     }
                 }
-                
-                delete scope.errorDetails;
+                if(scope.errorDetails){
+                    delete scope.errorDetails;
+                }
                 resourceFactory.bankAccountDetailActionResource.doAction({entityType: getEntityType(),entityId: getEntityId(), clientBankAccountDetailAssociationId: getClientBankAccountDetailAssociationId(), command:'activate'},scope.formData,
                     function (data) {
                         scope.viewConfig.showSummary=true;
@@ -101,7 +102,6 @@
             };
 
             function isFormValid(){
-                scope.errorDetails = [];
                 var errorArray = new Array();
                 var arrayIndex = 0;
                 var isBankDetailsNotMatched = false;
@@ -192,6 +192,7 @@
                 }*/
 
                 if(isBankDetailsNotMatched){
+                    scope.errorDetails = [];
                     scope.errorDetails.push(errorArray);
                     return false;
                 }
