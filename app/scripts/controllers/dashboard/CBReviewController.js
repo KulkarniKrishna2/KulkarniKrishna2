@@ -5,8 +5,12 @@
             scope.formData = {};
             scope.limit = 15;
             scope.requestoffset = 0;
+            scope.cbCriteriaStatusOptions = [];
             resourceFactory.officeDropDownResource.getAllOffices({}, function (officelist) {
                 scope.offices = officelist.allowedParents;
+            })
+            resourceFactory.cbReviewTemplateResource.query(function(data) {
+                scope.cbCriteriaStatusOptions = data;
             })
             scope.getWorkflowCBReviewData = function () {
                 resourceFactory.cbReviewResource.query({
@@ -15,6 +19,7 @@
                     officeId: scope.formData.officeId,
                     centerId: scope.formData.centerId,
                     loanOfficerId: scope.formData.loanOfficerId,
+                    status: scope.formData.status
                 }, function (data) {
                     scope.cbReviewData = data;
                     scope.totalMembers = data.length;
