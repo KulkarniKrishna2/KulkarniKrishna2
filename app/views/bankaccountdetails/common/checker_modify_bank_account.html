@@ -1,5 +1,5 @@
 <div class="col-md-12">
-    <form name="checkerbankaccountdetail" novalidate=""  class="form-horizontal" autocomplete="off" ng-submit="onSubmit()">
+    <form name="checkerbankaccountdetail" novalidate=""  class="form-horizontal" autocomplete="off">
         <api-validate></api-validate>
         <fieldset>
             <legend>{{'label.anchor.checkerbankaccountdetails' | translate}}</legend>
@@ -67,6 +67,9 @@
                                 <input name="bankAccountNumber" id="bankAccountNumber" ng-model="formData.accountNumber"
                                        type="text" autocomplete="off" ng-pattern="regexPattern('bankAccountNumber')" maxlength="50" class="form-control" ng-required="isElemMandatory('bankAccountNumber')" onpaste="return false;" required late-validate/>
                                 <div>
+                                    <span ng-show="checkerbankaccountdetail.bankAccountNumber.$error.pattern">
+                                        <small class="required">{{'invalid.accountnumber.format' | translate}}</small>
+                                    </span>
                                     <span ng-show="formData.accountNumber != undefined && formData.accountNumber != repeatFormData.accountNumberRepeat">
                                         <small class="required">{{'label.mismatch.account.number' | translate}}</small>
                                     </span>
@@ -213,7 +216,7 @@
                     </div>
                     <div class="text-center">
                         <a id="cancel" ng-click="cancel()" ng-show="viewConfig.hasData" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
-                        <button id="save" type="submit" class="btn btn-primary" ng-disabled="checkerbankaccountdetail.$invalid == true" has-permission='CHECKERINFO_BANKACCOUNTDETAIL'>{{'label.button.save' | translate}}</button>
+                        <button id="save" type="button" ng-click= "onSubmit()" class="btn btn-primary" ng-disabled="checkerbankaccountdetail.$invalid == true" has-permission='CHECKERINFO_BANKACCOUNTDETAIL'>{{'label.button.save' | translate}}</button>
                     </div>
                 </div>
 
