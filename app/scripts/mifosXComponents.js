@@ -680,6 +680,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'accounting/GSTDebitTransactionDetailsControllers',
             'accounting/GSTDebitTransactionControllers',
             'task/activity/loanapplicationQualityCheckActivityController',
+            'task/activity/groupMembersCreditSummaryActivityController'
         ],
         filters: [
             'StatusLookup',
