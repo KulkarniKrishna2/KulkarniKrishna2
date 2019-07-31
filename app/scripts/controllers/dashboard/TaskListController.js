@@ -20,6 +20,7 @@
             scope.sortBy = 'dueDate';
             scope.sortType = 'asc';
             scope.taskTypeTabValue = scope.taskTypes[0];
+            scope.formData.officeId = scope.currentSession.user.officeId; 
 
             scope.getChildrenTaskConfigs = function() {
                 scope.formData.childConfigId = null;
@@ -73,6 +74,7 @@
                     childConfigId: scope.formData.childConfigId,
                     loanType: scope.formData.loanType,
                     centerId: scope.formData.centerId,
+                    includeChildOfficeTaskList: scope.formData.includeChildOfficeTaskList,
                     offset: offset,
                     limit: limit
                 }, callback);
