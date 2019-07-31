@@ -22,7 +22,9 @@
 				"mobileNumber": "^\\d{10}$",
 				"bankIFSCCode": "^[A-Za-z]{4}0[A-Z0-9a-z]{6}$",
 				"bankAccountNumber": "^[0-9]{1,50}$"
-			}
+			},
+			"showDeleteButton": false,
+			"showInactiveBankAccountDetails":true
 		},
 		"workflow": {
 			"AdditionalDetailsValidation": {

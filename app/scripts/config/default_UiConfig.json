@@ -380,7 +380,9 @@
 				"mobileNumber": "",
 				"bankIFSCCode": ""
 			},
-			"isMakerTwoStepPresent": false
+			"isMakerTwoStepPresent": false,
+			"showDeleteButton": true,
+			"showInactiveBankAccountDetails":false
 		},
 		"paymentDetails": {
 			"isMandatory": {

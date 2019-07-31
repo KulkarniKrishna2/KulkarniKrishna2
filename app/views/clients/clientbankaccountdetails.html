@@ -23,6 +23,8 @@
                         <th>{{'label.heading.holdername' | translate}}</th>
                         <th>{{'label.heading.accountnumber' | translate}}</th>
                         <th>{{'label.heading.ifsc' | translate}}</th>
+                        <th>{{'label.createdon' | translate}}</th>
+                        <th>{{'label.heading.lastupdatedon' | translate}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,8 +33,41 @@
                         <td class="pointer" data-ng-click="routeTo(record.bankAccountAssociationId)">{{record.name}}</td>
                         <td class="pointer" data-ng-click="routeTo(record.bankAccountAssociationId)">{{record.accountNumber}}</td>
                         <td class="pointer" data-ng-click="routeTo(record.bankAccountAssociationId)">{{record.ifscCode}}</td>
+                        <td class="pointer" data-ng-click="routeTo(record.bankAccountAssociationId)">{{record.createdDate | DateTimeFormat}}</td>
+                        <td class="pointer" data-ng-click="routeTo(record.bankAccountAssociationId)">{{record.lastModifiedDate | DateTimeFormat}}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
+        <div ng-if="showInActiveBankDetails()">
+        <div class="span grey-head">
+            <h3>
+                <strong>{{'label.heading.inactive.bank.account.details' | translate}}</strong>
+            </h3>
+        </div >
+        <div ng-if="inActivebankAccountDetails.length > 0">
+            <table class="table">
+                <thead>
+                    <tr class="graybg">
+                        <th>{{'label.heading.serialno' | translate}}</th>
+                        <th>{{'label.heading.holdername' | translate}}</th>
+                        <th>{{'label.heading.accountnumber' | translate}}</th>
+                        <th>{{'label.heading.ifsc' | translate}}</th>
+                        <th>{{'label.createdon' | translate}}</th>
+                        <th>{{'label.heading.lastupdatedon' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="pointer-main"  ng-repeat="record in inActivebankAccountDetails">
+                        <td class="pointer" data-ng-click="routeTowithQueryParam(record.bankAccountAssociationId)">{{$index+1}}</td>
+                        <td class="pointer" data-ng-click="routeTowithQueryParam(record.bankAccountAssociationId)">{{record.name}}</td>
+                        <td class="pointer" data-ng-click="routeTowithQueryParam(record.bankAccountAssociationId)">{{record.accountNumber}}</td>
+                        <td class="pointer" data-ng-click="routeTowithQueryParam(record.bankAccountAssociationId)">{{record.ifscCode}}</td>
+                        <td class="pointer" data-ng-click="routeTo(record.bankAccountAssociationId)">{{record.createdDate | DateTimeFormat}}</td>
+                        <td class="pointer" data-ng-click="routeTo(record.bankAccountAssociationId)">{{record.lastModifiedDate | DateTimeFormat}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
 </div>
