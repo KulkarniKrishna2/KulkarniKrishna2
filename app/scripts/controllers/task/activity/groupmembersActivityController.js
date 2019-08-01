@@ -418,19 +418,21 @@
                         resourceFactory.loanApplicationReferencesForGroupResource.get({groupId: scope.groupId,clientId: client.id}, function(data1) {
                             if (data1.length > 0) {
                                 for (var j in data1) {
-                                    resourceFactory.entityTaskExecutionResource.get({
-                                        entityType: "loanApplication",
-                                        entityId: data1[j].loanApplicationReferenceId
-                                    }, function(data2) {
-                                        if (data2 != undefined && data2.status && data2.status.id > 1) {
-                                            resourceFactory.taskExecutionChildrenResource.getAll({
-                                                taskId: data2.id
-                                            }, function(children) {
-                                                data2.activeChildTask = getActiveChildTask(children);
-                                                client.workflows.push(data2);
-                                            });
-                                        }
-                                    });
+                                    if(data1[j] && data1[j].loanApplicationReferenceId){
+                                        resourceFactory.entityTaskExecutionResource.get({
+                                            entityType: "loanApplication",
+                                            entityId: data1[j].loanApplicationReferenceId
+                                        }, function(data2) {
+                                            if (data2 != undefined && data2.status && data2.status.id > 1) {
+                                                resourceFactory.taskExecutionChildrenResource.getAll({
+                                                    taskId: data2.id
+                                                }, function(children) {
+                                                    data2.activeChildTask = getActiveChildTask(children);
+                                                    client.workflows.push(data2);
+                                                });
+                                            }
+                                        });
+                                    }
                                 };
                             }
                         });
