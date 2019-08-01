@@ -92,10 +92,10 @@
                 });
             };
             scope.generateDocuments = function () {
-                var generateDocumentForm = { entityType: 'centers' }
-                generateDocumentForm.entityId = scope.centerDetails.id;
-                generateDocumentForm.currentTaskId = scope.centerDetails.subGroupMembers[0].memberData[0].clientLevelTaskTrackingData.currentTaskId;
-                resourceFactory.taskTrackingGenerateDocumentsResource.save(generateDocumentForm, function (data) {
+                var generateDocumentForm = { documentEntityType: 'centers', taskEntityTypeId: 4 }
+                generateDocumentForm.taskEntityId = scope.centerDetails.id;
+                generateDocumentForm.taskId = scope.centerDetails.subGroupMembers[0].memberData[0].clientLevelTaskTrackingData.currentTaskId;
+                resourceFactory.taskGenerateDocumentsResource.save(generateDocumentForm, function (data) {
                     scope.getDocuments(scope.centerDetails);
                 });
             };

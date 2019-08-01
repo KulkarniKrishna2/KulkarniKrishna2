@@ -1878,7 +1878,7 @@
                         save: {method: 'POST', params: {loanId: '@loanId'}},
                         update: {method: 'PUT', params: {loanId: '@loanId',loanAccountDpDetailId: '@loanAccountDpDetailId'}}
                     }),
-                    taskTrackingGenerateDocumentsResource: defineResource(apiVer + "/tasktracking/generatedocuments", {}, {
+                    taskGenerateDocumentsResource: defineResource(apiVer + "/tasks/generatedocuments", {}, {
                     }),
                     documentsWithReportIdentifiersResource: defineResource(apiVer + "/:entityType/:entityId/documents/withreportidentifiers", {}, {
                     }),

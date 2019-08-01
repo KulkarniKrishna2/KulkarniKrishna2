@@ -6,6 +6,13 @@
             }));
             scope.loanIds = [];
             scope.isGRTPhotoUploaded = false;
+            scope.disableSelectAllClients = false;
+
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow) {
+                if (scope.response.uiDisplayConfigurations.workflow.disableSelectAllClients) {
+                    scope.disableSelectAllClients = scope.response.uiDisplayConfigurations.workflow.disableSelectAllClients
+                }
+            }
 
             function initTask() {
                 scope.$parent.clientsCount();
