@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        groupMembersCreditSummaryActivityController: function ($controller, scope, resourceFactory, location, $modal) {
+        groupMembersCreditSummaryActivityController: function ($controller, scope, resourceFactory, location, $modal, $rootScope, $http, $sce) {
             angular.extend(this, $controller('defaultActivityController', {
                 $scope: scope
             }));
@@ -12,25 +12,46 @@
                 scope.group = data;
                 if (data.clientMembers) {
                     angular.forEach(scope.group.clientMembers, function (client) {
-                        scope.loanApplications = [];
-                        resourceFactory.loanApplicationReferencesForGroupResource.get({
-                            groupId: scope.groupId,
-                            clientId: client.id
-                        }, function (data1) {
+                        client.workflows = [];
+                        resourceFactory.loanApplicationReferencesForGroupResource.get({ groupId: scope.groupId, clientId: client.id }, function (data1) {
                             if (data1.length > 0) {
-                                clientIndex = scope.group.clientMembers.findIndex(x => x.id == client.id);
-                                if (index != -1) {
-                                    loanIndex = data1.findIndex(x => x.status.id == 0 || x.status.id == 500 || x.status.id == 501);
-                                    if (loanIndex > -1) {
-                                        data1.splice(loanIndex, 1);
-                                    }
-                                    scope.group.clientMembers[clientIndex].loanApplication = data1;
-                                }
+                                for (var j in data1) {
+                                    resourceFactory.entityTaskExecutionResource.get({
+                                        entityType: "loanApplication",
+                                        entityId: data1[j].loanApplicationReferenceId
+                                    }, function (data2) {
+                                        if (data2 && data2.status && data2.status.id > 1) {
+                                            resourceFactory.taskExecutionChildrenResource.getAll({
+                                                taskId: data2.id
+                                            }, function (children) {
+                                                loanIndex = data1.findIndex(x => x.loanApplicationReferenceId == data2.entityId);
+                                                if (loanIndex > -1) {
+                                                    data2.loanProductName = data1[loanIndex].loanProductName;
+                                                    data2.loanAmountRequested = data1[loanIndex].loanAmountRequested;
+                                                }
+                                                data2.activeChildTask = getActiveChildTask(children);
+                                                client.workflows.push(data2);
+                                            });
+                                        }
+                                    });
+                                };
                             }
                         });
                     });
                 }
             });
+
+            function getActiveChildTask(childTasks) {
+                if (childTasks && childTasks.length > 0) {
+                    for (index in childTasks) {
+                        var task = childTasks[index];
+                        if (task.status && task.status.id > 1 && task.status.id < 7) {
+                            return task;
+                        }
+                    }
+                }
+                return null;
+            };
 
             scope.routeToMem = function (id) {
                 location.path('/viewclient/' + id);
@@ -41,6 +62,7 @@
                 $scope.viewCreditBureauReport = false;
                 $scope.errorMessage = [];
                 $scope.isStalePeriodExceeded = false;
+                $scope.reportEntityType = "CreditBureau";
                 resourceFactory.loanApplicationReferencesResource.getByLoanAppId({
                     loanApplicationReferenceId: loanApplicationReferenceId
                 }, function (data) {
@@ -277,6 +299,23 @@
                     }
                 };
 
+                $scope.openViewDocument = function (enquiryId, reportEntityType) {
+                    var url = $rootScope.hostUrl + '/fineract-provider/api/v1/enquiry/creditbureau/' + reportEntityType + '/' +
+                        enquiryId + '/attachment';
+                    url = $sce.trustAsResourceUrl(url);
+                    $http.get(url, { responseType: 'arraybuffer' }).
+                        success(function (data, status, headers, config) {
+                            var supportedContentTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'application/pdf', 'application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.presentationml.presentation', 'text/html', 'application/xml', "text/plain"];
+                            var contentType = headers('Content-Type');
+                            var file = new Blob([data], { type: contentType });
+                            var fileContent = URL.createObjectURL(file);
+                            if (supportedContentTypes.indexOf(contentType) > -1) {
+                                var docData = $sce.trustAsResourceUrl(fileContent);
+                                window.open(docData);
+                            }
+                        });
+                };
+
                 $scope.close = function () {
                     $modalInstance.close('close');
                 };
@@ -297,7 +336,7 @@
 
         }
     });
-    mifosX.ng.application.controller('groupMembersCreditSummaryActivityController', ['$controller', '$scope', 'ResourceFactory', '$location', '$modal', mifosX.controllers.groupMembersCreditSummaryActivityController]).run(function ($log) {
+    mifosX.ng.application.controller('groupMembersCreditSummaryActivityController', ['$controller', '$scope', 'ResourceFactory', '$location', '$modal', '$rootScope', '$http', '$sce', mifosX.controllers.groupMembersCreditSummaryActivityController]).run(function ($log) {
         $log.info("groupMembersCreditSummaryActivityController initialized");
     });
 }(mifosX.controllers || {}));
