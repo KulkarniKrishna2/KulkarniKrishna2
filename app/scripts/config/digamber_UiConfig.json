@@ -33,12 +33,22 @@
 			},
 			"hiddenFields": {
 				"reviewCB": true,
-				"sendToCBReview": false
-			}
+				"sendToCBReview": false,
+				"activateBankAccount": true
+			},
+			"disableSelectAllClients": true
 		},
 		"createCenter": {
 			"isReadOnlyField": {
 				"active": true
+			}
+		},
+		"documentConfiguration": {
+			"restrictTaggedDocuments": true
+		},
+		"createClient": {
+			"isMandatoryField": {
+				"clientClassificationId": true
 			}
 		}
 	}

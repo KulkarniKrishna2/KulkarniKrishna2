@@ -166,7 +166,7 @@
                                 | translate}}</a>
                             <a id="edit" ng-click="edit()" class="btn btn-primary" has-permission='UPDATE_BANKACCOUNTDETAIL'>{{'label.button.edit'
                                 | translate}}</a>
-                            <button ng-if="approvable()" id="activate" class="btn btn-primary" ng-click="activate()" has-permission='ACTIVATE_BANKACCOUNTDETAIL'>{{'label.button.activate' | translate}}</button> 
+                            <button ng-if="approvable() && !hideActivateBankAccount" id="activate" class="btn btn-primary" ng-click="activate()" has-permission='ACTIVATE_BANKACCOUNTDETAIL'>{{'label.button.activate' | translate}}</button> 
                         </div>
                         <div>
                         </div>
