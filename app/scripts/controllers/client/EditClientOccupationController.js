@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        EditClientOccupationController: function (scope, routeParams, resourceFactory, location, $modal, route, $http) {
+        EditClientOccupationController: function (scope, routeParams, resourceFactory, location, $modal, route, $http, $timeout) {
 
             scope.clientId = routeParams.clientId;
             scope.incomeAndExpenseId = routeParams.occupationId;
@@ -12,11 +12,13 @@
             });
 
             resourceFactory.incomeExpenseAndHouseHoldExpense.get({clientId:scope.clientId, incomeAndExpenseId: scope.incomeAndExpenseId}, function(data){
-                angular.forEach(scope.occupations, function(occ){
-                    if(occ.id == data.incomeExpenseData.cashflowCategoryId){
-                        scope.occupationOption = occ;
-                    }
-                });
+                $timeout(function () {
+                    angular.forEach(scope.occupations, function(occ){
+                        if(occ.id == data.incomeExpenseData.cashflowCategoryId){
+                            scope.occupationOption = occ;
+                        }
+                    });
+                }, 1000);
                 scope.formData.incomeExpenseId = data.incomeExpenseData.id;
                 scope.formData.quintity = data.quintity;
                 scope.formData.totalIncome = data.totalIncome;
@@ -58,7 +60,7 @@
             }
         }
     });
-    mifosX.ng.application.controller('EditClientOccupationController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$modal', '$route', '$http', mifosX.controllers.EditClientOccupationController]).run(function ($log) {
+    mifosX.ng.application.controller('EditClientOccupationController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$modal', '$route', '$http', '$timeout', mifosX.controllers.EditClientOccupationController]).run(function ($log) {
         $log.info("EditClientOccupationController initialized");
     });
 }(mifosX.controllers || {}));
