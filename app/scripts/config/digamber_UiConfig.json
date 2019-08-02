@@ -34,7 +34,8 @@
 			"hiddenFields": {
 				"reviewCB": true,
 				"sendToCBReview": false,
-				"activateBankAccount": true
+				"activateBankAccount": true,
+				"editCenterMeeting": false
 			},
 			"disableSelectAllClients": true
 		},

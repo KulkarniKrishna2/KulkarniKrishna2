@@ -475,7 +475,8 @@
 			"hiddenFields": {
 				"reviewCB": true,
 				"sendToCBReview": true,
-				"activateBankAccount": false
+				"activateBankAccount": false,
+				"editCenterMeeting": true
 			},
 			"showMembersStepsInfo": false,
 			"disableSelectAllClients": false

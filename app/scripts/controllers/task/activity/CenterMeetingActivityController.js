@@ -14,8 +14,14 @@
             scope.first = {};
             scope.disbursementDateFound = false;
             scope.expectedDisbursementOnDate = null;
+            scope.hideCenterMeetingEdit = true;
             for (var i = 1; i <= 28; i++) {
                 scope.repeatsOnDayOfMonthOptions.push(i);
+            }
+            
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow &&
+                scope.response.uiDisplayConfigurations.workflow.hiddenFields) {
+                scope.hideCenterMeetingEdit = scope.response.uiDisplayConfigurations.workflow.hiddenFields.editCenterMeeting;
             }
 
            function initTask() {
