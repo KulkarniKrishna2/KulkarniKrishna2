@@ -15,7 +15,7 @@
                         client.workflows = [];
                         resourceFactory.loanApplicationReferencesForGroupResource.get({ groupId: scope.groupId, clientId: client.id }, function (data1) {
                             if (data1.length > 0) {
-                                for (var j in data1) {
+                                for (var j=0; j< data1.length;j++) {
                                     resourceFactory.entityTaskExecutionResource.get({
                                         entityType: "loanApplication",
                                         entityId: data1[j].loanApplicationReferenceId
@@ -66,20 +66,22 @@
                 resourceFactory.loanApplicationReferencesResource.getByLoanAppId({
                     loanApplicationReferenceId: loanApplicationReferenceId
                 }, function (data) {
-                    $scope.formData = data;
-                    if ($scope.formData.loanId) {
-                        resourceFactory.LoanAccountResource.getLoanAccountDetails({
-                            loanId: $scope.formData.loanId,
-                            associations: 'all,hierarchyLookup',
-                            exclude: 'guarantors'
-                        }, function (loandetails) {
-                            if (loandetails.status.id == 200) {
-                                $scope.loandetails = loandetails;
-                            }
-                        });
+                    if(data){
+                        $scope.formData = data;
+                        if ($scope.formData.loanId) {
+                            resourceFactory.LoanAccountResource.getLoanAccountDetails({
+                                loanId: $scope.formData.loanId,
+                                associations: 'all,hierarchyLookup',
+                                exclude: 'guarantors'
+                            }, function (loandetails) {
+                                if (loandetails.status.id == 200) {
+                                    $scope.loandetails = loandetails;
+                                }
+                            });
+                        }
+                        $scope.isStalePeriodExceeded = data.isStalePeriodExceeded;
+                        getCreditbureauLoanProductData($scope.formData.loanProductId);
                     }
-                    $scope.isStalePeriodExceeded = data.isStalePeriodExceeded;
-                    getCreditbureauLoanProductData($scope.formData.loanProductId);
                 });
                 $scope.cBStatus = function () {
                     var status = undefined;
@@ -96,24 +98,26 @@
                         entityId: loanApplicationReferenceId,
                         trancheDisbursalId: $scope.trancheDisbursalId
                     }, function (data) {
-                        $scope.creditBureauEnquiries = data;
-                        if ($scope.creditBureauEnquiries && $scope.creditBureauEnquiries.length > 0) {
-                            $scope.creditBureauEnquiry = $scope.creditBureauEnquiries[0];
-                            if ($scope.creditBureauEnquiry) {
-                                if ($scope.creditBureauEnquiry.status) {
-                                    $scope.isResponPresent = true;
+                        if(data){
+                            $scope.creditBureauEnquiries = data;
+                            if ($scope.creditBureauEnquiries && $scope.creditBureauEnquiries.length > 0) {
+                                $scope.creditBureauEnquiry = $scope.creditBureauEnquiries[0];
+                                if ($scope.creditBureauEnquiry) {
+                                    if ($scope.creditBureauEnquiry.status) {
+                                        $scope.isResponPresent = true;
+                                    }
+                                    convertByteToString();
+                                    resourceFactory.clientCreditSummary.getAll({
+                                        clientId: $scope.formData.clientId,
+                                        enquiryId: $scope.creditBureauEnquiry.id
+                                    }, function (data) {
+                                        $scope.existingLoans = data.existingLoans;
+                                        $scope.creditScores = data.creditScores;
+                                        constructLoanSummary();
+                                    });
                                 }
-                                convertByteToString();
-                                resourceFactory.clientCreditSummary.getAll({
-                                    clientId: $scope.formData.clientId,
-                                    enquiryId: $scope.creditBureauEnquiry.id
-                                }, function (data) {
-                                    $scope.existingLoans = data.existingLoans;
-                                    $scope.creditScores = data.creditScores;
-                                    constructLoanSummary();
-                                });
+    
                             }
-
                         }
                     });
                 };
@@ -124,8 +128,10 @@
                         associations: 'creditBureaus',
                         clientId: $scope.clientId
                     }, function (data) {
-                        $scope.creditbureauLoanProduct = data;
-                        getCreditBureauReportSummary();
+                        if(data){
+                            $scope.creditbureauLoanProduct = data;
+                            getCreditBureauReportSummary();
+                        }
                     });
                 };
 
