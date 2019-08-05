@@ -7992,6 +7992,7 @@
     "label.input.searchbyname" : "Find By Name",
     "label.heading.cb.member.id":"CBMemeberId",
     "label.include.child.office.tasklist" : "include child office task list",
+    "label.heading.deactivate": "Deactivate",
     
     "------ end of translation file ------": "----------"
 }
