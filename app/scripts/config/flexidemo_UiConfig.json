@@ -8,13 +8,14 @@
         "linkAccountId": true,
         "createStandingInstruction": true,
         "loanPurpose": true,
-        "preferredPaymentChannel" : true
+        "preferredPaymentChannel" : true,
+        "interestChargedFromDate": false
   		},
       "isReadOnlyField": {
         "externalId": true,
         "displayName": true,
         "submittedOn": true,
-        "firstRepaymentDate":true,
+        "firstRepaymentDate":false,
         "loanTermFrequencyType": true,
         "repaymentFrequencyType": true
       }
