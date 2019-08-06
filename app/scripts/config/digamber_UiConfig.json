@@ -47,6 +47,13 @@
 			"isMandatoryField": {
 				"mobileNumber": true
 			}
+		},
+		"creditBureau": {
+			"isHiddenField":{
+				"viewHistoryCBReportButton":false
+			},
+			"getlimit": 3,
+			"getEnquiryHistoryLimit":15
 		}
 	}
 }
