@@ -15,7 +15,7 @@
                             <i class="icon-edit icon-white"></i>
                             {{'label.button.edit' | translate}}</a>
                         <button type="button" ng-click="deleteuser()" class="btn btn-primary" has-permission='DELETE_USER'>
-                            <i class="icon-trash icon-white"></i>{{'label.button.delete' | translate}}
+                            <i class="icon-ban-circle icon-white"></i>&nbsp;{{'label.button.deactivate' | translate}}
                         </button>
                         <button ng-show="showResetPasssword" type="button" class="btn btn-danger" data-ng-click="open()" has-permission='RESETPASSWORD_USER'>
                             <i class="icon-cog icon-white"></i>
@@ -174,7 +174,7 @@
 
     <script type="text/ng-template" id="deleteuser.html">
         <div class="modal-header silver">
-            <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+            <h3 class="bolder">{{'label.heading.deactivate' | translate}}</h3>
         </div>
         <div class="modal-body ">
             <api-validate></api-validate>
