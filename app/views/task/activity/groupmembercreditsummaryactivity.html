@@ -6,9 +6,9 @@
                 <tr class="graybg">
                     <th class="col-sm-2">{{'label.heading.accnum' | translate}}</th>
                     <th class="col-sm-2">{{'label.heading.name' | translate}}</th>
-                    <th class="center col-sm-3">{{'label.heading.loanproduct' | translate }}</th>
-                    <th class="col-sm-2">{{'label.heading.loanAmount' | translate}}</th>
-                    <th class="col-sm-2" colspan="2">{{'label.heading.workflow' | translate}}</th>
+                    <th class="col-sm-3">{{'label.heading.loanproduct' | translate }}</th>
+                    <th width="13%">{{'label.heading.loanAmount' | translate}}</th>
+                    <th class="col-sm-3" colspan="2">{{'label.heading.workflow' | translate}}</th>
                     <th class="center col-sm-1">{{'label.heading.creditbureau' | translate}}</th>
                 </tr>
             </thead>
@@ -21,7 +21,7 @@
                     <td class="pointer" data-ng-click="routeToMem(member.id)">
                         {{member.displayName}}</td>
                     <td colspan="5">
-                        <table>
+                        <table width="100%" >
                             <tbody>
                                 <tr ng-repeat="workflow in member.workflows track by workflow.id"
                                     ng-if="workflow.status.code != 'taskStatus.cancelled'">
