@@ -42,6 +42,11 @@
 			"isReadOnlyField": {
 				"active": true
 			}
+		},
+		"createClient": {
+			"isMandatoryField": {
+				"mobileNumber": true
+			}
 		}
 	}
 }

@@ -42,10 +42,17 @@
                             </select>
                         </div>
 
-                        <div class="col-sm-6 center">
-                            <button class="btn btn-primary" ng-click="getWorkflowCBReviewData()"><i
-                                    class="icon-search"></i>{{'label.button.fetchdetails' | translate}}</button>
+                        <div class="col-sm-6">
+                            <select chosen="cbCriteriaStatusOptions" id="status" ng-model="formData.status" class="form-control"
+                                ng-options="status.id as status.value for status in cbCriteriaStatusOptions"
+                                value="{{status.id}}">
+                                <option value="">{{'label.status' | translate}}</option>
+                            </select>
                         </div>
+                    </div>
+                    <div class="col-sm-6 center">
+                        <button class="btn btn-primary" ng-click="getWorkflowCBReviewData()"><i class="icon-search"></i>{{'label.button.fetchdetails'
+                            | translate}}</button>
                     </div>
                 </div>
 
@@ -88,7 +95,7 @@
                         <th class="col-md-1">{{'label.heading.arrears.amount' | translate}}</th>
                         <th class="col-md-1">{{'label.heading.applied.amount' | translate}}</th>
                         <th class="col-md-1">{{'label.heading.recommended.amount' | translate}}</th>
-                        <th class="col-md-1">{{'label.heading.uid'| translate}}</th>
+                        <th class="col-md-1">{{'label.heading.mobilenumber'| translate}}</th>
                         <th class="col-md-1">{{'label.heading.status'| translate}}</th>
                         <th class="col-md-1">{{'label.heading.actions'| translate}}</th>
                     </thead>
@@ -101,7 +108,7 @@
                             <td ng-click="routeToViewClient(reviewData.clientId)" class=" pointer">{{reviewData.existingLoansSummaryData.totalArrears}}</td>
                             <td ng-click="routeToViewClient(reviewData.clientId)" class=" pointer">{{reviewData.appliedLoanAmount}}</td>
                             <td ng-click="routeToViewClient(reviewData.clientId)" class=" pointer">{{reviewData.recommenedAmount}}</td>
-                            <td ng-click="routeToViewClient(reviewData.clientId)" class=" pointer">{{reviewData.uid}}</td>
+                            <td ng-click="routeToViewClient(reviewData.clientId)" class=" pointer">{{reviewData.mobileNo}}</td>
                             <td ng-click="routeToViewClient(reviewData.clientId)" class=" pointer">{{reviewData.status | translate}}</td>
                             <td class=" pointer">&nbsp;
                                 <a ng-hide="reviewData.isRejected || reviewData.isApproved" title="Approve"

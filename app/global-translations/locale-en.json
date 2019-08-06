@@ -1538,6 +1538,7 @@
     "label.delete": "Delete",
     "label.edit": "Edit",
     "label.all.loan.officer": "All Loan Officers",
+    "label.status": "Status",
 
 
     "#Enumeration & Error Messages": "..",
