@@ -30,12 +30,12 @@
                         <tr ng-repeat="clientdocument in value">
                             <td>{{clientdocument.name}}</td>
                             <td>{{clientdocument.description}}</td>
-                            <td>{{clientdocument.fileName}}&nbsp;<a target="_blank" data-ng-click="openViewDocument(clientdocument)"
-                                    has-permission='READ_DOCUMENT'>
+                            <td>{{clientdocument.fileName}}&nbsp;<a target="_blank" data-ng-click="openViewDocument(clientdocument)" has-permission='READ_DOCUMENT'>
                                     <i class="icon-eye-open text-success"></i>
                                 </a>&nbsp;
                                 <a ng-if="clientdocument.location" href="http://maps.google.com/?q={{clientdocument.location.latitude}},{{clientdocument.location.longitude}}"
-                                    target=" "><i class="icon-map-marker" style="color: blue" tooltip="{{ 'label.tooltip.view.document.captured.location' | translate}}"></i></a></td>
+                                    target=" "><i class="icon-map-marker" style="color: blue" tooltip="{{ 'label.tooltip.view.document.captured.location' | translate}}"></i></a>
+                                &nbsp;<span ng-if="clientdocument.location.latitude && clientdocument.location.latitude">[{{clientdocument.location.latitude}}, {{clientdocument.location.longitude}}]</span></td>
                         </tr>
                     </tbody>
                 </table>
