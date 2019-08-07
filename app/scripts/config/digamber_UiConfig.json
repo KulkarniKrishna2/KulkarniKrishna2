@@ -35,8 +35,11 @@
 			},
 			"hiddenFields": {
 				"reviewCB": true,
-				"sendToCBReview": false
-			}
+				"sendToCBReview": false,
+				"activateBankAccount": true,
+				"editCenterMeeting": false
+			},
+			"disableSelectAllClients": true
 		},
 		"createCenter": {
 			"isReadOnlyField": {
@@ -45,8 +48,12 @@
 		},
 		"createClient": {
 			"isMandatoryField": {
-				"mobileNumber": true
+				"mobileNumber": true,
+				"clientClassificationId": true
 			}
+		},
+		"documentConfiguration": {
+			"restrictTaggedDocuments": true
 		},
 		"creditBureau": {
 			"isHiddenField":{

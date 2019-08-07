@@ -287,11 +287,13 @@
             }
 
             scope.moveMembersToNextStep = function () {
-                scope.errorDetails = [];
                 if (scope.taskInfoTrackArray.length == 0) {
+                    scope.errorDetails = [];
                     return scope.errorDetails.push([{ code: 'error.msg.select.atleast.one.member' }])
                 }
-
+                if(scope.errorDetails){
+                    delete scope.errorDetails;
+                }
                 scope.taskTrackingFormData = {};
                 scope.taskTrackingFormData.taskInfoTrackArray = [];
 
@@ -358,6 +360,7 @@
                 $scope.displayCashFlow = true;
                 $scope.displaySurveyInfo = true;
                 $scope.surveyName = scope.response.uiDisplayConfigurations.viewClient.takeSurveyName;
+                $scope.hideActivateBankAccount = false;
                 //loan account
                 if (memberParams.activeClientMember.loanAccountBasicData) {
                     $scope.loanAccountData = memberParams.activeClientMember.loanAccountBasicData;
@@ -367,6 +370,12 @@
                 if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.bankAccountDetails) {
                     if (scope.response.uiDisplayConfigurations.bankAccountDetails.isMandatory) {
                         $scope.isMandatoryFields = scope.response.uiDisplayConfigurations.bankAccountDetails.isMandatory;
+                    }
+                }
+
+                if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow && scope.response.uiDisplayConfigurations.workflow.hiddenFields) {
+                    if (scope.response.uiDisplayConfigurations.workflow.hiddenFields.activateBankAccount) {
+                        $scope.hideActivateBankAccount = scope.response.uiDisplayConfigurations.workflow.hiddenFields.activateBankAccount;
                     }
                 }
 

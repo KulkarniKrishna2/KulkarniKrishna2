@@ -476,9 +476,12 @@
 			},
 			"hiddenFields": {
 				"reviewCB": true,
-				"sendToCBReview": true
+				"sendToCBReview": true,
+				"activateBankAccount": false,
+				"editCenterMeeting": true
 			},
-			"showMembersStepsInfo": false
+			"showMembersStepsInfo": false,
+			"disableSelectAllClients": false
 		},
 		"globalSearchScope": {
 			"name": "label.search.scope.clients.and.clientIdentifiers",
@@ -677,6 +680,9 @@
 				"transfer": true,
 				"initiateBulkTransfer": true
 			}
+		},
+		"documentConfiguration": {
+			"restrictTaggedDocuments": false
 		}	
 	}
 }

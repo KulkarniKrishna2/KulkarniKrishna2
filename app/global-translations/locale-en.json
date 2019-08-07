@@ -8026,6 +8026,8 @@
     "validation.msg.loanapplicationreference.charges.amount.must.have.less.than.the.allowed.number.of.decimal.places" : "Charge amount `{{params[0].value}}` must have less than allowed number of decimal places `{{params[1].value[0]}}`",
     "validation.msg.loan.charges.amount.must.have.less.than.the.allowed.number.of.decimal.places" : "Charge amount `{{params[0].value}}` must have less than allowed number of decimal places `{{params[1].value[0]}}`",
     "validation.msg.loanCharge.amount.amount.must.have.less.than.the.allowed.number.of.decimal.places" : "Charge amount `{{params[0].value}}` must have less than allowed number of decimal places `{{params[1].value[0]}}`",
+    "label.anchor.generated.documents":"Generated Documents",
+    "error.msg.generate.documents":"Generate Documents",
 
     "label.heading.inactive.bank.account.details" :"Inactive Bank Account Details",
     "error.msg.bank.account.association.invalid.status" : "Invalid bank account details association status",

@@ -277,8 +277,8 @@
             }
 
             scope.doBulkBankApprovalAction = function(approvalIdList){
-                scope.errorDetails = [];
                 if(approvalIdList.length == 0){
+                    scope.errorDetails = [];
                     return scope.errorDetails.push([{code: 'error.msg.select.atleast.one.member'}])
                 }
                 scope.bulkApprovalFormData.bankApprovalIdList = approvalIdList;
@@ -289,8 +289,8 @@
 
             scope.createBulkCrnAction = function (approvalIdList) {
                 if (scope.allowBcifOperations) {
-                    scope.errorDetails = [];
                     if (approvalIdList.length == 0) {
+                        scope.errorDetails = [];
                         return scope.errorDetails.push([{ code: 'error.msg.select.atleast.one.member' }])
                     }
                     scope.bulkApprovalFormData.bankApprovalIdList = approvalIdList;
@@ -302,6 +302,9 @@
 
             scope.changeInTab = function(grouping){
                 scope.filterBy = 'Invalid';
+                if(scope.errorDetails){
+                    delete scope.errorDetails;
+                }
                 scope.formData.crnSelectedOption = 'All CRN Status';
                 scope.checkForOption();
                 scope.formData.actionListSelectedOption = 'No Action Selected';

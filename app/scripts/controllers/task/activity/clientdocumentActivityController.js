@@ -14,6 +14,7 @@
                 scope.uiData.isUploadDocument = true;
                 scope.uiData.isUploadDocumentTagMandatory = false;
                 scope.uiData.isDocumentRestrictedForTags = false;
+                scope.restrictTaggedDocuments = false;
                 if (scope.taskconfig.hasOwnProperty('documentConfiguration')) {
                     scope.documentConfiguration = scope.taskconfig['documentConfiguration'];
                     if (!_.isUndefined(scope.documentConfiguration.isUploadDocument)) {
@@ -25,6 +26,9 @@
                     if (!_.isUndefined(scope.documentConfiguration.isDocumentRestrictedForTags)) {
                         scope.uiData.isDocumentRestrictedForTags = scope.documentConfiguration.isDocumentRestrictedForTags;
                     }
+                }
+                if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.documentConfiguration && scope.response.uiDisplayConfigurations.documentConfiguration.restrictTaggedDocuments) {
+                    scope.restrictTaggedDocuments = scope.response.uiDisplayConfigurations.documentConfiguration.restrictTaggedDocuments;
                 }
                 
                 if (scope.taskconfig.hasOwnProperty('entityType')) {
@@ -149,9 +153,9 @@
                         if (data[l].id) {
                             data[l].docUrl = documentsURL(data[l]);
                         }
-                        if(data[l].tagValue){
+                        if (data[l].tagValue && !scope.restrictTaggedDocuments) {
                             scope.pushDocumentToTag(data[l], data[l].tagValue);
-                        } else {
+                        } else if (!data[l].tagValue) {
                             scope.pushDocumentToTag(data[l], 'uploadedDocuments');
                         }
                     }

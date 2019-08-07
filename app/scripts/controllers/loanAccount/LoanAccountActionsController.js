@@ -1097,6 +1097,9 @@
 
             scope.finalSubmit = function() {
                 scope.processDate = false;
+                if(scope.errorDetails){
+                    delete scope.errorDetails;
+                }
                 var params = {command: scope.action};
                 if(scope.action == "recoverguarantee"){
                     params.command = "recoverGuarantees";
@@ -1122,6 +1125,7 @@
                     if(scope.disbursementDetails != null) {
                         var numberOftranches = scope.disbursementDetails.length;
                         if( scope.approveTranches  && numberOftranches <= 0) {
+                            scope.errorDetails = [];
                             scope.trancheError = true;
                             var errorObj = new Object();
                             errorObj.args = {

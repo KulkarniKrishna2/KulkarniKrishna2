@@ -1,3 +1,5 @@
+<form name="datatableActivityEntryForm" novalidate="" >
+<api-validate></api-validate>
 <label class="control-label col-sm-3" ng-show="columnHeader.displayName != 'null'">{{ columnHeader.displayName | prettifyDataTableColumn }}
     <span ng-show="!columnHeader.isColumnNullable || columnHeader.mandatoryIfVisible" class="required">*</span>
 </label>
@@ -56,3 +58,4 @@
         </div>
     </span>
 </div>
+</form>
