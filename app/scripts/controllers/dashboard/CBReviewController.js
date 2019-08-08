@@ -130,6 +130,48 @@
                     $modalInstance.dismiss('cancel');
                 };
             };
+            
+            scope.openViewDocument = function (enquiryId) {
+                scope.reportEntityType = "CreditBureau";
+                var url = $rootScope.hostUrl + '/fineract-provider/api/v1/enquiry/creditbureau/' + scope.reportEntityType + '/' +
+                    enquiryId + '/attachment';
+                url = $sce.trustAsResourceUrl(url);
+                $http.get(url, { responseType: 'arraybuffer' }).
+                    success(function (data, status, headers, config) {
+                        var supportedContentTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'application/pdf', 'application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.presentationml.presentation', 'text/html', 'application/xml'];
+                        var contentType = headers('Content-Type');
+                        var file = new Blob([data], { type: contentType });
+                        var fileContent = URL.createObjectURL(file);
+                        if (supportedContentTypes.indexOf(contentType) > -1) {
+                            var docData = $sce.trustAsResourceUrl(fileContent);
+                            window.open(docData);
+                        }
+                    });
+            };
+
+            //CB critieria result view
+            scope.openViewCBCriteriaResult = function (criteriaResult) {
+                var templateUrl = 'views/task/popup/clientcbcriteriaresult.html';
+                $modal.open({
+                    templateUrl: templateUrl,
+                    controller: viewClientCBCriteriaResultCtrl,
+                    windowClass: 'modalwidth700',
+                    resolve: {
+                        memberParams: function () {
+                            return { 'criteriaResult': criteriaResult };
+                        }
+                    }
+                });
+            }
+
+            var viewClientCBCriteriaResultCtrl = function ($scope, $modalInstance, memberParams) {
+                $scope.cbCriteriaResult = JSON.parse(memberParams.criteriaResult);
+
+                $scope.close = function () {
+                    $modalInstance.dismiss('close');
+                };
+            }
+
         }
     });
     mifosX.ng.application.controller('CBReviewController', ['$scope', 'ResourceFactory', 'PaginatorUsingOffsetService', '$rootScope', '$sce', '$http', '$modal', '$route', 'dateFilter','$location', mifosX.controllers.CBReviewController]).run(function ($log) {

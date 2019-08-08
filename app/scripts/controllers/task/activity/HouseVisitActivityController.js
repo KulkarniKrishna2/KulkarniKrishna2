@@ -21,7 +21,7 @@
                 resourceFactory.centerWorkflowResource.get({
                     centerId: scope.centerId,
                     eventType: scope.eventType,
-                    associations: 'groupMembers,profileratings,loanaccounts,clientcbcriteria,clientBankAccountDetails'
+                    associations: 'groupMembers,profileratings,loanaccounts,clientcbcriteria'
                 }, function (data) {
                     scope.centerDetails = data;
                     scope.rejectTypes = data.rejectTypes;
@@ -231,8 +231,8 @@
             }
 
             scope.validateClient = function (activeClientMember) {
-                if (activeClientMember.profileRatingScoreData && activeClientMember.clientBankAccountDetailData) {
-                    return (activeClientMember.status.code === 'clientStatusType.onHold' || activeClientMember.profileRatingScoreData.finalScore * 20 < scope.clientProfileRatingScoreForSuccess || activeClientMember.clientBankAccountDetailData.status.id == 100);
+                if (activeClientMember.profileRatingScoreData) {
+                    return (activeClientMember.status.code === 'clientStatusType.onHold' || activeClientMember.profileRatingScoreData.finalScore * 20 < scope.clientProfileRatingScoreForSuccess);
                 }
                 return true;
             };
