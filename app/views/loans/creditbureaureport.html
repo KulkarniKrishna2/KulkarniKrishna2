@@ -73,6 +73,10 @@
                                         <td>{{'label.heading.enquiry.id' | translate}}</td>
                                         <td>{{creditBureauEnquiry.id}}</td>
                                     </tr>
+                                    <tr ng-if="creditBureauEnquiry.cbReportOrderNo">
+                                        <td>{{'label.heading.cbreport.order.number' | translate}}</td>
+                                        <td>{{creditBureauEnquiry.cbReportOrderNo}}</td>
+                                    </tr>
                                  </table> 
                              </div> 
                          </div>         
