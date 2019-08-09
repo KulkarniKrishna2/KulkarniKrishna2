@@ -8000,6 +8000,7 @@
     "label.heading.uid": "UID",
     "label.anchor.cb.passed": "CB Passed",
     "label.anchor.cb.rejected": "CB Rejected",
+    "label.heading.cb.result": "CB Result",
     "label.anchor.view.reassign.staff" : "View Reassign Staff",
     "label.view.reassign.staff" : "View Reassign Staff Request",
     "label.heading.creditbureau.history.report":"Credit Bureau History Report",

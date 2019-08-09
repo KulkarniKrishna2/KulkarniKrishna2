@@ -96,6 +96,7 @@
                         <th class="col-md-1">{{'label.heading.applied.amount' | translate}}</th>
                         <th class="col-md-1">{{'label.heading.recommended.amount' | translate}}</th>
                         <th class="col-md-1">{{'label.heading.mobilenumber'| translate}}</th>
+                        <th class="col-md-1">{{'label.heading.cb.result'| translate}}</th>
                         <th class="col-md-1">{{'label.heading.status'| translate}}</th>
                         <th class="col-md-1">{{'label.heading.actions'| translate}}</th>
                     </thead>
@@ -109,6 +110,17 @@
                             <td ng-click="routeToViewClient(reviewData.clientId)" class=" pointer">{{reviewData.appliedLoanAmount}}</td>
                             <td ng-click="routeToViewClient(reviewData.clientId)" class=" pointer">{{reviewData.recommenedAmount}}</td>
                             <td ng-click="routeToViewClient(reviewData.clientId)" class=" pointer">{{reviewData.mobileNo}}</td>
+                            <td class=" pointer">&nbsp;
+                                <a target="_blank" title="View CreditBureau Report"
+                                    data-ng-click="openViewDocument(reviewData.existingLoansSummaryData.creditBureauEnquiryId)"
+                                    has-permission='READ_CREDIT_BUREAU_REPORT'>
+                                    <i class="icon-eye-open text-success"></i>
+                                </a>&nbsp;
+                                <a target="_blank" title="View CreditBureau Criteria Result"
+                                    data-ng-click="openViewCBCriteriaResult(reviewData.criteriaResult.ruleResult)">
+                                    <i class="icon-question-sign"></i>
+                                </a>
+                            </td>
                             <td ng-click="routeToViewClient(reviewData.clientId)" class=" pointer">{{reviewData.status | translate}}</td>
                             <td class=" pointer">&nbsp;
                                 <a ng-hide="reviewData.isRejected || reviewData.isApproved" title="Approve"
