@@ -8031,5 +8031,7 @@
 
     "label.heading.inactive.bank.account.details" :"Inactive Bank Account Details",
     "error.msg.bank.account.association.invalid.status" : "Invalid bank account details association status",
+    "label.heading.cbreport.order.number": "Credit Bureau Report Order Number" , 
+    
     "------ end of translation file ------": "----------"
 }
