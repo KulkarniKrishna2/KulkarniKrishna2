@@ -8034,5 +8034,8 @@
     "error.msg.bank.account.association.invalid.status" : "Invalid bank account details association status",
     "label.heading.cbreport.order.number": "Credit Bureau Report Order Number" , 
     
+    "label.percentage.symbol" : "%",
+
+
     "------ end of translation file ------": "----------"
 }
