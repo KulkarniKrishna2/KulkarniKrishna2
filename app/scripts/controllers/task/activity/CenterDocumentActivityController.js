@@ -5,6 +5,11 @@
                 $scope: scope
             }));
             scope.documentFormdata = {};
+            scope.restrictTaggedDocuments = false;
+
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.documentConfiguration && scope.response.uiDisplayConfigurations.documentConfiguration.restrictTaggedDocuments) {
+                scope.restrictTaggedDocuments = scope.response.uiDisplayConfigurations.documentConfiguration.restrictTaggedDocuments;
+            }
 
             function initTask() {
                 scope.$parent.clientsCount();
