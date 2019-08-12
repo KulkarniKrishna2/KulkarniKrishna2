@@ -182,7 +182,7 @@
             };
 
             scope.getSavingAccountDetailsTemplateData = function(){
-            resourceFactory.savingsResource.get({accountId: routeParams.id, limit: scope.limit, offset:scope.requestoffset, orderBy:'transactionDate', sortOrder:'DESC', associations: 'all'}, function (data) {
+            resourceFactory.savingsResource.get({accountId: routeParams.id, limit: scope.limit, offset:scope.requestoffset, orderBy:'transactionDate', sortOrder:'DESC', associations: 'all', excludeSystemReversed: true}, function (data) {
                 scope.savingaccountdetails = data;
                 $rootScope.savingsAccount = data.savingsProductName;
                 $rootScope.clientId=data.clientId;
@@ -424,7 +424,7 @@
             scope.getSavingAccountDetailsTemplateData();
 
             scope.amountTobePaid = function(){
-               if( scope.savingaccountdetails.summary.accountBalance < 0 ){
+               if( scope.savingaccountdetails.summary && scope.savingaccountdetails.summary.accountBalance < 0 ){
                    var amount =  (scope.savingaccountdetails.summary.accountBalance + scope.savingaccountdetails.overdraftLimit);
                    if( amount < 0) {
                        scope.amountToBePaid = -amount;
