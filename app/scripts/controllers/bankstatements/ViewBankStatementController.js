@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewBankStatementController: function (scope, resourceFactory, location, http, routeParams, API_VERSION, $upload, $rootScope, CommonUtilService) {
+        ViewBankStatementController: function (scope, resourceFactory, location, http, routeParams, API_VERSION, $upload, $rootScope, commonUtilService) {
             scope.bankStatements  = [];
             scope.baseUri = $rootScope.hostUrl+API_VERSION+'/bankstatement/1/documents/';
             scope.appendedUri = '/attachment';
@@ -130,10 +130,9 @@
                     }
             }
 
-            scope.download = function(docUrl,fileName){
-                var url = docUrl;
+            scope.download = function(fileName,docUrl){
                 var fileType = fileName.substr(fileName.lastIndexOf('.') + 1);
-                CommonUtilService.downloadFile(url,fileType);
+                commonUtilService.downloadFile(docUrl,fileType);
             }
         }
     });
