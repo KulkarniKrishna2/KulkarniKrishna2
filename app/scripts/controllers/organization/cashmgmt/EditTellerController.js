@@ -4,7 +4,7 @@
             scope.offices = [];
             scope.tellerStatuses = [ {"id":300, "code":"300", "value":"Active"}, {"id":400, "code":"400", "value":"Inactive"}];
 
-            resourceFactory.officeResource.getAllOffices(function (data) {
+            resourceFactory.officeResource.getAllOffices({onlyActive: true}, function (data) {
                 scope.offices = data;
             });
 

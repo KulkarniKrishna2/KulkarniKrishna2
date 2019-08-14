@@ -115,6 +115,9 @@
                                 <td>
                                     <span><strong>{{'label.heading.dpd' | translate}}</strong></span>
                                 </td>
+                                <td>
+                                    <span><strong>{{'label.heading.cb.member.id' | translate}}</strong></span>
+                                </td>
                             </tr>
                             <tr ng-repeat="summary in activeLoan.summaries | orderBy:'-totalOutstandingAmount' track by $index" ng-init="summaryIndex = $index">
                                 <td>
@@ -137,6 +140,12 @@
                                 </td>
                                 <td>
                                     <span>{{summary.totalDpd}}</span>
+                                </td>
+                                <td ng-show ="summary.existingClient">
+                                    <span><a ng-href="#/viewclient/{{summary.cbMemberId}}">{{summary.cbMemberId}}</a></span>
+                                </td>
+                                <td ng-hide="summary.existingClient">
+                                    <span>{{summary.cbMemberId}}</span>
                                 </td>
                             </tr>
                             <tr>
@@ -168,7 +177,7 @@
                     <div class="col-md-12" ng-if="cBStatus() == 'SUCCESS'">
                         <table class="table table-bordered table-striped" ng-if="closedLoan.summaries.length > 0">
                             <tr>
-                                <td colspan="8">
+                                <td colspan="9">
                                     <span class="boldlabel"><strong>Closed Loans Summary</strong></span>
                                 </td>
                             </tr>
@@ -197,6 +206,9 @@
                                 <td>
                                     <span><strong>{{'label.heading.write.off.amount' | translate}}</strong></span>
                                 </td>
+                                <td>
+                                    <span><strong>{{'label.heading.cb.member.id' | translate}}</strong></span>
+                                </td>
                             </tr>
                             <tr ng-repeat="summary in closedLoan.summaries | orderBy:'lastClosureDate' :true track by $index" ng-init="summaryIndex = $index">
                                 <td>
@@ -223,6 +235,12 @@
                                 <td>
                                     <span>{{summary.totalWriteOffAmount |number}}</span>
                                 </td>
+                                <td ng-show ="summary.existingClient">
+                                    <span><a ng-href="#/viewclient/{{summary.cbMemberId}}">{{summary.cbMemberId}}</a></span>
+                                </td>
+                                <td ng-hide="summary.existingClient">
+                                    <span>{{summary.cbMemberId}}</span>
+                                </td>
                             </tr>
                             <tr>
                                 <td>
@@ -242,9 +260,6 @@
                                 </td>
                                 <td>
                                     <span><strong>{{closedLoan.totalSummary.totalDisbursalAmount | number}}</strong></span>
-                                </td>
-                                <td>
-                                    &nbsp;
                                 </td>
                                 <td>
                                     &nbsp;

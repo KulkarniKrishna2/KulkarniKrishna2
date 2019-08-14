@@ -17,11 +17,12 @@
                 scope.clientName = data.clientName;
                 scope.groupName = data.groupName;
                 //scope.loanProductChange(scope.formData.loanProductId);
-                resourceFactory.entityTaskExecutionResource.get({entityType: "loanApplication",entityId:scope.loanApplicationId}, function (data) {
-                    scope.taskData = data;
-                    //scope.$broadcast('initTask', {"taskData": data});
-                });
-                
+                if(scope.loanApplicationId){
+                    resourceFactory.entityTaskExecutionResource.get({entityType: "loanApplication",entityId:scope.loanApplicationId}, function (data) {
+                        scope.taskData = data;
+                        //scope.$broadcast('initTask', {"taskData": data});
+                    });
+                }
                 if(data.groupId != undefined){
                      resourceFactory.groupResource.get({groupId: data.groupId}, function (data) {
                          scope.groupData = data;

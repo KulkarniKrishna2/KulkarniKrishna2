@@ -134,7 +134,7 @@
                                 <label class="control-label col-sm-4" >{{'label.input.reasontype' | translate}}<span ng-if="isRejectReasonMandatory"class="required">*</span></label>
                                 <div class="col-sm-5">
                                     <select  id="loanRejectReason[loan.loanId].codeReasonId"  name="loanReasonCodeType" ng-model="loanRejectReason[loan.loanId].codeReasonId" ng-options="code.id as code.name for code in collectionReasonList" value="{{code.name}}" 
-                                    class="input-sm form-control" data-ng-change="getLoanSubReasonValues(loan.loanId,loanRejectReason[loan.loanId].codeReasonId)" ng-required="isRejectReasonMandatory">
+                                    class="input-sm form-control" data-ng-change="getLoanSubReasonValues(loan.loanId,loanRejectReason[loan.loanId].codeReasonId)" ng-required="isRejectReasonMandatory" required late-validate>
                                     <option value="">{{'label.selectone' | translate}}</option></select>
                                 </div>
                                 <div class="control-label col-sm-8">
@@ -237,10 +237,13 @@
                                             <br/>
                                         </div>
                                         
-                                        <div class="form-group" ng-show="isTextAvailable(client) && showRejectReason">
+                                        <div class="form-group" ng-if="isTextAvailable(client) && showRejectReason">
                                             <label class="control-label col-sm-4" >{{'label.input.description' | translate}}<span ng-if="isRejectReasonMandatory" class="required">*</span></label>
                                             <div class="col-sm-8">
-                                                <textarea row="3" col="3" id="client.reason" name="client.reason" ng-model="client.reason"  class="form-control"></textarea>
+                                                <textarea row="3" col="3" id="client.reason" name="attendanceReasonDescription" ng-model="client.reason"  class="form-control" ng-required="isRejectReasonMandatory" required late-validate></textarea>
+                                            </div>
+                                            <div class="control-label col-sm-8">
+                                                <form-validate valattributeform="productivecollectionsheetform" valattribute="attendanceReasonDescription"/>
                                             </div>
                                             <br/>
                                         </div>
@@ -274,13 +277,13 @@
                         </table>
             </div>
             <div class="col-md-offset-9 paddedtop">
-                <button id="save" type="submit" class="btn btn-primary" ng-disabled="productivecollectionsheetform.$invalid == true" ng-show="submitNextShow">
+                <button id="save" class="btn btn-primary" ng-show="submitNextShow">
                     {{'label.button.submitandnextcenter' | translate}}
                 </button>
-                <button id="save" type="submit" ng-disabled="productivecollectionsheetform.$invalid == true"  class="btn btn-primary" ng-show="submitShow">
+                <button id="save" class="btn btn-primary" ng-show="submitShow">
                     {{'label.button.save' | translate}}
                 </button>
-                <button id="save" type="submit" class="btn btn-warning" ng-disabled="productivecollectionsheetform.$invalid == true"  ng-show="forcedSubmit">
+                <button id="save" class="btn btn-warning" ng-show="forcedSubmit">
                     {{'label.button.forcedsubmit' | translate}}
                 </button>
             </div>

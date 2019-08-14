@@ -114,10 +114,11 @@
             scope.getCbEnquiryData = function (enquiryId) {
                 resourceFactory.creditBureauReportSummaryByEnquiryIdResource.get({ 'enquiryId': enquiryId }, function (summary) {
                     scope.checkCBData = summary;
-                    if (scope.checkCBData != null && scope.checkCBData.errors == null) {
-                            initTask();
-                    } else {
-                        if (scope.checkCBData != null && scope.checkCBData.errors != null) {
+                    if(scope.checkCBData != null && scope.checkCBData.errors == null){
+                        initTask();
+                    }else{
+                        if(scope.checkCBData != null && scope.checkCBData.errors != null){
+                            scope.errorDetails=[];
                             var errorObj = new Object();
                             scope.errorDetails=[];
                             errorObj.args = {

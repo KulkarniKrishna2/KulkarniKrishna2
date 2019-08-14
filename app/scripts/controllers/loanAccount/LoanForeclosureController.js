@@ -13,11 +13,11 @@
             scope.paymentModeOptions = [];
             scope.paymentTypeOptions = [];
             scope.isPaymentTypeHidden = false; 
+            scope.showPreclosureReason = false;
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.preClose &&
                 scope.response.uiDisplayConfigurations.preClose.hiddenFields) {
                     scope.isPaymentTypeHidden = scope.response.uiDisplayConfigurations.preClose.hiddenFields.paymentType;
             }
-
             scope.showPreclosureReason = scope.response.uiDisplayConfigurations.loanAccount.isMandatory.isPreclosureReasonEnabled;
             scope.specifyReason = false;            
             
@@ -38,9 +38,13 @@
                     command: 'foreclosure',
                     transactionDate: dateFilter(this.formData.transactionDate, scope.df),
                     dateFormat: scope.df,
-                    locale: scope.optlang.code
+                    locale: scope.optlang.code,
+                    includePreclosureReasoon: scope.showPreclosureReason
                 }, function (data) {
                     scope.foreclosuredata = data;
+                    if(data.preclosureReasonOptions){
+                        scope.preclosureReasonList =  data.preclosureReasonOptions;
+                    }
                     scope.formData.outstandingPrincipalPortion = scope.foreclosuredata.principalPortion;
                     scope.formData.outstandingInterestPortion = scope.foreclosuredata.interestPortion;
                     scope.paymentModeOptions = scope.foreclosuredata.paymentModeOptions;
@@ -87,9 +91,7 @@
               }
             };
             
-            resourceFactory.codeValueByCodeNameResources.get({codeName: 'PreclosureReasons',searchConditions:'{"codeValueIsActive":true}'}, function (data) {
-                scope.preclosureReasonList = data;
-            });
+           
 
             scope.getPreclosureReasonValues = function(codeId) {
                 scope.specifyReason = false;

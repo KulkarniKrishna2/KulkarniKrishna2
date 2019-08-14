@@ -75,6 +75,11 @@
                                         summaty.totalOverDueAmount = existingLoan.amtOverdue;
                                         summaty.lenderType = existingLoan.lenderType;
                                         summaty.totalDpd = existingLoan.dpd;
+                                        summaty.cbMemberId = existingLoan.cbMemberId
+                                        summaty.existingClient = false;
+                                        if(scope.isOwnInstituteConfEnable && existingLoan.lenderName === scope.ownInstituteName){
+                                            summaty.existingClient = true;
+                                        }
                                         scope.activeLoan.summaries.push(summaty);
                                     }
                                     scope.activeLoan.totalSummary.noOfActiveLoans += 1;
@@ -175,6 +180,11 @@
                                         summaty.totalWriteOffAmount = existingLoan.writtenOffAmount;
                                         summaty.lenderType = existingLoan.lenderType;
                                         summaty.dpd = existingLoan.dpd;
+                                        summaty.cbMemberId = existingLoan.cbMemberId;
+                                        summaty.existingClient = false;
+                                        if(scope.isOwnInstituteConfEnable && existingLoan.lenderName === scope.ownInstituteName){
+                                            summaty.existingClient = true;
+                                        }
                                         scope.closedLoan.summaries.push(summaty);
                                     }
                                     scope.closedLoan.totalSummary.noOfClosedLoans += 1;
