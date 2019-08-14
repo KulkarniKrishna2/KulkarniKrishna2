@@ -1852,6 +1852,9 @@
                     viewTaxInvoiceData: defineResource(apiVer + "/accounting/taxinvoice/view", {}, {
                     }),
                     deactivatedUserResource: defineResource(apiVer + "/users/:userId/deactivated", { userId: '@userId' }, {
+                    }),
+                    workFlowStepSummaryTemplateResource: defineResource(apiVer + "/tasks/summary/template",{}, {
+                        get: {method: 'GET', params: {}, isArray: false}
                     })
                 };
             }];

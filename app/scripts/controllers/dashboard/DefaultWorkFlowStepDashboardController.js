@@ -6,6 +6,12 @@
             scope.officeId = undefined;
             scope.entityTypeArray = [];
             scope.isEntityPresent = false;
+            scope.taskConfigOptions = [];
+            resourceFactory.workFlowStepSummaryTemplateResource.get({}, function(data) {
+                scope.offices = data.officeOptions;
+                scope.entityTypeArray = data.workflowTypes;
+                scope.taskConfigOptions = data.taskConfigs;
+            });   
 
             scope.getWorkFlowTaskSummary = function() {
                 scope.products = [];
@@ -64,8 +70,6 @@
             });
         };
 
-        scope.getWorkFlowTaskSummary();
-
         scope.goTotasks = function(productIndex,officeIndex,workFlowIndex){
             var productObj = scope.products[productIndex];
             var parentConfigId = productObj.entityId;
@@ -74,15 +78,6 @@
             var childConfigId = officeObj.workFlowSummaries[workFlowIndex].stepConfigId;
             location.path('/tasklist/' + parentConfigId + "/" + officeId + "/" + childConfigId);
         }
-
-
-            resourceFactory.loanProductResource.getAllLoanProducts(function (data) {
-                scope.loanproducts = data;
-            });
-
-            resourceFactory.officeResource.getAllOffices(function (data) {
-                scope.offices = data;
-            });
 
         scope.constructIndividualStepSummaryDetails = function(productIndex,officeIndex,workFlowIndex) {
                 var productObj  = scope.products[productIndex];
