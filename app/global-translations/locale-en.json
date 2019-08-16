@@ -8074,6 +8074,8 @@
     "label.heading.cb.member.id":"CBMemeberId",
     "label.include.child.office.tasklist" : "include child office task list",
     "label.heading.deactivate": "Deactivate",
+    "error.msg.invalid.file.format" : "Invalid file format exception.",
+    "error.msg.document.can.not.be.deleted.as.atteached.to.entity" : "Document can not be deleted as attched to other entity.",
     
     "------ end of translation file ------": "----------"
 }

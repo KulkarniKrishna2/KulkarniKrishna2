@@ -1,22 +1,24 @@
 <div class="col-md-12" data-ng-controller="DefaultWorkFlowStepDashboardController">
     <h3 class="paddedleft"><strong>{{'label.heading.workflow.task.dashboard' | translate}}</strong>
-        <div class="btn-group pull-right col-md-6">
-            <div class="pull-left col-md-4">
-                <select class="form-control" ng-change="getWorkFlowTaskSummary()" ng-model="entityType" data-ng-options="entityTypes for entityTypes in entityTypeArray" value="{{entityTypes}}">
+        <div class="btn-group pull-right col-md-9">
+            <div class="pull-left col-md-3">
+                <select class="form-control"  ng-model="entityType" data-ng-options="entityTypes for entityTypes in entityTypeArray" value="{{entityTypes}}">
                     <option value="">--{{'label.menu.workflow.types' | translate}}--</option>
                 </select>
             </div>
-            <div class="pull-left col-md-4">
-                <select class="form-control" ng-change="getWorkFlowTaskSummary()" ng-model="entityId" data-ng-options="product.entityId as product.entityName for product in products" value="{{product.id}}">
+            <div class="pull-left col-md-3">
+                <select class="form-control" ng-model="entityId" data-ng-options="taskConfig.id as taskConfig.name for taskConfig in taskConfigOptions" value="{{taskConfig.id}}">
                     <option value="">--{{'label.menu.product' | translate}}--</option>
                 </select>
             </div>
-            <div class="pull-right col-md-4">
-                <select class="form-control" ng-change="getWorkFlowTaskSummary()"
-                        ng-model="officeId"
+            <div class="pull-left col-md-3">
+                <select class="form-control" ng-model="officeId"
                         data-ng-options="office.id as office.name for office in offices" value="{{office.id}}">
                     <option value="">--{{'label.menu.office' | translate}}--</option>
                 </select>
+            </div>
+            <div class="pull-right col-md-3">
+                    <button id="save" type="submit" class="btn btn-primary" ng-click="getWorkFlowTaskSummary()">{{'label.button.submit' | translate}}</button>
             </div>
         </div>
     </h3>
