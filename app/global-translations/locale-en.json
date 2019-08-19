@@ -8076,6 +8076,8 @@
     "label.heading.deactivate": "Deactivate",
     "error.msg.invalid.file.format" : "Invalid file format exception.",
     "error.msg.document.can.not.be.deleted.as.atteached.to.entity" : "Document can not be deleted as attched to other entity.",
+    "label.heading.editloancalendar" : "Edit Loan Calendar",
+    "validation.msg.rescheduleloan.adjustedDueDate.can.not.reschedule.loan.calendar" : "Please edit loan calendar.",
     
     "------ end of translation file ------": "----------"
 }
