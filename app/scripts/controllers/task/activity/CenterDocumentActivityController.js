@@ -5,6 +5,7 @@
                 $scope: scope
             }));
             scope.documentFormdata = {};
+            scope.documentUploadData = {};
             scope.restrictTaggedDocuments = false;
 
             if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.documentConfiguration && scope.response.uiDisplayConfigurations.documentConfiguration.restrictTaggedDocuments) {
@@ -207,9 +208,10 @@
             }
 
             scope.submitDocument = function () {
+                constructDocumentUploadData();
                 $upload.upload({
                     url: $rootScope.hostUrl + API_VERSION + '/' + scope.entityType + '/' + scope.entityId + '/documents',
-                    data: scope.documentFormdata,
+                    data: scope.documentUploadData,
                     file: scope.file
                 }).then(function (data) {
                     getCenterDocuments();
@@ -225,6 +227,13 @@
                     scope.isFileSelected = false;
                 });
             };
+
+            function constructDocumentUploadData() {
+                scope.documentUploadData.name = scope.documentFormdata.name;
+                if (!_.isUndefined(scope.documentFormdata.description)) {
+                    scope.documentUploadData.description = scope.documentFormdata.description;
+                }
+            }
 
             scope.download = function (document) {
                 var url = $rootScope.hostUrl + document.docUrl;
