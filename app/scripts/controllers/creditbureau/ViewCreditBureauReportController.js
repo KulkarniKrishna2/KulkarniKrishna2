@@ -270,11 +270,16 @@
             };
 
             scope.refreshCreditBureauReport = function() {
-                resourceFactory.fetchCreditBureauReportByEnquiryIdResource.get({
+                resourceFactory.fetchCreditBureauReportByEnquiryIdResource.post({
                     enquiryId: scope.enquiryId,
                     entityType: scope.entityType,
                     entityId: scope.clientId
-                }, function(data) {
+                }, function(data1) {
+                     resourceFactory.creditBureauEnquiriesResource.getAll({
+                        entityType: scope.entityType,
+                        entityId: scope.clientId
+                    }, function (data) {
+
                     scope.creditBureauEnquiries = data;
                     if (scope.creditBureauEnquiries && scope.creditBureauEnquiries.length > 0) {
                         scope.creditBureauEnquiry = scope.creditBureauEnquiries[0];
@@ -284,6 +289,7 @@
                         clientCreditSummary();
                     }
                     convertByteToString();
+                });
                 });
             };
 

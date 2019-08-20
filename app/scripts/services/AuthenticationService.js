@@ -66,11 +66,11 @@
                     }
                 }
         		if(SECURITY === 'oauth'){
-                    httpService.get(apiVer + "/cryptography/login/publickey?username="+credentialsData.username)
+                    httpService.post(apiVer + "/cryptography/login/generatepublickey?username="+credentialsData.username)
                         .success(onOauthSuccessPublicKeyData)
                         .error(onFailure);
         		} else {                    
-                    httpService.get(apiVer + "/cryptography/login/publickey?username="+credentialsData.username)
+                    httpService.post(apiVer + "/cryptography/login/generatepublickey?username="+credentialsData.username)
                         .success(onSuccessPublicKeyData)
                         .error(onFailure);
                 }
@@ -98,12 +98,12 @@
                     .error(onFailure);
             };
 
-            var isPasswordEncrypted = false;
+            
 
             var onOauthSuccessPublicKeyData = function (publicKeyData) {
                 publicKey = undefined;
                 if (!_.isUndefined(publicKeyData.keyValue)) {
-                    isPasswordEncrypted = true;
+                
                     publicKey = publicKeyData.keyValue;
                     var encryptedPassword = commonUtilService.encrypt(credentialsData.password);
                     if (encryptedPassword == false) {
@@ -113,7 +113,7 @@
                         oauthAuthenticateProcesses(credentialsData);
                     }
                 } else {
-                    isPasswordEncrypted = false;
+                    
                     oauthAuthenticateProcesses(credentialsData);
                 }
             };
@@ -124,7 +124,6 @@
                 data.password = credentials.password;
                 data.client_id = 'community-app';
                 data.grant_type = 'password';
-                data.isPasswordEncrypted = isPasswordEncrypted.toString();
                 if(credentials.captchaDetails !=undefined){
                     data.captcha_reference_id= credentials.captchaDetails.captcha_reference_id;
                     data.captcha = credentials.captchaDetails.captcha;
@@ -143,9 +142,9 @@
             };
 
             var onSuccessPublicKeyData = function (publicKeyData) {
-                publicKey = undefined;
+                
                 if (!_.isUndefined(publicKeyData.keyValue)) {
-                    isPasswordEncrypted = true;
+                    
                     publicKey = publicKeyData.keyValue;
                     var encryptedPassword = commonUtilService.encrypt(credentialsData.password);
                     if (encryptedPassword == false) {
@@ -155,13 +154,13 @@
                         authenticateProcesses(credentialsData);
                     }
                 } else {
-                    isPasswordEncrypted = false;
+                    
                     authenticateProcesses(credentialsData);
                 }
             };
 
             var authenticateProcesses = function (credentials) {
-                httpService.post(apiVer + "/authentication?isPasswordEncrypted="+isPasswordEncrypted, credentials)
+                httpService.post(apiVer + "/authentication", credentials)
                     .success(onSuccess)
                     .error(onFailure);
             };
