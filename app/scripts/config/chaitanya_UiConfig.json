@@ -187,7 +187,9 @@
       "isAutoPopulate":{
         "bankName": "MASTER"
       },
-      "isMakerTwoStepPresent": false
+      "isMakerTwoStepPresent": false,
+      "showDeleteButton": false,
+      "showInactiveBankAccountDetails":true
     },
     "paymentDetails": {
       "isMandatory": {
@@ -201,6 +203,9 @@
     "createLoanApplication": {
       "isMandatoryField": {
         "disbursementPaymentMode":true
+      },
+      "isHiddenField": {
+        "upfrontAmount":false
       },
       "newLoanApplicationLimitAllowed" : true
     },
@@ -235,7 +240,13 @@
           "transactionAmount": true,
           "fixedEmiAmount": true
         }
-      }
+      },
+      "isHiddenField": {
+				"surveyWeight" : true,
+        "surveyScore" : true,
+        "expenseAmount" : true,
+        "houseHoldExpense" : true
+			}
     },
     "glAccount": {
       "isMandatoryField": {
@@ -245,6 +256,11 @@
     "creditBureau": {
       "isHiddenField":{
         "viewHistoryCBReportButton":false
+      }
+    },
+    "collectionSheet": {
+      "isAutoPopulate": {
+        "showEmiAmount": true
       }
     }
   }

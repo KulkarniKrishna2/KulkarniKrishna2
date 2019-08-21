@@ -72,6 +72,10 @@
                                     <td>{{'label.heading.loanpurpose' | translate}}</td>
                                     <td>{{creditBureauEnquiry.loanPurpose.name}}</td>
                                 </tr>
+                                <tr ng-if="creditBureauEnquiry.cbReportOrderNo">
+                                    <td>{{'label.heading.cbreport.order.number' | translate}}</td>
+                                    <td>{{creditBureauEnquiry.cbReportOrderNo}}</td>
+                                </tr>
                                 </table> 
                             </div> 
                         </div>         

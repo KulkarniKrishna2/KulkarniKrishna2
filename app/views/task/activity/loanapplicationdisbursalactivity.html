@@ -489,7 +489,7 @@
 
                                         <tr ng-repeat="calendar in loanaccountinfo.calendarOptions">
                                             <td align="center"><input type="checkbox"
-                                                                      ng-model="formRequestData.submitApplication.syncRepaymentsWithMeeting"
+                                                                      ng-model="syncRepaymentsWithMeeting"
                                                                       ng-change="syncRepaymentsWithMeetingchange()"
                                                                       ng-disabled="response.uiDisplayConfigurations.loanAccount.isReadOnlyField.syncRepaymentsWithMeeting">
                                             </td>
@@ -636,6 +636,15 @@
                                                         value="{{paymentType.id}}"></select>
                                             </td>
                                         </tr>
+                                        <tr data-ng-show="upfrontAmount">
+                                            <td>
+                                                <label>{{ 'label.input.amountforupfrontcollection' | translate }}</label>
+                                            </td>
+                                            <td>
+                                                <input id="amountForUpfrontCollection" type="text" autocomplete="off" ng-model="formRequestData.submitApplication.amountForUpfrontCollection"
+                                                       class="form-control" number-format/>
+                                            </td>
+                                        </tr>
                                     </table>
                                     <hr>
                                     <div ng-if="showEmiDetailsInDisbursement">
@@ -694,12 +703,33 @@
                                                 </tr>
                                                 </tbody>
                                             </table>
+                                    </div>        
                                     <br>
-                                    <div ng-show="loanaccountinfo.product.multiDisburseLoan && formRequestData.disburse.disbursementData">
+                                    <div ng-show="loanaccountinfo.product.multiDisburseLoan">
                                     <hr/>
                                     <label>
                                         <strong>{{ 'label.heading.tranchedetails' | translate }}</strong>
                                     </label>
+                                    <table class="width100">
+                                        <tr>
+                                        <td class="width14"><label>{{'label.input.outstandingloanbalance' |
+                                            translate}}:</label>
+                                        </td>
+                                        <td class="width36 paddedbottom10">
+                                            <input id="maxOutstandingLoanBalance" type="text" autocomplete="off"
+                                                   ng-model="loanaccountinfo.maxOutstandingLoanBalance"
+                                                   class="form-control"
+                                                   number-format/>&nbsp;
+
+                                            <a href="javascript:void(0)"
+                                               title="{{ 'label.button.addtranch' | translate }}"
+                                               ng-click="addTranches()"
+                                               ng-show="showAddTranche()">
+                                                <i class="icon-plus icon-white"></i>
+                                            </a>
+                                        </td>
+                                        </tr>
+                                    </table>
 
                                     <table class="table width100"
                                        ng-show="formRequestData.disburse.disbursementData && formRequestData.disburse.disbursementData.length>0">
@@ -709,6 +739,7 @@
                                         <th>{{'label.input.expecteddisbursementon' | translate}}</th>
                                         <th>{{'label.input.principal' | translate}}</th>
                                         <th data-ng-show="loanaccountinfo.product.isFlatInterestRate">{{'label.input.discountondisbursalamount' | translate}}</th>
+                                        <th>{{'label.heading.actions' | translate}}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -720,8 +751,7 @@
                                                    datepicker-pop="{{df}}"
                                                    placeholder="{{'label.input.expecteddisbursementon' | translate}}"
                                                    ng-model="disbursementDetail.expectedDisbursementDate"
-                                                   is-open="'openedtranche'+$index" min="minDate" max="'2020-06-22'"
-                                                   class="form-control" ng-disabled = "true"/>
+                                                   is-open="'openedtranche'+$index" min="minDate" max="'2020-06-22'" ng-readonly="isDatePickerReadOnly" required ng-disabled="$index == 0"/>
                                             <form-validate valattributeform="approveloanapplicationform"
                                                            valattribute="expectedTrancheDisbursementDate"/>
                                         </td>
@@ -730,9 +760,9 @@
                                                    name="trancheAmount"
                                                    class="input-sm form-control"
                                                    number-format type="text" autocomplete="off"
-                                                   ng-model="disbursementDetail.principal"
+                                                   ng-model="disbursementDetail.principal" ng-blur = "validateTransactionAmount($index)"
                                                    placeholder="{{'label.input.principal' | translate}}" required
-                                                   late-validate="" ng-readonly = "true">
+                                                   late-validate="">
 
                                             <form-validate valattributeform="approveloanapplicationform"
                                                            valattribute="trancheAmount"/>
@@ -741,11 +771,13 @@
                                             <input id="{{disbursementDetail[$index].discountOnDisbursalAmount}}"  class="input-sm form-control" number-format type="text" autocomplete="off" ng-model="disbursementDetail.discountOnDisbursalAmount" name="discountOnDisbursalAmount"
                                             placeholder="{{'label.input.discountondisbursalamount' | translate}}">
                                         </td>
+                                        <td><a ng-click="deleteTranches($index)"
+                                               ng-show="formRequestData.disburse.disbursementData.length > 1"><i
+                                                class="icon-remove icon-white"></i></a></td>
                                         </tr>
                                     </tbody>
                                     </table>
-                                    </div>
-                            </div>        
+                                    </div>        
                                     <hr>        
                                     <table class="width100">
                                         <tr>
@@ -1029,6 +1061,10 @@
                                 <td><span class="padded-td">{{loandetails.summary.totalOverdue | number}}<span
                                         data-ng-hide="loandetails.summary.totalOverdue>=0">{{'label.heading.notprovided' | translate}}</span></span>
                                 </td>
+                            </tr>
+                            <tr ng-show="upfrontAmount">
+                                <th class="table-bold-loan">{{'label.heading.amountforupfrontcollection' | translate}}</th>
+                                <td><span class="padded-td">{{loandetails.amountForUpfrontCollection | number}}</span></td>
                             </tr>
                         </table>
 

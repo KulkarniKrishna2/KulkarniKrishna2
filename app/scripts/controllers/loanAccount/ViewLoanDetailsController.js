@@ -74,6 +74,7 @@
             scope.closedTransaction = 7;
             scope.pendingTransaction = 4;
             scope.initiatedTransaction = 3;
+            scope.errorTransaction = 8;
             scope.enableClientVerification = scope.isSystemGlobalConfigurationEnabled('client-verification');
             scope.canForceDisburse = false;
             scope.allowBankAccountsForGroups = scope.isSystemGlobalConfigurationEnabled('allow-bank-account-for-groups');
@@ -96,6 +97,14 @@
 
             scope.glimAllowedFunctionaility = function(task){
                 return ((scope.restrictedGlimFunctionality.indexOf(task)>-1) && scope.isGlim ) || (task=='RECOVERYPAYMENT_LOAN' && scope.isGlimEnabled());
+            };
+
+            scope.showRejectButton = function(transferData){
+                var statusList = [scope.draftedTransaction, scope.submittedTransaction, scope.failedTransaction, scope.errorTransaction];
+                if(statusList.indexOf(transferData.status.id) >= 0){
+                    return true;
+                }
+                return false;
             };
 
             scope.hideAccruals = function(transaction){
@@ -865,6 +874,14 @@
                 scope.isOverPaidOrGLIM();
                 // fetchBankDetailAssociation();
                 //enableOrDisableLoanLockButtons();
+
+                scope.getLoanAccountDpDetailData = function(){
+                    resourceFactory.loanAccountDpDetailResource.get({loanId: routeParams.id}, function(data){
+                        scope.loanAccountDpDetailData = data;
+                        scope.loanAccountDpDetailData.startDate = dateFilter(new Date(scope.loanAccountDpDetailData.startDate), scope.df);
+    
+                    });
+                }
             });
 
             fetchBankTransferDetails = function(){
@@ -1651,7 +1668,7 @@
             };
 
             scope.reject = function (transferData) {
-                var statusList = [scope.draftedTransaction,scope.submittedTransaction,scope.failedTransaction];
+                var statusList = [scope.draftedTransaction,scope.submittedTransaction,scope.failedTransaction,scope.errorTransaction];
 
                 if(statusList.indexOf(transferData.status.id) >= 0){
                     resourceFactory.bankAccountTransferResource.save({bankTransferId: transferData.transactionId, command: 'reject'}, function (data) {

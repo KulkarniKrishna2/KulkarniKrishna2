@@ -75,6 +75,11 @@
                                         summaty.totalOverDueAmount = existingLoan.amtOverdue;
                                         summaty.lenderType = existingLoan.lenderType;
                                         summaty.totalDpd = existingLoan.dpd;
+                                        summaty.cbMemberId = existingLoan.cbMemberId
+                                        summaty.existingClient = false;
+                                        if(scope.isOwnInstituteConfEnable && existingLoan.lenderName === scope.ownInstituteName){
+                                            summaty.existingClient = true;
+                                        }
                                         scope.activeLoan.summaries.push(summaty);
                                     }
                                     scope.activeLoan.totalSummary.noOfActiveLoans += 1;
@@ -175,6 +180,11 @@
                                         summaty.totalWriteOffAmount = existingLoan.writtenOffAmount;
                                         summaty.lenderType = existingLoan.lenderType;
                                         summaty.dpd = existingLoan.dpd;
+                                        summaty.cbMemberId = existingLoan.cbMemberId;
+                                        summaty.existingClient = false;
+                                        if(scope.isOwnInstituteConfEnable && existingLoan.lenderName === scope.ownInstituteName){
+                                            summaty.existingClient = true;
+                                        }
                                         scope.closedLoan.summaries.push(summaty);
                                     }
                                     scope.closedLoan.totalSummary.noOfClosedLoans += 1;
@@ -276,7 +286,7 @@
                     });
                 }
                 else {
-                    resourceFactory.creditBureauReportResource.get({
+                    resourceFactory.creditBureauReportResource.post({
                         entityType: scope.entityType,
                         entityId: scope.entityId,
                         isForce: isForce
@@ -292,7 +302,7 @@
 
             var CreditBureauReportCtrl = function ($scope, $modalInstance, isForce) {
                 $scope.creditBureauReport = function () {
-                    resourceFactory.creditBureauReportResource.get({
+                    resourceFactory.creditBureauReportResource.post({
                         entityType: scope.entityType,
                         entityId: scope.entityId,
                         isForce: isForce
@@ -347,7 +357,7 @@
             };
 
             scope.refreshCreditBureauReport = function () {
-                resourceFactory.fetchCreditBureauReportByEnquiryIdResource.get({
+                resourceFactory.fetchCreditBureauReportByEnquiryIdResource.post({
                     enquiryId: scope.creditBureauEnquiry.id
                 }, function (data) {
                     route.reload();

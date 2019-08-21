@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        HouseVisitActivityController: function ($controller, scope, $modal, resourceFactory, dateFilter, $http, $rootScope, $upload, API_VERSION) {
+        HouseVisitActivityController: function ($controller, scope, $modal, resourceFactory, dateFilter, $http, $rootScope, $upload, API_VERSION, $sce) {
             angular.extend(this, $controller('defaultActivityController', { $scope: scope }));
             scope.loanIds = [];
             scope.first = {};
@@ -21,7 +21,7 @@
                 resourceFactory.centerWorkflowResource.get({
                     centerId: scope.centerId,
                     eventType: scope.eventType,
-                    associations: 'groupMembers,profileratings,loanaccounts,clientcbcriteria,clientBankAccountDetails'
+                    associations: 'groupMembers,profileratings,loanaccounts,clientcbcriteria'
                 }, function (data) {
                     scope.centerDetails = data;
                     scope.rejectTypes = data.rejectTypes;
@@ -231,8 +231,8 @@
             }
 
             scope.validateClient = function (activeClientMember) {
-                if (activeClientMember.profileRatingScoreData && activeClientMember.clientBankAccountDetailData) {
-                    return (activeClientMember.status.code === 'clientStatusType.onHold' || activeClientMember.profileRatingScoreData.finalScore * 20 < scope.clientProfileRatingScoreForSuccess || activeClientMember.clientBankAccountDetailData.status.id == 100);
+                if (activeClientMember.profileRatingScoreData) {
+                    return (activeClientMember.status.code === 'clientStatusType.onHold' || activeClientMember.profileRatingScoreData.finalScore * 20 < scope.clientProfileRatingScoreForSuccess);
                 }
                 return true;
             };
@@ -287,11 +287,13 @@
             }
 
             scope.moveMembersToNextStep = function () {
-                scope.errorDetails = [];
                 if (scope.taskInfoTrackArray.length == 0) {
+                    scope.errorDetails = [];
                     return scope.errorDetails.push([{ code: 'error.msg.select.atleast.one.member' }])
                 }
-
+                if(scope.errorDetails){
+                    delete scope.errorDetails;
+                }
                 scope.taskTrackingFormData = {};
                 scope.taskTrackingFormData.taskInfoTrackArray = [];
 
@@ -340,7 +342,7 @@
                 });
             }
 
-            var HouseVisitDetailCtrl = function ($scope, $modalInstance, memberParams) {
+            var HouseVisitDetailCtrl = function ($scope, $modalInstance, memberParams, $sce) {
                 angular.extend(this, $controller('defaultUIConfigController', {
                     $scope: $scope,
                     $key: "bankAccountDetails"
@@ -358,6 +360,7 @@
                 $scope.displayCashFlow = true;
                 $scope.displaySurveyInfo = true;
                 $scope.surveyName = scope.response.uiDisplayConfigurations.viewClient.takeSurveyName;
+                $scope.hideActivateBankAccount = false;
                 //loan account
                 if (memberParams.activeClientMember.loanAccountBasicData) {
                     $scope.loanAccountData = memberParams.activeClientMember.loanAccountBasicData;
@@ -367,6 +370,12 @@
                 if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.bankAccountDetails) {
                     if (scope.response.uiDisplayConfigurations.bankAccountDetails.isMandatory) {
                         $scope.isMandatoryFields = scope.response.uiDisplayConfigurations.bankAccountDetails.isMandatory;
+                    }
+                }
+
+                if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow && scope.response.uiDisplayConfigurations.workflow.hiddenFields) {
+                    if (scope.response.uiDisplayConfigurations.workflow.hiddenFields.activateBankAccount) {
+                        $scope.hideActivateBankAccount = scope.response.uiDisplayConfigurations.workflow.hiddenFields.activateBankAccount;
                     }
                 }
 
@@ -469,6 +478,21 @@
                 function documentsURL(document) {
                     return API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment';
                 };
+
+                $scope.getBankDetails = function(isvalidIfsc){
+                    if($scope.formData.ifscCode != undefined && $scope.formData.ifscCode === $scope.repeatFormData.ifscCodeRepeat && isvalidIfsc){
+                        var url = "https://ifsc.razorpay.com/" + $scope.formData.ifscCode;
+                        url = $sce.trustAsResourceUrl(url);
+                        $http({
+                            method: 'GET',
+                            url: url
+                        }).then(function (data) {
+                            $scope.bankData = data;
+                            $scope.formData.bankName = $scope.bankData.BANK;
+                            $scope.formData.branchName = $scope.bankData.BRANCH;
+                        })
+                    }
+                }
 
                 $scope.deleteDoc = function (documentId, index, tagValue) {
                     resourceFactory.documentsResource.delete({ entityType: $scope.entityType, entityId: $scope.entityId, documentId: documentId.id }, '', function (data) {
@@ -918,7 +942,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('HouseVisitActivityController', ['$controller', '$scope', '$modal', 'ResourceFactory', 'dateFilter', '$http', '$rootScope', '$upload', 'API_VERSION', mifosX.controllers.HouseVisitActivityController]).run(function ($log) {
+    mifosX.ng.application.controller('HouseVisitActivityController', ['$controller', '$scope', '$modal', 'ResourceFactory', 'dateFilter', '$http', '$rootScope', '$upload', 'API_VERSION', '$sce', mifosX.controllers.HouseVisitActivityController]).run(function ($log) {
         $log.info("HouseVisitActivityController initialized");
     });
 }(mifosX.controllers || {}));

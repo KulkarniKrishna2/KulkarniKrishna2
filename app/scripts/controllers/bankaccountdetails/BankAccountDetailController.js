@@ -16,9 +16,13 @@
             }
             angular.extend(scope.commonConfig,bankAccountConfig);
 
+            if(!_.isUndefined(routeParams.associationStatus)){
+                scope.fetchInactiveAssociation = "fetchInactiveAssociation";
+                scope.showReactivateButton = true;
+            }
             function populateDetails() {
             
-                resourceFactory.bankAccountDetailResource.get({entityType:scope.entityType, entityId: scope.entityId, clientBankAccountDetailAssociationId: scope.clientBankAccountDetailAssociationId}, function (data) {
+                resourceFactory.bankAccountDetailResource.get({entityType:scope.entityType, entityId: scope.entityId, clientBankAccountDetailAssociationId: scope.clientBankAccountDetailAssociationId,'command':scope.fetchInactiveAssociation}, function (data) {
 
                     var bankData = {bankAccountData:data};
                     angular.extend(scope.commonConfig,bankData);

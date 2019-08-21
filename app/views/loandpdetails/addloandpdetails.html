@@ -1,0 +1,68 @@
+<div class="col-md-12" ng-controller="AddLoanDpDetailsController">
+    <ul class="breadcrumb">
+        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
+        <li><a href="#/loandpdetails">{{'label.anchor.dpdetails' | translate}}</a></li>
+        <li class="active">{{'label.anchor.add.dpdetails' | translate}}</li>
+    </ul>
+    <api-validate></api-validate>
+    <form name="addloandpdetailsform" novalidate="" rc-submit="submit()" class="form-horizontal well">
+    <fieldset>
+    <div class="form-group">
+        <label class="control-label col-sm-3">{{'label.input.drawing.power.frequency.type' | translate}}<span class="required">*</span></label>
+        <i class="icon-question-sign col-sm-1" tooltip="{{'label.tooltip.dpfrequencytype' | translate}}"></i>
+        <div class="col-sm-2">
+            <select id="frequencyType" name="frequencyType" class="form-control"
+                    ng-model="formData.frequencyType"
+                    ng-options="type.id as type.value for type in templateData.frequencyTypeOptions"
+                    value="{{type.id}}" required late-validate ng-change="resetLoanProductDrawingPowerDetails()"></select>
+        </div>
+        <div class="col-sm-2" ng-if="formData.frequencyType == 2">
+            <select id="frequencyNthDay" name="frequencyNthDay" class="form-control"
+                    ng-model="formData.frequencyNthDay"
+                    ng-options="nthDayType.id as nthDayType.value for nthDayType in templateData.nthDayTypeOptions"
+                    value="{{nthDayType.id}}" ng-change="resetOnDayAndWeekType()"  required late-validate>
+            </select>&nbsp;
+            <form-validate valattributeform="addloandpdetailsform" valattribute="frequencyNthDay"/>
+        </div>
+        <div class="col-sm-2"
+             ng-if="(formData.frequencyType == 1 || formData.frequencyType == 2 )  && formData.frequencyNthDay != -2">
+            <select id="frequencyDayOfWeekType" name="frequencyDayOfWeekType" class="form-control"
+                    ng-model="formData.frequencyDayOfWeekType"
+                    ng-options="dayOfWeekType.id as dayOfWeekType.value for dayOfWeekType in templateData.dayOfWeekTypeOptions"
+                    value="{{dayOfWeekType.id}}" required late-validate>
+                    <option value="">--{{'label.menu.selectday' | translate}}--</option>
+                <form-validate valattributeform="addloandpdetailsform" valattribute="frequencyDayOfWeekType"/>
+            </select>&nbsp;
+        </div>
+        <div class="col-sm-2"
+             ng-if="formData.frequencyType == 2 && formData.frequencyNthDay == -2">
+            <select id="frequencyOnDay" name="frequencyOnDay" class="form-control"
+                    ng-model="formData.frequencyOnDay"
+                    ng-options="onDayType as onDayType for onDayType in onDayTypeOptions"
+                    value="{{onDayType}}" required late-validate>
+            </select>&nbsp;
+            <form-validate valattributeform="addloandpdetailsform" valattribute="frequencyOnDay"/>
+           
+        </div>
+        <div class="col-sm-2">
+            <form-validate valattributeform="addloandpdetailsform" valattribute="frequencyType"/>
+        </div>
+</div>
+<div class="form-group">
+    <label class="control-label col-sm-3">{{'label.input.drawing.power.frequency.interval' | translate}}<span class="required">*</span></label>
+    <i class="icon-question-sign col-sm-1" tooltip="{{'label.tooltip.dpfreequncyinterval' | translate}}"></i>
+    <div class="col-sm-2">
+        <input id="frequencyInterval" name="frequencyInterval" type="text" class="form-control"
+               ng-model="formData.frequencyInterval" required late-validate>
+    </div>
+    <div class="col-sm-2">
+        <form-validate valattributeform="addloandpdetailsform" valattribute="frequencyInterval"/>
+    </div>
+</div>
+<div>
+<button type="submit" class="btn btn-primary col-md-offset-5">{{'label.button.save'
+    | translate}}</button>
+</div>
+</fieldset>
+</form>
+</div>

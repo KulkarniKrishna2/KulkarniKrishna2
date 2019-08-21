@@ -3,10 +3,29 @@
         <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
         <li class="active">{{'label.anchor.managecodes' | translate}}</li>
     </ul>
-
-    <input ng-autofocus="true" ng-model="filterText" type="text" autocomplete="off" ng-keyup="onFilter()" class="marginbottom0px form-control" placeholder="{{'label.input.filterbyname' | translate}}">
     <a href="#/addcode" class="btn btn-primary pull-right" has-permission='CREATE_CODE'><i class="icon-plus icon-white"></i>{{'label.button.addcode' | translate }}</a>
-
+    <div class="clearfix"></div>
+    <div class="form-horizontal">
+        <form ng-submit="newSearch()" class="form-horizontal">
+            <div class="form-group">
+                <div class="col-lg-6">
+                    <div class="input-group">
+                        <input data-ng-model="searchText" type="text" autocomplete="off" placeholder="{{'label.input.searchbyname' | translate}}"
+                            class="form-control" />
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-primary form-control">
+                                <span class="icon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <input ng-autofocus="true" ng-model="filterText" type="text" autocomplete="off" ng-keyup="onFilter()" class="span form-control" placeholder="{{'label.input.filterbyname' | translate}}">
+                </div>
+            </div>
+        </form>
+    <div>
+    
     <table class="table">
         <thead>
         <tr class="graybg">
@@ -21,4 +40,14 @@
         </tr>
         </tbody>
     </table>
+    <ul class="pager">
+        <li class="previous">
+            <a id="prev" ng-click="previousCodesRequest()" href=""
+               ng-hide="requestoffset == 0"> &larr; {{'label.button.previous' | translate}}</a>
+        </li>
+        <li class="next">
+            <a id="next" ng-click="nextCodesRequest()" href=""
+               ng-hide="codes.length != limit">{{'label.button.next' | translate}} &rarr;</a>
+        </li>
+    </ul>
 </div>

@@ -180,6 +180,9 @@
             }
             scope.submit = function () {
                 scope.pincodeLengthValidation();
+                if(scope.errorDetails){
+                    delete scope.errorDetails;
+                }
                 scope.formData.entityId = scope.villageId;
                 scope.formData.locale = scope.optlang.code;
                 scope.formData.dateFormat = scope.df;

@@ -115,10 +115,11 @@
                         if (scope.isSingleGroupInCenter && scope.centerDetails.subGroupMembers[0].documentDatas && scope.centerDetails.subGroupMembers[0].documentDatas.length > 0) {
                             var groupdocuments = scope.centerDetails.subGroupMembers[0].documentDatas;
                             for (var i in groupdocuments) {
-                                if (groupdocuments[i].name == scope.groupDocumentName)
+                                if (groupdocuments[i].name == scope.groupDocumentName) {
                                     scope.grtDocument = groupdocuments[i];
-                                if (!_.isUndefined(scope.grtDocument.geoTag)) {
-                                    scope.grtLocation = JSON.parse(scope.grtDocument.geoTag);
+                                    if (!_.isUndefined(scope.grtDocument.geoTag)) {
+                                        scope.grtLocation = JSON.parse(scope.grtDocument.geoTag);
+                                    }
                                 }
                             }
                         }
@@ -156,9 +157,12 @@
 
 
             scope.moveMembersToNextStep = function () {
-                scope.errorDetails = [];
                 if (scope.taskInfoTrackArray.length == 0) {
+                    scope.errorDetails = [];
                     return scope.errorDetails.push([{ code: 'error.msg.select.atleast.one.member' }])
+                }
+                if(scope.errorDetails){
+                    delete scope.errorDetails;
                 }
                 scope.taskTrackingFormData = {};
                 scope.taskTrackingFormData.taskInfoTrackArray = [];

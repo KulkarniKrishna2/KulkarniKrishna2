@@ -916,7 +916,7 @@
                                     <div class="btn-group">
                                         <button class="btn btn-info" type="button" ng-click="retryTransfer(transferData)" ng-if="(transferData.status.id == failedTransaction) && showRetryBankTransaction"
                                             has-permission="RETRY_BANK_TRANSACTION">{{'label.button.retry' | translate}}</button>
-                                        <button class="btn btn-danger" type="button" ng-click="reject(transferData)" ng-if="transferData.status.id == draftedTransaction || transferData.status.id == submittedTransaction || transferData.status.id == failedTransaction"
+                                        <button class="btn btn-danger" type="button" ng-click="reject(transferData)" ng-if="showRejectButton(transferData)"
                                             has-permission="REJECT_BANK_TRANSACTION">{{'label.button.reject' | translate}}</button>
                                         <button class="btn btn-danger" type="button" ng-click="forceReject(transferData)" ng-if="transferData.status.id == initiatedTransaction || transferData.status.id == pendingTransaction"
                                             has-permission="FORCE_REJECT_BANK_TRANSACTION">{{'label.button.force.reject' | translate}}</button>
@@ -1781,6 +1781,60 @@
                         <script data-ng-if="isDisplayPDC == true" type="text/ng-template" id="createpdc.html">
                             <div ng-include="'views/pdc/createpdc.html'"></div>
                         </script>
+                    </tab>
+
+                    <tab ng-if="loandetails.isDpConfigured" heading="{{'label.tab.heading.dpdetails' | translate}}" select="getLoanAccountDpDetailData()">
+                        <div ng-show="loandetails.isDpConfigured">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="empty"></th>
+                                        <th class="empty"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{'label.heading.drawing.power.frequency.type' | translate}}</td>
+                                        <td>
+                                                {{loanAccountDpDetailData.frequencyType.value}}
+                                                <label ng-if="loanAccountDpDetailData.frequencyType.id == 1 && loanAccountDpDetailData.frequencyDayOfWeekType">
+                                                    on {{loanAccountDpDetailData.frequencyDayOfWeekType.value}}
+                                                </label>
+                                                <label ng-if="loanAccountDpDetailData.frequencyType.id == 2 && loanAccountDpDetailData.frequencyOnDay && loanAccountDpDetailData.frequencyNthDay.id == -2">
+                                                    on day {{loanAccountDpDetailData.frequencyOnDay}}
+                                                </label>
+                                                <label ng-if="loanAccountDpDetailData.frequencyType.id == 2 && loanAccountDpDetailData.frequencyNthDay && loanAccountDpDetailData.frequencyNthDay.id != -2">
+                                                    on {{loanAccountDpDetailData.frequencyNthDay.value}} {{loanAccountDpDetailData.frequencyDayOfWeekType.value}}
+                                                </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'label.heading.drawing.power.frequency.interval' | translate}}</td>
+                                        <td> <span class="padded-td">{{loanAccountDpDetailData.frequencyInterval}}</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'label.heading.dplimitamount' | translate}}</td>
+                                        <td> <span class="padded-td">{{loanAccountDpDetailData.maxDrawingPower}}</span></td>
+                                    </tr>
+                                    <tr>
+                                            <td>{{'label.heading.amount' | translate}}</td>
+                                            <td> <span class="padded-td">{{loanAccountDpDetailData.amount}}</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'label.heading.calculationtype' | translate}}</td>
+                                        <td> <span class="padded-td">{{loanAccountDpDetailData.calculationType.value}}</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'label.heading.duration' | translate}}</td>
+                                        <td> <span class="padded-td">{{loanAccountDpDetailData.duration}}</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'label.heading.startdate' | translate}}</td>
+                                        <td> <span class="padded-td">{{loanAccountDpDetailData.startDate}}</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </tab>
 
                 </tabset>

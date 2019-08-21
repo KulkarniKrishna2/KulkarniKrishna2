@@ -105,6 +105,16 @@
 	    </div>
 	</div>
 	<div class="paddedbottom"></div>
+	<div ng-show="collectionsheetdata">
+		<div ng-hide="showEmiAmountOverTotalDue">
+		    <button class="btn btn-primary" ng-click="populateEmiAmount(collectionsheetdata)">{{'label.button.populate.emi.amount' | translate}}</button>
+		</div>
+		<div ng-show="showEmiAmountOverTotalDue">
+		    <button class="btn btn-primary" ng-click="populateTotalDue()">
+		    {{'label.button.populate.totalDue.amount' | translate}}</button>
+		</div>
+	</div>
+	<br>
 	<div class="span">
 		<div class="col-sm-3 col-md-3" ng-hide="noData" ng-show="collectionsheetdata"
 			 style="float:left; width:100%;overflow-x:auto !important; white-space:normal;">
@@ -282,11 +292,14 @@
                                 <br/>
 							</div>
 							
-                            <div class="form-group" ng-show="isTextAvailable(client) && showRejectReason">
+                            <div class="form-group" ng-if="isTextAvailable(client) && showRejectReason">
 						        <label class="col-sm-3" >{{'label.input.description' | translate}}<span ng-if="isRejectReasonMandatory" class="required">*</span></label>
 							    <div class="col-sm-12">
-                                    <textarea row="3" col="3" id="client.reason" name="client.reason" ng-model="client.reason"  class="form-control"></textarea>
-                                </div>
+                                    <textarea row="3" col="3" id="client.reason" name="attendanceReasonDescription" ng-model="client.reason"  class="form-control" ng-required="isRejectReasonMandatory" required late-validate></textarea>
+								</div>
+								<div class="control-label col-sm-8">
+									<form-validate valattributeform="collectionsheetform" valattribute="attendanceReasonDescription"/>
+								</div>
                                 <br/>
 							</div>
 						</td>
@@ -408,10 +421,10 @@
                     data-ng-click="showPaymentDetailsFn()"
                     >{{'label.button.addpaymentdetail'| translate}}
 			</button>
-	        <button id="save" type="submit" ng-disabled="collectionsheetform.$invalid == true" class="btn btn-primary" ng-show="collectionsheetdata">
+	        <button id="save" class="btn btn-primary" ng-show="collectionsheetdata">
 				{{'label.button.save' | translate}}
 	        </button>
-			<button id="save" type="submit" class="btn btn-warning" ng-show="forcedSubmit">
+			<button id="save" class="btn btn-warning" ng-show="forcedSubmit">
 				{{'label.button.forcedsubmit' | translate}}
 			</button>
 	    </div>

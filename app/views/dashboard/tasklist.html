@@ -49,6 +49,18 @@
 
         </tr>
         <tr>
+            <td>
+                <td>
+                <div>
+                    <input type="checkbox" ng-model="formData.includeChildOfficeTaskList">
+                    &nbsp;&nbsp;
+                    <span>{{'label.include.child.office.tasklist' | translate}}</span>
+                    
+                </div>
+            </td>
+            </td>
+        </tr>
+        <tr>
             <td></td>
 
 
@@ -75,7 +87,7 @@
             <td>
                 <div class="col-sm-1">
                     <div>
-                        <button class="btn btn-primary" ng-click="getWorkFlowTasks(taskTypes[0].status)"><i
+                        <button class="btn btn-primary" ng-click="getWorkFlowTasks(taskTypeTabValue)"><i
                                 class="icon-search"></i>{{'label.button.fetchdetails' | translate}}</button>
                     </div>
                 </div>
@@ -86,7 +98,7 @@
         <div class="col-md-12">
             <div class="card-content no-h-padding">
                 <tabset class="paddedtop paddedbottom10" >
-                    <tab ng-repeat="taskType in taskTypes" ng-click="getWorkFlowTasks(taskType.status)">
+                    <tab ng-repeat="taskType in taskTypes" ng-click="getWorkFlowTasks(taskType)">
 
                         <tab-heading>
                             <i class="{{taskType.icon}}"></i> {{taskType.name | translate}}

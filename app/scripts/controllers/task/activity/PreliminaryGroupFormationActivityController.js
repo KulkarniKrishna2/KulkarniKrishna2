@@ -36,6 +36,7 @@
                         for (var i = 0; i < scope.centerDetails.subGroupMembers.length; i++) {
                             if (scope.centerDetails.subGroupMembers[i].memberData) {
                                 for (var j = 0; j < scope.centerDetails.subGroupMembers[i].memberData.length; j++) {
+                                    scope.reComputeProfileRating(scope.centerDetails.subGroupMembers[i].memberData[j].id);
                                     var clientLevelTaskTrackObj =  scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelTaskTrackingData;
                                     var clientLevelCriteriaObj =  scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelCriteriaResultData;
                                     scope.centerDetails.subGroupMembers[i].memberData[j].allowLoanRejection = false;
@@ -1715,11 +1716,13 @@
              }
             
             scope.moveMembersToNextStep = function(){
-                scope.errorDetails = [];
                 if(scope.taskInfoTrackArray.length == 0){
+                    scope.errorDetails = [];
                     return scope.errorDetails.push([{code: 'error.msg.select.atleast.one.member'}])
                 }
-
+                if(scope.errorDetails){
+                    delete scope.errorDetails;
+                }
                 scope.taskTrackingFormData = {};
                 scope.taskTrackingFormData.taskInfoTrackArray = [];
 
@@ -1823,7 +1826,7 @@
                         for(var j in centerDetails.subGroupMembers[i].memberData){
                             var activeClientMember = centerDetails.subGroupMembers[i].memberData[j];
                             if(isAllChecked){
-                                if(activeClientMember.status.code != 'clientStatusType.onHold' && activeClientMember.profileRatingScoreData.finalScore *20 >= scope.clientProfileRatingScoreForSuccess && !activeClientMember.isClientFinishedThisTask){
+                                if(activeClientMember.status.code != 'clientStatusType.onHold' && activeClientMember.profileRatingScoreData && activeClientMember.profileRatingScoreData.finalScore *20 >= scope.clientProfileRatingScoreForSuccess && !activeClientMember.isClientFinishedThisTask){
                                     centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = true;
                                     if(activeClientMember.loanAccountBasicData){
                                         scope.captureMembersToNextStep(activeClientMember.id,activeClientMember.loanAccountBasicData.id,  activeClientMember.isMemberChecked);

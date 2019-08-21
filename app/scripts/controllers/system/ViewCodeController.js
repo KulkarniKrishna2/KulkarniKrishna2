@@ -6,6 +6,10 @@
             scope.newcode = {};
             scope.codename = {};
             scope.enableparentOptions = false;
+            scope.requestoffset = 0;
+            scope.limit = 15;
+            scope.inparams = {};
+           
             resourceFactory.codeResources.get({codeId: routeParams.id}, function (data) {
                 scope.code = data;
                 scope.codename.name = data.name;
@@ -16,10 +20,17 @@
                     });
                 }
             });
-            resourceFactory.codeValueResource.getAllCodeValues({codeId: routeParams.id}, function (data) {
-                scope.codevalues = data;
-            });
 
+            scope.init = function(){
+                scope.inparams.codeId = routeParams.id;
+                scope.inparams.offset = scope.requestoffset;
+                scope.inparams.limit = scope.limit;
+                resourceFactory.codeValueResource.getAllCodeValues(scope.inparams, function (data) {
+                    scope.codevalues = data;
+                });
+            }
+            scope.init();
+           
             scope.delCode = function () {
                 $modal.open({
                     templateUrl: 'deletecode.html',
@@ -105,6 +116,40 @@
                     $modalInstance.dismiss('cancel');
                 };
             };
+
+            scope.previousCodeValuesRequest= function(){
+                if(scope.requestoffset != 0){
+                    scope.requestoffset = scope.requestoffset - scope.limit;
+                    if(scope.requestoffset <= 0){
+                        scope.requestoffset = 0;
+                    }
+                    scope.init();
+                }
+            } 
+
+            scope.nextCodeValuesRequest= function(){
+                if(scope.codevalues.length == scope.limit){
+                    scope.requestoffset = scope.requestoffset + scope.limit;
+                    scope.init();
+                }
+            }
+            
+            scope.searchData = function(){
+                scope.requestoffset=0;
+                scope.limit = 15;
+                scope.init();
+            }
+
+            scope.newSearch = function(){
+                if(!_.isUndefined(scope.searchText) && scope.searchText !== ""){
+                    scope.filterText = undefined;
+                    var codeValueName = scope.searchText.replace(/(^"|"$)/g, '');
+                    scope.inparams.codeValueName = codeValueName;
+                }else{
+                    delete scope.inparams.codeValueName;
+                }
+                scope.searchData();
+            }
 
         }
     });

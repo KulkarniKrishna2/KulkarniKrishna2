@@ -22,21 +22,45 @@
 				"mobileNumber": "^\\d{10}$",
 				"bankIFSCCode": "^[A-Za-z]{4}0[A-Z0-9a-z]{6}$",
 				"bankAccountNumber": "^[0-9]{1,50}$"
-			}
+			},
+			"showDeleteButton": false,
+			"showInactiveBankAccountDetails":true
 		},
 		"workflow": {
 			"AdditionalDetailsValidation": {
 				"profileRatingPercentage": 100
 			},
+			"PGFValidation": {
+				"profileRatingPercentage": 80
+			},
 			"hiddenFields": {
 				"reviewCB": true,
-				"sendToCBReview": false
-			}
+				"sendToCBReview": false,
+				"activateBankAccount": true,
+				"editCenterMeeting": false
+			},
+			"disableSelectAllClients": true
 		},
 		"createCenter": {
 			"isReadOnlyField": {
 				"active": true
 			}
+		},
+		"createClient": {
+			"isMandatoryField": {
+				"mobileNumber": true,
+				"clientClassificationId": true
+			}
+		},
+		"documentConfiguration": {
+			"restrictTaggedDocuments": true
+		},
+		"creditBureau": {
+			"isHiddenField":{
+				"viewHistoryCBReportButton":false
+			},
+			"getlimit": 3,
+			"getEnquiryHistoryLimit":15
 		}
 	}
 }

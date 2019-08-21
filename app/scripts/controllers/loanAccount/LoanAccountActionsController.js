@@ -525,7 +525,7 @@
                         if(glimData.length>0 ){
                             scope.isGLIM = true;
                         }
-                        resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'repayment'}, function (data) {
+                        resourceFactory.loanTrxnsV2TemplateResource.get({loanId: scope.accountId, command: 'repayment'}, function (data) {
                             scope.paymentTypes = data.paymentTypeOptions;                            
                             scope.paymentModeOptions = data.paymentModeOptions;
                             scope.updatePaymentType(data.expectedPaymentId);
@@ -536,6 +536,11 @@
                                 scope.formData[scope.modelName] = new Date(data.date) || new Date();
                                 if (data.penaltyChargesPortion > 0) {
                                     scope.showPenaltyPortionDisplay = true;
+                                }
+                                if(data.fixedEmiAmount){
+                                    scope.showEMIAmountField = true;
+                                    scope.showEmiAmount = true;
+                                    scope.fixedEmiAmount = data.fixedEmiAmount;
                                 }
                             }
                             if(data.loanOverdueChargeData){
@@ -1097,6 +1102,9 @@
 
             scope.finalSubmit = function() {
                 scope.processDate = false;
+                if(scope.errorDetails){
+                    delete scope.errorDetails;
+                }
                 var params = {command: scope.action};
                 if(scope.action == "recoverguarantee"){
                     params.command = "recoverGuarantees";
@@ -1122,6 +1130,7 @@
                     if(scope.disbursementDetails != null) {
                         var numberOftranches = scope.disbursementDetails.length;
                         if( scope.approveTranches  && numberOftranches <= 0) {
+                            scope.errorDetails = [];
                             scope.trancheError = true;
                             var errorObj = new Object();
                             errorObj.args = {

@@ -2031,6 +2031,42 @@
             .when('/cbreview', {
                 templateUrl: 'views/dashboard/cbreview.html'
             })
+            .when('/loandpdetails', {
+                templateUrl: 'views/loandpdetails/loandpdetails.html'
+            })
+            .when('/addloandpdetails/loanproduct/:id', {
+                templateUrl: 'views/loandpdetails/addloandpdetails.html'
+            })
+            .when('/viewloandpdetails/loanproduct/:id', {
+                templateUrl: 'views/loandpdetails/viewloandpdetails.html'
+            })
+            .when('/editloandpdetails/loanproduct/:id',{
+                templateUrl: 'views/loandpdetails/editloandpdetails.html'
+            })
+            .when('/gstmapping/officeMappings', {
+                templateUrl: 'views/accounting/office_tax_mappings.html'
+            })
+            .when('/gstmapping/createOfficeMappings', {
+                templateUrl: 'views/accounting/create_office_tax_mapping.html'
+            })
+            .when('/gstmapping/editOfficeMappings/:entityType/:entityId', {
+                templateUrl: 'views/accounting/edit_office_tax_mapping.html'
+            })    
+            .when('/gstinvoicing/view', {
+                templateUrl: 'views/accounting/view_gst_invoice.html'
+            })
+            .when('/reactivateuser/:id', {
+                templateUrl: 'views/administration/reactivateuser.html'
+            })
+            .when('/newglimloanproductmapping', {
+                templateUrl: 'views/products/glimloanproductmapping/newglimloanproductmapping.html'
+            })
+            .when('/glimloanproductmappings', {
+                templateUrl: 'views/products/glimloanproductmapping/glimloanproductmappings.html'
+            })
+            .when('/editglimloanproductmapping/:id', {
+                templateUrl: 'views/products/glimloanproductmapping/editglimloanproductmapping.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

@@ -326,6 +326,9 @@
                         $scope.reviewFormData.preclosures = [];
                         $scope.reviewFormData.preclosures = $scope.preClosureTempFormData.slice();
                     }
+                    if(scope.errorDetails){
+                        delete scope.errorDetails;
+                    }
                     
                     if($scope.isPrepayAtBSSReason || $scope.isErrorneousReason){
                         if($scope.updateReview){
@@ -1057,7 +1060,9 @@
                 if(scope.taskInfoTrackArray.length == 0){
                     return scope.errorDetails.push([{code: 'error.msg.select.atleast.one.member'}])
                 }
-
+                if(scope.errorDetails){
+                    delete scope.errorDetails;
+                }
                 scope.taskTrackingFormData = {};
                 scope.taskTrackingFormData.taskInfoTrackArray = [];
 

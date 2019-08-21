@@ -178,7 +178,8 @@
 		"collectionSheet": {
 			"isAutoPopulate": {
 				"paymentTypeOption": true,
-				"cashPaymentType": false
+				"cashPaymentType": false,
+				"showEmiAmount": false
 			},
 			"isHiddenFeild": {
 				"newtransactionDate": false,
@@ -376,7 +377,9 @@
 				"mobileNumber": "",
 				"bankIFSCCode": ""
 			},
-			"isMakerTwoStepPresent": false
+			"isMakerTwoStepPresent": false,
+			"showDeleteButton": true,
+			"showInactiveBankAccountDetails":false
 		},
 		"paymentDetails": {
 			"isMandatory": {
@@ -470,9 +473,18 @@
 			},
 			"hiddenFields": {
 				"reviewCB": true,
-				"sendToCBReview": true
+				"sendToCBReview": true,
+				"activateBankAccount": false,
+				"editCenterMeeting": true
 			},
-			"showMembersStepsInfo": false
+			"showMembersStepsInfo": false,
+			"disableSelectAllClients": false,
+			"isHiddenField": {
+				"surveyWeight" : false,
+				"surveyScore" : false,
+				"expenseAmount" : false,
+				"houseHoldExpense" : false
+			}
 		},
 		"globalSearchScope": {
 			"name": "label.search.scope.clients.and.clientIdentifiers",
@@ -489,7 +501,8 @@
 				"firstRepaymentDate": true,
 				"interestRatePerPeriod": true,
 				"tranchedata": true,
-				"printReportButton": false
+				"printReportButton": false,
+				"upfrontAmount":true
 			},
 			"isMandatoryField": {
 				"expectedDisbursementDate": false,
@@ -674,6 +687,9 @@
 				"transfer": true,
 				"initiateBulkTransfer": true
 			}
+		},
+		"documentConfiguration": {
+			"restrictTaggedDocuments": false
 		}	
 	}
 }

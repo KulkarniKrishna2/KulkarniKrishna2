@@ -32,7 +32,8 @@
             scope.applicableOnRepayment = 1;
             scope.applicableOnDisbursement = 2;
             scope.previewRepayment = false;
-        
+            scope.showUpfrontAmount = true;
+
             scope.isMandatoryExpectedDisbursementDate = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.expectedDisbursementDate;
             scope.isMandatoryFirstRepaymentDate = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.firstRepaymentDate;
             scope.isMandatoryRateOfInterest = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.interestRatePerPeriod;
@@ -43,7 +44,12 @@
             scope.isMandatoryDisbursementPaymentMode = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.disbursementPaymentMode;
             scope.loanReferenceTrancheData = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatory.trancheData;
             scope.isMandatoryDisbursementPaymentType = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.disbursementPaymentType;
-
+            
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createLoanApplication &&
+                scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField && scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.upfrontAmount) {
+                scope.showUpfrontAmount = !scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.upfrontAmount;
+            }
+            
             resourceFactory.clientResource.get({clientId: routeParams.clientId, associations:'hierarchyLookup'}, function (data) {
                 if (data.groups.length == 1) {
                     if (data.groups[0].groupLevel == 2) {
@@ -111,6 +117,9 @@
                         scope.formData.loanEMIPackId = scope.loanaccountinfo.loanEMIPacks[0].id;
                         scope.formData.loanAmountRequested = scope.loanaccountinfo.loanEMIPacks[0].sanctionAmount;
                         scope.formData.numberOfRepayments = scope.loanaccountinfo.loanEMIPacks[0].numberOfRepayments;
+                        if(scope.showUpfrontAmount && scope.loanaccountinfo.allowUpfrontCollection){
+                            scope.formData.amountForUpfrontCollection = scope.loanaccountinfo.loanEMIPacks[0].fixedEmi;
+                        }
                     }else{
                         scope.formData.loanAmountRequested = scope.loanaccountinfo.principal;
                         scope.formData.fixedEmiAmount = scope.loanaccountinfo.fixedEmiAmount;
@@ -313,6 +322,9 @@
                         if(scope.loanaccountinfo.loanEMIPacks[i].id == scope.formData.loanEMIPackId){
                             var loanAmountRequested = scope.loanaccountinfo.loanEMIPacks[i].sanctionAmount;
                             var numberOfRepayments = scope.loanaccountinfo.loanEMIPacks[i].numberOfRepayments;
+                            if(scope.showUpfrontAmount && scope.loanaccountinfo.allowUpfrontCollection){
+                                scope.formData.amountForUpfrontCollection = scope.loanaccountinfo.loanEMIPacks[i].fixedEmi;
+                            }
                             scope.updateSlabBasedAmountChargeAmount(loanAmountRequested , numberOfRepayments);
                             break;
                         }

@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        AdditionalDetailsActivityController: function ($controller, scope, $modal, resourceFactory, dateFilter, $http, $rootScope, $upload, API_VERSION) {
+        AdditionalDetailsActivityController: function ($controller, scope, $modal, resourceFactory, dateFilter, $http, $rootScope, $upload, API_VERSION, $sce) {
             angular.extend(this, $controller('defaultActivityController', { $scope: scope }));
             scope.loanIds = [];
             scope.first = {};
@@ -795,7 +795,7 @@
                 });
             }
 
-            var viewAdditionalDetailCtrl = function ($scope, $modalInstance, memberParams) {
+            var viewAdditionalDetailCtrl = function ($scope, $modalInstance, memberParams, $sce) {
                 angular.extend(this, $controller('defaultUIConfigController', {
                     $scope: $scope,
                     $key: "bankAccountDetails"
@@ -822,6 +822,21 @@
                 if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.bankAccountDetails) {
                     if (scope.response.uiDisplayConfigurations.bankAccountDetails.isMandatory) {
                         $scope.isMandatoryFields = scope.response.uiDisplayConfigurations.bankAccountDetails.isMandatory;
+                    }
+                }
+
+                $scope.getBankDetails = function(isvalidIfsc){
+                    if($scope.formData.ifscCode != undefined && $scope.formData.ifscCode === $scope.repeatFormData.ifscCodeRepeat && isvalidIfsc){
+                        var url = "https://ifsc.razorpay.com/" + $scope.formData.ifscCode;
+                        url = $sce.trustAsResourceUrl(url);
+                        $http({
+                            method: 'GET',
+                            url: url
+                        }).then(function (data) {
+                            $scope.bankData = data;
+                            $scope.formData.bankName = $scope.bankData.BANK;
+                            $scope.formData.branchName = $scope.bankData.BRANCH;
+                        })
                     }
                 }
 
@@ -871,7 +886,7 @@
                         clientId: $scope.clientId
                     }, function (data) {
                         $scope.incomeAndExpenses = data;
-                        $scope.tomeaningmeaningtalIncomeOcc = $scope.calculateOccupationTotal();
+                        $scope.totalIncomeOcc = $scope.calculateOccupationTotal();
                         $scope.totalIncomeAsset = $scope.calculateTotalAsset();
                         $scope.totalHouseholdExpense = $scope.calculateTotalExpense();
                         $scope.showSummaryView();
@@ -1511,7 +1526,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('AdditionalDetailsActivityController', ['$controller', '$scope', '$modal', 'ResourceFactory', 'dateFilter', '$http', '$rootScope', '$upload', 'API_VERSION', mifosX.controllers.AdditionalDetailsActivityController]).run(function ($log) {
+    mifosX.ng.application.controller('AdditionalDetailsActivityController', ['$controller', '$scope', '$modal', 'ResourceFactory', 'dateFilter', '$http', '$rootScope', '$upload', 'API_VERSION', '$sce', mifosX.controllers.AdditionalDetailsActivityController]).run(function ($log) {
         $log.info("AdditionalDetailsActivityController initialized");
     });
 }(mifosX.controllers || {}));

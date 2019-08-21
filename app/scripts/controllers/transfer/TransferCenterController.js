@@ -12,6 +12,13 @@
             scope.centerToOfficeTransferType = 300;
             scope.maxLimitForCenterSelection = 10;
             scope.sameOfficeError = false;
+            scope.referenceNumber = false;
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewCenter && scope.response.uiDisplayConfigurations.viewCenter.isHiddenField){
+               if(scope.response.uiDisplayConfigurations.viewCenter.isHiddenField.referenceNo){
+                scope.referenceNumber = scope.response.uiDisplayConfigurations.viewCenter.isHiddenField.referenceNo;
+               } 
+            }
+            
             resourceFactory.officeResource.getAllOffices(function (data) {
                 scope.offices = data;
             });

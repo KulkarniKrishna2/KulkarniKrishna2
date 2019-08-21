@@ -42,10 +42,17 @@
                             </select>
                         </div>
 
-                        <div class="col-sm-6 center">
-                            <button class="btn btn-primary" ng-click="getWorkflowCBReviewData()"><i
-                                    class="icon-search"></i>{{'label.button.fetchdetails' | translate}}</button>
+                        <div class="col-sm-6">
+                            <select chosen="cbCriteriaStatusOptions" id="status" ng-model="formData.status" class="form-control"
+                                ng-options="status.id as status.value for status in cbCriteriaStatusOptions"
+                                value="{{status.id}}">
+                                <option value="">{{'label.status' | translate}}</option>
+                            </select>
                         </div>
+                    </div>
+                    <div class="col-sm-6 center">
+                        <button class="btn btn-primary" ng-click="getWorkflowCBReviewData()"><i class="icon-search"></i>{{'label.button.fetchdetails'
+                            | translate}}</button>
                     </div>
                 </div>
 
@@ -88,21 +95,33 @@
                         <th class="col-md-1">{{'label.heading.arrears.amount' | translate}}</th>
                         <th class="col-md-1">{{'label.heading.applied.amount' | translate}}</th>
                         <th class="col-md-1">{{'label.heading.recommended.amount' | translate}}</th>
-                        <th class="col-md-1">{{'label.heading.uid'| translate}}</th>
+                        <th class="col-md-1">{{'label.heading.mobilenumber'| translate}}</th>
+                        <th class="col-md-1">{{'label.heading.cb.result'| translate}}</th>
                         <th class="col-md-1">{{'label.heading.status'| translate}}</th>
                         <th class="col-md-1">{{'label.heading.actions'| translate}}</th>
                     </thead>
                     <tbody>
                         <tr ng-repeat="reviewData in cbReviewData" ng-class="reviewData.color">
-                            <td class=" pointer">{{reviewData.clientName}}</td>
-                            <td class=" pointer">{{reviewData.spouseName}}</td>
-                            <td class=" pointer">{{reviewData.existingLoansSummaryData.totalOutstanding}}</td>
-                            <td class=" pointer">{{reviewData.existingLoansSummaryData.totalDPD}}</td>
-                            <td class=" pointer">{{reviewData.existingLoansSummaryData.totalArrears}}</td>
-                            <td class=" pointer">{{reviewData.appliedLoanAmount}}</td>
-                            <td class=" pointer">{{reviewData.recommenedAmount}}</td>
-                            <td class=" pointer">{{reviewData.uid}}</td>
-                            <td class=" pointer">{{reviewData.status | translate}}</td>
+                            <td ng-click="routeToViewClient(reviewData.clientId)" class=" pointer">{{reviewData.clientName}}</td>
+                            <td ng-click="routeToViewClient(reviewData.clientId)" class=" pointer">{{reviewData.spouseName}}</td>
+                            <td ng-click="routeToViewClient(reviewData.clientId)" class=" pointer">{{reviewData.existingLoansSummaryData.totalOutstanding}}</td>
+                            <td ng-click="routeToViewClient(reviewData.clientId)" class=" pointer">{{reviewData.existingLoansSummaryData.totalDPD}}</td>
+                            <td ng-click="routeToViewClient(reviewData.clientId)" class=" pointer">{{reviewData.existingLoansSummaryData.totalArrears}}</td>
+                            <td ng-click="routeToViewClient(reviewData.clientId)" class=" pointer">{{reviewData.appliedLoanAmount}}</td>
+                            <td ng-click="routeToViewClient(reviewData.clientId)" class=" pointer">{{reviewData.recommenedAmount}}</td>
+                            <td ng-click="routeToViewClient(reviewData.clientId)" class=" pointer">{{reviewData.mobileNo}}</td>
+                            <td class=" pointer">&nbsp;
+                                <a target="_blank" title="View CreditBureau Report"
+                                    data-ng-click="openViewDocument(reviewData.existingLoansSummaryData.creditBureauEnquiryId)"
+                                    has-permission='READ_CREDIT_BUREAU_REPORT'>
+                                    <i class="icon-eye-open text-success"></i>
+                                </a>&nbsp;
+                                <a target="_blank" title="View CreditBureau Criteria Result"
+                                    data-ng-click="openViewCBCriteriaResult(reviewData.criteriaResult.ruleResult)">
+                                    <i class="icon-question-sign"></i>
+                                </a>
+                            </td>
+                            <td ng-click="routeToViewClient(reviewData.clientId)" class=" pointer">{{reviewData.status | translate}}</td>
                             <td class=" pointer">&nbsp;
                                 <a ng-hide="reviewData.isRejected || reviewData.isApproved" title="Approve"
                                     has-permission='APPROVE_CB_CRITERIA_REVIEW'

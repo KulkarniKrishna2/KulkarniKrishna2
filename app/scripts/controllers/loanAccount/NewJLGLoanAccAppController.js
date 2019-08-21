@@ -69,6 +69,9 @@
             scope.submit = function () {  
                 scope.response = {success:[],failed:[]};
                 this.batchRequests = [];
+                if(scope.errorDetails){
+                    delete scope.errorDetails;
+                }
                 for (var i in scope.group.clients) {
                         if( scope.group.clients[i].isSelected ){
 

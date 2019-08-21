@@ -19,6 +19,8 @@
             scope.formData.officeId = routeParams.officeId;
             scope.sortBy = 'dueDate';
             scope.sortType = 'asc';
+            scope.taskTypeTabValue = scope.taskTypes[0];
+            scope.formData.officeId = scope.currentSession.user.officeId; 
 
             scope.getChildrenTaskConfigs = function() {
                 scope.formData.childConfigId = null;
@@ -72,6 +74,7 @@
                     childConfigId: scope.formData.childConfigId,
                     loanType: scope.formData.loanType,
                     centerId: scope.formData.centerId,
+                    includeChildOfficeTaskList: scope.formData.includeChildOfficeTaskList,
                     offset: offset,
                     limit: limit
                 }, callback);
@@ -85,19 +88,19 @@
                 });
             };
 
-            scope.getWorkFlowTasks = function(filterby) {
-                scope.filterBy = filterby;
-                scope.selectedStatus = filterby;
+            scope.getWorkFlowTasks = function(filterTab) {
+                scope.taskTypeTabValue = filterTab;
+                scope.filterBy = filterTab.status;
+                scope.selectedStatus = filterTab.status;
                 scope.formData.isAllSelected = false;
                 scope.taskPagination = paginatorUsingOffsetService.paginate(fetchFunction, scope.pageSize);
             };
 
-            if (scope.formData.parentConfigId == undefined) {
-                scope.getWorkFlowTasks(scope.filterBy);
+            if(scope.formData.parentConfigId==undefined){
+                scope.getWorkFlowTasks(scope.taskTypeTabValue);
             }
             else{
-                scope.filterby='assigned-workflow';
-                scope.getWorkFlowTasks(scope.filterBy);
+                scope.getWorkFlowTasks(scope.taskTypeTabValue);
             }
 
             scope.goToTask = function(task) {
@@ -136,9 +139,9 @@
                         selectedTasks.push(itm.taskId);
                     }
                 });
-                if (selectedTasks.length > 0) {
-                    resourceFactory.taskListResource.update({ command: "assign" }, selectedTasks, function(data) {
-                        scope.getWorkFlowTasks(scope.filterBy);
+                if(selectedTasks.length>0){
+                    resourceFactory.taskListResource.update({command:"assign"}, selectedTasks,function (data) {
+                        scope.getWorkFlowTasks(scope.taskTypeTabValue);
                     });
                 }
             }
@@ -150,9 +153,9 @@
                         selectedTasks.push(itm.taskId);
                     }
                 });
-                if (selectedTasks.length > 0) {
-                    resourceFactory.taskListResource.update({ command: "unassign" }, selectedTasks, function(data) {
-                        scope.getWorkFlowTasks(scope.filterBy);
+                if(selectedTasks.length>0){
+                    resourceFactory.taskListResource.update({command:"unassign"}, selectedTasks,function (data) {
+                        scope.getWorkFlowTasks(scope.taskTypeTabValue);
                     });
                 }
             }

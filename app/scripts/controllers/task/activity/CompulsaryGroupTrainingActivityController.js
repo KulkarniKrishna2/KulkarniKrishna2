@@ -5,6 +5,13 @@
                 $scope: scope
             }));
             scope.loanIds = [];
+            scope.disableSelectAllClients = false
+
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow) {
+                if (scope.response.uiDisplayConfigurations.workflow.disableSelectAllClients) {
+                    scope.disableSelectAllClients = scope.response.uiDisplayConfigurations.workflow.disableSelectAllClients
+                }
+            }
 
             function initTask() {
                 scope.$parent.clientsCount();
@@ -139,6 +146,9 @@
                 scope.taskTrackingFormData = {};
                 scope.taskTrackingFormData.taskInfoTrackArray = [];
                 scope.taskTrackingFormData.taskInfoTrackArray = scope.taskInfoTrackArray.slice();
+                if(scope.errorDetails){
+                    delete scope.errorDetails;
+                }
                 if (scope.isSingleGroupInCenter) {
                     resourceFactory.cgtDetailsResource.save(this.formData, function (trackRespose) {
                         resourceFactory.clientLevelTaskTrackingResource.save(scope.taskTrackingFormData, function (trackRespose) {

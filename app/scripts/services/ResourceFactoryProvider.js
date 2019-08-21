@@ -290,7 +290,7 @@
                         getAll: {method: 'GET', params: {}, isArray: true}
                     }),
                     creditBureauReportResource: defineResource(apiVer + "/enquiry/creditbureau/:entityType/:entityId/initiate", {entityType: '@entityType',entityId: '@entityId'}, {
-                        get: {method: 'GET', params: {}}
+                        post: {method: 'POST', params: {}}
                     }),
                     creditBureauReportSummaryByEnquiryIdResource: defineResource(apiVer + "/enquiry/creditbureau/:enquiryId/summary", {enquiryId: '@enquiryId'}, {
                         get: {method: 'GET', params: {}}
@@ -1324,8 +1324,8 @@
                         create:{method: 'POST', params: {}},
                         update:{method: 'PUT', params: {}}
                     }),
-                    cryptographyPublickeyResource: defineResource(apiVer + "/cryptography/:entityType/publickey", {entityType:'@entityType'}, {
-                        get:{method: 'GET', params: {}}
+                    cryptographyPublickeyResource: defineResource(apiVer + "/cryptography/:entityType/generatepublickey", {entityType:'@entityType'}, {
+                        post:{method: 'POST', params: {}}
                     }),
                     pdcTemplateResource: defineResource(apiVer + "/pdcm/:entityType/:entityId/template", {
                         entityType: '@entityType',
@@ -1477,7 +1477,7 @@
                     clientCreditBureauEnquiry: defineResource(apiVer + "/clients/:clientId/creditbureau", {clientId:'@clientId'}, {
                     }),
                     creditBureauReportByEnquiryIdResource: defineResource(apiVer + "/enquiry/creditbureau/:enquiryId/initiate", {enquiryId: '@enquiryId'}, {
-                        get: {method: 'GET', params: {}}
+                        post: {method: 'POST', params: {}}
                     }),
                     workflowConfigStepsOderChangeResource:defineResource(apiVer + "/taskconfigs/:taskConfigId/taskconfigsteps/order",{taskConfigId:'@taskConfigId'},{
                         update:{method: 'PUT', params:{}}
@@ -1497,7 +1497,7 @@
                         resetpassword: {method:'POST', params:{}}
                     }),
                     fetchCreditBureauReportByEnquiryIdResource: defineResource(apiVer + "/enquiry/creditbureau/:enquiryId/refresh", {enquiryId: '@enquiryId'}, {
-                        get: {method: 'GET', params: {}, isArray: true}
+                        post: {method: 'POST', params: {}}
                     }),
                     proxyUserMappingResource: defineResource(apiVer + "/proxyusermappings/:proxyUserMappingId", {proxyUserMappingId: '@proxyUserMappingId'}, {
                         update: {method: 'PUT', params: {}}
@@ -1603,7 +1603,7 @@
                        updateexpecteddisbursementdate: {method: 'POST', params: {}}
                     }),
                     creditBureauBulkReportResource: defineResource(apiVer + "/enquiry/creditbureau/:entityType/:entityId/bulkinitiate", {entityType: '@entityType',entityId: '@entityId'}, {
-                        get: {method: 'GET', params: {}, isArray : true}
+                        post: {method: 'POST', params: {}, isArray : true}
                     }),
                     clientLevelTaskTrackingResource: defineResource(apiVer +"/tasktracking/clientlevel", {},{
                         get: {method: 'GET', params: {}},
@@ -1871,9 +1871,55 @@
                     cbReviewResource: defineResource(apiVer + "/cb/criteriareview/:reviewId", { reviewId: '@reviewId' }, {
                         update: { method: 'PUT' }
                     }),
+                    cbReviewTemplateResource: defineResource(apiVer + "/cb/criteriareview/template", {}, {
+                    }),
                     creditBureauEnquiryHistoryResource: defineResource(apiVer + "/enquiry/creditbureau/history/:entityType/:entityId", {entityType: '@entityType',entityId: '@entityId'}, {
                         getAll: {method: 'GET', params: {}, isArray: true}
-                    })
+                    }),
+                    loanDpDetailsTemplateResource: defineResource(apiVer + "/loandpdetails/loanproducts/:loanProductId/template",{loanProductId: '@loanProductId'},{
+                        getProductsTemplate: {method: 'GET',params:{},isArray: false},
+                        getLoanDpDetailsTemplate: {method: 'GET',params:{loanProductId: '@loanProductId'},isArray: false}
+                    }),
+                    loanDpDetailsResource: defineResource(apiVer+ "/loandpdetails/loanproducts/:loanProductId",{loanProductId: '@loanProductId'},{
+                        get: {method: 'GET', params: {}, isArray: false},
+                        post: {method: 'POST', params: {}},
+                        updateLoanDpDetails:{method:'PUT',params:{}}
+                    }),
+                    loanAccountDpDetailTemplateResource: defineResource(apiVer+ "/loans/:loanId/loanaccountdpdetail/template", {loanId: '@loanId'},{
+                        get: {method: 'GET', params: {}, isArray: false}
+                    }),
+                    loanAccountDpDetailResource: defineResource(apiVer+ "/loans/:loanId/loanaccountdpdetail/:loanAccountDpDetailId",{loanId: '@loanId',loanAccountDpDetailId: '@loanAccountDpDetailId'},{
+                        get: {method: 'GET', params: {}, isArray: false},
+                        save: {method: 'POST', params: {loanId: '@loanId'}},
+                        update: {method: 'PUT', params: {loanId: '@loanId',loanAccountDpDetailId: '@loanAccountDpDetailId'}}
+                    }),
+                    taskGenerateDocumentsResource: defineResource(apiVer + "/tasks/generatedocuments", {}, {
+                    }),
+                    documentsWithReportIdentifiersResource: defineResource(apiVer + "/:entityType/:entityId/documents/withreportidentifiers", {}, {
+                    }),
+                    codeResource: defineResource(apiVer + "/codes/lookup", {}, {
+                        getAll: {method: 'GET', params: {}, isArray: true}
+                    }),
+                    viewTaxInvoiceData: defineResource(apiVer + "/accounting/taxinvoice/view", {}, {
+                    }),
+                    deactivatedUserResource: defineResource(apiVer + "/users/:userId/deactivated", { userId: '@userId' }, {
+                    }),
+                    workFlowStepSummaryTemplateResource: defineResource(apiVer + "/tasks/summary/template",{}, {
+                        get: {method: 'GET', params: {}, isArray: false}
+                    }),
+                    loanTrxnsV2TemplateResource: defineResource(apiVer2 + "/loans/:loanId/transactions/template", {loanId: '@loanId'}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+                    glimLoanProductMappingResource: defineResource(apiVer + "/glimloanproductmapping/:glimloanproductmappingId", {glimloanproductmappingId: '@glimloanproductmappingId'}, {
+                        getAll: {method: 'GET', params: {}, isArray: true},
+                        get: {method: 'GET', params: {glimloanproductmappingId: '@glimloanproductmappingId'}, isArray: false},
+                        save: {method: 'POST', params: {}},
+                        update: {method: 'PUT', params: {glimloanproductmappingId: '@glimloanproductmappingId'}},
+                        delete: {method: 'DELETE', params: {glimloanproductmappingId: '@glimloanproductmappingId'}},
+                    }),
+                    glimLoanProductMappingTemplateResource: defineResource(apiVer + "/glimloanproductmapping/template", {}, {
+                        get: {method: 'GET', params: {}, isArray: false}
+                    }),
                 };
             }];
         }

@@ -89,15 +89,17 @@
             initTask();
 
             scope.initiateCreditBureauReport = function (client) {
+                if(scope.errorDetails){
+                    delete scope.errorDetails;
+                }
                 if(client.pendingCbEnquiryId){
                     scope.refreshData(client.loanAccountBasicData.id,client.pendingCbEnquiryId);
                 }else{
-                    scope.errorDetails=[];
                     scope.entityType = "loan";
                     scope.isForce = false;
                     scope.isClientCBCriteriaToRun = true;
                     var loanId = client.loanAccountBasicData.id;
-                    resourceFactory.creditBureauReportResource.get({
+                    resourceFactory.creditBureauReportResource.post({
                         entityType: scope.entityType,
                         entityId: loanId,
                         isForce: scope.isForce,
@@ -107,17 +109,18 @@
                         scope.getCbEnquiryData(scope.checkCBData.creditBureauEnquiryId);
                     });
                 }
-                
             };
 
             scope.getCbEnquiryData = function (enquiryId) {
                 resourceFactory.creditBureauReportSummaryByEnquiryIdResource.get({ 'enquiryId': enquiryId }, function (summary) {
                     scope.checkCBData = summary;
-                    if (scope.checkCBData != null && scope.checkCBData.errors == null) {
-                            initTask();
-                    } else {
-                        if (scope.checkCBData != null && scope.checkCBData.errors != null) {
+                    if(scope.checkCBData != null && scope.checkCBData.errors == null){
+                        initTask();
+                    }else{
+                        if(scope.checkCBData != null && scope.checkCBData.errors != null){
+                            scope.errorDetails=[];
                             var errorObj = new Object();
+                            scope.errorDetails=[];
                             errorObj.args = {
                                 params: []
                             };
@@ -132,7 +135,7 @@
 
 
             scope.refreshData = function(loanId, enquiryId){
-                resourceFactory.fetchCreditBureauReportByEnquiryIdResource.get({
+                resourceFactory.fetchCreditBureauReportByEnquiryIdResource.post({
                     enquiryId: enquiryId,
                     entityType: "loan",
                     entityId: loanId,
@@ -145,12 +148,13 @@
 
 
             scope.initiateBulkCreditBureauReport = function () {
-                scope.errorDetails = [];
                 scope.entityType = "center";
                 scope.isForce = false;
                 scope.isClientCBCriteriaToRun = true;
-
-                resourceFactory.creditBureauBulkReportResource.get({
+                if(scope.errorDetails){
+                    delete scope.errorDetails;
+                }
+                resourceFactory.creditBureauBulkReportResource.post({
                     entityType: scope.entityType,
                     entityId:  scope.centerId ,
                     isForce: scope.isForce,
@@ -160,6 +164,7 @@
                         initTask();
                     }else{
                         if(loansSummary != null && loansSummary[0] && loansSummary[0].errors != null){
+                            scope.errorDetails = [];
                             var errorObj = new Object();
                             var description = loansSummary[0].errors[0].description;
                             errorObj.args = {
@@ -360,6 +365,9 @@
                       
                         $scope.reviewFormData.preclosures = [];
                         $scope.reviewFormData.preclosures = $scope.preClosureTempFormData.slice();
+                    }
+                    if($scope.errorDetails){
+                        delete $scope.errorDetails;
                     }
                     
                     if($scope.isPrepayAtBSSReason || $scope.isErrorneousReason){
@@ -1098,11 +1106,13 @@
             }
             
             scope.moveMembersToNextStep = function(){
-                scope.errorDetails = [];
                 if(scope.taskInfoTrackArray.length == 0){
+                    scope.errorDetails = [];
                     return scope.errorDetails.push([{code: 'error.msg.select.atleast.one.member'}])
                 }
-
+                if(scope.errorDetails){
+                    delete scope.errorDetails;
+                }
                 scope.taskTrackingFormData = {};
                 scope.taskTrackingFormData.taskInfoTrackArray = [];
 

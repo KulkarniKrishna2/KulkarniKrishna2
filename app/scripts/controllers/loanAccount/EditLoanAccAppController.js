@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        EditLoanAccAppController: function (scope, routeParams, resourceFactory, location, dateFilter) {
+        EditLoanAccAppController: function (scope, routeParams, resourceFactory, location, dateFilter, commonUtilService) {
             scope.previewRepayment = false;
             scope.formData = {};
             scope.temp = {};
@@ -19,6 +19,8 @@
             scope.showLoanPurposeWithoutGroup = false;
             scope.showLoanPurposeGroup = true;
             scope.extenalIdReadOnlyType = false;
+            scope.loanAccountDpDetailData = {};
+            scope.onDayTypeOptions = commonUtilService.onDayTypeOptions();
             
             if (scope.response && scope.response.uiDisplayConfigurations) {
                 scope.isProductNameReadOnly = scope.response.uiDisplayConfigurations.editJlgLoan.isReadOnlyField.productName;
@@ -444,7 +446,39 @@
 
                 scope.previewClientLoanAccInfo();
 
+                if(scope.loanaccountinfo.isDpConfigured){
+                    resourceFactory.loanAccountDpDetailTemplateResource.get({loanId: routeParams.id},function(data){
+                        scope.loanAccountDpDetailData = data;
+                        scope.loanAccountDpDetailData.dpDuration = scope.loanAccountDpDetailData.duration;
+                        scope.loanAccountDpDetailData.dpCalculateOnAmount = scope.loanAccountDpDetailData.amountOrPercentage;
+                        scope.loanAccountDpDetailData.loanDpLimitCalculationType = scope.loanAccountDpDetailData.calculationType.id;
+                        scope.loanDpLimitCalculationTypeOptions = scope.loanAccountDpDetailData.calculationTypeOptions;
+                        scope.loanAccountDpDetailData.dpStartDate = dateFilter(new Date(scope.loanAccountDpDetailData.startDate),scope.df);
+                        scope.constructLoanAccountDpDetailData(scope.loanAccountDpDetailData);
+                    });
+                }
+
+                resourceFactory.loanDpDetailsTemplateResource.getLoanDpDetailsTemplate({loanProductId: scope.loanaccountinfo.loanProductId},function(data){
+                    scope.loanProductDpDetailTemplateData = data;
+                });
+
             });
+
+            scope.constructLoanAccountDpDetailData = function(data){
+                scope.loanAccountDpDetailData.frequencyType = data.frequencyType.id;
+                if(scope.loanAccountDpDetailData.frequencyType == 1){
+                    scope.loanAccountDpDetailData.frequencyDayOfWeekType = data.frequencyDayOfWeekType.id;
+                }
+                if(scope.loanAccountDpDetailData.frequencyType == 2){
+                    scope.loanAccountDpDetailData.frequencyNthDay = data.frequencyNthDay.id;
+                    if(scope.loanAccountDpDetailData.frequencyNthDay == -2){
+                        scope.loanAccountDpDetailData.frequencyOnDay = data.frequencyOnDay;
+                    }else{
+                        scope.loanAccountDpDetailData.frequencyDayOfWeekType = data.frequencyDayOfWeekType.id;
+                    }
+                }    
+                scope.loanAccountDpDetailData.frequencyInterval = data.frequencyInterval;
+            }
 
             scope.getParentLoanPurpose = function (loanPurposeId) {
                 if(scope.loanPurposeGroups && scope.loanPurposeGroups.length>0){
@@ -522,6 +556,14 @@
                     }
                     if (scope.showLoanPurposeWithoutGroup){
                         scope.loanPurposeOptions = data.loanPurposeOptions;
+                    }
+                    if(scope.loanaccountinfo.multiDisburseLoan && scope.loanaccountinfo.isDpConfigured){
+                        resourceFactory.loanDpDetailsResource.get({loanProductId: loanProductId , isTemplate:true},function(data){
+                            scope.loanProductDpDetailData = data;
+                            scope.loanDpLimitCalculationTypeOptions = scope.loanProductDpDetailData.calculationTypeOptions;
+                            scope.constructLoanAccountDpDetailData(scope.loanProductDpDetailData);
+                        });
+
                     }
                 });
 
@@ -878,6 +920,17 @@
                     this.formData.loanIdToClose = undefined;
                 }
 
+                if(!_.isUndefined(this.formData.dpStartDate)){
+                    this.formData.dpStartDate = dateFilter(new Date(this.formData.dpStartDate),scope.df);
+                }
+                if(scope.loanaccountinfo.multiDisburseLoan && scope.loanaccountinfo.isDpConfigured){
+                    scope.loanAccountDpDetailData.dpLimitAmount = scope.formData.maxOutstandingLoanBalance;
+                    scope.loanAccountDpDetailData.dpStartDate = dateFilter(scope.loanAccountDpDetailData.dpStartDate, scope.df);
+                    scope.loanAccountDpDetailData.locale = scope.optlang.code;
+                    scope.loanAccountDpDetailData.dateFormat = scope.df;
+                    this.formData.loanAccountDpDetail = scope.loanAccountDpDetailData;
+                }
+
                 resourceFactory.loanResource.put({loanId: routeParams.id}, this.formData, function (data) {
                     location.path('/viewloanaccount/' + data.loanId);
                 });
@@ -1007,9 +1060,20 @@
                     scope.updateSlabBasedAmountOnChangePrincipalOrRepayment();
                 }
             }
+
+            scope.resetLoanAccountDpDetails = function () {
+                delete scope.loanAccountDpDetailData.frequencyNthDay;
+                delete scope.loanAccountDpDetailData.frequencyDayOfWeekType;
+                delete scope.loanAccountDpDetailData.frequencyOnDay;
+            };
+
+            scope.resetOnDayAndWeekType = function(){
+                delete scope.loanAccountDpDetailData.frequencyDayOfWeekType;
+                delete scope.loanAccountDpDetailData.frequencyOnDay;
+            };
         }
     });
-    mifosX.ng.application.controller('EditLoanAccAppController', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', mifosX.controllers.EditLoanAccAppController]).run(function ($log) {
+    mifosX.ng.application.controller('EditLoanAccAppController', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', 'CommonUtilService', mifosX.controllers.EditLoanAccAppController]).run(function ($log) {
         $log.info("EditLoanAccAppController initialized");
     });
 }(mifosX.controllers || {}));

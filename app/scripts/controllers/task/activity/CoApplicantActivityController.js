@@ -121,7 +121,7 @@
                 scope.client = item;
             };
             scope.$watch('first.dateOfBirth', function(newValue, oldValue){
-                if(scope.first.dateOfBirth != null)
+                if(scope.first && scope.first.dateOfBirth != null)
                 {
                     var ageDifMs = Date.now() - scope.first.dateOfBirth.getTime();
                     var ageDifMs = Date.now() - scope.first.dateOfBirth.getTime();
@@ -293,7 +293,7 @@
 
             scope.validateDOB = function(){
                 scope.dateOfBirthNotInRange = false;     
-                if(scope.isDobValidationMandatory && scope.first.dateOfBirth) {
+                if(scope.isDobValidationMandatory && scope.first && scope.first.dateOfBirth) {
                         if(scope.minDate != undefined && scope.maxDate != undefined){
                              var date = new Date(scope.first.dateOfBirth);
                              if(date<scope.minDate || date>scope.maxDate){
@@ -305,6 +305,9 @@
                 
             };
 
+            scope.routeToClient = function (id) {
+                location.path('/viewclient/' + id );
+            };
         }
     });
     mifosX.ng.application.controller('CoApplicantActivityController', ['$controller','$scope', '$routeParams', 'ResourceFactory', 'dateFilter', '$location', '$q', '$modal', mifosX.controllers.CoApplicantActivityController]).run(function ($log) {

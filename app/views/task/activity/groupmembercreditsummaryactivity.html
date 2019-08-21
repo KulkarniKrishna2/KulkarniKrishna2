@@ -1,0 +1,245 @@
+<div ng-controller="groupMembersCreditSummaryActivityController">
+    <api-validate></api-validate>
+    <div class="row">
+        <table class="table table-condensed marginbottom0" style="display:inline-table;">
+            <thead>
+                <tr class="graybg">
+                    <th class="col-sm-2">{{'label.heading.accnum' | translate}}</th>
+                    <th class="col-sm-2">{{'label.heading.name' | translate}}</th>
+                    <th class="col-sm-3">{{'label.heading.loanproduct' | translate }}</th>
+                    <th width="13%">{{'label.heading.loanAmount' | translate}}</th>
+                    <th class="col-sm-3" colspan="2">{{'label.heading.workflow' | translate}}</th>
+                    <th class="center col-sm-1">{{'label.heading.creditbureau' | translate}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="pointer-main" ng-repeat="member in group.clientMembers track by member.id">
+                    <td>
+                        <i class="icon-stop {{member.status.code | StatusLookup}}"
+                            tooltip="{{member.status.value}}"></i> {{member.accountNo}}
+                    </td>
+                    <td class="pointer" data-ng-click="routeToMem(member.id)">
+                        {{member.displayName}}</td>
+                    <td colspan="5">
+                        <table width="100%" >
+                            <tbody>
+                                <tr ng-repeat="workflow in member.workflows track by workflow.id"
+                                    ng-if="workflow.status.code != 'taskStatus.cancelled'">
+                                    <td class="col-sm-5">
+                                        {{workflow.loanProductName}}
+                                    </td>
+                                    <td class="col-sm-2">
+                                        {{workflow.loanAmountRequested}}
+                                    </td>
+                                    <td ng-if="workflow != undefined" class="col-sm-6">
+                                        <a type="button" id="workflow.id" class="btn angled-btn btn-default "
+                                            data-ng-click="goToTask(workflow)">
+                                            <span ng-if="workflow.activeChildTask">{{workflow.activeChildTask.name}}</span>
+                                            <i class="pull-right icon-arrow-right"></i>
+                                        </a> <br>
+                                        <span>{{workflow.status.code | translate }}</span>
+                                    </td>
+                                    <td class="col-sm-1">
+                                        <a target="_blank" has-permission='READ_CREDIT_BUREAU_REPORT'
+                                            data-ng-click="viewCreditBureauDetails(workflow.entityId)"><i
+                                                class="icon-eye-open text-success"></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script type="text/ng-template" id="viewCreditBureauDetails.html">
+            <div class="modal-header silver boldlabel">
+                          <strong>{{'label.anchor.creditbureauteport' | translate}}</strong>
+                </div>
+                <div class="modal-body">
+                                    <div class="pull-right" 
+                                       ng-if="cBStatus() == 'SUCCESS' && !isStalePeriodExceeded">
+                                        <a target="_blank" class="btn btn-primary"
+                                         data-ng-click="openViewDocument(creditBureauEnquiry.id,reportEntityType)" 
+                                         has-permission='READ_CREDIT_BUREAU_REPORT'>{{'label.button.view.report.file' |translate}}</a>
+        </div>
+    
+        <div class="col-md-12">
+            <br>
+            <div ng-if="creditBureauEnquiries && creditBureauEnquiries.length > 0">
+                <div class="col-md-12">
+                    <div class="col-md-6">
+                        <table class="table table-striped">
+                            <tr>
+                                <td>{{'label.heading.clientname' | translate}}</td>
+                                <td>{{creditBureauEnquiry.client.displayName}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.heading.creditbureau' | translate}}</td>
+                                <td>{{creditBureauEnquiry.creditBureauProduct.name}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.heading.initiatedon' | translate}}</td>
+                                <td>{{creditBureauEnquiry.createdDate| DateFormat}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <table class="table table-striped">
+                            <tr>
+                                <td>{{'label.heading.status' | translate}}</td>
+                                <td>{{creditBureauEnquiry.status.value}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.heading.referenceNumber' | translate}}</td>
+                                <td>{{creditBureauEnquiry.referenceNumber}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{'label.heading.enquiry.id' | translate}}</td>
+                                <td>{{creditBureauEnquiry.id}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="isResponPresent === true">
+                <div class="col-md-12">
+                    <table class="table table-bordered table-striped" ng-if="errorMessage">
+                        <tr>
+                            <td colspan="2">
+                                <span class="boldlabel"><strong>{{'label.input.credit.bureau.response.message' | translate}}</strong></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="error">
+                                <table ng-if="errorMessage">
+                                    <tbody>
+                                        <tr>
+                                            <td>{{'label.error' | translate}}
+                                                <br>
+                                            </td>
+                                        </tr>
+                                        <tr ng-repeat="error in errorMessage">
+                                            <td>{{error.description}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+    
+                <!-- Vaya specific code start -->
+                <div class="col-md-12" ng-if="cBStatus() === 'SUCCESS'">
+                    <table class="table table-bordered table-striped" ng-if="activeLoan.summaries.length > 0">
+                        <tr>
+                            <td colspan="2">
+                                <span class="boldlabel"><strong>{{'label.heading.cb.report.active.loans.summary' | translate}}</strong></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span><strong>{{'label.heading.no.of.active.loans' | translate}}</strong></span>
+                            </td>
+                            <td>
+                                <span><strong>{{activeLoan.totalSummary.noOfActiveLoans}}</strong></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span><strong>{{'label.heading.total.outstanding.amount' | translate}}</strong></span>
+                            </td>
+                            <td>
+                                <span><strong>{{activeLoan.totalSummary.totalOutstandingAmount | number:0}}</strong></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span><strong>{{'label.heading.total.emi.amount' | translate}}</strong></span>
+                            </td>
+                            <td>
+                                <span><strong>{{activeLoan.totalSummary.totalEMIAmount | number:0}}</strong></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span><strong>{{'label.heading.overdue.amount' | translate}}</strong></span>
+                            </td>
+                            <td>
+                                <span><strong>{{activeLoan.totalSummary.totalOverDueAmount | number}}</strong></span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+    
+                <div class="col-md-12" ng-if="cBStatus() === 'SUCCESS'">
+                    <table class="table table-bordered table-striped" ng-if="closedLoan.summaries.length > 0">
+                        <tr>
+                            <td colspan="2">
+                                <span class="boldlabel"><strong>Closed Loans Summary</strong></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span><strong>{{'label.heading.no.of,closed.loans' | translate}}</strong></span>
+                            </td>
+                            <td>
+                                <span><strong>{{closedLoan.totalSummary.noOfClosedLoans}}</strong></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span><strong>{{'label.heading.total.disbursal.amount' | translate}}</strong></span>
+                            </td>
+                            <td>
+                                <span><strong>{{closedLoan.totalSummary.totalDisbursalAmount | number}}</strong></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span><strong>{{'label.heading.write.off.amount' | translate}}</strong></span>
+                            </td>
+                            <td>
+                                <span><strong>{{closedLoan.totalSummary.totalWriteOffAmount | number}}</strong></span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <!-- Vaya Specific code end -->
+    
+                <div class="col-md-12" ng-if="cBStatus() === 'SUCCESS'">
+                    <table class="table table-bordered table-striped" ng-if="errorMessage == undefined && activeLoan == undefined && closedLoan == undefined">
+                        <tr>
+                            <td colspan="2">
+                                <span class="boldlabel"><strong>{{'label.heading.summarydetails' | translate}}
+                                                        </strong></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span><strong>{{'label.heading.no.of.active.loans' | translate}}</strong></span>
+                            </td>
+                            <td>
+                                <span><strong>0</strong></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span><strong>{{'label.heading.no.of,closed.loans' | translate}}</strong></span>
+                            </td>
+                            <td>
+                                <span><strong>0</strong></span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+    
+            </div>
+        </div>
+    </div>
+        <div class="modal-footer">
+            <button class="btn btn-warning" ng-click="close()">{{'label.button.close' | translate}}</button>
+        </div>
+    
+    </script>
+</div>

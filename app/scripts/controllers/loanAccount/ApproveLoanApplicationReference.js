@@ -24,12 +24,18 @@
             scope.loanType="individual";
             scope.showLoanEmiPack = false;
             scope.isTrancheAmountReadOnlyField = true;
+            scope.showUpfrontAmount = true;
+            scope.upfrontAmount = false;
 
             if (scope.response && scope.response.uiDisplayConfigurations) {
                 scope.isHiddenInterestRatePerPeriod = scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.interestRatePerPeriod;
                 scope.isMandatoryInterestRatePerPeriod = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.interestRatePerPeriod;
                 if (scope.response.uiDisplayConfigurations.loanAccount) {
                     scope.isTrancheAmountReadOnlyField = scope.response.uiDisplayConfigurations.loanAccount.isReadOnlyField.trancheAmount;
+                }
+                if(scope.response.uiDisplayConfigurations.createLoanApplication &&
+                    scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField && scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.upfrontAmount) {
+                    scope.showUpfrontAmount = !scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.upfrontAmount;
                 }
             }
 
@@ -129,6 +135,9 @@
                     if (data.group) {
                         scope.groupName = data.group.name;
                     }
+                    if(scope.loanaccountinfo.allowUpfrontCollection && scope.showUpfrontAmount){
+                        scope.upfrontAmount = true;
+                    }
                     resourceFactory.loanApplicationReferencesResource.getByLoanAppId({
                         loanApplicationReferenceId: scope.loanApplicationReferenceId,
                         command: 'approveddata'
@@ -167,12 +176,14 @@
                                 scope.formRequestData.repaymentPeriodFrequencyEnum = scope.formData.loanEMIPackData.repaymentFrequencyType.id;
                                 scope.formRequestData.repayEvery = scope.formData.loanEMIPackData.repaymentEvery;
                                 scope.formRequestData.fixedEmiAmount = scope.formData.loanEMIPackData.fixedEmi;
+                                if(scope.upfrontAmount){
+                                    scope.formRequestData.amountForUpfrontCollection = scope.formData.amountForUpfrontCollection;
+                                }
                             }else{
                                 scope.formRequestData.loanAmountApproved = scope.formData.loanAmountRequested;
                                 scope.formRequestData.numberOfRepayments = scope.formData.numberOfRepayments;
                                 scope.formRequestData.repaymentPeriodFrequencyEnum = scope.formData.repaymentPeriodFrequency.id;
                                 scope.formRequestData.repayEvery = scope.formData.repayEvery;
-                                scope.formRequestData.amountForUpfrontCollection = scope.formData.amountForUpfrontCollection;
                                 scope.formRequestData.discountOnDisbursalAmount = scope.formData.discountOnDisbursalAmount;
                                 if(scope.formData.fixedEmiAmount){
                                     scope.formRequestData.fixedEmiAmount = scope.formData.fixedEmiAmount;
@@ -888,11 +899,14 @@
                         if(scope.loanaccountinfo.loanEMIPacks[i].id == scope.formRequestData.loanEMIPackId){
                             var loanAmountRequested = scope.loanaccountinfo.loanEMIPacks[i].sanctionAmount;
                             var numberOfRepayments = scope.loanaccountinfo.loanEMIPacks[i].numberOfRepayments;
-                            var fixedEmi = scope.loanaccountinfo.loanEMIPacks[i].fixedEmi
+                            var fixedEmi = scope.loanaccountinfo.loanEMIPacks[i].fixedEmi;
+                            if(scope.upfrontAmount){
+                                scope.formRequestData.amountForUpfrontCollection = fixedEmi;
+                            }
                             scope.updateSlabBasedAmountChargeAmount(loanAmountRequested , numberOfRepayments);
                         }
                     }
-                   scope.formRequestData.fixedEmiAmount = fixedEmi; 
+                   scope.formRequestData.fixedEmiAmount = fixedEmi;
                 }
             }
 

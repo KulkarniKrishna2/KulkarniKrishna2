@@ -204,7 +204,9 @@
                 }
 
                 scope.pincodeLengthValidation();
-
+                if(scope.errorDetails){
+                    delete scope.errorDetails;
+                }
                 var reqDate = dateFilter(scope.first.date, scope.df);
                 this.formData.activatedOnDate = reqDate;
 

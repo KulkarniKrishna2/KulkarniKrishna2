@@ -32,12 +32,10 @@
                 if (scope.response.uiDisplayConfigurations.workflow.hideReject) {
                     scope.hideReject = scope.response.uiDisplayConfigurations.workflow.hideReject;
                 }                
-                
-            }
-            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow){
                 scope.isShowRescheduleButton = scope.response.uiDisplayConfigurations.workflow.showReschedule;
                 scope.isShowCreateTaskButton=scope.response.uiDisplayConfigurations.workflow.showCreateTask;
             }
+
             scope.getActivityView = function() {
                 var taskView = 'views/task/activity/'+scope.taskData.taskActivity.identifier.toLowerCase()+'activity.html';
                 return taskView;
@@ -157,6 +155,7 @@
                         if (scope.taskData.status.value == 'completed'){
                             scope.canReschedule = false;
                         }
+
                         scope.$broadcast('postTaskAction',{actionName:actionName});
                         populateNextActions();
                         populateTaskActionLogs();
@@ -300,6 +299,8 @@
                                 }
                             });
                         }
+                    }else if(scope.taskData.status.value == 'inactive'){
+                        $route.reload();
                     }else{
                         scope.canComplete = true;
                     }

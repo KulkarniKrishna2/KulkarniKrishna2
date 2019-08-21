@@ -17,7 +17,7 @@
             scope.groupsOptions = function(value){
                 var deferred = $q.defer();
                 resourceFactory.groupResource.getAllGroups({name: value ,orderBy: 'name', sortOrder: 'ASC',orphansOnly: true,
-                    officeId : scope.data.officeId},function(data){
+                    officeId : scope.data.officeId,status:'active'},function(data){
                     deferred.resolve(data);
                 });
                 return deferred.promise;
