@@ -345,7 +345,7 @@
                 }
                 else {
                     scope.creditBureauReport = function (isForce) {
-                        resourceFactory.creditBureauReportResource.get({
+                        resourceFactory.creditBureauReportResource.post({
                             entityType: scope.entityType,
                             entityId: scope.entityId,
                             isForce: isForce
@@ -360,7 +360,7 @@
 
                 var CreditBureauReportCtrl = function ($scope, $modalInstance, isForce) {
                     $scope.creditBureauReport = function () {
-                        resourceFactory.creditBureauReportResource.get({
+                        resourceFactory.creditBureauReportResource.post({
                             entityType: scope.entityType,
                             entityId: scope.entityId,
                             isForce: isForce
@@ -425,7 +425,7 @@
             };
 
             scope.refreshCreditBureauReport = function () {
-                resourceFactory.fetchCreditBureauReportByEnquiryIdResource.get({
+                resourceFactory.fetchCreditBureauReportByEnquiryIdResource.post({
                     enquiryId: scope.creditBureauEnquiry.id
                 }, function (data) {
                     route.reload();

@@ -99,7 +99,7 @@
                     scope.isForce = false;
                     scope.isClientCBCriteriaToRun = true;
                     var loanId = client.loanAccountBasicData.id;
-                    resourceFactory.creditBureauReportResource.get({
+                    resourceFactory.creditBureauReportResource.post({
                         entityType: scope.entityType,
                         entityId: loanId,
                         isForce: scope.isForce,
@@ -135,7 +135,7 @@
 
 
             scope.refreshData = function(loanId, enquiryId){
-                resourceFactory.fetchCreditBureauReportByEnquiryIdResource.get({
+                resourceFactory.fetchCreditBureauReportByEnquiryIdResource.post({
                     enquiryId: enquiryId,
                     entityType: "loan",
                     entityId: loanId,
@@ -154,7 +154,7 @@
                 if(scope.errorDetails){
                     delete scope.errorDetails;
                 }
-                resourceFactory.creditBureauBulkReportResource.get({
+                resourceFactory.creditBureauBulkReportResource.post({
                     entityType: scope.entityType,
                     entityId:  scope.centerId ,
                     isForce: scope.isForce,
