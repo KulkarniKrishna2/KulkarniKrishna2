@@ -177,6 +177,7 @@
                     <div ng-if="!viewConfig.showSummary" class="col-md-12">
                         <form name="bankaccountdetail" novalidate="" rc-submit="submit()" class="form-horizontal"
                             autocomplete="off">
+                            <api-validate></api-validate>
                             <fieldset>
                                 <legend>{{'label.anchor.bankaccountdetails' | translate}}</legend>
                                 <div class="form-group">
@@ -185,7 +186,7 @@
                                             class="required">*</span>
                                     </label>
                                     <div class="col-sm-3">
-                                        <input name="bankAccountHolderName" id="bankAccountHolderName" ng-model="formData.name"
+                                        <input name="bankAccountHolderName" id="bankAccountHolderName" ng-model="bankAccFormData.name"
                                             type="text" autocomplete="off" maxlength="50" class="form-control"
                                             ng-required="isMandatoryFields.bankAccountHolderName" />
                                     </div>
@@ -198,7 +199,7 @@
                                         <span ng-show="isMandatoryFields.bankAccountNumber" class="required">*</span></label>
 
                                     <div class="col-sm-3">
-                                        <input name="bankAccountNumberRepeat" id="bankAccountNumberRepeat" ng-model="repeatFormData.accountNumberRepeat"
+                                        <input name="bankAccountNumberRepeat" id="bankAccountNumberRepeat" ng-model="repeatBankAccFormData.accountNumberRepeat"
                                             type="password" ng-pattern="regexPattern('bankAccountHolderName')"
                                             maxlength="50" class="form-control" ng-required="isMandatoryFields.bankAccountNumber" />
                                     </div>
@@ -206,7 +207,7 @@
                                         <span ng-show="bankaccountdetail.bankAccountNumberRepeat.$error.pattern">
                                             <small class="required">{{'invalid.accountnumber.format' | translate}}</small>
                                         </span>
-                                        <span ng-show="formData.accountNumber != undefined && formData.accountNumber != repeatFormData.accountNumberRepeat">
+                                        <span ng-show="bankAccFormData.accountNumber != undefined && bankAccFormData.accountNumber != repeatBankAccFormData.accountNumberRepeat">
                                             <small class="required">{{'label.mismatch.account.number' | translate}}</small>
                                         </span>
                                         <form-validate valattributeform="bankaccountdetail" valattribute="bankAccountNumberRepeat" />
@@ -218,7 +219,7 @@
                                         <span ng-show="isMandatoryFields.bankAccountNumber" class="required">*</span></label>
 
                                     <div class="col-sm-3">
-                                        <input name="bankAccountNumber" id="bankAccountNumber" ng-model="formData.accountNumber"
+                                        <input name="bankAccountNumber" id="bankAccountNumber" ng-model="bankAccFormData.accountNumber"
                                             type="text" autocomplete="off" ng-pattern="regexPattern('bankAccountHolderName')"
                                             maxlength="50" class="form-control" ng-required="isMandatoryFields.bankAccountNumber"
                                             onpaste="return false;" />
@@ -234,7 +235,7 @@
                                     <label class="control-label col-sm-3">{{'label.input.accounttype' | translate}}</label>
                                     </label>
                                     <div class="col-sm-3">
-                                        <select id="accountType" name="accountType" ng-model="formData.accountTypeId"
+                                        <select id="accountType" name="accountType" ng-model="bankAccFormData.accountTypeId"
                                             class="form-control" ng-options="accountType.id as accountType.value for accountType in bankAccountTypeOptions"
                                             value="{{accountType.id}}">
                                         </select>
@@ -248,7 +249,7 @@
                                         <span ng-show="isMandatoryFields.bankIFSCCode" class="required">*</span></label>
 
                                     <div class="col-sm-3">
-                                        <input name="bankIFSCCodeRepeat" id="bankIFSCCodeRepeat" ng-model="repeatFormData.ifscCodeRepeat"
+                                        <input name="bankIFSCCodeRepeat" id="bankIFSCCodeRepeat" ng-model="repeatBankAccFormData.ifscCodeRepeat"
                                             minlength="11" maxlength="11" type="password" ng-pattern="regexPattern('bankIFSCCode')"
                                             class="form-control" ng-required="isMandatoryFields.bankIFSCCode"  ng-blur="getBankDetails(!bankaccountdetail.bankIFSCCode.$error.pattern)"/>
                                     </div>
@@ -256,7 +257,7 @@
                                         <span ng-show="bankaccountdetail.bankIFSCCodeRepeat.$error.pattern">
                                             <small class="required">{{'inavalid.ifsc.format' | translate}}</small>
                                         </span>
-                                        <span ng-show="formData.ifscCode != undefined && formData.ifscCode != repeatFormData.ifscCodeRepeat">
+                                        <span ng-show="bankAccFormData.ifscCode != undefined && bankAccFormData.ifscCode != repeatBankAccFormData.ifscCodeRepeat">
                                             <small class="required">{{'label.mismatch.ifsc.number' | translate}}</small>
                                         </span>
                                         <form-validate code="bankaccountdetail" valattribute="bankIFSCCodeRepeat" />
@@ -267,7 +268,7 @@
                                         <span ng-show="isMandatoryFields.bankIFSCCode" class="required">*</span></label>
 
                                     <div class="col-sm-3">
-                                        <input name="bankIFSCCode" id="bankIFSCCode" ng-model="formData.ifscCode"
+                                        <input name="bankIFSCCode" id="bankIFSCCode" ng-model="bankAccFormData.ifscCode"
                                             ng-minlength="11" maxlength="11" type="text" autocomplete="off" ng-pattern="regexPattern('bankIFSCCode')"
                                             class="form-control" ng-required="isMandatoryFields.bankIFSCCode" onpaste="return false;" ng-blur="getBankDetails(!bankaccountdetail.bankIFSCCode.$error.pattern)"/>
                                     </div>
@@ -285,7 +286,7 @@
                                     <label class="control-label col-sm-3">{{'label.input.bankname' | translate}}
                                     </label>
                                     <div class="col-sm-3">
-                                        <input name="bankName" id="bankName" ng-model="formData.bankName" type="text"
+                                        <input name="bankName" id="bankName" ng-model="bankAccFormData.bankName" type="text"
                                             autocomplete="off" class="form-control" />
                                     </div>
                                 </div>
@@ -293,7 +294,7 @@
                                     <label class="control-label col-sm-3">{{'label.input.branchName' | translate}}
                                     </label>
                                     <div class="col-sm-3">
-                                        <input name="branchName" id="branchName" ng-model="formData.branchName" type="text"
+                                        <input name="branchName" id="branchName" ng-model="bankAccFormData.branchName" type="text"
                                             autocomplete="off" class="form-control" />
                                     </div>
                                 </div>
@@ -301,7 +302,7 @@
                                     <label class="control-label col-sm-3">{{'label.input.bankcity' | translate}}
                                     </label>
                                     <div class="col-sm-3">
-                                        <input name="bankCity" id="bankCity" ng-model="formData.bankCity" type="text"
+                                        <input name="bankCity" id="bankCity" ng-model="bankAccFormData.bankCity" type="text"
                                             autocomplete="off" class="form-control" />
                                     </div>
                                 </div>
@@ -309,7 +310,7 @@
                                     <label class="control-label col-sm-3">{{'label.input.mobilenumber' | translate}}
                                     </label>
                                     <div class="col-sm-3">
-                                        <input name="mobileNumber" id="mobileNumber" ng-model="formData.mobileNumber"
+                                        <input name="mobileNumber" id="mobileNumber" ng-model="bankAccFormData.mobileNumber"
                                             type="text" autocomplete="off" class="form-control" ng-pattern="/^[1-9][0-9]{9}$/"
                                             ng-minlength="10" maxlength="10" />
                                     </div>
