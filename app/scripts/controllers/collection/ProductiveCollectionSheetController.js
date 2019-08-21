@@ -417,8 +417,8 @@
 
             scope.updateAttendenceData = function () {
                 var clientsAttendanceDetails =[];
-                if (scope.savingsgroups) {
-                    scope.groups = scope.savingsgroups;
+                if (scope.collectionsheetdata.groups) {
+                    scope.groups = scope.collectionsheetdata.groups;
                     var gl = scope.groups.length;
                     for (var i = 0; i < gl; i++) {
                         scope.clients = scope.groups[i].clients;

@@ -299,7 +299,7 @@
                                 scope.showPaymentDetails = true;
                                 scope.showPaymentDetailsFn();
                             }
-                            scope.clientsAttendanceArray(data.groups);
+                            scope.clientsAttendanceList(data.groups);
                             updateAttendanceTypeOptions();
                             //scope.total(data);
                             scope.savingsgroups = data.groups;
@@ -330,7 +330,6 @@
                                 scope.showPaymentDetails = true;
                                 scope.showPaymentDetailsFn();
                             }
-                            scope.clientsAttendanceArray(data.groups);
                             scope.clientsAttendanceList(data.groups);
                             updateAttendanceTypeOptions();
                             //scope.total(data);
@@ -660,20 +659,6 @@
                 });
             };
 
-            scope.clientsAttendanceArray = function (groups) {
-                var gl = groups.length;
-                for (var i = 0; i < gl; i++) {
-                    scope.clients = groups[i].clients;
-                    var cl = scope.clients.length;
-                    for (var j = 0; j < cl; j++) {
-                        scope.client = scope.clients[j];
-                        if (scope.client.attendanceType.id === 0) {
-                            scope.client.attendanceType.id = 1;
-                        }
-                    }
-                }
-            };
-
             scope.constructBulkLoanAndSavingsRepaymentTransactions = function(){
                 scope.bulkRepaymentTransactions = [];
                 scope.bulkSavingsTransactions = [];
@@ -867,7 +852,7 @@
 
             scope.updateAttendenceData = function () {
                 var clientsAttendanceDetails =[];
-                scope.groups = scope.savingsgroups;
+                scope.groups = scope.collectionsheetdata.groups;
                 var gl = scope.groups.length;
                 for (var i = 0; i < gl; i++) {
                     scope.clients = scope.groups[i].clients;
