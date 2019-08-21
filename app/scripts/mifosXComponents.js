@@ -699,7 +699,9 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'loandpdetails/EditLoanDpDetailsController',
             'task/activity/DocumentGenerationActivityController',
             'task/activity/CenterDocumentActivityController',
-            'user/ReactivateUserController'
+            'user/ReactivateUserController',
+            'task/activity/loanapplicationQualityCheckActivityController',
+            'task/activity/groupMembersCreditSummaryActivityController'
         ],
         filters: [
             'StatusLookup',

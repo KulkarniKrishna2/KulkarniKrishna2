@@ -15,6 +15,13 @@
             scope.entityTypeId = null;
             scope.isSurveyForOthers = false;
             scope.isSurveyDone = true;
+            scope.showSurveyWeight = true;
+            scope.showSurveyScore = true;
+
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow && scope.response.uiDisplayConfigurations.workflow.isHiddenField){
+                scope.showSurveyWeight = !scope.response.uiDisplayConfigurations.workflow.isHiddenField.surveyWeight;
+                scope.showSurveyScore = !scope.response.uiDisplayConfigurations.workflow.isHiddenField.surveyScore;
+            }
 
             function initTask() {
                 scope.formData = {};

@@ -1893,6 +1893,9 @@
                     }),
                     workFlowStepSummaryTemplateResource: defineResource(apiVer + "/tasks/summary/template",{}, {
                         get: {method: 'GET', params: {}, isArray: false}
+                    }),
+                    loanTrxnsV2TemplateResource: defineResource(apiVer2 + "/loans/:loanId/transactions/template", {loanId: '@loanId'}, {
+                        get: {method: 'GET', params: {}}
                     })
                 };
             }];

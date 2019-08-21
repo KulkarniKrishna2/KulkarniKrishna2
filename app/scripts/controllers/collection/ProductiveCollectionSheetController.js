@@ -37,6 +37,9 @@
             scope.isShowReasonDropDown = false;
             scope.showErrMsg = false;
 
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.collectionSheet){
+               scope.showEmiAmountOverTotalDue = scope.response.uiDisplayConfigurations.collectionSheet.isAutoPopulate.showEmiAmount; 
+            }
             resourceFactory.configurationResource.get({configName:'reason-code-allowed'}, function (data) {
                 scope.showRejectReason = data.enabled;
             });
@@ -198,7 +201,11 @@
                 
 
                 resourceFactory.centerResource.save({'centerId': scope.centerId, command: 'generateCollectionSheet'}, scope.formData, function (data) {
-                    scope.collectionsheetdata = data;
+                    scope.originalCollectionsheetData = data;
+                    scope.collectionsheetdata = angular.copy(scope.originalCollectionsheetData);
+                    if(scope.showEmiAmountOverTotalDue){
+                        scope.populateEmiAmount(scope.collectionsheetdata);
+                    }
                     scope.attendanceTypeOptions = scope.response.uiDisplayConfigurations.attendanceTypeOptions;
                     scope.colectionsSheetsCopy = [];
                     if (!_.isUndefined(scope.attendanceTypeOptions)) {
@@ -786,6 +793,23 @@
                 }else{
                     scope.savingsgroups[groupIndex].clients[clientIndex].loans[loanIndex].isShowReasonDropDown = false;
                 }
+            }
+
+            scope.populateEmiAmount = function(data){
+                scope.showEmiAmountOverTotalDue = true;
+                angular.forEach(data.groups, function (group) {
+                    angular.forEach(group.clients,function(client){
+                        angular.forEach(client.loans,function(loan){
+                            if(!_.isUndefined(loan.installmentAmount) && (loan.principalDue == loan.principalOutstanding)){
+                                loan.totalDue = loan.installmentAmount;
+                            }
+                        });
+                    });
+                });
+            }
+            scope.populateTotalDue = function(){
+                scope.showEmiAmountOverTotalDue = false;
+                scope.collectionsheetdata = angular.copy(scope.originalCollectionsheetData);
             }
 
         }

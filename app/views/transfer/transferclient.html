@@ -43,8 +43,11 @@
                 <option value="">{{'label.menu.selectcenter' | translate}}</option>
             </select>
         </div>
-        <div ng-repeat="member in members" class="col-sm-12" style="margin-top:10px" ng-init="member.checked=false" ng-show="isClientSelected(member.id, member.subStatus)">
+        <div ng-repeat="member in members" class="col-sm-12" style="margin-top:10px" ng-init="member.checked=false" ng-show="isClientSelected(member.id, member.subStatus) && !referenceNumber ">
             <input type="checkbox" ng-model="member.checked" ng-change="selectClients(member)"> {{member.displayName}}-({{member.referenceNumber}})
+        </div>
+        <div ng-repeat="member in members" class="col-sm-12" style="margin-top:10px" ng-init="member.checked=false" ng-show="isClientSelected(member.id, member.subStatus) && referenceNumber">
+            <input type="checkbox" ng-model="member.checked" ng-change="selectClients(member)"> {{member.displayName}}
         </div>
     </div>
     <div class="col-sm-6 col-md-6">

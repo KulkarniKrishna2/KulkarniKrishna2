@@ -8028,14 +8028,8 @@
     "validation.msg.loan.charges.amount.must.have.less.than.the.allowed.number.of.decimal.places" : "Charge amount `{{params[0].value}}` must have less than allowed number of decimal places `{{params[1].value[0]}}`",
     "validation.msg.loanCharge.amount.amount.must.have.less.than.the.allowed.number.of.decimal.places" : "Charge amount `{{params[0].value}}` must have less than allowed number of decimal places `{{params[1].value[0]}}`",
     "label.anchor.generated.documents":"Generated Documents",
-    "error.msg.generate.documents":"Generate Documents",
-
-    "label.heading.inactive.bank.account.details" :"Inactive Bank Account Details",
-    "error.msg.bank.account.association.invalid.status" : "Invalid bank account details association status",
-    "label.heading.cbreport.order.number": "Credit Bureau Report Order Number" , 
-    
+    "error.msg.generate.documents":"Generate Documents",    
     "label.percentage.symbol" : "%",
-
 
     "error.msg.loan.product.close.date.cannot.be.before.start.date.close.date" : "Loan product close date cannot be before start date " ,
     "error.msg.savings.product.close.date.cannot.be.before.start.date" : "Close date cannot be before the start date" ,
@@ -8078,6 +8072,17 @@
     "error.msg.document.can.not.be.deleted.as.atteached.to.entity" : "Document can not be deleted as attched to other entity.",
     "label.heading.editloancalendar" : "Edit Loan Calendar",
     "validation.msg.rescheduleloan.adjustedDueDate.can.not.reschedule.loan.calendar" : "Please edit loan calendar.",
+    "label.heading.inactive.bank.account.details" :"Inactive Bank Account Details",
+    "error.msg.bank.account.association.invalid.status" : "Invalid bank account details association status",
+    "label.heading.amountforupfrontcollection" : "Amount To Be Collected Upfront",
+    "label.button.populate.emi.amount":"Populate EMI",
+    "label.button.populate.totalDue.amount":"Populate TotalDue",
+    "label.heading.documenttype": "Document type",
+    "label.heading.client.identifier" : " Client Identifier " ,
+    "label.input.applicant.name" : " Applicant Name ", 
+    "label.heading.applicant.image" : "Applicant Image" , 
+    "label.heading.applicant.address" : "Applicant Address" ,
+
     
     "------ end of translation file ------": "----------"
 }

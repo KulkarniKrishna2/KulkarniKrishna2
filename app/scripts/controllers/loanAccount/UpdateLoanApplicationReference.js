@@ -35,10 +35,15 @@
             scope.loanReferenceTrancheData = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatory.trancheData;
             scope.previewRepayment = false;
             scope.isMultiDisburse = false;
+            scope.showUpfrontAmount = true;
 
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createLoanApplication &&
                 scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField && scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.disbursementPaymentType) {
                 scope.isMandatoryDisbursementPaymentType = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.disbursementPaymentType;
+            }
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createLoanApplication &&
+                scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField && scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.upfrontAmount) {
+                scope.showUpfrontAmount = !scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.upfrontAmount;
             }
 
             resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (applicationData) {
@@ -157,6 +162,9 @@
                         }
                         if(scope.loanaccountinfo.loanEMIPacks){
                             scope.formData.loanEMIPackId = scope.loanaccountinfo.loanEMIPacks[0].id;
+                            if(scope.showUpfrontAmount && scope.loanaccountinfo.allowUpfrontCollection){
+                                scope.formData.amountForUpfrontCollection = scope.loanaccountinfo.loanEMIPacks[0].fixedEmi;
+                            }
                         }else{
                             scope.formData.loanAmountRequested = scope.loanaccountinfo.principal;
                             scope.formData.fixedEmiAmount = scope.loanaccountinfo.fixedEmiAmount;
@@ -303,9 +311,20 @@
                             scope.charges[i] = scope.updateChargeForSlab(scope.charges[i]);
                         }
                     }
+                    if(scope.showUpfrontAmount && scope.loanaccountinfo.allowUpfrontCollection){
+                        scope.updateAmountForUpfrontCollection();
+                    }
                 }
             }
-
+            
+            scope.updateAmountForUpfrontCollection = function(){
+                for(var i in scope.loanaccountinfo.loanEMIPacks){
+                    if(scope.loanaccountinfo.loanEMIPacks[i].id == scope.formData.loanEMIPackId){
+                        scope.formData.amountForUpfrontCollection = scope.loanaccountinfo.loanEMIPacks[i].fixedEmi;
+                        break;
+                    }
+                }
+            }
 
             scope.updateChargeForSlab = function(data){
                 if(scope.isGLIM && scope.formData.clientMembers) {
@@ -602,7 +621,7 @@
                 }
 
                 if(this.loanaccountinfo.loanEMIPacks && scope.formData.loanEMIPackId){
-                    if(scope.calculateLoanScheduleData.amountForUpfrontCollection){
+                    if(scope.calculateLoanScheduleData.amountForUpfrontCollection && !showUpfrontAmount && !scope.loanaccountinfo.allowUpfrontCollection){
                         delete scope.calculateLoanScheduleData.amountForUpfrontCollection;
                     }
                     if(scope.calculateLoanScheduleData.discountOnDisbursalAmount){

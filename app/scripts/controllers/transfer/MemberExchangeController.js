@@ -10,6 +10,20 @@
             scope.toClients = [];
             scope.errMsg = "";
             scope.isError = false;
+            scope.referenceNumber = false;
+
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewClient && scope.response.uiDisplayConfigurations.viewClient.isHiddenField){
+                if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.referenceNo){
+                scope.referenceNumber = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.referenceNo;
+                } 
+            }
+            
+            scope.isHideClient = function(client){
+                if(client.subStatus != undefined && client.subStatus.code=='clientSubStatusType.deceased'){
+                    return true;
+                }
+                return false; 
+            }
             resourceFactory.officeResource.getAllOffices(function (data) {
                 scope.offices = data;
             });

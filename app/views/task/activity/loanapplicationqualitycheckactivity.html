@@ -1,0 +1,155 @@
+<div ng-controller="loanapplicationQualityCheckActivityController">
+	<div class="col-md-5">
+		<div class="row col-md-12">
+			<table class="table loan-details">
+				<thead>
+					<tr>
+						<th width="90%">
+							<h5><strong>{{'label.heading.parameter' | translate}}</strong></h5>
+						</th>
+						<th class="text-center">
+							<h5><strong>{{'label.heading.isVerified' | translate}}</strong></h5>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="client-loandetails" style="vertical-align:middle">
+						<td width="90%"> <strong>{{'label.input.applicant.name' | translate}}</strong>
+							<br> {{clientData.displayName}}</td>
+						<td> <input name="clientName" id="clientName" ng-model="taskData.stepData.clientName"
+								type="checkbox" ng-checked="clientData.displayName!=undefined" /></td>
+					</tr>
+					<tr class="client-loandetails" style="vertical-align:middle">
+						<td> <strong>{{'label.heading.applicant.image' | translate}}</strong><br> In Document
+							Section</td>
+						<td> <input name="clientPhoto" id="clientPhoto" ng-model="taskData.stepData.clientPhoto"
+								type="checkbox" ng-checked="clientData.imagePresent!=undefined" /></td>
+					</tr>
+					<tr class="client-loandetails" style="vertical-align:middle">
+						<td> <strong>{{'label.heading.applicant.address' | translate}}</strong><br>
+							<div ng-if="addressData !=undefined && addressData.length>0">
+								<span ng-if="addressData[0].houseNo">{{addressData[0].houseNo}}, </span>
+								<span ng-if="addressData[0].streetNo">{{addressData[0].streetNo}}, </span>
+								<span ng-if="addressData[0].addressLineOne">{{addressData[0].addressLineOne}},
+								</span>
+								<span ng-if="addressData[0].addressLineTwo">{{addressData[0].addressLineTwo}},
+								</span>
+								<span ng-if="addressData[0].villageTown">{{addressData[0].villageTown}}, </span>
+								<span
+									ng-if="addressData[0].talukaData.talukaName">{{addressData[0].talukaData.talukaName}},
+								</span>
+								<span
+									ng-if="addressData[0].districtData.districtName">{{addressData[0].districtData.districtName}},
+								</span>
+								<span ng-if="addressData[0].stateData.stateName">{{addressData[0].stateData.stateName}},
+								</span>
+								<span ng-if="addressData[0].postalCode">{{addressData[0].postalCode}}</span>
+							</div>
+						</td>
+						<td> <input name="clientAddress" id="clientAddress" ng-model="taskData.stepData.clientAddress"
+								type="checkbox" ng-checked="addressData.length>0" /></td>
+					</tr>
+					<tr class="client-loandetails" style="vertical-align:middle">
+						<td> <strong>{{'label.input.dateofbirth' | translate}}</strong><br>
+							{{clientData.dateOfBirth | DateFormat}}</td>
+						<td> <input name="clientDOB" id="clientDOB" ng-model="taskData.stepData.clientDOB"
+								type="checkbox" ng-checked="clientData.dateOfBirth!=undefined" /></td>
+					</tr>
+					<tr class="client-loandetails" style="vertical-align:middle">
+						<td> <strong>Center & Group Details</strong><br> {{clientData.accountNo}}</td>
+						<td> <input name="clientCenter" id="clientCenter" ng-model="taskData.stepData.clientCenter"
+								type="checkbox" ng-checked="clientData.accountNo!=undefined" /></td>
+					</tr>
+					<tr class="client-loandetails" style="vertical-align:middle">
+						<td> <strong>Spouse Name</strong><br><span ng-if="spouse">{{spouse.firstname}}
+								{{spouse.lastname}}</span> </td>
+						<td> <input name="spouseName" id="spouseName" ng-model="taskData.stepData.spouseName"
+								type="checkbox" ng-checked="spouse!=undefined" /></td>
+					</tr>
+					<tr class="client-loandetails" style="vertical-align:middle">
+						<td> <strong>MaritalStatus</strong><br>{{clientData.maritalStatus.name}}</td>
+						<td> <input name="maritalStatus" id="maritalStatus" ng-model="taskData.stepData.maritalStatus"
+								type="checkbox" ng-checked="clientData.maritalStatus!=undefined" /></td>
+					</tr>
+					<tr class="client-loandetails" style="vertical-align:middle">
+						<td> <strong>{{'label.heading.client.identifier' | translate}}</strong>
+							<br>
+							<div ng-show="document.documentKey" ng-repeat="document in identitydocuments">
+								<h5><strong>&nbsp;{{document.documentType.name}}
+										:&nbsp;</strong>{{document.documentKey}}</h5>
+							</div>
+						</td>
+						<td> <input name="clientIdentifier" id="clientIdentifier"
+								ng-model="taskData.stepData.clientIdentifier" type="checkbox"
+								ng-checked="identitydocuments.length>0" /></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="col-md-7">
+		<div>
+			<image-viewer image="selectedImageUrl"></image-viewer>
+		</div>
+		<div class="row">
+			<div class="col-md-4 row paddedtop10" ng-show="clientData.imagePresent">
+				<div><strong>{{'label.heading.clientimage' | translate}}</strong></div>
+				<span>
+					<a ng-click="showImageModal(file.name,image)">
+						<img ng-src="{{image}}" alt="Avatar" title="{{'label.zoom' | translate}}" class="img-border"
+							width="80%" height="80%"></a>
+				</span>
+			</div>
+			<div class="row paddedtop10" ng-if="identitydocuments.length > 0">
+				<div class="col-md-12">
+					<strong class="ng-binding">{{'label.heading.identitydocuments' | translate}}</strong>
+				</div>
+				<div>
+					<table class="table identity-detail">
+						<thead>
+							<tr>
+								<th class="col-md-3">
+									<h5><strong>{{'label.heading.documenttype' | translate}}</strong></h5>
+								</th>
+								<th class="col-md-3">
+									<h5><strong>{{'label.heading.name' | translate}}</strong></h5>
+								</th>
+								<th class="col-md-3">
+									<h5><strong>{{'label.heading.filename' | translate}}</strong></h5>
+								</th>
+								<th class="col-md-3">
+									<h5><strong>{{'label.heading.actions' | translate}}</strong></h5>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="client-identity-details" ng-repeat="identitydocument in identitydocuments">
+								<td>{{identitydocument.documentType.name}}</td>
+								<td colspan="9">
+									<table width="100%" ng-repeat="document in identitydocument.documents">
+										<tbody>
+											<tr>
+												<td class="col-md-4">{{document.name}}</td>
+												<td class="col-md-4">{{document.fileName}}</td>
+												<td class="col-md-4">
+													<a target="_blank" ng-click="download(document)"><i
+															class="icon-cloud-download"></i></a>&nbsp;
+													<a target="_blank" ng-click="viewIdentityDocument(document)">
+														<i class="icon-eye-open text-success"></i></a>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<script type="text/ng-template" id="viewImageModal.html">
+			<div><img src="{{selectedImageUrl}}" class="img-responsive"></div>
+	
+		</script>
+	</div>
+</div>

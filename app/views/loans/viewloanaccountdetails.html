@@ -911,7 +911,7 @@
                                     <div class="btn-group">
                                         <button class="btn btn-info" type="button" ng-click="retryTransfer(transferData)" ng-if="(transferData.status.id == failedTransaction) && showRetryBankTransaction"
                                             has-permission="RETRY_BANK_TRANSACTION">{{'label.button.retry' | translate}}</button>
-                                        <button class="btn btn-danger" type="button" ng-click="reject(transferData)" ng-if="transferData.status.id == draftedTransaction || transferData.status.id == submittedTransaction || transferData.status.id == failedTransaction"
+                                        <button class="btn btn-danger" type="button" ng-click="reject(transferData)" ng-if="showRejectButton(transferData)"
                                             has-permission="REJECT_BANK_TRANSACTION">{{'label.button.reject' | translate}}</button>
                                         <button class="btn btn-danger" type="button" ng-click="forceReject(transferData)" ng-if="transferData.status.id == initiatedTransaction || transferData.status.id == pendingTransaction"
                                             has-permission="FORCE_REJECT_BANK_TRANSACTION">{{'label.button.force.reject' | translate}}</button>
