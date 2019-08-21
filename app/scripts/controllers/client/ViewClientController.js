@@ -524,16 +524,7 @@
                             icon: "icon-ok-sign ng-scope",
                             taskPermissionName: "WHITELIST_CLIENT"
                         };
-<<<<<<< HEAD
-                        for (var i in scope.buttons) {
-                            if (scope.buttons[i].name == 'label.button.blacklist') {
-                                scope.buttons.splice(i,1,whitelistButton);
-                                break;
-                            }
-                        }
-=======
                         scope.buttons.splice(8, 1, whitelistButton);
->>>>>>> V19.03.01
                     }
     
                     scope.buttonsArray = {
