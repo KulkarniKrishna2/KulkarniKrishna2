@@ -228,6 +228,7 @@
             scope.getAllGlobalConfigurations = function () {
                 scope.configs = [];
                 resourceFactory.configurationResource.get(function (data) {
+                    scope.isGlimPaymentAsGroupEnabled = false;
                     for (var i in data.globalConfiguration) {
                         if (data.globalConfiguration[i].name == "allow-inter-branch-transaction") {
                             scope.showCollections = data.globalConfiguration[i].enabled;
@@ -268,7 +269,9 @@
                         }else if (data.globalConfiguration[i].name == 'own institute name') {
                             scope.isOwnInstituteConfEnable = data.globalConfiguration[i].enabled;
                             scope.ownInstituteName = data.globalConfiguration[i].value;
-                        }
+                        }else if(data.globalConfiguration[i].name=='glim-payment-as-group'){
+                            scope.isGlimPaymentAsGroupEnabled = data.globalConfiguration[i].enabled;
+                        } 
                         data.globalConfiguration[i].showEditvalue = true;
                         scope.configs.push(data.globalConfiguration[i])
                     }
