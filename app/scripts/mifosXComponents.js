@@ -701,7 +701,10 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'task/activity/CenterDocumentActivityController',
             'user/ReactivateUserController',
             'task/activity/loanapplicationQualityCheckActivityController',
-            'task/activity/groupMembersCreditSummaryActivityController'
+            'task/activity/groupMembersCreditSummaryActivityController',
+            'product/glimloanproductmapping/GlimLoanProductMappingsController',
+            'product/glimloanproductmapping/NewGlimLoanProductMappingsController',
+            'product/glimloanproductmapping/EditGlimLoanProductMappingsController',
         ],
         filters: [
             'StatusLookup',
