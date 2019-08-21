@@ -15,7 +15,12 @@
                     if(scope.transaction.type.code === "loanTransactionType.refund"){
                         scope.isRefundTransaction = true;
                     }
-                    scope.glimTransactions = data.glimTransactions;
+                    if(data.isGlimLoan){
+                        scope.glimTransactions = data.glimTransactions;
+                        if(scope.isGlimPaymentAsGroupEnabled && data.type.code=='loanTransactionType.writeOff'){
+                            scope.isGlimWriteOffTransaction = true;
+                        }
+                    }                    
                     scope.transaction.accountId = routeParams.accountId;
                     scope.transaction.createdDate = new Date(scope.transaction.createdDate.iLocalMillis);
                     scope.transaction.updatedDate = new Date(scope.transaction.updatedDate.iLocalMillis);
@@ -75,7 +80,14 @@
                 $scope.isError = false;
                 $scope.isRejectReasonRequired = scope.isRejectReasonRequired;
                 $scope.undoTransaction = function (reason) {
-                    var params = {loanId: accountId, transactionId: transactionId, command: 'undo'};                    
+                    var params = {loanId: accountId};
+                    if(scope.isGlimWriteOffTransaction){
+                        params.command = 'undowriteoff';
+                    }else{
+                        params.transactionId = transactionId;
+                        params.command = 'undo';
+                     }
+                    
                     var formData = {dateFormat: scope.df, locale: scope.optlang.code, transactionAmount: 0};
                     if(reason){
                         formData.reason = reason;
