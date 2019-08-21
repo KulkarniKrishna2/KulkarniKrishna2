@@ -40,7 +40,14 @@
             scope.charges = {};
             scope.hideNetDisbursedAmount = false;
             scope.options = [];
-            scope.hideWriteoff = false;
+            scope.hideWriteoff = false;            
+            scope.disbursementTransactionTypeId = 1;
+            scope.repaymentTransactionTypeId = 2;
+            scope.waiveInterestTransactionTypeId = 4;
+            scope.recoveryTransactionTypeId = 8;
+            scope.refundTransactionTypeId = 16;
+
+
             if(scope.response && scope.response.uiDisplayConfigurations){
                 scope.showRetryBankTransaction = scope.response.uiDisplayConfigurations.loanAccount.isShowField.retryBankTransaction;
                 scope.hideWriteoff = scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.writeOff;
@@ -82,6 +89,8 @@
             scope.canDisburseToGroupBankAccount = false;
             scope.fromEntity = 'loan';
             var  idList = ['id','client_id', 'office_id', 'group_id', 'center_id', 'loan_id', 'savings_account_id', 'gl_journal_entry_id', 'loan_application_reference_id', 'journal_entry_id'];
+            
+            scope.transactionTypesToView = [scope.disbursementTransactionTypeId,scope.repaymentTransactionTypeId,scope.waiveInterestTransactionTypeId,scope.recoveryTransactionTypeId,scope.refundTransactionTypeId,scope.addSubsidyTransactionTypeId,scope.revokeSubsidyTransactionTypeId, scope.refund_for_active_loan_enum_value];
 
             scope.isGlimEnabled = function(){
                 return scope.isGlim && !scope.isGlimPaymentAsGroup;
@@ -117,11 +126,10 @@
             };
 
             scope.routeTo = function (loanId, transactionId, transactionTypeId) {
-                if (transactionTypeId == 2 || transactionTypeId == 4 || transactionTypeId == 1 || transactionTypeId == 16 || transactionTypeId == 8
-                    || transactionTypeId == scope.addSubsidyTransactionTypeId || transactionTypeId == scope.revokeSubsidyTransactionTypeId || transactionTypeId == scope.refund_for_active_loan_enum_value) {
+                var writeOff = (transactionTypeId == 6 && scope.isGlim && scope.isGlimPaymentAsGroupEnabled);
+                if (scope.transactionTypesToView.indexOf(transactionTypeId)>-1 || writeOff) {
                     location.path('/viewloantrxn/' + loanId + '/trxnId/' + transactionId);
-                }
-                ;
+                };
             };
             scope.hideTransactionDetails = false;
             scope.entityType ="loan";
