@@ -1,0 +1,40 @@
+<div class="row form-horizontal" ng-controller="GlimLoanProductMappingsController">
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
+            <li class="active">{{'label.anchor.viewglimloanproductmappings' | translate}}</li>
+        </ul>
+    </div>
+    <div class="pull-right btn-group">
+        <a has-permission="CREATE_GLIMLOANPRODUCTMAPPING" href="#/newglimloanproductmapping" class="btn btn-primary">
+            <i class="icon-plus icon-white"></i>{{ 'label.button.createglimloanproductmapping' | translate }}</a>
+    </div>
+    <br>
+    <table class="table well">
+        <thead>
+            <tr class="graybg">
+                <th>{{'label.heading.loanproduct' | translate}}</th>
+                <th>{{'label.heading.minamount' | translate}}</th>
+                <th>{{'label.heading.maxamount' | translate}}</th>
+                <th>{{'label.heading.action' | translate}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="glimLoanProductMapping in glimLoanProductMappings">
+
+                <td>{{glimLoanProductMapping.loanProductData.name}}</td>
+                <td>{{glimLoanProductMapping.minAmount | number}}</td>
+                <td>{{glimLoanProductMapping.maxAmount | number }}</td>
+                <td>
+                    <a role="button" has-permission="UPDATE_GLIMLOANPRODUCTMAPPING" ng-click="routeTo(glimLoanProductMapping.id)" class="btn btn-danger pull-left">
+                        <i class="icon-edit icon-white" tooltip="{{'label.button.update' | translate}}"></i>
+                    </a>
+                    <a role="button" has-permission="DELETE_GLIMLOANPRODUCTMAPPING" ng-click="deleteGlimLoanProductMapping(glimLoanProductMapping.id)"
+                        class="btn btn-primary pull-left">
+                        <i class="icon-remove icon-white" tooltip="{{'label.button.delete' | translate}}"></i>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

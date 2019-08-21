@@ -2034,7 +2034,15 @@
             .when('/reactivateuser/:id', {
                 templateUrl: 'views/administration/reactivateuser.html'
             })
-
+            .when('/newglimloanproductmapping', {
+                templateUrl: 'views/products/glimloanproductmapping/newglimloanproductmapping.html'
+            })
+            .when('/glimloanproductmappings', {
+                templateUrl: 'views/products/glimloanproductmapping/glimloanproductmappings.html'
+            })
+            .when('/editglimloanproductmapping/:id', {
+                templateUrl: 'views/products/glimloanproductmapping/editglimloanproductmapping.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

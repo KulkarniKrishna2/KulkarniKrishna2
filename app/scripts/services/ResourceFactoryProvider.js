@@ -1896,7 +1896,17 @@
                     }),
                     loanTrxnsV2TemplateResource: defineResource(apiVer2 + "/loans/:loanId/transactions/template", {loanId: '@loanId'}, {
                         get: {method: 'GET', params: {}}
-                    })
+                    }),
+                    glimLoanProductMappingResource: defineResource(apiVer + "/glimloanproductmapping/:glimloanproductmappingId", {glimloanproductmappingId: '@glimloanproductmappingId'}, {
+                        getAll: {method: 'GET', params: {}, isArray: true},
+                        get: {method: 'GET', params: {glimloanproductmappingId: '@glimloanproductmappingId'}, isArray: false},
+                        save: {method: 'POST', params: {}},
+                        update: {method: 'PUT', params: {glimloanproductmappingId: '@glimloanproductmappingId'}},
+                        delete: {method: 'DELETE', params: {glimloanproductmappingId: '@glimloanproductmappingId'}},
+                    }),
+                    glimLoanProductMappingTemplateResource: defineResource(apiVer + "/glimloanproductmapping/template", {}, {
+                        get: {method: 'GET', params: {}, isArray: false}
+                    }),
                 };
             }];
         }

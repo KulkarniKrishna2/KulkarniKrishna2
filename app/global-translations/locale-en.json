@@ -8082,7 +8082,24 @@
     "label.input.applicant.name" : " Applicant Name ", 
     "label.heading.applicant.image" : "Applicant Image" , 
     "label.heading.applicant.address" : "Applicant Address" ,
-
+    "glim.loan.product.mapping" : "glim product mapping",
+    "label.anchor.viewglimloanproductmappings" : "View Glim Loan Product Mappings",
+    "label.button.createglimloanproductmapping" : "Create Glim Loan Product Mapping",
+    "label.anchor.createglimloanproductmappings" : "Create Glim Loan Product Mapping",
+    "label.anchor.updateglimloanproductmappings" : "Update Glim Loan Product Mapping",
+    "label.heading.updateglimloanproductmapping" : "Update Glim Loan Product Mapping",
+    "validation.msg.GLIMLOANPRODUCTMAPPING.minAmount.is.greater.than.max" : "Min amount can not be greater than max amount.",
+    "error.msg.unknown.data.integrity.issue" : "Unknown data integrity issue.",
+    "error.msg.loan.undo.written.off.not.allowed.recovery.already.done" : "Undo write off not allowed as recovery has been done.",
+    "label.heading.createglimloanproductmapping" : "Create Glim Loan Product Mapping",
+    "error.msg.glim.loan.product.mapping.already.exist" : "Loan product mapping already exist.",
+    "error.msg.glim.loan.product.mapping.requires.amount.exception" : "Please provide min or max amount.",
+    "label.anchor.glim.loan.product.mappings" : "Glim Loan Product Mappings",
+    "label.glim.loan.product.mappings.description" : "Glim product mapping for minimum and maximum amount for each glim loan.",
+    "label.input.isglimproduct" : "Is Glim Product",
+    "error.msg.glim.amount.not.in.range.exception" : "Glim amount must be between '{{params[0].value}}' and '{{params[1].value}}' ",
+    "error.msg.glim.min.amount.exception" : "Glim amount can not be less than '{{params[0].value}}'.",
+    "error.msg.glim.max.amount.exception" : "Glim amount can not be more than '{{params[0].value}}'.",
     
     "------ end of translation file ------": "----------"
 }
