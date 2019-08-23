@@ -14,9 +14,16 @@
             scope.paymentTypeOptions = [];
             scope.isPaymentTypeHidden = false; 
             scope.showPreclosureReason = false;
-            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.preClose &&
-                scope.response.uiDisplayConfigurations.preClose.hiddenFields) {
+            scope.isPaymentModeMandatory = false;
+            scope.isPaymentTypeMandatory = false;
+            if(scope.response && scope.response.uiDisplayConfigurations) {
+                if (scope.response.uiDisplayConfigurations.preClose && scope.response.uiDisplayConfigurations.preClose.hiddenFields) {
                     scope.isPaymentTypeHidden = scope.response.uiDisplayConfigurations.preClose.hiddenFields.paymentType;
+                }
+                if (scope.response.uiDisplayConfigurations.loanAccount.isMandatory) {
+                    scope.isPaymentModeMandatory = scope.response.uiDisplayConfigurations.loanAccount.isMandatory.transactionPaymentMode;
+                    scope.isPaymentTypeMandatory = scope.response.uiDisplayConfigurations.loanAccount.isMandatory.transactionPaymentType;
+                }                    
             }
             scope.showPreclosureReason = scope.response.uiDisplayConfigurations.loanAccount.isMandatory.isPreclosureReasonEnabled;
             scope.specifyReason = false;            
