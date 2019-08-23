@@ -839,6 +839,9 @@
                 if(scope.formRequestData.loanEMIPackData){
                     delete scope.formRequestData.loanEMIPackData;
                 }
+                if(_.isUndefined(scope.formRequestData.amountForUpfrontCollection)){
+                  scope.formRequestData.amountForUpfrontCollection = null;         
+               }
                 scope.submitData = {};
                 scope.submitData.formValidationData = {};
                 scope.submitData.formRequestData = {};
