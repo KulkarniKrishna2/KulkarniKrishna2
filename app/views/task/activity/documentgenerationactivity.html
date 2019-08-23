@@ -22,7 +22,7 @@
                             </span>
                         </td>
                         <td class="col-md-2">&nbsp;
-                            <a ng-if="!isDocumentGenerated" style="color: blue" ng-click="generateDocuments()"
+                            <a style="color: blue" ng-click="confirmGenerateDocuments()"
                                 tooltip="{{'label.tooltip.generate.document' | translate}}"><i
                                     class="icon-link"></i></a>&nbsp;
                             <a ng-click="getDocuments(centerDetails)"
@@ -65,4 +65,15 @@
                 <view-document-directive ng-entity-type="{{data.parentEntityType}}" ng-entity-id="{{data.parentEntityId}}" ng-document-id="{{data.id}}"></view-document-directive>
             </div>
         </script>
+    <script type="text/ng-template" id="confirmGenerateDocuments.html">
+                <div class="modal-header silver">
+                    <h3 class="bolder">{{'label.heading.generatedocuments' | translate}}</h3>
+                </div>
+                <div class="modal-body ">
+                    <api-validate></api-validate>
+                        <br>
+                        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+                        <button class="btn btn-primary" ng-click="confirm()">{{'label.button.confirm' | translate}}</button>
+                    </div>
+            </script>
 </div>

@@ -216,6 +216,7 @@
     "label.input.code": "Code",
     "label.heading.activatedgroup": "Group is activated",
     "label.heading.kotak.approval.status": "Kotak Approval Status",
+    "label.heading.generatedocuments": "Generate Documents",
 
 
     "#Menu Links": "..",
@@ -8100,6 +8101,6 @@
     "error.msg.glim.amount.not.in.range.exception" : "Glim amount must be between '{{params[0].value}}' and '{{params[1].value}}' ",
     "error.msg.glim.min.amount.exception" : "Glim amount can not be less than '{{params[0].value}}'.",
     "error.msg.glim.max.amount.exception" : "Glim amount can not be more than '{{params[0].value}}'.",
-    
+
     "------ end of translation file ------": "----------"
 }
