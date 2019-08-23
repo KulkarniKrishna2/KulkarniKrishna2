@@ -3,7 +3,7 @@
         ViewSchedulerJobHistoryController: function (scope, resourceFactory, paginatorService, routeParams, $modal) {
             scope.jobhistory = [];
             var fetchFunction = function (offset, limit, callback) {
-                resourceFactory.jobsResource.getJobHistory({jobId: routeParams.id, resourceType: 'runhistory', offset: offset, limit: limit}, callback);
+                resourceFactory.jobsResource.getJobHistory({jobId: routeParams.id, resourceType: 'runhistory', offset: offset, limit: limit, orderBy: 'end_time', sortOrder: 'DESC'}, callback);
             };
             scope.jobhistory = paginatorService.paginate(fetchFunction, 14);
 
