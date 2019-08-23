@@ -55,6 +55,7 @@
             scope.hideVillage = false;
             scope.isLevelBasedAddressEnabled = scope.isSystemGlobalConfigurationEnabled(levelVasedAddressConfig);
             scope.crnNumber = false;
+            scope.showClientImage = false;
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewClient &&
                 scope.response.uiDisplayConfigurations.viewClient.isHiddenField){
                 if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.enableSmartCard){
@@ -577,7 +578,7 @@
                 if(!scope.clientActiveLoanApplicationsLoaded){
                     scope.clientActiveLoanApplicationsLoaded = true;
                     getLoanApplications(status);
-                    getClientImageAndSignature();
+                    //getClientImageAndSignature();
                 }else{
                     angular.copy(scope.activeLoanApplications,scope.loanApplications);
                 }
@@ -651,7 +652,7 @@
                 }
             };
 
-            function getClientImageAndSignature (){
+            scope.getClientImageAndSignature = function (){
                 getClientClientSummary ();
                 if (scope.client.imagePresent) {
                     http({
@@ -664,6 +665,7 @@
                             url: $rootScope.hostUrl + API_VERSION + '/client/' + routeParams.id + '/images/'+scope.imageData.imageId+'?maxHeight=150'
                         }).then(function (imageData) {
                             scope.image = imageData.data;
+                            scope.showClientImage = true;
                         });
                     });
                 }
