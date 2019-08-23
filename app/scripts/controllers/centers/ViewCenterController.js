@@ -123,17 +123,19 @@
                     }
                 });
             };
-
-            resourceFactory.cgtResource.getAll({entityId: routeParams.id}, function(data) {
-                scope.cgt = data;
-                for (var i in scope.cgt) {
-                    if(scope.cgt[i].status != undefined && (scope.cgt[i].status.value == 'IN PROGRESS'
-                        || scope.cgt[i].status.value == 'New')) {
-                        scope.showCreateCgt = false;
-                        break;
+            if(scope.cgtEnabled){
+                resourceFactory.cgtResource.getAll({entityId: routeParams.id}, function(data) {
+                    scope.cgt = data;
+                    for (var i in scope.cgt) {
+                        if(scope.cgt[i].status != undefined && (scope.cgt[i].status.value == 'IN PROGRESS'
+                            || scope.cgt[i].status.value == 'New')) {
+                            scope.showCreateCgt = false;
+                            break;
+                        }
                     }
-                }
-            });
+                });
+            }
+            
 
             scope.routeTo = function (id) {
                 location.path('/viewsavingaccount/' + id);

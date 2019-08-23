@@ -399,8 +399,8 @@
                         }
                     }    
                 });
-
-                if (data.clientId) {
+                
+                if (data.clientId && scope.canDisburseToGroupsBanks()) {
                     scope.clientId = data.clientId;
                     scope.clientName = data.clientName;
                     scope.formData.clientId = scope.clientId;
