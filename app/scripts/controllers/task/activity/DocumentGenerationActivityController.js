@@ -94,7 +94,7 @@
             scope.generateDocuments = function () {
                 var generateDocumentForm = { documentEntityType: 'centers', taskEntityTypeId: 4 }
                 generateDocumentForm.taskEntityId = scope.centerDetails.id;
-                generateDocumentForm.taskId = scope.centerDetails.subGroupMembers[0].memberData[0].clientLevelTaskTrackingData.currentTaskId;
+                generateDocumentForm.taskId = scope.taskData.id;
                 resourceFactory.taskGenerateDocumentsResource.save(generateDocumentForm, function (data) {
                     scope.getDocuments(scope.centerDetails);
                 });
@@ -159,6 +159,22 @@
                     }
                 }
             }
+
+            scope.confirmGenerateDocuments = function () {
+                $modal.open({
+                    templateUrl: 'confirmGenerateDocuments.html',
+                    controller: ConfirmGenerateDocumentsCtrl
+                });
+            };
+            var ConfirmGenerateDocumentsCtrl = function ($scope, $modalInstance) {
+                $scope.confirm = function () {
+                    scope.generateDocuments();
+                    $modalInstance.close('confirm');
+                }
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            };
         }
     });
     mifosX.ng.application.controller('DocumentGenerationActivityController', ['$controller', '$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', '$route', '$http', '$rootScope', '$route', '$upload', 'API_VERSION', 'CommonUtilService', mifosX.controllers.DocumentGenerationActivityController]).run(function ($log) {

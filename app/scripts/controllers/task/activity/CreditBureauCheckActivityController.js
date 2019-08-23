@@ -104,7 +104,7 @@
                         entityId: loanId,
                         isForce: scope.isForce,
                         isClientCBCriteriaToRun : scope.isClientCBCriteriaToRun
-                    }, function (loansSummary) {
+                    }, {}, function (loansSummary) {
                         scope.checkCBData = loansSummary;
                         scope.getCbEnquiryData(scope.checkCBData.creditBureauEnquiryId);
                     });

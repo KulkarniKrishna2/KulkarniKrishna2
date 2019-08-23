@@ -800,6 +800,7 @@
                     $scope: $scope,
                     $key: "bankAccountDetails"
                 }));
+                $scope.showHouseHoldExpense = true;
                 $scope.taskconfig = scope.taskconfig;
                 $scope.regexFormats = scope.regexFormats;
                 $scope.df = scope.df;
