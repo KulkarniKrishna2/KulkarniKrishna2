@@ -17,7 +17,8 @@
             scope.showExternalServices = false;
             scope.showPaymentModeOptions = false;
             scope.formData = {};
-
+            scope.bankAccountHolderNameReadOnly = false;
+            scope.bankAccountAccountNumberReadOnly = false;
 
             resourceFactory.paymentTypeResource.get({paymentTypeId: routeParams.id,template: 'true'}, function (data) {
                 scope.externalservices = data.externalServiceOptions;
@@ -61,6 +62,12 @@
                     scope.formData.serviceProvider = data.serviceProvider.id;
                 }
                 if(data.bankAccountDetails){
+                    if(data.bankAccountDetails.name){
+                        scope.bankAccountHolderNameReadOnly = true;
+                    }
+                    if(data.bankAccountDetails.accountNumber){
+                        scope.bankAccountAccountNumberReadOnly = true;
+                    }
                     scope.formData.bankAccountDetails = {
                         name: data.bankAccountDetails.name,
                         accountNumber: data.bankAccountDetails.accountNumber,
@@ -73,7 +80,6 @@
                     if(data.bankAccountDetails.accountType){
                         scope.formData.bankAccountDetails.accountTypeId = data.bankAccountDetails.accountType.id;
                     };
-                    scope.formData.bankAccountDetails.locale = scope.optlang.code;
                 }
                 if (!_.isUndefined(data.defaultValueDateType)) {
                     scope.formData.defaultValueDateType = data.defaultValueDateType.id;
@@ -116,6 +122,8 @@
                 this.formData.locale = scope.optlang.code;
                 if(!scope.showBankDetails()){
                     delete  this.formData.bankAccountDetails;
+                } else {
+                    this.formData.bankAccountDetails.locale = scope.optlang.code;
                 }
                 if(scope.formData.paymentMode!=scope.fileBasedModeValue){
                     this.formData.serviceProvider =  undefined;
