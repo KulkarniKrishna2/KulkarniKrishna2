@@ -479,7 +479,8 @@
 				"reviewCB": true,
 				"sendToCBReview": true,
 				"activateBankAccount": false,
-				"editCenterMeeting": true
+				"editCenterMeeting": true,
+				"expectedDisbursementDate": false
 			},
 			"showMembersStepsInfo": false,
 			"disableSelectAllClients": false,
@@ -488,7 +489,9 @@
 				"surveyScore" : false,
 				"expenseAmount" : false,
 				"houseHoldExpense" : false
-			}
+			},
+			"disableMeetingFrequency": true,
+			"showDeleteClientIdentifierAction": false
 		},
 		"globalSearchScope": {
 			"name": "label.search.scope.clients.and.clientIdentifiers",

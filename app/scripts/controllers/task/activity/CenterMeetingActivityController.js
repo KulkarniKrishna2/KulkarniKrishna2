@@ -24,6 +24,15 @@
                 scope.hideCenterMeetingEdit = scope.response.uiDisplayConfigurations.workflow.hiddenFields.editCenterMeeting;
             }
 
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow &&
+                scope.response.uiDisplayConfigurations.workflow.hiddenFields) {
+                scope.hideExpectedDisbursementDate = scope.response.uiDisplayConfigurations.workflow.hiddenFields.expectedDisbursementDate;
+            }
+
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow) {
+                scope.disableMeetingFrequency = scope.response.uiDisplayConfigurations.workflow.disableMeetingFrequency;
+            }
+
            function initTask() {
                resourceFactory.centerWorkflowResource.get({
                    centerId: scope.groupOrCenterId,
