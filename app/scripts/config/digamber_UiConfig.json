@@ -37,9 +37,13 @@
 				"reviewCB": true,
 				"sendToCBReview": false,
 				"activateBankAccount": true,
-				"editCenterMeeting": false
+				"editCenterMeeting": false,
+				"expenseAmount" : false,
+				"expectedDisbursementDate": true
 			},
-			"disableSelectAllClients": true
+			"disableSelectAllClients": true,
+			"disableMeetingFrequency": false,
+			"showDeleteClientIdentifierAction": true
 		},
 		"createCenter": {
 			"isReadOnlyField": {
@@ -61,6 +65,17 @@
 			},
 			"getlimit": 3,
 			"getEnquiryHistoryLimit":15
+		},
+		"viewCenter": {
+			"isHiddenField": {
+				"accountNo": true
+			}
+		},
+		"clientIdentifier": {
+			"hiddenFields": {
+				"documentIssueDate": true,
+				"documentExpiryDate": true
+			}
 		}
 	}
 }

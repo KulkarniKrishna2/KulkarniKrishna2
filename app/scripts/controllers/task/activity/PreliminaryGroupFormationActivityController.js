@@ -348,6 +348,7 @@
                     $scope.offices = data.officeOptions;
                     $scope.staffs = data.staffOptions;
                     $scope.formData.officeId = $scope.offices[0].id;
+                    $scope.formData.staffId = scope.centerDetails.staffId;
                     $scope.savingproducts = data.savingProductOptions;
                     $scope.genderOptions = data.genderOptions;
                     $scope.clienttypeOptions = data.clientTypeOptions;
@@ -567,7 +568,11 @@
                 $scope.familyMemberMinAge = scope.familyMemberMinAge;
                 $scope.familyMemberMaxAge = scope.familyMemberMaxAge;
                 $scope.isValidAge = true;
-               
+
+                if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow) {
+                    $scope.showDeleteClientIdentifierAction = scope.response.uiDisplayConfigurations.workflow.showDeleteClientIdentifierAction;
+                }
+
                 if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow &&
                     scope.response.uiDisplayConfigurations.workflow.disableVillageDropDown) {
                     $scope.disableVillageDropDown = scope.response.uiDisplayConfigurations.workflow.disableVillageDropDown;
