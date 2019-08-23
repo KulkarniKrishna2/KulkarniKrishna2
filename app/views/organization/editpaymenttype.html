@@ -106,16 +106,14 @@
                 </div>
                 <div class="form-group" data-ng-show="showBankDetails()">
                     <label class="control-label col-sm-2" >{{'label.input.holdername' | translate}}</label>
-
                     <div class="col-sm-3">
-                        {{formData.bankAccountDetails.name}}
+                        <input name="name" ng-model="formData.bankAccountDetails.name" type="text" autocomplete="off" class="form-control" ng-readOnly="bankAccountHolderNameReadOnly"/>
                     </div>
                 </div>
                 <div class="form-group" data-ng-show="showBankDetails()">
                     <label class="control-label col-sm-2" >{{'label.input.accountnumber' | translate}}</label>
-
                     <div class="col-sm-3">
-                        {{formData.bankAccountDetails.accountNumber}}
+                        <input name="accountNumber" ng-model="formData.bankAccountDetails.accountNumber" type="text" autocomplete="off" class="form-control" ng-readOnly="bankAccountAccountNumberReadOnly"/>
                     </div>
                 </div>
                 <div class="form-group" data-ng-show="showBankDetails()">
