@@ -474,7 +474,7 @@
 			        <br/>
 			    </div>
 			</tab>
-			<tab heading="{{ 'label.heading.notes' | translate }}" has-permission='READ_GROUPNOTE'>
+			<tab heading="{{ 'label.heading.notes' | translate }}" has-permission='READ_GROUPNOTE' ng-click="getNotes()">
 			    <br/>
 
 			    <form>
@@ -550,7 +550,7 @@
 
 				</table>
 			</tab>
-            <tab heading="{{'label.anchor.luc' | translate}}">
+            <tab heading="{{'label.anchor.luc' | translate}}" ng-click="getCenterLoanUtilizationCheck()">
                 <div>
                     <div class="col-md-12 primarydiv">
                         <div class="btn-group pull-right">
