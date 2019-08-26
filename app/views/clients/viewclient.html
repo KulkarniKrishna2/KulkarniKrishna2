@@ -440,9 +440,8 @@
 				    	<div class="thumbnail row">
 				    		<h4><strong ng-if="!displayNameInReverseOrder">{{client.displayName}}</strong>
 				    		 <strong ng-if="displayNameInReverseOrder">{{client.displayNameInReverseOrder}}</strong> </h4>
-							<img ng-hide="client.imagePresent" ng-src="./images/client-image-placeholder.png" alt="Avatar">
-							<img ng-show="client.imagePresent && !showClientImage"  ng-src="./images/blured_view_image.png" data-ng-click="getClientImageAndSignature()">
-				        	<img ng-show="client.imagePresent && showClientImage"  ng-src="{{image}}" alt="Avatar" data-ng-click="showPicture()" title="{{'label.zoom' | translate}}" >
+					    	<img ng-hide="client.imagePresent" ng-src="./images/client-image-placeholder.png" alt="Avatar">
+				        	<img ng-show="client.imagePresent"  ng-src="{{image}}" alt="Avatar" data-ng-click="showPicture()" title="{{'label.zoom' | translate}}" >
 					        <div class="btn-group-xs center">
 					            <button type="button" class="btn btn-primary" data-ng-click="uploadPic()" has-permission='CREATE_CLIENTIMAGE'
 					                    tooltip="{{'label.button.uploadpic' | translate}}">
