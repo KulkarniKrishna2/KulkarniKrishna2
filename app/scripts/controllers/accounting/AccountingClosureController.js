@@ -15,6 +15,8 @@
             scope.showClosure = false;
             scope.accountClosurePerPage = 10;
             scope.limitToOne = false;
+            var officeIdArray = [];
+            scope.isBulkCreate = false;
 
             if (routeParams.officeId != undefined) {
                 params.officeId = routeParams.officeId;
@@ -58,13 +60,21 @@
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 this.formData.closingDate = reqDate;
-                resourceFactory.accountingClosureResource.save(this.formData, function (data) {
-                    location.path('/view_close_accounting/' + data.resourceId);
-                });
+                if(scope.isBulkCreate){
+                    this.formData.officeIds = officeIdArray;
+                    resourceFactory.accountingBulkClosureResource.save(this.formData, function (data) {
+                        location.path('/accounts_closure');
+                    });
+                }else{                    
+                    resourceFactory.accountingClosureResource.save(this.formData, function (data) {
+                        location.path('/view_close_accounting/' + data.resourceId);
+                    });
+                }
+                
+
+                
             }
-
-
-
+            
             scope.updateLastClosed = function (officeId) {
                 resourceFactory.accountingClosureByOfficeResource.getView({officeId: officeId, limitToOne: false}, function (data) {
                     scope.accountClosures = data;
@@ -117,7 +127,48 @@
                 }else{
                         scope.showClosure = false;
                 }
+            }
+
+            scope.holidayApplyToOffice = function (node) {
+                if (node.selectedCheckBox === 'true') {
+                    recurHolidayApplyToOffice(node);
+                    officeIdArray = _.uniq(officeIdArray);
+                } else {
+                    node.selectedCheckBox = 'false';
+                    recurRemoveHolidayAppliedOOffice(node);
+
                 }
+            };
+
+            function recurHolidayApplyToOffice(node) {
+                node.selectedCheckBox = 'true';
+                officeIdArray.push(node.id);
+                if (node.children.length > 0) {
+                    for (var i = 0; i < node.children.length; i++) {
+                        node.children[i].selectedCheckBox = 'true';
+                        officeIdArray.push(node.children[i].id);
+                        if (node.children[i].children.length > 0) {
+                            recurHolidayApplyToOffice(node.children[i]);
+                        }
+                    }
+                }
+            }
+
+            function recurRemoveHolidayAppliedOOffice(node) {
+                officeIdArray = _.without(officeIdArray, node.id);
+                if (node.children.length > 0) {
+                    for (var i = 0; i < node.children.length; i++) {
+                        node.children[i].selectedCheckBox = 'false';
+                        officeIdArray = _.without(officeIdArray, node.children[i].id);
+                        if (node.children[i].children.length > 0) {
+                            recurRemoveHolidayAppliedOOffice(node.children[i]);
+                        }
+                    }
+                }
+            }
+
+
+
         }
     });
     mifosX.ng.application.controller('AccountingClosureController', ['$scope', 'ResourceFactory', '$location', '$translate', '$routeParams', 'dateFilter', '$rootScope', 'PaginatorService', mifosX.controllers.AccountingClosureController]).run(function ($log) {

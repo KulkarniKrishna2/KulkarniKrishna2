@@ -1907,6 +1907,8 @@
                     glimLoanProductMappingTemplateResource: defineResource(apiVer + "/glimloanproductmapping/template", {}, {
                         get: {method: 'GET', params: {}, isArray: false}
                     }),
+                    accountingBulkClosureResource: defineResource(apiVer + "/glclosures/bulk", {}, {
+                    }),
                 };
             }];
         }

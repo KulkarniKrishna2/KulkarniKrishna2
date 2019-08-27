@@ -8101,6 +8101,8 @@
     "error.msg.glim.amount.not.in.range.exception" : "Glim amount must be between '{{params[0].value}}' and '{{params[1].value}}' ",
     "error.msg.glim.min.amount.exception" : "Glim amount can not be less than '{{params[0].value}}'.",
     "error.msg.glim.max.amount.exception" : "Glim amount can not be more than '{{params[0].value}}'.",
+    "error.msg.office.id.list.invalid":"Office with identifiers {{params[0].value}} does not exist",
+     "label.input.isbulkclosure" : "Is Bulk Closure",
 
     "------ end of translation file ------": "----------"
 }
