@@ -108,10 +108,13 @@
                 for (var i in centerDetails.subGroupMembers) {
                     for (var j in centerDetails.subGroupMembers[i].memberData) {
                         var activeClientMember = centerDetails.subGroupMembers[i].memberData[j];
+                        var clientLevelTaskTrackObj =centerDetails.subGroupMembers[i].memberData[j].clientLevelTaskTrackingData;
                         if (isAllChecked) {
                             if (activeClientMember.status.code != 'clientStatusType.onHold' && !activeClientMember.isClientFinishedThisTask) {
                                 centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = true;
-                                scope.captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, activeClientMember.isMemberChecked);
+                                if(scope.taskData.id == clientLevelTaskTrackObj.currentTaskId){
+                                    scope.captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, activeClientMember.isMemberChecked);
+                                }    
                             }
                         } else {
                             centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = false;
