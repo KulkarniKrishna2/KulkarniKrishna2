@@ -59,7 +59,7 @@
                             </div>
                         </div>
             
-                        <input type="checkbox" ng-model="specificToInstallment" > &nbsp;<span
+                        <input type="checkbox" ng-model="specificToInstallment" ng-change="changeSpecificInstallment(specificToInstallment)"> &nbsp;<span
                             class="control-label"><label>{{ 'label.input.specificToInstallment' | translate }}&nbsp;</label></span>
                         <br/><br/>
                         <input type="checkbox" ng-model="changeRepaymentDate" > &nbsp;<span
