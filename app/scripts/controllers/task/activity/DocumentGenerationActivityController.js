@@ -151,7 +151,7 @@
                         if (isAllChecked) {
                             if (activeClientMember.status.code != 'clientStatusType.onHold' && !activeClientMember.isClientFinishedThisTask) {
                                 centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = true;
-                                if(scope.taskData.id == clientLevelTaskTrackObj.currentTaskId){
+                                if(!_.isUndefined(clientLevelTaskTrackObj) && (scope.taskData.id == clientLevelTaskTrackObj.currentTaskId)){
                                     scope.captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, activeClientMember.isMemberChecked);
                                 }   
                             }
