@@ -756,25 +756,27 @@
                         scope.formRequestData.termPeriodFrequencyEnum = loanEMIPack.repaymentFrequencyType.id;
                         scope.formRequestData.termFrequency = parseInt(loanEMIPack.repaymentEvery) * parseInt(loanEMIPack.numberOfRepayments);
                         var disbursalEMIs = [0];
-                         scope.formRequestData.loanApplicationSanctionTrancheDatas = [];
-                        if(loanEMIPack.disbursalAmount1){
-                            var loanApplicationSanctionTrancheDatas = {trancheAmount:loanEMIPack.disbursalAmount1};
-                            scope.formRequestData.loanApplicationSanctionTrancheDatas.push(loanApplicationSanctionTrancheDatas);
-                        }
-                        if(loanEMIPack.disbursalAmount2){
-                            var loanApplicationSanctionTrancheDatas = {trancheAmount:loanEMIPack.disbursalAmount2};
-                            scope.formRequestData.loanApplicationSanctionTrancheDatas.push(loanApplicationSanctionTrancheDatas);
-                            disbursalEMIs.push(loanEMIPack.disbursalEmi2);
-                        }
-                        if(loanEMIPack.disbursalAmount3){
-                            var loanApplicationSanctionTrancheDatas = {trancheAmount:loanEMIPack.disbursalAmount3};
-                            scope.formRequestData.loanApplicationSanctionTrancheDatas.push(loanApplicationSanctionTrancheDatas);
-                            disbursalEMIs.push(loanEMIPack.disbursalEmi3);
-                        }
-                        if(loanEMIPack.disbursalAmount4){
-                            var loanApplicationSanctionTrancheDatas = {trancheAmount:loanEMIPack.disbursalAmount4};
-                            scope.formRequestData.loanApplicationSanctionTrancheDatas.push(loanApplicationSanctionTrancheDatas);
-                            disbursalEMIs.push(loanEMIPack.disbursalEmi4);
+                        if(scope.changeLoanEMIPack){
+                            scope.formRequestData.loanApplicationSanctionTrancheDatas = []; 
+                            if(loanEMIPack.disbursalAmount1){
+                                var loanApplicationSanctionTrancheDatas = {trancheAmount:loanEMIPack.disbursalAmount1};
+                                scope.formRequestData.loanApplicationSanctionTrancheDatas.push(loanApplicationSanctionTrancheDatas);
+                            }
+                            if(loanEMIPack.disbursalAmount2){
+                                var loanApplicationSanctionTrancheDatas = {trancheAmount:loanEMIPack.disbursalAmount2};
+                                scope.formRequestData.loanApplicationSanctionTrancheDatas.push(loanApplicationSanctionTrancheDatas);
+                                disbursalEMIs.push(loanEMIPack.disbursalEmi2);
+                            }
+                            if(loanEMIPack.disbursalAmount3){
+                                var loanApplicationSanctionTrancheDatas = {trancheAmount:loanEMIPack.disbursalAmount3};
+                                scope.formRequestData.loanApplicationSanctionTrancheDatas.push(loanApplicationSanctionTrancheDatas);
+                                disbursalEMIs.push(loanEMIPack.disbursalEmi3);
+                            }
+                            if(loanEMIPack.disbursalAmount4){
+                                var loanApplicationSanctionTrancheDatas = {trancheAmount:loanEMIPack.disbursalAmount4};
+                                scope.formRequestData.loanApplicationSanctionTrancheDatas.push(loanApplicationSanctionTrancheDatas);
+                                disbursalEMIs.push(loanEMIPack.disbursalEmi4);
+                            }
                         }
                     }
                     if (scope.formRequestData.loanApplicationSanctionTrancheDatas && scope.formRequestData.loanApplicationSanctionTrancheDatas.length > 0) {
