@@ -492,7 +492,11 @@
 				"houseHoldExpense" : false
 			},
 			"disableMeetingFrequency": true,
-			"showDeleteClientIdentifierAction": false
+			"showDeleteClientIdentifierAction": false,
+			"centerMeeting":{
+				"maxDaysLimit":"",
+				"repeatsEveryOptions" :["1", "2", "3", "4", "5"]
+			}
 		},
 		"globalSearchScope": {
 			"name": "label.search.scope.clients.and.clientIdentifiers",

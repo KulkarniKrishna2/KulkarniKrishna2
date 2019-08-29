@@ -205,7 +205,11 @@
 				"reviewCB": false,
 				"sendToCBReview": true
 			},
-			"showMembersStepsInfo": true
+			"showMembersStepsInfo": true,
+			"centerMeeting":{
+				"maxDaysLimit": 14
+			}
+		},
 		},
 		"createVillage": {
 			"isReadOnlyField": {
