@@ -128,11 +128,7 @@
                 }
             });
 
-            if(scope.clientId && canDisburseToGroupsBanks()){
-                resourceFactory.clientParentGroupsResource.getParentGroups({clientId:  scope.clientId}, function (data) {
-                    scope.parentGroups = data;
-                });
-            }
+            
 
             scope.$watch('productLoanCharges', function(){
                 if(angular.isDefined(scope.productLoanCharges) && scope.productLoanCharges.length>0 && scope.isGLIM){
@@ -830,6 +826,12 @@
             scope.canDisburseToGroupsBanks = function(){
                 return (scope.canDisburseToGroupBankAccounts && scope.allowBankAccountsForGroups && scope.allowDisbursalToGroupBankAccounts);
             };
+
+            if(scope.clientId && scope.canDisburseToGroupsBanks()){
+                resourceFactory.clientParentGroupsResource.getParentGroups({clientId:  scope.clientId}, function (data) {
+                    scope.parentGroups = data;
+                });
+            }
             
             scope.cancel = function () {
                 if (scope.groupId) {
