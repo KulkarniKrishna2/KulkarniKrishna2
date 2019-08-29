@@ -98,6 +98,7 @@
                 scope.showLoanPurposeGroup = scope.response.uiDisplayConfigurations.loanAccount.loanPurposeGroup.showLoanPurposeGroup;
                 scope.showIsDeferPaymentsForHalfTheLoanTerm = scope.response.uiDisplayConfigurations.loanAccount.isShowField.isDeferPaymentsForHalfTheLoanTerm;
                 scope.canAddCharges = scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.canAddCharge;
+                scope.isCollateralEnabled = scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.collateral;
             }
 
             scope.inparams.staffInSelectedOfficeOnly = true;
@@ -247,10 +248,12 @@
                         scope.loanPurposeGroups = data;
                     }
                 });
-
-                resourceFactory.loanResource.get({resourceType: 'template', templateType: 'collateral', productId: loanProductId, fields: 'id,loanCollateralOptions'}, function (data) {
-                    scope.collateralOptions = data.loanCollateralOptions || [];
-                });
+                
+                if(scope.isCollateralEnabled){
+                    resourceFactory.loanResource.get({resourceType: 'template', templateType: 'collateral', productId: loanProductId, fields: 'id,loanCollateralOptions'}, function (data) {
+                        scope.collateralOptions = data.loanCollateralOptions || [];
+                    });
+                }                
             }
             scope.$watch('date.second ', function(){
                 if(scope.response && scope.response.uiDisplayConfigurations.loanAccount.isAutoPopulate.interestChargedFromDate){

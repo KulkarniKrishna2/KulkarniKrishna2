@@ -39,7 +39,8 @@
 				"preferredPaymentChannel": false,
 				"canAddCharge": true,
 				"writeOff": false,				
-				"previewSchedule": false
+				"previewSchedule": false,
+				"collateral" : false
 			},
 			"isMandatory": {
 				"externalId": false,

@@ -8103,6 +8103,7 @@
     "error.msg.glim.max.amount.exception" : "Glim amount can not be more than '{{params[0].value}}'.",
     "error.msg.office.id.list.invalid":"Office with identifiers {{params[0].value}} does not exist",
      "label.input.isbulkclosure" : "Is Bulk Closure",
+     "label.input.isfilter" : "Is Filter",
 
     "------ end of translation file ------": "----------"
 }

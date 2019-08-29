@@ -64,9 +64,12 @@
             resourceFactory.groupAccountResource.get({groupId: routeParams.id}, function (data) {
                 scope.groupAccounts = data;
             });
-            resourceFactory.groupNotesResource.getAllNotes({groupId: routeParams.id}, function (data) {
-                scope.groupNotes = data;
-            });
+            
+            scope.getNotes = function(){ 
+                resourceFactory.groupNotesResource.getAllNotes({groupId: routeParams.id}, function (data) {
+                    scope.groupNotes = data;
+                });              
+            }
             scope.delrole = function (id) {
                 resourceFactory.groupResource.save({groupId: routeParams.id, command: 'unassignRole', roleId: id}, {}, function (data) {
                     resourceFactory.groupResource.get({groupId: routeParams.id}, function (data) {
