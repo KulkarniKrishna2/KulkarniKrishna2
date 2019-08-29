@@ -201,7 +201,7 @@
                 if (scope.loanaccountinfo.timeline.expectedDisbursementDate) {
                     scope.formData.expectedDisbursementDate = new Date(scope.loanaccountinfo.timeline.expectedDisbursementDate);
                 }
-                if (scope.isAutoUpdateInterestStartDate && scope.loanaccountinfo.interestChargedFromDate) {
+                if (scope.loanaccountinfo.interestChargedFromDate) {
                     scope.formData.interestChargedFromDate = new Date(scope.loanaccountinfo.interestChargedFromDate);
                 }
                 if (scope.loanaccountinfo.expectedFirstRepaymentOnDate) {
