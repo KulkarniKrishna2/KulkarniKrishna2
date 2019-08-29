@@ -628,7 +628,8 @@
 			}
 		},
 		"regexFormats": {
-			"lastName": "\/^[a-zA-Z\\s]*$\/"
+			"lastName": "\/^[a-zA-Z\\s]*$\/",
+			"middleName":"\/^[a-zA-Z\\s]*$\/"
 		},
 		"editCenter": {
 			"isReadOnlyField": {

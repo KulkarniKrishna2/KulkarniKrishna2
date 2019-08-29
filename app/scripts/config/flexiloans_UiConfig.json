@@ -8,7 +8,8 @@
           "linkAccountId": false,
           "createStandingInstruction": false,
           "loanPurpose": false,
-          "preferredPaymentChannel": false
+          "preferredPaymentChannel": false,
+          "interestChargedFromDate": false
   		},
       "isReadOnlyField": {
         "externalId": false,
@@ -48,7 +49,14 @@
         "clientClassificationId": true,
         "mobileNumber":true,
         "emailId":true
-      }
-    }
+      },
+      "isValidateFirstName": {
+				"firstNamePattern": "/^[a-zA-Z\\s][a-zA-Z\\s_@]*$/"
+			}
+    },
+    "regexFormats": {
+			"lastName": "\/^[a-zA-Z\\s_@]*$\/",
+			"middleName":"\/^[a-zA-Z\\s_@]*$\/"
+		}
   }
 }
