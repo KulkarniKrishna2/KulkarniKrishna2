@@ -5,21 +5,26 @@
             scope.clientsPerPage = 15;
             scope.isWorkflowEnabled = scope.isSystemGlobalConfigurationEnabled('work-flow');
             scope.isHideCreateEntity = false;
-            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewClient && 
-                scope.response.uiDisplayConfigurations.viewClient.isHiddenField){
-                if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.createClient){
-                    scope.hideCreateClient = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.createClient;
+            scope.searchConditions = {};
+            if(scope.response && scope.response.uiDisplayConfigurations){
+                if(scope.response.uiDisplayConfigurations.viewClient && 
+                    scope.response.uiDisplayConfigurations.viewClient.isHiddenField){
+                        if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.createClient){
+                            scope.hideCreateClient = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.createClient;
+                        }
+                        if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.referenceNo){
+                            scope.refNo = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.referenceNo;
+                        }
                 }
-                if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.referenceNo){
-                    scope.refNo = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.referenceNo;
+                if(scope.response.uiDisplayConfigurations.createClient.defaultMobileNumber){
+                    scope.defaultMobileNumber = scope.response.uiDisplayConfigurations.createClient.defaultMobileNumber;                        
                 }
             }
             if(scope.isWorkflowEnabled && scope.hideCreateClient){
                 scope.isHideCreateEntity = true;
             }
-            if(scope.response.uiDisplayConfigurations.createClient.defaultMobileNumber){
-                scope.defaultMobileNumber = scope.response.uiDisplayConfigurations.createClient.defaultMobileNumber;                        
-            }
+            
+            scope.isFilter = false;
             /**
              * Get the record based on the offset limit
              */
@@ -27,11 +32,11 @@
                 resourceFactory.clientsSearchResource.getAllClients({
                     searchConditions: scope.searchConditions,
                     offset: offset,
-                    limit: limit
+                    limit: limit,
+                    isFilter: scope.searchConditions.isFilter
                 }, callback);
             };
-
-            scope.searchConditions = {};
+            
             scope.searchData = function () {
                 scope.clients = paginatorUsingOffsetService.paginate(fetchFunction, scope.clientsPerPage);
                 scope.isSearchData = true;
