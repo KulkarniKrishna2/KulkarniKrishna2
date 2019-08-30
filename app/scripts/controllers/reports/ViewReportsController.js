@@ -6,6 +6,7 @@
             scope.requestoffset=0;
             scope.limit = 10;
             scope.baseUri = $rootScope.hostUrl+API_VERSION+'/files/';
+            scope.isS3TempUrlEnabled = scope.isSystemGlobalConfigurationEnabled('amazon-S3-temp-url');
             scope.routeTo = function (report) {
                 location.path('/run_report/' + report.reportName).search({reportId: report.id, type: report.reportType});
             };
@@ -73,7 +74,7 @@
             scope.download = function(fileId){
                 resourceFactory.fileUrlResource.get({fileId: fileId},function(data){
                     var url = data.locationPath;
-                    if(data.storageType==1){
+                    if(data.storageType==1 || !scope.isS3TempUrlEnabled){
                         url = $rootScope.hostUrl+API_VERSION+'/'+url;
                         commonUtilService.downloadFile(url,data.contentType.toLowerCase());
                     }else{
