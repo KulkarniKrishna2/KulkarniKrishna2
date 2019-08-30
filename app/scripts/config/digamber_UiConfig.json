@@ -57,7 +57,8 @@
 		"createClient": {
 			"isMandatoryField": {
 				"mobileNumber": true,
-				"clientClassificationId": true
+				"clientClassificationId": true,
+				"houseNo": true
 			}
 		},
 		"documentConfiguration": {
