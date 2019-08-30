@@ -195,7 +195,7 @@
 			"disableVillageDropDown":true,
 			"hideReject": true,
 			"isReadOnlyField": {
-				"createSubGroupDate": true
+			"createSubGroupDate": true
 			},
 			"deceasedWorkflow": {
         		"showPolicy" : true,
@@ -275,7 +275,8 @@
 			"editableFields": {
 				"repeat": true,
 				"repeatsevery": true,
-				"repeatson": true
+				"repeatson": true,
+				"meetingStartDate":true
 			}
 		},
 		"regexFormats":{

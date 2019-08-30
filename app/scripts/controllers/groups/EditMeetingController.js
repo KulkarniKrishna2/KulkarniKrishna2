@@ -15,6 +15,7 @@
                     scope.repeat = scope.response.uiDisplayConfigurations.editCalendar.editableFields.repeat;
                     scope.repeatsevery = scope.response.uiDisplayConfigurations.editCalendar.editableFields.repeatsevery;
                     scope.repeatson = scope.response.uiDisplayConfigurations.editCalendar.editableFields.repeatson;
+                    scope.meetingStartDate = scope.response.uiDisplayConfigurations.editCalendar.editableFields.meetingStartDate;
                 }
                 if (scope.response.uiDisplayConfigurations.meeting) {
                     scope.showAllMeetingReccurenceOptions = scope.response.uiDisplayConfigurations.meeting.showAllRepeatsOptions;
