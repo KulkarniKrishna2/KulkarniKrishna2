@@ -43,7 +43,11 @@
 			},
 			"disableSelectAllClients": true,
 			"disableMeetingFrequency": false,
-			"showDeleteClientIdentifierAction": true
+			"showDeleteClientIdentifierAction": true,
+			"centerMeeting":{
+				"maxDaysLimit": 28,
+				"repeatsEveryOptions" : ["2","4"]
+			}
 		},
 		"createCenter": {
 			"isReadOnlyField": {

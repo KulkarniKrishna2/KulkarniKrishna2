@@ -43,11 +43,17 @@
                         console.log("Configuration file not found");
                     });
                 };
+                isObjectData = function(tenantSpecificData){
+                    if(!_.isUndefined(tenantSpecificData.length)){
+                        return false;
+                    }
+                    return true;
+                }
 
                 var diff = function (defaultData, tenantSpecificData) {
                     var result = defaultData;
                     for (var label in tenantSpecificData) {
-                        if (typeof tenantSpecificData[label] == 'object' && typeof defaultData[label] == 'object') {
+                        if (isObjectData(tenantSpecificData[label]) && typeof tenantSpecificData[label] == 'object' && typeof defaultData[label] == 'object') {
                             result[label] = diff(defaultData[label], tenantSpecificData[label]);
 
                         } else {
