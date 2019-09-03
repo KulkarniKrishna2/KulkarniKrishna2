@@ -628,7 +628,8 @@
 			"editableFields": {
 				"repeat": false,
 				"repeatsevery": false,
-				"repeatson": false
+				"repeatson": false,
+				"meetingStartDate":false
 			}
 		},
 		"regexFormats": {

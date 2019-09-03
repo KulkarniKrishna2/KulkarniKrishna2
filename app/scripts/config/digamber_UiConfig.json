@@ -37,7 +37,6 @@
 				"reviewCB": true,
 				"sendToCBReview": false,
 				"activateBankAccount": true,
-				"editCenterMeeting": false,
 				"expenseAmount" : false,
 				"expectedDisbursementDate": true
 			},
@@ -80,6 +79,14 @@
 			"hiddenFields": {
 				"documentIssueDate": true,
 				"documentExpiryDate": true
+			}
+		},
+		"editCalendar": {
+			"editableFields": {
+				"repeat": true,
+				"repeatsevery": true,
+				"repeatson": true,
+				"meetingStartDate":true
 			}
 		}
 	}
