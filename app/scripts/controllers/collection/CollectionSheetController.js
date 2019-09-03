@@ -927,7 +927,7 @@
                 _.each(data.groups, function (group) {
                     _.each(group.clients,function(client){
                         _.each(client.loans,function(loan){
-                            if(!_.isUndefined(loan.installmentAmount) && !loan.lastPayment){
+                            if(!_.isUndefined(loan.installmentAmount) && !loan.lastPayment && loan.totalDue > 0){
                                 loan.totalDue = loan.installmentAmount;
                             }
                         });
