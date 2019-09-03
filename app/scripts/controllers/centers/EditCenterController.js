@@ -56,7 +56,7 @@
                     this.formData.villageId = undefined;
                 }
                 resourceFactory.centerResource.update({centerId: routeParams.id}, this.formData, function (data) {
-                    location.path('/viewcenter/' + routeParams.id);
+                    location.url('/viewcenter/' + routeParams.id);
                 });
             };
             scope.activate = function () {
