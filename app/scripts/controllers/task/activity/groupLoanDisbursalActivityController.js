@@ -347,6 +347,7 @@
                     delete scope.formRequestPreveieData.expectedDisbursementDate;
                 }
                 scope.formRequestPreveieData.principal = scope.formData.approvedData.loanAmountApproved;
+                scope.formRequestPreveieData.loanEMIPackId = this.formRequestData.disburse.loanEMIPackId;
                 if (scope.formRequestPreveieData.disburse) {
                     delete scope.formRequestPreveieData.disburse;
                 }
@@ -529,11 +530,11 @@
             };
 
             scope.allowDisburse = function(){
-                return (this.formData.status.id === 300 && scope.loanaccountinfo);
+                return (this.formData.status && this.formData.status.id === 300 && scope.loanaccountinfo);
             };
 
             scope.allowForceDisburse = function(){
-                return (this.formData.status.id === 300 && scope.canForceDisburse && scope.loanaccountinfo);
+                return (this.formData.status && this.formData.status.id === 300 && scope.canForceDisburse && scope.loanaccountinfo);
             };
 
             scope.forceDisburse = function () {
@@ -542,7 +543,7 @@
             };
 
             scope.displayOnNoActiveLoanApplication = function(){
-               return  ((scope.taskStatus != undefined && scope.taskStatus === 'completed') || scope.loanApplications.length <= 0);
+               return  ((scope.taskStatus != undefined && scope.taskStatus === 'completed') || (scope.loanApplications && scope.loanApplications.length <= 0));
             }
 
             scope.radioCheckUncheck = function () {
@@ -622,7 +623,7 @@
             scope.showAddTranche = function(){
                 if(scope.formRequestData.disburse.disbursementData){
                     return  scope.formRequestData.disburse.disbursementData.length < scope.formData.noOfTranche;
-                }else{
+                }else if(scope.loanaccountinfo){
                     return scope.loanaccountinfo.product.multiDisburseLoan;
                 }
             };
