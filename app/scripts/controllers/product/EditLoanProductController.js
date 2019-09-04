@@ -887,7 +887,7 @@
                         chargeId: scope.specificIncomeAccountMapping[i].chargeId,
                         incomeAccountId: scope.specificIncomeAccountMapping[i].incomeAccountId,
                     }
-                    if(scope.specificIncomeAccountMapping[i].fundSourceAccountId != null){
+                    if(scope.specificIncomeAccountMapping[i].fundSourceAccountId != null && scope.specificIncomeAccountMapping[i].fundSourceAccountId != ''){
                         var fundSourceAccountId = scope.specificIncomeAccountMapping[i].fundSourceAccountId
                         temp.fundSourceAccountId = fundSourceAccountId;
                     }
@@ -901,7 +901,7 @@
                         chargeId: scope.penaltySpecificIncomeaccounts[i].chargeId,
                         incomeAccountId: scope.penaltySpecificIncomeaccounts[i].incomeAccountId,
                     }
-                    if(scope.penaltySpecificIncomeaccounts[i].fundSourceAccountId != null){
+                    if(scope.penaltySpecificIncomeaccounts[i].fundSourceAccountId != null && scope.penaltySpecificIncomeaccounts[i].fundSourceAccountId != ''){
                         var fundSourceAccountId = scope.penaltySpecificIncomeaccounts[i].fundSourceAccountId 
                         temp.fundSourceAccountId = fundSourceAccountId;
                     }
