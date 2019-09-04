@@ -1345,7 +1345,7 @@
                     return $scope.clientBankAccountDetailAssociationId;
                 }
 
-                $scope.submit = function () {
+                $scope.createBankAccount = function () {
                     if (!isFormValid()) {
                         return false;
                     }
