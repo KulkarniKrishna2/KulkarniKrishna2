@@ -88,6 +88,13 @@
 				"repeatson": true,
 				"meetingStartDate":true
 			}
+		},
+		"viewClient": {
+			"familyDeatils": {
+				"isMandatoryField": {
+					"familyMemeberIDType": true
+				}
+			}
 		}
 	}
 }
