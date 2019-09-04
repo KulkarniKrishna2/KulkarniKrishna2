@@ -33,7 +33,6 @@
                     for (var i = 0; i < scope.centerDetails.subGroupMembers.length; i++) {
                         if (scope.centerDetails.subGroupMembers[i].memberData) {
                             for (var j = 0; j < scope.centerDetails.subGroupMembers[i].memberData.length; j++) {
-                                reComputeProfileRating(scope.centerDetails.subGroupMembers[i].memberData[j].id);
                                 var clientLevelTaskTrackObj = scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelTaskTrackingData;
                                 var clientLevelCriteriaObj = scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelCriteriaResultData;
                                 scope.centerDetails.subGroupMembers[i].memberData[j].allowLoanRejection = false;
