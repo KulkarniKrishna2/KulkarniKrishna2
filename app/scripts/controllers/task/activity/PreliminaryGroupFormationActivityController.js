@@ -36,7 +36,6 @@
                         for (var i = 0; i < scope.centerDetails.subGroupMembers.length; i++) {
                             if (scope.centerDetails.subGroupMembers[i].memberData) {
                                 for (var j = 0; j < scope.centerDetails.subGroupMembers[i].memberData.length; j++) {
-                                    scope.reComputeProfileRating(scope.centerDetails.subGroupMembers[i].memberData[j].id);
                                     var clientLevelTaskTrackObj =  scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelTaskTrackingData;
                                     var clientLevelCriteriaObj =  scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelCriteriaResultData;
                                     scope.centerDetails.subGroupMembers[i].memberData[j].allowLoanRejection = false;
@@ -348,6 +347,7 @@
                     $scope.offices = data.officeOptions;
                     $scope.staffs = data.staffOptions;
                     $scope.formData.officeId = $scope.offices[0].id;
+                    $scope.formData.staffId = scope.centerDetails.staffId;
                     $scope.savingproducts = data.savingProductOptions;
                     $scope.genderOptions = data.genderOptions;
                     $scope.clienttypeOptions = data.clientTypeOptions;
@@ -568,7 +568,11 @@
                 $scope.familyMemberMinAge = scope.familyMemberMinAge;
                 $scope.familyMemberMaxAge = scope.familyMemberMaxAge;
                 $scope.isValidAge = true;
-               
+
+                if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow) {
+                    $scope.showDeleteClientIdentifierAction = scope.response.uiDisplayConfigurations.workflow.showDeleteClientIdentifierAction;
+                }
+
                 if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow &&
                     scope.response.uiDisplayConfigurations.workflow.disableVillageDropDown) {
                     $scope.disableVillageDropDown = scope.response.uiDisplayConfigurations.workflow.disableVillageDropDown;

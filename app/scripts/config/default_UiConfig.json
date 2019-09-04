@@ -39,7 +39,8 @@
 				"preferredPaymentChannel": false,
 				"canAddCharge": true,
 				"writeOff": false,				
-				"previewSchedule": false
+				"previewSchedule": false,
+				"collateral" : false
 			},
 			"isMandatory": {
 				"externalId": false,
@@ -475,7 +476,8 @@
 				"reviewCB": true,
 				"sendToCBReview": true,
 				"activateBankAccount": false,
-				"editCenterMeeting": true
+				"editCenterMeeting": true,
+				"expectedDisbursementDate": false
 			},
 			"showMembersStepsInfo": false,
 			"disableSelectAllClients": false,
@@ -484,6 +486,12 @@
 				"surveyScore" : false,
 				"expenseAmount" : false,
 				"houseHoldExpense" : false
+			},
+			"disableMeetingFrequency": true,
+			"showDeleteClientIdentifierAction": false,
+			"centerMeeting":{
+				"maxDaysLimit":"",
+				"repeatsEveryOptions" :["1", "2", "3", "4", "5"]
 			}
 		},
 		"globalSearchScope": {
@@ -619,11 +627,12 @@
 				"repeat": false,
 				"repeatsevery": false,
 				"repeatson": false,
-				"meetStartDate": false
+				"meetingStartDate":false
 			}
 		},
 		"regexFormats": {
-			"lastName": "\/^[a-zA-Z\\s]*$\/"
+			"lastName": "\/^[a-zA-Z\\s]*$\/",
+			"middleName":"\/^[a-zA-Z\\s]*$\/"
 		},
 		"editCenter": {
 			"isReadOnlyField": {

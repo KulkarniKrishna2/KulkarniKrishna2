@@ -231,6 +231,7 @@
                     resourceFactory.documentsResource.getAllDocuments({ entityType: 'groups', entityId: scope.centerDetails.subGroupMembers[0].id }, function (data) {
                         groupDocuments = data;
                         $scope.isCGTPhotoUploaded = false;
+                        scope.isCGTPhotoUploaded = false;
                         for (var i in groupDocuments) {
                             if (groupDocuments[i].name == scope.groupDocumentName) {
                                 $scope.cgtDocument = groupDocuments[i];

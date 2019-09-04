@@ -104,7 +104,7 @@
                         entityId: loanId,
                         isForce: scope.isForce,
                         isClientCBCriteriaToRun : scope.isClientCBCriteriaToRun
-                    }, function (loansSummary) {
+                    }, {}, function (loansSummary) {
                         scope.checkCBData = loansSummary;
                         scope.getCbEnquiryData(scope.checkCBData.creditBureauEnquiryId);
                     });
@@ -140,7 +140,7 @@
                     entityType: "loan",
                     entityId: loanId,
                     isClientCBCriteriaToRun : true
-                }, function(data) {
+                },{}, function(data) {
                     scope.getCbEnquiryData(enquiryId);                    
                 });
 
@@ -159,7 +159,7 @@
                     entityId:  scope.centerId ,
                     isForce: scope.isForce,
                     isClientCBCriteriaToRun : scope.isClientCBCriteriaToRun
-                }, function (loansSummary) {
+                }, {},function (loansSummary) {
                     if((loansSummary != null && loansSummary[0] && loansSummary[0].errors == null)){
                         initTask();
                     }else{
@@ -800,7 +800,6 @@
                 };
 
                 $scope.constructDataFromLoanAccountInfo = function(){
-                    $scope.editLoanAccountdata.syncDisbursementWithMeeting = false;
                     $scope.editLoanAccountdata.createStandingInstructionAtDisbursement = false;
                     $scope.editLoanAccountdata.transactionProcessingStrategyId = $scope.loanaccountinfo.transactionProcessingStrategyId;
                     if(!_.isUndefined($scope.loanaccountinfo.calendarOptions)){

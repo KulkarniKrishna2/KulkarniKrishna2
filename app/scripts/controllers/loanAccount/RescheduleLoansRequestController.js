@@ -29,6 +29,10 @@
                 scope.isGLIM = (glimData != undefined && glimData.length > 0 && glimData[0].isActive);
             });
 
+            scope.changeSpecificInstallment = function(specificInstallment){
+                scope.specificToInstallment = specificInstallment;
+            }
+
             scope.submit = function () {
                 this.formData.loanId = scope.loanId;
                 this.formData.dateFormat = scope.df;

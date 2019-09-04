@@ -33,7 +33,6 @@
                     for (var i = 0; i < scope.centerDetails.subGroupMembers.length; i++) {
                         if (scope.centerDetails.subGroupMembers[i].memberData) {
                             for (var j = 0; j < scope.centerDetails.subGroupMembers[i].memberData.length; j++) {
-                                reComputeProfileRating(scope.centerDetails.subGroupMembers[i].memberData[j].id);
                                 var clientLevelTaskTrackObj = scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelTaskTrackingData;
                                 var clientLevelCriteriaObj = scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelCriteriaResultData;
                                 scope.centerDetails.subGroupMembers[i].memberData[j].allowLoanRejection = false;
@@ -652,12 +651,10 @@
                 };
 
                 $scope.constructDataFromLoanAccountInfo = function () {
-                    $scope.editLoanAccountdata.syncDisbursementWithMeeting = false;
                     $scope.editLoanAccountdata.createStandingInstructionAtDisbursement = false;
                     $scope.editLoanAccountdata.transactionProcessingStrategyId = $scope.loanaccountinfo.transactionProcessingStrategyId;
                     if (!_.isUndefined($scope.loanaccountinfo.calendarOptions)) {
                         $scope.editLoanAccountdata.calendarId = $scope.loanaccountinfo.calendarOptions[0].id;
-                        $scope.editLoanAccountdata.syncDisbursementWithMeeting = true;
                     }
 
 
@@ -800,6 +797,7 @@
                     $scope: $scope,
                     $key: "bankAccountDetails"
                 }));
+                $scope.showHouseHoldExpense = true;
                 $scope.taskconfig = scope.taskconfig;
                 $scope.regexFormats = scope.regexFormats;
                 $scope.df = scope.df;
@@ -826,16 +824,16 @@
                 }
 
                 $scope.getBankDetails = function(isvalidIfsc){
-                    if($scope.formData.ifscCode != undefined && $scope.formData.ifscCode === $scope.repeatFormData.ifscCodeRepeat && isvalidIfsc){
-                        var url = "https://ifsc.razorpay.com/" + $scope.formData.ifscCode;
+                    if($scope.bankAccFormData.ifscCode != undefined && $scope.bankAccFormData.ifscCode === $scope.repeatBankAccFormData.ifscCodeRepeat && isvalidIfsc){
+                        var url = "https://ifsc.razorpay.com/" + $scope.bankAccFormData.ifscCode;
                         url = $sce.trustAsResourceUrl(url);
                         $http({
                             method: 'GET',
                             url: url
                         }).then(function (data) {
                             $scope.bankData = data;
-                            $scope.formData.bankName = $scope.bankData.BANK;
-                            $scope.formData.branchName = $scope.bankData.BRANCH;
+                            $scope.bankAccFormData.bankName = $scope.bankData.BANK;
+                            $scope.bankAccFormData.branchName = $scope.bankData.BRANCH;
                         })
                     }
                 }
@@ -1253,9 +1251,9 @@
                     hasData: false,
                     approved: false
                 };
-                $scope.formData = {};
                 $scope.docData = {};
-                $scope.repeatFormData = {};
+                $scope.repeatBankAccFormData = {};
+                $scope.bankAccFormData = {};
                 $scope.bankAccountTypeOptions = [];
                 $scope.deFaultBankName = null;
                 $scope.fileError = false;
@@ -1280,7 +1278,7 @@
                         entityId: $scope.entityId
                     }, function (data) {
                         $scope.bankAccountTypeOptions = data.bankAccountTypeOptions;
-                        $scope.formData.accountTypeId = data.bankAccountTypeOptions[0].id;
+                        $scope.bankAccFormData.accountTypeId = data.bankAccountTypeOptions[0].id;
                     });
                 }
 
@@ -1297,7 +1295,7 @@
                 }
 
                 function constructBankAccountDetails() {
-                    $scope.formData = {
+                    $scope.bankAccFormData = {
                         name: $scope.bankData.name,
                         accountNumber: $scope.bankData.accountNumber,
                         ifscCode: $scope.bankData.ifscCode,
@@ -1308,21 +1306,21 @@
                         bankCity: $scope.bankData.bankCity,
                         branchName: $scope.bankData.branchName
                     };
-                    $scope.repeatFormData = {
+                    $scope.repeatBankAccFormData = {
                         accountNumberRepeat: $scope.bankData.accountNumber,
                         ifscCodeRepeat: $scope.bankData.ifscCode
                     };
                     if (!_.isUndefined($scope.bankData.lastTransactionDate)) {
-                        $scope.formData.lastTransactionDate = new Date(dateFilter($scope.bankData.lastTransactionDate, $scope.df));
+                        $scope.bankAccFormData.lastTransactionDate = new Date(dateFilter($scope.bankData.lastTransactionDate, $scope.df));
                     }
 
-                    if (!$scope.formData.bankName) {
-                        $scope.formData.bankName = $scope.deFaultBankName;
+                    if (!$scope.bankAccFormData.bankName) {
+                        $scope.bankAccFormData.bankName = $scope.deFaultBankName;
                     }
                     if ($scope.bankData.accountType) {
-                        $scope.formData.accountTypeId = $scope.bankData.accountType.id;
+                        $scope.bankAccFormData.accountTypeId = $scope.bankData.accountType.id;
                     } else {
-                        $scope.formData.accountTypeId = $scope.bankAccountTypeOptions[0].id;
+                        $scope.bankAccFormData.accountTypeId = $scope.bankAccountTypeOptions[0].id;
                     }
                     $scope.bankAccountData = $scope.bankData;
                     if ($scope.bankData.accountNumber != undefined) {
@@ -1355,8 +1353,8 @@
                         $scope.update();
                         return;
                     }
-                    $scope.formData.locale = scope.optlang.code;
-                    $scope.formData.dateFormat = scope.df;
+                    $scope.bankAccFormData.locale = scope.optlang.code;
+                    $scope.bankAccFormData.dateFormat = scope.df;
                     submitData();
                 };
 
@@ -1364,7 +1362,7 @@
                     resourceFactory.bankAccountDetailResources.create({
                         entityType: $scope.entityType,
                         entityId: $scope.entityId
-                    }, $scope.formData,
+                    }, $scope.bankAccFormData,
                         function (data) {
                             $scope.clientBankAccountDetailAssociationId = data.resourceId;
                             populateDetails();
@@ -1374,12 +1372,12 @@
 
                 function isFormValid() {
                     if (!$scope.isElemHidden('bankIFSCCodeRepeat')) {
-                        if ($scope.formData.ifscCode != $scope.repeatFormData.ifscCodeRepeat) {
+                        if ($scope.bankAccFormData.ifscCode != $scope.repeatBankAccFormData.ifscCodeRepeat) {
                             return false;
                         }
                     }
                     if (!$scope.isElemHidden('bankAccountNumberRepeat')) {
-                        if ($scope.formData.accountNumber != $scope.repeatFormData.accountNumberRepeat) {
+                        if ($scope.bankAccFormData.accountNumber != $scope.repeatBankAccFormData.accountNumberRepeat) {
                             return false;
                         }
                     }
@@ -1400,9 +1398,9 @@
                     if (!isFormValid()) {
                         return false;
                     }
-                    $scope.formData.locale = scope.optlang.code;
-                    $scope.formData.dateFormat = scope.df;
-                    $scope.formData.lastTransactionDate = dateFilter($scope.formData.lastTransactionDate, scope.df);
+                    $scope.bankAccFormData.locale = scope.optlang.code;
+                    $scope.bankAccFormData.dateFormat = scope.df;
+                    $scope.bankAccFormData.lastTransactionDate = dateFilter($scope.bankAccFormData.lastTransactionDate, scope.df);
                     updateData();
                 };
 
@@ -1411,7 +1409,7 @@
                         entityType: $scope.entityType,
                         entityId: $scope.entityId,
                         clientBankAccountDetailAssociationId: getClientBankAccountDetailAssociationId()
-                    }, $scope.formData, function (data) {
+                    }, $scope.bankAccFormData, function (data) {
                         reComputeProfileRating($scope.clientId);
                         populateDetails();
                     });
@@ -1440,7 +1438,7 @@
                                 return {
                                     'entityId': $scope.entityId,
                                     'entityType': $scope.entityType,
-                                    'formData': $scope.formData,
+                                    'bankAccFormData': $scope.bankAccFormData,
                                     'bankAccountDocuments': $scope.bankAccountDocuments
                                 };
                             }
@@ -1475,18 +1473,18 @@
                                 if (data != undefined) {
                                     documentId = data.data.resourceId;
                                     if (documentId != undefined) {
-                                        bankAccountDetails.formData.documents = [];
+                                        bankAccountDetails.bankAccFormData.documents = [];
                                         for (var j in bankAccountDetails.bankAccountDocuments) {
-                                            bankAccountDetails.formData.documents.push(bankAccountDetails.bankAccountDocuments[j].id);
+                                            bankAccountDetails.bankAccFormData.documents.push(bankAccountDetails.bankAccountDocuments[j].id);
                                         }
-                                        bankAccountDetails.formData.documents.push(documentId);
+                                        bankAccountDetails.bankAccFormData.documents.push(documentId);
                                     }
-                                    bankAccountDetails.formData.locale = scope.optlang.code;
+                                    bankAccountDetails.bankAccFormData.locale = scope.optlang.code;
                                     resourceFactory.bankAccountDetailResource.update({
                                         entityType: bankAccountDetails.entityType,
                                         entityId: bankAccountDetails.entityId,
                                         clientBankAccountDetailAssociationId: getClientBankAccountDetailAssociationId()
-                                    }, bankAccountDetails.formData, function (data) {
+                                    }, bankAccountDetails.bankAccFormData, function (data) {
                                         populateDetails();
                                         reComputeProfileRating($scope.clientId);
                                     });
@@ -1512,14 +1510,14 @@
                 }
 
                 $scope.deleteDocument = function (documentId) {
-                    $scope.formData.locale = scope.optlang.code;
-                    $scope.formData.dateFormat = scope.df;
-                    $scope.formData.documents = [];
+                    $scope.bankAccFormData.locale = scope.optlang.code;
+                    $scope.bankAccFormData.dateFormat = scope.df;
+                    $scope.bankAccFormData.documents = [];
                     for (var i in $scope.bankAccountDocuments) {
-                        $scope.formData.documents.push($scope.bankAccountDocuments[i].id);
+                        $scope.bankAccFormData.documents.push($scope.bankAccountDocuments[i].id);
                     }
                     if (documentId) {
-                        $scope.formData.documents.splice($scope.formData.documents.indexOf(documentId), 1);
+                        $scope.bankAccFormData.documents.splice($scope.bankAccFormData.documents.indexOf(documentId), 1);
                     }
                     updateData();
                 };

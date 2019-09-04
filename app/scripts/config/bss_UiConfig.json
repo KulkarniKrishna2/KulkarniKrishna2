@@ -196,7 +196,7 @@
 			"disableVillageDropDown":true,
 			"hideReject": true,
 			"isReadOnlyField": {
-				"createSubGroupDate": true
+			"createSubGroupDate": true
 			},
 			"deceasedWorkflow": {
         		"showPolicy" : true,
@@ -206,7 +206,11 @@
 				"reviewCB": false,
 				"sendToCBReview": true
 			},
-			"showMembersStepsInfo": true
+			"showMembersStepsInfo": true,
+			"centerMeeting":{
+				"maxDaysLimit": 14
+			}
+		},
 		},
 		"createVillage": {
 			"isReadOnlyField": {
@@ -273,7 +277,7 @@
 				"repeat": true,
 				"repeatsevery": true,
 				"repeatson": true,
-				"meetStartDate": true
+				"meetingStartDate":true
 			}
 		},
 		"regexFormats":{

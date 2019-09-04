@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        HouseVisitActivityController: function ($controller, scope, $modal, resourceFactory, dateFilter, $http, $rootScope, $upload, API_VERSION, $sce) {
+        HouseVisitActivityController: function ($controller, scope, $modal, resourceFactory, dateFilter, $http, $rootScope, $upload, API_VERSION, $sce, popUpUtilService) {
             angular.extend(this, $controller('defaultActivityController', { $scope: scope }));
             scope.loanIds = [];
             scope.first = {};
@@ -879,7 +879,7 @@
                         clientId: $scope.clientId
                     }, function (data) {
                         $scope.incomeAndExpenses = data;
-                        $scope.tomeaningmeaningtalIncomeOcc = $scope.calculateOccupationTotal();
+                        $scope.totalIncomeOcc = $scope.calculateOccupationTotal();
                         $scope.totalIncomeAsset = $scope.calculateTotalAsset();
                         $scope.totalHouseholdExpense = $scope.calculateTotalExpense();
                         $scope.showSummaryView();
@@ -942,7 +942,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('HouseVisitActivityController', ['$controller', '$scope', '$modal', 'ResourceFactory', 'dateFilter', '$http', '$rootScope', '$upload', 'API_VERSION', '$sce', mifosX.controllers.HouseVisitActivityController]).run(function ($log) {
+    mifosX.ng.application.controller('HouseVisitActivityController', ['$controller', '$scope', '$modal', 'ResourceFactory', 'dateFilter', '$http', '$rootScope', '$upload', 'API_VERSION', '$sce', 'PopUpUtilService', mifosX.controllers.HouseVisitActivityController]).run(function ($log) {
         $log.info("HouseVisitActivityController initialized");
     });
 }(mifosX.controllers || {}));

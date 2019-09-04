@@ -80,7 +80,13 @@
                 location.path('/viewcgt/' + id);
             };
             scope.entityType = "center";
-            resourceFactory.centerResource.get({centerId: routeParams.id, associations: 'groupMembers,hierarchyLookup,collectionMeetingCalendar,clientMembers,originatedStaff'}, function (data) {
+
+            scope.associationsParams = "groupMembers,hierarchyLookup,collectionMeetingCalendar,originatedStaff";
+            if(scope.isConfiguredClientCenterAssociation){
+                scope.associationsParams = scope.associationsParams+",clientMembers";
+            }
+
+            resourceFactory.centerResource.get({centerId: routeParams.id, associations: scope.associationsParams}, function (data) {
                 scope.center = data;
                 if(scope.center.isWorkflowEnabled){
                     fetchAllConfiguredWorkFlows();
@@ -125,17 +131,19 @@
                     }
                 });
             };
-
-            resourceFactory.cgtResource.getAll({entityId: routeParams.id}, function(data) {
-                scope.cgt = data;
-                for (var i in scope.cgt) {
-                    if(scope.cgt[i].status != undefined && (scope.cgt[i].status.value == 'IN PROGRESS'
-                        || scope.cgt[i].status.value == 'New')) {
-                        scope.showCreateCgt = false;
-                        break;
+            if(scope.cgtEnabled){
+                resourceFactory.cgtResource.getAll({entityId: routeParams.id}, function(data) {
+                    scope.cgt = data;
+                    for (var i in scope.cgt) {
+                        if(scope.cgt[i].status != undefined && (scope.cgt[i].status.value == 'IN PROGRESS'
+                            || scope.cgt[i].status.value == 'New')) {
+                            scope.showCreateCgt = false;
+                            break;
+                        }
                     }
-                }
-            });
+                });
+            }
+            
 
             scope.routeTo = function (id) {
                 location.path('/viewsavingaccount/' + id);
@@ -144,12 +152,21 @@
                 scope.summary = data[0];
             });
 
-            resourceFactory.centerAccountResource.get({centerId: routeParams.id}, function (data) {
-                scope.accounts = data;
-            });
-            resourceFactory.groupNotesResource.getAllNotes({groupId: routeParams.id}, function (data) {
-                scope.notes = data;
-            });
+            if(scope.isConfiguredClientCenterAssociation){
+                resourceFactory.centerAccountResource.get({centerId: routeParams.id}, function (data) {
+                    scope.accounts = data;
+                });
+            }
+            
+            
+
+            scope.getNotes = function(){
+                if(angular.isUndefined(scope.notes)){
+                    resourceFactory.groupNotesResource.getAllNotes({groupId: routeParams.id}, function (data) {
+                        scope.notes = data;
+                    });
+                }
+            };
 
             scope.deleteCenter = function () {
                 $modal.open({
@@ -332,9 +349,13 @@
 
             };
 
-            resourceFactory.centerLoanUtilizationCheck.getAll({centerId: routeParams.id}, function (data) {
-                scope.loanUtilizationChecks = data;
-            });
+            scope.getCenterLoanUtilizationCheck = function(){
+                if(scope.loanUtilizationChecks.length==0){
+                    resourceFactory.centerLoanUtilizationCheck.getAll({centerId: routeParams.id}, function (data) {
+                        scope.loanUtilizationChecks = data;
+                    });
+                }                
+            };
 
             scope.deleteAll = function (apptableName, entityId) {
                 resourceFactory.DataTablesResource.delete({datatablename: apptableName, entityId: entityId, genericResultSet: 'true'}, {}, function (data) {

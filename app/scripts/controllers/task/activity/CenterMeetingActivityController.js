@@ -24,6 +24,19 @@
                 scope.hideCenterMeetingEdit = scope.response.uiDisplayConfigurations.workflow.hiddenFields.editCenterMeeting;
             }
 
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow &&
+                scope.response.uiDisplayConfigurations.workflow.hiddenFields) {
+                scope.hideExpectedDisbursementDate = scope.response.uiDisplayConfigurations.workflow.hiddenFields.expectedDisbursementDate;
+            }
+
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow) {
+                scope.disableMeetingFrequency = scope.response.uiDisplayConfigurations.workflow.disableMeetingFrequency;
+            }
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow && scope.response.uiDisplayConfigurations.workflow.centerMeeting){
+                scope.maxDaysLimit = scope.response.uiDisplayConfigurations.workflow.centerMeeting.maxDaysLimit;
+                scope.repeatsEveryOptions = scope.response.uiDisplayConfigurations.workflow.centerMeeting.repeatsEveryOptions;
+            }
+
            function initTask() {
                resourceFactory.centerWorkflowResource.get({
                    centerId: scope.groupOrCenterId,
@@ -53,10 +66,10 @@
                        }                     
                    }
                    if (scope.formData.expectedDisbursementDate != undefined) {
-                       var twoWeeks = 1000 * 60 * 60 * 24 * 14;
+                       var maxDaysCount = 1000 * 60 * 60 * 24 * scope.maxDaysLimit;
                        scope.minMeetingDate = scope.formData.expectedDisbursementDate;
                        var date = new Date(dateFilter(scope.formData.expectedDisbursementDate, scope.df));
-                       scope.maxMeetingDate = new Date(scope.formData.expectedDisbursementDate.getTime() + twoWeeks);
+                       scope.maxMeetingDate = new Date(scope.formData.expectedDisbursementDate.getTime() + maxDaysCount);
                    }
                    var weekday = new Array(7);
                    weekday[0] = "Sunday";
@@ -86,7 +99,7 @@
                     { id: 3, value: "monthly" },
                     { id: 4, value: "yearly" }
                 ];
-                scope.repeatsEveryOptions = ["1", "2", "3", "4", "5"];
+                //scope.repeatsEveryOptions = ["1", "2", "3", "4", "5"];
                 //to display default in select boxes
                 scope.formData = {
                     repeating: true,
@@ -118,7 +131,7 @@
                     scope.showAsTextBox = true;
                 }
                 if (period == 2) {
-                    scope.repeatsEveryOptions = ["1", "2", "3", "4", "5"];
+                    //scope.repeatsEveryOptions = ["1", "2", "3", "4", "5"];
                     scope.formData.repeatsOnDay = '2';
                     scope.periodValue = "week(s)";
                     scope.repeatsOnOptions = [
@@ -163,9 +176,9 @@
 
             scope.$watch('formData.expectedDisbursementDate', function() {
                 if (scope.formData.expectedDisbursementDate && !scope.isEditExpectedDisbursementDateOnly) {
-                    var twoWeeks = 1000 * 60 * 60 * 24 * 14;
+                    var maxDaysCount = 1000 * 60 * 60 * 24 * scope.maxDaysLimit;
                     scope.minMeetingDate = scope.formData.expectedDisbursementDate;
-                    scope.maxMeetingDate = new Date(scope.formData.expectedDisbursementDate.getTime()+twoWeeks);
+                    scope.maxMeetingDate = new Date(scope.formData.expectedDisbursementDate.getTime()+maxDaysCount);
                     scope.first.date = null;
                 }
             });

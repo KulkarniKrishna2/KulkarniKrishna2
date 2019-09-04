@@ -201,7 +201,7 @@
                 if (scope.loanaccountinfo.timeline.expectedDisbursementDate) {
                     scope.formData.expectedDisbursementDate = new Date(scope.loanaccountinfo.timeline.expectedDisbursementDate);
                 }
-                if (scope.isAutoUpdateInterestStartDate && scope.loanaccountinfo.interestChargedFromDate) {
+                if (scope.loanaccountinfo.interestChargedFromDate) {
                     scope.formData.interestChargedFromDate = new Date(scope.loanaccountinfo.interestChargedFromDate);
                 }
                 if (scope.loanaccountinfo.expectedFirstRepaymentOnDate) {
@@ -399,8 +399,8 @@
                         }
                     }    
                 });
-
-                if (data.clientId) {
+                
+                if (data.clientId && scope.canDisburseToGroupsBanks()) {
                     scope.clientId = data.clientId;
                     scope.clientName = data.clientName;
                     scope.formData.clientId = scope.clientId;

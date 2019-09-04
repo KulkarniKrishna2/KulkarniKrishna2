@@ -150,7 +150,7 @@
                     clientId: scope.clientId
                 }, function (data) {
                     scope.incomeAndExpenses = data;
-                    scope.tomeaningmeaningtalIncomeOcc = scope.calculateOccupationTotal();
+                    scope.totalIncomeOcc = scope.calculateOccupationTotal();
                     scope.totalIncomeAsset = scope.calculateTotalAsset();
                     scope.totalHouseholdExpense = scope.calculateTotalExpense();
                     scope.showSummaryView();

@@ -964,7 +964,6 @@
             };
 
             $scope.constructDataFromLoanAccountInfo = function(){
-                $scope.editLoanAccountdata.syncDisbursementWithMeeting = false;
                 $scope.editLoanAccountdata.createStandingInstructionAtDisbursement = false;
                 $scope.editLoanAccountdata.transactionProcessingStrategyId = $scope.loanaccountinfo.transactionProcessingStrategyId;
                 if(!_.isUndefined($scope.loanaccountinfo.calendarOptions)){

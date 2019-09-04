@@ -271,6 +271,8 @@
                             scope.ownInstituteName = data.globalConfiguration[i].value;
                         }else if(data.globalConfiguration[i].name=='glim-payment-as-group'){
                             scope.isGlimPaymentAsGroupEnabled = data.globalConfiguration[i].enabled;
+                        }else if(data.globalConfiguration[i].name=='enable-cgt'){
+                            scope.cgtEnabled = data.globalConfiguration[i].enabled;
                         } 
                         data.globalConfiguration[i].showEditvalue = true;
                         scope.configs.push(data.globalConfiguration[i])

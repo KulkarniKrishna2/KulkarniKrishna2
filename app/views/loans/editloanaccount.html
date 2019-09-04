@@ -848,7 +848,7 @@
                     <span ng-if="parentGroups.length > 1" class="required">*</span></label>
                 <div class="col-sm-3" ng-if="parentGroups.length > 1">
                     <select id="groupId"  name = "groupId" ng-model="formData.groupId" class="form-control"
-                    ng-options="parentGroup.id as parentGroup.name for parentGroup in parentGroups" value="{{parentGroup.id}}" required">
+                    ng-options="parentGroup.id as parentGroup.name for parentGroup in parentGroups" value="{{parentGroup.id}}" required>
                         <option value="">{{'label.menu.selectgroup' | translate}}</option>
                     </select>
                     <form-validate valattributeform="editloanaccountform" valattribute="groupId"/>

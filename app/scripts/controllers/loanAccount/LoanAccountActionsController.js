@@ -672,7 +672,7 @@
                     scope.labelName = 'label.input.writeoffondate';
                     scope.taskPermissionName = 'WRITEOFF_LOAN';
                     resourceFactory.glimTransactionTemplateResource.get({loanId: scope.accountId, command: 'writeoff'}, function (data) {
-                        if (data.clientMembers.length>0 && !scope.isGlimPaymentAsGroup) {
+                        if (data.clientMembers && data.clientMembers.length>0 && !scope.isGlimPaymentAsGroup) {
                             scope.clientMembers = data.clientMembers;
                             scope.isGLIM = true;
                         } else {

@@ -23,52 +23,6 @@
                     scope.centerDetails.isAllChecked = false;
                     scope.getDocuments(data);
                     scope.validateAllClients(data, true);
-                    for (var i = 0; i < scope.centerDetails.subGroupMembers.length; i++) {
-                        if (scope.centerDetails.subGroupMembers[i].memberData) {
-                            for (var j = 0; j < scope.centerDetails.subGroupMembers[i].memberData.length; j++) {
-
-                                var clientLevelTaskTrackObj = scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelTaskTrackingData;
-                                var clientLevelCriteriaObj = scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelCriteriaResultData;
-                                scope.centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = false;
-                                scope.centerDetails.subGroupMembers[i].memberData[j].allowLoanRejection = false;
-                                if (clientLevelTaskTrackObj == undefined) {
-                                    scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
-                                    scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-none";
-                                } else if (clientLevelTaskTrackObj != undefined && clientLevelCriteriaObj != undefined) {
-                                    if (scope.taskData.id != clientLevelTaskTrackObj.currentTaskId) {
-                                        if (clientLevelCriteriaObj.score == 5) {
-                                            scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
-                                            scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-grey";
-                                        } else if (clientLevelCriteriaObj.score >= 0 && clientLevelCriteriaObj.score <= 4) {
-                                            scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
-                                            scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-red";
-                                        }
-                                    } else if (scope.taskData.id == clientLevelTaskTrackObj.currentTaskId) {
-                                        if (clientLevelCriteriaObj.score == 5) {
-                                            scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = false;
-                                            scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-grey";
-                                            scope.isAllClientFinishedThisTask = false;
-                                        } else if (clientLevelCriteriaObj.score >= 0 && clientLevelCriteriaObj.score <= 4) {
-                                            scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = false;
-                                            scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-red";
-                                            scope.isAllClientFinishedThisTask = false;
-                                        }
-                                    }
-                                } else if (clientLevelTaskTrackObj != undefined && (clientLevelCriteriaObj == undefined || clientLevelCriteriaObj == null)) {
-                                    if (scope.taskData.id != clientLevelTaskTrackObj.currentTaskId) {
-                                        scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
-                                        scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-grey";
-                                    }
-                                    if (scope.taskData.id == clientLevelTaskTrackObj.currentTaskId) {
-                                        scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = false;
-                                        scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-none";
-                                        scope.isAllClientFinishedThisTask = false;
-                                    }
-                                }
-                            }
-                        }
-
-                    }
                 });
             };
             initTask();
@@ -94,7 +48,7 @@
             scope.generateDocuments = function () {
                 var generateDocumentForm = { documentEntityType: 'centers', taskEntityTypeId: 4 }
                 generateDocumentForm.taskEntityId = scope.centerDetails.id;
-                generateDocumentForm.taskId = scope.centerDetails.subGroupMembers[0].memberData[0].clientLevelTaskTrackingData.currentTaskId;
+                generateDocumentForm.taskId = scope.taskData.id;
                 resourceFactory.taskGenerateDocumentsResource.save(generateDocumentForm, function (data) {
                     scope.getDocuments(scope.centerDetails);
                 });
@@ -147,10 +101,14 @@
                 for (var i in centerDetails.subGroupMembers) {
                     for (var j in centerDetails.subGroupMembers[i].memberData) {
                         var activeClientMember = centerDetails.subGroupMembers[i].memberData[j];
+                        var clientLevelTaskTrackObj =centerDetails.subGroupMembers[i].memberData[j].clientLevelTaskTrackingData;
                         if (isAllChecked) {
                             if (activeClientMember.status.code != 'clientStatusType.onHold' && !activeClientMember.isClientFinishedThisTask) {
                                 centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = true;
-                                scope.captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, activeClientMember.isMemberChecked);
+                                if(!_.isUndefined(clientLevelTaskTrackObj) && (scope.taskData.id == clientLevelTaskTrackObj.currentTaskId)){
+                                    scope.isAllClientFinishedThisTask = false;
+                                    scope.captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, activeClientMember.isMemberChecked);
+                                }   
                             }
                         } else {
                             centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = false;
@@ -159,6 +117,22 @@
                     }
                 }
             }
+
+            scope.confirmGenerateDocuments = function () {
+                $modal.open({
+                    templateUrl: 'confirmGenerateDocuments.html',
+                    controller: ConfirmGenerateDocumentsCtrl
+                });
+            };
+            var ConfirmGenerateDocumentsCtrl = function ($scope, $modalInstance) {
+                $scope.confirm = function () {
+                    scope.generateDocuments();
+                    $modalInstance.close('confirm');
+                }
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            };
         }
     });
     mifosX.ng.application.controller('DocumentGenerationActivityController', ['$controller', '$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', '$route', '$http', '$rootScope', '$route', '$upload', 'API_VERSION', 'CommonUtilService', mifosX.controllers.DocumentGenerationActivityController]).run(function ($log) {

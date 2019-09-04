@@ -67,7 +67,7 @@
                         </div>
                         <div class="col-sm-3" ng-show="showMiddleName">
                             <input placeholder="MIDDLE NAME" type="text" autocomplete="off" id="middlename" name="middlename"
-							ng-pattern="/^[a-zA-Z\s]*$/" ng-model="formData.middlename" class="form-control" ng-required="isMiddlenameRequired"/>
+							ng-pattern="{{regexFormats.middleName}}" ng-model="formData.middlename" class="form-control" ng-required="isMiddlenameRequired"/>
                             <span class="error" ng-show="submitted && createclientform.firstname.$error.required">{{'label.error.required'|translate}}</span>
 							<span class="error" ng-show="createclientform.middlename.$invalid">{{'label.only.text' | translate}}</span>
 						</div>

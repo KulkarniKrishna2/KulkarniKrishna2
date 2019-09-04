@@ -70,7 +70,7 @@
 			</ul>
 		</div>
 	</div>
-
+	<api-validate></api-validate>
 	<script type="text/ng-template" id="delete.html">
             <div class="modal-header silver">
                 <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
@@ -474,7 +474,7 @@
 			        <br/>
 			    </div>
 			</tab>
-			<tab heading="{{ 'label.heading.notes' | translate }}" has-permission='READ_GROUPNOTE'>
+			<tab heading="{{ 'label.heading.notes' | translate }}" has-permission='READ_GROUPNOTE' ng-click="getNotes()">
 			    <br/>
 
 			    <form>
@@ -505,7 +505,7 @@
 			    </ul>
 			</tab>
 			</tab>
-			<tab heading="{{'label.anchor.cgt' | translate}}">
+			<tab heading="{{'label.anchor.cgt' | translate}}"  ng-show="cgtEnabled">
 				<div>
 					<div class="col-md-12 primarydiv">
 						<div class="btn-group pull-right">
@@ -550,7 +550,7 @@
 
 				</table>
 			</tab>
-            <tab heading="{{'label.anchor.luc' | translate}}">
+            <tab heading="{{'label.anchor.luc' | translate}}" ng-click="getCenterLoanUtilizationCheck()">
                 <div>
                     <div class="col-md-12 primarydiv">
                         <div class="btn-group pull-right">
