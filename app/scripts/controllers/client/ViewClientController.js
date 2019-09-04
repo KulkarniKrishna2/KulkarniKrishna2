@@ -34,6 +34,7 @@
             var addressConfig = 'enable-clients-address';
             scope.enableClientAddress = scope.isSystemGlobalConfigurationEnabled(addressConfig);
             scope.isBetaEnabled = scope.isSystemGlobalConfigurationEnabled('enable-beta');
+            scope.isS3TempUrlEnabled = scope.isSystemGlobalConfigurationEnabled('amazon-S3-temp-url');
             scope.loancycledetail = [];
             scope.smartCardData = [];
             scope.smartformData = {};
@@ -654,17 +655,25 @@
             function getClientImageAndSignature (){
                 getClientClientSummary ();
                 if (scope.client.imagePresent) {
+                    var params = '';
+                    if(scope.isS3TempUrlEnabled){
+                        params = '?maxHeight=150&downloadableUrl=true';
+                    }
                     http({
                         method: 'GET',
-                        url: $rootScope.hostUrl + API_VERSION + '/client/' + routeParams.id + '/images?maxHeight=150'
+                        url: $rootScope.hostUrl + API_VERSION + '/client/' + routeParams.id + '/images' + params
                     }).then(function (imageData) {
                         scope.imageData = imageData.data[0];
-                        http({
-                            method: 'GET',
-                            url: $rootScope.hostUrl + API_VERSION + '/client/' + routeParams.id + '/images/'+scope.imageData.imageId+'?maxHeight=150'
-                        }).then(function (imageData) {
-                            scope.image = imageData.data;
-                        });
+                        if(scope.imageData.storageType == 1 || !scope.isS3TempUrlEnabled){
+                            http({
+                                method: 'GET',
+                                url: $rootScope.hostUrl + API_VERSION + '/client/' + routeParams.id + '/images/'+scope.imageData.imageId+'?maxHeight=150'
+                            }).then(function (imageData) {
+                                scope.image = imageData.data;
+                            });
+                        }else{
+                            scope.image = scope.imageData.downloadableUrl;
+                        }
                     });
                 }
 
@@ -1528,17 +1537,25 @@
             var ViewLargerPicCtrl = function ($scope, $modalInstance) {
                 var loadImage = function () {
                     if (scope.client.imagePresent) {
+                        var params = '';
+                        if(scope.isS3TempUrlEnabled){
+                            params = '?maxHeight=860&downloadableUrl=true';
+                        }
                         http({
                             method: 'GET',
-                            url: $rootScope.hostUrl + API_VERSION + '/client/' + routeParams.id + '/images?maxWidth=860'
+                            url: $rootScope.hostUrl + API_VERSION + '/client/' + routeParams.id + '/images'+params
                         }).then(function (imageData) {
                             $scope.Image = imageData.data[0];
-                            http({
-                            method: 'GET',
-                            url: $rootScope.hostUrl + API_VERSION + '/client/' + routeParams.id + '/images/'+$scope.Image.imageId+'?maxHeight=860'
-                            }).then(function (imageData) {
-                                $scope.largeImage = imageData.data;
-                            });
+                            if($scope.Image.storageType == 1 || !scope.isS3TempUrlEnabled){
+                                http({
+                                method: 'GET',
+                                url: $rootScope.hostUrl + API_VERSION + '/client/' + routeParams.id + '/images/'+$scope.Image.imageId+'?maxHeight=860'
+                                }).then(function (imageData) {
+                                    $scope.largeImage = imageData.data;
+                                });
+                            }else{
+                                 $scope.largeImage = scope.imageData.downloadableUrl;
+                            }
                         });
                         
                     }
