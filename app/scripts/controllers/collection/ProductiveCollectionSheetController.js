@@ -420,8 +420,8 @@
 
             scope.updateAttendenceData = function () {
                 var clientsAttendanceDetails =[];
-                if (scope.savingsgroups) {
-                    scope.groups = scope.savingsgroups;
+                if (scope.collectionsheetdata.groups) {
+                    scope.groups = scope.collectionsheetdata.groups;
                     var gl = scope.groups.length;
                     for (var i = 0; i < gl; i++) {
                         scope.clients = scope.groups[i].clients;
@@ -797,10 +797,10 @@
 
             scope.populateEmiAmount = function(data){
                 scope.showEmiAmountOverTotalDue = true;
-                angular.forEach(data.groups, function (group) {
-                    angular.forEach(group.clients,function(client){
-                        angular.forEach(client.loans,function(loan){
-                            if(!_.isUndefined(loan.installmentAmount) && (loan.principalDue == loan.principalOutstanding)){
+                _.each(data.groups, function (group) {
+                    _.each(group.clients,function(client){
+                        _.each(client.loans,function(loan){
+                            if(!_.isUndefined(loan.installmentAmount) && !loan.lastPayment){
                                 loan.totalDue = loan.installmentAmount;
                             }
                         });
