@@ -203,7 +203,8 @@
       		},
 			"hiddenFields": {
 				"reviewCB": false,
-				"sendToCBReview": true
+				"sendToCBReview": true,
+				"insuranceCharge": false
 			},
 			"showMembersStepsInfo": true,
 			"centerMeeting":{

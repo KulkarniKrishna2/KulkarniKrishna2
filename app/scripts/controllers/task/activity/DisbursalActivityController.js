@@ -7,7 +7,7 @@
                 scope.$parent.clientsCount();
                 scope.centerId = scope.taskconfig.centerId;
                 scope.isLoanPurposeEditable= true;
-
+                scope.chargesCategory = [];
                 resourceFactory.centerWorkflowResource.get({ centerId: scope.centerId,eventType : scope.eventType, associations: 'groupMembers,profileratings,loanaccounts,clientcbcriteria' }, function (data) {
                     scope.centerDetails = data;
                     //logic to disable and highlight member
@@ -59,6 +59,14 @@
 
             };
             initTask();
+            scope.filterCharges = function (chargeData,categoryId) {
+                if (chargeData != undefined) {
+                    var chargesCategory = _.groupBy(chargeData, function (value) {
+                        return value.chargeCategoryType.id;
+                    });
+                    return chargesCategory[categoryId];
+                }
+            }
 
             scope.editLoan = function (loanAccountBasicData, groupId) {
                 $modal.open({
