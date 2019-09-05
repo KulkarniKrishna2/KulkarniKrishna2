@@ -23,7 +23,7 @@
                     <th class="col-md-2">{{'label.heading.loanpack'| translate}}</th>
                     <th class="col-md-2">{{'label.heading.loanpurpose' | translate}}</th>
                     <th class="col-md-1">{{'label.heading.processingfee' | translate}}</th>
-                    <th class="col-md-1">{{'label.heading.single.double.insurance' | translate}}</th>
+                    <th class="col-md-1" ng-if = "isInsuranceChargeHidden">{{'label.heading.single.double.insurance' | translate}}</th>
                     <th class="col-md-1"></th>
                     <th class="col-md-1">{{'label.heading.reject' | translate}}</th>
                 </thead>
@@ -63,7 +63,7 @@
                         <td class="col-md-1"><span
                                 ng-repeat="item in filterCharges(activeClientMember.loanAccountBasicData.charges,1)">{{item.amount | number}}
                                 &nbsp;</span></td>
-                        <td class="col-md-1"><span
+                        <td class="col-md-1" ng-if = "isInsuranceChargeHidden"><span
                                 ng-repeat="item in filterCharges(activeClientMember.loanAccountBasicData.charges, 2)">{{item.amount | number}}
                                 &nbsp;</span>&nbsp;&nbsp;<span
                                 ng-repeat="item in filterCharges(activeClientMember.loanAccountBasicData.charges, 3)">{{item.amount | number}}
