@@ -7962,7 +7962,8 @@
     "label.input.applicant.name" : " Applicant Name ", 
     "label.heading.applicant.image" : "Applicant Image" , 
     "label.heading.applicant.address" : "Applicant Address" ,
-
+    "validation.msg.loanapplicationreference.expectedTrancheDisbursementDate.disbursement.date.on.non.working.day" : "Tranche expected disbursement date cannot be on a non working day",
+    "validation.msg.loanapplicationreference.expectedTrancheDisbursementDate.disbursement.date.on.holiday" : "Tranche expected disbursement date cannot be on a holiday",
     
     "------ end of translation file ------": "----------"
 }
