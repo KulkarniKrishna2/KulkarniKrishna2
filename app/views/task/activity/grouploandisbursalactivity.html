@@ -333,7 +333,7 @@
                                     <label>{{ 'label.input.disbursedon' | translate }}<span class="required">*</span>:&nbsp;</label>
                                 </td>
                                 <td class="width25 paddedbottom10">
-                                    <input id="actualDisbursementDate" name="actualDisbursementDate" type="text" autocomplete="off" datepicker-pop="{{df}}" placeholder="{{'label.tooltip.disbursementon' | translate}}" ng-model="formRequestData.disburse.actualDisbursementDate" is-open="opened" min="minDate" max="'2020-06-22'" class="form-control" ng-readonly="isDatePickerReadOnly" required/>
+                                    <input id="actualDisbursementDate" name="actualDisbursementDate" type="text" autocomplete="off" datepicker-pop="{{df}}" placeholder="{{'label.tooltip.disbursementon' | translate}}" ng-model="formRequestData.disburse.actualDisbursementDate" ng-bind="updateTrancheDate()" is-open="opened" min="minDate" max="'2020-06-22'" class="form-control" ng-readonly="isDatePickerReadOnly" required/>
                                 </td>
 
                                 <td class="width25" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentsStartingFromDate == true">

@@ -828,12 +828,12 @@
                             }
                         }
                     }
-                } else if (scope.formRequestData.disburse.disbursementData && scope.formRequestData.disburse.disbursementDatas.length > 0) {
+                } else if (scope.formRequestData.disburse.disbursementData && scope.formRequestData.disburse.disbursementData.length > 0) {
                     for (var i = 0; i < scope.formRequestData.disburse.disbursementData.length; i++) {
                         scope.formRequestData.disburse.disbursementData[i].expectedDisbursementDate = dateFilter(new Date(scope.formRequestData.disburse.disbursementData[i].expectedDisbursementDate), scope.df);
                     }
                     if (scope.formRequestData.disburse.actualDisbursementDate && scope.formRequestData.disburse.actualDisbursementDate.toString() != 'Invalid Date') {
-                        var dateValue = scope.formRequestData.expectedDisbursementDate;
+                        var dateValue = scope.formRequestData.disburse.actualDisbursementDate;
                         if ((new Date(dateValue)).toString() != 'Invalid Date') {
                             for (var i in scope.formRequestData.loanApplicationSanctionTrancheDatas) {
                                 scope.formRequestData.disburse.disbursementData[i].expectedDisbursementDate = dateFilter(new Date(scope.formRequestData.disburse.disbursementData[i].expectedDisbursementDate), scope.df);
