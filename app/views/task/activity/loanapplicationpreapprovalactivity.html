@@ -1,0 +1,874 @@
+<div ng-controller="LoanApplicationPreApprovalActivityController">
+
+    <div ng-show="status=='UPDATE'">
+        <form class="form-inline" name="approveloanapplicationform" novalidate="" rc-submit="submitForPreApproval()">
+            <div class="span gray-head">
+                <span class="boldlabel">
+                    <strong>{{ 'label.heading.requested.loanapplication.details' | translate }}</strong>
+                </span>
+            </div>
+            <div class="col-md-12 well">
+                <div class="col-md-6">
+                    <table class="table table-bordered table-striped">
+                        <tr>
+                            <td><label>{{ 'label.input.product' | translate }}<span class="required">*</span>:&nbsp;
+                                </label>
+                                <i class="icon-question-sign" tooltip="{{'label.tooltip.product' | translate}}"></i>
+                            </td>
+                            <td>{{formData.loanProductName}}</td>
+                        </tr>
+                        <tr>
+                            <td><label>{{ 'label.input.loanpurpose' | translate }}:&nbsp;</label>
+                                <i class="icon-question-sign" tooltip="{{'label.tooltip.loanpurpose' | translate}}"></i></td>
+                            <td>{{formData.loanPurpose.name}}</td>
+                        </tr>
+                        <tr ng-hide="loanaccountinfo.loanEMIPacks">
+                            <td><label>{{ 'label.input.numofrepayments' | translate }}&nbsp;<span class="required"></span>:</label></td>
+                            <td>{{formData.numberOfRepayments}}</td>
+                        </tr>
+                        <tr ng-if="false && loanaccountinfo.canDefineInstallmentAmount" ng-hide="loanaccountinfo.loanEMIPacks">
+                            <td><label>{{ 'label.input.fixedemiamount' | translate }}:</label>&nbsp;</td>
+                            <td>
+                                {{formData.fixedEmiAmount}}&nbsp;{{loanaccountinfo.currency.displaySymbol}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>{{ 'label.input.submittedon' | translate }}:</label>&nbsp;</td>
+                            <td>{{formData.submittedOnDate | DateFormat}}</td>
+                        </tr>
+                        <tr>
+                            <td><label>{{ 'label.input.loanaccountnumber' | translate }}:</label>&nbsp;</td>
+                            <td>{{formData.loanAccountNum}}</td>
+                        </tr>
+                        <tr ng-show="upfrontAmount">
+                            <td><label>{{ 'label.input.amountforupfrontcollection' | translate }}:</label>&nbsp;</td>
+                            <td>{{formData.amountForUpfrontCollection}}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <table class="table table-bordered table-striped">
+                        <tr>
+                            <td><label>{{ 'label.input.loanofficer' | translate }}:&nbsp;</label>
+                                <i class="icon-question-sign" tooltip="{{'label.tooltip.loanofficer' | translate}}"></i></td>
+                            <td>{{formData.loanOfficerName}}</td>
+                        </tr>
+                        <tr ng-hide="loanaccountinfo.loanEMIPacks">
+                            <td><label>{{ 'label.input.requested.principal.amount' | translate }}&nbsp;<span class="required">*</span>:</label></td>
+                            <td>
+                                {{formData.loanAmountRequested|number}}&nbsp;{{loanaccountinfo.currency.displaySymbol}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>{{ 'label.input.loanterm' | translate }}&nbsp;<span class="required"></span>:</label></td>
+                            <td>{{formData.termFrequency}} : {{formData.termPeriodFrequency.value}}</td>
+                        </tr>
+                        <tr ng-hide="loanaccountinfo.loanEMIPacks">
+                            <td><label>{{ 'label.input.repaidevery' | translate }}&nbsp;<span class="required"></span></label></td>
+                            <td>{{formData.repayEvery}} : {{formData.repaymentPeriodFrequency.value}}</td>
+                        </tr>
+                        <tr ng-show="formData.expectedDisbursalPaymentType.name">
+                            <td>{{'label.heading.preferredpaymentchannelfordisbursements' | translate}}
+                            </td>
+                            <td><span class="padded-td" ng-show="formData.expectedDisbursalPaymentType">
+                                    {{formData.expectedDisbursalPaymentType.name}}</span></td>
+                        </tr>
+                        <tr ng-show="formData.expectedRepaymentPaymentType.name">
+                            <td>{{'label.heading.preferredpaymentchannelforrepayments' | translate}}</td>
+                            <td><span class="padded-td" ng-show="formData.expectedRepaymentPaymentType">
+                                    {{formData.expectedRepaymentPaymentType.name}}</span></td>
+                        </tr>
+                        <tr ng-hide="loanaccountinfo.loanEMIPacks">
+                            <td><label>{{ 'label.input.no.of.tranche' | translate }}</label></td>
+                            <td>{{formData.noOfTranche}}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div ng-show="formData.loanEMIPackData">
+                    <table class="table  table-striped">
+                        <thead>
+                            <tr>
+                                <th>{{ 'label.heading.sanctionAmount' | translate }}</th>
+                                <th>{{ 'label.heading.repaymentEvery' | translate }}</th>
+                                <th>{{ 'label.heading.numberOfRepayments' | translate }}</th>
+                                <th>{{ 'label.heading.fixedEmi' | translate }}</th>
+                                <th ng-show="formData.loanEMIPackData.disbursalAmount1">{{ 'label.heading.disbursalAmount1'
+                                    | translate }}</th>
+                                <th ng-show="formData.loanEMIPackData.disbursalAmount2">{{ 'label.heading.disbursalAmount2'
+                                    | translate }}</th>
+                                <th ng-show="formData.loanEMIPackData.disbursalAmount3">{{ 'label.heading.disbursalAmount3'
+                                    | translate }}</th>
+                                <th ng-show="formData.loanEMIPackData.disbursalAmount4">{{ 'label.heading.disbursalAmount4'
+                                    | translate }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="col-md-1">
+                                    <span>{{formData.loanEMIPackData.sanctionAmount}}</span>
+                                </td>
+                                <td class="col-md-1">
+                                    <span>{{formData.loanEMIPackData.repaymentEvery}} - {{formData.loanEMIPackData.repaymentFrequencyType.value}}</span>
+                                </td>
+                                <td class="col-md-1">
+                                    <span>{{formData.loanEMIPackData.numberOfRepayments}}</span>
+                                </td>
+                                <td class="col-md-1">
+                                    <span>{{formData.loanEMIPackData.fixedEmi}}</span>
+                                </td>
+                                <td class="col-md-1" ng-show="formData.loanEMIPackData.disbursalAmount1">
+                                    <span>{{formData.loanEMIPackData.disbursalAmount1}}</span>
+                                </td>
+                                <td class="col-md-1" ng-show="formData.loanEMIPackData.disbursalAmount2">
+                                    <span>{{formData.loanEMIPackData.disbursalAmount2}}</span>
+                                </td>
+                                <td class="col-md-1" ng-show="formData.loanEMIPackData.disbursalAmount3">
+                                    <span>{{formData.loanEMIPackData.disbursalAmount3}}</span>
+                                </td>
+                                <td class="col-md-1" ng-show="formData.loanEMIPackData.disbursalAmount4">
+                                    <span>{{formData.loanEMIPackData.disbursalAmount4}}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div ng-if="existingFeeCharges.length > 0">
+                    <table class="width100">
+                        <tr class="bottomborder">
+                            <td colspan="5"><strong>{{'label.heading.charges' | translate}}</strong></td>
+                        </tr>
+                        <tr class="bottomborder graybg">
+                            <td>{{'label.heading.name' | translate}}</td>
+                            <td>{{'label.heading.type' | translate}}</td>
+                            <td>{{'label.heading.amount' | translate}}</td>
+                            <td>{{'label.heading.collectedon' | translate}}</td>
+                            <td>{{'label.checkbox.ismandatory' | translate}}</td>
+                        </tr>
+                        <tr ng-repeat="charge in existingFeeCharges">
+                            <td>{{charge.name}}</td>
+                            <td>{{charge.chargeCalculationType.value}}</td>
+                            <td>{{charge.amount|number}}</td>
+                            <td>{{charge.chargeTimeType.value}}</td>
+                            <td>{{charge.isMandatory == true ? 'Yes': 'No'}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="5"><br/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div ng-if="existingPenalCharges.length > 0">
+                    <table class="width100">
+                        <tr class="bottomborder">
+                            <td colspan="5"><strong>{{'label.heading.overduepenalitycharge' | translate}}</strong></td>
+                        </tr>
+                        <tr class="bottomborder graybg">
+                            <td>{{'label.heading.name' | translate}}</td>
+                            <td>{{'label.heading.type' | translate}}</td>
+                            <td>{{'label.heading.amount' | translate}}</td>
+                            <td>{{'label.heading.collectedon' | translate}}</td>
+                            <td>{{'label.checkbox.ismandatory' | translate}}</td>
+                        </tr>
+                        <tr ng-repeat="charge in existingPenalCharges">
+                            <td>{{charge.name}}</td>
+                            <td>{{charge.chargeCalculationType.value}}</td>
+                            <td>{{charge.amount|number}}</td>
+                            <td>{{charge.chargeTimeType.value}}</td>
+                            <td>{{charge.isMandatory == true ? 'Yes': 'No'}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="5"><br/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="span gray-head">
+                <span class="boldlabel">
+                    <strong>{{ 'label.heading.approve.loanapplication.details' | translate }}</strong>
+                </span>
+            </div>
+            <div class="col-md-12 well">
+                <api-validate></api-validate>
+                <table class="width100" ng-hide="loanaccountinfo.loanEMIPacks">
+                    <tr>
+                        <td class="width19"><label>{{ 'label.input.approval.amount' | translate }}&nbsp;
+                                <span class="required">*</span>:</label></td>
+                        <td class="width31 paddedbottom10">
+                            <input type="text" autocomplete="off" class="form-control" name="loanAmountApproved" ng-model="formRequestData.loanAmountApproved"
+                                ng-change="updateSlabBasedAmountOnChangePrincipalOrRepayment()" number-format />&nbsp;{{loanaccountinfo.currency.displaySymbol}}
+                        </td>
+                        <td class="width19"><label>{{'label.input.expecteddisbursementon' | translate}}
+                                <span class="required">*</span>:</label></td>
+                        <td class="width31 paddedbottom10">
+                            <input id="expectedDisbursementDate" name="expectedDisbursementDate" type="text" autocomplete="off" datepicker-pop="{{df}}"
+                                ng-model="formRequestData.expectedDisbursementDate" is-open="opened" min="minDate" max="'2020-06-22'"
+                                class="form-control" ng-readonly="isDatePickerReadOnly" />
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="width19"></td>
+                        <td class="width31 paddedbottom10">
+                            <label>
+                                <form-validate valattributeform="approveloanapplicationform" valattribute="loanAmountApproved" />
+                            </label>
+                        </td>
+                        <td class="width19"></td>
+                        <td class="width31 paddedbottom10">
+                            <label>
+                                <form-validate valattributeform="approveloanapplicationform" valattribute="expectedDisbursementDate" />
+                            </label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="width19" ng-if="loanaccountinfo.canDefineInstallmentAmount"><label>{{ 'label.input.fixedemiamount'
+                                | translate }}:
+                            </label>&nbsp;</td>
+                        <td class="width36 paddedbottom10" ng-if="loanaccountinfo.canDefineInstallmentAmount">
+                            <input id="fixedEmiAmount" name="fixedEmiAmount" type="text" autocomplete="off" ng-model="formRequestData.fixedEmiAmount"
+                                class="form-control" number-format/>&nbsp;{{loanaccountinfo.currency.displaySymbol}}
+                        </td>
+
+                        <td class="width19"><label>{{'label.input.approvedondate' | translate}}
+                                <span class="required">*</span>:</label></td>
+                        <td class="width31 paddedbottom10">
+                            <input id="approvedOnDate" name="approvedOnDate" type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="formRequestData.approvedOnDate"
+                                is-open="opened" min="minDate" max="restrictDate" class="form-control" ng-readonly="isDatePickerReadOnly"
+                            />
+                    </tr>
+
+                    <tr>
+                        <td class="width19"></td>
+                        <td class="width31 paddedbottom10">
+
+                        </td>
+                        <td class="width19"></td>
+                        <td class="width31 paddedbottom10">
+                            <label>
+                                <form-validate valattributeform="approveloanapplicationform" valattribute="approvedOnDate" />
+                            </label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="width25" ng-hide="isHiddenRepaymentsStartingFromDate == true">
+                            <label>{{ 'label.input.firstrepaymenton' | translate }}<span class="required" ng-show="isMandatoryRepaymentsStartingFromDate">*</span>:&nbsp;
+                            </label>
+                            <i class="icon-question-sign" tooltip="{{'label.tooltip.firstrepaymenton' | translate}}"></i>
+                        </td>
+                        <td class="width25 paddedbottom10" ng-hide="isHiddenRepaymentsStartingFromDate == true">
+                            <input id="repaymentsStartingFromDate" name="repaymentsStartingFromDate" type="text" autocomplete="off" datepicker-pop="{{df}}"
+                                ng-model="formRequestData.repaymentsStartingFromDate" is-open="opened3" min="minDate" max="'2020-06-22'"
+                                class="form-control" ng-required="isMandatoryRepaymentsStartingFromDate" />
+                        </td>
+
+                        <td class="width19" ng-show="!isHiddenInterestRatePerPeriod">
+                            <label>{{ 'label.input.nominalinterestrate' | translate }}<span class="required" ng-show="isMandatoryInterestRatePerPeriod">*</span>:&nbsp;
+                            </label>
+                        </td>
+                        <td class="width31 paddedbottom10" ng-show="!isHiddenInterestRatePerPeriod">
+                            <input id="interestRatePerPeriod" class="form-control" type="text" autocomplete="off" name="nominalinterestrate" ng-required="isMandatoryInterestRatePerPeriod"
+                                ng-model="formRequestData.interestRatePerPeriod" /> &nbsp;&nbsp;{{loanaccountinfo.interestRateFrequencyType.value}}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="width19"></td>
+                        <td class="width31 paddedbottom10">
+
+                        </td>
+                        <td class="width19"></td>
+                        <td class="width31 paddedbottom10">
+                            <label>
+                                <form-validate ng-if="isHiddenRepaymentsStartingFromDate == true" valattributeform="approveloanapplicationform" valattribute="repaymentsStartingFromDate"
+                                />
+                            </label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="width25" ng-show="loanaccountinfo.allowUpfrontCollection">
+                            <label>{{ 'label.input.amountforupfrontcollection' | translate }}</label>
+                        </td>
+                        <td class="width25 paddedbottom10" ng-show="loanaccountinfo.allowUpfrontCollection">
+                            <input id="amountForUpfrontCollection" type="text" autocomplete="off" ng-model="formRequestData.amountForUpfrontCollection"
+                                class="form-control" number-format/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="width19"></td>
+                        <td class="width31 paddedbottom10">
+                            <span class="error" ng-show="issubmitted && approveloanapplicationform.repaymentsStartingFromDate.$error.required">{{'label.error.required'
+                                | translate}}</span>
+                        </td>
+                        <td class="width19"></td>
+                        <td class="width31 paddedbottom10"></td>
+                    </tr>
+                    <tr>
+                        <td class="width19 paddedbottom10"></td>
+                    </tr>
+
+                    <tr ng-if="showDiscountOnDisbursalAmount()">
+                        <td class="width19"><label>{{ 'label.input.discountondisbursalamount' | translate }}:
+                            </label>&nbsp;</td>
+                        <td class="width36 paddedbottom10">
+                            <input id="discountondisbursalamount" name="discountondisbursalamount" type="text" autocomplete="off" ng-model="formRequestData.discountOnDisbursalAmount"
+                                class="form-control" number-format/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">&nbsp;</td>
+                    </tr>
+                </table>
+                <table class="width100" ng-show="loanaccountinfo.loanEMIPacks">
+                    <tr>
+                        <td class="width19"><label>{{'label.input.approvedondate' | translate}}
+                                <span class="required">*</span>:</label></td>
+                        <td class="width31 paddedbottom10">
+                            <input id="approvedOnDate1" name="approvedOnDate" type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="formRequestData.approvedOnDate"
+                                is-open="opened" min="minDate" max="restrictDate" class="form-control" ng-readonly="isDatePickerReadOnly"
+                            />
+                        </td>
+                        <td class="width19"><label>{{'label.input.expecteddisbursementon' | translate}}
+                                <span class="required">*</span>:</label></td>
+                        <td class="width31 paddedbottom10">
+                            <input id="expectedDisbursementDate1" name="expectedDisbursementDate" type="text" autocomplete="off" datepicker-pop="{{df}}"
+                                ng-model="formRequestData.expectedDisbursementDate" is-open="opened" min="minDate" max="'2020-06-22'"
+                                class="form-control" ng-readonly="isDatePickerReadOnly" />
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="width19"></td>
+                        <td class="width31 paddedbottom10">
+                            <label>
+                                <form-validate valattributeform="approveloanapplicationform" valattribute="approvedOnDate" />
+                            </label>
+                        </td>
+                        <td class="width19"></td>
+                        <td class="width31 paddedbottom10">
+                            <label>
+                                <form-validate valattributeform="approveloanapplicationform" valattribute="expectedDisbursementDate" />
+                            </label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="width25" ng-hide="isHiddenRepaymentsStartingFromDate == true">
+                            <label>{{ 'label.input.firstrepaymenton' | translate }}<span class="required" ng-show="isMandatoryRepaymentsStartingFromDate">*</span>:&nbsp;
+                            </label>
+                            <i class="icon-question-sign" tooltip="{{'label.tooltip.firstrepaymenton' | translate}}"></i>
+                        </td>
+                        <td class="width25 paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentsStartingFromDate == true">
+                            <input id="repaymentsStartingFromDate1" name="repaymentsStartingFromDate1" type="text" datepicker-pop="dd MMMM yyyy" ng-model="formRequestData.repaymentsStartingFromDate"
+                                is-open="opened3" min="minDate" max="'2020-06-22'" class="form-control" ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.repaymentsStartingFromDate"
+                            />
+                            <form-validate valattributeform="approveloanapplicationform" valattribute="repaymentsStartingFromDate1" />
+                        </td>
+
+                        <td class="width19"></td>
+                        <td class="width31 paddedbottom10"></td>
+                    </tr>
+
+                    <tr>
+                        <td class="width19"></td>
+                        <td class="width31 paddedbottom10">
+                            <span class="error" ng-show="issubmitted && approveloanapplicationform.repaymentsStartingFromDate.$error.required">{{'label.error.required'
+                                | translate}}</span>
+                        </td>
+                        <td class="width19"></td>
+                        <td class="width31 paddedbottom10"></td>
+                    </tr>
+
+                    <tr ng-show="upfrontAmount">
+                        <td class="width25">
+                            <label>{{ 'label.input.amountforupfrontcollection' | translate }}</label>
+                        </td>
+                        <td class="width25 paddedbottom10">
+                            <input id="amountForUpfrontCollection" type="text" autocomplete="off" ng-model="formRequestData.amountForUpfrontCollection"
+                                class="form-control" number-format/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="4">&nbsp;</td>
+                    </tr>
+                    <tr ng-show="loanaccountinfo.loanEMIPacks && changeLoanEMIPack" class="width100">
+                        <td colspan="4">
+                            <label><strong>{{ 'label.heading.chooseloanemipack' | translate }}</strong></label>
+                        </td>
+                    </tr>
+                    <tr ng-show="loanaccountinfo.loanEMIPacks && changeLoanEMIPack" class="width100">
+                        <td colspan="4">
+                            <input ng-autofocus="true" ng-model="filterText" type="text" autocomplete="off" ng-keyup="onFilter()" class="form-control width100"
+                                placeholder="{{'label.input.filterbytext' | translate}}" />
+                        </td>
+                    </tr>
+                    <tr ng-show="loanaccountinfo.loanEMIPacks" class="width100">
+                        <td colspan="4">
+                            <div>
+                                <div ng-hide="changeLoanEMIPack">
+                                    <table class="table  table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>{{ 'label.heading.sanctionAmount' | translate }}</th>
+                                                <th>{{ 'label.heading.repaymentEvery' | translate }}</th>
+                                                <th>{{ 'label.heading.numberOfRepayments' | translate }}</th>
+                                                <th>{{ 'label.heading.fixedEmi' | translate }}</th>
+                                                <th ng-show="formData.loanEMIPackData.disbursalAmount1">{{ 'label.heading.disbursalAmount1'
+                                                    | translate }}</th>
+                                                <th ng-show="formData.loanEMIPackData.disbursalAmount2">{{ 'label.heading.disbursalAmount2'
+                                                    | translate }}</th>
+                                                <th ng-show="formData.loanEMIPackData.disbursalAmount3">{{ 'label.heading.disbursalAmount3'
+                                                    | translate }}</th>
+                                                <th ng-show="formData.loanEMIPackData.disbursalAmount4">{{ 'label.heading.disbursalAmount4'
+                                                    | translate }}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-if=! isLoanSanctioned>
+                                                <td class="col-md-1">
+                                                    <span>{{formData.loanEMIPackData.sanctionAmount}}</span>
+                                                </td>
+                                                <td class="col-md-1">
+                                                    <span>{{formData.loanEMIPackData.repaymentEvery}} - {{formData.loanEMIPackData.repaymentFrequencyType.value}}</span>
+                                                </td>
+                                                <td class="col-md-1">
+                                                    <span>{{formData.loanEMIPackData.numberOfRepayments}}</span>
+                                                </td>
+                                                <td class="col-md-1">
+                                                    <span>{{formData.loanEMIPackData.fixedEmi}}</span>
+                                                </td>
+                                                <td class="col-md-1" ng-show="formData.loanEMIPackData.disbursalAmount1">
+                                                    <span>{{formData.loanEMIPackData.disbursalAmount1}}</span>
+                                                </td>
+                                                <td class="col-md-1" ng-show="formData.loanEMIPackData.disbursalAmount2">
+                                                    <span>{{formData.loanEMIPackData.disbursalAmount2}}</span>
+                                                </td>
+                                                <td class="col-md-1" ng-show="formData.loanEMIPackData.disbursalAmount3">
+                                                    <span>{{formData.loanEMIPackData.disbursalAmount3}}</span>
+                                                </td>
+                                                <td class="col-md-1" ng-show="formData.loanEMIPackData.disbursalAmount4">
+                                                    <span>{{formData.loanEMIPackData.disbursalAmount4}}</span>
+                                                </td>
+                                            </tr>
+                                            <tr ng-if="formRequestData.loanEMIPackData && isLoanSanctioned">
+                                                <td class="col-md-1">
+                                                    <span>{{formRequestData.loanEMIPackData.sanctionAmount}}</span>
+                                                </td>
+                                                <td class="col-md-1">
+                                                    <span>{{formRequestData.loanEMIPackData.repaymentEvery}} - {{formRequestData.loanEMIPackData.repaymentFrequencyType.value}}</span>
+                                                </td>
+                                                <td class="col-md-1">
+                                                    <span>{{formRequestData.loanEMIPackData.numberOfRepayments}}</span>
+                                                </td>
+                                                <td class="col-md-1">
+                                                    <span>{{formRequestData.loanEMIPackData.fixedEmi}}</span>
+                                                </td>
+                                                <td class="col-md-1" ng-show="formRequestData.loanEMIPackData.disbursalAmount1">
+                                                    <span>{{formRequestData.loanEMIPackData.disbursalAmount1}}</span>
+                                                </td>
+                                                <td class="col-md-1" ng-show="formRequestData.loanEMIPackData.disbursalAmount2">
+                                                    <span>{{formRequestData.loanEMIPackData.disbursalAmount2}}</span>
+                                                </td>
+                                                <td class="col-md-1" ng-show="formRequestData.loanEMIPackData.disbursalAmount3">
+                                                    <span>{{formRequestData.loanEMIPackData.disbursalAmount3}}</span>
+                                                </td>
+                                                <td class="col-md-1" ng-show="formRequestData.loanEMIPackData.disbursalAmount4">
+                                                    <span>{{formRequestData.loanEMIPackData.disbursalAmount4}}</span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div ng-hide="changeLoanEMIPack">
+                                    <button type="button" ng-click="changeLoanEMIPack=true" class="btn btn-default ng-binding">{{'label.button.changeemipack'|
+                                        translate}}
+                                    </button>
+                                </div>
+                                <table class="table  table-striped" ng-show="changeLoanEMIPack">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>{{ 'label.heading.sanctionAmount' | translate }}</th>
+                                            <th>{{ 'label.heading.repaymentEvery' | translate }}</th>
+                                            <th>{{ 'label.heading.numberOfRepayments' | translate }}</th>
+                                            <th>{{ 'label.heading.fixedEmi' | translate }}</th>
+                                            <th ng-show="loanaccountinfo.multiDisburseLoan">{{ 'label.heading.disbursalAmount1'
+                                                | translate }}</th>
+                                            <th ng-show="loanaccountinfo.multiDisburseLoan && loanaccountinfo.product.maxTrancheCount > 1">{{
+                                                'label.heading.disbursalAmount2' | translate }}</th>
+                                            <th ng-show="loanaccountinfo.multiDisburseLoan && loanaccountinfo.product.maxTrancheCount > 2">{{
+                                                'label.heading.disbursalAmount3' | translate }}</th>
+                                            <th ng-show="loanaccountinfo.multiDisburseLoan && loanaccountinfo.product.maxTrancheCount > 3">{{
+                                                'label.heading.disbursalAmount4' | translate }}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr data-ng-repeat="loanEMIPack in loanaccountinfo.loanEMIPacks | filter:filterText" ng-if="loanEMIPack.sanctionAmount <= formData.loanEMIPackData.sanctionAmount">
+                                            <td class="col-md-1">
+                                                <input type="radio" ng-model="formRequestData.loanEMIPackId" value="{{loanEMIPack.id}}" ng-change="updateSlabBasedAmountOnChangePrincipalOrRepaymentForEmiPack()"
+                                                />
+                                            </td>
+                                            <td class="col-md-1">
+                                                <span>{{loanEMIPack.sanctionAmount}}</span>
+                                            </td>
+                                            <td class="col-md-1">
+                                                <span>{{loanEMIPack.repaymentEvery}} - {{loanEMIPack.repaymentFrequencyType.value}}</span>
+                                            </td>
+                                            <td class="col-md-1">
+                                                <span>{{loanEMIPack.numberOfRepayments}}</span>
+                                            </td>
+                                            <td class="col-md-1">
+                                                <span>{{loanEMIPack.fixedEmi}}</span>
+                                            </td>
+                                            <td class="col-md-1" ng-show="loanaccountinfo.multiDisburseLoan">
+                                                <span>{{loanEMIPack.disbursalAmount1}}</span>
+                                            </td>
+                                            <td class="col-md-1" ng-show="loanaccountinfo.multiDisburseLoan && loanaccountinfo.product.maxTrancheCount > 1">
+                                                <span>{{loanEMIPack.disbursalAmount2}}</span>
+                                            </td>
+                                            <td class="col-md-1" ng-show="loanaccountinfo.multiDisburseLoan && loanaccountinfo.product.maxTrancheCount > 2">
+                                                <span>{{loanEMIPack.disbursalAmount3}}</span>
+                                            </td>
+                                            <td class="col-md-1" ng-show="loanaccountinfo.multiDisburseLoan && loanaccountinfo.product.maxTrancheCount > 3">
+                                                <span>{{loanEMIPack.disbursalAmount4}}</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <label ng-show="loanaccountinfo.calendarOptions"><i class="icon-calendar icon-white"></i>&nbsp;<strong>{{
+                        'label.heading.meetingdetails' | translate }}</strong></label>
+                <table ng-show="loanaccountinfo.calendarOptions" class="width100">
+                    <tr ng-repeat="calendar in loanaccountinfo.calendarOptions">
+                        <td class="width14"><label>{{ 'label.heading.startdate' | translate }}:
+                            </label></td>
+                        <td class="width36">{{calendar.startDate | DateFormat}}</td>
+                        <td class="width14" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.syncDisbursementDateWithMeeting">
+                            <label>{{ 'label.heading.repeatson' | translate }}:</label></td>
+                        <td class="width36" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.syncDisbursementDateWithMeeting">
+                            {{calendar.humanReadable}}
+                        </td>
+                    </tr>
+                    <tr ng-repeat="calendar in loanaccountinfo.calendarOptions">
+                        <td align="center"><input type="checkbox" ng-model="formValidationData.syncRepaymentsWithMeeting"
+                                ng-change="syncRepaymentsWithMeetingchange()" ng-disabled="response.uiDisplayConfigurations.loanAccount.isReadOnlyField.syncRepaymentsWithMeeting">
+                        </td>
+                        <td><label>{{ 'label.input.syncrepaymentswithmeeting' | translate }}</label>
+                        </td>
+                        <td align="center" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.syncDisbursementDateWithMeeting">
+                            <input type="checkbox" ng-model="formValidationData.syncDisbursementWithMeeting" ng-change="syncDisbursementWithMeetingchange()"></td>
+                        <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.syncDisbursementDateWithMeeting">
+                            <label>{{ 'label.input.syncdisbursementdatewithmeeting' | translate }}
+                            </label>
+                        </td>
+                    </tr>
+                </table>
+
+                <div ng-show="loanaccountinfo.product.multiDisburseLoan">
+                    <hr/>
+                    <label>
+                        <strong>{{ 'label.heading.tranchedetails' | translate }}</strong>
+                    </label>
+
+                    <table class="width100">
+                        <tr>
+                            <td class="width14"><label>{{'label.input.outstandingloanbalance' | translate}}:
+                                </label>
+                            </td>
+                            <td class="width36 paddedbottom10">
+                                <input id="maxOutstandingLoanBalance" type="text" autocomplete="off" ng-model="formRequestData.maxOutstandingLoanBalance"
+                                    class="form-control" number-format/>&nbsp;
+
+                                <a href="javascript:void(0)" title="{{ 'label.button.addtranch' | translate }}" ng-click="addTranches()" ng-show="showAddTranche()">
+                                    <i class="icon-plus icon-white"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table class="table width100" ng-show="formRequestData.loanApplicationSanctionTrancheDatas && formRequestData.loanApplicationSanctionTrancheDatas.length>0">
+                        <thead>
+                            <tr class="graybg">
+                                <th>{{'label.heading.serialno' | translate}}</th>
+                                <th>{{'label.input.expecteddisbursementon' | translate}}</th>
+                                <th>{{'label.input.principal' | translate}}</th>
+                                <th ng-if="false">{{'label.input.fixedemiamount' | translate}}</th>
+                                <th data-ng-show="loanaccountinfo.product.isFlatInterestRate">{{'label.input.discountondisbursalamount'
+                                    | translate}}</th>
+                                <th>{{'label.heading.actions' | translate}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="disbursementDetail in formRequestData.loanApplicationSanctionTrancheDatas track by $index">
+                                <td>{{($index+1)}}</td>
+                                <td>
+                                    <input id="{{disbursementDetail[$index].expectedTrancheDisbursementDate}}" name="expectedTrancheDisbursementDate" type="text"
+                                        autocomplete="off" datepicker-pop="{{df}}" placeholder="{{'label.input.expecteddisbursementon' | translate}}"
+                                        ng-model="disbursementDetail.expectedTrancheDisbursementDate" is-open="'openedtranche'+$index"
+                                        min="minDate" max="'2020-06-22'" class="form-control" ng-readonly="isDatePickerReadOnly"
+                                        required ng-disabled="$index == 0" />
+                                    <form-validate valattributeform="approveloanapplicationform" valattribute="expectedTrancheDisbursementDate" />
+                                </td>
+                                <td>
+                                    <input id="{{disbursementDetail[$index].trancheAmount}}" name="trancheAmount" class="input-sm form-control" number-format
+                                        type="text" autocomplete="off" ng-model="disbursementDetail.trancheAmount" placeholder="{{'label.input.principal' | translate}}"
+                                        required late-validate="" ng-readonly="isTrancheAmountReadOnly()">
+
+                                    <form-validate valattributeform="approveloanapplicationform" valattribute="trancheAmount" />
+                                </td>
+                                <td ng-if="false">
+                                    <input id="{{disbursementDetail[$index].fixedEmiAmount}}" class="input-sm form-control" number-format type="text" autocomplete="off"
+                                        ng-model="disbursementDetail.fixedEmiAmount" placeholder="{{'label.input.fixedemiamount' | translate}}">
+                                </td>
+                                <td data-ng-show="loanaccountinfo.product.isFlatInterestRate">
+                                    <input id="{{disbursementDetail[$index].discountOnDisbursalAmount}}" class="input-sm form-control" number-format type="text"
+                                        autocomplete="off" ng-model="disbursementDetail.discountOnDisbursalAmount" name="discountOnDisbursalAmount"
+                                        placeholder="{{'label.input.discountondisbursalamount' | translate}}">
+                                </td>
+                                <td><a ng-click="deleteTranches($index)" ng-show="formRequestData.loanApplicationSanctionTrancheDatas.length > 1"><i
+                                            class="icon-remove icon-white"></i></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <hr/>
+                <div ng-show="!hideClientAdrresssBlock" class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <table class="table">
+                                <tr>
+                                    <td>{{'label.heading.name' | translate}}</td>
+                                    <td>{{clientKycdata.poi.name}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'label.heading.dob' | translate}}</td>
+                                    <td>{{clientKycdata.poi.dob}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'label.heading.mobilenumber' | translate}}</td>
+                                    <td>{{clientKycdata.poi.phone}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'Gender' | translate}}</td>
+                                    <td>{{clientKycdata.poi.gender | translate}}</td>
+                                </tr>
+                                <tr>
+                                    <label><strong>{{ 'label.heading.kyc.data' | translate }}</strong></label>
+                                </tr>
+                                <tr>
+                                    <td>{{'label.heading.houseno' | translate}}</td>
+                                    <td>{{clientKycdata.poa.house}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'label.heading.c/o' | translate}}</td>
+                                    <td>{{clientKycdata.poa.co}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'label.heading.location' | translate}}</td>
+                                    <td>{{clientKycdata.poa.lc}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'label.heading.streetname' | translate}}</td>
+                                    <td>{{clientKycdata.poa.street}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'label.heading.villagename' | translate}}</td>
+                                    <td>{{clientKycdata.poa.vtc}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'label.heading.pincode' | translate}}</td>
+                                    <td>{{clientKycdata.poa.pc}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'label.heading.postoffice' | translate}}</td>
+                                    <td>{{clientKycdata.poa.po}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'label.heading.talukname' | translate}}</td>
+                                    <td>{{clientKycdata.poa.subdist}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'label.heading.districtname' | translate}}</td>
+                                    <td>{{clientKycdata.poa.dist}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'label.heading.statename' | translate}}</td>
+                                    <td>{{clientKycdata.poa.state}}</td>
+                                </tr>
+                                <tr>
+
+                                </tr>
+
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <table class="table">
+                                <tr>
+                                    <td>{{'label.heading.name' | translate}}</td>
+                                    <td>{{client.displayName}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'label.heading.dob' | translate}}</td>
+                                    <td>{{client.dateOfBirth | DateFormat}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'label.heading.mobilenumber' | translate}}</td>
+                                    <td>{{client.mobileNo}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'Gender' | translate}}</td>
+                                    <td>{{client.gender.name}}</td>
+                                </tr>
+                                <tr>
+                                    <label><strong>{{'label.heading.system.data' | translate}}</strong></label>
+                                </tr>
+                                <tr>
+                                    <td>{{'label.heading.houseno' | translate}}</td>
+                                    <td>{{address.houseNo}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'label.heading.c/o' | translate}}</td>
+                                    <td>{{clientKycdata.poa.co}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'label.heading.location' | translate}}</td>
+                                    <td>{{adress.landmark}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'label.heading.streetname' | translate}}</td>
+                                    <td>{{clientKycdata.poa.street}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'label.heading.villagename' | translate}}</td>
+                                    <td>{{address.villageTown}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'label.heading.pincode' | translate}}</td>
+                                    <td>{{adress.postalCode}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'label.heading.postoffice' | translate}}</td>
+                                    <td>{{clientKycdata.poa.po}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'label.heading.talukname' | translate}}</td>
+                                    <td>{{address.talukaData.talukaName}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'label.heading.districtname' | translate}}</td>
+                                    <td>{{address.districtData.districtName}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'label.heading.statename' | translate}}</td>
+                                    <td>{{address.stateData.stateName}}</td>
+                                </tr>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <hr/>
+                <div class="col-md-12">
+                    <label><strong>{{ 'label.heading.charges' | translate }}</strong></label>
+                    <select ng-model="chargeFormData.chargeId" ng-options="charge.id as (charge.name + ',' + charge.currency.displaySymbol) for charge in loanaccountinfo.chargeOptions|filter:loanaccountinfo.currency.code:strict"
+                        value="{{charge.id}}" class="form-control width170px">
+                        <option value="">{{'label.selectcharge' | translate}}</option>
+                    </select>
+                    <a href="javascript:void(0)" ng-click="addCharge()"><i class="icon-plus icon-white"></i></a>
+                </div>
+                <table class="table" class="width100" ng-show="feeCharges.length>0">
+                    <tr class="graybg">
+                        <th>{{'label.heading.name' | translate}}</th>
+                        <th>{{'label.heading.type' | translate}}</th>
+                        <th>{{'label.heading.amount' | translate}}</th>
+                        <th>{{'label.heading.collectedon' | translate}}</th>
+                        <th>{{'label.heading.date' | translate}}</th>
+                        <th>{{'label.heading.actions' | translate}}</th>
+                    </tr>
+                    <tr ng-repeat="charge in feeCharges">
+                        <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
+                        <td>{{charge.chargeCalculationType.value}}</td>
+                        <td><input id="{{feeCharges[$index].amount}}" class="form-control" type="text" autocomplete="off"
+                                ng-model="charge.amount" placeholder="{{'label.input.amount' | translate}}" ng-readonly="!hasPermission('UPDATE_LOANCHARGE') || charge.chargeTimeType.id == 50
+                        || charge.chargeCalculationType.id == 6 || charge.isAmountNonEditable"></td>
+                        <td>{{charge.chargeTimeType.value}}</td>
+                        <td>
+                            <input id="feeCharges[{{$index}}].duedate" type="text" autocomplete="off" datepicker-pop="{{df}}" class="form-control" placeholder="{{'label.input.duedate' | translate}}"
+                                ng-model="charge.dueDate" is-open="'openedch'+$index" min="minDate" max="'2020-06-22'" ng-readonly="isDatePickerReadOnly"
+                            />
+                        </td>
+                        <td ng-hide="charge.isMandatory == true" has-permission='DELETE_LOANCHARGE'><a ng-click="deleteCharge($index)"><i
+                                    class="icon-remove icon-white"></i></a></td>
+                    </tr>
+                </table>
+
+                <div ng-show="penalCharges.length>0">
+                    <label><strong>{{ 'label.heading.overduepenalitycharge' | translate }}</strong></label>
+                    <table class="table" class="width100">
+                        <tr class="graybg">
+                            <th>{{'label.heading.name' | translate}}</th>
+                            <th>{{'label.heading.type' | translate}}</th>
+                            <th>{{'label.heading.amount' | translate}}</th>
+                            <th>{{'label.heading.collectedon' | translate}}</th>
+                        </tr>
+                        <tr ng-repeat="charge in penalCharges">
+                            <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
+                            <td>{{charge.chargeCalculationType.value}}</td>
+                            <td ng-if="charge.isAmountNonEditable">{{charge.amount | number}}</td>
+                            <td ng-if="!charge.isAmountNonEditable"><input id="{{charge.id}}" class="form-control" type="text"
+                                    autocomplete="off" ng-model="charge.amount" placeholder="{{'label.input.amount' | translate}}"
+                                    number-format /></td>
+                            <td>{{charge.chargeTimeType.value}}</td>
+                        </tr>
+                    </table>
+                </div><br><br>
+
+                <div>
+                    <button type="button" class="btn btn-primary pull-right" ng-show="repaymentscheduleinfo.periods.length > 0 && response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.viewReportButton"
+                        ng-click="viewRepaymentDetails()">{{'label.button.viewReport' | translate}}
+                    </button>
+                </div>
+
+                <div ng-show="repaymentscheduleinfo.periods" ng-include="'views/loans/loanrepaymentpreview.html'" />
+
+
+                <div class="col-md-offset-5">
+                    <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">
+                        {{'label.button.cancel' | translate}}
+                    </button>
+                    <button id="save" type="submit" ng-show= "showPreApprove" class="btn btn-primary">
+                        {{'label.button.preapprove' | translate}}
+                    </button>
+                    <a class="btn btn-primary" href="javascript:void(0);" data-ng-click="previewRepayments(true)">
+                        {{'label.button.schedulepreview' | translate}}</a>
+                    <button id="fetchReport" ng-click="printSchedule()" type="submit" ng-show="hidePrintReportButton" class="btn btn-primary">
+                        {{'label.button.print' | translate}}
+                    </button>
+                </div>
+            </div>
+            <table class="width100">
+                <tr>
+                    <td colspan="4">&nbsp;</td>
+                </tr>
+            </table>
+        </form>
+
+        <script type="text/ng-template" id="printschedule.html" class="width100">
+                        <api-validate></api-validate>
+                        <div class="width100">
+                            <iframe id="rptLoadingFrame" ng-src="{{baseURL}}" frameborder="0" width="100%" height="500px" ></iframe>
+                        </div>
+                    </script>
+    </div>
+
+</div>

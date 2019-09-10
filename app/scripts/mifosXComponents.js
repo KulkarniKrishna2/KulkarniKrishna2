@@ -705,6 +705,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'product/glimloanproductmapping/GlimLoanProductMappingsController',
             'product/glimloanproductmapping/NewGlimLoanProductMappingsController',
             'product/glimloanproductmapping/EditGlimLoanProductMappingsController',
+            'task/activity/LoanApplicationPreApprovalActivityController',
         ],
         filters: [
             'StatusLookup',
