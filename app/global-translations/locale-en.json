@@ -8104,6 +8104,8 @@
     "error.msg.office.id.list.invalid":"Office with identifiers {{params[0].value}} does not exist",
      "label.input.isbulkclosure" : "Is Bulk Closure",
      "label.input.isfilter" : "Is Filter",
+     "label.heading.wardAndVillage": "Ward/Village",
+     "validation.msg.addresses.addressRegionValueId.cannot.be.blank" : "Please select complete address",
 
     "------ end of translation file ------": "----------"
 }
