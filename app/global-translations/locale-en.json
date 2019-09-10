@@ -408,6 +408,7 @@
     "label.button.clientprofilereport": "Client Profile Reports",
     "label.button.loanaccountreport": "Loan Account Reports",
     "label.button.savingaccountreport": "Saving Account Reports",
+    "label.button.preapprove": "Pre Approve",
 
     "#Misc Labels": "..",
     "label.uniquelyidentifiedwithid": "Uniquely identified with Id",
