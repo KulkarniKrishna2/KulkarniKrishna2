@@ -8107,6 +8107,7 @@
      "label.input.isfilter" : "Is Filter",
      "label.heading.wardAndVillage": "Ward/Village",
      "validation.msg.addresses.addressRegionValueId.cannot.be.blank" : "Please select complete address",
+     "error.msg.office.product.or.charge.not.found" : "Product or Charge with Id in `{{params[0].value}}` not Office Specific Product for officeId `{{params[1].value}}`",
 
     "------ end of translation file ------": "----------"
 }
