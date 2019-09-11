@@ -1,0 +1,16 @@
+{
+    "enableUIDisplayConfiguration": true,
+    "uiDisplayConfigurations": {
+        "createLoanApplication": {
+            "isHiddenField": {
+                "interestRatePerPeriod": false
+            }
+        },
+        "createClient": {
+            "isMandatoryField": {
+                "dateOfBirth": true,
+                "maritalStatus": false
+            }
+        }
+    }
+}
