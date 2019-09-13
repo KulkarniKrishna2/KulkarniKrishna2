@@ -2043,6 +2043,9 @@
             .when('/editglimloanproductmapping/:id', {
                 templateUrl: 'views/products/glimloanproductmapping/editglimloanproductmapping.html'
             })
+            .when('/loan/:id/editactiveloan',{
+                templateUrl: 'views/loans/editActiveLoan.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

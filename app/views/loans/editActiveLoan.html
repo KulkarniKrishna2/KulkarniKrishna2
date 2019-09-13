@@ -1,0 +1,82 @@
+<div class="col-md-12" ng-controller="EditActiveLoanController">
+    <div>
+        <ul class="breadcrumb">
+           <li><a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a></li>
+            <li class="active">{{ 'label.anchor.edit' | translate}}</li>
+        </ul>
+    </div>
+    <form class="form-horizontal well" novalidate="" name="editactiveloanform" rc-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset>
+            <legend>{{'label.heading.loan.edit' | translate}}</legend>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.loanexternalid' | translate }}<span ng-show="isExternalIdMandatory" class="required">*</span></label>
+                <div class="col-sm-3" ng-if ="!isExternalIdMandatory">
+                        <input type="text" autocomplete="off" id="externalId" name="externalId" ng-model="formData.externalId" class="form-control" ng-readonly="externalIdReadOnlyType"
+                               />
+                </div>
+                <div class="col-sm-3" ng-if ="isExternalIdMandatory">
+                        <input type="text" autocomplete="off" id="externalId" name="external" ng-model="formData.externalId" class="form-control"
+                        ng-readonly="externalIdReadOnlyType" required late-Validate/>
+                </div>
+                <div class="col-sm-3" ng-show="isExternalIdMandatory">
+                        <form-validate valattributeform="editactiveloanform" valattribute="external"/>
+                </div>
+                    
+            </div>
+            <div class="form-group" ng-hide="hideFund">
+                <label class="control-label col-sm-2">{{'label.heading.fund' | translate}}</label>
+                <div class="col-sm-3">
+                    <select id="fundId" ng-model="formData.fundId" class="form-control" ng-disabled="formData.fundId && fundIdReadOnlyType"
+                                ng-options="fund.id as fund.name for fund in fundOptions" value="{{fund.id}}">
+                        <option value="">{{'label.selectfund' | translate}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-3">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.loanpurpose' | translate }}<span class="required" ng-show="isLoanPurposeMandatory">*</span></label>
+                <div class="col-sm-3">
+                    <select chosen="loanPurposeOptions" id="loanPurposeId" name="loanpurpose" ng-model="formData.loanPurposeId" class="form-control"
+                        ng-options="loanPurpose.id as loanPurpose.name for loanPurpose in loanPurposeOptions | orderBy:'name':reverse"
+                            value="{{loanPurpose.id}}" ng-required="isLoanPurposeMandatory">
+                            <option value="">{{'label.selectpurpose' | translate}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-3" ng-show="isLoanPurposeMandatory">
+                    <form-validate valattributeform="editactiveloanform" valattribute="loanpurpose"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.button.repaymentsmode' | translate }}</label>
+                <div class="col-sm-3">
+                    <select id="repaymentMode" ng-model="repaymentMode"
+                        ng-options="paymentModeOption.id as paymentModeOption.value for paymentModeOption in paymentModeOptions"
+                        value="{{paymentModeOption.id}}" n class="form-control"
+                            value="{{paymentOption.id}}">
+                        <option value="">{{'label.menu.selectone' | translate}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-3">
+                </div>
+            </div>
+            <div class="form-group" ng-if="repaymentMode">
+                <label class="control-label col-sm-2">{{ 'label.button.repayments' | translate }}</label>
+                <div class="col-sm-3">
+                    <select id="expectedRepaymentPaymentType" ng-model="formData.expectedRepaymentPaymentType"
+                        ng-options="paymentOption.id as paymentOption.name for paymentOption in repaymentTypeOptions " class="form-control"
+                                value="{{paymentOption.id}}">
+                        <option value="">{{'label.menu.selectone' | translate}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-3">
+                </div>
+            </div>
+            <div class="col-md-offset-2">
+                <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+                <button id="save" type="submit" class="btn btn-primary" has-permission='UPDATE_ACTIVE_LOAN' ng-show="activeLoanAccountDetails">{{'label.button.save' | translate}}</button>
+            </div>
+        </fieldset>
+    </form>
+</div>

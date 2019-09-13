@@ -1912,6 +1912,10 @@
                     }),
                     accountingBulkClosureResource: defineResource(apiVer + "/glclosures/bulk", {}, {
                     }),
+                    activeLoanAccountResource: defineResource(apiVer + "/loans/:loanId/editactiveloan",{loanId: '@loanId'},{
+                        get: {method: 'GET', params: {loanId: '@loanId'}, isArray: false},
+                        update: {method: 'PUT', params: {loanId: '@loanId'}}
+                    }),
                 };
             }];
         }

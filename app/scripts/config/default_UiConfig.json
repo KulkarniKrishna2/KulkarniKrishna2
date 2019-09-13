@@ -113,7 +113,8 @@
 				"prepayLoanButton": true,
 				"netDisbursedAmount": false,
 				"showProductShortName": false,
-				"prudentialWriteOff": true
+				"prudentialWriteOff": true,
+				"editActiveLoan": true
 			},
 			"displayBankApprovalStatus": false
 		},

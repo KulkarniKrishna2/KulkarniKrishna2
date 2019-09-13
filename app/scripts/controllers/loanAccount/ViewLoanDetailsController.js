@@ -46,7 +46,7 @@
             scope.waiveInterestTransactionTypeId = 4;
             scope.recoveryTransactionTypeId = 8;
             scope.refundTransactionTypeId = 16;
-
+            scope.showEditActiveLoan = true;
 
             if(scope.response && scope.response.uiDisplayConfigurations){
                 scope.showRetryBankTransaction = scope.response.uiDisplayConfigurations.loanAccount.isShowField.retryBankTransaction;
@@ -65,6 +65,9 @@
                     }
                     if(scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.prudentialWriteOff){
                         scope.showPrudentialWriteOff = !scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.prudentialWriteOff;
+                    }
+                    if(scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.editActiveLoan){
+                        scope.showEditActiveLoan = !scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.editActiveLoan;
                     }
                 } 
             }
