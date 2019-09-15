@@ -679,7 +679,10 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'collection/CollectionSheetDetailController',
             'accounting/GSTDebitTransactionDetailsControllers',
             'accounting/GSTDebitTransactionControllers',
-            'user/ReactivateUserController'
+            'user/ReactivateUserController',
+            'districts/CreateDistrictController',
+            'districts/ViewDistrictController',
+            'districts/CreateTalukaController'
         ],
         filters: [
             'StatusLookup',

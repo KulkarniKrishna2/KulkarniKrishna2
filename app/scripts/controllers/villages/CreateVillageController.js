@@ -21,6 +21,7 @@
             scope.picodeValidation = false;
             scope.isPincodeLengthSatisfy = true;
             scope.pincodeLenght = 6;
+            scope.activeStatus = 300;
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createVillage.isValidatePinCodeField.active) {
                 if (scope.response && scope.response.uiDisplayConfigurations.createVillage.isValidatePinCodeField.pinCodeValues.startDigit) {
                     scope.pincodeStartDigitMap = scope.response.uiDisplayConfigurations.createVillage.isValidatePinCodeField.pinCodeValues.startDigit;
@@ -157,10 +158,22 @@
                         delete scope.formAddressData.districtId;
                     }
                     scope.districts = scope.selectState[0].districtDatas;
+                    scope.getActiveDistricts();
                     scope.talukas = null;
                     scope.setPicodeStartDigitForState(scope.selectState);
                 }
             }
+
+            scope.getActiveDistricts = function(){
+                var tempDist = [];
+                for(var i in scope.districts){
+                    if(scope.districts[i].status.id==scope.activeStatus){
+                        tempDist.push(scope.districts[i]);
+                    }
+                }
+                scope.districts = tempDist;
+            }
+            
             scope.changeDistrict = function (districtId) {
                 if (districtId != null) {
                     scope.selectDistrict = _.filter(scope.districts, function (districts) {

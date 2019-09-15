@@ -189,6 +189,7 @@
                         })
                         scope.districts = scope.selectState[0].districtDatas;
                     }
+                    scope.getActiveDistricts();
                 }
             };
 
@@ -254,6 +255,18 @@
                     scope.showWardAndVillages = (scope.wardAndVillages.length > 0); 
                 }
             };
+
+            
+            scope.activeStatus = 300;
+            scope.getActiveDistricts = function(){
+                var tempDist = [];
+                for(var i in scope.districts){
+                    if(scope.districts[i].status.id==scope.activeStatus){
+                        tempDist.push(scope.districts[i]);
+                    }
+                }
+                scope.districts = tempDist;
+            }
 
             scope.changeVillage = function () {
                 if (scope.formData.villageId != null && scope.formData.villageId != undefined) {
