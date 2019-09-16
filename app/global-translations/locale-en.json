@@ -8108,6 +8108,9 @@
      "label.heading.wardAndVillage": "Ward/Village",
      "validation.msg.addresses.addressRegionValueId.cannot.be.blank" : "Please select complete address",
      "error.msg.office.product.or.charge.not.found" : "Product or Charge with Id in `{{params[0].value}}` not Office Specific Product for officeId `{{params[1].value}}`",
+     "label.anchor.edit" : "Edit Loan",
+     "label.heading.loan.edit": "Edit Loan",
+     "error.msg.externalId.with.loan.already.exists": "ExternalId already associated with LoanId '{{params[0].value}}'",
 
     "------ end of translation file ------": "----------"
 }
