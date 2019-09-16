@@ -149,9 +149,20 @@
                         delete scope.formData.districtId;
                     }
                     scope.districts = scope.selectState[0].districtDatas;
+                    scope.getActiveDistricts();
                     scope.talukas = null;
                     scope.setPicodeStartDigitForState(scope.selectState);
                 }
+            }
+            scope.activeStatus = 300;
+            scope.getActiveDistricts = function(){
+                var tempDist = [];
+                for(var i in scope.districts){
+                    if(scope.districts[i].status.id==scope.activeStatus){
+                        tempDist.push(scope.districts[i]);
+                    }
+                }
+                scope.districts = tempDist;
             }
 
             scope.changeDistrict = function (districtId) {

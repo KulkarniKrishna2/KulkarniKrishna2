@@ -1855,7 +1855,12 @@
                     }),
                     workFlowStepSummaryTemplateResource: defineResource(apiVer + "/tasks/summary/template",{}, {
                         get: {method: 'GET', params: {}, isArray: false}
-                    })
+                    }),
+                    stateResource: defineResource(apiVer + "/countries/:countryId/states/:stateId", {countryId: '@countryId',stateId: '@stateId'}, {
+                        getStateData: {method: 'GET', params: {countryId: '@countryId',stateId: '@stateId'}}
+                    }),
+                    talukaResource: defineResource(apiVer + "/districts/:districtId/talukas/:talukaId", {districtId: '@districtId',talukaId: '@talukaId'}, {
+                    })   
                 };
             }];
         }

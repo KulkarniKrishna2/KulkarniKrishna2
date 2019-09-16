@@ -1,5 +1,6 @@
 <div class="col-md-12" ng-controller="DistrictController">
     <ul class="breadcrumb">
+        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
         <li class="active">{{'label.anchor.districts' | translate}}</li>
     </ul>
     <br>
@@ -34,7 +35,10 @@
             </div>
         </div>
     </form>
-
+    <div class="pull-right btn-group" ng-show="formData.countryId && formData.stateId"  has-permission='CREATE_DISTRICT'>
+        <a has-permission="CREATE_DISTRICT" href="#/country/{{formData.countryId}}/state/{{formData.stateId}}/newdistricts" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{
+            'label.button.createdistrict' | translate }}</a>
+    </div>
     <div>
         <table class="table">
             <thead>
@@ -46,7 +50,7 @@
             </thead>
 
             <tbody>
-            <tr class="pointer-main" ng-repeat="district in districts | orderBy:'districtName':reverse  | filter:filterText">
+            <tr class="pointer-main" ng-repeat="district in districts | orderBy:'districtName':reverse  | filter:filterText" ng-click="routeToDistrict(district.districtId)">
                 <td>{{district.districtName}}</td>
                 <td>{{district.isoDistrictCode}}</td>
                 <td>
