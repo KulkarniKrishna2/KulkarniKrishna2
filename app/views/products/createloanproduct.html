@@ -1204,6 +1204,16 @@
             </select>
         </div>
     </div>
+    <div class="form-group">
+        <label class="control-label col-sm-4">{{'label.input.disable.excess.amount.adjustment'  | translate }}</label>
+
+        <div class="col-sm-2">
+            <label class="checkbox control-label">
+                <input id="disableAdjustExcessAmount" type="checkbox"
+                       ng-model="formData.disableAdjustExcessAmount">
+            </label>
+        </div>
+    </div>
 
 <h3>{{ 'label.heading.interestRecalculation' | translate }}</h3>
 <hr>
@@ -1971,6 +1981,19 @@
                     value="{{liabilityAccount.id}}">
                 <option value="">{{'label.menu.selectone'| translate }}</option>
             </select>
+        </div>
+        <div ng-show="formData.disableAdjustExcessAmount">
+        <label class="control-label col-sm-2">{{ 'label.input.excesspaymentliability' | translate }}<span ng-if ="formData.disableAdjustExcessAmount" class="required">*</span></label>
+        <i class="icon-question-sign col-sm-1 icon-white" tooltip="{{'label.tooltip.excesspaymentliability' | translate}}"></i>
+
+        <div class="col-sm-3">
+            <select id="excessPaymentLiabilityAccountId" ng-model="formData.excessPaymentLiabilityAccountId"
+                    chosen="liabilityAccountOptions"
+                    ng-options="liabilityAccount.id as (liabilityAccount.name +' ('+ liabilityAccount.glCode +')') for liabilityAccount in liabilityAccountOptions"
+                    value="{{liabilityAccount.id}}">
+                <option value="">{{'label.menu.selectone'| translate }}</option>
+            </select>
+        </div>
         </div>
     </div>
 

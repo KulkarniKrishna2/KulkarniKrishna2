@@ -63,6 +63,7 @@
                     scope.formData.outstandingFeeChargesPortion = scope.foreclosuredata.feeChargesPortion;
                     scope.formData.outstandingPenaltyChargesPortion = scope.foreclosuredata.penaltyChargesPortion;
                     scope.formData.foreClosureChargesPortion = scope.foreclosuredata.foreClosureChargesPortion;
+                    scope.formData.excessAmountPaymentPortion = scope.foreclosuredata.excessAmountPaymentPortion;
                     scope.calculateTransactionAmount();
                     scope.paymentTypes = scope.foreclosuredata.paymentTypeOptions;
                 });
@@ -74,6 +75,14 @@
                 transactionAmount += parseFloat(scope.foreclosuredata.interestPortion);
                 transactionAmount += parseFloat(scope.foreclosuredata.feeChargesPortion);
                 transactionAmount += parseFloat(scope.foreclosuredata.penaltyChargesPortion);
+                if(!_.isUndefined(scope.foreclosuredata.excessAmountPaymentPortion)){
+                    if(scope.foreclosuredata.excessAmountPaymentPortion < transactionAmount){
+                      transactionAmount -= parseFloat(scope.foreclosuredata.excessAmountPaymentPortion);  
+                    }else{
+                       transactionAmount = 0; 
+                    }
+                    
+                }
                 scope.formData.transactionAmount = $filter('number')(transactionAmount, 2);
                 scope.formData.transactionAmount =  scope.formData.transactionAmount.replace(/,/g,"");
             };
