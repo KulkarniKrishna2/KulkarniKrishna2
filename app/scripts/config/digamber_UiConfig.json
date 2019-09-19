@@ -4,6 +4,9 @@
 		"bulkJLGLoanAccount": {
 			"isMandatory": {
 				"fundId": true
+			},
+			"hiddenField": {
+				"syncDisbursementWithMeeting": true
 			}
 		},
 		"bankAccountDetails": {
@@ -72,7 +75,8 @@
 		},
 		"viewCenter": {
 			"isHiddenField": {
-				"accountNo": true
+				"accountNo": true,
+				"referenceNo" : false
 			}
 		},
 		"clientIdentifier": {
@@ -89,11 +93,19 @@
 				"meetingStartDate":true
 			}
 		},
+		"relationshipOptions": {
+			"AgeMandatoryFor": [
+				"Spouse"
+			]
+		},
+		"viewGroup": {
+			"isReadOnlyField": {
+				"groupName": true
+			}
+		},
 		"viewClient": {
-			"familyDeatils": {
-				"isMandatoryField": {
-					"familyMemeberIDType": true
-				}
+			"isHiddenField": {
+				"referenceNo": false
 			}
 		},
 		"viewLoanAccountDetails": {

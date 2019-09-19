@@ -290,7 +290,9 @@
                 if (scope.taskInfoTrackArray.length == 0) {
                     return scope.errorDetails.push([{ code: 'error.msg.select.atleast.one.member' }])
                 }
-
+                if(scope.errorDetails){
+                    delete scope.errorDetails;
+                }
                 scope.taskTrackingFormData = {};
                 scope.taskTrackingFormData.taskInfoTrackArray = [];
 
