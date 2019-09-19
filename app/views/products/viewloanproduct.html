@@ -389,6 +389,10 @@
     <td>{{'label.input.splitdisbursementforcharges' | translate}}</td>
     <td colspan="3">{{loanproduct.splitDisbursementForCharges | YesOrNo}}</td>
 </tr>
+</tr>
+    <td>{{'label.input.disable.excess.amount.adjustment' | translate}}</td>
+    <td colspan="3">{{loanproduct.disableAdjustedExcessAmount | YesOrNo}}</td>
+</tr>
 
 <tr ng-if="loanproduct.splitDisbursementForCharges && loanproduct.paymentTypeForChargeDisbursement">
     <td>{{'label.input.paymenttypeforchargeDisbursement' | translate}}</td>
@@ -707,6 +711,10 @@
             <tr>
                 <td>{{'label.heading.overpaymentliability' | translate}}:</td>
                 <td colspan="3">{{loanproduct.accountingMappings.overpaymentLiabilityAccount.name}}&nbsp;({{loanproduct.accountingMappings.overpaymentLiabilityAccount.glCode}})</td>
+            </tr>
+            <tr ng-if="loanproduct.disableAdjustedExcessAmount">
+                <td>{{'label.heading.excesspaymentliability' | translate}}:</td>
+                <td colspan="3">{{loanproduct.accountingMappings.excessPaymentLiabilityAccount.name}}&nbsp;({{loanproduct.accountingMappings.excessPaymentLiabilityAccount.glCode}})</td>
             </tr>
             <tr ng-show="loanproduct.accountingMappings.subsidyFundSourceId ">
                 <td>{{'label.input.subsidyFundSource' | translate}}:</td>

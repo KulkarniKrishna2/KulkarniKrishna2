@@ -8142,6 +8142,15 @@
     "error.msg.office.id.list.invalid":"Office with identifiers {{params[0].value}} does not exist",
      "label.input.isbulkclosure" : "Is Bulk Closure",
      "label.input.isfilter" : "Is Filter",
-
+     "label.heading.wardAndVillage": "Ward/Village",
+     "validation.msg.addresses.addressRegionValueId.cannot.be.blank" : "Please select complete address",
+     "error.msg.office.product.or.charge.not.found" : "Product or Charge with Id in `{{params[0].value}}` not Office Specific Product for officeId `{{params[1].value}}`",
+    "label.input.disable.excess.amount.adjustment" : "Disable Excess Amount Adjustment",
+    "label.input.excesspaymentliability":"Excess payment liability",
+    "label.tooltip.excesspaymentliability": "an Liability account that is credited on excesspayment and debited when refunds are made to client.",
+    "validation.msg.loanproduct.excessPaymentLiabilityAccountId.cannot.be.blank" : "Excess payment liability account can not be blank",
+    "label.heading.excess.amount.paid" : "Excess Amount Paid",
+    "label.heading.excesspaymentliability":"Excess Payment",
+    "error.msg.loan.transaction.is.exceeding.excess.amount" : "The refund amount must be less than or equal to excess amount",
     "------ end of translation file ------": "----------"
 }

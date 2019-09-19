@@ -205,7 +205,8 @@
                     isOverdueAccountingEnabled: scope.product.isOverdueAccountingEnabled,
                     isIRDEnabled: scope.product.isPostIRDEnabled,
                     loanProductGroupId:scope.product.loanProductGroupId,
-                    isGlim: scope.product.isGlim
+                    isGlim: scope.product.isGlim,
+                    disableAdjustExcessAmount:scope.product.disableAdjustedExcessAmount
                 };
                 if(scope.product.splitDisbursementForCharges && scope.product.paymentTypeForChargeDisbursement){
                     scope.formData.paymentTypeIdForChargeDisbursement = scope.product.paymentTypeForChargeDisbursement.id;
@@ -379,6 +380,9 @@
                         scope.formData.subsidyAccountId = scope.product.accountingMappings.subsidyAccountId.id;
                     } else {
                         scope.formData.createSubsidyAccountMappings = true;
+                    }
+                    if(scope.product.accountingMappings.hasOwnProperty("excessPaymentLiabilityAccount")){
+                      scope.formData.excessPaymentLiabilityAccountId = scope.product.accountingMappings.excessPaymentLiabilityAccount.id;  
                     }
 
                     _.each(scope.product.paymentChannelToFundSourceMappings, function (fundSource) {

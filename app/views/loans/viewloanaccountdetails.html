@@ -342,6 +342,10 @@
                         <tr ng-if="loanAdditionalDetails.isFldg">
                             <th class="table-bold-loan">{{'label.anchor.fldg' | translate}}</th>
                             <td><span class="padded-td">{{'label.heading.yes'| translate}}</span>
+                        <tr ng-show="isExcessAmountPaidLoan">
+                            <th class="table-bold-loan">{{'label.heading.excess.amount.paid' | translate}}</th>
+                            <td><span class="padded-td">{{loandetails.summary.excessAmountPaid| number}}<span
+                                    data-ng-hide="isExcessAmountPaidLoan">{{'label.heading.notprovided' | translate}}</span></span>
                             </td>
                         </tr>
                     </table>
@@ -595,6 +599,15 @@
                                 <th>{{'label.heading.overpaid' | translate}}</th>
                                 <td>&nbsp;</td>
                                 <td>{{loandetails.totalOverpaid| number}}</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr ng-show="isExcessAmountPaidLoan">
+                                <th>{{'label.heading.excess.amount.paid' | translate}}</th>
+                                <td>&nbsp;</td>
+                                <td>{{loandetails.summary.excessAmountPaid| number}}</td>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>

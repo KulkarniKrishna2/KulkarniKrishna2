@@ -453,6 +453,11 @@
                 else {
                     scope.chargeTableShow = false;
                 }
+                if(scope.loandetails.summary.excessAmountPaid > 0){
+                    scope.isExcessAmountPaidLoan = true;
+                }else{
+                    scope.isExcessAmountPaidLoan = false;
+                }
                 if (scope.status == "Submitted and pending approval" || scope.status == "Active" || scope.status == "Approved") {
                     scope.choice = true;
                 }
@@ -815,6 +820,20 @@
                             });
                         }
                     }
+                    if (scope.isExcessAmountPaidLoan && !scope.isGlim ) {
+                        scope.buttons.singlebuttons.push({
+                            name: "button.refund",
+                            icon: "icon-exchange",
+                            taskPermissionName: 'REFUND_LOAN',
+                            isHidden:scope.isGlim
+                        });
+                        scope.buttons.singlebuttons.push({
+                            name: "button.transferFunds",
+                            icon: "icon-exchange",
+                            taskPermissionName: 'CREATE_ACCOUNTTRANSFER',
+                            isHidden:scope.isGlim
+                        });
+                    }
 
                 }
                 if (data.status.value == "Rejected") {
@@ -826,7 +845,7 @@
                     scope.buttons = {options: scope.options};
                 }
 
-                if (data.status.value == "Overpaid" && !scope.isGlim ) {
+                if ((data.status.value == "Overpaid" || scope.isExcessAmountPaidLoan ) && !scope.isGlim ) {
                     scope.singlebuttons.push(
                         {
                             name: "button.refund",
