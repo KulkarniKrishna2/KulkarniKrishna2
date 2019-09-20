@@ -77,11 +77,7 @@
                 scope.chargeOptions = scope.product.chargeOptions || [];
                 scope.writeOffReasonOptions = [];
                 if(angular.isDefined(scope.product.codeValueOptions) && scope.product.codeValueOptions.length>0){
-                    var searchConditions = {};
-                    searchConditions.codeValueIsActive = 1;
-                    resourceFactory.codeValueByCodeNameResources.get({codeName: "WriteOffReasons", searchConditions: searchConditions}, function (codeValueData) {
-                        scope.writeOffReasonOptions = scope.getCodeValues(scope.product.codeValueOptions,codeValueData);
-                    });
+                    scope.writeOffReasonOptions = scope.product.codeValueOptions;
                 }
                 scope.overduecharges = [];
                 for (var i in scope.penaltyOptions) {
@@ -163,18 +159,6 @@
                         }
                     });
                 }
-            };
-
-            scope.getCodeValues = function(optionsArray,codeValues){
-                var codeValuesData = [];
-                for(var  i=0; i<optionsArray.length;i++){
-                    for(var j=0;j<codeValues.length;j++){
-                        if(codeValues[j].id==optionsArray[i].id){
-                            codeValuesData.push(optionsArray[i]);
-                        }
-                    }
-                }
-                return codeValuesData;
             };
 
             scope.deleteCharge = function (index) {
