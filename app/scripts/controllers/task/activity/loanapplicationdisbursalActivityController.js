@@ -770,7 +770,7 @@
             scope.showAddTranche = function(){
                 if(scope.formRequestData.disburse.disbursementData){
                     return  scope.formRequestData.disburse.disbursementData.length < scope.formData.noOfTranche;
-                }else{
+                }else if(scope.loanaccountinfo){
                     return scope.loanaccountinfo.product.multiDisburseLoan;
                 }
             };
@@ -793,6 +793,56 @@
                 }
             }
 
+            scope.updateTrancheDate = function() {
+                if (scope.formRequestData.disburse.loanEMIPackId) {
+                    var loanEMIPackDetail = scope.formData.loanEMIPackData;
+                    var disbursalEMIs = [0];
+                    if (loanEMIPackDetail.disbursalAmount2) {
+                        disbursalEMIs.push(loanEMIPackDetail.disbursalEmi2)
+                    }
+                    if (loanEMIPackDetail.disbursalAmount3) {
+                        disbursalEMIs.push(loanEMIPackDetail.disbursalEmi3)
+                    }
+                    if (loanEMIPackDetail.disbursalAmount4) {
+                        disbursalEMIs.push(loanEMIPackDetail.disbursalEmi4)
+                    }
+                    if (scope.formRequestData.disburse.disbursementData && scope.formRequestData.disburse.disbursementData.length > 0) {
+                        if (scope.formRequestData.disburse.actualDisbursementDate && scope.formRequestData.disburse.actualDisbursementDate.toString() != 'Invalid Date') {
+                            var date = new Date(scope.formRequestData.disburse.actualDisbursementDate);
+                            var repaymentPeriodFrequencyEnum = loanEMIPackDetail.repaymentFrequencyType.id;
+                            if (date.toString() != 'Invalid Date') {
+                                var len = scope.formRequestData.disburse.disbursementData.length;
+                                for (var i = 0; i < len; i++) {
+                                    if (repaymentPeriodFrequencyEnum === 0) {
+                                        date = date.setDate(date.getDate() + (parseInt(loanEMIPackDetail.repaymentEvery) * disbursalEMIs[i]));
+                                    } else if (repaymentPeriodFrequencyEnum === 1) {
+                                        date = date.setDate(date.getDate() + (parseInt(loanEMIPackDetail.repaymentEvery) * 7 * disbursalEMIs[i]));
+                                    } else if (repaymentPeriodFrequencyEnum === 2) {
+                                        date = date.setMonth(date.getMonth() + (parseInt(loanEMIPackDetail.repaymentEvery) * disbursalEMIs[i]));
+                                    }
+                                    if (!isNaN(date)) {
+                                        scope.formRequestData.disburse.disbursementData[i].expectedDisbursementDate = dateFilter(new Date(date), scope.df);
+                                    }
+                                    date = new Date(scope.formRequestData.disburse.actualDisbursementDate);
+                                }
+                            }
+                        }
+                    }
+                } else if (scope.formRequestData.disburse.disbursementData && scope.formRequestData.disburse.disbursementData.length > 0) {
+                    for (var i = 0; i < scope.formRequestData.disburse.disbursementData.length; i++) {
+                        scope.formRequestData.disburse.disbursementData[i].expectedDisbursementDate = dateFilter(new Date(scope.formRequestData.disburse.disbursementData[i].expectedDisbursementDate), scope.df);
+                    }
+                    if (scope.formRequestData.disburse.actualDisbursementDate && scope.formRequestData.disburse.actualDisbursementDate.toString() != 'Invalid Date') {
+                        var dateValue = scope.formRequestData.disburse.actualDisbursementDate;
+                        if ((new Date(dateValue)).toString() != 'Invalid Date') {
+                            for (var i in scope.formRequestData.loanApplicationSanctionTrancheDatas) {
+                                scope.formRequestData.disburse.disbursementData[i].expectedDisbursementDate = dateFilter(new Date(scope.formRequestData.disburse.disbursementData[i].expectedDisbursementDate), scope.df);
+                            }
+                            scope.formRequestData.disburse.disbursementData[0].expectedDisbursementDate = dateFilter(new Date(dateValue), scope.df);
+                        }
+                    }
+                }
+            };
         }
     });
     mifosX.ng.application.controller('loanapplicationdisbursalActivityController', ['$controller','$scope', 'ResourceFactory', '$location', 'dateFilter', '$modal', '$route', '$filter', mifosX.controllers.loanapplicationdisbursalActivityController]).run(function ($log) {

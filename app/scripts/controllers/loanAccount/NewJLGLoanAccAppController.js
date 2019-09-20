@@ -13,6 +13,11 @@
             scope.loanApplicationCommonData.expectedDisbursementDate = new Date();
             scope.loanApplicationCommonData.syncDisbursementWithMeeting = true;
 
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.bulkJLGLoanAccount.hiddenField) {
+                scope.hideSyncDisbursementWithMeeting = scope.response.uiDisplayConfigurations.bulkJLGLoanAccount.hiddenField.syncDisbursementWithMeeting;
+            }
+
+
             if (scope.group.id) {
                 scope.inparams.groupId = scope.group.id;
             }

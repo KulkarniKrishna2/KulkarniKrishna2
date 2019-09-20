@@ -1,5 +1,6 @@
 <div class="col-md-12" ng-controller="CreateDistrictController">
     <ul class="breadcrumb">
+        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
         <li>
             <a href="#/districts">{{'label.view.viewdistricts' | translate}}</a>
         </li>
@@ -33,7 +34,7 @@
                 </label>
 
                 <div class="col-sm-3">
-                    <input type="text" id="districtCode" name="districtCode" ng-model="formData.districtCode" class="form-control" required late-Validate/>
+                    <input type="text" id="districtCode" maxlength="5" name="districtCode" ng-model="formData.districtCode" class="form-control" required late-Validate/>
                 </div>
                 <div class="col-sm-2">
                     <form-validate valattributeform="createdistrictform" valattribute="districtCode" />

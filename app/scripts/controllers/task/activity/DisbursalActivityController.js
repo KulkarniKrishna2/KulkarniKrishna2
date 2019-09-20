@@ -7,7 +7,7 @@
                 scope.$parent.clientsCount();
                 scope.centerId = scope.taskconfig.centerId;
                 scope.isLoanPurposeEditable= true;
-
+                scope.chargesCategory = [];
                 resourceFactory.centerWorkflowResource.get({ centerId: scope.centerId,eventType : scope.eventType, associations: 'groupMembers,profileratings,loanaccounts,clientcbcriteria' }, function (data) {
                     scope.centerDetails = data;
                     //logic to disable and highlight member
@@ -59,6 +59,14 @@
 
             };
             initTask();
+            scope.filterCharges = function (chargeData,categoryId) {
+                if (chargeData != undefined) {
+                    var chargesCategory = _.groupBy(chargeData, function (value) {
+                        return value.chargeCategoryType.id;
+                    });
+                    return chargesCategory[categoryId];
+                }
+            }
 
             scope.editLoan = function (loanAccountBasicData, groupId) {
                 $modal.open({
@@ -700,29 +708,10 @@
                         $scope.formData.loanEMIPackId = loanData.loanEMIPackData.id;
                         $scope.formData.fixedEmiAmount = loanData.loanEMIPackData.fixedEmi;
                     }
-                    //tracking task 
-                    if (loanData.clientId != null && scope.taskData.id != null && loanData.id) {
-                        $scope.taskInfoTrackArray = [];
-                        $scope.taskInfoTrackArray.push(
-                            {
-                                'clientId': loanData.clientId,
-                                'currentTaskId': scope.taskData.id,
-                                'loanId': loanData.id
-                            })
-                    }
                     var relativeUrl = "loans/" + loanData.id + "?command=" + $scope.commandParam;
                     $scope.batchRequests.push({
                         requestId: ($scope.batchRequests.length+1), relativeUrl: relativeUrl,
                         method: "POST", body: JSON.stringify(this.formData)
-                    });
-
-                    $scope.taskTrackingFormData = {};
-                    $scope.taskTrackingFormData.taskInfoTrackArray = [];
-                    $scope.taskTrackingFormData.taskInfoTrackArray = $scope.taskInfoTrackArray.slice();
-                    var relativeTrackUrl = "tasktracking/clientlevel";
-                    $scope.batchRequests.push({
-                        requestId: ($scope.batchRequests.length+1), relativeUrl: relativeTrackUrl,
-                        method: "POST", body: JSON.stringify($scope.taskTrackingFormData)
                     });
                     
                 }
@@ -868,24 +857,6 @@
                     $modalInstance.dismiss('cancel');
                 };
                 $scope.submit = function () {
-                    if($scope.clientId != null && scope.taskData.id !=null && $scope.loanId){
-                        $scope.taskInfoTrackArray = [];
-                        $scope.taskInfoTrackArray.push(
-                            {'clientId' : $scope.clientId, 
-                             'currentTaskId' : scope.taskData.id,
-                             'loanId' : $scope.loanId})
-                    }    
-
-                    //tracking request validation
-                    if($scope.taskInfoTrackArray.length == 0){
-                        $scope.errorDetails = [];
-                        return $scope.errorDetails.push([{code: 'error.msg.select.atleast.one.member'}])
-                    }
-                    if($scope.errorDetails){
-                        delete $scope.errorDetails;
-                    }
-                    $scope.batchRequests = [];
-
                     this.formData.locale = scope.optlang.code;
                     this.formData.dateFormat = scope.df;
                     var reqDate = dateFilter($scope.formData.actualDisbursementDate, scope.df);
@@ -899,36 +870,12 @@
                         }
                     }
 
-                    var relativeUrl = "loans/" + $scope.loanId + "?command="+$scope.commandParam;
-                    var requestSequence = 1;
-                    $scope.batchRequests.push({requestId: requestSequence, relativeUrl: relativeUrl,
-                            method: "POST", body: JSON.stringify(this.formData)});
 
+                    resourceFactory.LoanAccountResource.save({loanId: $scope.loanId, command: 'disburse'}, this.formData, function (data) {
 
-                   /*//tracking request body formation 
-                    $scope.taskTrackingFormData = {};
-                    $scope.taskTrackingFormData.taskInfoTrackArray = [];
-                    $scope.taskTrackingFormData.taskInfoTrackArray = $scope.taskInfoTrackArray.slice();
-                    var relativeTrackUrl = "tasktracking/clientlevel";
-                    requestSequence = requestSequence + 1;
-                    $scope.batchRequests.push({requestId: requestSequence, relativeUrl: relativeTrackUrl,
-                                method: "POST", body: JSON.stringify($scope.taskTrackingFormData)});*/
-
-                    //batch call
-                    resourceFactory.batchResource.post({'enclosingTransaction':true},$scope.batchRequests, function (data) {
-                        if(data.length > 0 && data[data.length-1].requestId == data.length){
-                            $modalInstance.close();
-                            initTask();
-                        }else{
-                            $modalInstance.close();
-                        }
-
-                    });
-
-
-                    /*resourceFactory.LoanAccountResource.save({loanId: $scope.loanId, command: 'disburse'}, this.formData, function (data) {
                         $modalInstance.dismiss('cancel');
-                    });*/
+                        initTask();
+                    });
                 }
 
                 $scope.forceDisburse = function () {

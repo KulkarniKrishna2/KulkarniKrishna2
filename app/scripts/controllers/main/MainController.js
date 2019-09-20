@@ -49,6 +49,7 @@
                 }
                 if (scope.response.uiDisplayConfigurations.workflow && scope.response.uiDisplayConfigurations.workflow.hiddenFields) {
                     scope.isSendToCBReviewHidden = scope.response.uiDisplayConfigurations.workflow.hiddenFields.sendToCBReview;
+                    scope.isInsuranceChargeHidden = scope.response.uiDisplayConfigurations.workflow.hiddenFields.insuranceCharge;
                 };
             }  
             if(!scope.islogofoldernamefetched && $rootScope.tenantIdentifier && $rootScope.tenantIdentifier != "default"){

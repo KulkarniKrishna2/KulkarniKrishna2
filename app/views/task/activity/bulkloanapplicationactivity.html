@@ -16,7 +16,7 @@
 					<th class="col-md-1">{{'label.heading.loanpack' | translate}}</th>
 					<th class="col-md-1">{{'label.heading.loanpurpose' | translate}}</th>
 					<th class="col-md-1">{{'label.heading.processingfee' | translate}}</th>
-					<th class="col-md-1">{{'label.heading.single.double.insurance' | translate}}</th>
+					<th class="col-md-1" ng-if = "isInsuranceChargeHidden">{{'label.heading.single.double.insurance' | translate}}</th>
 					<th class="col-md-1"></th>
 					<th class="col-md-1">{{'label.heading.reject' | translate}}</th>
 				</thead>
@@ -50,7 +50,7 @@
 							<td class="col-md-1">{{activeClientMember.loanAccountBasicData.loanEMIPackData.sanctionAmount | number}}</td>
 							<td class="col-md-2 cell-overflow">{{activeClientMember.loanAccountBasicData.loanPurposeName}}</td>
 							<td class="col-md-1"><span ng-repeat="item in filterCharges(activeClientMember.loanAccountBasicData.charges,1)">{{item.amount | number}} &nbsp;</span></td>
-							<td class="col-md-1"><span ng-repeat="item in filterCharges(activeClientMember.loanAccountBasicData.charges, 2)">{{item.amount | number}} &nbsp;</span>&nbsp;&nbsp;<span ng-repeat="item in filterCharges(activeClientMember.loanAccountBasicData.charges, 3)">{{item.amount | number}} &nbsp;</span></td>
+							<td class="col-md-1" ng-if = "isInsuranceChargeHidden"><span ng-repeat="item in filterCharges(activeClientMember.loanAccountBasicData.charges, 2)">{{item.amount | number}} &nbsp;</span>&nbsp;&nbsp;<span ng-repeat="item in filterCharges(activeClientMember.loanAccountBasicData.charges, 3)">{{item.amount | number}} &nbsp;</span></td>
 							<td class="col-md-1">
 								<a ng-if="activeClientMember.loanAccountBasicData" class="btn btn-default btn-xs" ng-click="editLoan(activeClientMember.loanAccountBasicData,groupMember.id)" tooltip="{{'label.button.edit.loan' | translate}}" ng-disabled="activeClientMember.isClientFinishedThisTask">
 									<i class="icon-edit icon-white pointer"></i>

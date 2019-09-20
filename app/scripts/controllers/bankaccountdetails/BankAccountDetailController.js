@@ -27,9 +27,7 @@
                     var bankData = {bankAccountData:data};
                     angular.extend(scope.commonConfig,bankData);
                     if(data!=undefined && data.id!=undefined){
-                        if(data.status.id==200){
-
-                        }else{
+                        if(!(data.status.id==200 || data.status.id==400)){
                             createWorkflow(false);
                         }
                     }else{

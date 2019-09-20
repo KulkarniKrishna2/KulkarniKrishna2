@@ -114,7 +114,8 @@
 				"netDisbursedAmount": false,
 				"showProductShortName": false,
 				"editTransactions":false,
-				"prudentialWriteOff": true
+				"prudentialWriteOff": true,
+				"editActiveLoan": true
 			},
 			"displayBankApprovalStatus": false
 		},
@@ -427,6 +428,9 @@
 		"bulkJLGLoanAccount": {
 			"isMandatory": {
 				"fundId": false
+			},
+			"hiddenField": {
+				"syncDisbursementWithMeeting": false
 			}
 		},
 		"workflow": {
@@ -477,7 +481,8 @@
 				"sendToCBReview": true,
 				"activateBankAccount": false,
 				"editCenterMeeting": true,
-				"expectedDisbursementDate": false
+				"expectedDisbursementDate": false,
+				"insuranceCharge": true
 			},
 			"showMembersStepsInfo": false,
 			"disableSelectAllClients": false,

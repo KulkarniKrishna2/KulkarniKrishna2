@@ -189,7 +189,6 @@
                         })
                         scope.districts = scope.selectState[0].districtDatas;
                     }
-                    scope.districts = scope.selectState[0].districtDatas;
                     scope.getActiveDistricts();
                 }
             };

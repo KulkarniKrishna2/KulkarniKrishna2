@@ -716,6 +716,12 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'product/glimloanproductmapping/GlimLoanProductMappingsController',
             'product/glimloanproductmapping/NewGlimLoanProductMappingsController',
             'product/glimloanproductmapping/EditGlimLoanProductMappingsController',
+            'task/activity/LoanApplicationPreApprovalActivityController',
+            'loanAccount/EditActiveLoanController',
+            'user/ReactivateUserController',
+            'districts/CreateDistrictController',
+            'districts/ViewDistrictController',
+            'districts/CreateTalukaController'
         ],
         filters: [
             'StatusLookup',

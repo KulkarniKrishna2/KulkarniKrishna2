@@ -493,7 +493,7 @@
                         scope.selectState = _.filter(scope.states, function (state) {
                             return state.id == stateId;
                         });
-                        var levelLists = ['township','district'];             
+                        var levelLists = ['township','district']; 
                         for(var i in scope.addressLevels){
                             if(levelLists.indexOf(scope.addressLevels[i].identifier) >= 0 ){
                                 scope.districtsTemp = scope.addressData[scope.addressLevels[i].identifier];
@@ -509,8 +509,6 @@
                         });
                         scope.districts = scope.selectState[0].districtDatas;
                     }
-
-                    scope.districts = scope.selectState[0].districtDatas;
                     scope.getActiveDistricts();
                     scope.talukas = null;
                 }

@@ -27,8 +27,8 @@
                                     </td>    
                                     <td class="width14"><label>{{ 'label.heading.repeatson' | translate }}:</label></td>
                                     <td class="width36">{{calendar.humanReadable}}</td>
-                                    <td align="center"><input type="checkbox" ng-model="loanApplicationCommonData.syncDisbursementWithMeeting" ></td>
-                                    <td><label>{{ 'label.input.syncdisbursementdatewithmeeting' | translate }}</label></td>
+                                    <td ng-hide="hideSyncDisbursementWithMeeting" align="center"><input type="checkbox" ng-model="loanApplicationCommonData.syncDisbursementWithMeeting" ></td>
+                                    <td ng-hide="hideSyncDisbursementWithMeeting"><label>{{ 'label.input.syncdisbursementdatewithmeeting' | translate }}</label></td>
                                 </tr>
                             </table>
             </div>

@@ -2067,6 +2067,19 @@
             .when('/editglimloanproductmapping/:id', {
                 templateUrl: 'views/products/glimloanproductmapping/editglimloanproductmapping.html'
             })
+            .when('/loan/:id/editactiveloan',{
+                templateUrl: 'views/loans/editActiveLoan.html'
+            })
+            .when('/country/:countryId/state/:stateId/newdistricts', {
+                templateUrl: 'views/districts/createdistricts.html'
+            })
+            .when('/districts/:districtId', {
+                templateUrl: 'views/districts/viewdistrict.html'
+            })
+            .when('/districts/:districtId/newtalukas', {
+                templateUrl: 'views/districts/createtaluka.html'
+            })
+
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {
