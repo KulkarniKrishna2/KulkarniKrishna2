@@ -8115,6 +8115,27 @@
     "validation.msg.loanapplicationreference.expectedTrancheDisbursementDate.disbursement.date.on.non.working.day" : "Tranche expected disbursement date cannot be on a non working day",
     "validation.msg.loanapplicationreference.expectedTrancheDisbursementDate.disbursement.date.on.holiday" : "Tranche expected disbursement date cannot be on a holiday",
     "validation.msg.loanapplicationreference.maxOutstandingLoanBalance.is.less.than.min" : "Loan is exceeding max outstanding balance:`{{params[0].value}}`",
+
+     "label.heading.createdistrict" : "Create District",
+     "label.heading.viewdistrict" : "View District",
+     "label.input.district.name" : "District Name",
+     "label.input.districtcode" : "District Code",
+     "label.view.viewdistricts" : "View District",
+     "label.anchor.createdistrict" : "Create District",
+     "label.button.createdistrict" : "Create District",
+     "label.button.createtaluka" : "Create Taluka",
+     "label.heading.districtdetails" : "District Details",
+     "label.anchor.viewdistrict" : "View District",
+     "label.heading.taluka.name" : "Taluka Name",
+     "label.heading.taluka.code" : "Taluka Code",
+     "label.anchor.createtaluka" : "Create Taluka",
+     "label.input.taluka.name" : "Taluka Name",
+     "label.input.talukacode" : "Taluka Code",
+     "label.heading.createtaluka" : "Create Taluka",
+     "error.msg.taluka.with.id.can.not.be.deleted" :"Taluka can not be deleted.",
+     "error.msg.district.duplicate.entry" : "Duplicate district.",
+     "error.msg.taluka.already.exist" : "Taluka with name `{{params[0].value}}` already exist.",
+     "error.msg.district.already.exist" : "District with name `{{params[0].value}}` already exist.",
     
     "------ end of translation file ------": "----------"
 }

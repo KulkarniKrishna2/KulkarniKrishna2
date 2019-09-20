@@ -1916,6 +1916,11 @@
                         get: {method: 'GET', params: {loanId: '@loanId'}, isArray: false},
                         update: {method: 'PUT', params: {loanId: '@loanId'}}
                     }),
+                    stateResource: defineResource(apiVer + "/countries/:countryId/states/:stateId", {countryId: '@countryId',stateId: '@stateId'}, {
+                        getStateData: {method: 'GET', params: {countryId: '@countryId',stateId: '@stateId'}}
+                    }),
+                    talukaResource: defineResource(apiVer + "/districts/:districtId/talukas/:talukaId", {districtId: '@districtId',talukaId: '@talukaId'}, {
+                    })
                 };
             }];
         }
