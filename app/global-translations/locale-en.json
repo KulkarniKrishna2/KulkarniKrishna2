@@ -8112,5 +8112,9 @@
      "label.heading.loan.edit": "Edit Loan",
      "error.msg.externalId.with.loan.already.exists": "ExternalId already associated with LoanId '{{params[0].value}}'",
 
+    "validation.msg.loanapplicationreference.expectedTrancheDisbursementDate.disbursement.date.on.non.working.day" : "Tranche expected disbursement date cannot be on a non working day",
+    "validation.msg.loanapplicationreference.expectedTrancheDisbursementDate.disbursement.date.on.holiday" : "Tranche expected disbursement date cannot be on a holiday",
+    "validation.msg.loanapplicationreference.maxOutstandingLoanBalance.is.less.than.min" : "Loan is exceeding max outstanding balance:`{{params[0].value}}`",
+    
     "------ end of translation file ------": "----------"
 }

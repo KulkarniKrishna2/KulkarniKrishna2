@@ -90,7 +90,7 @@
                     scope.formData.accountTypeId = scope.bankAccountTypeOptions[0].id;
                 }
                 if (scope.bankData.status) {
-                    if (scope.bankData.status.id == 200) {
+                    if (scope.bankData.status.id == 200 || scope.bankData.status.id == 400) {
                         scope.viewConfig.approved = true;
                     }
                 }

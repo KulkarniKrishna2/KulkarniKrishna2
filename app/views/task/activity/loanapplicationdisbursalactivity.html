@@ -520,7 +520,7 @@
                                                        placeholder="{{'label.tooltip.disbursementon' | translate}}"
                                                        ng-model="formRequestData.disburse.actualDisbursementDate"
                                                        is-open="opened" min="minDate" max="restrictDate"
-                                                       class="form-control" ng-readonly="isDatePickerReadOnly"
+                                                       class="form-control" ng-readonly="isDatePickerReadOnly" ng-bind="updateTrancheDate()"
                                                        required/>
                                             </td>
 
