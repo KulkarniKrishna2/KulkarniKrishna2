@@ -1852,7 +1852,10 @@
                     viewTaxInvoiceData: defineResource(apiVer + "/accounting/taxinvoice/view", {}, {
                     }),
                     deactivatedUserResource: defineResource(apiVer + "/users/:userId/deactivated", { userId: '@userId' }, {
-                    })
+                    }),
+                    cashierTxnsSummaryResource: defineResource(apiVer + "/tellers/:tellerId/cashiers/:cashierId/transactionsummary", {tellerId: "@tellerId", cashierId: "@cashierId"}, {
+                        getCashierTransactionsSummary: {method: 'GET', params: {tellerId: "@tellerId", cashierId: "@cashierId"}, isArray: false}
+                    }),
                 };
             }];
         }
