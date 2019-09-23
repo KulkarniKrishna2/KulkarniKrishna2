@@ -8152,6 +8152,23 @@
      "error.msg.district.duplicate.entry" : "Duplicate district.",
      "error.msg.taluka.already.exist" : "Taluka with name `{{params[0].value}}` already exist.",
      "error.msg.district.already.exist" : "District with name `{{params[0].value}}` already exist.",
-     
-    "------ end of translation file ------": "----------"
+
+     "label.button.financial.year.closure": "Financial Year Closure",
+     "label.heading.financial.year.closures": "Financial Year Closures",
+     "label.anchor.financial.year.closures": "Financial Year Closures",
+     "label.anchor.create.financial.year.closure": "Create Financial Year Closure",
+     "label.heading.create.financial.year.closure": "Create Financial Year Closure",
+     "label.heading.confirm.financial.year.closure":"All Income and Expense accounts gets transferred to Retained Earnings and can't be reversed",
+     "label.heading.financial.year.closure": "Financial Year Closure",
+     "label.heading.financial.year.closures.description": "Close the books at the end of financial year",
+     "label.anchor.financial.year.closure": "Financial Year Closure",
+     "error.msg.glclosure.delete.not.allowed.before.financial.year.closure": "Glclosure delete not allowed before financial year closure",
+     "validation.msg.financial.closure.closureDate.cannot.be.blank": "Financial closure closureDate cannot be blank",
+     "validation.msg.financial.closure.closureDate.not.valid.fy.end": "Financial closure closureDate is not a valid financial year end",
+     "validation.msg.financial.closure.closureDate.is.less.than.date": "Financial closure closureDate is less than `{{params[1].value}}`",
+     "validation.msg.financial.closure.closureDate.accounting.not.closed": "Accounting is not closed for Financial closure closureDate",
+     "validation.msg.financial.closure.closureDate.is.greater.than.date": "Financial closure closureDate is greater than `{{params[1].value}}`",
+     "danger.msg.note.verify.all.the.accounts.before.closure": "Note: Verify all the accounts before closure",
+
+     "------ end of translation file ------": "----------"
 }

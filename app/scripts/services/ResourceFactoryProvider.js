@@ -1933,6 +1933,11 @@
                         getStateData: {method: 'GET', params: {countryId: '@countryId',stateId: '@stateId'}}
                     }),
                     talukaResource: defineResource(apiVer + "/districts/:districtId/talukas/:talukaId", {districtId: '@districtId',talukaId: '@talukaId'}, {
+                    }),
+                    financialYearClosuresResource: defineResource(apiVer + "/fyclosures/:id", {id: '@id'}, {
+                        getAll: {method:'GET', params: {}, isArray: true},
+                        save: {method:'POST', params:{} },
+                        getOneFinancialYearClosure: {method:'GET', params:{id: '@id'}}
                     })
                 };
             }];

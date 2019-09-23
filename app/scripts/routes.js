@@ -2079,8 +2079,16 @@
             .when('/districts/:districtId/newtalukas', {
                 templateUrl: 'views/districts/createtaluka.html'
             })
-
-        $locationProvider.html5Mode(false);
+            .when('/financialyearclosures',{
+                templateUrl: 'views/accounting/financialyearclosures/financialyearclosures.html'
+            })
+            .when('/financialyearclosures/create',{
+                templateUrl: 'views/accounting/financialyearclosures/createfinancialyearclosure.html'
+            })
+            .when('/financialyearclosures/:id',{
+                templateUrl: 'views/accounting/financialyearclosures/viewfinancialyearclosure.html'
+            })
+    $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {
         $log.info("Routes definition completed");

@@ -1,0 +1,30 @@
+<div class="col-md-12" ng-controller="FinancialYearClosuresController">
+    <ul class="breadcrumb">
+        <li><a href="#/accounting">{{'label.anchor.accounting'|translate}}</a></li>
+        <li class="active">{{'label.anchor.financial.year.closures' | translate}}</li>
+    </ul>
+    <legend>{{'label.heading.financial.year.closures' | translate}}
+        <button class="btn btn-primary pull-right" has-permission='CREATE_FINANCIAL_YEAR_CLOSURE' ng-click="create()"><i class="icon-plus"></i>{{'label.button.financial.year.closure'|translate}}</button>
+    </legend>
+    <div class="clearfix"></div>
+    <table class="table" width="100%">
+        <thead>
+            <tr class="graybg">
+                <th>{{'label.heading.name' | translate}}</th>
+                <th>{{'label.heading.startdate' | translate}}</th>
+                <th>{{'label.heading.enddate' | translate}}</th>
+                <th>{{'label.heading.status' | translate}}</th>
+                <th>{{'label.heading.actions' | translate}}</th>
+            </tr>
+        </thead>    
+        <tr class="pointer-main" ng-repeat="financialYearClosure in financialYearClosures">
+            <td class="pointer" data-ng-click="routeByIdAndStatus(financialYearClosure.id,financialYearClosure.status)">{{financialYearClosure.name}}</td>
+            <td class="pointer" data-ng-click="routeByIdAndStatus(financialYearClosure.id,financialYearClosure.status)">{{financialYearClosure.startDate | DateFormat}}</td>
+            <td class="pointer" data-ng-click="routeByIdAndStatus(financialYearClosure.id,financialYearClosure.status)">{{financialYearClosure.endDate | DateFormat}}</td>
+            <td class="pointer" data-ng-click="routeByIdAndStatus(financialYearClosure.id,financialYearClosure.status)">{{financialYearClosure.status.value}}</td>
+            <td class="pointer" ng-if="financialYearClosure.status.id == 1"><i class="icon-spinner icon-spin icon-large "/> <span class="icon-large"> {{'label.heading.running' | translate}}</span>
+                &nbsp;<a ng-click="init()"><i class="icon-refresh"></i></a></td>
+            <td class="pointer"><button ng-if="isReinitiateAllowed(financialYearClosure.status)" has-permission='CREATE_FINANCIAL_YEAR_CLOSURE' ng-click="reinitiate(financialYearClosure.endDate)" class="btn btn-link">{{'label.button.rerun' | translate}}</button></td>
+        </tr>
+    </table>
+</div>
