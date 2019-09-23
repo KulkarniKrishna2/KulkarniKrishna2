@@ -76,7 +76,7 @@
                 <div class="col-sm-3">
                     <input name="bankIFSCCodeRepeat" id="bankIFSCCodeRepeat" ng-model="repeatFormData.ifscCodeRepeat"
                            minlength="11" maxlength="11" type="password"
-                           ng-pattern="regexPattern('bankIFSCCode')" class="form-control" ng-required="isElemMandatory('bankIFSCCodeRepeat')"/>
+                           ng-pattern="regexPattern('bankIFSCCode')" class="form-control" ng-required="isElemMandatory('bankIFSCCodeRepeat')" ng-blur="getBankDetails(!bankaccountdetail.bankIFSCCode.$error.pattern)"/>
                 </div>
                 <div class="col-sm-2">
                      <span ng-show="bankaccountdetail.bankIFSCCodeRepeat.$error.pattern">
@@ -94,7 +94,7 @@
 
                 <div class="col-sm-3">
                     <input name="bankIFSCCode" id="bankIFSCCode" ng-model="formData.ifscCode"
-                           ng-minlength="11" maxlength="11" type="text" autocomplete="off" ng-pattern="/^[A-Za-z]{4}0[A-Z0-9a-z]{6}$/"  class="form-control" ng-required="isElemMandatory('bankIFSCCode')" onpaste="return false;"/>
+                           ng-minlength="11" maxlength="11" type="text" autocomplete="off" ng-pattern="/^[A-Za-z]{4}0[A-Z0-9a-z]{6}$/"  class="form-control" ng-required="isElemMandatory('bankIFSCCode')" onpaste="return false;" ng-blur="getBankDetails(!bankaccountdetail.bankIFSCCode.$error.pattern)"/>
                 </div>
                 <div class="col-sm-3">
                     <span ng-show="bankaccountdetail.bankIFSCCode.$invalid && bankaccountdetail.bankIFSCCode.$dirty">

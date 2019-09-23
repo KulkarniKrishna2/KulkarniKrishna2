@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        BankAccountCommonController: function ($controller, scope, routeParams, resourceFactory, location, $modal, route, $window, dateFilter, $upload, $rootScope, API_VERSION, $http, commonUtilService) {
+        BankAccountCommonController: function ($controller, scope, routeParams, resourceFactory, location, $modal, route, $window, dateFilter, $upload, $rootScope, API_VERSION, $http, commonUtilService, $sce) {
             angular.extend(this, $controller('defaultUIConfigController', {
                 $scope: scope,
                 $key: "bankAccountDetails"
@@ -487,9 +487,25 @@
                     }
                 );
             };
+            scope.getBankDetails = function(isvalidIfsc){
+                if(scope.formData.ifscCode != undefined && scope.formData.ifscCode === scope.repeatFormData.ifscCodeRepeat && isvalidIfsc){
+                    var url = "https://ifsc.razorpay.com/" + scope.formData.ifscCode;
+                    url = $sce.trustAsResourceUrl(url);
+                    $http({
+                        method: 'GET',
+                        url: url
+                    }).then(function (data) {
+                        scope.bankData = data;
+                        scope.formData.bankName = scope.bankData.BANK;
+                        scope.formData.branchName = scope.bankData.BRANCH;
+                        scope.formData.bankCity = scope.bankData.CITY;
+                    })
+                }
+            }
+            
         }
     });
-    mifosX.ng.application.controller('BankAccountCommonController', ['$controller', '$scope', '$routeParams', 'ResourceFactory', '$location', '$modal', '$route', '$window', 'dateFilter', '$upload', '$rootScope', 'API_VERSION', '$http', 'CommonUtilService', mifosX.controllers.BankAccountCommonController]).run(function ($log) {
+    mifosX.ng.application.controller('BankAccountCommonController', ['$controller', '$scope', '$routeParams', 'ResourceFactory', '$location', '$modal', '$route', '$window', 'dateFilter', '$upload', '$rootScope', 'API_VERSION', '$http', 'CommonUtilService', '$sce', mifosX.controllers.BankAccountCommonController]).run(function ($log) {
         $log.info("BankAccountCommonController initialized");
     });
 }(mifosX.controllers || {}));
