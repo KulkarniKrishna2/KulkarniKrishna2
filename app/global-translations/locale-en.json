@@ -234,6 +234,7 @@
     "label.menu.select": "Select",
     "label.menu.select.all": "Select All",
     "label.menu.selectRelation": "Select Relation",
+    "label.menu.selectareacategory": "Select Area Category",
 
     "#Anchors": "..",
     "label.anchor.delete": "Delete",
@@ -765,6 +766,7 @@
     "label.input.searchactivities": "Search activities",
     "label.input.additionalinformation": "Additional information",
     "label.input.changelanguage": "Change language:",
+    "label.input.area.category": "Area Category",
 
     "#Search": "..",
     "label.search.scope.all": "All",

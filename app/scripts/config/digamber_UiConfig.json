@@ -54,6 +54,9 @@
 		"createCenter": {
 			"isReadOnlyField": {
 				"active": true
+			},
+			"isHiddenField": {
+				"areaCategory": false
 			}
 		},
 		"createClient": {

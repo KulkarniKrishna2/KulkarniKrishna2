@@ -277,7 +277,8 @@
 				"showStaff": true,
 				"addclients": true,
 				"activate": false,
-				"addGroups": true
+				"addGroups": true,
+				"areaCategory": true
 			},
 			"isAutoPopulate": {
 				"name": true
