@@ -3,8 +3,12 @@
     "uiDisplayConfigurations": {
         "createLoanApplication": {
             "isHiddenField": {
-                "interestRatePerPeriod": false
-            }
+                "interestRatePerPeriod": false,
+                "upfrontAmount":false
+            },
+            "isMandatoryField": {
+				"amountForUpfrontCollection": true
+			}
         },
         "createClient": {
             "isMandatoryField": {
