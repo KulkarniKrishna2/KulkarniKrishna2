@@ -36,6 +36,7 @@
             scope.previewRepayment = false;
             scope.isMultiDisburse = false;
             scope.showUpfrontAmount = true;
+            scope.isMandatoryUpfrontAmountCollection = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.amountForUpfrontCollection;
 
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createLoanApplication &&
                 scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField && scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.disbursementPaymentType) {

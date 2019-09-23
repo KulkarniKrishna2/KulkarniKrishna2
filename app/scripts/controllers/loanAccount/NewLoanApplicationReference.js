@@ -44,6 +44,7 @@
             scope.isMandatoryDisbursementPaymentMode = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.disbursementPaymentMode;
             scope.loanReferenceTrancheData = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatory.trancheData;
             scope.isMandatoryDisbursementPaymentType = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.disbursementPaymentType;
+            scope.isMandatoryUpfrontAmountCollection = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.amountForUpfrontCollection;
             
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createLoanApplication &&
                 scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField && scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.upfrontAmount) {

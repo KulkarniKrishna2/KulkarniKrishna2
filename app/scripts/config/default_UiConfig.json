@@ -526,7 +526,8 @@
 				"expectedDisbursementDate": false,
 				"firstRepaymentDate": false,
 				"interestRatePerPeriod": false,
-				"disbursementPaymentMode": false
+				"disbursementPaymentMode": false,
+				"amountForUpfrontCollection": false
 			},
 			"isMandatory": {
 				"trancheData": false
