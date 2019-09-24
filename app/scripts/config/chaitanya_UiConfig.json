@@ -261,6 +261,9 @@
     "collectionSheet": {
       "isAutoPopulate": {
         "showEmiAmount": true
+      },
+      "isHiddenFeild": {
+        "ToggleButton":false
       }
     }
   }

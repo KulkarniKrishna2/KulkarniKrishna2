@@ -186,7 +186,8 @@
 				"paymentDetails": false,
 				"loanAccountNumber": false,
 				"savingsAccountNumber": false,
-				"clientForNoRepayments": false
+				"clientForNoRepayments": false,
+				"ToggleButton":true
 			},
 			"isMandatory": {
 				"officeId": false
