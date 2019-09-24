@@ -250,11 +250,12 @@
 
             <tr data-ng-show="(showUpfrontAmount || !loanaccountinfo.loanEMIPacks) && loanaccountinfo.allowUpfrontCollection">
                 <td>
-                    <label>{{ 'label.input.amountforupfrontcollection' | translate }}</label>
+                    <label>{{ 'label.input.amountforupfrontcollection' | translate }}<span class="required" ng-show="isMandatoryUpfrontAmountCollection">*</span></label>
                 </td>
                 <td>
-                    <input id="amountForUpfrontCollection" type="text" autocomplete="off" ng-model="formData.amountForUpfrontCollection"
-                           class="form-control" number-format/>
+                    <input id="amountForUpfrontCollection" name="amountForUpfrontCollection" type="text" autocomplete="off" ng-model="formData.amountForUpfrontCollection"
+                        class="form-control" ng-required="isMandatoryUpfrontAmountCollection" number-format/>
+                    <form-validate valattributeform="updateloanapplicationform" valattribute="amountForUpfrontCollection" />
                 </td>
             </tr>
             <tr>
