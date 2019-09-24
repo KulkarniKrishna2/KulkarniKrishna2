@@ -88,13 +88,13 @@
                             disabled="disabled">
                     </span>
                 </span>
-                <span style="height:30px"  ng-show="details">
+                <span style="height:30px"  ng-show="showEmiTotalDueButton()">
                     <span class="graybg" ng-hide="showEmiAmountOverTotalDue">
-                        <button class="btn btn-primary" ng-click="populateEmiAmount(collectionsheetdata)">{{'label.button.populate.emi.amount' | translate}}</button>
+                        <a type="button" class="btn btn-primary" ng-click="populateEmiAmount(collectionsheetdata)">{{'label.button.populate.emi.amount' | translate}}</a>
                     </span>
                     <span class="graybg" ng-show="showEmiAmountOverTotalDue">
-                        <button class="btn btn-primary" ng-click="populateTotalDue()">
-                        {{'label.button.populate.totalDue.amount' | translate}}</button>
+                        <a type="button" class="btn btn-primary" ng-click="populateTotalDue()">
+                        {{'label.button.populate.totalDue.amount' | translate}}</a>
                     </span>
                 </span>
                 </div>

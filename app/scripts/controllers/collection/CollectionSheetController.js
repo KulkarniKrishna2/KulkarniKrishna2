@@ -50,6 +50,9 @@
                 if(scope.response.uiDisplayConfigurations.collectionSheet.isAutoPopulate){
                     scope.showEmiAmountOverTotalDue = scope.response.uiDisplayConfigurations.collectionSheet.isAutoPopulate.showEmiAmount; 
                 }
+                if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild){
+                    scope.EmiAmountTotalDueToggleButton = scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild.ToggleButton; 
+                }
             }
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow &&
                 scope.response.uiDisplayConfigurations.workflow.isMandatory){
@@ -105,6 +108,8 @@
                         scope.client = scope.clients[j];
                         if (scope.client.attendanceType.id === 0) {
                             scope.client.attendanceType = 1;
+                        }else{
+                            scope.client.attendanceType = scope.client.attendanceType.id;
                         }
                     }
                 }
@@ -299,10 +304,6 @@
                     resourceFactory.centerResource.save({'centerId': scope.centerId, command: 'generateCollectionSheet'}, scope.formData, function (data) {
                         if (data.groups && data.groups.length > 0) {
                             scope.originalCollectionsheetData = scope.parseClientCharge(data);
-                            scope.collectionsheetdata = angular.copy(scope.originalCollectionsheetData);
-                            if(scope.showEmiAmountOverTotalDue){
-                                scope.populateEmiAmount(scope.collectionsheetdata);
-                            }
                             scope.paymentTypeOptions = data.paymentTypeOptions;
                             if(scope.collectionsheetdata != ""){
                                 scope.showPaymentDetails = true;
@@ -314,6 +315,10 @@
                             scope.colectionsSheetsCopy = [];
                             scope.savingsgroups = data.groups;
                             angular.copy(scope.savingsgroups,scope.colectionsSheetsCopy);
+                            scope.collectionsheetdata = angular.copy(scope.originalCollectionsheetData);
+                            if(scope.showEmiAmountOverTotalDue){
+                                scope.populateEmiAmount(scope.collectionsheetdata);
+                            }
                             scope.sumTotalDueCollection();
                             scope.isWithDrawForSavingsIncludedInCollectionSheet = data.isWithDrawForSavingsIncludedInCollectionSheet;
                             scope.isClientChargesIncludedInCollectoonSheet = data.isClientChargesIncludedInCollectoonSheet;
@@ -332,10 +337,6 @@
                     resourceFactory.groupResource.save({'groupId': scope.groupId, command: 'generateCollectionSheet'}, scope.formData, function (data) {
                         if (data.groups && data.groups.length > 0) {
                             scope.originalCollectionsheetData = scope.parseClientCharge(data);
-                            scope.collectionsheetdata = angular.copy(scope.originalCollectionsheetData);
-                            if(scope.showEmiAmountOverTotalDue){
-                                scope.populateEmiAmount(scope.collectionsheetdata);
-                            }
                             scope.paymentTypeOptions = data.paymentTypeOptions;
                             if(scope.collectionsheetdata != ""){
                                 scope.showPaymentDetails = true;
@@ -347,6 +348,10 @@
                             scope.colectionsSheetsCopy = [];
                             scope.savingsgroups = data.groups;
                             angular.copy(scope.savingsgroups,scope.colectionsSheetsCopy);
+                            scope.collectionsheetdata = angular.copy(scope.originalCollectionsheetData);
+                            if(scope.showEmiAmountOverTotalDue){
+                                scope.populateEmiAmount(scope.collectionsheetdata);
+                            }
                             scope.isWithDrawForSavingsIncludedInCollectionSheet = data.isWithDrawForSavingsIncludedInCollectionSheet;
                             scope.isClientChargesIncludedInCollectoonSheet = data.isClientChargesIncludedInCollectoonSheet;
                             scope.sumTotalDueCollection();
@@ -369,7 +374,7 @@
             var updateAttendanceTypeOptions = function() {
                 scope.attendanceTypeOptions = scope.response.uiDisplayConfigurations.attendanceTypeOptions;
                 if (!_.isUndefined(scope.attendanceTypeOptions)) {
-                    scope.collectionsheetdata.attendanceTypeOptions = scope.attendanceTypeOptions;
+                    scope.originalCollectionsheetData.attendanceTypeOptions = scope.attendanceTypeOptions;
                 }
             };
 
