@@ -279,7 +279,8 @@
 				"addclients": true,
 				"activate": false,
 				"addGroups": true,
-				"areaCategory": true
+				"areaCategory": true,
+				"staffOptions": false
 			},
 			"isAutoPopulate": {
 				"name": true
@@ -709,6 +710,15 @@
 		},
 		"documentConfiguration": {
 			"restrictTaggedDocuments": false
+		},
+		"editCenter": {
+			"isReadOnlyField": {
+				"name": false
+			},
+			"isHiddenField": {
+				"villageOptions": false,
+				"staffOptions": false
+			}
 		}	
 	}
 }
