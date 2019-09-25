@@ -90,10 +90,10 @@
 		},
 		"editCalendar": {
 			"editableFields": {
-				"repeat": true,
-				"repeatsevery": true,
-				"repeatson": true,
-				"meetingStartDate":true
+				"repeat": false,
+				"repeatsevery": false,
+				"repeatson": false,
+				"meetingStartDate":false
 			}
 		},
 		"relationshipOptions": {
