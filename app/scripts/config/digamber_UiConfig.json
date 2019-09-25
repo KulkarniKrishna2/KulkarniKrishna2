@@ -104,6 +104,10 @@
 		"viewGroup": {
 			"isReadOnlyField": {
 				"groupName": true
+			},
+			"isHiddenField": {
+				"referenceNo": false,
+				"accountNo": true
 			}
 		},
 		"viewClient": {
@@ -114,6 +118,20 @@
 		"viewLoanAccountDetails": {
 			"isHiddenFeild": {
 				"editActiveLoan": false
+			}
+		},
+		"createCharges": {
+			"isHiddenField": {
+				"chargeCategoryType": false
+			}
+		},
+		"editCenter": {
+			"isReadOnlyField": {
+				"name": true
+			},
+			"isHiddenField": {
+				"villageOptions": true,
+				"staffOptions": true
 			}
 		}
 	}

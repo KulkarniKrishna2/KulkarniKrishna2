@@ -9,8 +9,9 @@
             scope.isHiddenVillageOption = true;
             scope.villages = [];
             if(scope.response != undefined){
-                scope.isHiddenVillageOption = scope.response.uiDisplayConfigurations.createCenter.isHiddenField.villageOptions;                
+                scope.isHiddenVillageOption = scope.response.uiDisplayConfigurations.editCenter.isHiddenField.villageOptions;                
                 scope.isNameAutoPopulate = scope.response.uiDisplayConfigurations.createCenter.isAutoPopulate.name;
+                scope.isHiddenStaffOption = scope.response.uiDisplayConfigurations.editCenter.isHiddenField.staffOptions;
             }
             if(scope.response && scope.response.uiDisplayConfigurations.createCenter.isValidateName) {
                 scope.namePattern = scope.response.uiDisplayConfigurations.createCenter.isValidateName.namePattern;
