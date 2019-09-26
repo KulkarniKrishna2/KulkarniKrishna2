@@ -1,0 +1,22 @@
+<div class="col-md-12" ng-controller="ViewFinancialYearClosureController">
+<ul class="breadcrumb">
+    <li><a href="#/accounting">{{'label.anchor.accounting'|translate}}</a></li>
+    <li><a href="#/financialyearclosures">{{'label.anchor.financial.year.closures' | translate}}</a></li>
+    <li class="active">{{financialYearClosureData.name}}</li>
+</ul>
+<legend>{{financialYearClosureData.name}}</legend>
+<table class="table">
+    <thead>
+        <tr class="graybg">
+            <th>{{'label.heading.reportname' | translate}}</th>
+            <th>{{'label.heading.filename' | translate}}</th>
+            <th>{{'label.heading.actions' | translate}}</th>
+        </tr>
+    </thead>
+    <tr class="pointer-main" ng-repeat="report in financialYearClosureData.reports">
+        <td>{{report.reportName}}</td>
+        <td>{{report.fileName}}</td>
+        <td class="pointer" ng-click="download(report)" has-permission='READ_FINANCIAL_YEAR_CLOSURE'><i class="icon-2x icon-cloud-download"></i>&nbsp;</td>
+    </tr>
+</table>
+</div>

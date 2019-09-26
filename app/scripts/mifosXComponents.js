@@ -721,7 +721,10 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'user/ReactivateUserController',
             'districts/CreateDistrictController',
             'districts/ViewDistrictController',
-            'districts/CreateTalukaController'
+            'districts/CreateTalukaController',
+            'accounting/financialyearclosures/FinancialYearClosuresController',
+            'accounting/financialyearclosures/CreateFinancialYearClosureController',
+            'accounting/financialyearclosures/ViewFinancialYearClosureController'
         ],
         filters: [
             'StatusLookup',

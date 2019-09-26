@@ -1,0 +1,40 @@
+<div class="col-md-12" ng-controller="CreateFinancialYearClosureController">
+<ul class="breadcrumb">
+    <li><a href="#/accounting">{{'label.anchor.accounting'|translate}}</a></li>
+    <li><a href="#/financialyearclosures">{{'label.anchor.financial.year.closures' | translate}}</a></li>
+    <li class="active">{{'label.anchor.create.financial.year.closure' | translate}}</li>
+</ul>
+<form class="form-horizontal well" name="createfinancialyearclosureform" no-validate="" rc-submit="submit()">
+    <legend>{{'label.heading.create.financial.year.closure' | translate}}</legend>
+    <api-validate></api-validate>
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-sm-2">{{'label.input.closuredate' | translate}}<span class="required">*</span></label>
+            <div class ="col-sm-3">
+                <input id="endDate" type="text" ng-model="formData.closureDate" autocomplete="off" datepicker-pop="{{df}}" max="restrictDate" class="form-control" ng-readonly="isDatePickerReadOnly">
+            </div>
+            <div class="col-sm-3">
+                <form-validate valattributeform="createfinancialyearclosureform" valattribute="endDate"/>
+            </div>
+        </div>
+        <p class="col-md-offset-2" style="color: #ff1a1a">{{'danger.msg.note.verify.all.the.accounts.before.closure' | translate}}</p>
+        <div class="col-md-offset-3">
+            <button id="save" type="submit" class="btn btn-primary">{{'label.button.save' | translate}}</button>
+            <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+        </div>
+    </fieldset>
+</form>
+
+<script type="text/ng-template" id="closureconfirm.html">
+    <div class="modal-header silver">
+        <h3 class="bolder">{{'label.heading.confirm.financial.year.closure' | translate}}</h3>
+    </div>
+    <div class="modal-body">
+        <api-validate></api-validate>
+        <br>
+        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+        <button class="btn btn-primary" ng-click="confirm()">{{'label.button.confirm' | translate}}</button>
+    </div>
+</script>
+
+</div>
