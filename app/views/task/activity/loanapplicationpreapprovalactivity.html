@@ -2,7 +2,9 @@
 
     <div ng-show="status=='UPDATE'">
         <form class="form-inline" name="approveloanapplicationform" novalidate="" rc-submit="submitForPreApproval()">
-            <div class="span gray-head">
+          <div class="alert alert-success" role="alert" ng-show="preApprovalSuccess">{{'label.alert.loanapplication.preapproval.success.message' | translate}}</div>
+          <div class="alert alert-danger" role="alert" ng-show="preApprovalFailure">{{'label.alert.loanapplication.preapproval.failure.message' | translate}}</div>
+          <div class="span gray-head">
                 <span class="boldlabel">
                     <strong>{{ 'label.heading.requested.loanapplication.details' | translate }}</strong>
                 </span>

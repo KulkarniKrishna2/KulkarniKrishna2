@@ -283,9 +283,6 @@
                         add: {method: 'POST', params: {clientId:'@clientId'}},
                         delete: {method: 'DELETE', params: {}}
                     }),
-                    preApproveLoanApplication: defineResource(apiVer + "/loanapplicationreferences/:loanApplicationReferenceId/preapprove", {loanApplicationReferenceId: '@loanApplicationReferenceId'}, {
-                        post: {method: 'POST', params: {}}
-                    }),
                     creditBureauReportTemplateResource: defineResource(apiVer + "/enquiry/creditbureau/template", {}, {
                         template: {method: 'GET', params: {}}
                     }),
