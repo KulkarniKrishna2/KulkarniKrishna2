@@ -445,6 +445,8 @@
     "label.conflux.technologies": " Conflux Technologies",
     "kycAddress": "KYC Address",
     "label.alert.member.create.message": "Member created successfully with Id #",
+    "label.alert.loanapplication.preapproval.success.message": "Loan application was successfully Preapproved",
+    "label.alert.loanapplication.preapproval.failure.message": "Loan application could not be Preapproved!",
 
     "#Tab Messages": "..",
     "label.tab.myworkflowtasks": "My Workflow Tasks",
