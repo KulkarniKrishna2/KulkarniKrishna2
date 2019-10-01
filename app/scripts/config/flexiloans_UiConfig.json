@@ -26,7 +26,12 @@
           "isOverdraftAllowed" : true,
           "isDrawingPowerLimitAllowed" : true
         }
-      }
+      },
+      "transactions": {
+				"isHiddenField": {
+					"paymentType": false
+				}
+			}
     },
     "bankAccountDetails": {
       "isMandatory": {

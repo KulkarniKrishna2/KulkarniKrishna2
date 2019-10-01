@@ -15,12 +15,18 @@
             scope.sections = [];
             scope.requestoffset = 0;
             scope.limit = 10;
+            scope.hidePaymentType = true;
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.savingsAccount &&
                 scope.response.uiDisplayConfigurations.savingsAccount.overDraft) {
                 if(scope.response.uiDisplayConfigurations.savingsAccount.overDraft.isHiddenField &&
                 !scope.response.uiDisplayConfigurations.savingsAccount.overDraft.isHiddenField.amountTobePaid) {
                     scope.hideAmountTobePaid = scope.response.uiDisplayConfigurations.savingsAccount.overDraft.isHiddenField.amountTobePaid;
                 }
+            }
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.savingsAccount &&
+                scope.response.uiDisplayConfigurations.savingsAccount.transactions && scope.response.uiDisplayConfigurations.savingsAccount.transactions.isHiddenField) {
+                    if(!scope.response.uiDisplayConfigurations.savingsAccount.transactions.isHiddenField.paymentType)
+                    scope.hidePaymentType = scope.response.uiDisplayConfigurations.savingsAccount.transactions.isHiddenField.paymentType;
             }
             scope.isDebit = function (savingsTransactionType) {
                 return savingsTransactionType.withdrawal == true || savingsTransactionType.feeDeduction == true
