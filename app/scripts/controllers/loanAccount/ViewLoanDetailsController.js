@@ -456,7 +456,7 @@
                 else {
                     scope.chargeTableShow = false;
                 }
-                if(scope.loandetails.summary.excessAmountPaid > 0){
+                if(!_.isUndefined(scope.loandetails.summary) && !_.isUndefined(scope.loandetails.summary.excessAmountPaid)  && scope.loandetails.summary.excessAmountPaid > 0){
                     scope.isExcessAmountPaidLoan = true;
                 }else{
                     scope.isExcessAmountPaidLoan = false;
