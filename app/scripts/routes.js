@@ -1077,24 +1077,6 @@
             .when('/sms', {
                 templateUrl: 'views/sms/tracksms.html'
             })
-            .when('/sms/createcampaign', {
-                templateUrl: 'views/sms/createsmscampaign.html'
-            })
-            .when('/sms/viewcampaign', {
-                templateUrl: 'views/sms/viewsmscampaign.html'
-            })
-            .when('/sms/campaign/close/:campaignId', {
-                templateUrl: 'views/sms/closesmscampaign.html'
-            })
-            .when('/sms/campaign/reactivate/:campaignId', {
-                templateUrl: 'views/sms/reactivatesmscampaign.html'
-            })
-            .when('/sms/campaign/activate/:campaignId', {
-                templateUrl: 'views/sms/activatesmscampaign.html'
-            })
-            .when('/sms/campaign/edit/:campaignId', {
-                templateUrl: 'views/sms/editsmscampaign.html'
-            })
             .when('/bankstatements', {
                 templateUrl: 'views/bankstatements/viewbankstatement.html'
             })
@@ -2027,6 +2009,18 @@
             })
             .when('/districts/:districtId/newtalukas', {
                 templateUrl: 'views/districts/createtaluka.html'
+            })
+            .when('/smscampaigns', {
+                templateUrl: 'views/organization/smscampaigns/smscampaigns.html'
+            })
+            .when('/createsmscampaign', {
+                templateUrl: 'views/organization/smscampaigns/createsmscampaign.html'
+            })
+            .when('/viewsmscampaign/:campaignId', {
+                templateUrl: 'views/organization/smscampaigns/viewsmscampaign.html'
+            })
+            .when('/editsmscampaign/:campaignId', {
+                templateUrl: 'views/organization/smscampaigns/editsmscampaign.html'
             })
 
         $locationProvider.html5Mode(false);
