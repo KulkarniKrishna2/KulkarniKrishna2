@@ -889,15 +889,17 @@
                         get: {method: 'GET', params: {smsId: '@smsId'}, isArray : false},
                         update: {method: 'PUT', params: {}}
                     }),
-                    smsCampaignResource: defineResource(apiVer +"/sms/campaign/:resourceId", {resourceId:'@resourceId', command: '@command'},{
-                        getAll: {method: 'GET', params: {}, isArray : true},
-                        get: {method: 'GET', params: {resourceId:'@resourceId'}, isArray : false},
-                        activate:{method:'POST',params:{resourceId:'@resourceId',command: 'activate'}},
-                        reactivate:{method:'POST',params:{resourceId:'@resourceId',command: 'reactivate'}},
-                        close:{method:'POST',params:{resourceId:'@resourceId',command: 'close'}},
-                        edit:{method:'PUT',params:{}},
+                    smsCampaignTemplateResource: defineResource(apiVer + "/smscampaigns/template", {}, {
+                        get: {method: 'GET', params: {}}             
+                    }),
+                    smsCampaignResource: defineResource(apiVer + "/smscampaigns/:campaignId/:additionalParam", {campaignId: '@campaignId', additionalParam: '@additionalParam'}, {
+                        getAll: {method: 'GET', params: {}},
+                        get: {method: 'GET', params: {}},
+                        save: {method: 'POST', params: {}},
+                        update: {method: 'PUT', params: {}},
+                        preview: {method: 'POST', params: {}},
+                        withCommand: {method: 'POST', params: {}},
                         delete: {method: 'DELETE', params: {}}
-
                     }),
                     bankStatementsResource: defineResource(apiVer + "/bankstatements/:bankStatementId", {bankStatementId: '@bankStatementId',command:'@command'}, {
                         getAllBankStatement: {method: 'GET', params: {}},
