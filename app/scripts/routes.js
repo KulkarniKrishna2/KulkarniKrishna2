@@ -2022,6 +2022,9 @@
             .when('/editsmscampaign/:campaignId', {
                 templateUrl: 'views/organization/smscampaigns/editsmscampaign.html'
             })
+            .when('/smsproviders', {
+                templateUrl: 'views/organization/smscampaigns/smsproviders.html'
+            })
 
         $locationProvider.html5Mode(false);
     };

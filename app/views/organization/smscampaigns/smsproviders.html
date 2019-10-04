@@ -1,0 +1,40 @@
+<div ng-controller="SmsProvidersController" class="content-container">
+    <div>
+        <ul class="breadcrumb">
+            <li>
+                <a href="#/organization">{{'label.anchor.organization' | translate}}</a>
+            </li>
+            <li class="active">{{'label.anchor.smsproviders' | translate}}</li>
+        </ul>
+    </div>
+    <api-validate></api-validate>
+    <div class="card">
+        <div class="content">
+            <br/>
+            <api-validate></api-validate>
+            <table id="table2" class="width50">
+                <tbody>
+                    <tr>
+                        <th class="col-sm-4">{{'label.anchor.defaultsmsproviders' | translate}}:</th>
+                        <td>{{defaultProvider.providerName}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <br/>
+            <table class="table well">
+                <tr ng-repeat="provider in providers">
+                    <td>
+                        <input type="radio" id="{{provider.id}}" name="providerId" ng-model="providerId" value="{{provider.id}}" ng-change="setChoice(provider.id)">{{provider.providerName}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-offset-5">
+            <a id="cancel" href="#/organization" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+            <button id="save"  class="btn btn-primary" ng-click="updateProvider()"  has-permission='UPDATE_SMS_PROVIDER'>{{'label.button.update' | translate}}</button>
+        </div>
+    </div>
+
+
+
+</div>
