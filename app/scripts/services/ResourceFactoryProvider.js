@@ -1936,6 +1936,11 @@
                     cashierTxnsSummaryResource: defineResource(apiVer + "/tellers/:tellerId/cashiers/:cashierId/transactionsummary", {tellerId: "@tellerId", cashierId: "@cashierId"}, {
                         getCashierTransactionsSummary: {method: 'GET', params: {tellerId: "@tellerId", cashierId: "@cashierId"}, isArray: false}
                     }),
+                    smsProviderTemplateResource: defineResource(apiVer + "/smsprovider/template", {}, {
+                    }),
+                    smsProviderResource: defineResource(apiVer + "/smsprovider", {}, {
+                        update: {method: 'PUT'}
+                    })   
                 };
             }];
         }

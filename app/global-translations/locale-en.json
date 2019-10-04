@@ -8198,7 +8198,10 @@
     "label.SMS.description": "SMS Service Configuration",
     "label.input.smsprovider": "SMS Provider",
     "label.button.proceed": "Proceed",
-
+    "label.anchor.smsproviders" : "SMS Providers",
+    "label.view.smsproviders" : "View SMS Providers",
+    "label.anchor.defaultsmsproviders" : "Default SMS Provider",
+    "error.msg.sms.provider.identifier.not.found" : "Sms provider with identifier `{{params[0].value}}` not found.",
 
     "------ end of translation file ------": "----------"
 }
