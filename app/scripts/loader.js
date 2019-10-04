@@ -38,7 +38,8 @@
             'angular-loading-bar':'../bower_components/angular-loading-bar/build/loading-bar',
             'angularXml2json':'../bower_components/angular-xml2json/angular-xml2json',
             'ui-sortable': '../bower_components/angular-ui-sortable/sortable',
-            'angular-recaptcha': '../bower_components/angular-recaptcha/release/angular-recaptcha'
+            'angular-recaptcha': '../bower_components/angular-recaptcha/release/angular-recaptcha',
+            'angular-wizard': '../scripts/modules/angular-wizard'
         },
         shim: {
             'angular': { deps: ['jquery','chosen.jquery.min'],exports: 'angular' },
@@ -73,6 +74,7 @@
             'jquery-ui': {deps: ["jquery"]},
             'ui-sortable': {deps: ["jquery-ui", "angular"]},
             'angular-recaptcha': {deps: ['angular']},
+            'angular-wizard': {deps: ['angular', 'underscore']},
             'mifosX': {
                 deps: [
                     'angular',
@@ -105,7 +107,8 @@
                     'angularXml2json',
                     'jquery-ui',
                     'ui-sortable',
-                    'angular-recaptcha'
+                    'angular-recaptcha',
+                    'angular-wizard'
                 ],
                 exports: 'mifosX'
             }
