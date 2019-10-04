@@ -1862,6 +1862,11 @@
                         getStateData: {method: 'GET', params: {countryId: '@countryId',stateId: '@stateId'}}
                     }),
                     talukaResource: defineResource(apiVer + "/districts/:districtId/talukas/:talukaId", {districtId: '@districtId',talukaId: '@talukaId'}, {
+                    }),
+                    smsProviderTemplateResource: defineResource(apiVer + "/smsprovider/template", {}, {
+                    }),
+                    smsProviderResource: defineResource(apiVer + "/smsprovider", {}, {
+                        update: {method: 'PUT'}
                     })   
                 };
             }];
