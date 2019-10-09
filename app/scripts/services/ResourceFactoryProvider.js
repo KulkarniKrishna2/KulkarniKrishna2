@@ -1930,7 +1930,10 @@
                         getStateData: {method: 'GET', params: {countryId: '@countryId',stateId: '@stateId'}}
                     }),
                     talukaResource: defineResource(apiVer + "/districts/:districtId/talukas/:talukaId", {districtId: '@districtId',talukaId: '@talukaId'}, {
-                    })
+                    }),
+                    cashierTxnsSummaryResource: defineResource(apiVer + "/tellers/:tellerId/cashiers/:cashierId/transactionsummary", {tellerId: "@tellerId", cashierId: "@cashierId"}, {
+                        getCashierTransactionsSummary: {method: 'GET', params: {tellerId: "@tellerId", cashierId: "@cashierId"}, isArray: false}
+                    }),
                 };
             }];
         }
