@@ -4886,7 +4886,7 @@
     "validation.msg.bank.account.detail.name.cannot.be.blank": "Bank Account Holder Name required",
     "validation.msg.PAYMENT_TYPE.bankAccountDetails.not.supported": "Bank Account Details not supported",
     "error.msg.beneficiary.bank.account.is.not.active": "Beneficiary bank account is not active",
-
+    "error.msg.bank.ifsc.detail.not.found":"Bank IFSC detail not found or may not exist",
     "bankAccountType.savingsaccount": "Savings Account",
     "bankAccountType.currentaccount": "Current Account",
     "bankAccountType.ODaccount": "OD Account",
