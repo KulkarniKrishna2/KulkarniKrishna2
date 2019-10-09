@@ -188,7 +188,8 @@
 				"paymentDetails": false,
 				"loanAccountNumber": false,
 				"savingsAccountNumber": false,
-				"clientForNoRepayments": false
+				"clientForNoRepayments": false,
+				"ToggleButton":true
 			},
 			"isMandatory": {
 				"officeId": false
@@ -279,7 +280,9 @@
 				"showStaff": true,
 				"addclients": true,
 				"activate": false,
-				"addGroups": true
+				"addGroups": true,
+				"areaCategory": true,
+				"staffOptions": false
 			},
 			"isAutoPopulate": {
 				"name": true
@@ -705,6 +708,15 @@
 		},
 		"documentConfiguration": {
 			"restrictTaggedDocuments": false
+		},
+		"editCenter": {
+			"isReadOnlyField": {
+				"name": false
+			},
+			"isHiddenField": {
+				"villageOptions": false,
+				"staffOptions": false
+			}
 		}	
 	}
 }
