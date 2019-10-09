@@ -105,13 +105,13 @@
 	    </div>
 	</div>
 	<div class="paddedbottom"></div>
-	<div ng-show="collectionsheetdata">
+	<div ng-hide="EmiAmountTotalDueToggleButton">
 		<div ng-hide="showEmiAmountOverTotalDue">
-		    <button class="btn btn-primary" ng-click="populateEmiAmount(collectionsheetdata)">{{'label.button.populate.emi.amount' | translate}}</button>
+		    <a type="button" class="btn btn-primary" ng-click="populateEmiAmount(collectionsheetdata)">{{'label.button.populate.emi.amount' | translate}}</a>
 		</div>
 		<div ng-show="showEmiAmountOverTotalDue">
-		    <button class="btn btn-primary" ng-click="populateTotalDue()">
-		    {{'label.button.populate.totalDue.amount' | translate}}</button>
+		    <a type="button" class="btn btn-primary" ng-click="populateTotalDue()">
+		    {{'label.button.populate.totalDue.amount' | translate}}</a>
 		</div>
 	</div>
 	<br>

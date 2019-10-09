@@ -721,7 +721,9 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'user/ReactivateUserController',
             'districts/CreateDistrictController',
             'districts/ViewDistrictController',
-            'districts/CreateTalukaController'
+            'districts/CreateTalukaController',
+            'user/ReactivateUserController',
+            'organization/cashmgmt/CashierTransactionSummaryController'
         ],
         filters: [
             'StatusLookup',

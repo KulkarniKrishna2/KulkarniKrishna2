@@ -13,8 +13,12 @@
             scope.loanApplicationCommonData.expectedDisbursementDate = new Date();
             scope.loanApplicationCommonData.syncDisbursementWithMeeting = true;
 
+
             if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.bulkJLGLoanAccount.hiddenField) {
                 scope.hideSyncDisbursementWithMeeting = scope.response.uiDisplayConfigurations.bulkJLGLoanAccount.hiddenField.syncDisbursementWithMeeting;
+                if (scope.hideSyncDisbursementWithMeeting) {
+                    scope.loanApplicationCommonData.syncDisbursementWithMeeting = false;
+                }
             }
 
 
@@ -143,6 +147,15 @@
                         }
 
                 }  
+                if (_.isUndefined(scope.isAttachedMetting)) {
+                    scope.errorDetails = [];
+                    var errorObj = new Object();
+                    errorObj.args = {
+                        params: []
+                    };
+                    errorObj.args.params.push({ value: 'error.msg.select.atleast.one.member' });
+                    scope.errorDetails.push(errorObj);
+                }
                 if(scope.isAttachedMetting){
                     resourceFactory.batchResource.post(this.batchRequests, function (data) {
 
