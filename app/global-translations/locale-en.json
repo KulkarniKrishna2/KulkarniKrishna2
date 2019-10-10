@@ -8078,6 +8078,8 @@
     "error.msg.document.can.not.be.deleted.as.atteached.to.entity" : "Document can not be deleted as attched to other entity.",
     "label.heading.editloancalendar" : "Edit Loan Calendar",
     "validation.msg.rescheduleloan.adjustedDueDate.can.not.reschedule.loan.calendar" : "Please edit loan calendar.",
+    "error.msg.cannot.be.submitted.as.tranche.amount.limit.type.is.not.supported.for.dlod.product" : "`{{params[0].value.value}}` is not supported for dlod product",
+    "error.msg.tranche.details.required.as.product.is.having.dp.details" : "Tranche details are required as product is having dp details",
     
     "------ end of translation file ------": "----------"
 }
