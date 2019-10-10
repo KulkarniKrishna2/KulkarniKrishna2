@@ -5,6 +5,7 @@
             scope.loanTemplate = {};
             scope.loanEMIPacks = [];
             scope.formData = {};
+            scope.showAdvancedSettings = false;
 
             resourceFactory.loanemipacktemplate.getEmiPackTemplate({loanProductId:scope.loanProductId}, function (data) {
                 scope.loanTemplate = data;
@@ -18,6 +19,9 @@
                 resourceFactory.loanemipack.add({loanProductId:scope.loanProductId},this.formData, function (data) {
                     location.path('/viewloanemipacks/'+scope.loanProductId);
                 });
+            };
+            scope.showOrHideAdvancedSettings = function () {
+                scope.showAdvancedSettings = !scope.showAdvancedSettings;
             };
 
         }
