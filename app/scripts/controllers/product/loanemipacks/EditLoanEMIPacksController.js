@@ -6,29 +6,37 @@
             scope.loanTemplate = {};
             scope.loanEMIPacks = [];
             scope.formData = {};
+            scope.showAdvancedSettings = false;
 
             resourceFactory.loanemipacktemplate.getEmiPackTemplate({loanProductId:scope.loanProductId}, function (data) {
                 scope.loanTemplate = data;
             });
 
             resourceFactory.loanemipack.getEmiPack({loanProductId:scope.loanProductId, loanEMIPackId:scope.loanEMIPackId}, function (data) {
-                scope.formData.repaymentEvery = data.repaymentEvery;
+                scope.formData = data;
                 scope.formData.repaymentFrequencyType = data.repaymentFrequencyType.id;
-                scope.formData.numberOfRepayments = data.numberOfRepayments;
-                scope.formData.sanctionAmount = data.sanctionAmount;
-                scope.formData.fixedEmi = data.fixedEmi;
-                scope.formData.disbursalAmount1 = data.disbursalAmount1;
-                scope.formData.disbursalAmount2 = data.disbursalAmount2;
-                scope.formData.disbursalAmount3 = data.disbursalAmount3;
-                scope.formData.disbursalAmount4 = data.disbursalAmount4;
-                scope.formData.disbursalEmi2 = data.disbursalEmi2;
-                scope.formData.disbursalEmi3 = data.disbursalEmi3;
-                scope.formData.disbursalEmi4 = data.disbursalEmi4;
-                scope.formData.isActive = data.isActive;
+                if(data.interestRateFrequencyType){
+                    scope.formData.interestRateFrequencyTypeId = data.interestRateFrequencyType.id;
+                }
+                if(scope.formData.interestRatePerPeriod || scope.formData.gracePeriod){
+                    scope.showOrHideAdvancedSettings();
+                }
             });
 
             scope.submit = function () {
                 this.formData.locale = scope.optlang.code;
+                delete scope.formData.id;
+                delete scope.formData.loanProductId;
+                delete scope.formData.interestRateFrequencyType;
+                delete scope.formData.combinedRepayEvery;
+                delete scope.formData.loanProductName;
+                if(scope.formData.interestRatePerPeriod ==""){
+                    delete scope.formData.interestRatePerPeriod;
+                    delete scope.formData.interestRateFrequencyTypeId;
+                }
+                if(scope.formData.gracePeriod ==""){
+                    delete scope.formData.gracePeriod;
+                }
                 if(!this.formData.isActive){
                     this.formData.isActive = false;
                 }
@@ -37,6 +45,9 @@
                 });
             };
 
+            scope.showOrHideAdvancedSettings = function () {
+                scope.showAdvancedSettings = !scope.showAdvancedSettings;
+            };
         }
     });
     mifosX.ng.application.controller('EditLoanEMIPacksController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$modal', '$route', mifosX.controllers.EditLoanEMIPacksController]).run(function ($log) {
