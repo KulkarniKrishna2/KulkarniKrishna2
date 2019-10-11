@@ -924,7 +924,7 @@
                     this.formData.dpStartDate = dateFilter(new Date(this.formData.dpStartDate),scope.df);
                 }
                 if(scope.loanaccountinfo.multiDisburseLoan && scope.loanaccountinfo.isDpConfigured){
-                    scope.loanAccountDpDetailData.dpLimitAmount = scope.formData.maxOutstandingLoanBalance;
+                    scope.loanAccountDpDetailData.dpLimitAmount = scope.formData.principal;
                     scope.loanAccountDpDetailData.dpStartDate = dateFilter(scope.loanAccountDpDetailData.dpStartDate, scope.df);
                     scope.loanAccountDpDetailData.locale = scope.optlang.code;
                     scope.loanAccountDpDetailData.dateFormat = scope.df;
