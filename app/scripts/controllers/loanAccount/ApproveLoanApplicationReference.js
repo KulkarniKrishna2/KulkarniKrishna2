@@ -178,6 +178,7 @@
                                 scope.formRequestData.fixedEmiAmount = scope.formData.loanEMIPackData.fixedEmi;
                                 if(scope.upfrontAmount){
                                     scope.formRequestData.amountForUpfrontCollection = scope.formData.amountForUpfrontCollection;
+                                }
                                 if(scope.formData.loanEMIPackData.interestRatePerPeriod){
                                     scope.formRequestData.interestRatePerPeriod = scope.formData.loanEMIPackData.interestRatePerPeriod;
                                     scope.formValidationData.interestRateFrequencyTypeId = scope.formData.loanEMIPackData.interestRateFrequencyType.id;
