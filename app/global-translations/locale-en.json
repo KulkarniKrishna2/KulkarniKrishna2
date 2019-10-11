@@ -8156,6 +8156,8 @@
      "error.msg.district.duplicate.entry" : "Duplicate district.",
      "error.msg.taluka.already.exist" : "Taluka with name `{{params[0].value}}` already exist.",
      "error.msg.district.already.exist" : "District with name `{{params[0].value}}` already exist.",
-     
+    "label.heading.grace.period" : "Grace Period",
+    "validation.msg.loanemipacks.gracePeriod.mustBeLessThan.numberOfRepayments" : "Grace period must be less than number of repayments",
+    
     "------ end of translation file ------": "----------"
 }
