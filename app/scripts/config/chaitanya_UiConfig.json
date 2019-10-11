@@ -257,7 +257,10 @@
     "collectionSheet": {
       "isAutoPopulate": {
         "showEmiAmount": true
-      }
+      },
+      "attendanceType": {
+				"showAllAttendanceTypes" : false
+			}
     }
   }
 }
