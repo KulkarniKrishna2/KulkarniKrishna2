@@ -8158,7 +8158,6 @@
      "error.msg.district.duplicate.entry" : "Duplicate district.",
      "error.msg.taluka.already.exist" : "Taluka with name `{{params[0].value}}` already exist.",
      "error.msg.district.already.exist" : "District with name `{{params[0].value}}` already exist.",
-
      "label.button.financial.year.closure": "Financial Year Closure",
      "label.heading.financial.year.closures": "Financial Year Closures",
      "label.anchor.financial.year.closures": "Financial Year Closures",
@@ -8175,8 +8174,6 @@
      "validation.msg.financial.closure.closureDate.accounting.not.closed": "Accounting is not closed for Financial closure closureDate",
      "validation.msg.financial.closure.closureDate.is.greater.than.date": "Financial closure closureDate is greater than `{{params[1].value}}`",
      "danger.msg.note.verify.all.the.accounts.before.closure": "Note: Verify all the accounts before closure",
-
-
     "label.heading.grace.period" : "Grace Period",
     "validation.msg.loanemipacks.gracePeriod.mustBeLessThan.numberOfRepayments" : "Grace period must be less than number of repayments",
     "error.msg.cannot.be.submitted.as.tranche.amount.limit.type.is.not.supported.for.dlod.product" : "`{{params[0].value.value}}` is not supported for dlod product",
@@ -8272,12 +8269,9 @@
     "error.msg.Permanent Address.address.with.addresstype.already.exists": "`{{params[0].value}}` for the entity `{{params[1].value}}`  already exists" , 
     "validation.msg.bank.account.detail.lastTransactionDate.is.greater.than.date": "Last Transaction date cannot be in future",
     "validation.msg.existingLoan.sourceId.cannot.be.blank": "Kindly select a source",
-
     "validation.msg.loanemipacks.numberOfRepayments.cannot.be.blank" : "Number of repayments cannot be blank",
     "label.button.audit.log" : "Audit Log",
     "label.only.text.middle.name" : "Allow only alphabet characters or space",
-
-    
      "label.heading.deceased.person" : "Deceased person",
      "label.heading.death.date" : "Death Date",
      "label.heading.death.intimation.date" : "Death Intimation Date",
@@ -8337,5 +8331,22 @@
      "label.heading.insurance.documents.action" : "Action",
      "label.heading.insurance.status.submit.all" : "Submit All",
      "label.heading.insurance.status.delete" : "Delete",
+     "lable.tab.heading.insurance.policy"  : "Insurance Policy",
+     "label.input.insurance.provider" : "Insurance Provider", 
+     "label.input.policy.number" : "Policy Number",
+     "label.input.COI.number" : "COI Number",
+     "label.input.insured.amount" : "Insured Amount",
+     "label.input.insurance.client.type" : "Insurance Client Type",
+     "label.input.insurance.effective.date" : "Effective Date", 
+     "label.input.insurance.expiry.date" : "Expiry Date", 
+     "error.msg.insurance.client.type.duplicate" : "Insurance Policy already exists for the provided insurance client type",
+     "error.msg.insurance.policy.id.invalid" : "Insurance policy with identifier `{{params[0].value}}` does not exist", 
+     "label.heading.add.insurance.policy" : "Add Insurance Policy",
+     "label.heading.edit.insurance.policy" : "Edit Insurance Policy",
+     "loan.is.not.insured" : "Loan is not insured",
+     "error.msg.coi.no.duplicate" : "COI numbers cannot be same for a loan",
+     "validation.msg.Insurance Policy.policyNo.exceeds.max.length": "Policy Number length exceeds max length of `{{params[0].value}}`",
+     "validation.msg.Insurance Policy.coiNo.exceeds.max.length" : "COI Number length exceeds max length of `{{params[0].value}}`",
+
      "------ end of translation file ------": "----------"
 }

@@ -1,0 +1,164 @@
+<div ng-controller="InsurancePolicyController">
+    <button type="button" class="btn btn-primary" ng-show="showAdd" ng-click="addInsurancePolicy()"><i
+            class="icon-check-sign icon-white"></i>{{ 'label.button.add' | translate }}
+    </button>
+    <div>
+        <form name="insurancepolicyform" ng-if="showform" novalidate="" class="form-horizontal well"
+            rc-submit="insurancePolicySubmit()">
+            <api-validate></api-validate>
+            <fieldset>
+                <table>
+                    <thead><strong>
+                            <div ng-if="!isUpdate">
+                                {{'label.heading.add.insurance.policy' | translate}}
+                            </div>
+                            <div ng-if="isUpdate">
+                                {{'label.heading.edit.insurance.policy' | translate}}
+                            </div>
+                        </strong>
+                    </thead>
+                    <wbr>
+                    <tr>
+                        <td class="col-sm-3">
+                            <label><strong>{{'label.input.insurance.provider' | translate}}:</strong></label>&nbsp;
+                            <select id="providerId" name="providerId" ng-model="formData.providerId"
+                                ng-options="code.id as code.name for code in insuranceProviderOptions"
+                                value="{{code.name}}" class="input-sm form-control" required late-Validate>
+                                <option value="">{{'label.selectone' | translate}}</option>
+                            </select>
+                            <div>
+                                <form-validate valattributeform="insurancepolicyform" valattribute="providerId" />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="graybg">
+                        <th>{{'label.input.insurance.client.type' | translate}}</th>
+                        <th>{{'label.input.policy.number' | translate}}</th>
+                        <th>{{'label.input.COI.number' | translate}}</th>
+                        <th>{{'label.input.insured.amount' | translate}}</th>
+                        <th>{{'label.input.insurance.effective.date' | translate}}</th>
+                        <th>{{'label.input.insurance.expiry.date' | translate}}</th>
+                    </tr>
+                    <tr ng-repeat="insurancePolicyDetail in formData.insurancePolicyDetails">
+                        <td>
+                            <span>
+                                <input id="insuranceClientTypeId" name="insuranceClientType"
+                                    ng-model="insurancePolicyDetail.insuranceClientTypeId" class="form-control"
+                                    value="{{insurancePolicyDetail.insuranceClientType.value}}" readonly />
+                            </span>
+                            <div>
+                                <form-validate valattributeform="insurancepolicyform"
+                                    valattribute="insuranceClientType" />
+                            </div>
+                        </td>
+
+                        <td>
+                            <input type="text" autocomplete="off" id="policyNo" name="policyNo"
+                                ng-model="insurancePolicyDetail.policyNo" class="form-control" late-validate />
+                            <div>
+                                <form-validate valattributeform="insurancepolicyform" valattribute="policyNo" />
+                            </div>
+                        </td>
+                        <td>
+                            <input type="text" autocomplete="off" id="coiNo" name="coiNo"
+                                ng-model="insurancePolicyDetail.coiNo" class="form-control" late-validate />
+                            <div>
+                                <form-validate valattributeform="insurancepolicyform" valattribute="coiNo" />
+                            </div>
+                        </td>
+                        <td>
+                            <input type="text" autocomplete="off" id="insuredAmount" name="insuredAmount"
+                                ng-model="insurancePolicyDetail.insuredAmount" class="form-control" late-validate
+                                readonly />
+                            <div>
+                                <form-validate valattributeform="insurancepolicyform" valattribute="insuredAmount" />
+                            </div>
+                        </td>
+                        <td>
+                            <input id="effectiveDate" name="effectiveDate" type="text" autocomplete="off"
+                                name="effectiveDate" datepicker-pop="{{df}}"
+                                ng-model="insurancePolicyDetail.effectiveDate" max="restrictDate" class="form-control"
+                                readonly />
+                            <div>
+                                <form-validate valattributeform="insurancepolicyform" valattribute="effectiveDate" />
+                            </div>
+                        </td>
+                        <td>
+                            <input id="expiryDate" type="text" autocomplete="off" name="expiryDate"
+                                datepicker-pop="{{df}}" ng-model="insurancePolicyDetail.expiryDate" max="restrictDate"
+                                class="form-control" readonly />
+                            <div>
+                                <form-validate valattributeform="insurancepolicyform" valattribute="effectiveDate" />
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <wbr>
+                <div class="center">
+                    <button id="cancel" ng-click="cancel()"
+                        class="btn btn-warning">{{'label.button.cancel'| translate}}
+                    </button>&nbsp;
+                    <button id="policysave" ng-if="!isUpdate" class="btn btn-primary"
+                        has-permission='CREATE_INSURANCE_POLICY'>{{'label.button.save'| translate}}
+                    </button>
+                    <button id="policysave" ng-if="isUpdate" class="btn btn-primary"
+                        has-permission='UPDATE_INSURANCE_POLICY'>{{'label.button.save'| translate}}
+                    </button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    <wbr>
+    <div>
+        <form name="viewinsurancepolicyform" ng-if="insurancePolicyDatas" novalidate="" class="form-horizontal well">
+            <fieldset>
+                <button type="button" class="btn btn-primary pull-right btn-group"
+                    data-ng-click="updateInsurancePolicy()" has-permission='UPDATE_INSURANCE_POLICY'><i
+                        class="icon-edit icon-white"></i></button>
+                &nbsp;
+                <button type="button" ng-show="showDelete" class="btn btn-primary pull-right btn-group"
+                    data-ng-click="deleteInsurancePolicy(loanId)" has-permission='DELETE_INSURANCE_POLICY'><i
+                        class="icon-trash icon-white"></i></button>
+                <div>
+                    <label><strong>{{'label.input.insurance.provider' | translate}}:</strong></label>&nbsp;
+                    <span>
+                        {{insuranceProviderName}}
+                    </span>
+                </div>
+                <wbr>
+                <table class="width100">
+                    <tr class="graybg">
+                        <th>{{'label.input.insurance.client.type' | translate}}</th>
+                        <th>{{'label.input.policy.number' | translate}}</th>
+                        <th>{{'label.input.COI.number' | translate}}</th>
+                        <th>{{'label.input.insured.amount' | translate}}</th>
+                        <th>{{'label.input.insurance.effective.date' | translate}}</th>
+                        <th>{{'label.input.insurance.expiry.date' | translate}}</th>
+                    </tr>
+                    <tr ng-repeat="insurancePolicyData in insurancePolicyDatas">
+                        <td>
+                            {{insurancePolicyData.insuranceClientType.value}}
+                        </td>
+                        <td>
+                            {{insurancePolicyData.policyNo}}
+                        </td>
+                        <td>
+                            {{insurancePolicyData.coiNo}}
+                        </td>
+                        <td>
+                            {{insurancePolicyData.insuredAmount}}
+                        </td>
+                        <td>
+                            {{insurancePolicyData.effectiveDate |DateFormat}}
+                        </td>
+                        <td>
+                            {{insurancePolicyData.expiryDate |DateFormat}}
+                            <div>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+        </form>
+    </div>
+</div>
