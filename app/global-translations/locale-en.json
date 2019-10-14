@@ -8202,6 +8202,7 @@
     "label.view.smsproviders" : "View SMS Providers",
     "label.anchor.defaultsmsproviders" : "Default SMS Provider",
     "error.msg.sms.provider.identifier.not.found" : "Sms provider with identifier `{{params[0].value}}` not found.",
+    "error.msg.unable.to.connect.to.intermediate.server" : "Unable to connect intermeiate server. Please check connection details.",
 
     "------ end of translation file ------": "----------"
 }
