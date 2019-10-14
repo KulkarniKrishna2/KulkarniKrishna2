@@ -346,12 +346,6 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'product/CreateTransactionAuthentication',
             'sms/SendSmsController',
             'sms/TrackSmsController',
-            'sms/CreateSmsCampaignController',
-            'sms/ViewSmsCampaignController',
-            'sms/EditSmsCampaignController',
-            'sms/CloseSmsCampaignController',
-            'sms/ActivateSmsCampaignController',
-            'sms/ReactivateCampaignController',
             'bankstatements/ViewBankStatementController',
             'bankstatements/ViewBankStatementDetailsController',
             'bankstatements/UploadBankStatementController',
@@ -723,7 +717,13 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'districts/ViewDistrictController',
             'districts/CreateTalukaController',
             'user/ReactivateUserController',
-            'organization/cashmgmt/CashierTransactionSummaryController'
+            'organization/cashmgmt/CashierTransactionSummaryController',
+            'organization/smscampaigns/CreateSmsCampaignController',
+            'organization/smscampaigns/ViewSmsCampaignController',
+            'organization/smscampaigns/EditSmsCampaignController',
+            'organization/smscampaigns/SmsCampaignsController',
+            'organization/SmsController',
+            'organization/smscampaigns/SmsProvidersController'
         ],
         filters: [
             'StatusLookup',
