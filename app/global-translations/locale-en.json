@@ -7990,6 +7990,8 @@
     "label.anchor.reactivate.user": "Reactivate User",
     "validation.msg.aadhaar.uniqueId.invalid.format" : "Aadhaar id is invalid",
     "label.input.searchbyname" : "Find By Name",
+    "label.heading.grace.period" : "Grace Period",
+    "validation.msg.loanemipacks.gracePeriod.mustBeLessThan.numberOfRepayments" : "Grace period must be less than number of repayments",
     
     "------ end of translation file ------": "----------"
 }
