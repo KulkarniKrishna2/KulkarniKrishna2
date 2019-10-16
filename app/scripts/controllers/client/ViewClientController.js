@@ -76,10 +76,10 @@
                 if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.referenceNo){
                     scope.refNo = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.referenceNo;
                 }
-                if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.blackList){
+                if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField){
                     scope.showBlackList = !scope.response.uiDisplayConfigurations.viewClient.isHiddenField.blackList;
                 }
-                if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.whiteList){
+                if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField){
                     scope.showWhiteList = !scope.response.uiDisplayConfigurations.viewClient.isHiddenField.whiteList;
                 }
                 if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.createLoanApplication){
