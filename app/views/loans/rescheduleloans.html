@@ -18,7 +18,7 @@
                             <div class="col-sm-3">
                                 <input id="rescheduleFromDate" type="text" autocomplete="off" name="rescheduleFromDate" datepicker-pop="{{df}}"
                                        class="form-control paddedbottom10 paddedtop" ng-model="formData.rescheduleFromDate"
-                                       is-open="opened" min="'2000-01-01'" max="restrictDate" ng-readonly="isDatePickerReadOnly" required/>
+                                       is-open="opened" min="'2000-01-01'"  ng-readonly="isDatePickerReadOnly" required/>
                             </div>
                             <div class="col-sm-1 paddinglr0px">
                                 <form-validate valattributeform="createloanrescheduleform" valattribute="rescheduleFromDate"/>
@@ -70,7 +70,7 @@
                                 }}<span ng-show="changeRepaymentDate" class="required">*</span>&nbsp;</label>
                             <div class="col-sm-3 paddedbottom10">
                                 <input id="adjustedDueDate" ng-show="changeRepaymentDate" type="text" autocomplete="off" name="adjustedDueDate" datepicker-pop="{{df}}"
-                                       class="form-control" ng-model="formData.adjustedDueDate" is-open="opened" min="'2000-01-01'" max="restrictDate" ng-required="changeRepaymentDate" ng-readonly="isDatePickerReadOnly"/>
+                                       class="form-control" ng-model="formData.adjustedDueDate" is-open="opened" min="'2000-01-01'"  ng-required="changeRepaymentDate" ng-readonly="isDatePickerReadOnly"/>
                             </div>
                             <div class="col-sm-1 paddinglr0px">
                                 <form-validate valattributeform="createloanrescheduleform" valattribute="adjustedDueDate"/>
