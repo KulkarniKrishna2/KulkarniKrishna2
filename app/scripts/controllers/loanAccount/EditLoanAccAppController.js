@@ -629,7 +629,7 @@
                     for(var i in data.glims){
                         if(data.glims[i].isClientSelected){
                             if(data.chargeCalculationType.value == scope.slabBasedCharge || data.isSlabBased){
-                                var slabBasedValue = scope.getSlabBasedAmount(data.slabs,scope.formData.principal,scope.formData.numberOfRepayments);
+                                var slabBasedValue = scope.getSlabBasedAmount(data.slabs,data.glims[i].transactionAmount,scope.formData.numberOfRepayments);
                                     if(slabBasedValue != null){
                                         data.glims[i].upfrontChargeAmount = slabBasedValue; 
                                         amount = amount + data.glims[i].upfrontChargeAmount;
