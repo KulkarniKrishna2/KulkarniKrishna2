@@ -7,8 +7,8 @@
                 "upfrontAmount":false
             },
             "isMandatoryField": {
-				"amountForUpfrontCollection": true
-			}
+                "amountForUpfrontCollection": true
+            }
         },
         "createClient": {
             "isMandatoryField": {
@@ -16,8 +16,16 @@
                 "maritalStatus": false
             },
             "isValidMobileNumber": {
-				"mobileNumberPattern": "/^[0-9]{9,10}$/"
-			}
-        }
+                "mobileNumberPattern": "/^[0-9]{9,10}$/"
+            },
+            "isHiddenField": {
+              "pincode": true  
+            }
+        },
+        "viewClient": {
+            "isHiddenField": {
+                "pincode": true
+            }
+        }   
     }
 }
