@@ -645,7 +645,6 @@
                             }
                         }else{
                             data.glims[i].upfrontChargeAmount = 0;
-                            amount = 0;
                         }
                     }
                     data.amountOrPercentage = amount;
