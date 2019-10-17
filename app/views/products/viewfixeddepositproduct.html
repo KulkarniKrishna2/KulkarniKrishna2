@@ -141,7 +141,24 @@
     <td colspan="3">{{depositproduct.taxGroup.name}}</td>
 </tr>
 <tr>
+    <td>{{'label.heading.is.auto.renewal.allowed' | translate}}</td>
+    <td colspan="3">{{depositproduct.autoRenewalEnabled}}</td>
+</tr>
+<tr>
     <td colspan="4"><br/></td>
+</tr>
+<tr class="bottomborder" ng-if="depositproduct.autoRenewalEnabled">
+        <td colspan="4"><strong>{{'label.heading.autorenewaldetails' | translate}}</strong></td>
+</tr>
+<tr ng-if="depositproduct.autoRenewalEnabled">
+   <td>{{'label.heading.grace.period' | translate}}</td>
+   <td>{{depositproduct.autoRenewalData.autoRenewalGracePeriod}} {{depositproduct.autoRenewalData.autoRenewalGracePeriodType.value}}</td>
+   &nbsp;
+</tr>
+<tr ng-if="depositproduct.autoRenewalEnabled">
+    <td>{{'label.heading.new.accounts.interest.rate.and tenure' | translate}}</td>
+    <td>{{depositproduct.autoRenewalData.autoRenewalConfigEnum.value}}</td>
+    &nbsp;
 </tr>
 <tr class="bottomborder">
     <td colspan="4"><strong>{{'label.heading.interestchart' | translate}}</strong></td>

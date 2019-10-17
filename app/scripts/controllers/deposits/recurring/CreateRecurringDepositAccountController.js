@@ -80,6 +80,16 @@
                     scope.formData.nominalAnnualInterestRate = data.nominalAnnualInterestRate;
                     scope.formData.lockinPeriodFrequency = data.lockinPeriodFrequency;
                     scope.formData.withHoldTax = data.withHoldTax;
+                    scope.formData.autoRenewalEnabled = data.autoRenewalEnabled;
+                    scope.autoRenewalEnabledAtProduct = scope.formData.autoRenewalEnabled;
+                    if(scope.formData.autoRenewalEnabled){
+                        scope.formData.autoRenewalData = {};
+                        scope.autoRenewalGracePeriodTypeOptions = data.autoRenewalData.autoRenewalGracePeriodTypeOptions;
+                        scope.autoRenewalConfigEnumOptions = data.autoRenewalData.autoRenewalConfigEnumOptions;
+                        scope.formData.autoRenewalData.autoRenewalGracePeriod = data.autoRenewalData.autoRenewalGracePeriod;
+                        scope.formData.autoRenewalData.autoRenewalGracePeriodType = data.autoRenewalData.autoRenewalGracePeriodType.id;
+                        scope.formData.autoRenewalData.autoRenewalConfigEnum = data.autoRenewalData.autoRenewalConfigEnum.id;
+                    }
 
                     if (data.interestCompoundingPeriodType) scope.formData.interestCompoundingPeriodType = data.interestCompoundingPeriodType.id;
                     if (data.interestPostingPeriodType) scope.formData.interestPostingPeriodType = data.interestPostingPeriodType.id;
@@ -120,6 +130,7 @@
                     scope.formData.allowWithdrawal = data.allowWithdrawal;
                     //alert(data.allowWithdrawal + '='+ data.isMandatoryDeposit + '='+data.adjustAdvanceTowardsFuturePayments);
                     scope.formData.adjustAdvanceTowardsFuturePayments = data.adjustAdvanceTowardsFuturePayments;
+
                 });
             };
 
@@ -187,6 +198,9 @@
                 this.formData.isCalendarInherited = (_.isNull(this.formData.isCalendarInherited) || _.isUndefined(this.formData.isCalendarInherited)) ? false : this.formData.isCalendarInherited;
                 this.formData.startDate = dateFilter(scope.date.first, scope.df);
                 this.formData.closeDate = dateFilter(scope.date.second, scope.df);
+                if(this.formData.autoRenewalEnabled){
+                    this.formData.autoRenewalData.locale = this.formData.locale;
+                }
 
                 if (scope.formData.expectedFirstDepositOnDate) {
                     this.formData.expectedFirstDepositOnDate = dateFilter(scope.formData.expectedFirstDepositOnDate, scope.df);

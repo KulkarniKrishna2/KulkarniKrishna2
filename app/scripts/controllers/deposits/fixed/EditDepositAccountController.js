@@ -99,10 +99,20 @@
                 scope.formData.maxDepositTermTypeId = maxDepositTermTypeId;
                 scope.formData.inMultiplesOfDepositTerm = data.inMultiplesOfDepositTerm;
                 scope.formData.inMultiplesOfDepositTermTypeId = inMultiplesOfDepositTermTypeId;
+                scope.formData.autoRenewalEnabled = data.autoRenewalEnabled;
                 if(data.transferInterestToSavings) {
                     scope.formData.transferInterestToSavings = 'true';
                 }else{
                     scope.formData.transferInterestToSavings = 'false';
+                }
+                if(data.autoRenewalData){
+                    scope.formData.autoRenewalData = {};
+                    scope.autoRenewalEnabledAtProduct = true;
+                    scope.autoRenewalGracePeriodTypeOptions = data.autoRenewalData.autoRenewalGracePeriodTypeOptions;
+                    scope.autoRenewalConfigEnumOptions = data.autoRenewalData.autoRenewalConfigEnumOptions;
+                    scope.formData.autoRenewalData.autoRenewalGracePeriod = data.autoRenewalData.autoRenewalGracePeriod;
+                    scope.formData.autoRenewalData.autoRenewalGracePeriodType = data.autoRenewalData.autoRenewalGracePeriodType.id;
+                    scope.formData.autoRenewalData.autoRenewalConfigEnum = data.autoRenewalData.autoRenewalConfigEnum.id;
                 }
             });
 
@@ -124,6 +134,16 @@
                     
                     scope.formData.lockinPeriodFrequency = data.lockinPeriodFrequency;
                     scope.formData.withHoldTax = data.withHoldTax;
+                    scope.formData.autoRenewalEnabled = data.autoRenewalEnabled;
+                    if(scope.formData.autoRenewalEnabled){
+                        scope.autoRenewalEnabledAtProduct = scope.formData.autoRenewalEnabled;
+                        scope.formData.autoRenewalData = {};
+                        scope.autoRenewalGracePeriodTypeOptions = data.autoRenewalData.autoRenewalGracePeriodTypeOptions;
+                        scope.autoRenewalConfigEnumOptions = data.autoRenewalData.autoRenewalConfigEnumOptions;
+                        scope.formData.autoRenewalData.autoRenewalGracePeriod = data.autoRenewalData.autoRenewalGracePeriod;
+                        scope.formData.autoRenewalData.autoRenewalGracePeriodType = data.autoRenewalData.autoRenewalGracePeriodType.id;
+                        scope.formData.autoRenewalData.autoRenewalConfigEnum = data.autoRenewalData.autoRenewalConfigEnum.id;
+                    }
 
                   
                     if (data.interestCompoundingPeriodType) scope.formData.interestCompoundingPeriodType = data.interestCompoundingPeriodType.id;
@@ -210,6 +230,9 @@
                 this.formData.dateFormat = scope.df;
                 this.formData.monthDayFormat = "dd MMM";
                 scope.formData.charges = [];
+                if(this.formData.autoRenewalEnabled){
+                    this.formData.autoRenewalData.locale = this.formData.locale;
+                }
                 if (scope.charges.length > 0) {
                     for (var i in scope.charges) {
                         if (scope.charges[i].chargeTimeType.value == 'Annual Fee') {

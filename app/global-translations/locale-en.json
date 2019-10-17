@@ -7992,6 +7992,18 @@
     "label.input.searchbyname" : "Find By Name",
     "label.heading.grace.period" : "Grace Period",
     "validation.msg.loanemipacks.gracePeriod.mustBeLessThan.numberOfRepayments" : "Grace period must be less than number of repayments",
+    "label.is.auto.renewal.allowed" : " Is AutoRenewal Allowed",
+    "label.tooltip.of.auto.renewal.in.deposit.product": "Auto renewal of the account will happen when grace period is over with some interest rate, duration and new deposit",
+    "label.heading.new.accounts.interest.rate.and tenure": "New Account's Interest rate and tenure",
+    "label.input.new.accounts.interest.rate.and tenure": "New Account's Interest rate and tenure",
+    "label.input.values.as.per.parent.account": "Values as per Parent account",
+    "label.input.values.as.per.product.configuration": "Values as per Product Configuration",
+    "label.input.autorenewalconfigtype.parentaccount": "Values as per Parent account",
+    "label.input.autorenewalconfigtype.product": "Values as per Product Configuration",
+    "label.heading.autorenewaldetails": "Auto Renewal Details",
+    "label.tooltip.of.auto.renewal.config": "Configuration from which tenure,interest rate,penal interests and lock in period are to be considered for auto renew account",
+    "label.heading.is.auto.renewal.allowed" : " Is AutoRenewal Allowed",
+    "label.heading.renewed": "Renewed",
     
     "------ end of translation file ------": "----------"
 }

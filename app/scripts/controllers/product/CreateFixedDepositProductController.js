@@ -35,6 +35,11 @@
                 scope.chart = scope.product.chartTemplate;
                 scope.chart.chartSlabs = [];
                 scope.formData.accountingRule = '1';
+                scope.formData.autoRenewalEnabled = data.autoRenewalEnabled;
+                scope.formData.autoRenewalData = {};
+                scope.autoRenewalGracePeriodTypeOptions = data.autoRenewalData.autoRenewalGracePeriodTypeOptions;
+                scope.autoRenewalConfigEnumOptions = data.autoRenewalData.autoRenewalConfigEnumOptions;
+                        
 
             });
 
@@ -161,7 +166,9 @@
                 this.formData.dateFormat = scope.df;
                 this.formData.charts = [];//declare charts array
                 this.formData.charts.push(copyChartData(scope.chart));//add chart details
-
+                if(this.formData.autoRenewalEnabled){
+                    this.formData.autoRenewalData.locale = this.formData.locale;
+                }
                 resourceFactory.fixedDepositProductResource.save(this.formData, function (data) {
                     location.path('/viewfixeddepositproduct/' + data.resourceId);
                 });
