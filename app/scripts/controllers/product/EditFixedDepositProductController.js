@@ -67,8 +67,19 @@
                     maxDepositTermTypeId: maxDepositTermTypeId,
                     inMultiplesOfDepositTerm: data.inMultiplesOfDepositTerm,
                     inMultiplesOfDepositTermTypeId: inMultiplesOfDepositTermTypeId,
-                    withHoldTax: data.withHoldTax == true ? 'true' : 'false'
+                    withHoldTax: data.withHoldTax == true ? 'true' : 'false',
+                    autoRenewalEnabled: data.autoRenewalEnabled
                 }
+
+                if(scope.formData.autoRenewalEnabled){
+                    scope.formData.autoRenewalData = {};
+                    scope.formData.autoRenewalData.autoRenewalGracePeriod = data.autoRenewalData.autoRenewalGracePeriod;
+                    scope.formData.autoRenewalData.autoRenewalGracePeriodType = data.autoRenewalData.autoRenewalGracePeriodType.id;
+                    scope.formData.autoRenewalData.autoRenewalConfigEnum = data.autoRenewalData.autoRenewalConfigEnum.id;
+                }
+                scope.autoRenewalGracePeriodTypeOptions = data.autoRenewalData.autoRenewalGracePeriodTypeOptions;
+                scope.autoRenewalConfigEnumOptions = data.autoRenewalData.autoRenewalConfigEnumOptions;
+                
 
                 if(data.withHoldTax){
                     scope.formData.taxGroupId = data.taxGroup.id;
@@ -256,7 +267,10 @@
                 this.formData.charts.push(copyChartData(scope.chart));//add chart details
                 this.formData = removeEmptyValues(this.formData);
                 this.formData.startDate = reqFirstDate ? reqFirstDate : ""; 
-                this.formData.closeDate = reqSecondDate ? reqSecondDate : ""; 
+                this.formData.closeDate = reqSecondDate ? reqSecondDate : "";
+                if(this.formData.autoRenewalEnabled){
+                    this.formData.autoRenewalData.locale = this.formData.locale;
+                } 
                 if(this.formData.lockinPeriodFrequency == undefined){
                     this.formData.lockinPeriodFrequency = null;
                 }

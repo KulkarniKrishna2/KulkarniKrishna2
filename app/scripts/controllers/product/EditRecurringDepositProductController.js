@@ -67,9 +67,19 @@
                     allowWithdrawal:data.allowWithdrawal,
                     adjustAdvanceTowardsFuturePayments:data.adjustAdvanceTowardsFuturePayments,
                     minBalanceForInterestCalculation:data.minBalanceForInterestCalculation,
-                    withHoldTax: data.withHoldTax == true ? 'true' : 'false'
+                    withHoldTax: data.withHoldTax == true ? 'true' : 'false',
+                    autoRenewalEnabled: data.autoRenewalEnabled
                 }
 
+                if(data.autoRenewalEnabled){
+                    scope.formData.autoRenewalData = {};
+                    scope.formData.autoRenewalData.autoRenewalGracePeriod = data.autoRenewalData.autoRenewalGracePeriod;
+                    scope.formData.autoRenewalData.autoRenewalGracePeriodType = data.autoRenewalData.autoRenewalGracePeriodType.id;
+                    scope.formData.autoRenewalData.autoRenewalConfigEnum = data.autoRenewalData.autoRenewalConfigEnum.id;
+                }
+                scope.autoRenewalGracePeriodTypeOptions = data.autoRenewalData.autoRenewalGracePeriodTypeOptions;
+                scope.autoRenewalConfigEnumOptions = data.autoRenewalData.autoRenewalConfigEnumOptions;
+                        
                 if(data.withHoldTax){
                     scope.formData.taxGroupId = data.taxGroup.id;
                 }
@@ -262,6 +272,9 @@
                 this.formData = removeEmptyValues(this.formData);
                 this.formData.startDate = reqFirstDate ? reqFirstDate : ""; 
                 this.formData.closeDate = reqSecondDate ? reqSecondDate : "";
+                if(this.formData.autoRenewalEnabled){
+                    this.formData.autoRenewalData.locale = this.formData.locale;
+                }
                 resourceFactory.recurringDepositProductResource.update({productId: routeParams.productId}, this.formData, function (data) {
                     location.path('/viewrecurringdepositproduct/' + data.resourceId);
                 });

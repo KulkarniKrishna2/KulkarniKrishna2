@@ -701,7 +701,8 @@
 							<i tooltip-placement="right" ng-hide="savingaccount.subStatus.id==0"  tooltip="{{savingaccount.status.value+':'+savingaccount.subStatus.value}}" class="icon-stop {{savingaccount.status.code+savingaccount.subStatus.value | StatusLookup}}"></i>
 							{{savingaccount.accountNo}}
 						</td>
-						<td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">{{savingaccount.productName}}</td>
+						<td class="pointer" ng-hide="savingaccount.isAutoRenewAccount" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">{{savingaccount.productName}}</td>
+						<td class="pointer" ng-show="savingaccount.isAutoRenewAccount" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">{{savingaccount.productName}}({{'label.heading.renewed'|translate}})</td>
 						<td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">{{savingaccount.lastActiveTransactionDate|DateFormat}}</td>
 						<td class="pointer center" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">{{savingaccount.accountBalance|number}}</td>
 						<td class="pointer" ng-if="savingaccount.status.active">
@@ -739,7 +740,8 @@
 							<i tooltip="{{savingaccount.status.value}}" class="icon-stop {{savingaccount.status.code | StatusLookup}}"></i>
 							{{savingaccount.accountNo}}
 						</td>
-						<td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">{{savingaccount.productName}}</td>
+						<td class="pointer" ng-hide="savingaccount.isAutoRenewAccount" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">{{savingaccount.productName}}</td>
+						<td class="pointer" ng-show="savingaccount.isAutoRenewAccount" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">{{savingaccount.productName}}({{'label.heading.renewed'|translate}})</td>
 						<td class="pointer" data-ng-click="routeToSaving(savingaccount.id, savingaccount.depositType.code)">
 							<span data-ng-show="savingaccount.timeline.closedOnDate">{{savingaccount.timeline.closedOnDate | DateFormat}}</span>
 						</td>
