@@ -81,6 +81,11 @@
                     accountNumberRepeat: scope.formData.accountNumber,
                     ifscCodeRepeat: scope.formData.ifscCode
                 };
+                delete scope.formData.isLocked;
+                delete scope.formData.verificationType;
+                delete scope.formData.isVerified;
+                delete scope.formData.verifiedOn;
+                delete scope.formData.verifiedComment;
             };
 
              scope.delete = function () {

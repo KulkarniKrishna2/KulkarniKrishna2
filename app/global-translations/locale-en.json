@@ -4897,6 +4897,7 @@
     "label.heading.loans": "Loan",
     "label.heading.holdername": "Bank Account Holder Name",
     "label.heading.accountnumber": "Bank Account Number",
+    "label.heading.verified": "Verified",
     "label.heading.ifsccode": "Bank IFSC code",
     "label.heading.mobilenumber": "Mobile Number",
     "label.heading.email": "Email",
