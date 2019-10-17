@@ -23,6 +23,7 @@
                         <th>{{'label.heading.holdername' | translate}}</th>
                         <th>{{'label.heading.accountnumber' | translate}}</th>
                         <th>{{'label.heading.ifsc' | translate}}</th>
+                        <th>{{'label.heading.verified' | translate}}</th>
                         <th>{{'label.createdon' | translate}}</th>
                         <th>{{'label.heading.lastupdatedon' | translate}}</th>
                     </tr>
@@ -33,6 +34,7 @@
                         <td class="pointer" data-ng-click="routeTo(record.bankAccountAssociationId)">{{record.name}}</td>
                         <td class="pointer" data-ng-click="routeTo(record.bankAccountAssociationId)">{{record.accountNumber}}</td>
                         <td class="pointer" data-ng-click="routeTo(record.bankAccountAssociationId)">{{record.ifscCode}}</td>
+                        <td class="pointer" data-ng-click="routeTo(record.bankAccountAssociationId)">{{record.isVerified ? 'Yes' : 'No'}}</td>
                         <td class="pointer" data-ng-click="routeTo(record.bankAccountAssociationId)">{{record.createdDate | DateTimeFormat}}</td>
                         <td class="pointer" data-ng-click="routeTo(record.bankAccountAssociationId)">{{record.lastModifiedDate | DateTimeFormat}}</td>
                     </tr>
