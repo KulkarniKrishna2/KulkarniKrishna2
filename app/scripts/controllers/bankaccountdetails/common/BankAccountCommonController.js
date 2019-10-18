@@ -94,6 +94,17 @@
                         scope.viewConfig.approved = true;
                     }
                 }
+
+                scope.viewConfig.isVerified = scope.bankData.isVerified;
+
+                scope.bankAccountData = scope.bankData;
+                if(scope.bankData.accountNumber !=undefined) {
+                    scope.viewConfig.hasData = true;
+                    enableShowSummary();
+                }else{
+                    disableShowSummary();
+                }
+
                 scope.bankAccountData = scope.bankData;
                 if (scope.bankData.accountNumber != undefined) {
                     scope.viewConfig.hasData = true;

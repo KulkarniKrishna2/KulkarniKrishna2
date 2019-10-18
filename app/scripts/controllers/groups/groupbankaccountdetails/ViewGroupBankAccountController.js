@@ -83,6 +83,7 @@
                 };
                 delete scope.formData.isLocked;
                 delete scope.formData.verificationType;
+                delete scope.formData.verificationStatus;
                 delete scope.formData.isVerified;
                 delete scope.formData.verifiedOn;
                 delete scope.formData.verifiedComment;
