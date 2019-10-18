@@ -210,7 +210,10 @@
       "newLoanApplicationLimitAllowed" : true
     },
     "creditBureau":{
-      "getlimit":3
+      "getlimit":3,
+      "isHiddenField":{
+        "viewHistoryCBReportButton":false
+      }
     },
     "voucherTypeForm": {
       "isMandatoryFields": {
@@ -251,11 +254,6 @@
     "glAccount": {
       "isMandatoryField": {
         "companyCode":true
-      }
-    },
-    "creditBureau": {
-      "isHiddenField":{
-        "viewHistoryCBReportButton":false
       }
     },
     "collectionSheet": {

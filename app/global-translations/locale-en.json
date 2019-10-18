@@ -8172,8 +8172,6 @@
     "label.tooltip.of.auto.renewal.config": "Configuration from which tenure,interest rate,penal interests and lock in period are to be considered for auto renew account",
     "label.heading.is.auto.renewal.allowed" : " Is AutoRenewal Allowed",
     "label.heading.renewed": "Renewed",
-    
-
      "--sms-multi-tenant---" : "-----",
      "label.menu.smsProvider":"Select SMS Provider",
      "label.menu.campaignType":"Select Campaign Type",
