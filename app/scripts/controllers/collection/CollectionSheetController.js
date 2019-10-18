@@ -34,6 +34,7 @@
             scope.isShowReasonDropDown = false;
             scope.isRejectReasonMandatory = false;
             
+            scope.showAllAttendanceTypes = true;
             resourceFactory.configurationResource.get({configName:'reason-code-allowed'}, function (data) {
                 scope.showRejectReason = data.enabled;
             });
@@ -46,6 +47,7 @@
             if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.collectionSheet) {
                 if(scope.response.uiDisplayConfigurations.collectionSheet.attendanceType){
                     scope.defaultAttendanceValue = scope.response.uiDisplayConfigurations.collectionSheet.attendanceType.defaultValue; 
+                    scope.showAllAttendanceTypes = scope.response.uiDisplayConfigurations.collectionSheet.attendanceType.showAllAttendanceTypes;
                 }
                 if(scope.response.uiDisplayConfigurations.collectionSheet.isAutoPopulate){
                     scope.showEmiAmountOverTotalDue = scope.response.uiDisplayConfigurations.collectionSheet.isAutoPopulate.showEmiAmount; 
@@ -375,6 +377,16 @@
                 scope.attendanceTypeOptions = scope.response.uiDisplayConfigurations.attendanceTypeOptions;
                 if (!_.isUndefined(scope.attendanceTypeOptions)) {
                     scope.originalCollectionsheetData.attendanceTypeOptions = scope.attendanceTypeOptions;
+                }
+                if(!scope.showAllAttendanceTypes){
+                    var allowedAttendanceTypeOptions = ['Present','Absent'];
+                    var temp = angular.copy(scope.collectionsheetdata.attendanceTypeOptions);
+                    for (var i in temp) {
+                        if (allowedAttendanceTypeOptions.indexOf(temp[i].value) <= -1) {
+                            var index = scope.collectionsheetdata.attendanceTypeOptions.findIndex(x => x.value==temp[i].value);
+                            scope.collectionsheetdata.attendanceTypeOptions.splice(index, 1);
+                        }
+                    }
                 }
             };
 

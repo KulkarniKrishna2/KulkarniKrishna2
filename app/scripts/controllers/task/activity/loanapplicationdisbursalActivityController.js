@@ -443,8 +443,10 @@
             
                 if (!scope.date.repaymentsStartingFromDate || scope.date.repaymentsStartingFromDate == "") {
                     this.formRequestData.submitApplication.repaymentsStartingFromDate = undefined;
+                    this.formRequestData.disburse.repaymentsStartingFromDate = undefined;
                 }else{
                     this.formRequestData.submitApplication.repaymentsStartingFromDate = dateFilter(new Date(scope.date.repaymentsStartingFromDate), scope.df);
+                    this.formRequestData.disburse.repaymentsStartingFromDate = dateFilter(new Date(scope.date.repaymentsStartingFromDate), scope.df);
                 }
 
                 if (scope.date.recalculationRestFrequencyDate) {

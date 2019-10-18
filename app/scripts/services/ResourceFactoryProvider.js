@@ -1223,6 +1223,9 @@
                     bankAccountDetailActionResource: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetail/:clientBankAccountDetailAssociationId/action", {entityType: "@entityType",entityId: '@entityId',clientBankAccountDetailAssociationId: '@clientBankAccountDetailAssociationId', command:'@command'}, {
                         doAction: {method: 'POST',params:{command:'@command'}}
                     }),
+                    bankIFSCResource: defineResource(apiVer + "/ifsc/:ifscCode", {ifscCode: "@ifscCode"}, {
+                        get: {method: 'GET'}
+                    }),
                     bankAccountDetailWorkflowResource: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetail/workflow", {entityType: "@entityType",entityId: '@entityId'}, {
                         get: {method: 'GET', params: {}}
                     }),

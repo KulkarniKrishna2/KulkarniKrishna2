@@ -195,7 +195,8 @@
 				"officeId": false
 			},
 			"attendanceType": {
-				"defaultValue": ""
+				"defaultValue": "",
+				"showAllAttendanceTypes" : true
 			}
 		},
 		"createClient": {
