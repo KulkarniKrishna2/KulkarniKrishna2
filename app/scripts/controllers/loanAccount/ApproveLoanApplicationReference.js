@@ -176,9 +176,6 @@
                                 scope.formRequestData.repaymentPeriodFrequencyEnum = scope.formData.loanEMIPackData.repaymentFrequencyType.id;
                                 scope.formRequestData.repayEvery = scope.formData.loanEMIPackData.repaymentEvery;
                                 scope.formRequestData.fixedEmiAmount = scope.formData.loanEMIPackData.fixedEmi;
-                                if(scope.upfrontAmount){
-                                    scope.formRequestData.amountForUpfrontCollection = scope.formData.amountForUpfrontCollection;
-                                }
                                 if(scope.formData.loanEMIPackData.interestRatePerPeriod){
                                     scope.formRequestData.interestRatePerPeriod = scope.formData.loanEMIPackData.interestRatePerPeriod;
                                     scope.formValidationData.interestRateFrequencyTypeId = scope.formData.loanEMIPackData.interestRateFrequencyType.id;
@@ -675,6 +672,26 @@
                                 }
                             }
                         }
+                    }
+                    if (loanEMIPack.interestRatePerPeriod) {
+                        scope.formRequestData.interestRatePerPeriod = loanEMIPack.interestRatePerPeriod;
+                        scope.formValidationData.interestRateFrequencyTypeId = loanEMIPack.interestRateFrequencyType.id;
+                    } else {
+                        scope.formRequestData.interestRatePerPeriod = scope.loanaccountinfo.interestRatePerPeriod;
+                        delete scope.formValidationData.interestRateFrequencyTypeId;
+                    }
+                    if (loanEMIPack.gracePeriod) {
+                        var gracePeriod = loanEMIPack.gracePeriod;
+                        scope.formValidationData.graceOnPrincipalPayment = gracePeriod;
+                        scope.formValidationData.graceOnInterestPayment = gracePeriod;
+                        scope.formValidationData.graceOnArrearsAgeing = gracePeriod;
+                        scope.formValidationData.graceOnInterestCharged = gracePeriod;
+                    } else {
+                        scope.formValidationData.graceOnPrincipalPayment = scope.loanaccountinfo.graceOnPrincipalPayment;
+                        scope.formValidationData.graceOnInterestPayment = scope.loanaccountinfo.graceOnInterestPayment;
+                        scope.formValidationData.graceOnArrearsAgeing = scope.loanaccountinfo.graceOnArrearsAgeing;
+                        scope.formValidationData.transactionProcessingStrategyId = scope.loanaccountinfo.transactionProcessingStrategyId;
+                        scope.formValidationData.graceOnInterestCharged = scope.loanaccountinfo.graceOnInterestCharged;
                     }
                 }
             });

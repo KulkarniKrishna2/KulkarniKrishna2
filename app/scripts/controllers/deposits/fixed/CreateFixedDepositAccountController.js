@@ -57,6 +57,16 @@
                     scope.formData.minRequiredOpeningBalance = data.minRequiredOpeningBalance;
                     scope.formData.lockinPeriodFrequency = data.lockinPeriodFrequency;
                     scope.formData.withHoldTax = data.withHoldTax;
+                    scope.formData.autoRenewalEnabled = data.autoRenewalEnabled;
+                    scope.autoRenewalEnabledAtProduct = data.autoRenewalEnabled;
+                    if(scope.formData.autoRenewalEnabled){
+                        scope.formData.autoRenewalData = {};
+                        scope.autoRenewalGracePeriodTypeOptions = data.autoRenewalData.autoRenewalGracePeriodTypeOptions;
+                        scope.autoRenewalConfigEnumOptions = data.autoRenewalData.autoRenewalConfigEnumOptions;
+                        scope.formData.autoRenewalData.autoRenewalGracePeriod = data.autoRenewalData.autoRenewalGracePeriod;
+                        scope.formData.autoRenewalData.autoRenewalGracePeriodType = data.autoRenewalData.autoRenewalGracePeriodType.id;
+                        scope.formData.autoRenewalData.autoRenewalConfigEnum = data.autoRenewalData.autoRenewalConfigEnum.id;
+                    }
 
                     if (data.interestCompoundingPeriodType) scope.formData.interestCompoundingPeriodType = data.interestCompoundingPeriodType.id;
                     if (data.interestPostingPeriodType) scope.formData.interestPostingPeriodType = data.interestPostingPeriodType.id;
@@ -141,7 +151,7 @@
                 this.formData.dateFormat = scope.df;
                 this.formData.monthDayFormat = "dd MMM";
                 this.formData.charges = [];
-
+                
                 if (scope.clientId) this.formData.clientId = scope.clientId;
                 if (scope.groupId) this.formData.groupId = scope.groupId;
                 if (scope.centerId) this.formData.centerId = scope.centerId;
@@ -166,7 +176,9 @@
                 this.formData.charts = [];//declare charts array
                 this.formData.charts.push(copyChartData(scope.chart));//add chart details
                 this.formData = removeEmptyValues(this.formData);
-
+                if(this.formData.autoRenewalEnabled){
+                    this.formData.autoRenewalData.locale = this.formData.locale;
+                } 
                 resourceFactory.fixedDepositAccountResource.save(this.formData, function (data) {
                     location.path('/viewfixeddepositaccount/' + data.savingsId);
                 });
