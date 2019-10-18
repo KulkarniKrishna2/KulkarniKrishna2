@@ -468,19 +468,15 @@
                 updateData();
             };
 
-            scope.getBankDetails = function(isvalidIfsc){
-                if(scope.formData.ifscCode != undefined && scope.formData.ifscCode === scope.repeatFormData.ifscCodeRepeat && isvalidIfsc){
-                    var url = "https://ifsc.razorpay.com/" + scope.formData.ifscCode;
-                    url = $sce.trustAsResourceUrl(url);
-                    $http({
-                        method: 'GET',
-                        url: url
-                    }).then(function (data) {
-                        scope.bankData = data;
-                        scope.formData.bankName = scope.bankData.BANK;
-                        scope.formData.branchName = scope.bankData.BRANCH;
-                    })
-                }
+            scope.getBankDetails = function (isvalidIfsc) {
+                resourceFactory.bankIFSCResource.get({
+                    ifscCode: scope.formData.ifscCode
+                }, function (data) {
+                    scope.bankData = data;
+                    scope.formData.bankName = scope.bankData.bankName;
+                    scope.formData.branchName = scope.bankData.branchName;
+                    scope.formData.bankCity = scope.bankData.bankCity;
+                });
             }
             
             scope.inActivateAssociation = function () {

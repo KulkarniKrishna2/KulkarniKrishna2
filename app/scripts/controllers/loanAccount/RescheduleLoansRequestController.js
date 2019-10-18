@@ -11,6 +11,7 @@
             scope.isLoanCalendarAttached = false;
             scope.editLoanCalendar = false;
             scope.editLoanCalendarData = {};
+            scope.restrictDate = new Date();
             resourceFactory.loanRescheduleResource.template({scheduleId:'template', loanId:scope.loanId},function(data){
                 if (data.length > 0) {
                     scope.formData.rescheduleReasonId = data.rescheduleReasons[0].id;
