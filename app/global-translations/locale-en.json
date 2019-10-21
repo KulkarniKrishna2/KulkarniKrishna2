@@ -8004,6 +8004,8 @@
     "label.tooltip.of.auto.renewal.config": "Configuration from which tenure,interest rate,penal interests and lock in period are to be considered for auto renew account",
     "label.heading.is.auto.renewal.allowed" : " Is AutoRenewal Allowed",
     "label.heading.renewed": "Renewed",
+    "validation.msg.loanemipacks.interestRateFrequencyTypeId.cannot.be.blank" : "Interest Rate Period type cannot be blank",
+    "validation.msg.loanemipacks.interestRateFrequencyTypeId.is.one.of.unwanted.enumerations" : "Please select a valid Interest Rate Period type",
     
     "------ end of translation file ------": "----------"
 }
