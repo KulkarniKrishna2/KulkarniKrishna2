@@ -6,32 +6,32 @@
         </ul>
     </div>
     <tabset class="tab-container">
-      <tab  tab-highlight select="fetchInsuranceData('intimationapprovalpending')"> <!-- the tab highlight directive -->
+      <tab active="intimationapprovalpending" tab-highlight select="fetchInsuranceData('intimationapprovalpending')"> <!-- the tab highlight directive -->
         <tab-heading>
           <span>{{'label.heading.menu.insurance.intimation.approval.pending' | translate}}</span> 
         </tab-heading>
       </tab>
-      <tab active="tab.active" tab-highlight select="fetchInsuranceData('documentsupload')"> <!-- the tab highlight directive -->
+      <tab active="documentsupload" active="documentsupload" tab-highlight select="fetchInsuranceData('documentsupload')"> <!-- the tab highlight directive -->
         <tab-heading>
           <span>{{'label.heading.menu.insurance.document.upload' | translate}}</span>
         </tab-heading>
       </tab>
-      <tab  tab-highlight select="fetchInsuranceData('claimverificationpending')"> <!-- the tab highlight directive -->
+      <tab active="claimverificationpending"  tab-highlight select="fetchInsuranceData('claimverificationpending')"> <!-- the tab highlight directive -->
         <tab-heading>
           <span>{{'label.heading.menu.insurance.claim.verification.pending' | translate}}</span> 
         </tab-heading>
       </tab>
-      <tab  tab-highlight select="fetchInsuranceData('verifiedClaims')"> <!-- the tab highlight directive -->
+      <tab  active="verifiedClaims" tab-highlight select="fetchInsuranceData('verifiedClaims')"> <!-- the tab highlight directive -->
         <tab-heading>
           <span>{{'label.heading.menu.insurance.verified.claims' | translate}}</span>
         </tab-heading>
       </tab>
-      <tab  tab-highlight select="fetchInsuranceData('settlementPending')"> <!-- the tab highlight directive -->
+      <tab  active="settlementpending"  tab-highlight select="fetchInsuranceData('settlementPending')"> <!-- the tab highlight directive -->
         <tab-heading>
           <span>{{'label.heading.menu.insurance.settelment.pending' | translate}}</span>
         </tab-heading>
       </tab>
-      <tab  tab-highlight select="fetchInsuranceData('settledClaims')"> <!-- the tab highlight directive -->
+      <tab   active="settledClaims" tab-highlight select="fetchInsuranceData('settledClaims')"> <!-- the tab highlight directive -->
         <tab-heading>
           <span>{{'label.heading.menu.insurance.setteled.claims' | translate}}</span>
         </tab-heading>
@@ -41,10 +41,51 @@
       <br/>
       <api-validate></api-validate>
       <br/>
-      <legend>{{'label.heading.deceased.client.details' | translate}}</legend>
+      <table class="table">
+        <tr>
+            <td>
+                <div>
+                    <select chosen="offices" id="officeId" ng-model="officeId" name="office" class="chzn-select-deselect form-control"
+	                    ng-options="office.id as office.name for office in offices" value="{{office.id}}"
+	                    ng-change="officeSelected(officeId)" >
+	                <option value="">{{'label.selectoffice' | translate}}</option>
+	            </select>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <select chosen="centers" id="centerId" name="center" ng-model="centerId"
+	                    ng-options="center.id as center.name for center in centers" value="{{center.id}}"
+	                    ng-change="centerSelected(centerId)" class="form-control">
+	                <option value="">{{'label.selectcenter' | translate}}</option>
+	            </select>
+                </div>
+            </td>
+            <td ng-show="selectAllOption" >
+                <div>
+                  <input id="settelmentDate" type="text" autocomplete="off" placeholder="From Date" name="settelmentDate" datepicker-pop="{{df}}" ng-model="fromDate"
+                  is-open="opened1" max="'2020-06-22'" class="form-control"/>
+                </div>
+            </td>
+            <td ng-show="selectAllOption" >
+                <div>
+                  <input id="settelmentDate" type="text" autocomplete="off" placeholder="To Date" name="settelmentDate" datepicker-pop="{{df}}" ng-model="toDate"
+                  is-open="opened1" max="'2020-06-22'" class="form-control"/>
+                </div>
+            </td>
+            <td>
+                <div class="col-sm-1">
+                    <div>
+                        <button class="btn btn-primary" ng-click="getFilteredData()"><i
+                                class="icon-search"></i>{{'label.button.fetchdetails' | translate}}</button>
+                    </div>
+                </div>
+            <td>
+        </tr>
+    </table>
 
       <tabset class="tab-container">
-        <tab active="tab.active" tab-highlight select="fetchInsuranceData('intimationapprovalpending')"> <!-- the tab highlight directive -->
+        <tab active="tab.active" tab-highlight ng-click="fetchInsuranceData('intimationapprovalpending')"> <!-- the tab highlight directive -->
           <tab-heading>
             <span>{{'label.heading.menu.insurance.claims.approval.pending' | translate}}</span> 
           </tab-heading>

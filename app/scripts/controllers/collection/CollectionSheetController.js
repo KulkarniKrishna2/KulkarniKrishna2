@@ -305,6 +305,7 @@
                     scope.productiveCollctionSheetSearchParams = searchParameters;
                     resourceFactory.centerResource.save({'centerId': scope.centerId, command: 'generateCollectionSheet'}, scope.formData, function (data) {
                         if (data.groups && data.groups.length > 0) {
+                            scope.deceasedPrincipalInterestDue = 0;
                             scope.originalCollectionsheetData = scope.parseClientCharge(data);
                             scope.paymentTypeOptions = data.paymentTypeOptions;
                             if(scope.collectionsheetdata != ""){
@@ -338,6 +339,7 @@
                     scope.productiveCollctionSheetSearchParams = searchParameters;
                     resourceFactory.groupResource.save({'groupId': scope.groupId, command: 'generateCollectionSheet'}, scope.formData, function (data) {
                         if (data.groups && data.groups.length > 0) {
+                            scope.deceasedPrincipalInterestDue = 0;
                             scope.originalCollectionsheetData = scope.parseClientCharge(data);
                             scope.paymentTypeOptions = data.paymentTypeOptions;
                             if(scope.collectionsheetdata != ""){
@@ -627,9 +629,14 @@
             };
 
             scope.getLoanTotalDueAmount = function(loan){
-                var principalInterestDue = loan.totalDue;
-                if (isNaN(principalInterestDue)) {
-                    principalInterestDue = 0;
+                var principalInterestDue = 0;
+                if(loan.accountSubStatusId !=104) {
+                    principalInterestDue = loan.totalDue;
+                    if (isNaN(principalInterestDue)) {
+                        principalInterestDue = 0;
+                    }
+                } else {
+                    scope.deceasedPrincipalInterestDue = scope.deceasedPrincipalInterestDue + loan.totalDue;
                 }
                 return Math.ceil((Number(principalInterestDue)) * 100) / 100;
             };

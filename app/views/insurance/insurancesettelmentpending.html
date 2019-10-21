@@ -1,0 +1,324 @@
+<div class="col-md-12" ng-controller="InsurancSettelmentPendingController">
+    <div>
+        <ul class="breadcrumb">
+            <li><a ng-href="#/insurancedetails/settlementpending">{{'label.anchor.insurance' | translate}}</a></li>
+            <li class="active">{{'label.heading.menu.insurance.settelment.pending' | translate}}
+            </li>
+        </ul>
+    </div>
+    <api-validate></api-validate>
+    <h2>{{'label.heading.menu.insurance.settelment.pending' | translate}}</h2>
+    <br>
+    <div class="col-md-12 section">
+        <div class="col-md-9">
+            <h3>{{'label.heading.insurance.loan.details' | translate}}</h3>
+            <table class="table well">
+                <thead>
+                    <tr class="graybg">
+                        <th colspan="2">
+                            <span>{{'label.heading.serialno' | translate}}</span>
+                        </th>
+                        <th colspan="2">
+                            <span>{{'label.heading.insurance.coi.number' | translate}}</span>
+                        </th>
+                        <th colspan="2">
+                            <span>{{'label.heading.insurance.loan.account.number' | translate}}</span>
+                        </th>
+                        <th colspan="2">
+                            <span>{{'label.heading.insurance.policy.provider' | translate}}</span>
+                        </th>
+                        <th colspan="2">
+                            <span>{{'label.heading.insurance.insured.amount' | translate}}</span>
+                        </th>
+                        <th colspan="2">
+                            <span>{{'label.heading.insurance.insured.loan.amount' | translate}}</span>
+                        </th>
+                        <th colspan="2">
+                            <span>{{'label.heading.insurance.insured.loan.outstanding.amount' | translate}}</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="data in insuranceCliamDetials.insuranceLoanPolicyDatas">
+                        <td colspan="2">{{$index+1}}</td>
+                        <td colspan="2">{{data.coiNumber}}</td>
+                        <td colspan="2">{{data.loanAccountNumber}}</td>
+                        <td colspan="2">{{data.policyProvider}}</td>
+                        <td colspan="2">{{data.insuranceAmount}}</td>
+                        <td colspan="2">{{data.loanAmount}}</td>
+                        <td colspan="2">{{data.loanOutstandingAmount}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+            <div class="row graybg">
+                <div class="col-md-6">
+                    <h4><strong>{{'label.heading.deceased.person' | translate}}</strong>
+                        <span> {{insuranceCliamDetials.insuredClientType.value}}</span></h4>
+                </div>
+                <div class="col-md-6">
+                    <h4><strong>{{'label.heading.death.date' | translate}}</strong>
+                        <span class="paddingleft2px"> {{insuranceCliamDetials.deathDate | DateFormat}}</span></h4>
+                </div>
+            </div>
+            <br>
+            <div class="row graybg ">
+                <div class="col-sm-6">
+                    <h4><strong>{{'label.heading.death.intimation.date' | translate}}</strong>
+                        <span> {{insuranceCliamDetials.intimationDate | DateFormat}}</span></h4>
+                </div>
+                <div class="col-sm-6">
+                    <h4><strong>{{'label.input.insurance.contact.number' | translate}}</strong>
+                    <span>:  {{insuranceCliamDetials.contactNumber}}</span></h4> 
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-3">
+            <h3>{{'label.heading.insurance.applicant.details' | translate}}</h3>
+            <div class="thumbnail row">
+                <table class="table table-minified table-striped">
+                    <tr >
+                        <td ><b><span class="padded">{{'label.heading.insurance.applicant.name' | translate}}</span></b></td>
+                        <td><a ng-href="#/viewclient/{{insuranceCliamDetials.clientId}}"><span class="padded-td">{{insuranceCliamDetials.clientName}}</span></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td ><b><span class="padded">{{'label.heading.insurance.applicant.client.id' | translate}}</span></b></td>
+                        <td><a ng-href="#/viewclient/{{insuranceCliamDetials.clientId}}"><span class="padded-td">{{insuranceCliamDetials.clientId}}</span></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td ><b><span class="padded">{{'label.heading.insurance.applicant.age' | translate}}</span></b></td>
+                        <td><span class="padded-td">{{age}}</span></td>
+                    </tr>
+                    <tr>
+                        <td ><b><span class="padded">{{'label.heading.insurance.applicant.office' | translate}}</span></b></td>
+                        <td><span class="padded-td">{{insuranceCliamDetials.office}}</span>
+                        </td>
+                    </tr>
+                </table> 
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 section">
+        <br> </br>
+        <tabset class="tab-container">
+            <tab active="tab.active" tab-highlight>
+                <!-- the tab highlight directive -->
+                <tab-heading>
+                    <span>{{'label.heading.insurance.settelement.to.organisation' | translate}}</span>
+                </tab-heading>
+                <table class="table well">
+                    <thead>
+                        <tr class="graybg">
+                            <th colspan="2">
+                                <span>{{'label.heading.serialno' | translate}}</span>
+                            </th>
+                            <th colspan="2">
+                                <span>{{'label.heading.policynumber' | translate}}</span>
+                            </th>
+                            <th colspan="2">
+                                <span>{{'label.heading.insurance.loan.account.number' | translate}}</span>
+                            </th>
+                            <th colspan="2">
+                                <span>{{'label.heading.insurance.settelement.date' | translate}}</span>
+                            </th>
+                            <th colspan="2">
+                                <span>{{'label.heading.insurance.settelement.amount.received' | translate}}</span>
+                            </th>
+                            <th colspan="2">
+                                <span>{{'label.heading.insurance.settelement.cheque.utr.number' | translate}}</span>
+                            </th>
+                            <th colspan="2">
+                                <span>{{'label.heading.insurance.settelement.action' | translate}}</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="organisationPolicySettlement in organisationSettlementData">
+                            <td colspan="2" ng-if="organisationPolicySettlement.loanId != undefined">{{$index+1}}</td>
+                            <td colspan="2" ng-if="organisationPolicySettlement.loanId != undefined">
+                                {{organisationPolicySettlement.policyNumber}}</td>
+                            <td colspan="2" ng-if="organisationPolicySettlement.loanId != undefined">
+                                {{organisationPolicySettlement.loanAccountNumber}}<i
+                                    ng-show="organisationPolicySettlement.loanStatus.value == 'Active'"
+                                    class="icon-stop statusactive"></i>
+                                <i ng-show="organisationPolicySettlement.loanStatus.value != 'Active'"
+                                    class="icon-stop"></i></td>
+                            <td colspan="2" ng-if="organisationPolicySettlement.loanId != undefined"><input
+                                    id="settelmentDate" type="text" autocomplete="off" name="settelmentDate"
+                                    datepicker-pop="{{df}}" ng-model="organisationPolicySettlement.setteledDate"
+                                    is-open="opened1" max="'2020-06-22'" class="form-control" />
+                            </td>
+                            <td colspan="2" ng-if="organisationPolicySettlement.loanId != undefined"><input
+                                    id="amountRecieved" type="text" autocomplete="off" name="amountRecieved"
+                                    ng-model="organisationPolicySettlement.amountRecieved" class="form-control"
+                                    number-format /></td>
+                            <td colspan="2" ng-if="organisationPolicySettlement.loanId != undefined"><input id="cheque"
+                                    type="text" autocomplete="off" name="cheque"
+                                    ng-model="organisationPolicySettlement.chequeNumber" class="form-control" /></td>
+                            <td colspan="2" ng-if="organisationPolicySettlement.loanId != undefined"><button id="save" type="submit"
+                                    ng-click="organisationSettlement(organisationPolicySettlement)" class="btn btn-primary" ng-hide="blockUI"
+                                    data-toggle="tooltip" tooltip-placement="right"
+                                    tooltip="{{ 'label.heading.insurance.settlement.settle.tooltip' | translate}}">{{'label.heading.insurance.status.settle' | translate}}
+                                </button>
+                                <button id="cancel" ng-show="organisationPolicySettlement.loanStatus.value == 'Active'"
+                                    ng-click="reject(organisationPolicySettlement)" class="btn btn-default" data-toggle="tooltip"
+                                    tooltip-placement="right"
+                                    tooltip="{{ 'label.heading.insurance.settlement.reject.tooltip' | translate}}">{{'label.heading.insurance.status.reject' | translate}}</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </tab>
+            <tab tab-highlight>
+                <!-- the tab highlight directive -->
+                <tab-heading>
+                    <span>{{'label.heading.insurance.settelement.to.nominee' | translate}}</span>
+                </tab-heading>
+                <table class="table well">
+                    <thead>
+                        <tr class="graybg">
+                            <th colspan="2">
+                                <span>{{'label.heading.serialno' | translate}}</span>
+                            </th>
+                            <th colspan="2">
+                                <span>{{'label.heading.policynumber' | translate}}</span>
+                            </th>
+                            <th colspan="2">
+                                <span>{{'label.heading.insurance.loan.account.number' | translate}}</span>
+                            </th>
+                            <th colspan="2">
+                                <span>{{'label.heading.insurance.settelement.date' | translate}}</span>
+                            </th>
+                            <th colspan="2">
+                                <span>{{'label.heading.insurance.settelement.amount.received' | translate}}</span>
+                            </th>
+                            <th colspan="2">
+                                <span>{{'label.heading.insurance.settelement.cheque.utr.number' | translate}}</span>
+                            </th>
+                            <th colspan="2">
+                                <span>{{'label.heading.insurance.settelement.action' | translate}}</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="nomineePolicySettlement in nomineeSettlementData">
+                            <td colspan="2" ng-if="nomineePolicySettlement.loanId != undefined">{{$index+1}}</td>
+                            <td colspan="2" ng-if="nomineePolicySettlement.loanId != undefined">
+                                {{nomineePolicySettlement.policyNumber}}</td>
+                            <td colspan="2" ng-if="nomineePolicySettlement.loanId != undefined">
+                                {{nomineePolicySettlement.loanAccountNumber}}</td>
+                            <td colspan="2" ng-if="nomineePolicySettlement.loanId != undefined"><input
+                                    id="settelmentDate" type="text" autocomplete="off" name="settelmentDate"
+                                    datepicker-pop="{{df}}" ng-model="nomineePolicySettlement.setteledDate"
+                                    is-open="opened1" max="'2020-06-22'" class="form-control" />
+                            </td>
+                            <td colspan="2" ng-if="nomineePolicySettlement.loanId != undefined"><input
+                                    id="amountRecieved" type="text" autocomplete="off" name="amountRecieved"
+                                    ng-model="nomineePolicySettlement.amountRecieved" class="form-control"
+                                    number-format /></td>
+                            <td colspan="2" ng-if="nomineePolicySettlement.loanId != undefined"><input id="cheque"
+                                    type="text" autocomplete="off" name="cheque"
+                                    ng-model="nomineePolicySettlement.chequeNumber" class="form-control" /></td>
+                            <td colspan="2"><button id="save" type="submit"
+                                    ng-click="nomineeSettlement(nomineePolicySettlement)" class="btn btn-primary"
+                                    ng-hide="blockUI">{{'label.heading.insurance.status.settle' | translate}}</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </tab>
+        </tabset>
+        <div ng-hide="settlementDetailsData != undefined && settlementDetailsData.length > 0">
+            <br><br />
+            <br><br />
+            <br><br />
+        </div>
+        <div class="col-md-12 section" ng-show="settlementDetailsData != undefined && settlementDetailsData.length > 0">
+            <br> </br>
+            <h2>{{'label.heading.menu.insurance.settled.details' | translate}}</h2>
+            <table class="table well">
+                <thead>
+                    <tr class="graybg">
+                        <th colspan="2">
+                            <span>{{'label.heading.serialno' | translate}}</span>
+                        </th>
+                        <th colspan="2">
+                            <span>{{'label.heading.policynumber' | translate}}</span>
+                        </th>
+                        <th colspan="2">
+                            <span>{{'label.heading.insurance.loan.account.number' | translate}}</span>
+                        </th>
+                        <th colspan="2">
+                            <span>{{'label.heading.insurance.settelement.date' | translate}}</span>
+                        </th>
+                        <th colspan="2">
+                            <span>{{'label.heading.insurance.settelement.amount.received' | translate}}</span>
+                        </th>
+                        <th colspan="2">
+                            <span>{{'label.heading.insurance.settelement.cheque.utr.number' | translate}}</span>
+                        </th>
+                        <th colspan="2">
+                            <span>{{'label.heading.insurance.settelement.to.whom' | translate}}</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="settlementDetail in settlementDetailsData">
+                        <td colspan="2">{{$index+1}}</td>
+                        <td colspan="2">{{settlementDetail.policyNumber}}</td>
+                        <td colspan="2">{{settlementDetail.loanAccountNumber}}<i
+                                ng-show="settlementDetail.loanStatus.value == 'Active'"
+                                class="icon-stop statusactive"></i>
+                            <i ng-show="settlementDetail.loanStatus.value != 'Active'" class="icon-stop"></i></td>
+                        <td colspan="2">{{settlementDetail.settlementDate | DateFormat}}
+                        </td>
+                        <td colspan="2">{{settlementDetail.settlementAmount}}</td>
+                        <td colspan="2">{{settlementDetail.cheque}}</td>
+                        <td colspan="2">{{settlementDetail.settlementType.value}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div ng-click="getHistory()"  class=" col-md-offset-10">
+        <h4><strong><a href="" >{{'label.button.insurance.history'
+            | translate}}</a></strong></div>
+    <script type="text/ng-template" id="organisationsettlementconfirmation.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.attention' | translate}}</h3>
+        </div>
+        <div class="modal-body ">
+            <api-validate></api-validate>
+            <h4><strong>{{'label.heading.insurance.settlement.settle.note' | translate}}</strong></h4>
+            <br>
+            <button class="btn btn-warning" ng-click="onCancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="onConfirm()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+    <script type="text/ng-template" id="rejectconfirmation.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.attention' | translate}}</h3>
+        </div>
+        <div class="modal-body ">
+            <api-validate></api-validate>
+            <h4><strong>{{'label.heading.insurance.settlement.reject.note' | translate}}</strong></h4>
+            <br>
+            <button class="btn btn-warning" ng-click="onCancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="onConfirm()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+    <script type="text/ng-template" id="nomineeconfirmation.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.attention' | translate}}</h3>
+        </div>
+        <div class="modal-body ">
+            <api-validate></api-validate>
+            <br>
+            <button class="btn btn-warning" ng-click="onCancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="onConfirm()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+</div>

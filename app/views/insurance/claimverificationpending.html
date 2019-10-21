@@ -1,7 +1,7 @@
 <div class="col-md-12" ng-controller="ClaimVerificationPending">
         <div>
             <ul class="breadcrumb">
-                <li><a ng-href="#/insurancedetails">{{'label.anchor.insurance' | translate}}</a></li>
+                <li><a ng-href="#/insurancedetails/claimverificationpending">{{'label.anchor.insurance' | translate}}</a></li>
                 <li class="active">{{'label.heading.menu.insurance.claim.verification.pending' | translate}}
                 </li>
             </ul>
@@ -22,7 +22,7 @@
                                 <span>{{'label.heading.insurance.coi.number' | translate}}</span>
                             </th>
                             <th colspan="2">
-                                <span>{{'label.heading.insurance.loanid' | translate}}</span>
+                                <span>{{'label.heading.insurance.loan.account.number' | translate}}</span>
                             </th>
                             <th colspan="2">
                                 <span>{{'label.heading.insurance.policy.provider' | translate}}</span>
@@ -42,7 +42,7 @@
                         <tr ng-repeat = "data in insuranceCliamDetials.insuranceLoanPolicyDatas">
                             <td colspan="2">{{$index+1}}</td>
                             <td colspan="2">{{data.coiNumber}}</td>
-                            <td colspan="2">{{data.loanId}}</td>
+                            <td colspan="2">{{data.loanAccountNumber}}</td>
                             <td colspan="2">{{data.policyProvider}}</td>
                             <td colspan="2">{{data.insuranceAmount}}</td>
                             <td colspan="2">{{data.loanAmount}}</td>
@@ -67,6 +67,10 @@
                         <h4><strong>{{'label.heading.death.intimation.date' | translate}}</strong>
                         <span>  {{insuranceCliamDetials.intimationDate | DateFormat}}</span></h4> 
                     </div>
+                    <div class="col-sm-6">
+                        <h4><strong>{{'label.input.insurance.contact.number' | translate}}</strong>
+                        <span>:  {{insuranceCliamDetials.contactNumber}}</span></h4> 
+                    </div>
                 </div>
     
             </div>
@@ -74,28 +78,27 @@
                 <h3>{{'label.heading.insurance.applicant.details' | translate}}</h3>
                 <div class="thumbnail row">
                     <table class="table table-minified table-striped">
-                        <tr>
-                            <th ><span class="padded-td">{{'label.heading.insurance.applicant.name' | translate}}</span></th>
-                            <td><span class="padded-td">{{insuranceCliamDetials.clientName}}</span>
+                        <tr >
+                            <td ><b><span class="padded">{{'label.heading.insurance.applicant.name' | translate}}</span></b></td>
+                            <td><a ng-href="#/viewclient/{{insuranceCliamDetials.clientId}}"><span class="padded-td">{{insuranceCliamDetials.clientName}}</span></a>
                             </td>
                         </tr>
                         <tr>
-                            <th ><span class="padded-td">{{'label.heading.insurance.applicant.client.id' | translate}}</span></th>
-                            <td><span class="padded-td">{{insuranceCliamDetials.clientId}}</span>
+                            <td ><b><span class="padded">{{'label.heading.insurance.applicant.client.id' | translate}}</span></b></td>
+                            <td><a ng-href="#/viewclient/{{insuranceCliamDetials.clientId}}"><span class="padded-td">{{insuranceCliamDetials.clientId}}</span></a>
                             </td>
                         </tr>
                         <tr>
-                            <th ><span class="padded-td">{{'label.heading.insurance.applicant.age' | translate}}</span></th>
+                            <td ><b><span class="padded">{{'label.heading.insurance.applicant.age' | translate}}</span></b></td>
                             <td><span class="padded-td">{{age}}</span></td>
                         </tr>
                         <tr>
-                            <th ><span class="padded-td">{{'label.heading.insurance.applicant.office' | translate}}</span></th>
+                            <td ><b><span class="padded">{{'label.heading.insurance.applicant.office' | translate}}</span></b></td>
                             <td><span class="padded-td">{{insuranceCliamDetials.office}}</span>
                             </td>
                         </tr>
-                    </table>    
+                    </table>     
                 </div>    
-                            
             </div>
         </div>
         <div class = "col-md-12">
@@ -108,6 +111,51 @@
             <br> </br>
             <button id="save" type="submit" ng-click="approve()" class="btn btn-primary col-md-offset-5"  ng-hide="blockUI" has-permission='APPROVE_INSURANCEINTIMATIONAPPROVAL'>{{'label.heading.insurance.status.approve' | translate}}</button>
             <a id="cancel" ng-click="reject()" class="btn btn-default" has-permission='REJECT_INSURANCEINTIMATIONAPPROVAL'>{{'label.heading.insurance.status.reject' | translate}}</a>
-        </div>    
+        </div>   
         
+    <div ng-click="getHistory()"  class=" col-md-offset-10">
+        <h4><strong><a href="" >{{'label.button.insurance.history'
+            | translate}}</a></strong></div> 
+        <script type="text/ng-template" id="rejectClaim.html">
+                    <div class="modal-header silver">
+                        <h3 class="bolder">
+                            {{'label.heading.insurance.status.reject' | translate}}
+                            <i class="icon-remove pointer pull-right" ng-click="close()"></i>
+                        </h3>
+                    </div>
+                    <div class="modal-body well">
+                <form name="rejectform" novalidate="" class="row form-horizontal" 
+                    rc-submit="submitReject()">
+                    <api-validate></api-validate>
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" >{{'label.input.specific.reason' | translate}}<span class="required">*</span></label>
+                            <div class="col-sm-4">
+                                <select id = "reason" name="reason" ng-model="rejectFormData.reasonCode" 
+                                ng-options="codeValue.id as codeValue.description for codeValue in rejectReasons" value="{{codeValue.id}}" class="input-sm form-control" required>
+                                <option value="">{{'label.selectone' | translate}}</option></select>
+                            </div>
+                            <div class="col-sm-3">
+                                <form-validate valattributeform="rejectform" valattribute="reason"/>
+                            </div>
+                            <br/>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" >{{'label.heading.reject.description' | translate}}<span class="required">*</span></label>
+                            <div class="col-sm-4">
+                                <textarea  class="input-sm form-control"  id="description" name="description" ng-model="rejectFormData.reason" required />
+                            </div>
+                            <div class="col-sm-3">
+                                <form-validate valattributeform="rejectform" valattribute="description"/>
+                            </div>
+                        </div>
+                        <div >
+                            <button class="btn btn-warning" ng-click="cancelReject()">{{'label.button.cancel' | translate}}</button>
+                            <button class="btn btn-primary" type="submit" >{{'label.button.reject' | translate}}</button>
+                        </div>
+                    </fieldset>
+                </form>
+                </div>
+                </script>
     </div>

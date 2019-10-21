@@ -5,11 +5,12 @@
                 $scope: scope,
                 $key: "bankAccountDetails"
             }));
-
+            scope.isEditMode = false;
             scope.repeatFormData = {};
             scope.deceasedId = routeParams.id;
             scope.formData = {};
             scope.formData.locale = scope.optlang.code;
+            scope.claimStatus = 'documentsupload';
             function fetchInsuranceData() {
                 resourceFactory.getInsuranceClaimStatusDetailsResource.getClaimIntimationApproval({ claimStatus: 'documentsupload', deceasedId : scope.deceasedId }, {},
                     function (data) {
@@ -23,7 +24,7 @@
                 resourceFactory.getInsuranceNomineeDetailsResource.getNomineeDetails({ deceasedId : scope.deceasedId }, {},
                     function (data) {
                         scope.insuranceNomineeDetials = data;
-                        if(scope.insuranceNomineeDetials != undefined && scope.insuranceNomineeDetials.id != undefined && scope.insuranceNomineeDetials.id != null) {
+                        if((scope.insuranceNomineeDetials != undefined && scope.insuranceNomineeDetials.id != undefined && scope.insuranceNomineeDetials.id != null) || scope.isEditMode) {
                             scope.showSummary = true;
                             getDocumentsTeplate();
                         } else {
@@ -56,6 +57,16 @@
 
             scope.submit = function () {
 
+                if((scope.repeatFormData.accountNumberRepeat != scope.formData.accountNumber ) ||
+                 (scope.repeatFormData.ifscCodeRepeat != scope.formData.ifscCode )) {
+                        return;
+                }
+
+                if(scope.isEditMode) {
+                    scope.update();
+                    return;  
+                }
+
                 scope.formData.deceasedId = scope.deceasedId;
                 resourceFactory.insuranceClaimStatusDetailsResource.submitNomineeDetails({ claimStatus: 'documentsupload', command : 'create' }, scope.formData,
                     function (data) {
@@ -64,11 +75,41 @@
                     });
             }
 
+            scope.update = function() {
+                resourceFactory.insuranceNomineeDetailsResource.updateNomineeDetails({ nomineeId: scope.insuranceNomineeDetials.id, command : 'update' }, scope.formData,
+                function (data) {
+                    scope.insuranceCliamDetials = data;
+                    scope.isEditMode = false;
+                    fetchInsuranceData();
+                });
+            }
+
+            scope.edit = function () {
+                scope.showSummary = false;
+                scope.isEditMode = true;
+                scope.formData.deceasedId = scope.deceasedId;
+                scope.constructData();
+            }
+
+            scope.constructData = function () {
+                scope.formData.nomineeId = scope.insuranceNomineeDetials.id;
+                scope.formData.deceasedId = scope.deceasedId;
+                scope.formData.nomineeName = scope.insuranceNomineeDetials.name;
+                scope.repeatFormData.accountNumberRepeat = scope.insuranceNomineeDetials.bankDetails.accountNumber;
+                scope.formData.accountNumber = scope.insuranceNomineeDetials.bankDetails.accountNumber;
+                scope.repeatFormData.ifscCodeRepeat = scope.insuranceNomineeDetials.bankDetails.ifscCode;
+                scope.formData.ifscCode = scope.insuranceNomineeDetials.bankDetails.ifscCode;
+                scope.formData.bankName = scope.insuranceNomineeDetials.bankDetails.bankName;
+                scope.formData.branchName = scope.insuranceNomineeDetials.bankDetails.branchName;
+                scope.formData.bankCity = scope.insuranceNomineeDetials.bankDetails.bankCity;
+                scope.formData.relationshipId = scope.insuranceNomineeDetials.relationShip.id;
+            }
+
             scope.approve = function () {
                 resourceFactory.insuranceClaimStatusDetailsResource.submitClaimDocumentUpload({ claimStatus: 'documentsupload', command : 'submit' }, {deceasedId : scope.deceasedId},
                     function (data) {
                         scope.insuranceCliamDetials = data;
-                        location.path('/insurancedetails');
+                        location.path('/insurancedetails/documentsupload');
                     });
             }
 
@@ -84,6 +125,41 @@
                     })
                 }
             }
+
+            scope.deleteDocument = function (doc) {
+                $modal.open({
+                    templateUrl: 'deleteDocument.html',
+                    controller: DocumentDeleteCtrl,
+                    resolve: {
+                        document: function () {
+                            return doc;
+                        }
+                    }
+                });
+            };
+
+            var DocumentDeleteCtrl = function ($scope, $modalInstance, document) {
+                $scope.delete = function () {
+                    resourceFactory.InsuranceDeleteDocumentsResource.deleteDocument({deceasedId: scope.deceasedId, documentId: document.documentId }, '', function (data) {
+                        for(var j = 0 ; j<scope.insuranceDocumentTagOptions.length; j++) {
+                                    if (document.documentId == scope.insuranceDocumentTagOptions[j].documentId) {
+                                        delete scope.insuranceDocumentTagOptions[j].url;
+                                        scope.insuranceDocumentTagOptions[j].isDocumentAttached = false;
+                                        delete scope.insuranceDocumentTagOptions[j].parentEntityType;
+                                        delete scope.insuranceDocumentTagOptions[j].parentEntityId;
+                                        delete scope.insuranceDocumentTagOptions[j].documentId;
+                                        break;
+                                    }
+                        }
+                        
+                        getDeceasedDocuments(scope.insuranceDocumentTagOptions);
+                            $modalInstance.close('close');
+                    });
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            };
 
             var viewDocumentCtrl= function ($scope, $modalInstance, documentDetail) {
                 $scope.data = documentDetail;
@@ -118,6 +194,7 @@
                                         codeValueData[j].parentEntityType = data[l].parentEntityType;
                                         codeValueData[j].parentEntityId = data[l].parentEntityId;
                                         codeValueData[j].documentId = data[l].id;
+                                        codeValueData[j].allowDeleteDocument = true;
                                         break;
                                     }
                                 }
@@ -126,6 +203,27 @@
                     });
                 
             };
+
+
+            scope.getHistory = function () {
+                $modal.open({
+                    templateUrl: 'views/insurance/viewinsurancelogs.html',
+                    controller: InsuranceLogCtrl,
+                    windowClass: 'app-modal-window-full-screen',
+                });
+            }
+
+            var InsuranceLogCtrl = function ($scope, $modalInstance) {
+                
+                resourceFactory.insuranceDeceasedLogResource.getDeacesdLogs({}, {deceasedId : scope.deceasedId},
+                    function (data) {
+                        $scope.insuranceDeceasedLogs = data;
+                    });
+               $scope.close = function () {
+                   $modalInstance.close('close');
+               };
+
+           };
 
             scope.uploadDoument = function (documentDetail) {
                 $modal.open({
@@ -144,6 +242,7 @@
                  $scope.codeValue = documentDetail;
                  $scope.formData = {} ;
                  $scope.formData.tagIdentifier = documentDetail.id;
+                 $scope.formData.name = documentDetail.name;
                 $scope.close = function () {
                     $modalInstance.close('close');
                 };

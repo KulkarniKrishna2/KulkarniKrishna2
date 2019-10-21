@@ -2061,6 +2061,9 @@
             .when('/districts/:districtId/newtalukas', {
                 templateUrl: 'views/districts/createtaluka.html'
             })
+            .when('/insurancedetails/:status', {
+                templateUrl: 'views/insurance/viewinsurancedetails.html'
+            })
             .when('/financialyearclosures', {
                 templateUrl: 'views/accounting/financialyearclosures/financialyearclosures.html'
             })
@@ -2103,7 +2106,12 @@
             .when('/insurance/rejectedclaiminsurance/:id', {
                 templateUrl: 'views/insurance/rejectedclaiminsurance.html'
             })
-
+            .when('/insurance/settlementPending/:id', {
+                templateUrl: 'views/insurance/insurancesettelmentpending.html'
+            })
+            .when('/insurance/settledClaims/:id', {
+                templateUrl: 'views/insurance/viewsettledclaim.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

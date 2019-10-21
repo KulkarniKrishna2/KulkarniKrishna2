@@ -1933,7 +1933,7 @@
                     }),
                     stateResource: defineResource(apiVer + "/countries/:countryId/states/:stateId", {countryId: '@countryId',stateId: '@stateId'}, {
                         getStateData: {method: 'GET', params: {countryId: '@countryId',stateId: '@stateId'}}
-                    }),
+                    }), 
                     talukaResource: defineResource(apiVer + "/districts/:districtId/talukas/:talukaId", {districtId: '@districtId',talukaId: '@talukaId'}, {
                     }),
                     financialYearClosuresResource: defineResource(apiVer + "/fyclosures/:id", {id: '@id'}, {
@@ -1970,29 +1970,43 @@
                         save: {method:'POST', params:{} },
                         getOneFinancialYearClosure: {method:'GET', params:{id: '@id'}}
                    }),
-                   getInsuranceClaimStatusDetailsResource: defineResource(apiVer + "/insurance/claim/:claimStatus/:deceasedId", {claimStatus: '@claimStatus', deceasedId: '@deceasedId'},  {
+                    getInsuranceClaimStatusDetailsResource: defineResource(apiVer + "/insurance/claim/:claimStatus/:deceasedId", {claimStatus: '@claimStatus', deceasedId: '@deceasedId'},  {
                         getClaimIntimationApproval: {method:'GET', params: {claimStatus: '@claimStatus', deceasedId: '@deceasedId'}}
-                   }),
-                   getInsuranceNomineeDetailsResource: defineResource(apiVer + "/insurance/claim/nomineedetails/:deceasedId", {deceasedId: '@deceasedId'},  {
-                    getNomineeDetails: {method:'GET', params: {deceasedId: '@deceasedId'}}
                     }),
-                   insuranceClaimStatusDetailsResource: defineResource(apiVer + "/insurance/claim/:claimStatus", {claimStatus: '@claimStatus', command: '@command'},  {
+                    getInsuranceNomineeDetailsResource: defineResource(apiVer + "/insurance/claim/nomineedetails/:deceasedId", {deceasedId: '@deceasedId'},  {
+                        getNomineeDetails: {method:'GET', params: {deceasedId: '@deceasedId'}}
+                    }),
+                    getInsuranceSettlementDetailsResource: defineResource(apiVer + "/insurance/claim/:deceasedId/settlementdetails", {deceasedId: '@deceasedId'},  {
+                        getSettlementDetails: {method:'GET', params: {deceasedId: '@deceasedId'}, isArray: true}
+                    }),
+                    insuranceClaimStatusDetailsResource: defineResource(apiVer + "/insurance/claim/:claimStatus", {claimStatus: '@claimStatus', command: '@command'},  {
                         approveClaimIntimationApproval: {method:'POST', params: {command: '@command'}},
                         submitNomineeDetails: {method:'POST', params: {command: '@command'}},
                         submitClaimDocumentUpload : {method:'POST', params: {command: '@command'}},
-                        submitVerifiedClaim : {method:'POST', params: {command: '@command'}}
-                   }),
-                   insuranceDocumentsResource: defineResource(apiVer + "/insurance/:deceasedId/documents", {deceasedId: '@deceasedId'}, {
-                    getAllDeceasedDocuments: {method: 'GET', params: {}, isArray: true}
-                   }),
-                   insurancePolicyTemplateResource: defineResource(apiVer + "/loans/:loanId/insurancepolicy/template", {}, {
-                    getTemplate:{method:'GET' , params:{loanId: '@loanId'}}
+                        submitVerifiedClaim : {method:'POST', params: {command: '@command'}},
+                        submitOrganisationSettlement : {method:'POST', params: {command: '@command'}},
+                        submitNomineeSettlement : {method:'POST', params: {command: '@command'}}
+                    }),
+                    insuranceNomineeDetailsResource: defineResource(apiVer + "/insurance/claim/nomineedetails/:nomineeId", {nomineeId: '@nomineeId', command: '@command'},  {
+                        updateNomineeDetails: {method:'PUT', params: {command: '@command'}}
+                    }),
+                    insuranceDocumentsResource: defineResource(apiVer + "/insurance/:deceasedId/documents", {deceasedId: '@deceasedId'}, {
+                        getAllDeceasedDocuments: {method: 'GET', params: {}, isArray: true}
+                    }),
+                    InsuranceDeleteDocumentsResource: defineResource(apiVer + "/insurance/:deceasedId/documents/:documentId", {deceasedId: '@deceasedId', documentId: '@documentId'}, {
+                        deleteDocument: {method: 'DELETE', params: {}}
+                    }), 
+                    insuranceDeceasedLogResource: defineResource(apiVer + "/insurance/claim/logs/:deceasedId", {deceasedId: '@deceasedId'}, {
+                        getDeacesdLogs: {method: 'GET', params: {}, isArray: true}
+                    }),
+                    insurancePolicyTemplateResource: defineResource(apiVer + "/loans/:loanId/insurancepolicy/template", {}, {
+                        getTemplate:{method:'GET' , params:{loanId: '@loanId'}}
                     }),
                     insurancePolicyResource: defineResource(apiVer + "/loans/:loanId/insurancepolicy", {}, {
-                    create: {method: 'POST', params: {loanId: '@loanId'}},
-                    getAll: {method: 'GET', params: {loanId: '@loanId'}, isArray: true},
-                    update: {method: 'PUT', params: {loanId: '@loanId'}},
-                    delete: {method: 'DELETE', params: {loanId: '@loanId'}}
+                        create: {method: 'POST', params: {loanId: '@loanId'}},
+                        getAll: {method: 'GET', params: {loanId: '@loanId'}, isArray: true},
+                        update: {method: 'PUT', params: {loanId: '@loanId'}},
+                        delete: {method: 'DELETE', params: {loanId: '@loanId'}}
                     })
                 };
             }];

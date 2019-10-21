@@ -74,6 +74,26 @@
                 
             };
 
+            scope.getHistory = function () {
+                $modal.open({
+                    templateUrl: 'views/insurance/viewinsurancelogs.html',
+                    controller: InsuranceLogCtrl,
+                    windowClass: 'app-modal-window-full-screen',
+                });
+            }
+
+            var InsuranceLogCtrl = function ($scope, $modalInstance) {
+                
+                resourceFactory.insuranceDeceasedLogResource.getDeacesdLogs({}, {deceasedId : scope.deceasedId},
+                    function (data) {
+                        $scope.insuranceDeceasedLogs = data;
+                    });
+               $scope.close = function () {
+                   $modalInstance.close('close');
+               };
+
+           };
+
         }
     });
     mifosX.ng.application.controller('VerifiedClaimController', ['$controller', '$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', 'CommonUtilService', '$modal', mifosX.controllers.VerifiedClaimController]).run(function ($log) {

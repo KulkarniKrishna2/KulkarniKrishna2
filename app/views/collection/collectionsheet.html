@@ -181,9 +181,10 @@
 								<div  class="form-group">
 									<label data-ng-hide="hideLoanAccountNumber" class="control-label col-sm-6" style="font-size: 12px;">{{'label.heading.loanaccountno' | translate}}:({{loan.accountId}}) </label>
 									<div  class="col-sm-8">
-										<input style="font-weight: bold;" id="total" type="text" autocomplete="off" number-format
+										<input data-ng-hide="loan.accountSubStatusId == 104" style="font-weight: bold;" id="total" type="text" autocomplete="off" number-format
 										   ng-model="loan.totalDue" class="input-sm form-control"
 										   ng-change="sumTotalDueCollection();validateAmount(superParentIndex,parentIndex,$index,loan.totalDue);resetCollectionReasons(loan.totalDue,loan.loanId);">
+										<label data-ng-show="loan.accountSubStatusId == 104" class="control-label col-sm-4" style="font-size: 12px;"><b>{{loan.totalDue | number}} ({{'label.heading.loan.deceased' | translate}})</b> </label>
 									</div>
 									<br/>
 								</div>
@@ -377,7 +378,14 @@
 	         ng-repeat="loanDueTotalCollection in totalDueCollection">
 			{{loanDueTotalCollection.totalDue | number}}&nbsp;&nbsp;
 	        {{loanDueTotalCollection.currencySymbol}}
-	    </div>
+		</div>
+
+		<strong><h4 style="background-color: #D6D6C2">{{'label.heading.deceasedtotalduecollections' | translate}}</h4>
+	    </strong>
+		<div class="templatekeys" style="background-color:#8585FF!important">
+			{{deceasedPrincipalInterestDue | number}}&nbsp;&nbsp;
+			{{currencySymbol}}
+		</div>
 	</div>
     <div ng-show="showPaymentDetails"
          style="float:left; max-width:700px; min-width:600px; overflow-x:auto!important; white-space:nowrap;">

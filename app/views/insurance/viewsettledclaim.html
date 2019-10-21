@@ -1,13 +1,13 @@
-<div class="col-md-12" ng-controller="ViewClaimIntimationApproval">
+<div class="col-md-12" ng-controller="InsurancSetteledClaimsController">
     <div>
         <ul class="breadcrumb">
-            <li><a ng-href="#/insurancedetails/intimationapprovalpending">{{'label.anchor.insurance' | translate}}</a></li>
-            <li class="active">{{'label.heading.menu.insurance.intimation.approval.pending' | translate}}
+            <li><a ng-href="#/insurancedetails/settledClaims">{{'label.anchor.insurance' | translate}}</a></li>
+            <li class="active">{{'label.heading.menu.insurance.setteled.claims' | translate}}
             </li>
         </ul>
     </div>
     <api-validate></api-validate>
-        <h2>{{'label.heading.intimation.approval' | translate}}</h2>
+        <h2>{{'label.heading.menu.insurance.setteled.claims' | translate}}</h2>
         <br>
     <div class="col-md-12 section">
         <div class="col-md-9"> 
@@ -97,61 +97,56 @@
                         <td><span class="padded-td">{{insuranceCliamDetials.office}}</span>
                         </td>
                     </tr>
-                </table>  
-            </div>   
+                </table>    
+            </div>    
         </div>
     </div>
     <div class="col-md-12 section">
         <br> </br>
-        <br> </br>
-        <button id="save" type="submit" ng-click="approve()" class="btn btn-primary col-md-offset-5"  ng-hide="blockUI" has-permission='APPROVE_INSURANCEINTIMATIONAPPROVAL'>{{'label.heading.insurance.status.approve' | translate}}</button>
-        <a id="cancel" ng-click="reject()" class="btn btn-default" has-permission='REJECT_INSURANCEINTIMATIONAPPROVAL'>{{'label.heading.insurance.status.reject' | translate}}</a>
+        <h2>{{'label.heading.menu.insurance.settlement.details' | translate}}</h2>
+              <table class="table well" >
+                  <thead>
+                      <tr class="graybg">
+                          <th colspan="2">
+                              <span>{{'label.heading.serialno' | translate}}</span>
+                          </th>
+                          <th colspan="2">
+                              <span>{{'label.heading.policynumber' | translate}}</span>
+                          </th>
+                          <th colspan="2">
+                              <span>{{'label.heading.insurance.loan.account.number' | translate}}</span>
+                          </th>
+                          <th colspan="2">
+                            <span>{{'label.heading.insurance.settelement.date' | translate}}</span>
+                          </th>
+                          <th colspan="2">
+                              <span>{{'label.heading.insurance.settelement.amount.received' | translate}}</span>
+                          </th>
+                          <th colspan="2">
+                              <span>{{'label.heading.insurance.settelement.cheque.utr.number' | translate}}</span>
+                          </th>
+                          <th colspan="2">
+                              <span>{{'label.heading.insurance.settelement.to.whom' | translate}}</span>
+                          </th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr  ng-repeat = "settlementDetail in settlementDetails">
+                            <td colspan="2">{{$index+1}}</td>
+                            <td colspan="2" >{{settlementDetail.policyNumber}}</td>
+                            <td colspan="2">{{settlementDetail.loanAccountNumber}}<i ng-show="settlementDetail.loanStatus.value == 'Active'" class="icon-stop statusactive"></i>
+                                <i ng-show="settlementDetail.loanStatus.value != 'Active'" class="icon-stop"></i></td>
+                            <td colspan="2">{{settlementDetail.settlementDate | DateFormat}}
+                            </td>
+                            <td colspan="2">{{settlementDetail.settlementAmount}}</td>
+                            <td colspan="2">{{settlementDetail.cheque}}</td>
+                            <td colspan="2">{{settlementDetail.settlementType.value}}</td>
+                    </tr>
+                  </tbody>
+              </table>
     </div>    
-
+    
     <div ng-click="getHistory()"  class=" col-md-offset-10">
         <h4><strong><a href="" >{{'label.button.insurance.history'
             | translate}}</a></strong></div>
-    <script type="text/ng-template" id="rejectClaim.html">
-                <div class="modal-header silver">
-                    <h3 class="bolder">
-                        {{'label.heading.insurance.status.reject' | translate}}
-                        <i class="icon-remove pointer pull-right" ng-click="close()"></i>
-                    </h3>
-                </div>
-                <div class="modal-body well">
-            <form name="rejectform" novalidate="" class="row form-horizontal" 
-                rc-submit="submitReject()">
-                <api-validate></api-validate>
-                <fieldset>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3" >{{'label.input.specific.reason' | translate}}<span class="required">*</span></label>
-                        <div class="col-sm-4">
-                            <select id = "reason" name="reason" ng-model="rejectFormData.reasonCode" 
-                            ng-options="codeValue.id as codeValue.description for codeValue in rejectReasons" value="{{codeValue.id}}" class="input-sm form-control" required>
-                            <option value="">{{'label.selectone' | translate}}</option></select>
-                        </div>
-                        <div class="col-sm-3">
-                            <form-validate valattributeform="rejectform" valattribute="reason"/>
-                        </div>
-                        <br/>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="control-label col-sm-3" >{{'label.heading.reject.description' | translate}}<span class="required">*</span></label>
-                        <div class="col-sm-4">
-                            <textarea  class="input-sm form-control"  id="description" name="description" ng-model="rejectFormData.reason" required />
-                        </div>
-                        <div class="col-sm-3">
-                            <form-validate valattributeform="rejectform" valattribute="description"/>
-                        </div>
-                    </div>
-                    <div >
-                        <button class="btn btn-warning" ng-click="cancelReject()">{{'label.button.cancel' | translate}}</button>
-                        <button class="btn btn-primary" type="submit" >{{'label.button.reject' | translate}}</button>
-                    </div>
-                </fieldset>
-            </form>
-            </div>
-            </script>
-    
 </div>
