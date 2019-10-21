@@ -512,6 +512,9 @@
                 }
                 this.formData.submittedOnDate = dateFilter(this.formData.submittedOnDate,scope.df);
                 this.formData.noOfTranche = parseInt(this.formData.noOfTranche);
+                if (this.formData.loanPurposeId == null){
+                    delete this.formData.loanPurposeId;
+                }
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 resourceFactory.loanApplicationReferencesResource.update({loanApplicationReferenceId: scope.loanApplicationReferenceId}, this.formData, function (data) {
