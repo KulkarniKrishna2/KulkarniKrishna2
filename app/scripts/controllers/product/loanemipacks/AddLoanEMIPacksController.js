@@ -16,6 +16,9 @@
                 if(!this.formData.isActive){
                     this.formData.isActive = false;
                 }
+                if(scope.formData.gracePeriod ==""){
+                    delete scope.formData.gracePeriod;
+                }
                 resourceFactory.loanemipack.add({loanProductId:scope.loanProductId},this.formData, function (data) {
                     location.path('/viewloanemipacks/'+scope.loanProductId);
                 });

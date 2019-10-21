@@ -473,6 +473,9 @@
                 if(scope.inparams.templateType ==='individual' && !scope.allowGroupBankAccountInDisburse) {
                     delete scope.formData.groupId;
                 }
+                if (this.formData.loanPurposeId == null){
+                    delete this.formData.loanPurposeId;
+                }
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 resourceFactory.loanApplicationReferencesResource.save(this.formData, function (data) {
