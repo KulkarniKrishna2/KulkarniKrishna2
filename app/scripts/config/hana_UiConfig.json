@@ -138,6 +138,11 @@
 		},
 		"regexFormats": {
 			"lastName": "\/^([^0-9]*)$\/"
+		},
+		"createLoanApplication": {
+			"isMandatory": {
+				"loanPurposeId": false
+			}
 		}
 	}
 }
