@@ -8213,6 +8213,7 @@
     "label.anchor.defaultsmsproviders" : "Default SMS Provider",
     "error.msg.sms.provider.identifier.not.found" : "Sms provider with identifier `{{params[0].value}}` not found.",
     "error.msg.unable.to.connect.to.intermediate.server" : "Unable to connect intermeiate server. Please check connection details.",
+    "error.msg.dependent.sheduler.job.failed":"One of the dependent job failed to execute, please make sure all the dependent jobs run successfully",
 
     "------ end of translation file ------": "----------"
 }
