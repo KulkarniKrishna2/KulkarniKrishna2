@@ -572,6 +572,7 @@
 
             scope.$watch('formRequestData.expectedDisbursementDate', function () {
                 scope.initializeTrancheDetails();
+                scope.validateFRD();
             });
             scope.initializeTrancheDetails = function(){
                 if(scope.formRequestData.loanEMIPackId){
@@ -1468,7 +1469,26 @@
                     return scope.loanaccountinfo.product.multiDisburseLoan;
                 }
             };
-          }
+            scope.validateFRD = function(){
+                if(scope.loanaccountinfo && scope.loanaccountinfo.calendarOptions && scope.loanaccountinfo.product){
+                    var minimumDayBtwFRDAndDisburseDate = scope.loanaccountinfo.product.minimumDaysBetweenDisbursalAndFirstRepayment;
+                    if(!_.isUndefined(scope.formRequestData.expectedDisbursementDate)){
+                        var expectedDisbursementDate = new Date(dateFilter(scope.formRequestData.expectedDisbursementDate,scope.df));
+                        var expectedFirstRepaymentOnDate = expectedDisbursementDate;
+                        if(!_.isUndefined(minimumDayBtwFRDAndDisburseDate)){
+                            expectedFirstRepaymentOnDate = new Date(dateFilter(expectedDisbursementDate.setDate(expectedDisbursementDate.getDate() + minimumDayBtwFRDAndDisburseDate),scope.df));
+                        }
+                        for(var i in scope.loanaccountinfo.calendarOptions[0].nextTenRecurringDates){
+                            var nextMeeting = new Date(dateFilter(scope.loanaccountinfo.calendarOptions[0].nextTenRecurringDates[i],scope.df));
+                            if(expectedFirstRepaymentOnDate <= nextMeeting){
+                                scope.formRequestData.repaymentsStartingFromDate = nextMeeting;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
 
     });
