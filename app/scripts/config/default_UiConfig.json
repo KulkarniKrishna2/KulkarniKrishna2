@@ -526,10 +526,12 @@
 				"firstRepaymentDate": false,
 				"interestRatePerPeriod": false,
 				"disbursementPaymentMode": false,
-				"amountForUpfrontCollection": false
+				"amountForUpfrontCollection": false,
+				"disbursementPaymentType":false
 			},
 			"isMandatory": {
-				"trancheData": false
+				"trancheData": false,
+				"loanPurposeId": false
 			},
 			"newLoanApplicationLimitAllowed": false
 		},

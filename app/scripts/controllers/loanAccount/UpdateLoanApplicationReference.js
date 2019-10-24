@@ -16,7 +16,7 @@
             scope.canDisburseToGroupBankAccounts = false;
             scope.allowBankAccountsForGroups = scope.isSystemGlobalConfigurationEnabled('allow-bank-account-for-groups');
             scope.allowDisbursalToGroupBankAccounts = scope.isSystemGlobalConfigurationEnabled('allow-multiple-bank-disbursal');
-            scope.isMandatoryDisbursementPaymentMode = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.disbursementPaymentMode;
+            scope.isMandatoryDisbursementPaymentMode = false;
             scope.formData.disbursementData=[];
 
             scope.paymentModeOptions = [];
@@ -25,14 +25,14 @@
             scope.applicableOnRepayment = 1;
             scope.applicableOnDisbursement = 2;
             scope.manualPaymentMode = 3;
-            scope.isMandatoryExpectedDisbursementDate = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.expectedDisbursementDate;
-            scope.isMandatoryFirstRepaymentDate = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.firstRepaymentDate;
-            scope.isMandatoryRateOfInterest = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.interestRatePerPeriod;
-            scope.isHiddenExpectedDisbursementDate = scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.expectedDisbursementDate;
-            scope.isHiddenFirstRepaymentDate = scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.firstRepaymentDate;
-            scope.isHiddenRateOfInterest = scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.interestRatePerPeriod;
-            scope.isHiddenTrancheData = scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.tranchedata;
-            scope.loanReferenceTrancheData = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatory.trancheData;
+            scope.isMandatoryExpectedDisbursementDate = false;
+            scope.isMandatoryFirstRepaymentDate = false;
+            scope.isMandatoryRateOfInterest = false;
+            scope.isHiddenExpectedDisbursementDate = true;
+            scope.isHiddenFirstRepaymentDate = true;
+            scope.isHiddenRateOfInterest = true;
+            scope.isHiddenTrancheData = true;
+            scope.loanReferenceTrancheData = false;
             scope.previewRepayment = false;
             scope.isMultiDisburse = false;
             scope.showUpfrontAmount = true;
@@ -47,6 +47,26 @@
                 scope.showUpfrontAmount = !scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.upfrontAmount;
             }
 
+            scope.isLoanPurposeRequired = false;
+
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createLoanApplication) {
+                if (scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField) {
+                    scope.isHiddenExpectedDisbursementDate = scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.expectedDisbursementDate;
+                    scope.isHiddenFirstRepaymentDate = scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.firstRepaymentDate;
+                    scope.isHiddenRateOfInterest = scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.interestRatePerPeriod;
+                    scope.isHiddenTrancheData = scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.tranchedata;
+                }
+                if (scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField) {
+                    scope.isMandatoryExpectedDisbursementDate = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.expectedDisbursementDate;
+                    scope.isMandatoryFirstRepaymentDate = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.firstRepaymentDate;
+                    scope.isMandatoryRateOfInterest = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.interestRatePerPeriod;
+                    scope.isMandatoryDisbursementPaymentMode = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.disbursementPaymentMode;
+                }
+                if (scope.response.uiDisplayConfigurations.createLoanApplication.isMandatory) {
+                    scope.loanReferenceTrancheData = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatory.trancheData;
+                    scope.isLoanPurposeRequired = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatory.loanPurposeId;
+                }
+            }
             resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (applicationData) {
                 scope.applicationData = applicationData;
                 scope.formData.clientId = applicationData.clientId;
@@ -517,6 +537,9 @@
                 }
                 this.formData.submittedOnDate = dateFilter(this.formData.submittedOnDate,scope.df);
                 this.formData.noOfTranche = parseInt(this.formData.noOfTranche);
+                if (this.formData.loanPurposeId == null){
+                    delete this.formData.loanPurposeId;
+                }
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 resourceFactory.loanApplicationReferencesResource.update({loanApplicationReferenceId: scope.loanApplicationReferenceId}, this.formData, function (data) {

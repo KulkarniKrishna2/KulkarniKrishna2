@@ -8214,6 +8214,10 @@
     "error.msg.sms.provider.identifier.not.found" : "Sms provider with identifier `{{params[0].value}}` not found.",
     "error.msg.unable.to.connect.to.intermediate.server" : "Unable to connect intermeiate server. Please check connection details.",
     "error.msg.dependent.sheduler.job.failed":"One of the dependent job failed to execute, please make sure all the dependent jobs run successfully",
-
+    "validation.msg.loanemipacks.interestRateFrequencyTypeId.cannot.be.blank" : "Interest Rate Period type cannot be blank",
+    "validation.msg.loanemipacks.interestRateFrequencyTypeId.is.one.of.unwanted.enumerations" : "Please select a valid Interest Rate Period type",
+    "validation.msg.loanemipacks.repaymentFrequencyType.cannot.be.blank": "Repayment frequency period type is mandatory",
+    "validation.msg.loanemipacks.gracePeriod.cannot.be.blank": "Grace period cannot be blank", 
+    
     "------ end of translation file ------": "----------"
 }

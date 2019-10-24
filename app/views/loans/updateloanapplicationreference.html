@@ -42,15 +42,15 @@
             </tr>
             <tr>
                 <td>
-                    <label>{{ 'label.input.loanpurpose' | translate }}<span class="required">*</span>:&nbsp;</label>
+                    <label>{{ 'label.input.loanpurpose' | translate }}<span ng-show="isLoanPurposeRequired" class="required">*</span>:&nbsp;</label>
                     <i class="icon-question-sign" tooltip="{{'label.tooltip.loanpurpose' | translate}}"></i></td>
                 <td class="paddedbottom10">
                     <select id="loanPurposeId" name="loanPurposeId" ng-model="formData.loanPurposeId"
                             ng-options="loanPurpose.id as loanPurpose.name for loanPurpose in loanaccountinfo.loanPurposeOptions | orderBy:'name':reverse"
-                            class="form-control width170px" value="{{loanPurpose.id}}" required>
+                            class="form-control width170px" value="{{loanPurpose.id}}" ng-required="isLoanPurposeRequired">
                         <option value="">{{'label.selectpurpose' | translate}}</option>
                     </select>
-                    <form-validate valattributeform="updateloanapplicationform" valattribute="loanPurposeId"/>
+                    <form-validate ng-if="isLoanPurposeRequired" valattributeform="updateloanapplicationform" valattribute="loanPurposeId"/>
                 </td>
 
                 <td class="width19" ng-hide="loanaccountinfo.loanEMIPacks"><label>{{ 'label.input.principal' | translate }}&nbsp;<span
