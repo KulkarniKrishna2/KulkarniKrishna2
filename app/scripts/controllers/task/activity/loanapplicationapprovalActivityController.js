@@ -922,10 +922,6 @@
                     delete scope.submitData.formValidationData.loanOfficerId;
                 }
 
-                if(scope.submitData.formRequestData.fixedEmiAmount){
-                    delete scope.submitData.formRequestData.fixedEmiAmount;
-                }
-
                 if(scope.submitData.formRequestData.loanAccountNumber){
                     delete scope.submitData.formRequestData.loanAccountNumber;
                 }
