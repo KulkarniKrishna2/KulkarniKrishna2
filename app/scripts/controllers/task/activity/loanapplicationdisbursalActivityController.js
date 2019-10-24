@@ -169,8 +169,11 @@
                                     scope.formRequestData.submitApplication.discountOnDisbursalAmount = scope.formData.approvedData.discountOnDisbursalAmount;
                                 }
                             }
-                            if (scope.formData.fixedEmiAmount && !_.isUndefined(scope.formData.approvedData.fixedEmiAmount)) {
+                            if (!_.isUndefined(scope.formData.approvedData.fixedEmiAmount)) {
                                 scope.formRequestData.disburse.fixedEmiAmount = scope.formData.approvedData.fixedEmiAmount;
+                            }
+                            if(_.isUndefined(scope.formData.approvedData.loanEMIPackData)){
+                                scope.showEmiDetailsInDisbursement = false;
                             }
                             if(scope.formData.approvedData.amountForUpfrontCollection){
                                 scope.formRequestData.submitApplication.amountForUpfrontCollection = scope.formData.approvedData.amountForUpfrontCollection;
