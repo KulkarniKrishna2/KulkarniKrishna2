@@ -172,7 +172,10 @@
                         element.save();
                         element.scale(currentScale, currentScale);
                         element.rotate(currentAngle * Math.PI / 180);
-                        element.drawImage(image, 0, 0);
+                        var ratio = Math.min(canvas.width / image.width, canvas.height / image.height);
+                        var centerShift_x = (canvas.width - image.width * ratio) / 2;
+                        var centerShift_y = (canvas.height - image.height * ratio) / 2;
+                        element.drawImage(image, 0, 0, image.width, image.height, centerShift_x, centerShift_y, image.width * ratio, image.height * ratio);
                         element.restore();
                     }
 

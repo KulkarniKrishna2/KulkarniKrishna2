@@ -77,6 +77,13 @@
                     </div>
                     <div class="col-md-6"><span> {{'label.heading.office' | translate}} :&nbsp; {{getOfficeName(eodData.officeData.name,eodData.officeData.officeReferenceNumber)}}</span></div>
             </div>
+            <div class="row well" ng-if="taskData.entityType.value==='CLIENT_BANKACCOUNT'">
+                <h3><strong>{{'label.heading.clientdetails' | translate}}<span>:</span></strong></h3>
+                <div class="row">
+                    <div class="col-md-6"><span><strong>{{'label.heading.clientid' | translate}}:&nbsp;</strong></span><span><a href="#/viewclient/{{clientId}}"> {{taskData.clientId}}</a></span> &nbsp;</div>
+                    <div class="col-md-6"><span></strong>{{ 'label.heading.clientname' | translate }}:</strong> {{taskData.clientName}}</span></div>
+                </div>
+            </div>
             <div ng-if="isWorkflowTask" ng-include="'views/task/workflowtask.html'"></div>
             <div ng-if="isSingleTask" ng-include="'views/task/singletask.html'"></div>
         </div>
