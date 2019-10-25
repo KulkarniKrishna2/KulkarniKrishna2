@@ -6,6 +6,7 @@
             scope.isWorkflowEnabled = scope.isSystemGlobalConfigurationEnabled('work-flow');
             scope.isHideCreateEntity = false;
             scope.searchConditions = {};
+            scope.serachParameter = ['firstName','middleName','lastName','mobileNo','officeId','referenceNumber','isFilter','documentTypeId','documentNumber'];
             if(scope.response && scope.response.uiDisplayConfigurations){
                 if(scope.response.uiDisplayConfigurations.viewClient && 
                     scope.response.uiDisplayConfigurations.viewClient.isHiddenField){
@@ -29,7 +30,14 @@
              * Get the record based on the offset limit
              */
             var fetchFunction = function (offset, limit, callback) {
-                resourceFactory.clientsSearchResource.getAllClients({
+                //REMOVE unused parameter
+                for(var i in scope.serachParameter){     
+                    var param =  scope.serachParameter[i];
+                    if(scope.searchConditions[param]==undefined || scope.searchConditions[param]==null || scope.searchConditions[param]==''){
+                        delete scope.searchConditions[param];
+                    }
+                }
+                resourceFactory.clientsSearchResource.getAllClients({                    
                     searchConditions: scope.searchConditions,
                     offset: offset,
                     limit: limit,
