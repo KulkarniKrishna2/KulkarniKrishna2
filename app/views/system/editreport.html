@@ -40,7 +40,7 @@
 
                                 <label class="control-label">{{ 'label.input.embeddedreport' | translate }}</label>
                             </td>
-                            <td class="width20 paddedbottom10" ng-show="formData.reportType=='Chart'">
+                            <td class="width20 paddedbottom10" ng-show="formData.reportType=='Chart' || formData.reportType=='SMS'">
                                 <label class="control-label">{{ 'label.input.reportsubtype' | translate }}&nbsp;</label>
                                 <select ng-model="reportdetail.reportSubType" class="form-control width170px"
                                         ng-options="reportSubType for reportSubType in reportdetail.allowedReportSubTypes" ng-disabled="disableFields"

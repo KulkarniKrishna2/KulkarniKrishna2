@@ -1077,24 +1077,6 @@
             .when('/sms', {
                 templateUrl: 'views/sms/tracksms.html'
             })
-            .when('/sms/createcampaign', {
-                templateUrl: 'views/sms/createsmscampaign.html'
-            })
-            .when('/sms/viewcampaign', {
-                templateUrl: 'views/sms/viewsmscampaign.html'
-            })
-            .when('/sms/campaign/close/:campaignId', {
-                templateUrl: 'views/sms/closesmscampaign.html'
-            })
-            .when('/sms/campaign/reactivate/:campaignId', {
-                templateUrl: 'views/sms/reactivatesmscampaign.html'
-            })
-            .when('/sms/campaign/activate/:campaignId', {
-                templateUrl: 'views/sms/activatesmscampaign.html'
-            })
-            .when('/sms/campaign/edit/:campaignId', {
-                templateUrl: 'views/sms/editsmscampaign.html'
-            })
             .when('/bankstatements', {
                 templateUrl: 'views/bankstatements/viewbankstatement.html'
             })
@@ -2051,7 +2033,7 @@
             })
             .when('/gstmapping/editOfficeMappings/:entityType/:entityId', {
                 templateUrl: 'views/accounting/edit_office_tax_mapping.html'
-            })    
+            })
             .when('/gstinvoicing/view', {
                 templateUrl: 'views/accounting/view_gst_invoice.html'
             })
@@ -2067,7 +2049,7 @@
             .when('/editglimloanproductmapping/:id', {
                 templateUrl: 'views/products/glimloanproductmapping/editglimloanproductmapping.html'
             })
-            .when('/loan/:id/editactiveloan',{
+            .when('/loan/:id/editactiveloan', {
                 templateUrl: 'views/loans/editActiveLoan.html'
             })
             .when('/country/:countryId/state/:stateId/newdistricts', {
@@ -2079,16 +2061,32 @@
             .when('/districts/:districtId/newtalukas', {
                 templateUrl: 'views/districts/createtaluka.html'
             })
-            .when('/financialyearclosures',{
+            .when('/financialyearclosures', {
                 templateUrl: 'views/accounting/financialyearclosures/financialyearclosures.html'
             })
-            .when('/financialyearclosures/create',{
+            .when('/financialyearclosures/create', {
                 templateUrl: 'views/accounting/financialyearclosures/createfinancialyearclosure.html'
             })
-            .when('/financialyearclosures/:id',{
+            .when('/financialyearclosures/:id', {
                 templateUrl: 'views/accounting/financialyearclosures/viewfinancialyearclosure.html'
             })
-    $locationProvider.html5Mode(false);
+            .when('/smscampaigns', {
+                templateUrl: 'views/organization/smscampaigns/smscampaigns.html'
+            })
+            .when('/createsmscampaign', {
+                templateUrl: 'views/organization/smscampaigns/createsmscampaign.html'
+            })
+            .when('/viewsmscampaign/:campaignId', {
+                templateUrl: 'views/organization/smscampaigns/viewsmscampaign.html'
+            })
+            .when('/editsmscampaign/:campaignId', {
+                templateUrl: 'views/organization/smscampaigns/editsmscampaign.html'
+            })
+            .when('/smsproviders', {
+                templateUrl: 'views/organization/smscampaigns/smsproviders.html'
+            })
+
+        $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {
         $log.info("Routes definition completed");

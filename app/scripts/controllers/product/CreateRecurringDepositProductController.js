@@ -39,7 +39,10 @@
                 scope.chart = scope.product.chartTemplate;
                 scope.chart.chartSlabs = [];
                 scope.formData.accountingRule = '1';
-
+                scope.formData.autoRenewalEnabled = data.autoRenewalEnabled;
+                scope.autoRenewalGracePeriodTypeOptions = data.autoRenewalData.autoRenewalGracePeriodTypeOptions;
+                scope.autoRenewalConfigEnumOptions = data.autoRenewalData.autoRenewalConfigEnumOptions;
+            
             });
 
             //advanced accounting rule
@@ -165,6 +168,9 @@
                 this.formData.charts = [];//declare charts array
                 this.formData.charts.push(copyChartData(scope.chart));//add chart details
                 this.formData.isInterestCalculationFromProductChart = scope.isInterestCalculationFromProductChart;
+                if(this.formData.autoRenewalEnabled){
+                    this.formData.autoRenewalData.locale = this.formData.locale;
+                }
 
                 resourceFactory.recurringDepositProductResource.save(this.formData, function (data) {
                     location.path('/viewrecurringdepositproduct/' + data.resourceId);

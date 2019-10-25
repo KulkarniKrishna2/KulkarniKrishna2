@@ -192,6 +192,10 @@
                                 scope.formRequestData.repaymentPeriodFrequencyEnum = scope.formData.loanEMIPackData.repaymentFrequencyType.id;
                                 scope.formRequestData.repayEvery = scope.formData.loanEMIPackData.repaymentEvery;
                                 scope.formRequestData.fixedEmiAmount = scope.formData.loanEMIPackData.fixedEmi;
+                                if(scope.formData.loanEMIPackData.interestRatePerPeriod){
+                                    scope.formRequestData.interestRatePerPeriod = scope.formData.loanEMIPackData.interestRatePerPeriod;
+                                    scope.formValidationData.interestRateFrequencyTypeId = scope.formData.loanEMIPackData.interestRateFrequencyType.id;
+                                }
                             } else {
                                 scope.formRequestData.loanAmountApproved = scope.formData.loanAmountRequested;
                                 scope.formRequestData.numberOfRepayments = scope.formData.numberOfRepayments;
@@ -279,6 +283,12 @@
                 scope.formValidationData.graceOnArrearsAgeing = scope.loanaccountinfo.graceOnArrearsAgeing;
                 scope.formValidationData.transactionProcessingStrategyId = scope.loanaccountinfo.transactionProcessingStrategyId;
                 scope.formValidationData.graceOnInterestCharged = scope.loanaccountinfo.graceOnInterestCharged;
+                if(scope.formData.loanEMIPackData && scope.formData.loanEMIPackData.gracePeriod){
+                    scope.formValidationData.graceOnPrincipalPayment = scope.formData.loanEMIPackData.gracePeriod;
+                    scope.formValidationData.graceOnInterestPayment = scope.formData.loanEMIPackData.gracePeriod;
+                    scope.formValidationData.graceOnArrearsAgeing = scope.formData.loanEMIPackData.gracePeriod;
+                    scope.formValidationData.graceOnInterestCharged = scope.formData.loanEMIPackData.gracePeriod;
+                }
                 // scope.formValidationData.fixedEmiAmount = scope.loanaccountinfo.fixedEmiAmount;
                 scope.formValidationData.maxOutstandingLoanBalance = scope.formRequestData.maxOutstandingLoanBalance;
 
@@ -675,6 +685,26 @@
                                 }
                             }
                         }
+                    }
+                    if (loanEMIPack.interestRatePerPeriod) {
+                        scope.formRequestData.interestRatePerPeriod = loanEMIPack.interestRatePerPeriod;
+                        scope.formValidationData.interestRateFrequencyTypeId = loanEMIPack.interestRateFrequencyType.id;
+                    } else {
+                        scope.formRequestData.interestRatePerPeriod = scope.loanaccountinfo.interestRatePerPeriod;
+                        delete scope.formValidationData.interestRateFrequencyTypeId;
+                    }
+                    if (loanEMIPack.gracePeriod) {
+                        var gracePeriod = loanEMIPack.gracePeriod;
+                        scope.formValidationData.graceOnPrincipalPayment = gracePeriod;
+                        scope.formValidationData.graceOnInterestPayment = gracePeriod;
+                        scope.formValidationData.graceOnArrearsAgeing = gracePeriod;
+                        scope.formValidationData.graceOnInterestCharged = gracePeriod;
+                    } else {
+                        scope.formValidationData.graceOnPrincipalPayment = scope.loanaccountinfo.graceOnPrincipalPayment;
+                        scope.formValidationData.graceOnInterestPayment = scope.loanaccountinfo.graceOnInterestPayment;
+                        scope.formValidationData.graceOnArrearsAgeing = scope.loanaccountinfo.graceOnArrearsAgeing;
+                        scope.formValidationData.transactionProcessingStrategyId = scope.loanaccountinfo.transactionProcessingStrategyId;
+                        scope.formValidationData.graceOnInterestCharged = scope.loanaccountinfo.graceOnInterestCharged;
                     }
                 }
             });

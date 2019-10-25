@@ -37,8 +37,12 @@
             scope.isShowReasonDropDown = false;
             scope.showErrMsg = false;
 
+            scope.showAllAttendanceTypes = true;
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.collectionSheet){
                scope.showEmiAmountOverTotalDue = scope.response.uiDisplayConfigurations.collectionSheet.isAutoPopulate.showEmiAmount; 
+            }
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild){
+               scope.EmiAmountTotalDueToggleButton = scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild.ToggleButton; 
             }
             resourceFactory.configurationResource.get({configName:'reason-code-allowed'}, function (data) {
                 scope.showRejectReason = data.enabled;
@@ -52,6 +56,7 @@
             }
             if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.collectionSheet && scope.response.uiDisplayConfigurations.collectionSheet.attendanceType) {
                 scope.defaultAttendanceValue = scope.response.uiDisplayConfigurations.collectionSheet.attendanceType.defaultValue;
+                scope.showAllAttendanceTypes = scope.response.uiDisplayConfigurations.collectionSheet.attendanceType.showAllAttendanceTypes;
             }
             if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.collectionSheet && scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild) {
                 scope.hideSavingsAccountNumber = scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild.savingsAccountNumber;
@@ -202,22 +207,32 @@
 
                 resourceFactory.centerResource.save({'centerId': scope.centerId, command: 'generateCollectionSheet'}, scope.formData, function (data) {
                     scope.originalCollectionsheetData = data;
+                    scope.attendanceTypeOptions = scope.response.uiDisplayConfigurations.attendanceTypeOptions;
+                    scope.colectionsSheetsCopy = [];
+                    if (!_.isUndefined(scope.attendanceTypeOptions)) {
+                        scope.originalCollectionsheetData.attendanceTypeOptions = scope.attendanceTypeOptions;
+                    }
+                    if(!scope.showAllAttendanceTypes){
+                        var allowedAttendanceTypeOptions = ['Present','Absent'];
+                        var temp = angular.copy(scope.collectionsheetdata.attendanceTypeOptions);
+                        for (var i in temp) {
+                            if (allowedAttendanceTypeOptions.indexOf(temp[i].value) <= -1) {
+                                var index = scope.collectionsheetdata.attendanceTypeOptions.findIndex(x => x.value==temp[i].value);
+                                scope.collectionsheetdata.attendanceTypeOptions.splice(index, 1);
+                            }
+                        }
+                    }
+                    if (angular.isNumber(scope.defaultAttendanceValue)) {
+                        scope.defaultClientAttendanceType = scope.defaultAttendanceValue;
+                    } else if (scope.originalCollectionsheetData.attendanceTypeOptions) {
+                        scope.defaultClientAttendanceType = scope.originalCollectionsheetData.attendanceTypeOptions[0].id
+                    }
+                    scope.savingsgroups = data.groups;
+                    angular.copy(scope.savingsgroups,scope.colectionsSheetsCopy);
                     scope.collectionsheetdata = angular.copy(scope.originalCollectionsheetData);
                     if(scope.showEmiAmountOverTotalDue){
                         scope.populateEmiAmount(scope.collectionsheetdata);
                     }
-                    scope.attendanceTypeOptions = scope.response.uiDisplayConfigurations.attendanceTypeOptions;
-                    scope.colectionsSheetsCopy = [];
-                    if (!_.isUndefined(scope.attendanceTypeOptions)) {
-                        scope.collectionsheetdata.attendanceTypeOptions = scope.attendanceTypeOptions;
-                    }
-                    if (angular.isNumber(scope.defaultAttendanceValue)) {
-                        scope.defaultClientAttendanceType = scope.defaultAttendanceValue;
-                    } else if (scope.collectionsheetdata.attendanceTypeOptions) {
-                        scope.defaultClientAttendanceType = scope.collectionsheetdata.attendanceTypeOptions[0].id
-                    }
-                    scope.savingsgroups = data.groups;
-                    angular.copy(scope.savingsgroups,scope.colectionsSheetsCopy);
                     scope.isWithDrawForSavingsIncludedInCollectionSheet = data.isWithDrawForSavingsIncludedInCollectionSheet;
                     scope.clientsAttendanceList(data.groups);
                     scope.sumTotalDueCollection();
@@ -245,6 +260,8 @@
                             scope.client = scope.clients[j];
                             if (scope.client.attendanceType.id === 0) {
                                 scope.client.attendanceType = 1;
+                            }else{
+                               scope.client.attendanceType = scope.client.attendanceType.id; 
                             }
                         }
                     }
@@ -802,7 +819,7 @@
                 _.each(data.groups, function (group) {
                     _.each(group.clients,function(client){
                         _.each(client.loans,function(loan){
-                            if(!_.isUndefined(loan.installmentAmount) && !loan.lastPayment){
+                            if(!_.isUndefined(loan.installmentAmount) && loan.totalDue > 0 && !loan.lastPayment){
                                 loan.totalDue = loan.installmentAmount;
                             }
                         });
@@ -814,6 +831,12 @@
                 scope.showEmiAmountOverTotalDue = false;
                 scope.collectionsheetdata = angular.copy(scope.originalCollectionsheetData);
                 scope.sumTotalDueCollection();
+            }
+            scope.showEmiTotalDueButton = function(){
+                if(scope.details && !scope.EmiAmountTotalDueToggleButton){
+                    return true;
+                }
+                return false;
             }
 
         }

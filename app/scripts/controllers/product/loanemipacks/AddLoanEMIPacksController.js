@@ -5,6 +5,7 @@
             scope.loanTemplate = {};
             scope.loanEMIPacks = [];
             scope.formData = {};
+            scope.showAdvancedSettings = false;
 
             resourceFactory.loanemipacktemplate.getEmiPackTemplate({loanProductId:scope.loanProductId}, function (data) {
                 scope.loanTemplate = data;
@@ -15,9 +16,15 @@
                 if(!this.formData.isActive){
                     this.formData.isActive = false;
                 }
+                if(scope.formData.gracePeriod ==""){
+                    delete scope.formData.gracePeriod;
+                }
                 resourceFactory.loanemipack.add({loanProductId:scope.loanProductId},this.formData, function (data) {
                     location.path('/viewloanemipacks/'+scope.loanProductId);
                 });
+            };
+            scope.showOrHideAdvancedSettings = function () {
+                scope.showAdvancedSettings = !scope.showAdvancedSettings;
             };
 
         }

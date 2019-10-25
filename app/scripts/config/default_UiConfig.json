@@ -188,13 +188,15 @@
 				"paymentDetails": false,
 				"loanAccountNumber": false,
 				"savingsAccountNumber": false,
-				"clientForNoRepayments": false
+				"clientForNoRepayments": false,
+				"ToggleButton":true
 			},
 			"isMandatory": {
 				"officeId": false
 			},
 			"attendanceType": {
-				"defaultValue": ""
+				"defaultValue": "",
+				"showAllAttendanceTypes" : true
 			}
 		},
 		"createClient": {
@@ -279,7 +281,9 @@
 				"showStaff": true,
 				"addclients": true,
 				"activate": false,
-				"addGroups": true
+				"addGroups": true,
+				"areaCategory": true,
+				"staffOptions": false
 			},
 			"isAutoPopulate": {
 				"name": true
@@ -521,10 +525,13 @@
 				"expectedDisbursementDate": false,
 				"firstRepaymentDate": false,
 				"interestRatePerPeriod": false,
-				"disbursementPaymentMode": false
+				"disbursementPaymentMode": false,
+				"amountForUpfrontCollection": false,
+				"disbursementPaymentType":false
 			},
 			"isMandatory": {
-				"trancheData": false
+				"trancheData": false,
+				"loanPurposeId": false
 			},
 			"newLoanApplicationLimitAllowed": false
 		},
@@ -704,6 +711,15 @@
 		},
 		"documentConfiguration": {
 			"restrictTaggedDocuments": false
+		},
+		"editCenter": {
+			"isReadOnlyField": {
+				"name": false
+			},
+			"isHiddenField": {
+				"villageOptions": false,
+				"staffOptions": false
+			}
 		}	
 	}
 }

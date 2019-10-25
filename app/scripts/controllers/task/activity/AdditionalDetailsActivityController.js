@@ -827,16 +827,14 @@
 
                 $scope.getBankDetails = function(isvalidIfsc){
                     if($scope.bankAccFormData.ifscCode != undefined && $scope.bankAccFormData.ifscCode === $scope.repeatBankAccFormData.ifscCodeRepeat && isvalidIfsc){
-                        var url = "https://ifsc.razorpay.com/" + $scope.bankAccFormData.ifscCode;
-                        url = $sce.trustAsResourceUrl(url);
-                        $http({
-                            method: 'GET',
-                            url: url
-                        }).then(function (data) {
+                        resourceFactory.bankIFSCResource.get({
+                            ifscCode: $scope.bankAccFormData.ifscCode
+                        }, function (data) {
                             $scope.bankData = data;
-                            $scope.bankAccFormData.bankName = $scope.bankData.BANK;
-                            $scope.bankAccFormData.branchName = $scope.bankData.BRANCH;
-                        })
+                            $scope.bankAccFormData.bankName = $scope.bankData.bankName;
+                            $scope.bankAccFormData.branchName = $scope.bankData.branchName;
+                            $scope.bankAccFormData.bankCity = $scope.bankData.bankCity;
+                        });
                     }
                 }
 

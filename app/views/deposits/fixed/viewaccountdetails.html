@@ -7,7 +7,8 @@
 <div>
     <div class="span gray-head">
           <span class="boldlabel">
-                <strong><i class="icon-stop {{savingaccountdetails.status.code | StatusLookup}}"></i>&nbsp;{{savingaccountdetails.depositProductName}}(#{{savingaccountdetails.accountNo}})</strong>
+                <strong ng-hide="savingaccountdetails.isAutoRenewAccount"><i class="icon-stop {{savingaccountdetails.status.code | StatusLookup}}"></i>&nbsp;{{savingaccountdetails.depositProductName}}(#{{savingaccountdetails.accountNo}})</strong>
+                <strong ng-show="savingaccountdetails.isAutoRenewAccount"><i class="icon-stop {{savingaccountdetails.status.code | StatusLookup}}"></i>&nbsp;{{savingaccountdetails.depositProductName}}({{'label.heading.renewed'|translate}})(#{{savingaccountdetails.accountNo}})</strong>
           </span>
     </div>
     <div class="col-md-12 primarydiv">
@@ -95,6 +96,12 @@
                     </td>
                     <td><span class="padded-td">{{savingaccountdetails.currency.displaySymbol}}&nbsp;{{savingaccountdetails.summary.totalWithdrawals | number}}</span>
                     </td>
+                </tr>
+                <tr ng-if="savingaccountdetails.autoRenewalEnabled">
+                    <td class="active fontnormal">{{'label.heading.grace.period' | translate}}</td>
+                    <td><span class="padded-td">{{savingaccountdetails.autoRenewalData.autoRenewalGracePeriod}}&nbsp;{{savingaccountdetails.autoRenewalData.autoRenewalGracePeriodType.value}}</span></td>
+                    <td class="active fontnormal">{{'label.heading.new.accounts.interest.rate.and tenure' | translate}}</td>
+                    <td><span class="padded-td">{{savingaccountdetails.autoRenewalData.autoRenewalConfigEnum.value}}</span></td>
                 </tr>
             </table>
         </div>

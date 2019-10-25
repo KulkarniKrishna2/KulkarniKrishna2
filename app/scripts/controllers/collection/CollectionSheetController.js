@@ -34,6 +34,7 @@
             scope.isShowReasonDropDown = false;
             scope.isRejectReasonMandatory = false;
             
+            scope.showAllAttendanceTypes = true;
             resourceFactory.configurationResource.get({configName:'reason-code-allowed'}, function (data) {
                 scope.showRejectReason = data.enabled;
             });
@@ -46,9 +47,13 @@
             if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.collectionSheet) {
                 if(scope.response.uiDisplayConfigurations.collectionSheet.attendanceType){
                     scope.defaultAttendanceValue = scope.response.uiDisplayConfigurations.collectionSheet.attendanceType.defaultValue; 
+                    scope.showAllAttendanceTypes = scope.response.uiDisplayConfigurations.collectionSheet.attendanceType.showAllAttendanceTypes;
                 }
                 if(scope.response.uiDisplayConfigurations.collectionSheet.isAutoPopulate){
                     scope.showEmiAmountOverTotalDue = scope.response.uiDisplayConfigurations.collectionSheet.isAutoPopulate.showEmiAmount; 
+                }
+                if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild){
+                    scope.EmiAmountTotalDueToggleButton = scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild.ToggleButton; 
                 }
             }
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow &&
@@ -105,6 +110,8 @@
                         scope.client = scope.clients[j];
                         if (scope.client.attendanceType.id === 0) {
                             scope.client.attendanceType = 1;
+                        }else{
+                            scope.client.attendanceType = scope.client.attendanceType.id;
                         }
                     }
                 }
@@ -299,10 +306,6 @@
                     resourceFactory.centerResource.save({'centerId': scope.centerId, command: 'generateCollectionSheet'}, scope.formData, function (data) {
                         if (data.groups && data.groups.length > 0) {
                             scope.originalCollectionsheetData = scope.parseClientCharge(data);
-                            scope.collectionsheetdata = angular.copy(scope.originalCollectionsheetData);
-                            if(scope.showEmiAmountOverTotalDue){
-                                scope.populateEmiAmount(scope.collectionsheetdata);
-                            }
                             scope.paymentTypeOptions = data.paymentTypeOptions;
                             if(scope.collectionsheetdata != ""){
                                 scope.showPaymentDetails = true;
@@ -314,6 +317,10 @@
                             scope.colectionsSheetsCopy = [];
                             scope.savingsgroups = data.groups;
                             angular.copy(scope.savingsgroups,scope.colectionsSheetsCopy);
+                            scope.collectionsheetdata = angular.copy(scope.originalCollectionsheetData);
+                            if(scope.showEmiAmountOverTotalDue){
+                                scope.populateEmiAmount(scope.collectionsheetdata);
+                            }
                             scope.sumTotalDueCollection();
                             scope.isWithDrawForSavingsIncludedInCollectionSheet = data.isWithDrawForSavingsIncludedInCollectionSheet;
                             scope.isClientChargesIncludedInCollectoonSheet = data.isClientChargesIncludedInCollectoonSheet;
@@ -332,10 +339,6 @@
                     resourceFactory.groupResource.save({'groupId': scope.groupId, command: 'generateCollectionSheet'}, scope.formData, function (data) {
                         if (data.groups && data.groups.length > 0) {
                             scope.originalCollectionsheetData = scope.parseClientCharge(data);
-                            scope.collectionsheetdata = angular.copy(scope.originalCollectionsheetData);
-                            if(scope.showEmiAmountOverTotalDue){
-                                scope.populateEmiAmount(scope.collectionsheetdata);
-                            }
                             scope.paymentTypeOptions = data.paymentTypeOptions;
                             if(scope.collectionsheetdata != ""){
                                 scope.showPaymentDetails = true;
@@ -347,6 +350,10 @@
                             scope.colectionsSheetsCopy = [];
                             scope.savingsgroups = data.groups;
                             angular.copy(scope.savingsgroups,scope.colectionsSheetsCopy);
+                            scope.collectionsheetdata = angular.copy(scope.originalCollectionsheetData);
+                            if(scope.showEmiAmountOverTotalDue){
+                                scope.populateEmiAmount(scope.collectionsheetdata);
+                            }
                             scope.isWithDrawForSavingsIncludedInCollectionSheet = data.isWithDrawForSavingsIncludedInCollectionSheet;
                             scope.isClientChargesIncludedInCollectoonSheet = data.isClientChargesIncludedInCollectoonSheet;
                             scope.sumTotalDueCollection();
@@ -369,7 +376,17 @@
             var updateAttendanceTypeOptions = function() {
                 scope.attendanceTypeOptions = scope.response.uiDisplayConfigurations.attendanceTypeOptions;
                 if (!_.isUndefined(scope.attendanceTypeOptions)) {
-                    scope.collectionsheetdata.attendanceTypeOptions = scope.attendanceTypeOptions;
+                    scope.originalCollectionsheetData.attendanceTypeOptions = scope.attendanceTypeOptions;
+                }
+                if(!scope.showAllAttendanceTypes){
+                    var allowedAttendanceTypeOptions = ['Present','Absent'];
+                    var temp = angular.copy(scope.collectionsheetdata.attendanceTypeOptions);
+                    for (var i in temp) {
+                        if (allowedAttendanceTypeOptions.indexOf(temp[i].value) <= -1) {
+                            var index = scope.collectionsheetdata.attendanceTypeOptions.findIndex(x => x.value==temp[i].value);
+                            scope.collectionsheetdata.attendanceTypeOptions.splice(index, 1);
+                        }
+                    }
                 }
             };
 
@@ -953,7 +970,7 @@
                 _.each(data.groups, function (group) {
                     _.each(group.clients,function(client){
                         _.each(client.loans,function(loan){
-                            if(!_.isUndefined(loan.installmentAmount) && !loan.lastPayment){
+                            if(!_.isUndefined(loan.installmentAmount) && loan.totalDue > 0 && !loan.lastPayment){
                                 loan.totalDue = loan.installmentAmount;
                             }
                         });

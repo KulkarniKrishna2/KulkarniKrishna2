@@ -17,6 +17,8 @@
             scope.isNameAutoPopulate = false;
             scope.officeName = "";
             scope.isBranchNameIncluded = false;
+            scope.hideAreaCategory = true;
+            scope.areaCategories = [];
             
             if(scope.response && scope.response.uiDisplayConfigurations){
                 scope.isHiddenVillageOption = scope.response.uiDisplayConfigurations.createCenter.isHiddenField.villageOptions;
@@ -24,14 +26,18 @@
                 scope.showaddGroups = !scope.response.uiDisplayConfigurations.createCenter.isHiddenField.addGroups;
                 scope.isNameAutoPopulate = scope.response.uiDisplayConfigurations.createCenter.isAutoPopulate.name;
                 scope.loanOfficersOnly = scope.response.uiDisplayConfigurations.createCenter.loanOfficersOnly;
+                scope.hideAreaCategory = scope.response.uiDisplayConfigurations.createCenter.isHiddenField.areaCategory;                     
                 if(scope.response.uiDisplayConfigurations.createCenter.isValidateName) {
                     scope.namePattern = scope.response.uiDisplayConfigurations.createCenter.isValidateName.namePattern;
                 }
                 if(scope.response.uiDisplayConfigurations.createCenter.nameWithBranchName){
                     scope.isBranchNameIncluded = scope.response.uiDisplayConfigurations.createCenter.nameWithBranchName;
                 }
+                if (!scope.hideAreaCategory) {
+                    getAreaCategories();
+                }
             }  
-                      
+            
             resourceFactory.centerTemplateResource.get({staffInSelectedOfficeOnly:true,loanOfficersOnly:scope.loanOfficersOnly},function (data) {
                 scope.offices = data.officeOptions;
                 scope.villageCount = data.villageCounter;
@@ -142,6 +148,12 @@
                     }
                 }
             };
+
+            function getAreaCategories() {
+                resourceFactory.codeValueByCodeNameResources.get({ codeName: 'areaCategory' }, function (codeValueData) {
+                    scope.areaCategories = codeValueData;
+                });
+            }
 
             scope.submit = function () {
                 var reqDate = dateFilter(scope.first.date, scope.df);

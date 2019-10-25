@@ -13,6 +13,8 @@
             scope.showUpfrontAmount = true;
             scope.upfrontAmount = false;
             scope.showPreApprove = false;
+            scope.preApprovalSuccess = false;
+            scope.preApprovalFailure = false;
 
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createLoanApplication &&
                 scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField && scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.upfrontAmount) {
@@ -816,9 +818,17 @@
                 if (!_.isUndefined(scope.repaymentscheduleinfo) && scope.repaymentscheduleinfo.periods.length > 0) {
                     data.secondInstallmentAmount = scope.repaymentscheduleinfo.periods[2].totalDueForPeriod;
                 }
-                resourceFactory.preApproveLoanApplication.post({
-                    loanApplicationReferenceId: scope.loanApplicationReferenceId,
-                }, data, function (data) {
+                http({
+                    method: 'POST',
+                    url: $rootScope.hostUrl + API_VERSION + '/loanapplicationreferences/' + scope.loanApplicationReferenceId + '/preapprove',
+                    data: data
+                }).success(function(){
+                    scope.preApprovalSuccess = true; 
+                    scope.preApprovalFailure = false;  
+                })
+                .error(function(){
+                    scope.preApprovalFailure = true;
+                    scope.preApprovalSuccess = false;
                 });
             };
 

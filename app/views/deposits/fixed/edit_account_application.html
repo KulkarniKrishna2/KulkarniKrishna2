@@ -208,6 +208,53 @@
             {{data.taxGroup.name}}
         </td>
     </tr>
+    <tr ng-if="autoRenewalEnabledAtProduct">
+        <td>
+            <label class="control-label">{{'label.is.auto.renewal.allowed' | translate}}</label>
+            <i class="icon-question-sign" tooltip="{{'label.tooltip.of.auto.renewal.in.deposit.product' | translate}}"></i>
+        </td>
+        <td>
+            <input type="checkbox" id="autoRenewalEnabled" ng-model="formData.autoRenewalEnabled">
+        </td>
+    </tr>
+</table>
+<hr ng-if="formData.autoRenewalEnabled">
+<label ng-if="formData.autoRenewalEnabled"><strong>{{ 'label.heading.autorenewaldetails' | translate }}</strong></label>
+<table>
+    <tr ng-if="formData.autoRenewalEnabled">
+        <td class="col-sm-3">
+            <label class="control-label">{{'label.input.graceperiod' | translate}}<span class="required">*</span></label>
+        </td>
+        <td class="width36 paddedbottom10">
+            <input id="autoRenewalGracePeriod" name="autoRenewalGracePeriod" type="text" autocomplete="off" class="form-control" ng-model="formData.autoRenewalData.autoRenewalGracePeriod" required>
+                <select id="autoRenewalGracePeriodType" name = "autoRenewalGracePeriodType" ng-model="formData.autoRenewalData.autoRenewalGracePeriodType"
+                    class="form-control width170px"
+                    ng-options="type.id as type.value for type in autoRenewalGracePeriodTypeOptions"
+                    value="{{type.id}}" required>
+                    <option class="displaynone" value="">{{'label.selectone' | translate}}</option>
+                </select>
+        </td>
+        <td>
+            <form-validate valattributeform="editfixeddepositaccountform" valattribute="autoRenewalGracePeriod"/>
+        </td>
+        <td>
+            <form-validate valattributeform="editfixeddepositaccountform" valattribute="autoRenewalGracePeriodType"/>
+        </td>
+    </tr>
+    <tr ng-if="formData.autoRenewalEnabled">
+        <td class="col-sm-4">
+            <label class="control-label">{{'label.input.new.accounts.interest.rate.and tenure' | translate}}
+                <i class="icon-question-sign" tooltip="{{'label.tooltip.of.auto.renewal.config' | translate}}"></i>
+                <span class="required">*</span></label>
+        </td>
+        <td class="col-sm-2" ng-repeat="autoRenewalConfigEnum in autoRenewalConfigEnumOptions" >
+            <input type="radio" name="autoRenewalConfigEnum" id="autoRenewalConfigEnum" ng-if="autoRenewalConfigEnum" ng-model="formData.autoRenewalData.autoRenewalConfigEnum" 
+                value="{{autoRenewalConfigEnum.id}}" ng-disabled="true" required>{{autoRenewalConfigEnum.value}}
+        </td>
+        <td class="col-sm-2">
+                <form-validate valattributeform="editfixeddepositaccountform" valattribute="autoRenewalConfigEnum"/>
+        </td>
+    </tr>
 </table>
 <hr data-ng-show="formData.productId"/>
 <label ng-show="data"><strong>{{ 'label.heading.interestchart' | translate }}</strong></label>

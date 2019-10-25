@@ -110,7 +110,26 @@
                                class="form-control"/>
                     </div>
                 </div>
-
+                <h4>{{'label.heading.advancedsetting' | translate}}[<a ng-click="showOrHideAdvancedSettings()">{{showAdvancedSettings == false ? 'label.heading.show' : 'label.heading.hide' | translate}}</a>]
+                </h4>
+                <div ng-show="showAdvancedSettings">    
+                        <div class="form-group">
+                                <label class="control-label col-sm-2" >{{'label.heading.nominalinterestrate' | translate}}</label>
+                                <div class="col-sm-3">
+                                    <input name="loanproduct.interestRatePerPeriod" ng-model="formData.interestRatePerPeriod" class="form-control"/>
+                                </div>
+                                <div class="col-sm-3">
+                                    <select id="interestRateFrequencyType" name="interestRateFrequencyType" ng-model="formData.interestRateFrequencyTypeId" class="form-control" 
+                                    ng-options="interestRateFrequencyType.id as interestRateFrequencyType.value for interestRateFrequencyType in loanTemplate.interestRateFrequencyTypeOptions" value="{{interestRateFrequencyType.id}}"></select>
+                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" >{{'label.heading.grace.period' | translate}}</label>
+                            <div class="col-sm-3">
+                                <input name="gracePeriod" ng-model="formData.gracePeriod" class="form-control"/>
+                            </div>
+                        </div>
+                    </div>
                 <div class="col-md-offset-2 paddedleft">
                     <a id="cancel" href="#/viewloanemipacks/{{loanTemplate.loanProductId}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
                     <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_LOANEMIPACKS'>{{'label.button.save' | translate}}</button>

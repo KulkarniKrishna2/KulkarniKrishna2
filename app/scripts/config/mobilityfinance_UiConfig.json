@@ -3,14 +3,29 @@
     "uiDisplayConfigurations": {
         "createLoanApplication": {
             "isHiddenField": {
-                "interestRatePerPeriod": false
+                "interestRatePerPeriod": false,
+                "upfrontAmount":false
+            },
+            "isMandatoryField": {
+                "amountForUpfrontCollection": true
             }
         },
         "createClient": {
             "isMandatoryField": {
                 "dateOfBirth": true,
                 "maritalStatus": false
+            },
+            "isValidMobileNumber": {
+                "mobileNumberPattern": "/^[0-9]{9,10}$/"
+            },
+            "isHiddenField": {
+              "pincode": true  
             }
-        }
+        },
+        "viewClient": {
+            "isHiddenField": {
+                "pincode": true
+            }
+        }   
     }
 }

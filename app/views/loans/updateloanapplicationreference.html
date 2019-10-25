@@ -42,15 +42,15 @@
             </tr>
             <tr>
                 <td>
-                    <label>{{ 'label.input.loanpurpose' | translate }}<span class="required">*</span>:&nbsp;</label>
+                    <label>{{ 'label.input.loanpurpose' | translate }}<span ng-show="isLoanPurposeRequired" class="required">*</span>:&nbsp;</label>
                     <i class="icon-question-sign" tooltip="{{'label.tooltip.loanpurpose' | translate}}"></i></td>
                 <td class="paddedbottom10">
                     <select id="loanPurposeId" name="loanPurposeId" ng-model="formData.loanPurposeId"
                             ng-options="loanPurpose.id as loanPurpose.name for loanPurpose in loanaccountinfo.loanPurposeOptions | orderBy:'name':reverse"
-                            class="form-control width170px" value="{{loanPurpose.id}}" required>
+                            class="form-control width170px" value="{{loanPurpose.id}}" ng-required="isLoanPurposeRequired">
                         <option value="">{{'label.selectpurpose' | translate}}</option>
                     </select>
-                    <form-validate valattributeform="updateloanapplicationform" valattribute="loanPurposeId"/>
+                    <form-validate ng-if="isLoanPurposeRequired" valattributeform="updateloanapplicationform" valattribute="loanPurposeId"/>
                 </td>
 
                 <td class="width19" ng-hide="loanaccountinfo.loanEMIPacks"><label>{{ 'label.input.principal' | translate }}&nbsp;<span
@@ -250,11 +250,12 @@
 
             <tr data-ng-show="(showUpfrontAmount || !loanaccountinfo.loanEMIPacks) && loanaccountinfo.allowUpfrontCollection">
                 <td>
-                    <label>{{ 'label.input.amountforupfrontcollection' | translate }}</label>
+                    <label>{{ 'label.input.amountforupfrontcollection' | translate }}<span class="required" ng-show="isMandatoryUpfrontAmountCollection">*</span></label>
                 </td>
                 <td>
-                    <input id="amountForUpfrontCollection" type="text" autocomplete="off" ng-model="formData.amountForUpfrontCollection"
-                           class="form-control" number-format/>
+                    <input id="amountForUpfrontCollection" name="amountForUpfrontCollection" type="text" autocomplete="off" ng-model="formData.amountForUpfrontCollection"
+                        class="form-control" ng-required="isMandatoryUpfrontAmountCollection" number-format/>
+                    <form-validate valattributeform="updateloanapplicationform" valattribute="amountForUpfrontCollection" />
                 </td>
             </tr>
             <tr>

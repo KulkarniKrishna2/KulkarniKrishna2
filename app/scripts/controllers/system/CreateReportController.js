@@ -11,10 +11,12 @@
 
             resourceFactory.codeValueByCodeNameResources.get({codeName: "Report Classification"}, function (codeValueData) {
                 scope.availablCategories = codeValueData;
+                console.log('codeValueData: ',codeValueData);
             });
 
             resourceFactory.reportsResource.getReportDetails({resourceType: 'template'}, function (data) {
                 scope.reportdetail = data;
+                console.log('template: ',data);
                 scope.formData.reportType = data.allowedReportTypes[0];
             });
 

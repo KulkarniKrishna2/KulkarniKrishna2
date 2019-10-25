@@ -629,7 +629,7 @@
                     for(var i in data.glims){
                         if(data.glims[i].isClientSelected){
                             if(data.chargeCalculationType.value == scope.slabBasedCharge || data.isSlabBased){
-                                var slabBasedValue = scope.getSlabBasedAmount(data.slabs,scope.formData.principal,scope.formData.numberOfRepayments);
+                                var slabBasedValue = scope.getSlabBasedAmount(data.slabs,data.glims[i].transactionAmount,scope.formData.numberOfRepayments);
                                     if(slabBasedValue != null){
                                         data.glims[i].upfrontChargeAmount = slabBasedValue; 
                                         amount = amount + data.glims[i].upfrontChargeAmount;
@@ -645,7 +645,6 @@
                             }
                         }else{
                             data.glims[i].upfrontChargeAmount = 0;
-                            amount = 0;
                         }
                     }
                     data.amountOrPercentage = amount;
@@ -924,7 +923,7 @@
                     this.formData.dpStartDate = dateFilter(new Date(this.formData.dpStartDate),scope.df);
                 }
                 if(scope.loanaccountinfo.multiDisburseLoan && scope.loanaccountinfo.isDpConfigured){
-                    scope.loanAccountDpDetailData.dpLimitAmount = scope.formData.maxOutstandingLoanBalance;
+                    scope.loanAccountDpDetailData.dpLimitAmount = scope.formData.principal;
                     scope.loanAccountDpDetailData.dpStartDate = dateFilter(scope.loanAccountDpDetailData.dpStartDate, scope.df);
                     scope.loanAccountDpDetailData.locale = scope.optlang.code;
                     scope.loanAccountDpDetailData.dateFormat = scope.df;
