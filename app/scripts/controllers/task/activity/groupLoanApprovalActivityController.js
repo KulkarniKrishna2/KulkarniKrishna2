@@ -271,8 +271,11 @@
                 }
                 scope.formValidationData.loanTermFrequency = scope.formRequestData.termFrequency;
                 scope.formValidationData.loanTermFrequencyType = scope.formRequestData.termPeriodFrequencyEnum;
-
-                scope.formValidationData.interestRatePerPeriod = scope.loanaccountinfo.interestRatePerPeriod;
+                if(scope.formRequestData.interestRatePerPeriod){
+                    scope.formValidationData.interestRatePerPeriod = scope.formRequestData.interestRatePerPeriod; 
+                }else{
+                    scope.formValidationData.interestRatePerPeriod = scope.loanaccountinfo.interestRatePerPeriod;
+                }
                 scope.formValidationData.amortizationType = scope.loanaccountinfo.amortizationType.id;
                 scope.formValidationData.interestType = scope.loanaccountinfo.interestType.id;
                 scope.formValidationData.interestCalculationPeriodType = scope.loanaccountinfo.interestCalculationPeriodType.id;
@@ -286,8 +289,6 @@
                 if(scope.formData.loanEMIPackData && scope.formData.loanEMIPackData.gracePeriod){
                     scope.formValidationData.graceOnPrincipalPayment = scope.formData.loanEMIPackData.gracePeriod;
                     scope.formValidationData.graceOnInterestPayment = scope.formData.loanEMIPackData.gracePeriod;
-                    scope.formValidationData.graceOnArrearsAgeing = scope.formData.loanEMIPackData.gracePeriod;
-                    scope.formValidationData.graceOnInterestCharged = scope.formData.loanEMIPackData.gracePeriod;
                 }
                 // scope.formValidationData.fixedEmiAmount = scope.loanaccountinfo.fixedEmiAmount;
                 scope.formValidationData.maxOutstandingLoanBalance = scope.formRequestData.maxOutstandingLoanBalance;
@@ -428,7 +429,9 @@
                 }
 
                 this.formValidationData.principal = this.formRequestData.loanAmountApproved;
-
+                if(scope.formRequestData.interestRatePerPeriod){
+                    this.formValidationData.interestRatePerPeriod = scope.formRequestData.interestRatePerPeriod; 
+                }
                 this.formValidationData.loanType = scope.inparams.templateType;
                 if (scope.formRequestData.expectedDisbursementDate) {
                     this.formValidationData.expectedDisbursementDate = reqSecondDate;
@@ -697,14 +700,9 @@
                         var gracePeriod = loanEMIPack.gracePeriod;
                         scope.formValidationData.graceOnPrincipalPayment = gracePeriod;
                         scope.formValidationData.graceOnInterestPayment = gracePeriod;
-                        scope.formValidationData.graceOnArrearsAgeing = gracePeriod;
-                        scope.formValidationData.graceOnInterestCharged = gracePeriod;
                     } else {
                         scope.formValidationData.graceOnPrincipalPayment = scope.loanaccountinfo.graceOnPrincipalPayment;
                         scope.formValidationData.graceOnInterestPayment = scope.loanaccountinfo.graceOnInterestPayment;
-                        scope.formValidationData.graceOnArrearsAgeing = scope.loanaccountinfo.graceOnArrearsAgeing;
-                        scope.formValidationData.transactionProcessingStrategyId = scope.loanaccountinfo.transactionProcessingStrategyId;
-                        scope.formValidationData.graceOnInterestCharged = scope.loanaccountinfo.graceOnInterestCharged;
                     }
                 }
             });

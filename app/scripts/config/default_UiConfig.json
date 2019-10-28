@@ -114,7 +114,8 @@
 				"showProductShortName": false,
 				"prudentialWriteOff": true
 			},
-			"displayBankApprovalStatus": false
+			"displayBankApprovalStatus": false,
+			"displayInterestRateFromProduct": false
 		},
 		"clientAccount": {
 			"isMandatory": {
