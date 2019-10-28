@@ -41,13 +41,17 @@
             scope.hideNetDisbursedAmount = false;
             scope.options = [];
             scope.hideWriteoff = false;
+            scope.showBankApprovalStatus = false;
+            scope.displayInterestRateFromProduct = false;
             if(scope.response && scope.response.uiDisplayConfigurations){
                 scope.showRetryBankTransaction = scope.response.uiDisplayConfigurations.loanAccount.isShowField.retryBankTransaction;
                 scope.hideWriteoff = scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.writeOff;
                 scope.hidePreviewSchedule = scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.previewSchedule;
                 scope.showSavingToDisburse = scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.linkAccountId;
-                scope.showBankApprovalStatus = scope.response.uiDisplayConfigurations.viewLoanAccountDetails.displayBankApprovalStatus;
-            
+                if(scope.response.uiDisplayConfigurations.viewLoanAccountDetails){
+                    scope.showBankApprovalStatus = scope.response.uiDisplayConfigurations.viewLoanAccountDetails.displayBankApprovalStatus;
+                    scope.displayInterestRateFromProduct = scope.response.uiDisplayConfigurations.viewLoanAccountDetails.displayInterestRateFromProduct;
+                }
                 if(scope.response.uiDisplayConfigurations.viewLoanAccountDetails && 
                     scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild){
                     if(scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.prepayLoanButton){
@@ -361,6 +365,11 @@
 
             resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id,  associations:multiTranchDataRequest+",loanApplicationReferenceId,hierarchyLookup,meeting", exclude: 'guarantors'}, function (data) {
                 scope.loandetails = data;
+                if (scope.displayInterestRateFromProduct && scope.loandetails.loanEMIPackData && scope.loandetails.loanEMIPackData.interestRatePerPeriod) {
+                    scope.loandetails.interestRatePerPeriod = scope.loandetails.productInterestRatePerPeriod;
+                    scope.loandetails.interestRateFrequencyType = scope.loandetails.productInterestRateFrequencyType;
+                    scope.loandetails.annualInterestRate = scope.loandetails.productAnnualInterestRate;
+                }
                 var loanType = data.loanType.code;
                if(loanType == 'accountType.glim') {
                     scope.isGlimPaymentAsGroup = scope.isSystemGlobalConfigurationEnabled(scope.glimAsGroupConfigName);

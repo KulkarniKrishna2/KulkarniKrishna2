@@ -53,7 +53,8 @@
 				"interestRateChat": true,
 				"charges": true,
 				"addCharges": true
-			}
+			},
+			"displayInterestRateFromProduct": true
 		},
 		"collectionSheet": {
 			"isHiddenFeild": {
