@@ -914,13 +914,6 @@
                  * @type {{}|*}
                  */
 
-                if(scope.submitData.formValidationData.fixedEmiAmount){
-                    delete scope.submitData.formValidationData.disbursementData;
-                }
-
-                if(scope.submitData.formValidationData.loanOfficerId){
-                    delete scope.submitData.formValidationData.loanOfficerId;
-                }
 
                 if(scope.submitData.formRequestData.loanAccountNumber){
                     delete scope.submitData.formRequestData.loanAccountNumber;
