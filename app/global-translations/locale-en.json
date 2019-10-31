@@ -5919,6 +5919,7 @@
     "taskActionType.reschedule": "Reschedule",
     "taskActionType.next": "Next",
     "taskActionType.bulk": "Bulk",
+    "taskActionType.requestreview": "Request Review",
 
     "label.heading.info": "Info",
     "label.heading.makerdata": "Maker Data",
