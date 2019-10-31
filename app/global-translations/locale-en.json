@@ -5920,6 +5920,7 @@
     "taskActionType.reschedule": "Reschedule",
     "taskActionType.next": "Next",
     "taskActionType.bulk": "Bulk",
+    "taskActionType.requestreview": "Request Review",
 
     "label.heading.info": "Info",
     "label.heading.makerdata": "Maker Data",
@@ -8272,5 +8273,7 @@
     "validation.msg.bank.account.detail.lastTransactionDate.is.greater.than.date": "Last Transaction date cannot be in future",
     "validation.msg.existingLoan.sourceId.cannot.be.blank": "Kindly select a source",
 
+    "validation.msg.loanemipacks.numberOfRepayments.cannot.be.blank" : "Number of repayments cannot be blank",
+    
     "------ end of translation file ------": "----------"
 }
