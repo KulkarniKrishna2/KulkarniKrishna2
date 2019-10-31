@@ -37,7 +37,7 @@
 	            <label class="control-label col-sm-2" for="name">{{'label.input.name' | translate}}<span
 	                    class="required">*</span></label>
 				<div class="col-sm-3">
-	                <input type="text" autocomplete="off" id="name" name="name" ng-pattern="{{namePattern}}" ng-model="formData.name"
+	                <input type="text" autocomplete="off" id="name" name="name" ng-pattern="{{regexFormats.centerNamePattern}}" ng-model="formData.name"
 						    class="form-control" ng-disabled="response.uiDisplayConfigurations.createCenter.isReadOnlyField.name && !createWithoutVillage" required="required" late-Validate/>
 					<span class="error" ng-show="createcenterform.name.$invalid && createcenterform.name.$dirty">{{'label.error.name.range' | translate}}</span>
 				</div>

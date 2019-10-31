@@ -56,7 +56,7 @@
                     </label>
 
                     <div class="col-sm-3">
-                        <input placeholder="FIRST NAME" type="text" autocomplete="off" id="firstname" name="firstname" ng-pattern="{{firstNamePattern}}" ng-model="formData.firstname"
+                        <input placeholder="FIRST NAME" type="text" autocomplete="off" id="firstname" name="firstname" ng-pattern="{{regexFormats.namePattern}}" ng-model="formData.firstname"
                             class="form-control" ng-required="isFirstnameRequired" ng-autofocus="true"/>
                     </div>
                     <div class="col-sm-2">
@@ -70,7 +70,7 @@
                     </label>
 
                     <div class="col-sm-3">
-                        <input placeholder="MIDDLE NAME" type="text" autocomplete="off" id="middlename" name="middlename" ng-pattern="/^[a-zA-Z\s]*$/" ng-model="formData.middlename"
+                        <input placeholder="MIDDLE NAME" type="text" autocomplete="off" id="middlename" name="middlename" ng-pattern="{{regexFormats.namePattern}}" ng-model="formData.middlename"
                             class="form-control" ng-required="isMiddlenameRequired" />
                         
                     </div>
@@ -85,7 +85,7 @@
                     </label>
 
                     <div class="col-sm-3">
-                        <input placeholder="LAST NAME" type="text" autocomplete="off" id="lastname" name="lastname" ng-pattern="{{regexFormats.lastName}}" ng-model="formData.lastname"
+                        <input placeholder="LAST NAME" type="text" autocomplete="off" id="lastname" name="lastname" ng-pattern="{{regexFormats.namePattern}}" ng-model="formData.lastname"
                             class="form-control" ng-required="isLastnameRequired" />
                       
                     </div>

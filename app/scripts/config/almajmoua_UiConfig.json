@@ -6,6 +6,15 @@
 		"linkAccountId": true
 	  }
 	},
+	"regexFormats": {
+		"namePattern" : "",
+		"centerNamePattern" : "",
+		"mobileNumberPattern" : "",
+		"pincodePattern" : "",
+		"addressPattern" : "",
+		"ifscCodePattern" : "",
+		"alphaNumricPattern" : ""
+	},
 	"createClient": {
 	  "isHiddenField": {
 		"pincode": true

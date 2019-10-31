@@ -77,7 +77,7 @@
 										</label>
 
 										<div class="col-sm-3" style="width: 275px;" >
-											<input type="text" autocomplete="off" id="houseNo" name="houseNo" ng-model="formData.houseNo" class="form-control" ng-pattern="/^[ A-Za-z0-9_.,-]*$/" ng-required = "isHouseNoMandatory"/>
+											<input type="text" autocomplete="off" id="houseNo" name="houseNo" ng-model="formData.houseNo" class="form-control" ng-pattern="{{regexFormats.addressPattern}}" ng-required = "isHouseNoMandatory"/>
 										</div>
 										<span ng-show="clientaddressform.houseNo.$error.pattern">
 											<small class="required" ng-show="clientaddressform.houseNo.$error.pattern">{{'invalid.houseNo.format' | translate}}</small>
@@ -93,7 +93,7 @@
 										</label>
 
 										<div class="col-sm-3" style="width: 275px;" >
-											<input type="text" autocomplete="off" id="streetname" name="streetName" ng-model="formData.addressLineOne" class="form-control" ng-pattern="/^[ A-Za-z0-9_.,-]*$/" ng-required = "isStreetNameMandatory"/>
+											<input type="text" autocomplete="off" id="streetname" name="streetName" ng-model="formData.addressLineOne" class="form-control" ng-pattern="{{regexFormats.addressPattern}}" ng-required = "isStreetNameMandatory"/>
 										</div>
 										<span ng-show="clientaddressform.streetName.$error.pattern">
 											<small class="required" ng-show="clientaddressform.streetName.$error.pattern">{{'invalid.streetName.format' | translate}}</small>
@@ -109,7 +109,7 @@
 
 										<div class="col-sm-3" style="width: 275px;" >
 											<input type="text" autocomplete="off" id="villagename" name="villageTown" ng-model="formData.villageTown" class="form-control" ng-required="isVillageTownMandatory"
-												   ng-pattern="/^[ A-Za-z0-9_.,-]*$/" />
+												   ng-pattern="{{regexFormats.addressPattern}}" />
 										</div>
 										<span ng-show="clientaddressform.villageTown.$error.pattern">
 											<small class="required" ng-show="clientaddressform.villageTown.$error.pattern">{{'invalid.villageTown.format' | translate}}</small>
@@ -196,7 +196,7 @@
 
 										<div class="col-sm-3" ng-if="!pincode">
 											<input type="text" autocomplete="off" id="pincode" name="pincode" ng-minlength="6" maxlength="6" ng-model="formData.postalCode" class="form-control"
-											    ng-pattern="/^([1-9])([0-9]){5}$/" required/>
+											    ng-pattern="{{regexFormats.pincodePattern}}" required/>
 										</div>
 										<span ng-show="clientaddressform.pincode.$error.pattern">
 											<small class="required" ng-show="clientaddressform.pincode.$error.pattern">{{'invalid.pin.code.format' | translate}}</small>
@@ -507,7 +507,7 @@
 										</label>
 
 										<div class="col-sm-3">
-											<input type="text" autocomplete="off" id="firstName" name="firstName" ng-pattern="{{firstNamePattern}}" ng-model="familyMembersFormData.firstname" class="form-control" ng-autofocus="true"/>
+											<input type="text" autocomplete="off" id="firstName" name="firstName" ng-pattern="{{regexFormats.namePattern}}" ng-model="familyMembersFormData.firstname" class="form-control" ng-autofocus="true"/>
 										</div>
 										<div class="col-sm-2">
 												<span class="error" ng-show="createFamilyDetails.firstName.$invalid  ">{{'label.only.text' | translate}}</span>
@@ -519,7 +519,7 @@
 										</label>
 
 										<div class="col-sm-3">
-											<input type="text" autocomplete="off" id="middleName" name="middleName" ng-pattern="/^[a-zA-Z\s]*$/" ng-model="familyMembersFormData.middlename" class="form-control" />
+											<input type="text" autocomplete="off" id="middleName" name="middleName" ng-pattern="{{regexFormats.namePattern}}" ng-model="familyMembersFormData.middlename" class="form-control" />
 										</div>
 										<div class="col-sm-2">
 												<span class="error" ng-show="createFamilyDetails.middleName.$invalid">{{'label.only.text' | translate}}</span>
@@ -531,7 +531,7 @@
 										</label>
 
 										<div class="col-sm-3">
-											<input type="text" autocomplete="off" id="lastName" name="lastName" ng-pattern="{{regexFormats.lastName}}" ng-model="familyMembersFormData.lastname" class="form-control"/>
+											<input type="text" autocomplete="off" id="lastName" name="lastName" ng-pattern="{{regexFormats.namePattern}}" ng-model="familyMembersFormData.lastname" class="form-control"/>
 										</div>
 										<div class="col-sm-2">
 												<span class="error" ng-show="createFamilyDetails.lastName.$invalid">{{'label.only.text.lname' | translate}}</span>
