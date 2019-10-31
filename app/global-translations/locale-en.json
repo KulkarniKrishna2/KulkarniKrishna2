@@ -8219,6 +8219,7 @@
     "validation.msg.loanemipacks.interestRateFrequencyTypeId.is.one.of.unwanted.enumerations" : "Please select a valid Interest Rate Period type",
     "validation.msg.loanemipacks.repaymentFrequencyType.cannot.be.blank": "Repayment frequency period type is mandatory",
     "validation.msg.loanemipacks.gracePeriod.cannot.be.blank": "Grace period cannot be blank", 
+    "validation.msg.loanemipacks.numberOfRepayments.cannot.be.blank" : "Number of repayments cannot be blank",
     
     "------ end of translation file ------": "----------"
 }

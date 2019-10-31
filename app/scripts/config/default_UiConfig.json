@@ -117,7 +117,8 @@
 				"prudentialWriteOff": true,
 				"editActiveLoan": true
 			},
-			"displayBankApprovalStatus": false
+			"displayBankApprovalStatus": false,
+			"displayInterestRateFromProduct": false
 		},
 		"clientAccount": {
 			"isMandatory": {
