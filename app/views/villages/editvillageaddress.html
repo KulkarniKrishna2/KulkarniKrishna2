@@ -82,7 +82,7 @@
 
                 <div class="col-sm-3">
                     <input type="text" autocomplete="off" id="pincode" name="pincode" ng-model="formData.postalCode"
-                           ng-change="validatePincode(formData.stateId)" class="form-control" ng-pattern="handlePatternPincode" required late-Validate />
+                           ng-change="validatePincode(formData.stateId)" class="form-control" ng-pattern="{{regexFormats.pincodePattern}}" required late-Validate />
                 </div>
                 <span class="required" ng-show="showPicodeStartingDigitError">{{'label.error.pincode.startwith'|translate}}{{pincodeStartDigit}}</span>
                 <span ng-show="editvillageaddressform.pincode.$invalid && editvillageaddressform.pincode.$dirty">

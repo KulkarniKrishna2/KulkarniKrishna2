@@ -32,7 +32,7 @@
                 </label>
 
                 <div class="col-sm-3">
-                    <input type="text" autocomplete="off" id="houseNo" name="houseNo" ng-model="formData.houseNo" class="form-control" ng-pattern="/^[ A-Za-z0-9_.,-]*$/" ng-required="isHouseNoMandatory" />
+                    <input type="text" autocomplete="off" id="houseNo" name="houseNo" ng-model="formData.houseNo" class="form-control" ng-pattern="{{regexFormats.addressPattern}}" ng-required="isHouseNoMandatory" />
                 </div>
                 <span ng-show="editaddressform.houseNo.$error.pattern">
                     <small class="required" ng-show="editaddressform.houseNo.$error.pattern">{{'invalid.houseNo.format' | translate}}</small>
@@ -48,7 +48,7 @@
                 </label>
 
                 <div class="col-sm-3">
-                    <input type="text" autocomplete="off" id="streetname" name="streetName" ng-model="formData.addressLineOne"  class="form-control" ng-pattern="/^[ A-Za-z0-9_.,-]*$/" ng-required = "isStreetNameMandatory"/>
+                    <input type="text" autocomplete="off" id="streetname" name="streetName" ng-model="formData.addressLineOne"  class="form-control" ng-pattern="{{regexFormats.addressPattern}}" ng-required = "isStreetNameMandatory"/>
                 </div>
                 <span ng-show="editaddressform.streetName.$error.pattern">
                     <small class="required" ng-show="editaddressform.streetName.$error.pattern">{{'invalid.streetName.format' | translate}}</small>
@@ -64,7 +64,7 @@
 
                 <div class="col-sm-3">
                     <input type="text" autocomplete="off" id="villagename" name="villageTown" ng-model="formData.villageTown"
-                           class="form-control" ng-required = "isVillageTownMandatory" ng-pattern="/^[ A-Za-z0-9_.,-]*$/"/>
+                           class="form-control" ng-required = "isVillageTownMandatory" ng-pattern="{{regexFormats.addressPattern}}"/>
                 </div>
                 <span ng-show="editaddressform.villageTown.$error.pattern">
                     <small class="required" ng-show="editaddressform.villageTown.$error.pattern">{{'invalid.villageTown.format' | translate}}</small>
@@ -178,7 +178,7 @@
                     <span class="required">*</span>
                 </label>
                 <div class="col-sm-3" ng-if="!pincode">
-                    <input type="text" autocomplete="off" id="pincode" name="pincode" ng-minlength="6" maxlength="6" ng-model="formData.postalCode" class="form-control" ng-pattern= "/^([1-9])([0-9]){5}$/" required/>
+                    <input type="text" autocomplete="off" id="pincode" name="pincode" ng-minlength="6" maxlength="6" ng-model="formData.postalCode" class="form-control" ng-pattern= "{{regexFormats.pincodePattern}}" required/>
                 </div>
                 <span ng-show="editaddressform.pincode.$error.pattern">
                     <small class="required" ng-show="editaddressform.pincode.$error.pattern">{{'invalid.pin.code.format' | translate}}</small>
