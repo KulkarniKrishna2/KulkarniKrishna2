@@ -408,6 +408,11 @@
 				"isAutoPopulate": {
 					"transactionAmount": false
 				}
+			},
+			"transactions": {
+				"isHiddenField": {
+					"paymentType": true
+				}
 			}
 		},
 		"viewGroup": {
