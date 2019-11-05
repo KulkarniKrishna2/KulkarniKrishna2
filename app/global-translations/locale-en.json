@@ -8274,6 +8274,7 @@
     "validation.msg.existingLoan.sourceId.cannot.be.blank": "Kindly select a source",
 
     "validation.msg.loanemipacks.numberOfRepayments.cannot.be.blank" : "Number of repayments cannot be blank",
+    "label.button.audit.log" : "Audit Log",
     
     "------ end of translation file ------": "----------"
 }

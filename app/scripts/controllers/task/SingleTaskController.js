@@ -17,6 +17,15 @@
             scope.isUnresolvedQueryExists = false;
             scope.canReschedule = false;
             scope.hideReject = false;
+            scope.path = location.$$path;
+            scope.isDisplayAuditLogs=false;
+            scope.showAuditLog = false;
+            scope.param = {};
+            scope.auditLogs = [];
+            if(scope.path.indexOf("addbankaccountdetail") != -1 || scope.path.indexOf("bankaccountdetails") != -1){
+                scope.isDisplayAuditLogs = true;
+                scope.showAuditLog = true;
+            }
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow){
                 if (scope.response.uiDisplayConfigurations.workflow.isMandatory) {
                     if (scope.response.uiDisplayConfigurations.workflow.isMandatory.rejectReason) {
@@ -34,7 +43,8 @@
                 }                
                 scope.isShowRescheduleButton = scope.response.uiDisplayConfigurations.workflow.showReschedule;
                 scope.isShowCreateTaskButton=scope.response.uiDisplayConfigurations.workflow.showCreateTask;
-            }
+            }          
+
 
             scope.getActivityView = function() {
                 var taskView = 'views/task/activity/'+scope.taskData.taskActivity.identifier.toLowerCase()+'activity.html';
@@ -394,6 +404,7 @@
                 scope.isDisplayAttachments=false;
                 scope.isDisplayActionLogs=false;
                 scope.isDisplayQueries = false;
+                scope.isDisplayAuditLogs=false;
             };
 
             scope.displayAdhocTasks = function () {
@@ -412,6 +423,27 @@
                 disableAllFooter();
                 scope.isDisplayAttachments=true;
                 getTaskDocuments();
+            };
+            
+            scope.getBankAccountAuditLogs = function(param){
+                resourceFactory.bankAccountAuditResource.get(param, function (data) {
+                    scope.auditLogs = data;                    
+                });
+            };
+            
+            scope.displayAuditLogs = function () {
+                disableAllFooter();
+                scope.isDisplayAuditLogs=true;     
+                var param = {};
+                if(scope.path.indexOf("addbankaccountdetail") != -1 || scope.path.indexOf("bankaccountdetails") != -1){
+                    if(scope.path.indexOf("clients") != -1){
+                        param.entityType = 'clients';
+                        param.bankAssociationId = routeParams.clientBankAccountDetailAssociationId ;
+                        param.entityId = routeParams.entityId;
+                        scope.getBankAccountAuditLogs(param);
+                    }
+                    
+                }
             };
 
             scope.displayActionLogs = function () {
