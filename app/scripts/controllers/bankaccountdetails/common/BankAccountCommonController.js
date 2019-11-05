@@ -533,6 +533,31 @@
                     });
                 }
             }
+            scope.path = location.$$path;
+            scope.auditLogs = [];
+            if(scope.path.indexOf("addbankaccountdetail") != -1 || scope.path.indexOf("bankaccountdetails") != -1){
+                scope.isDisplayAuditLogs = true;
+                scope.showAuditLog = true;
+            }
+            scope.getBankAccountAuditLogs = function(param){
+                resourceFactory.bankAccountAuditResource.get(param, function (data) {
+                    scope.auditLogs = data;                    
+                });
+            };
+            
+            scope.displayAuditLogs = function () {
+                scope.isDisplayAuditLogs=true;     
+                var param = {};
+                if(scope.path.indexOf("addbankaccountdetail") != -1 || scope.path.indexOf("bankaccountdetails") != -1){
+                    if(scope.path.indexOf("clients") != -1){
+                        param.entityType = 'clients';
+                        param.bankAssociationId = routeParams.clientBankAccountDetailAssociationId ;
+                        param.entityId = routeParams.entityId;
+                        scope.getBankAccountAuditLogs(param);
+                    }
+                    
+                }
+            };
             
         }
     });

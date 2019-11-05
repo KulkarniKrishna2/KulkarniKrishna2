@@ -1948,6 +1948,9 @@
                     }),
                     smsProviderResource: defineResource(apiVer + "/smsprovider", {}, {
                         update: {method: 'PUT'}
+                    }),
+                    bankAccountAuditResource: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetail/:bankAssociationId/audit", {entityType: "@entityType", entityId: "@entityId", bankAssociationId: "@bankAssociationId"}, {
+                        get: {method:'GET', params: {}, isArray: true}
                     })
                 };
             }];

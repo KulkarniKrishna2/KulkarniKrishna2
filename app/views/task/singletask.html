@@ -79,6 +79,7 @@
                 <span class="pull-left">
                     <button ng-if="taskData.taskType.id == 2 && taskData.parentId != null" type="button" class="btn btn-link" ng-disabled="isDisplayAdhocTasks" ng-click="displayAdhocTasks()">Tasks</button>&nbsp;
                     <button type="button" class="btn btn-link" ng-disabled="isDisplayNotes" ng-click="displayNotes()">Notes</button>&nbsp;
+                    <button type="button" class="btn btn-link" ng-show="showAuditLog" ng-disabled="isDisplayLogs" ng-click="displayAuditLogs()">{{'label.button.audit.log' | translate}}</button>&nbsp;
                     <button type="button" class="btn btn-link" ng-disabled="isDisplayAttachments" ng-click="displayAttachments()">Attachments</button>&nbsp;
                     <button type="button" class="btn btn-link" ng-disabled="isDisplayActionLogs" ng-click="displayActionLogs()">Action Logs</button>&nbsp;
                     <button type="button" class="btn btn-link" ng-disabled="isDisplayQueries" has-permission='READ_TASK_QUERY'ng-click="displayQueries()">{{'label.button.queries.resolution' | translate}}</button>&nbsp;
@@ -235,6 +236,25 @@
                 </div>
 
             </div>
+
+            <div ng-if="auditLogs && isDisplayAuditLogs" class="row client">
+                    <div class="col-md-12">
+                        <h4 class="bolder">{{"label.heading.audit.logs" | translate}}</h4>
+                        <table class="table table-bordered table-striped" >
+                            <tr>
+                                <th>{{"label.heading.audit.action" | translate}}</th>
+                                <th>{{"label.heading.audit.updateDate"| translate}}</th>
+                                <th>{{"label.heading.audit.updateBy"| translate}}</th>
+                            </tr>
+                            <tr ng-repeat="audit in auditLogs">
+                                <td>{{audit.actionName | translate}}</td>
+                                <td>{{audit.madeOnDate | DateFormat}}</td>
+                                <td>{{audit.maker}}</td>
+                            </tr>
+                        </table>
+                    </div>
+    
+                </div>
 
             <div ng-if="queries && isDisplayQueries" class="row client">
                 <div class="col-md-12">

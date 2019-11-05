@@ -3,7 +3,6 @@
     <api-validate></api-validate>
     <legend>{{'label.anchor.bankaccountdetails' | translate}}</legend>
     <div class="row">
-
         <div class="col-md-6">
             <div class="form-group paddedtop">
                 <span><b>{{'label.input.holdername' | translate}}:&nbsp;</b></span>
@@ -87,7 +86,10 @@
         <button ng-if="approvable()" id="activate" class="btn btn-primary" ng-click="activate()" has-permission='ACTIVATE_BANKACCOUNTDETAIL'>{{'label.button.activate' | translate}}</button>
         <button ng-if="undoApprovable()" id="activate" class="btn btn-primary" ng-click="inActivateAssociation()" has-permission='INACTIVATE_BANKACCOUNTASSOCIATION'>{{'label.button.inactivate' | translate}}</button>
         <button ng-if="showReactivateButton" id="activateAssotiation" class="btn btn-primary" ng-click="activateAssociation()" has-permission='ACTIVATE_BANKACCOUNTASSOCIATION'>{{'label.button.reactivate' | translate}}</button>
+        
     </div>
+    
+
     <div>
 
         <script type="text/ng-template" id="uploadDocument.html">
@@ -132,5 +134,26 @@
             <button class="btn btn-primary" ng-click="submitDelete()">{{'label.heading.delete' | translate}}</button>
         </div>
     </script>
+    </div>
+
+    <div  class="col-md-12">
+            <a  class="" ng-click="displayAuditLogs()">{{'label.button.audit.log' | translate}}</a>
+    </div>
+    <div ng-if="auditLogs" class="row client">
+            <div class="col-md-12">
+                <table class="table table-bordered table-striped" >
+                    <tr>
+                        <th>{{"label.heading.audit.action" | translate}}</th>
+                        <th>{{"label.heading.audit.updateDate"| translate}}</th>
+                        <th>{{"label.heading.audit.updateBy"| translate}}</th>
+                    </tr>
+                    <tr ng-repeat="audit in auditLogs">
+                        <td>{{audit.actionName | translate}}</td>
+                        <td>{{audit.madeOnDate | DateFormat}}</td>
+                        <td>{{audit.maker}}</td>
+                    </tr>
+                </table>
+            </div>
+
     </div>
 </div>
