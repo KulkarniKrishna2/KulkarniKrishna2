@@ -8,13 +8,15 @@
             scope.specificIncomeaccounts = [];
             scope.penaltySpecificIncomeaccounts = [];
             scope.configureFundOption = {};
-
+            scope.date = {};
             //interest rate details
             scope.chart = {};
             scope.restrictDate = new Date();
             scope.fromDate = {}; //required for date formatting
             scope.endDate = {};//required for date formatting
             scope.isPrimaryGroupingByAmount = false;
+            scope.chargeOptions = [];
+            scope.accountingRuleOptions = [];
 
             resourceFactory.fixedDepositProductResource.get({resourceType: 'template'}, function (data) {
                 scope.product = data;
@@ -39,7 +41,11 @@
                 scope.formData.autoRenewalData = {};
                 scope.autoRenewalGracePeriodTypeOptions = data.autoRenewalData.autoRenewalGracePeriodTypeOptions;
                 scope.autoRenewalConfigEnumOptions = data.autoRenewalData.autoRenewalConfigEnumOptions;
-                        
+                _.each(data.accountingRuleOptions, function (accountingRule){
+                    if(accountingRule.value != 'ACCRUAL UPFRONT' && accountingRule.value != 'ACCRUAL PERIODIC'){
+                        scope.accountingRuleOptions.push(accountingRule);
+                    }
+                });  
 
             });
 
@@ -81,7 +87,13 @@
             }
 
             scope.mapFees = function () {
-                scope.chargeOptions = scope.product.chargeOptions || [];
+                if(scope.chargeOptions.length==0){
+                    _.each(scope.product.chargeOptions, function (charge){
+                        if(charge.penalty==false){
+                            scope.chargeOptions.push(charge);
+                        }
+                    });
+                }
                 scope.specificIncomeaccounts.push({
                     chargeId: scope.chargeOptions.length > 0 ? scope.chargeOptions[0].id : '',
                     incomeAccountId: scope.incomeAccountOptions.length > 0 ? scope.incomeAccountOptions[0].id : '',
@@ -388,6 +400,22 @@
                     $scope.chartSlab.incentives.splice(index, 1);
                 }
             };
+
+            scope.isAccountingEnabled = function () {
+                var index = scope.accountingRuleOptions.findIndex(x => x.id == scope.formData.accountingRule && x.value!='NONE');
+                if(index > -1){
+                    return true;
+                }
+                return false;
+            }
+
+            scope.isAccrualAccountingEnabled = function () {
+                var index = scope.accountingRuleOptions.findIndex(x => x.value === 'ACCRUAL PERIODIC');
+                if(index > -1){
+                    return (scope.formData.accountingRule == scope.accountingRuleOptions[index].id);
+                }
+                return false;
+            }
         }
     });
     mifosX.ng.application.controller('CreateFixedDepositProductController', ['$scope', 'ResourceFactory', '$location', 'dateFilter','$modal', mifosX.controllers.CreateFixedDepositProductController]).run(function ($log) {

@@ -8347,6 +8347,15 @@
      "error.msg.coi.no.duplicate" : "COI numbers cannot be same for a loan",
      "validation.msg.Insurance Policy.policyNo.exceeds.max.length": "Policy Number length exceeds max length of `{{params[0].value}}`",
      "validation.msg.Insurance Policy.coiNo.exceeds.max.length" : "COI Number length exceeds max length of `{{params[0].value}}`",
-
-     "------ end of translation file ------": "----------"
+    "label.input.interest.payable" : "Interest Payable",
+    "label.heading.interest.payable" : "Interest Payable",
+    "label.tooltip.interest.payable": "A Liability Account where interest to be paid is accrued",
+    "validation.msg.savingsproduct.interestPayableId.cannot.be.blank": "Interest payable cannot be blank",
+    "validation.msg.savingsproduct.accural.based.not.allowed.when.overdraft.is.enabled": "Accural based accounting not allowed when overdraft is enabled",
+    "validation.msg.savingsproduct.escheatLiabilityId.cannot.be.blank": "Escheat Liability cannot be blank",
+    "validation.msg.savingsproduct.penaltyToIncomeAccountMappings.chargeId.duplicate": "Please remove duplicate entries in penalty to income account mappings",
+    "validation.msg.fixeddeposit.penaltyToIncomeAccountMappings.chargeId.duplicate": "Please remove duplicate entries in penalty to income account mappings",
+    "validation.msg.recurringdeposit.penaltyToIncomeAccountMappings.chargeId.duplicate" : "Please remove duplicate entries in penalty to income account mappings",
+    
+    "------ end of translation file ------": "----------"
 }

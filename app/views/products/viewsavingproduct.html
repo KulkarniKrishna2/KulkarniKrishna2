@@ -221,9 +221,9 @@
         <tr>
             <td colspan="4"><br/></td>
         </tr>
-        <tr>
+        <tr class="bottomborder"> 
             <td><strong>{{'label.heading.accounting' | translate}}</strong></td>
-            <td colspan="3"><span ng-hide="hasAccounting">{{'label.none' | translate}}</span></td>
+            <td>{{savingproduct.accountingRule.value}}</td>
         </tr>
         <tr>
             <td colspan="4">
@@ -233,7 +233,7 @@
                         </td>
                         <td colspan="3">{{savingproduct.accountingMappings.savingsReferenceAccount.name}}&nbsp;({{savingproduct.accountingMappings.savingsReferenceAccount.glCode}})</td>
                     </tr>
-                    <tr>
+                    <tr ng-hide="hasAccrualAccounting">
                         <td>{{'label.input.overdraftportfoliocontrol' | translate}}({{'label.heading.assets' |
                             translate}})
                         </td>
@@ -257,13 +257,19 @@
                         </td>
                         <td colspan="3">{{savingproduct.accountingMappings.escheatLiabilityAccount.name}}&nbsp;({{savingproduct.accountingMappings.escheatLiabilityAccount.glCode}})</td>
                     </tr>
+                    <tr ng-show="hasAccrualAccounting">
+                        <td>{{'label.heading.interest.payable' | translate}}({{'label.heading.liabilities' |
+                            translate}})
+                        </td>
+                        <td colspan="3">{{savingproduct.accountingMappings.interestPayable.name}}&nbsp;({{savingproduct.accountingMappings.interestPayable.glCode}})</td>
+                    </tr>
                     <tr>
                         <td>{{'label.heading.interestonsavings' | translate}}({{'label.heading.expenses' |
                             translate}})
                         </td>
                         <td colspan="3">{{savingproduct.accountingMappings.interestOnSavingsAccount.name}}&nbsp;({{savingproduct.accountingMappings.interestOnSavingsAccount.glCode}})</td>
                     </tr>
-                    <tr>
+                    <tr ng-hide="hasAccrualAccounting">
                         <td>{{'label.input.writeOff' | translate}}({{'label.heading.expenses' | translate}})</td>
                         <td colspan="3">{{savingproduct.accountingMappings.writeOffAccount.name}}&nbsp;({{savingproduct.accountingMappings.writeOffAccount.glCode}})</td>
                     </tr>
@@ -277,7 +283,7 @@
                         </td>
                         <td colspan="3">{{savingproduct.accountingMappings.incomeFromPenaltyAccount.name}}&nbsp;({{savingproduct.accountingMappings.incomeFromPenaltyAccount.glCode}})</td>
                     </tr>
-                    <tr>
+                    <tr ng-hide="hasAccrualAccounting">
                         <td>{{'label.input.interest.on.overdrafts' | translate}}({{'label.heading.income' | translate}})
                         </td>
                         <td colspan="3">{{savingproduct.accountingMappings.incomeFromInterest.name}}&nbsp;({{savingproduct.accountingMappings.incomeFromInterest.glCode}})</td>
