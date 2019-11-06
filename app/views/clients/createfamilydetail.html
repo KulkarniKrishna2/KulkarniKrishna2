@@ -59,7 +59,7 @@
                         <input placeholder="FIRST NAME" type="text" autocomplete="off" id="firstname" name="firstname" ng-pattern="{{firstNamePattern}}" ng-model="formData.firstname"
                             class="form-control" ng-required="isFirstnameRequired" ng-autofocus="true"/>
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm-4">
                         <span class="error" ng-show="submitted && createFamilyDetails.firstname.$error.required">{{'label.error.required'|translate}}</span>
                         <span class="error" ng-show="createFamilyDetails.firstname.$invalid">{{'label.only.text' | translate}}</span>
                     </div>
@@ -74,9 +74,9 @@
                             class="form-control" ng-required="isMiddlenameRequired" />
                         
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm-4">
                             <span class="error" ng-show="submitted && createFamilyDetails.firstname.$error.required">{{'label.error.required'|translate}}</span>
-                            <span class="error" ng-show="createFamilyDetails.middlename.$invalid">{{'label.only.text' | translate}}</span>
+                            <span class="error" ng-show="createFamilyDetails.middlename.$invalid">{{'label.only.text.middle.name' | translate}}</span>
                     </div>
                 </div>
                 <div class="form-group">
@@ -89,7 +89,7 @@
                             class="form-control" ng-required="isLastnameRequired" />
                       
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm-4">
                             <span class="error" ng-show="submitted && createFamilyDetails.firstname.$error.required">{{'label.error.required'|translate}}</span>
                             <span class="error" ng-show="createFamilyDetails.lastname.$invalid">{{'label.only.text.lname' | translate}}</span>
                     </div>
