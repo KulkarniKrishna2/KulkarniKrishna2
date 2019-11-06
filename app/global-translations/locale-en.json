@@ -7533,7 +7533,7 @@
     "label.heading.last.login": "Last login",
 
     "label.only.text": "Allows Only Text with minimun three characters",
-    "label.only.text.lname": "Only Text/dot",
+    "label.only.text.lname": "Allow only alphabet characters or dot",
     "label.heading.kotak.criteria.result": "Kotak approval criteria result",
     "label.input.availablequery": "Available Query",
     "label.input.selectedquery": "Selected Query",
@@ -8220,6 +8220,8 @@
     "validation.msg.loanemipacks.repaymentFrequencyType.cannot.be.blank": "Repayment frequency period type is mandatory",
     "validation.msg.loanemipacks.gracePeriod.cannot.be.blank": "Grace period cannot be blank", 
     "validation.msg.loanemipacks.numberOfRepayments.cannot.be.blank" : "Number of repayments cannot be blank",
+    "label.only.text.middle.name" : "Allow only alphabet characters or space",
+
     
     "------ end of translation file ------": "----------"
 }
