@@ -21,6 +21,7 @@
             scope.clientMemberData = [];
             scope.groupMemberLoanData=[];
             scope.formData = {};
+            scope.restrictDate = new Date();
 
             resourceFactory.officeResource.getAllOffices({onlyActive: true}, function (data) {
                 scope.offices = data;
