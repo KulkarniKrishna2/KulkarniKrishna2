@@ -78,7 +78,7 @@
 
                     <div class="col-sm-3">
                         <input ng-autofocus="true" type="text" autocomplete="off" id="firstName" name="firstName"
-                               ng-model="formData.firstname" ng-pattern="{{firstNamePattern}}" class="form-control" ng-required="isFirstnameRequired"/>
+                               ng-model="formData.firstname" ng-pattern="{{regexFormats.namePattern}}" class="form-control" ng-required="isFirstnameRequired"/>
                                <span class="error" ng-show="submitted && editFamilyDetails.firstName.$error.required">{{'label.error.required'|translate}}</span>
                                <span class="error" ng-show="editFamilyDetails.firstName.$invalid && editFamilyDetails.firstName.$dirty">{{'label.only.text' | translate}}</span>
                     </div>

@@ -194,10 +194,12 @@
                 scope.changeMandatoryFields(value);
             }
             scope.validateAge = function(){
-                scope.isValidAge = false;
-                if(scope.formData.age){
-                    if(scope.familyMemberMinAge <= scope.formData.age && scope.formData.age <= scope.familyMemberMaxAge){
-                        scope.isValidAge = true;
+                if(!_.isUndefined(scope.familyMemberMinAge) && !_.isUndefined(scope.familyMemberMaxAge)){
+                    scope.isValidAge = false;
+                    if(scope.formData.age){
+                        if(scope.familyMemberMinAge <= scope.formData.age && scope.formData.age <= scope.familyMemberMaxAge){
+                            scope.isValidAge = true;
+                        }
                     }
                 }
             };

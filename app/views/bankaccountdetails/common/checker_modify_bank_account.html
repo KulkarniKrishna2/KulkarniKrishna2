@@ -99,7 +99,7 @@
 
                             <div class="col-sm-6">
                                 <input name="bankIFSCCodeRepeat" id="bankIFSCCodeRepeat" ng-model="repeatFormData.ifscCodeRepeat"
-                                       minlength="11" maxlength="11" ng-pattern="regexPattern('bankIFSCCode')" type="password" class="form-control" ng-required="isElemMandatory('bankIFSCCodeRepeat')" ng-blur="getBankDetails(!checkerbankaccountdetail.bankIFSCCode.$error.pattern)"/>
+                                       minlength="11" maxlength="11" ng-pattern="{{regexFormats.ifscCodePattern}}" type="password" class="form-control" ng-required="isElemMandatory('bankIFSCCodeRepeat')" ng-blur="getBankDetails(!checkerbankaccountdetail.bankIFSCCode.$error.pattern)"/>
                                 <div>
                                     <span ng-show="checkerbankaccountdetail.bankIFSCCodeRepeat.$error.pattern">
                                         <small class="required">{{'inavalid.ifsc.format' | translate}}</small>
@@ -118,7 +118,8 @@
 
                             <div class="col-sm-6">
                                 <input name="bankIFSCCode" id="bankIFSCCode" ng-model="formData.ifscCode"
-                                       minlength="11" maxlength="11" ng-pattern="/^[a-zA-Z0-9]*$/" type="text" autocomplete="off" ng-pattern="regexPattern('bankIFSCCode')" class="form-control" ng-required="isElemMandatory('bankIFSCCode')" onpaste="return false;" ng-blur="getBankDetails(!checkerbankaccountdetail.bankIFSCCode.$error.pattern)" />
+                                       minlength="11" maxlength="11" ng-pattern="{{regexFormats.ifscCodePattern}}" type="text" autocomplete="off" ng-pattern="regexPattern('bankIFSCCode')" class="form-control" ng-required="isElemMandatory('bankIFSCCode')" onpaste="return false;" ng-blur="getBankDetails(!checkerbankaccountdetail.bankIFSCCode.$error.pattern)" />
+
                                 <div>
                                     <span ng-show="checkerbankaccountdetail.bankIFSCCode.$invalid && checkerbankaccountdetail.bankIFSCCode.$dirty">
                                         <small class="required" ng-show="checkerbankaccountdetail.bankIFSCCode.$error.pattern">{{'inavalid.ifsc.format' | translate}}</small>
@@ -189,7 +190,7 @@
 
                             <div class="col-sm-6">
                                 <input name="mobileNumber" id="mobileNumber" ng-model="formData.mobileNumber"
-                                       type="text" autocomplete="off"  class="form-control" ng-pattern="regexPattern('mobileNumber')" ng-required="isElemMandatory('mobileNumber')" required late-validate/>
+                                       type="text" autocomplete="off"  class="form-control" ng-pattern="{{regexFormats.mobileNumberPattern}}" ng-required="isElemMandatory('mobileNumber')" required late-validate/>
                                 <div class="col-sm-2">
                                      <span ng-show="checkerbankaccountdetail.mobileNumber.$invalid && checkerbankaccountdetail.mobileNumber.$dirty">
                                         <small class="required" ng-show="checkerbankaccountdetail.mobileNumber.$error.pattern">

@@ -72,7 +72,7 @@
          <div class="col-sm-3">
             <input name="bankIFSCCodeRepeat" id="bankIFSCCodeRepeat" ng-model="repeatFormData.ifscCodeRepeat"
                ng-minlength="11" maxlength="11" type="password"
-               ng-pattern="/^[a-zA-Z0-9]*$/" class="form-control"  required late-Validate/>
+               ng-pattern="{{regexFormats.ifscCodePattern}}" class="form-control"  required late-Validate/>
          </div>
          <div class="col-sm-3">
             <span ng-show="bankaccountdetail.bankIFSCCodeRepeat.$error.pattern">
@@ -89,7 +89,7 @@
          <span class="required">*</span></label>
          <div class="col-sm-3">
             <input name="bankIFSCCode" id="bankIFSCCode" ng-model="formData.ifscCode"
-               ng-minlength="11" maxlength="11" type="text" autocomplete="off" ng-pattern="/^[a-zA-Z0-9]*$/"  class="form-control"  required late-Validate onpaste="return false;"/>
+               ng-minlength="11" maxlength="11" type="text" autocomplete="off" ng-pattern="{{regexFormats.ifscCodePattern}}"  class="form-control"  required late-Validate onpaste="return false;"/>
          </div>
          <div class="col-sm-3">
             <span ng-show="bankaccountdetail.bankIFSCCode.$invalid && bankaccountdetail.bankIFSCCode.$dirty">
@@ -140,7 +140,7 @@
          <label class="control-label col-sm-3" >{{'label.input.mobilenumber' | translate}}</label>
          <div class="col-sm-3">
             <input name="mobileNumber" id="mobileNumber" ng-model="formData.mobileNumber"
-               type="text" autocomplete="off"  class="form-control" ng-pattern="regexPattern('mobileNumber')"/>
+               type="text" autocomplete="off"  class="form-control" ng-pattern="{{regexFormats.mobileNumberPattern}}"/>
          </div>
          <div class="col-sm-2">
             <span ng-show="bankaccountdetail.mobileNumber.$invalid && bankaccountdetail.mobileNumber.$dirty">

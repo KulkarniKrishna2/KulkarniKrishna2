@@ -310,7 +310,7 @@
                     <label class="control-label col-sm-2" for="mobileNo">{{'label.input.mobilenumber' | translate}}<span ng-show="isMobileNumberMandatory"  class="required">*</span></label>
 
                     <div class="col-sm-3">
-                        <input type="text" autocomplete="off" id="mobileNo" name="mobileNo" ng-model="addClientformData.mobileNo" ng-pattern={{mobileNumberPattern}} ng-required="isMobileNumberMandatory" class="form-control" />
+                        <input type="text" autocomplete="off" id="mobileNo" name="mobileNo" ng-model="addClientformData.mobileNo" ng-pattern={{regexFormats.mobileNumberPattern}} ng-required="isMobileNumberMandatory" class="form-control" />
                         <span ng-show="createclientform.mobileNo.$invalid && createclientform.mobileNo.$dirty">
                         <small class="required" ng-show="createclientform.mobileNo.$error.pattern">
 						{{'label.must.be.ten.digits.numeric' | translate}}</small></span>
@@ -319,7 +319,7 @@
                     <label class="control-label col-sm-2" for="alternateMobileNo">{{'label.input.alternateMobilenumber' | translate}}</label>
 
                     <div class="col-sm-3">
-                        <input type="text" autocomplete="off" id="alternateMobileNo" name="alternateMobileNo" ng-model="addClientformData.alternateMobileNo" ng-pattern="/^[0-9]+$/" class="form-control" />
+                        <input type="text" autocomplete="off" id="alternateMobileNo" name="alternateMobileNo" ng-model="addClientformData.alternateMobileNo" ng-pattern="{{regexFormats.mobileNumberPattern}}" class="form-control" />
                         <span ng-show="createclientform.alternateMobileNo.$invalid && createclientform.alternateMobileNo.$dirty">
                                     <small class="required" ng-show="createclientform.alternateMobileNo.$error.pattern">
                                         {{'label.mustbenumeric' | translate}}</small></span>

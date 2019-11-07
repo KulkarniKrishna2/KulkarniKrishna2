@@ -450,6 +450,7 @@
                             <th class="pointer" ng-click="changeTransactionSort('date')">{{'label.heading.transactiondate' | translate}}</th>
                             <th class="pointer">{{'label.heading.office' | translate}}</th>
                             <th class="pointer" ng-click="changeTransactionSort('transactionType.value')">{{'label.heading.transactiontype' | translate}}</th>
+                            <th class="pointer" ng-hide="hidePaymentType">{{'label.heading.paymenttype' | translate}}</th>
                             <th class="pointer" ng-click="changeTransactionSort('amount')">{{'label.heading.debit' | translate}}</th>
                             <th class="pointer" ng-click="changeTransactionSort('amount')">{{'label.heading.credit' | translate}}</th>
                             <th class="pointer" ng-click="changeTransactionSort('runningBalance')">{{'label.heading.balance' | translate}}</th>
@@ -475,6 +476,9 @@
                             <td class="pointer"
                                 data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
                                 {{getSpecificTransactionType(transaction)}}
+                            </td>
+                            <td class="pointer" ng-if="!hidePaymentType && transaction.paymentDetailData.paymentType.name" data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
+                                {{transaction.paymentDetailData.paymentType.name}}
                             </td>
                             <td class="pointer"
                                 data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">

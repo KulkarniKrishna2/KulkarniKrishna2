@@ -7534,7 +7534,7 @@
     "label.heading.last.login": "Last login",
 
     "label.only.text": "Allows Only Text with minimun three characters",
-    "label.only.text.lname": "Only Text/dot",
+    "label.only.text.lname": "Allow only alphabet characters or dot",
     "label.heading.kotak.criteria.result": "Kotak approval criteria result",
     "label.input.availablequery": "Available Query",
     "label.input.selectedquery": "Selected Query",
@@ -8275,6 +8275,8 @@
 
     "validation.msg.loanemipacks.numberOfRepayments.cannot.be.blank" : "Number of repayments cannot be blank",
     "label.button.audit.log" : "Audit Log",
+    "label.only.text.middle.name" : "Allow only alphabet characters or space",
+
     
      "label.heading.deceased.person" : "Deceased person",
      "label.heading.death.date" : "Death Date",
