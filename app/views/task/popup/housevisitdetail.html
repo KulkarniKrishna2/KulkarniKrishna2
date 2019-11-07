@@ -248,7 +248,7 @@
     
                                         <div class="col-sm-3">
                                             <input name="bankIFSCCodeRepeat" id="bankIFSCCodeRepeat" ng-model="repeatFormData.ifscCodeRepeat"
-                                                minlength="11" maxlength="11" type="password" ng-pattern="regexPattern('bankIFSCCode')"
+                                                minlength="11" maxlength="11" type="password" ng-pattern="{{regexFormats.ifscCodePattern}}"
                                                 class="form-control" ng-required="isMandatoryFields.bankIFSCCode"   ng-blur="getBankDetails(!bankaccountdetail.bankIFSCCode.$error.pattern)"/>
                                         </div>
                                         <div class="col-sm-2">
@@ -267,7 +267,7 @@
     
                                         <div class="col-sm-3">
                                             <input name="bankIFSCCode" id="bankIFSCCode" ng-model="formData.ifscCode"
-                                                ng-minlength="11" maxlength="11" type="text" autocomplete="off" ng-pattern="regexPattern('bankIFSCCode')"
+                                                ng-minlength="11" maxlength="11" type="text" autocomplete="off" ng-pattern="{{regexFormats.ifscCodePattern}}"
                                                 class="form-control" ng-required="isMandatoryFields.bankIFSCCode" onpaste="return false;"   ng-blur="getBankDetails(!bankaccountdetail.bankIFSCCode.$error.pattern)"/>
                                         </div>
                                         <div class="col-sm-3">
@@ -309,7 +309,7 @@
                                         </label>
                                         <div class="col-sm-3">
                                             <input name="mobileNumber" id="mobileNumber" ng-model="formData.mobileNumber"
-                                                type="text" autocomplete="off" class="form-control" ng-pattern="/^[1-9][0-9]{9}$/"
+                                                type="text" autocomplete="off" class="form-control" ng-pattern="{{regexFormats.mobileNumberPattern}}"
                                                 ng-minlength="10" maxlength="10" />
                                         </div>
                                         <div class="col-sm-2">

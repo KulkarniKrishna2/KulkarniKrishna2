@@ -649,8 +649,13 @@
 			}
 		},
 		"regexFormats": {
-			"lastName": "\/^[a-zA-Z\\s]*$\/",
-			"middleName":"\/^[a-zA-Z\\s]*$\/"
+			"namePattern" : "\/^[a-zA-Z\\s]*$\/",
+			"centerNamePattern" : "/^[-@./#&+\\w\\s]*$/",
+			"mobileNumberPattern" : "/^[0-9]{10,10}$/",
+			"pincodePattern" : "/^([1-9])([0-9]){5}$/",
+			"addressPattern" : "/^[ A-Za-z0-9_.,-]*$/",
+			"ifscCodePattern" : "/^[A-Za-z]{4}0[A-Z0-9a-z]{6}$/",
+			"alphaNumricPattern" : "/^[A-Z0-9a-z ]*$/"
 		},
 		"editCenter": {
 			"isReadOnlyField": {

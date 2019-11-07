@@ -18,7 +18,7 @@
                 </label>
 
                 <div class="col-sm-3">
-                    <input type="text" autocomplete="off" id="policyName" name="policyName" ng-model="formData.policyName" class="form-control" ng-pattern="/^[A-Z0-9a-z ]*$/"
+                    <input type="text" autocomplete="off" id="policyName" name="policyName" ng-model="formData.policyName" class="form-control" ng-pattern="{{regexFormats.alphaNumricPattern}}"
                         required late-Validate/>
                         <span class="required" ng-show="editpolicyform.policyName.$invalid && editpolicyform.policyName.$dirty"><small>{{'label.invalid.policyName' | translate}}</small></span>
                 </div>
@@ -32,7 +32,7 @@
                 </label>
 
                 <div class="col-sm-3">
-                    <input type="text" autocomplete="off" id="policyNumber" name="policyNumber" ng-model="formData.policyNumber" class="form-control" ng-pattern="/^[A-Z0-9a-z]*$/"
+                    <input type="text" autocomplete="off" id="policyNumber" name="policyNumber" ng-model="formData.policyNumber" class="form-control" ng-pattern="{{regexFormats.alphaNumricPattern}}"
                         required late-Validate/>
                     <span class="required" ng-show="editpolicyform.policyNumber.$invalid && editpolicyform.policyNumber.$dirty"><small>{{'label.invalid.policyNumber' | translate}}</small></span>
                 </div>

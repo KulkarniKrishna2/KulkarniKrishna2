@@ -57,19 +57,19 @@
 									</label>
 									<div class="col-sm-3">
 										<input placeholder="FIRST NAME" type="text" autocomplete="off" id="firstname" name="firstname" ng-model="formData.firstname" class="form-control"
-										ng-pattern="{{firstNamePattern}}" ng-required="isFirstnameRequired" />
+										ng-pattern="{{regexFormats.namePattern}}" ng-required="isFirstnameRequired" />
 										<span class="error" ng-show="submitted && creatememberform.firstname.$error.required">{{'label.error.required'|translate}}</span>
 									    <span class="error" ng-show="creatememberform.firstname.$invalid">{{'label.only.text' | translate}}</span>
 									</div>
 									<div class="col-sm-3" ng-show="showMiddleName">
 										<input placeholder="MIDDLE NAME" type="text" autocomplete="off" id="middlename" name="middlename" ng-model="formData.middlename" class="form-control"
-										ng-pattern="/^[a-zA-Z\s]*$/" ng-required="isMiddlenameRequired" />
+										ng-pattern="{{regexFormats.namePattern}}" ng-required="isMiddlenameRequired" />
 										<span class="error" ng-show="submitted && creatememberform.firstname.$error.required">{{'label.error.required'|translate}}</span>
 									    <span class="error" ng-show="creatememberform.middlename.$invalid">{{'label.only.text' | translate}}</span>
 									</div>
 									<div class="col-sm-3">
 										<input placeholder="LAST NAME" type="text" autocomplete="off" id="lastname" name="lastname" ng-model="formData.lastname" class="form-control"
-										ng-pattern="{{regexFormats.lastName}}" ng-required="isLastnameRequired" />
+										ng-pattern="{{regexFormats.namePattern}}" ng-required="isLastnameRequired" />
 										<span class="error" ng-show="submitted && creatememberform.firstname.$error.required">{{'label.error.required'|translate}}</span>
 									    <span class="error" ng-show="creatememberform.lastname.$invalid">{{'label.only.text.lname' | translate}}</span>
 									</div>
@@ -254,7 +254,7 @@
 							</label>
 
 							<div class="col-sm-3">
-								<input type="text" autocomplete="off" id="mobileNo" name="mobileNo" ng-model="formData.mobileNo" ng-pattern="{{mobileNumberPattern}}" ng-required="isMobileNumberMandatory"
+								<input type="text" autocomplete="off" id="mobileNo" name="mobileNo" ng-model="formData.mobileNo" ng-pattern="{{regexFormats.mobileNumberPattern}}" ng-required="isMobileNumberMandatory"
 								 class="form-control" />
 								<span ng-show="creatememberform.mobileNo.$invalid && creatememberform.mobileNo.$dirty">
 									<small class="required" ng-show="creatememberform.mobileNo.$error.pattern">
@@ -267,7 +267,7 @@
 							<label class="control-label col-sm-2" for="alternateMobileNo">{{'label.input.alternateMobilenumber' | translate}}</label>
 
 							<div class="col-sm-3">
-								<input type="text" autocomplete="off" id="alternateMobileNo" name="alternateMobileNo" ng-model="formData.alternateMobileNo" ng-pattern="{{mobileNumberPattern}}"
+								<input type="text" autocomplete="off" id="alternateMobileNo" name="alternateMobileNo" ng-model="formData.alternateMobileNo" ng-pattern="{{regexFormats.mobileNumberPattern}}"
 								 class="form-control"/>
 								<span ng-show="creatememberform.alternateMobileNo.$invalid && creatememberform.alternateMobileNo.$dirty">
 									<small class="required" ng-show="creatememberform.alternateMobileNo.$error.pattern">

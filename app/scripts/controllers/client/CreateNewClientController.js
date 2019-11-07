@@ -66,72 +66,89 @@
             scope.isLevelBasedAddressEnabled = scope.isSystemGlobalConfigurationEnabled(levelVasedAddressConfig);
 
             scope.isGenderReadOnly = scope.response.uiDisplayConfigurations.createClient.isReadOnlyField.gender; 
-            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
-                scope.response.uiDisplayConfigurations.createClient.isMandatoryField && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.clientClassificationId) {
-                scope.isClientClassificationMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.clientClassificationId;
-            }
-            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
-                scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber && scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber.mobileNumberPattern) {
-                scope.mobileNumberPattern = scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber.mobileNumberPattern;
-            }
-            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
-                scope.response.uiDisplayConfigurations.createClient.isHiddenField) {
-                scope.showStaff = !scope.response.uiDisplayConfigurations.createClient.isHiddenField.staffActivation;
-                scope.showLegalForm = !scope.response.uiDisplayConfigurations.createClient.isHiddenField.legalForm;
-                scope.showMiddleName = !scope.response.uiDisplayConfigurations.createClient.isHiddenField.middleName;
-                scope.showExternalId = !scope.response.uiDisplayConfigurations.createClient.isHiddenField.externalId;
-                scope.showSubmittedOn = !scope.response.uiDisplayConfigurations.createClient.isHiddenField.submittedOn;
-                scope.showOpenSavingsProduct = !scope.response.uiDisplayConfigurations.createClient.isHiddenField.openSavingsProduct;
-                scope.showActivation = !scope.response.uiDisplayConfigurations.createClient.isHiddenField.activate;
-            }
-            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
-                scope.response.uiDisplayConfigurations.createClient.isHiddenField) {
-                if(scope.response.uiDisplayConfigurations.createClient.isHiddenField.hideClientClassification) {
-                scope.hideClientClassification = scope.response.uiDisplayConfigurations.createClient.isHiddenField.hideClientClassification;
+            
+            if (scope.response && scope.response.uiDisplayConfigurations) {
+
+                if (scope.response.uiDisplayConfigurations.defaultGISConfig && scope.response.uiDisplayConfigurations.defaultGISConfig.isReadOnlyField && scope.response.uiDisplayConfigurations.defaultGISConfig.isReadOnlyField.countryName) {
+                    scope.isCountryReadOnly = scope.response.uiDisplayConfigurations.defaultGISConfig.isReadOnlyField.countryName;
                 }
-                if (scope.response.uiDisplayConfigurations.createClient.isHiddenField.clientType) {
-                    scope.isHideclientType = scope.response.uiDisplayConfigurations.createClient.isHiddenField.clientType;
+                if(scope.response.uiDisplayConfigurations.regexFormats){
+                    if(scope.response.uiDisplayConfigurations.regexFormats.namePattern){
+                        scope.nameRegexFormat = scope.response.uiDisplayConfigurations.regexFormats.namePattern;
+                    }
                 }
+
+                if (scope.response.uiDisplayConfigurations.createClient) {
+                    if (scope.response.uiDisplayConfigurations.createClient.isValidateFirstName) {
+                       // scope.firstNamePattern = scope.response.uiDisplayConfigurations.createClient.isValidateFirstName.firstNamePattern;
+                    }
+                    if (scope.response.uiDisplayConfigurations.createClient.isAutoPopulate) {
+                        scope.isGenderAutoPopulate = scope.response.uiDisplayConfigurations.createClient.isAutoPopulate.genderOption;
+                    }
+
+                    if (scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber && scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber.mobileNumberPattern) {
+                        scope.mobileNumberPattern = scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber.mobileNumberPattern;
+                    }
+
+                    if (scope.response.uiDisplayConfigurations.createClient.isMandatoryField) {
+
+                        if (scope.response.uiDisplayConfigurations.createClient.isMandatoryField.clientClassificationId) {
+                            scope.isClientClassificationMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.clientClassificationId;
+                        }
+                        if (scope.response.uiDisplayConfigurations.createClient.isMandatoryField.dateOfBirth) {
+                            scope.isDateOfBirthMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.dateOfBirth;
+                        }
+                        if (scope.response.uiDisplayConfigurations.createClient.isMandatoryField.staff) {
+                            scope.isStaffMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.staff;
+                        }
+                        if (scope.response.uiDisplayConfigurations.createClient.isMandatoryField.gender) {
+                            scope.isGenderMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.gender;
+                        }
+                        if (scope.response.uiDisplayConfigurations.createClient.isMandatoryField.externalId) {
+                            scope.isExternalIdMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.externalId;
+                        }
+                        scope.isMobileNumberMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.mobileNumber;
+                        scope.isEmailIdMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.emailId;
+                        if (scope.response.uiDisplayConfigurations.createClient.isMandatoryField.villageTown) {
+                            scope.isVillageTownMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.villageTown;
+                        }
+                        if (scope.response.uiDisplayConfigurations.createClient.isMandatoryField.addressType) {
+                            scope.isAddressTypeMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.addressType;
+                        }
+                    }
+
+                    if (scope.response.uiDisplayConfigurations.createClient.isHiddenField) {
+                        scope.showStaff = !scope.response.uiDisplayConfigurations.createClient.isHiddenField.staffActivation;
+                        scope.showLegalForm = !scope.response.uiDisplayConfigurations.createClient.isHiddenField.legalForm;
+                        scope.showMiddleName = !scope.response.uiDisplayConfigurations.createClient.isHiddenField.middleName;
+                        scope.showExternalId = !scope.response.uiDisplayConfigurations.createClient.isHiddenField.externalId;
+                        scope.showSubmittedOn = !scope.response.uiDisplayConfigurations.createClient.isHiddenField.submittedOn;
+                        scope.showOpenSavingsProduct = !scope.response.uiDisplayConfigurations.createClient.isHiddenField.openSavingsProduct;
+                        scope.showActivation = !scope.response.uiDisplayConfigurations.createClient.isHiddenField.activate;
+
+                        if (scope.response.uiDisplayConfigurations.createClient.isHiddenField.hideClientClassification) {
+                            scope.hideClientClassification = scope.response.uiDisplayConfigurations.createClient.isHiddenField.hideClientClassification;
+                        }
+                        if (scope.response.uiDisplayConfigurations.createClient.isHiddenField.clientType) {
+                            scope.isHideclientType = scope.response.uiDisplayConfigurations.createClient.isHiddenField.clientType;
+                        }
+                        if (scope.response.uiDisplayConfigurations.createClient.isHiddenField.pincode) {
+                            scope.pincode = scope.response.uiDisplayConfigurations.createClient.isHiddenField.pincode;
+                        }
+                    }
+                    if (scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber && scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber.mobileNumberPattern) {
+                        scope.mobileNumberPattern = scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber.mobileNumberPattern;
+                    }
+
+                }
+
+
+
+
             }
 
-            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
-                scope.response.uiDisplayConfigurations.createClient.isMandatoryField) {
-
-                if(scope.response.uiDisplayConfigurations.createClient.isMandatoryField.dateOfBirth){
-                    scope.isDateOfBirthMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.dateOfBirth;
-                }
-                if(scope.response.uiDisplayConfigurations.createClient.isMandatoryField.staff){
-                    scope.isStaffMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.staff;
-                }
-                
-            }
-            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
-                scope.response.uiDisplayConfigurations.createClient.isMandatoryField.gender) {
-                scope.isGenderMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.gender;
-            }
-            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
-                scope.response.uiDisplayConfigurations.createClient.isMandatoryField && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.externalId){
-                scope.isExternalIdMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.externalId;
-            }
-            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isHiddenField.pincode) {
-                scope.pincode = scope.response.uiDisplayConfigurations.createClient.isHiddenField.pincode;
-            }
-            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.villageTown) {
-                scope.isVillageTownMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.villageTown;
-            }
-            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.defaultGISConfig.isReadOnlyField.countryName) {
-                scope.isCountryReadOnly = scope.response.uiDisplayConfigurations.defaultGISConfig.isReadOnlyField.countryName;
-            }
-            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.addressType) {
-                scope.isAddressTypeMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.addressType;
-            }
-            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isMandatoryField) {
-                scope.isMobileNumberMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.mobileNumber;
-                scope.isEmailIdMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.emailId;
-            }
-            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isAutoPopulate) {
-                scope.isGenderAutoPopulate = scope.response.uiDisplayConfigurations.createClient.isAutoPopulate.genderOption;
-            }
+            
+            
             scope.minAge = 0;
             scope.maxAge = 0;
             scope.dateOfBirthNotInRange = false;
@@ -152,9 +169,7 @@
             scope.minDateOfBirth = getMinimumRestrictedDate(new Date());
             scope.maxDateOfBirth = getMaximumRestrictedDate(new Date());
 
-            if(scope.response.uiDisplayConfigurations.createClient.isValidateFirstName) {
-                scope.firstNamePattern = scope.response.uiDisplayConfigurations.createClient.isValidateFirstName.firstNamePattern;
-            }
+            
             function getMaximumRestrictedDate(restrictedDate) {
 
                 restrictedDate.setYear(restrictedDate.getFullYear() - scope.minAge);
@@ -167,10 +182,7 @@
                 return restrictedDate;
             };
             
-            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
-                scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber && scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber.mobileNumberPattern) {
-                scope.mobileNumberPattern = scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber.mobileNumberPattern;
-            }
+            
 
             var requestParams = {staffInSelectedOfficeOnly:true};
             if (routeParams.groupId) {
