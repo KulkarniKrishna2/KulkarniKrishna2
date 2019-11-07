@@ -1,0 +1,107 @@
+<div class="col-md-12" ng-controller="RejecteClaimInsuranceController">
+        <div>
+            <ul class="breadcrumb">
+                <li><a ng-href="#/insurancedetails">{{'label.anchor.insurance' | translate}}</a></li>
+                <li class="active">{{'label.heading.menu.insurance.intimation.approval.pending' | translate}}
+                </li>
+            </ul>
+        </div>
+        <api-validate></api-validate>
+            <h2>{{'label.heading.intimation.approval' | translate}}</h2>
+            <br>
+        <div class="col-md-12 section">
+            <div class="col-md-9"> 
+                <h3>{{'label.heading.insurance.loan.details' | translate}}</h3>
+                <table class="table well" >
+                    <thead>
+                        <tr class="graybg">
+                            <th colspan="2">
+                                <span>{{'label.heading.serialno' | translate}}</span>
+                            </th>
+                            <th colspan="2">
+                                <span>{{'label.heading.insurance.coi.number' | translate}}</span>
+                            </th>
+                            <th colspan="2">
+                                <span>{{'label.heading.insurance.loanid' | translate}}</span>
+                            </th>
+                            <th colspan="2">
+                                <span>{{'label.heading.insurance.policy.provider' | translate}}</span>
+                            </th>
+                            <th colspan="2">
+                                <span>{{'label.heading.insurance.insured.amount' | translate}}</span>
+                            </th>
+                            <th colspan="2">
+                                <span>{{'label.heading.insurance.insured.loan.amount' | translate}}</span>
+                            </th>
+                            <th colspan="2">
+                                <span>{{'label.heading.insurance.insured.loan.outstanding.amount' | translate}}</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat = "data in insuranceCliamDetials.insuranceLoanPolicyDatas">
+                            <td colspan="2">{{$index+1}}</td>
+                            <td colspan="2">{{data.coiNumber}}</td>
+                            <td colspan="2">{{data.loanId}}</td>
+                            <td colspan="2">{{data.policyProvider}}</td>
+                            <td colspan="2">{{data.insuranceAmount}}</td>
+                            <td colspan="2">{{data.loanAmount}}</td>
+                            <td colspan="2">{{data.loanOutstandingAmount}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br>
+                <div class="row graybg">
+                    <div class="col-md-6">
+                        <h4><strong>{{'label.heading.deceased.person' | translate}}</strong> 
+                        <span>   {{insuranceCliamDetials.insuredClientType.value}}</span></h4> 
+                    </div>
+                    <div class="col-md-6">
+                        <h4><strong>{{'label.heading.death.date' | translate}}</strong>
+                        <span class="paddingleft2px">  {{insuranceCliamDetials.deathDate | DateFormat}}</span></h4>  
+                    </div>
+                </div>
+                <br>
+                <div class="row graybg ">
+                    <div class="col-sm-6">
+                        <h4><strong>{{'label.heading.death.intimation.date' | translate}}</strong>
+                        <span>  {{insuranceCliamDetials.intimationDate | DateFormat}}</span></h4> 
+                    </div>
+                </div>
+    
+            </div>
+            <div class="col-md-3">
+                <h3>{{'label.heading.insurance.applicant.details' | translate}}</h3>
+                <div class="thumbnail row">
+                    <table class="table table-minified table-striped">
+                        <tr>
+                            <th ><span class="padded-td">{{'label.heading.insurance.applicant.name' | translate}}</span></th>
+                            <td><span class="padded-td">{{insuranceCliamDetials.clientName}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th ><span class="padded-td">{{'label.heading.insurance.applicant.client.id' | translate}}</span></th>
+                            <td><span class="padded-td">{{insuranceCliamDetials.clientId}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th ><span class="padded-td">{{'label.heading.insurance.applicant.age' | translate}}</span></th>
+                            <td><span class="padded-td">{{age}}</span></td>
+                        </tr>
+                        <tr>
+                            <th ><span class="padded-td">{{'label.heading.insurance.applicant.office' | translate}}</span></th>
+                            <td><span class="padded-td">{{insuranceCliamDetials.office}}</span>
+                            </td>
+                        </tr>
+                    </table>    
+                </div>    
+                            
+            </div>
+        </div>
+        <div class="col-md-12 section">
+            <br> </br>
+            <br> </br>
+            <button id="save" type="submit" ng-click="delete()" class="btn btn-primary col-md-offset-5"  ng-hide="blockUI" has-permission='APPROVE_INSURANCEINTIMATIONAPPROVAL'>{{'label.heading.insurance.status.delete' | translate}}</button>
+        </div>    
+        
+    </div>

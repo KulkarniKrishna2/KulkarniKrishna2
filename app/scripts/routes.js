@@ -1845,8 +1845,8 @@
             .when('/clients/:clientId/editpolicy', {
                 templateUrl: 'views/policy/editpolicy.html'
             })
-            .when('/clients/:clientId/deceasedonboarding', {
-                templateUrl: 'views/policy/deceasedonboarding.html'
+            .when('/clients/:clientId/viewdeceased', {
+                templateUrl: 'views/clients/clientdeceased.html'
             })
             .when('/accounting/transaciontypemappings/postentries', {
                 templateUrl: 'views/accounting/transaciontypemapping_journalentry.html'
@@ -2084,6 +2084,24 @@
             })
             .when('/smsproviders', {
                 templateUrl: 'views/organization/smscampaigns/smsproviders.html'
+            })
+            .when('/insurancedetails', {
+                templateUrl: 'views/insurance/viewinsurancedetails.html'
+            })
+            .when('/insurance/intimationapprovalpending/:id', {
+                templateUrl: 'views/insurance/viewintimationapproval.html'
+            })
+            .when('/insurance/documentsupload/:id', {
+                templateUrl: 'views/insurance/documentsupload.html'
+            })
+            .when('/insurance/claimverificationpending/:id', {
+                templateUrl: 'views/insurance/claimverificationpending.html'
+            })
+            .when('/insurance/verifiedClaims/:id', {
+                templateUrl: 'views/insurance/verifiedclaimdetail.html'
+            })
+            .when('/insurance/rejectedclaiminsurance/:id', {
+                templateUrl: 'views/insurance/rejectedclaiminsurance.html'
             })
 
         $locationProvider.html5Mode(false);

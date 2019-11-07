@@ -131,6 +131,13 @@
                         subhref: "blacklist",
                         icon: "icon-ban-circle",
                         taskPermissionName: "BLACKLIST_CLIENT"
+                    },
+                    {
+                        name: "label.button.markasdeceased",
+                        href: "#/clients",
+                        subhref: "viewdeceased",
+                        icon: "icon-plus",
+                        taskPermissionName: "CREATE_DECEASED_WORKFLOW"
                     }
                 ],
                 "Transfer in progress": [{

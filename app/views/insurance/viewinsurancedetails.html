@@ -1,0 +1,137 @@
+<div class="col-md-12" ng-controller="InsuranceDetailsController">
+    <div>
+        <ul class="breadcrumb">
+            <li>{{'label.anchor.insurance' | translate}}</a></li>
+            </li>
+        </ul>
+    </div>
+    <tabset class="tab-container">
+      <tab  tab-highlight select="fetchInsuranceData('intimationapprovalpending')"> <!-- the tab highlight directive -->
+        <tab-heading>
+          <span>{{'label.heading.menu.insurance.intimation.approval.pending' | translate}}</span> 
+        </tab-heading>
+      </tab>
+      <tab active="tab.active" tab-highlight select="fetchInsuranceData('documentsupload')"> <!-- the tab highlight directive -->
+        <tab-heading>
+          <span>{{'label.heading.menu.insurance.document.upload' | translate}}</span>
+        </tab-heading>
+      </tab>
+      <tab  tab-highlight select="fetchInsuranceData('claimverificationpending')"> <!-- the tab highlight directive -->
+        <tab-heading>
+          <span>{{'label.heading.menu.insurance.claim.verification.pending' | translate}}</span> 
+        </tab-heading>
+      </tab>
+      <tab  tab-highlight select="fetchInsuranceData('verifiedClaims')"> <!-- the tab highlight directive -->
+        <tab-heading>
+          <span>{{'label.heading.menu.insurance.verified.claims' | translate}}</span>
+        </tab-heading>
+      </tab>
+      <tab  tab-highlight select="fetchInsuranceData('settlementPending')"> <!-- the tab highlight directive -->
+        <tab-heading>
+          <span>{{'label.heading.menu.insurance.settelment.pending' | translate}}</span>
+        </tab-heading>
+      </tab>
+      <tab  tab-highlight select="fetchInsuranceData('settledClaims')"> <!-- the tab highlight directive -->
+        <tab-heading>
+          <span>{{'label.heading.menu.insurance.setteled.claims' | translate}}</span>
+        </tab-heading>
+      </tab>
+    </tabset>
+    <div class="container-fluid" style="border:1px solid #cecece;">
+      <br/>
+      <api-validate></api-validate>
+      <br/>
+      <legend>{{'label.heading.deceased.client.details' | translate}}</legend>
+
+      <tabset class="tab-container">
+        <tab active="tab.active" tab-highlight select="fetchInsuranceData('intimationapprovalpending')"> <!-- the tab highlight directive -->
+          <tab-heading>
+            <span>{{'label.heading.menu.insurance.claims.approval.pending' | translate}}</span> 
+          </tab-heading>
+          <table class="table well" >
+              <thead>
+                  <tr class="graybg">
+                      <th colspan="2">
+                          <span>{{'label.heading.serialno' | translate}}</span>
+                      </th>
+                      <th ng-show="selectAllOption" colspan="2"><input type="checkbox" ng-model="deceasedDetails.isAllChecked" ng-change="selectAllDeceased(deceasedDetails.isAllChecked)"/>
+                      </th>
+                      <th colspan="2">
+                          <span>{{'label.heading.deceased.clientid' | translate}}</span>
+                      </th>
+                      <th colspan="2">
+                          <span>{{'label.heading.deceased.client.name' | translate}}</span>
+                      </th>
+                      <th colspan="2">
+                        <span>{{'label.heading.deceased.client.type' | translate}}</span>
+                      </th>
+                      <th colspan="2">
+                          <span>{{'label.heading.death.intimation.date' | translate}}</span>
+                      </th>
+                      <th colspan="2">
+                          <span>{{'label.heading.office' | translate}}</span>
+                      </th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr ng-repeat = "deceasedMember in insuranceData">
+                      <td class="pointer" data-ng-click="routeTo(deceasedMember.deceasedId)" colspan="2"><span></span>{{$index+1}}</span></td>
+                      <td ng-show="selectAllOption" class="pointer" colspan="2"><input type="checkbox" ng-model="deceasedMember.isMemberChecked" ></input></td>
+                      <td class="pointer" data-ng-click="routeTo(deceasedMember.deceasedId)" colspan="2"><span>{{deceasedMember.clientId}}</span></td>
+                      <td class="pointer" data-ng-click="routeTo(deceasedMember.deceasedId)" colspan="2"><span>{{deceasedMember.clientName}}</span></td>
+                      <td class="pointer" data-ng-click="routeTo(deceasedMember.deceasedId)" colspan="2"><span>{{deceasedMember.clientType.value}}</span></td>
+                      <td class="pointer" data-ng-click="routeTo(deceasedMember.deceasedId)" colspan="2"><span>{{deceasedMember.intimationDate | DateFormat}}</span></td>
+                      <td class="pointer" data-ng-click="routeTo(deceasedMember.deceasedId)" colspan="2"><span>{{deceasedMember.office}}</span></td>
+                      </tr>
+              </tbody>
+          </table>
+        </tab>
+        <tab  ng-show="rejectTabToBeshown" tab-highlight select="fetchRejectedInsuranceData('intimationapprovalpending')"> <!-- the tab highlight directive -->
+          <tab-heading>
+            <span>{{'label.heading.menu.insurance.claims.rejected' | translate}}</span>
+          </tab-heading>
+          <table class="table well" >
+              <thead>
+                  <tr class="graybg">
+                      <th colspan="2">
+                          <span>{{'label.heading.serialno' | translate}}</span>
+                      </th>
+                      <th colspan="2">
+                          <span>{{'label.heading.deceased.clientid' | translate}}</span>
+                      </th>
+                      <th colspan="2">
+                          <span>{{'label.heading.deceased.client.name' | translate}}</span>
+                      </th>
+                      <th colspan="2">
+                        <span>{{'label.heading.deceased.client.type' | translate}}</span>
+                      </th>
+                      <th colspan="2">
+                          <span>{{'label.heading.death.intimation.date' | translate}}</span>
+                      </th>
+                      <th colspan="2">
+                          <span>{{'label.heading.office' | translate}}</span>
+                      </th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr ng-repeat = "deceasedMember in insuranceData">
+                      <td class="pointer" data-ng-click="routeToReject(deceasedMember.deceasedId)" colspan="2"><span></span>{{$index+1}}</span></td>
+                      <td class="pointer" data-ng-click="routeToReject(deceasedMember.deceasedId)" colspan="2"><span>{{deceasedMember.clientId}}</span></td>
+                      <td class="pointer" data-ng-click="routeToReject(deceasedMember.deceasedId)" colspan="2"><span>{{deceasedMember.clientName}}</span></td>
+                      <td class="pointer" data-ng-click="routeToReject(deceasedMember.deceasedId)" colspan="2"><span>{{deceasedMember.clientType.value}}</span></td>
+                      <td class="pointer" data-ng-click="routeToReject(deceasedMember.deceasedId)" colspan="2"><span>{{deceasedMember.intimationDate | DateFormat}}</span></td>
+                      <td class="pointer" data-ng-click="routeToReject(deceasedMember.deceasedId)" colspan="2"><span>{{deceasedMember.office}}</span></td>
+                      </tr>
+              </tbody>
+          </table>
+        </tab>
+        </tabset>
+
+            
+            <br/>
+
+    <div class="col-md-12 section paddedbottom10" ng-show="selectAllOption">
+        <button id="save" type="submit" ng-click="submit()" class="btn btn-primary"  ng-hide="blockUI" has-permission='SUBMIT_INSURANCEVERIFIEDCLAIMS'>{{'label.heading.insurance.status.submit.all' | translate}}</button>
+    </div> 
+    </div>
+</div>

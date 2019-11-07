@@ -1,0 +1,87 @@
+<div class="col-md-12" ng-controller="ClientDeceasedController">
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="#/viewclient/{{clientId}}">{{'label.input.client' | translate}}</a></li>
+            <li class="active">{{'label.menu.death.details' | translate}}
+            </li>
+        </ul>
+    </div>
+    <form name="createdeceaseddetailsform" novalidate="" class="form-horizontal well"
+        rc-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset ng-show="isCreateDeceasedDetailsShow">
+            <legend>{{'label.heading.create.deceased' | translate}}</legend>
+
+            <table class="table well" >
+                    <thead>
+                        <tr class="graybg">
+                            <th colspan="2">
+                                <span>{{'label.menu.select' | translate}}</span>
+                            </th>
+                            <th colspan="2">
+                                <span>{{'label.heading.deceased.person' | translate}}</span>
+                            </th>
+                            <th colspan="2">
+                                <span>{{'label.heading.death.date' | translate}}</span>
+                            </th>
+                            <th colspan="2">
+                                <span>{{'label.heading.death.intimation.date' | translate}}</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat = "deceased in deceasedDetailsData">
+                            <td colspan="2"><input id="select"  ng-checked="selectall" type="checkbox" name="select" 
+                                ng-model="deceased.selected"/></td>
+                            <td colspan="2">{{deceased.clientType}}</td>
+                            <td colspan="2"><input id="deceasedDate" type="text" autocomplete="off" name="deceasedDate" datepicker-pop="{{df}}" ng-model="deceased.deathDate"
+                            is-open="opened1" max="'2020-06-22'" class="form-control"/>
+                            </td>
+                            <td colspan="2"><input id="deceasedDate" type="text" autocomplete="off" name="deceasedDate" datepicker-pop="{{df}}" ng-model="deceased.deathIntimationDate"
+                            is-open="opened1" max="'2020-06-22'" class="form-control" /></td>
+                            </tr>
+                    </tbody>
+                </table>
+            <br/>
+            <div class="col-md-offset-5">
+                <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_DECEASED_DETAILS'>{{'label.button.save' | translate}}</button>
+            </div>
+        </fieldset>
+    </form>
+
+    <div ng-show="isDeceasedDetailsCreated" > 
+        <!-- <a role="button" ng-hide="taskData.status.code==statusCompleted" has-permission="UPDATE_DECEASED_DETAILS" ng-click="editDeceasedDetails()" class="btn btn-primary pull-right">
+            <i class="icon-edit icon-white"></i>
+        </a> -->
+        <legend>{{'label.heading.deceaseddetails' | translate}}</legend>
+
+         <table class="table well">
+            <thead>
+                <tr class="graybg">
+                    <th colspan="2">
+                        <span>{{'label.heading.serialno' | translate}}</span>
+                    </th>
+                    <th colspan="2">
+                        <span>{{'label.heading.deceased.person' | translate}}</span>
+                    </th>
+                    <th colspan="2">
+                        <span>{{'label.heading.death.date' | translate}}</span>
+                    </th>
+                    <th colspan="2">
+                        <span>{{'label.heading.death.intimation.date' | translate}}</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat = "data in deceasedDetails">
+                    <td colspan="2">{{$index+1}}</td>
+                    <td colspan="2">{{data.clientType.value}}</td>
+                    <td colspan="2">{{data.deathDate | DateFormat}}</td>
+                    <td colspan="2">{{data.deathIntimationDate | DateFormat}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+    
+</div>
