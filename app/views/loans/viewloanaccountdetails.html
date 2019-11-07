@@ -1798,7 +1798,6 @@
                             <div ng-include="'views/pdc/createpdc.html'"></div>
                         </script>
                     </tab>
-
                     <tab ng-if="loandetails.isDpConfigured" heading="{{'label.tab.heading.dpdetails' | translate}}" select="getLoanAccountDpDetailData()">
                         <div ng-show="loandetails.isDpConfigured">
                             <table class="table table-striped">
@@ -1852,7 +1851,9 @@
                             </table>
                         </div>
                     </tab>
-
+                    <tab heading="{{'lable.tab.heading.insurance.policy' | translate}}">
+                        <div has-permission="READ_INSURANCE_POLICY" ng-include="'views/loans/insurancepolicy.html'"></div>
+                    </tab>
                 </tabset>
             </div>
         </div>

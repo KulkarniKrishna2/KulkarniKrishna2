@@ -1984,7 +1984,16 @@
                    }),
                    insuranceDocumentsResource: defineResource(apiVer + "/insurance/:deceasedId/documents", {deceasedId: '@deceasedId'}, {
                     getAllDeceasedDocuments: {method: 'GET', params: {}, isArray: true}
-                   })
+                   }),
+                   insurancePolicyTemplateResource: defineResource(apiVer + "/loans/:loanId/insurancepolicy/template", {}, {
+                    getTemplate:{method:'GET' , params:{loanId: '@loanId'}}
+                    }),
+                    insurancePolicyResource: defineResource(apiVer + "/loans/:loanId/insurancepolicy", {}, {
+                    create: {method: 'POST', params: {loanId: '@loanId'}},
+                    getAll: {method: 'GET', params: {loanId: '@loanId'}, isArray: true},
+                    update: {method: 'PUT', params: {loanId: '@loanId'}},
+                    delete: {method: 'DELETE', params: {loanId: '@loanId'}}
+                    })
                 };
             }];
         }
