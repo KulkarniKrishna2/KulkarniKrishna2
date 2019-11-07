@@ -1951,7 +1951,40 @@
                     }),
                     bankAccountAuditResource: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetail/:bankAssociationId/audit", {entityType: "@entityType", entityId: "@entityId", bankAssociationId: "@bankAssociationId"}, {
                         get: {method:'GET', params: {}, isArray: true}
-                    })
+                    }),
+                    postDeceasedDetailsResource: defineResource(apiVer + "/insurance/markasdeceased", {},  {
+                         save: {method:'POST', params: {} }
+                    }),
+                    getDeceasedDetailsResource: defineResource(apiVer + "/insurance/:clientId/deceaseddetails", {clientId: '@clientId'},  {
+                         getDeceasedDetails: {method:'GET', params: {clientId: '@clientId'} , isArray: true}
+                    }),
+                    deleteDeceasedDetailsResource: defineResource(apiVer + "/insurance/:deceasedId", {deceasedId: '@deceasedId'},  {
+                        getDeceasedDetails: {method:'DELETE', params: {deceasedId: '@deceasedId'} }
+                   }),
+                    getInsuranceDetailsResource: defineResource(apiVer + "/insurance/claim/:claimStatus", {claimStatus: '@claimStatus'},  {
+                        getActiveInuranceData: {method:'GET', params: {claimStatus: '@claimStatus', active:'true'} , isArray: true},
+                        getRejectedInuranceData: {method:'GET', params: {claimStatus: '@claimStatus', active:'false'} , isArray: true}
+                   }),
+                   financialYearClosuresResource: defineResource(apiVer + "/fyclosures/:id", {id: '@id'}, {
+                        getAll: {method:'GET', params: {}, isArray: true},
+                        save: {method:'POST', params:{} },
+                        getOneFinancialYearClosure: {method:'GET', params:{id: '@id'}}
+                   }),
+                   getInsuranceClaimStatusDetailsResource: defineResource(apiVer + "/insurance/claim/:claimStatus/:deceasedId", {claimStatus: '@claimStatus', deceasedId: '@deceasedId'},  {
+                        getClaimIntimationApproval: {method:'GET', params: {claimStatus: '@claimStatus', deceasedId: '@deceasedId'}}
+                   }),
+                   getInsuranceNomineeDetailsResource: defineResource(apiVer + "/insurance/claim/nomineedetails/:deceasedId", {deceasedId: '@deceasedId'},  {
+                    getNomineeDetails: {method:'GET', params: {deceasedId: '@deceasedId'}}
+                    }),
+                   insuranceClaimStatusDetailsResource: defineResource(apiVer + "/insurance/claim/:claimStatus", {claimStatus: '@claimStatus', command: '@command'},  {
+                        approveClaimIntimationApproval: {method:'POST', params: {command: '@command'}},
+                        submitNomineeDetails: {method:'POST', params: {command: '@command'}},
+                        submitClaimDocumentUpload : {method:'POST', params: {command: '@command'}},
+                        submitVerifiedClaim : {method:'POST', params: {command: '@command'}}
+                   }),
+                   insuranceDocumentsResource: defineResource(apiVer + "/insurance/:deceasedId/documents", {deceasedId: '@deceasedId'}, {
+                    getAllDeceasedDocuments: {method: 'GET', params: {}, isArray: true}
+                   })
                 };
             }];
         }

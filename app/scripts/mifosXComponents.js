@@ -726,7 +726,14 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'organization/smscampaigns/EditSmsCampaignController',
             'organization/smscampaigns/SmsCampaignsController',
             'organization/SmsController',
-            'organization/smscampaigns/SmsProvidersController'
+            'organization/smscampaigns/SmsProvidersController',
+            'client/ClientDeceasedController',
+            'insurance/InsuranceDetailsController',
+            'insurance/ViewClaimIntimationApproval',
+            'insurance/ClaimDocumentsUpload',
+            'insurance/ClaimVerificationPending',
+            'insurance/VerifiedClaimController',
+            'insurance/RejecteClaimInsuranceController'
         ],
         filters: [
             'StatusLookup',
