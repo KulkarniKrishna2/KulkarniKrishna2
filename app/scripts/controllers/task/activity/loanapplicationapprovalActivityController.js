@@ -378,7 +378,7 @@
                 scope.formValidationData.graceOnInterestCharged = scope.loanaccountinfo.graceOnInterestCharged;
                 if(scope.formData.loanEMIPackData && scope.formData.loanEMIPackData.gracePeriod){
                     scope.formValidationData.graceOnPrincipalPayment = scope.formData.loanEMIPackData.gracePeriod;
-                    scope.formValidationData.graceOnInterestPayment = scope.formData.loanEMIPackData.gracePeriod;
+                    scope.formValidationData.graceOnInterestCharged = scope.formData.loanEMIPackData.gracePeriod;
                 }
                 // scope.formValidationData.fixedEmiAmount = scope.loanaccountinfo.fixedEmiAmount;
                 scope.formValidationData.maxOutstandingLoanBalance = scope.formRequestData.maxOutstandingLoanBalance;
@@ -784,10 +784,10 @@
                         if (loanEMIPack.gracePeriod) {
                             var gracePeriod = loanEMIPack.gracePeriod;
                             scope.formValidationData.graceOnPrincipalPayment = gracePeriod;
-                            scope.formValidationData.graceOnInterestPayment = gracePeriod;
+                            scope.formValidationData.graceOnInterestCharged = gracePeriod;
                         } else {
                             scope.formValidationData.graceOnPrincipalPayment = scope.loanaccountinfo.graceOnPrincipalPayment;
-                            scope.formValidationData.graceOnInterestPayment = scope.loanaccountinfo.graceOnInterestPayment;
+                            scope.formValidationData.graceOnInterestCharged = scope.loanaccountinfo.graceOnInterestCharged;
                         }
                     }
                     if (scope.formRequestData.loanApplicationSanctionTrancheDatas && scope.formRequestData.loanApplicationSanctionTrancheDatas.length > 0) {
