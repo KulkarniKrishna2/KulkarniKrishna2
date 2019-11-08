@@ -236,7 +236,7 @@
 </tr>
 <tr class="bottomborder">
     <td><strong>{{'label.heading.accounting' | translate}}</strong></td>
-    <td colspan="3"><span ng-hide="hasAccounting">{{'label.none' | translate}}</span></td>
+    <td>{{depositproduct.accountingRule.value}}</td>
 </tr>
 <tr>
     <td colspan="4">
@@ -254,6 +254,12 @@
                     translate}})
                 </td>
                 <td colspan="3">{{depositproduct.accountingMappings.transfersInSuspenseAccount.name}}&nbsp;({{depositproduct.accountingMappings.transfersInSuspenseAccount.glCode}})</td>
+            </tr>
+            <tr ng-show="hasAccrualAccounting">
+                <td>{{'label.heading.interest.payable' | translate}}({{'label.heading.liabilities' |
+                    translate}})
+                </td>
+                <td colspan="3">{{depositproduct.accountingMappings.interestPayable.name}}&nbsp;({{depositproduct.accountingMappings.interestPayable.glCode}})</td>
             </tr>
             <tr>
                 <td>{{'label.heading.interestonsavings' | translate}}({{'label.heading.expenses' | translate}})</td>

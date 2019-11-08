@@ -17,6 +17,10 @@
             scope.deletedincentives = [];
             scope.isPrimaryGroupingByAmount = false;
             scope.isInterestCalculationFromProductChart = false;
+            scope.chargeOptions = [];
+            var deleteFeeAccountMappings = [];
+            var deletePenaltyAccountMappings = [];
+            scope.accountingRuleOptions = [];
 
             resourceFactory.recurringDepositProductResource.get({productId: routeParams.productId, template: 'true'}, function (data) {
                 scope.product = data;
@@ -35,6 +39,12 @@
                 if (data.closeDate) {
                     scope.date.second = new Date(data.closeDate);
                 }
+
+                _.each(data.accountingRuleOptions, function (accountingRule){
+                    if(accountingRule.value != 'ACCRUAL UPFRONT' && accountingRule.value != 'ACCRUAL PERIODIC'){
+                        scope.accountingRuleOptions.push(accountingRule);
+                    }
+                });
                 scope.formData = {
                     name: data.name,
                     shortName: data.shortName,
@@ -106,14 +116,22 @@
                     scope.formData.lockinPeriodFrequencyType = data.lockinPeriodFrequencyType.id;
                 }
 
-                if (scope.formData.accountingRule == 2) {
+                _.each(scope.product.chargeOptions, function (charge){
+                    if(charge.penalty==false){
+                        scope.chargeOptions.push(charge);
+                    }
+                });
+
+                if (scope.isAccountingEnabled()) {
                     scope.formData.savingsReferenceAccountId = data.accountingMappings.savingsReferenceAccount.id;
                     scope.formData.savingsControlAccountId = data.accountingMappings.savingsControlAccount.id;
                     scope.formData.transfersInSuspenseAccountId = data.accountingMappings.transfersInSuspenseAccount.id;
                     scope.formData.incomeFromFeeAccountId = data.accountingMappings.incomeFromFeeAccount.id;
                     scope.formData.incomeFromPenaltyAccountId = data.accountingMappings.incomeFromPenaltyAccount.id;
                     scope.formData.interestOnSavingsAccountId = data.accountingMappings.interestOnSavingsAccount.id;
-
+                    if (scope.isAccrualAccountingEnabled()) {
+                        scope.formData.interestPayableId = data.accountingMappings.interestPayable.id;
+                    }
                     _.each(scope.product.paymentChannelToFundSourceMappings, function (fundSource) {
                         scope.configureFundOptions.push({
                             paymentTypeId: fundSource.paymentType.id,
@@ -127,7 +145,7 @@
                         scope.specificIncomeaccounts.push({
                             chargeId: fees.charge.id,
                             incomeAccountId: fees.incomeAccount.id,
-                            chargeOptions: scope.product.chargeOptions,
+                            chargeOptions: scope.chargeOptions,
                             incomeAccountOptions: scope.incomeAccountOptions
                         })
                     });
@@ -181,7 +199,6 @@
             }
 
             scope.mapFees = function () {
-                scope.chargeOptions = scope.product.chargeOptions || [];
                 scope.specificIncomeaccounts.push({
                     chargeId: scope.chargeOptions.length > 0 ? scope.chargeOptions[0].id : '',
                     incomeAccountId: scope.incomeAccountOptions.length > 0 ? scope.incomeAccountOptions[0].id : '',
@@ -205,10 +222,16 @@
             }
 
             scope.deleteFee = function (index) {
+                if(scope.specificIncomeaccounts[index].chargeId){
+                    deleteFeeAccountMappings.push(scope.specificIncomeaccounts[index]);
+                }
                 scope.specificIncomeaccounts.splice(index, 1);
             }
 
             scope.deletePenalty = function (index) {
+                if(scope.penaltySpecificIncomeaccounts[index].chargeId){
+                    deletePenaltyAccountMappings.push(scope.penaltySpecificIncomeaccounts[index]);
+                }
                 scope.penaltySpecificIncomeaccounts.splice(index, 1);
             }
 
@@ -275,6 +298,8 @@
                 if(this.formData.autoRenewalEnabled){
                     this.formData.autoRenewalData.locale = this.formData.locale;
                 }
+                this.formData.deleteFeeAccountMappings = deleteFeeAccountMappings;
+                this.formData.deletePenaltyAccountMappings = deletePenaltyAccountMappings;
                 resourceFactory.recurringDepositProductResource.update({productId: routeParams.productId}, this.formData, function (data) {
                     location.path('/viewrecurringdepositproduct/' + data.resourceId);
                 });
@@ -539,6 +564,21 @@
                 }
             };
 
+            scope.isAccountingEnabled = function () {
+                var index = scope.accountingRuleOptions.findIndex(x => x.id == scope.formData.accountingRule && x.value!='NONE');
+                if(index > -1){
+                    return true;
+                }
+                return false;
+            }
+
+            scope.isAccrualAccountingEnabled = function () {
+                var index = scope.accountingRuleOptions.findIndex(x => x.value === 'ACCRUAL PERIODIC');
+                if(index > -1){
+                    return (scope.formData.accountingRule == scope.accountingRuleOptions[index].id);
+                }
+                return false;
+            }
         }
     });
     mifosX.ng.application.controller('EditRecurringDepositProductController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter','$modal', mifosX.controllers.EditRecurringDepositProductController]).run(function ($log) {

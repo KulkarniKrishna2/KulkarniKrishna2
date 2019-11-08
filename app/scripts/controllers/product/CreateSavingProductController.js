@@ -16,6 +16,10 @@
             scope.interestRateRequired = false;
             scope.onDayTypeOptions = commonUtilService.onDayTypeOptions();
             scope.date = {};
+            scope.chargeOptions = [];
+            scope.accountingRuleOptions = [];
+
+
             resourceFactory.savingProductResource.get({resourceType: 'template'}, function (data) {
                 scope.product = data;
                 scope.product.chargeOptions = scope.product.chargeOptions || [];
@@ -32,6 +36,11 @@
                 scope.formData.interestCalculationType = data.interestCalculationType.id;
                 scope.formData.interestCalculationDaysInYearType = data.interestCalculationDaysInYearType.id;
                 scope.formData.accountingRule = '1';
+                _.each(data.accountingRuleOptions, function (accountingRule){
+                    if(accountingRule.value != 'ACCRUAL UPFRONT' && accountingRule.value != 'ACCRUAL PERIODIC'){
+                        scope.accountingRuleOptions.push(accountingRule);
+                    }
+                });
 
             });
 
@@ -73,7 +82,14 @@
             }
 
             scope.mapFees = function () {
-                scope.chargeOptions = scope.product.chargeOptions || [];
+                if(scope.chargeOptions.length==0){
+                    _.each(scope.product.chargeOptions, function (charge){
+                        if(charge.penalty==false){
+                            scope.chargeOptions.push(charge);
+                        }
+                    });
+                }
+
                 scope.specificIncomeaccounts.push({
                     chargeId: scope.chargeOptions.length > 0 ? scope.chargeOptions[0].id : '',
                     incomeAccountId: scope.incomeAndLiabilityAccountOptions.length > 0 ? scope.incomeAndLiabilityAccountOptions[0].id : '',
@@ -220,6 +236,22 @@
                         location.path('/viewsavingproduct/' + data.resourceId);
                     });
             };
+
+            scope.isAccountingEnabled = function () {
+                var index = scope.accountingRuleOptions.findIndex(x => x.id == scope.formData.accountingRule && x.value!='NONE');
+                if(index > -1){
+                    return true;
+                }
+                return false;
+            }
+
+            scope.isAccrualAccountingEnabled = function () {
+                var index = scope.accountingRuleOptions.findIndex(x => x.value === 'ACCRUAL PERIODIC');
+                if(index > -1){
+                    return (scope.formData.accountingRule == scope.accountingRuleOptions[index].id);
+                }
+                return false;
+            }
         }
     });
     mifosX.ng.application.controller('CreateSavingProductController', ['$scope', 'ResourceFactory', '$location', 'CommonUtilService', 'dateFilter', mifosX.controllers.CreateSavingProductController]).run(function ($log) {

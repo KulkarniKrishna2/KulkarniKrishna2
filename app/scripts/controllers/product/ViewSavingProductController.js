@@ -13,7 +13,9 @@
                     scope.interestRateChart = data.floatingInterestRateChartData;
                     scope.isFloatingInterestRateChart = true;
                 }
-                scope.hasAccounting = data.accountingRule.id == 2 ? true : false;
+                var accountingRuleList = ['ACCRUAL PERIODIC', 'CASH BASED'];
+                scope.hasAccounting = (accountingRuleList.indexOf(data.accountingRule.value) >= 0) ? true : false;
+                scope.hasAccrualAccounting = (data.accountingRule.value == 'ACCRUAL PERIODIC') ? true : false;
             });
 
             scope.scrollto = function (link) {

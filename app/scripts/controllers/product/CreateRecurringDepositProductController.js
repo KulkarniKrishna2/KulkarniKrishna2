@@ -17,6 +17,8 @@
             scope.isPrimaryGroupingByAmount = false;
             scope.isInterestCalculationFromProductChart = false;
             scope.date = {};
+            scope.chargeOptions = [];
+            scope.accountingRuleOptions = [];
 
             resourceFactory.recurringDepositProductResource.get({resourceType: 'template'}, function (data) {
                 scope.product = data;
@@ -42,7 +44,11 @@
                 scope.formData.autoRenewalEnabled = data.autoRenewalEnabled;
                 scope.autoRenewalGracePeriodTypeOptions = data.autoRenewalData.autoRenewalGracePeriodTypeOptions;
                 scope.autoRenewalConfigEnumOptions = data.autoRenewalData.autoRenewalConfigEnumOptions;
-            
+                _.each(data.accountingRuleOptions, function (accountingRule){
+                    if(accountingRule.value != 'ACCRUAL UPFRONT' && accountingRule.value != 'ACCRUAL PERIODIC'){
+                        scope.accountingRuleOptions.push(accountingRule);
+                    }
+                });
             });
 
             //advanced accounting rule
@@ -83,7 +89,13 @@
             }
 
             scope.mapFees = function () {
-                scope.chargeOptions = scope.product.chargeOptions || [];
+                if(scope.chargeOptions.length==0){
+                    _.each(scope.product.chargeOptions, function (charge){
+                        if(charge.penalty==false){
+                            scope.chargeOptions.push(charge);
+                        }
+                    });
+                }
                 scope.specificIncomeaccounts.push({
                     chargeId: scope.chargeOptions.length > 0 ? scope.chargeOptions[0].id : '',
                     incomeAccountId: scope.incomeAccountOptions.length > 0 ? scope.incomeAccountOptions[0].id : '',
@@ -171,7 +183,7 @@
                 if(this.formData.autoRenewalEnabled){
                     this.formData.autoRenewalData.locale = this.formData.locale;
                 }
-
+                this.formData.dateFormat = scope.df;
                 resourceFactory.recurringDepositProductResource.save(this.formData, function (data) {
                     location.path('/viewrecurringdepositproduct/' + data.resourceId);
                 });
@@ -388,6 +400,22 @@
                     $scope.chartSlab.incentives.splice(index, 1);
                 }
             };
+
+            scope.isAccountingEnabled = function () {
+                var index = scope.accountingRuleOptions.findIndex(x => x.id == scope.formData.accountingRule && x.value!='NONE');
+                if(index > -1){
+                    return true;
+                }
+                return false;
+            }
+
+            scope.isAccrualAccountingEnabled = function () {
+                var index = scope.accountingRuleOptions.findIndex(x => x.value === 'ACCRUAL PERIODIC');
+                if(index > -1){
+                    return (scope.formData.accountingRule == scope.accountingRuleOptions[index].id);
+                }
+                return false;
+            }
         }
     });
     mifosX.ng.application.controller('CreateRecurringDepositProductController', ['$scope', 'ResourceFactory', '$location', 'dateFilter','$modal', mifosX.controllers.CreateRecurringDepositProductController]).run(function ($log) {
