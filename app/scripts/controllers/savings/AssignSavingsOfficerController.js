@@ -6,7 +6,7 @@
             scope.formData = {};
             scope.staffData = {};
             scope.paramData = {};
-            scope.accountNo = routeParams.id;
+            scope.accountId = routeParams.id;
             scope.depositType ;
 
 
@@ -22,11 +22,11 @@
 
             scope.cancel = function () {
                 if(scope.data.depositType.id == 100)
-                    location.path('/viewsavingaccount/' + scope.data.accountNo);
+                    location.path('/viewsavingaccount/' + scope.accountId);
                 else if(scope.data.depositType.id == 200)
-                    location.path('/viewfixeddepositaccount/' + scope.data.accountNo);
+                    location.path('/viewfixeddepositaccount/' + scope.accountId);
                 else if(scope.data.depositType.id == 300)
-                    location.path('/viewrecurringdepositaccount/' + scope.data.accountNo);
+                    location.path('/viewrecurringdepositaccount/' + scope.accountId);
             };
 
             scope.submit = function () {
@@ -36,11 +36,11 @@
                 this.formData.assignmentDate = dateFilter(this.formData.assignmentDate, scope.df);
                 resourceFactory.savingsResource.save({accountId: routeParams.id, command: 'assignSavingsOfficer'}, this.formData, function (data) {
                     if(scope.depositType == 100){
-                    location.path('/viewsavingaccount/' + scope.data.accountNo);}
+                    location.path('/viewsavingaccount/' + scope.accountId);}
                     else if(scope.depositType == 200){
-                        location.path('/viewfixeddepositaccount/' + scope.data.accountNo);}
+                        location.path('/viewfixeddepositaccount/' + scope.accountId);}
                     else if(scope.depositType == 300){
-                        location.path('/viewrecurringdepositaccount/' + scope.data.accountNo);}
+                        location.path('/viewrecurringdepositaccount/' + scope.accountId);}
                 });
             };
 
