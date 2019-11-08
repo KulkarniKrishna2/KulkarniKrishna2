@@ -5,7 +5,7 @@
             scope.loanOfficers = [];
             scope.formData = {};
             scope.staffData = {};
-            scope.accountNo = routeParams.id;
+            scope.accountId = routeParams.id;
             scope.depositType ;
 
             resourceFactory.savingsResource.get({accountId: routeParams.id, template: 'true'}, function (data) {
@@ -15,11 +15,11 @@
 
             scope.cancel = function () {
                 if(scope.data.depositType.id == 100)
-                    location.path('/viewsavingaccount/' + scope.data.accountNo);
+                    location.path('/viewsavingaccount/' + scope.accountId);
                 else if(scope.data.depositType.id == 200)
-                    location.path('/viewfixeddepositaccount/' + scope.data.accountNo);
+                    location.path('/viewfixeddepositaccount/' + scope.accountId);
                 else if(scope.data.depositType.id == 300)
-                    location.path('/viewrecurringdepositaccount/' + scope.data.accountNo);
+                    location.path('/viewrecurringdepositaccount/' + scope.accountId);
             };
 
             scope.submit = function () {
@@ -29,11 +29,11 @@
                 this.formData.unassignedDate = dateFilter(this.formData.unassignedDate, scope.df);
                 resourceFactory.savingsResource.save({accountId: routeParams.id, command:'unassignSavingsOfficer'}, this.formData, function (data) {
                     if(scope.depositType == 100){
-                        location.path('/viewsavingaccount/' + scope.data.accountNo);}
+                        location.path('/viewsavingaccount/' + scope.accountId);}
                     else if(scope.depositType == 200){
-                        location.path('/viewfixeddepositaccount/' + scope.data.accountNo);}
+                        location.path('/viewfixeddepositaccount/' + scope.accountId);}
                     else if(scope.depositType == 300){
-                        location.path('/viewrecurringdepositaccount/' + scope.data.accountNo);}
+                        location.path('/viewrecurringdepositaccount/' + scope.accountId);}
                 });
 
             };
