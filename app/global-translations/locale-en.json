@@ -8356,6 +8356,7 @@
     "validation.msg.savingsproduct.penaltyToIncomeAccountMappings.chargeId.duplicate": "Please remove duplicate entries in penalty to income account mappings",
     "validation.msg.fixeddeposit.penaltyToIncomeAccountMappings.chargeId.duplicate": "Please remove duplicate entries in penalty to income account mappings",
     "validation.msg.recurringdeposit.penaltyToIncomeAccountMappings.chargeId.duplicate" : "Please remove duplicate entries in penalty to income account mappings",
+    "error.msg.excess.amount.adjust.to.create.topup.loan": "Excess amount should be adjusted to create topup loan",
     
     "------ end of translation file ------": "----------"
 }

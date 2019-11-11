@@ -96,7 +96,9 @@
         "bankAccountNumber":"^[0-9]{1,50}$",
         "bankAccountHolderName":"^[a-zA-Z]+([a-zA-Z\\s][a-zA-Z]+)*$"
       },
-      "isMakerTwoStepPresent": true
+      "isMakerTwoStepPresent": true,
+      "showDeleteButton": false,
+      "showInactiveBankAccountDetails":true
     },
     "viewGroup":{
       "isHiddenField": {
