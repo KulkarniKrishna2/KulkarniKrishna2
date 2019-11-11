@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        SearchTransactionController: function (scope, resourceFactory, paginatorService, dateFilter, location) {
+        SearchTransactionController: function (scope, resourceFactory, paginatorService, dateFilter, location, localStorageService) {
             scope.filters = [
                 {option: "All", value: ""},
                 {option: "Manual Entries", value: true},
@@ -15,6 +15,7 @@
             scope.formData = {};
 
             scope.routeTo = function (id) {
+                localStorageService.addToLocalStorage('displayResults', true);
                 location.path('/viewtransactions/' + id);
             };
             scope.viewloantransactionjournalentries = function (entityId,transactionId) {
@@ -140,6 +141,14 @@
                 scope.isCollapsed = false;
             };
 
+            
+            if(localStorageService.getFromLocalStorage('displayResults') === "true"){
+                localStorageService.removeFromLocalStorage('displayResults');
+                scope.displayResults = true;
+                scope.transactions = paginatorService.paginate(fetchFunction, 7);
+                scope.isCollapsed = false;
+            }
+
             if(location.search().loanId != null){
                 scope.formData.loanaccountId = location.search().loanId;
                 scope.displayResults = true;
@@ -157,9 +166,10 @@
                 scope.isValid = true;
                 scope.path = "#/viewsavingaccount/" + scope.formData.savingsaccountId;
             }
+
         }
     });
-    mifosX.ng.application.controller('SearchTransactionController', ['$scope', 'ResourceFactory', 'PaginatorService', 'dateFilter', '$location', mifosX.controllers.SearchTransactionController]).run(function ($log) {
+    mifosX.ng.application.controller('SearchTransactionController', ['$scope', 'ResourceFactory', 'PaginatorService', 'dateFilter', '$location', 'localStorageService', mifosX.controllers.SearchTransactionController]).run(function ($log) {
         $log.info("SearchTransactionController initialized");
     });
 }(mifosX.controllers || {}));
