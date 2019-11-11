@@ -3,9 +3,28 @@
         InsuranceDetailsController: function ($controller, scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope,CommonUtilService, $modal) {
             scope.claimStatusForNavigate;
             scope.formdata = {};
+            routeParams.status;
+            scope.dateFormat = scope.df;
+
+            switch(routeParams.status) {
+                case 'intimationapprovalpending': scope.intimationapprovalpending = true;
+                break;
+                case 'documentsupload' : scope.documentsupload = true;
+                break;
+                case 'claimverificationpending': scope.claimverificationpending = true;
+                break;
+                case 'verifiedClaims' : scope.verifiedClaims = true;
+                break;
+                case 'settledClaims': scope.settledClaims = true;
+                break;
+                case 'settlementpending' : scope.settlementpending = true;
+                break;
+            }
 
             scope.fetchInsuranceData = function (cliamStatus) {
                 scope.claimStatusForNavigate = cliamStatus;
+                scope.fromDate = undefined;
+                scope.toDate = undefined;
                 if(scope.claimStatusForNavigate == 'verifiedClaims') {
                     scope.selectAllOption = true;
                 }  else {
@@ -16,14 +35,64 @@
                 } else {
                     scope.rejectTabToBeshown = false;
                 }
-                resourceFactory.getInsuranceDetailsResource.getActiveInuranceData({ claimStatus: cliamStatus }, {},
+                var searchConditions = {};
+                searchConditions.active = true;
+                resourceFactory.getInsuranceDetailsResource.getActiveInuranceData({ claimStatus: cliamStatus, searchConditions: searchConditions }, {},
                     function (data) {
                         scope.insuranceData = data;
                     });
             }
 
+            scope.getFilteredData = function () {
+                var searchConditions = {};
+                searchConditions.active = true;
+                searchConditions.dateFormat = scope.dateFormat;
+                if(scope.officeId != undefined) {
+                    searchConditions.officeId = scope.officeId;
+                }
+                if(scope.centerId != undefined) {
+                    searchConditions.centerId = scope.centerId;
+                }
+                if(scope.fromDate != undefined) {
+                    searchConditions.fromDate = dateFilter(new Date(scope.fromDate), scope.df);
+                }
+                if(scope.toDate != undefined) {
+                    searchConditions.toDate = dateFilter(new Date(scope.toDate), scope.df);
+                }
+                resourceFactory.getInsuranceDetailsResource.getActiveInuranceData({ claimStatus: scope.claimStatusForNavigate, searchConditions: searchConditions }, {},
+                    function (data) {
+                        scope.insuranceData = data;
+                    });
+            }
+
+            resourceFactory.officeResource.getAllOffices(function (data) {
+                scope.offices = data;
+                if (scope.currentSession.user.officeId) {
+                    for (var i = 0; i < scope.offices.length; i++) {
+                        if (scope.offices[i].id === scope.currentSession.user.officeId) {
+                            scope.officeId = scope.offices[i].id;
+                            break;
+                        }
+                    }
+                    scope.officeSelected(scope.officeId);
+                }
+            });
+
+            scope.officeSelected = function (officeId) {
+                scope.officeId = officeId;
+                if (officeId) {
+                    var searchConditions = {};
+                    searchConditions.officeId = officeId;
+                    resourceFactory.centerSearchResource.getAllCenters({searchConditions: searchConditions, orderBy: 'name', sortOrder: 'ASC', limit: -1}, function (centersData) {
+                        scope.centers = centersData;
+                    });
+                }
+            };
+
             scope.fetchRejectedInsuranceData = function (cliamStatus) {
-                resourceFactory.getInsuranceDetailsResource.getRejectedInuranceData({ claimStatus: cliamStatus }, {},
+                var searchConditions = {};
+                searchConditions.active = false;
+                resourceFactory.getInsuranceDetailsResource.getRejectedInuranceData({ claimStatus: cliamStatus, searchConditions: searchConditions }, {},
                     function (data) {
                         scope.insuranceData = data;
                     });
@@ -52,8 +121,7 @@
                 scope.formdata.deceasedMemberArray = scope.deceasedMemberArray;
                 resourceFactory.insuranceClaimStatusDetailsResource.submitVerifiedClaim({ claimStatus: 'verifiedClaims', command : 'submit' }, scope.formdata,
                     function (data) {
-                        scope.insuranceCliamDetials = data;
-                        location.path('/insurancedetails');
+                        location.path('/insurancedetails/settlementpending');
                     });
             }
 

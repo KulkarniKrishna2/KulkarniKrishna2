@@ -207,6 +207,7 @@
 
                 resourceFactory.centerResource.save({'centerId': scope.centerId, command: 'generateCollectionSheet'}, scope.formData, function (data) {
                     scope.originalCollectionsheetData = data;
+                    scope.deceasedPrincipalInterestDue = 0;
                     scope.attendanceTypeOptions = scope.response.uiDisplayConfigurations.attendanceTypeOptions;
                     scope.colectionsSheetsCopy = [];
                     if (!_.isUndefined(scope.attendanceTypeOptions)) {
@@ -707,11 +708,18 @@
             }
             scope.getLoanTotalDueAmount = function (loan) {
                 var principalInterestDue = loan.totalDue;
-                if (isNaN(principalInterestDue)) {
-                    principalInterestDue = 0;
+                
+                if(loan.accountSubStatusId !=104) {
+                    principalInterestDue = loan.totalDue;
+                    if (isNaN(principalInterestDue)) {
+                        principalInterestDue = 0;
+                    }
+                } else {
+                    scope.deceasedPrincipalInterestDue = scope.deceasedPrincipalInterestDue + loan.totalDue;
                 }
                 return Math.ceil((Number(principalInterestDue)) * 100) / 100;
             };
+
             scope.constructBulkLoanAndSavingsRepaymentTransactions = function () {
                 if(!_.isUndefined(scope.collectionsheetdata.groups)){
                     scope.bulkRepaymentTransactions = [];

@@ -12,6 +12,11 @@
             scope.clientId = routeParams.clientId;
             scope.deceasedDetailsData = [{"clientType" : "INSURED"}, {"clientType" : "CO-INSURED"}];
 
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
+                scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber && scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber.mobileNumberPattern) {
+                scope.mobileNumberPattern = scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber.mobileNumberPattern;
+            }
+            
             scope.getDeceasedDetails = function () {
                 resourceFactory.getDeceasedDetailsResource.getDeceasedDetails({ clientId: routeParams.clientId }, {},
                     function (data) {
@@ -49,6 +54,7 @@
                 scope.clientDeceased.clientId =  routeParams.clientId;
                 scope.clientDeceased.locale = scope.formData.locale;
                 scope.clientDeceased.dateFormat = scope.formData.dateFormat;
+                scope.clientDeceased.contactNumber = scope.formData.mobileNo;
                 scope.clientDeceased.clientDeceasedData = [];
                 for(var i = 0 ; i < scope.deceasedDetailsData.length; i++) {
                     if(scope.deceasedDetailsData[i].selected == true) {

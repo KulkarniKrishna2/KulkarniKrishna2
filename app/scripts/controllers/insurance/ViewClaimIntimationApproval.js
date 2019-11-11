@@ -29,14 +29,53 @@
                         location.path('/insurancedetails');
                     });
             }
+            
+            scope.getHistory = function () {
+                $modal.open({
+                    templateUrl: 'views/insurance/viewinsurancelogs.html',
+                    controller: InsuranceLogCtrl,
+                    windowClass: 'app-modal-window-full-screen',
+                });
+            }
+
+            var InsuranceLogCtrl = function ($scope, $modalInstance) {
+                
+                resourceFactory.insuranceDeceasedLogResource.getDeacesdLogs({}, {deceasedId : scope.deceasedId},
+                    function (data) {
+                        $scope.insuranceDeceasedLogs = data;
+                    });
+               $scope.close = function () {
+                   $modalInstance.close('close');
+               };
+
+           };
 
             scope.reject = function () {
-                resourceFactory.insuranceClaimStatusDetailsResource.approveClaimIntimationApproval({ claimStatus: 'intimationapprovalpending', command : 'reject' }, {deceasedId : scope.deceasedId},
-                    function (data) {
-                        scope.insuranceCliamDetials = data;
-                        location.path('/insurancedetails');
-                    });
-            }
+                $modal.open({
+                    templateUrl: 'rejectClaim.html',
+                    controller: RejectCtrl
+                });
+            };
+
+            var RejectCtrl = function ($scope, $modalInstance) {
+
+                resourceFactory.codeValueByCodeNameResources.get({ codeName: "Insurance Reject Reason" }, function (codeValueData) {
+                    $scope.rejectReasons = codeValueData;
+                });
+                $scope.rejectFormData = {};
+                $scope.submitReject = function () {
+                    $scope.rejectFormData.deceasedId = scope.deceasedId;
+                    resourceFactory.insuranceClaimStatusDetailsResource.approveClaimIntimationApproval({ claimStatus: 'intimationapprovalpending', command: 'reject' }, $scope.rejectFormData,
+                        function (data) {
+                            $modalInstance.dismiss('cancel');
+                            scope.insuranceCliamDetials = data;
+                            location.path('/insurancedetails');
+                        });
+                };
+                $scope.cancelReject = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            };
  
         }
     });

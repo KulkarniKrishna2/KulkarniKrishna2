@@ -1,0 +1,30 @@
+
+<div>
+
+        <table class="table table-striped .width100">
+            <thead>
+                <tr>
+                    <th scope="col">{{'label.heading.insurance.status.from' | translate}}</th>
+                    <th scope="col">{{'label.heading.insurance.status.to' | translate}}</th>
+                    <th scope="col">{{'label.heading.insurance.reason' | translate}}</th>
+                    <th scope="col">{{'label.heading.insurance.description' | translate}}</th>
+                    <th scope="col">{{'label.heading.insurance.status.user' | translate}}</th>
+                    <th scope="col">{{'label.heading.insurance.created.on' | translate}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="data in insuranceDeceasedLogs">
+                    <td ng-if="data.statusFrom.value != 'Invalid'">{{data.statusFrom.value}}</td>
+                    <td ng-if="data.statusFrom.value == 'Invalid'">{{}}</td>
+                    <td>{{data.statusTo.value}}</td>
+                    <td>{{data.reasonCode}}</td>
+                    <td>{{data.reason}}</td>
+                    <td>{{data.createdBy}}</td>
+                    <td>{{data.createdOn | DateFormat}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div align="center">
+            <button type="button" ng-click="close()" class="btn btn-default">
+                {{'label.button.cancel' | translate}}</button></div>
+    </div>
