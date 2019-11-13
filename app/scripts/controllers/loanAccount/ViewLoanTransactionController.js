@@ -8,13 +8,13 @@
             scope.isRejectReasonRequired = false;
             scope.isValuedateUpdateRequired = false;
             scope.isRefundTransaction = false;
-            scope.isIndividualLoan = false;
             scope.isWriteOff = false;
+            scope.isGlimLoan = false;
             function init(){
                 resourceFactory.loanTrxnsResource.get({loanId: routeParams.accountId, transactionId: routeParams.id}, function (data) {
                     scope.transaction = data;
-                    scope.isIndividualLoan = (data.loanType.code=='accountType.individual');
                     scope.isWriteOff = (data.type.code=='loanTransactionType.writeOff');
+                    scope.isGlimLoan = data.isGlimLoan;
                     if(scope.transaction.type.code === "loanTransactionType.refund"){
                         scope.isRefundTransaction = true;
                     }
@@ -88,7 +88,7 @@
                 $scope.isRejectReasonRequired = scope.isRejectReasonRequired;
                 $scope.undoTransaction = function (reason) {
                     var params = {loanId: accountId};
-                    if(scope.isWriteOff && (scope.isGlimWriteOffTransaction || scope.isIndividualLoan)){
+                    if(scope.isWriteOff && (scope.isGlimWriteOffTransaction || !scope.isGlimLoan)){
                         params.command = 'undowriteoff';
                     }else{
                         params.transactionId = transactionId;
