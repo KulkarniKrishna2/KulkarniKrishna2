@@ -47,7 +47,6 @@
             scope.recoveryTransactionTypeId = 8;
             scope.refundTransactionTypeId = 16;
             scope.showEditActiveLoan = true;
-            scope.individualLoan = false;
 
             scope.showBankApprovalStatus = false;
             scope.displayInterestRateFromProduct = false;
@@ -134,7 +133,7 @@
             };
 
             scope.routeTo = function (loanId, transactionId, transactionTypeId) {
-                var writeOff = (transactionTypeId == 6 && ((scope.isGlim && scope.isGlimPaymentAsGroupEnabled) || scope.individualLoan));
+                var writeOff = (transactionTypeId == 6 && !(scope.isGlim && !scope.isGlimPaymentAsGroupEnabled));
                 if (scope.transactionTypesToView.indexOf(transactionTypeId)>-1 || writeOff) {
                     location.path('/viewloantrxn/' + loanId + '/trxnId/' + transactionId);
                 };
@@ -392,8 +391,7 @@
                     scope.loandetails.annualInterestRate = scope.loandetails.productAnnualInterestRate;
                 }
                 var loanType = data.loanType.code;
-                scope.individualLoan = (loanType =="accountType.individual")
-               if(loanType == 'accountType.glim') {
+                if(loanType == 'accountType.glim') {
                     scope.isGlimPaymentAsGroup = scope.isSystemGlobalConfigurationEnabled(scope.glimAsGroupConfigName);
                     resourceFactory.glimResource.getAllByLoan({loanId: routeParams.id}, function (glimData) {
                             scope.glimClientsDetails = glimData;
