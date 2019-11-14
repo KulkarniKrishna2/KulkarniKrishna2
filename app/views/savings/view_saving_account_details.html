@@ -477,7 +477,7 @@
                                 data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
                                 {{getSpecificTransactionType(transaction)}}
                             </td>
-                            <td class="pointer" ng-if="!hidePaymentType && transaction.paymentDetailData.paymentType.name" data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
+                            <td class="pointer" ng-if="!hidePaymentType" data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
                                 {{transaction.paymentDetailData.paymentType.name}}
                             </td>
                             <td class="pointer"
