@@ -2216,6 +2216,13 @@
                 }
                 return false;
             }
+
+            scope.getChargeWaivedOrWrittenOffAmount = function(charge){
+                if(charge.amountWaived > 0){
+                    return charge.amountWaived;
+                }
+                return charge.amountWrittenOff;
+            }
         }
     });
 

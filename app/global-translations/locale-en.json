@@ -8394,5 +8394,7 @@
      "label.heading.insurance.settlement.reject.tooltip" : "Loan account shall be written off as on Death Intimation Date",
      "label.heading.insurance.settlement.settle.note" : "Loan account shall be preclosed as on Death Intimation Date",
      "label.heading.insurance.settlement.reject.note" : "Loan account shall be written off as on Death Intimation Date",
+     "label.heading.waivedorwrittenoff" : "Waived/Written Off",
+     
      "------ end of translation file ------": "----------"
 }

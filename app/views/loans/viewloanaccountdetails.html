@@ -1182,7 +1182,7 @@
                                 <th>{{'label.heading.calculationtype' | translate}}</th>
                                 <th>{{'label.heading.duetax' | translate}}</th>
                                 <th>{{'label.heading.paid' | translate}}</th>
-                                <th>{{'label.heading.waived' | translate}}</th>
+                                <th>{{'label.heading.waivedorwrittenoff' | translate}}</th>
                                 <th>{{'label.heading.outstanding' | translate}}</th>
                                 <th ng-hide="isGlimEnabled()">{{'label.heading.actions' | translate}}</th>
                                 <th>{{'label.heading.info' | translate}}</th>
@@ -1198,7 +1198,7 @@
                                 <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amount}}{{" ( "}}{{(charge.taxAmount | number : 2) || "0"}}
                                 {{" )"}}</td>
                                 <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amountPaid| number}}</td>
-                                <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amountWaived| number}}</td>
+                                <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{getChargeWaivedOrWrittenOffAmount(charge)| number}}</td>
                                 <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amountOutstanding| number}}</td>
                                 <td ng-hide="isGlimEnabled()">
                                     <a title="{{'label.edit' | translate}}" data-ng-show="status=='Submitted and pending approval' && charge.chargeCalculationType.value != slabBasedCharge"
