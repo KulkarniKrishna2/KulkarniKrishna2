@@ -5,162 +5,229 @@
     
                 <legend>{{'label.heading.insurance.nominee.bank.details' | translate}}</legend>
                 <div class="row">
-                        <div class="col-md-6 form-group">
-                                <label class="control-label col-sm-4" for="relationshipId">{{'label.input.insurance.nominee.relationship' | translate}}<span class="required">*</span></label>
-        
-                                <div class="col-sm-6">
-                                    <select id="relationshipId" name="relationshipId" ng-model="formData.relationshipId"
-                                            ng-options="type.id as type.name for type in relationships" class="form-control" required>
-                                        <option value="{{type.id}}">{{'label.insurance.nominee.select.relationship' | translate}}</option>
-                                    </select>
-                                </div>
-                                <div class="col-sm-12">
-                                    <form-validate valattributeform="bankaccountdetail" valattribute="relationship" />
-                                </div>
-                            </div>
                     <div class="col-md-6 form-group">
-                        <label class="control-label col-sm-4" for="nomineeName">{{'label.input.insurance.nominee.name' | translate}}<span class="required">*</span></label>
-        
+                        <label class="control-label col-sm-4"
+                            for="relationshipId">{{'label.input.insurance.nominee.relationship' | translate}}<span
+                                class="required">*</span></label>
+                
                         <div class="col-sm-6">
-                            <input name="nomineeName" ng-model="formData.nomineeName" type="text" autocomplete="off" class="form-control" required late-Validate/>
+                            <select id="relationshipId" name="relationshipId" ng-model="formData.relationshipId"
+                                ng-options="type.id as type.name for type in relationships" class="form-control" required>
+                                <option value="{{type.id}}">{{'label.insurance.nominee.select.relationship' | translate}}</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-12">
+                            <form-validate valattributeform="bankaccountdetail" valattribute="relationship" />
+                        </div>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label class="control-label col-sm-4"
+                            for="nomineeName">{{'label.input.insurance.nominee.name' | translate}}<span
+                                class="required">*</span></label>
+                
+                        <div class="col-sm-6">
+                            <input name="nomineeName" ng-model="formData.nomineeName" type="text" autocomplete="off"
+                                class="form-control" required late-Validate />
                         </div>
                         <div class="col-sm-12">
                             <form-validate valattributeform="bankaccountdetail" valattribute="nomineeName" />
                         </div>
                     </div>
                 </div>
-    
-                <div class="form-group" ng-if="!isElemHidden('bankAccountNumberRepeat')">
-                    <label class="control-label col-sm-3" >{{'label.input.accountnumber' | translate}}
-                        <span ng-show="isElemMandatory('bankAccountNumberRepeat')" class="required">*</span></label>
-    
-                    <div class="col-sm-3">
-                        <input name="bankAccountNumberRepeat" id="bankAccountNumberRepeat" ng-model="repeatFormData.accountNumberRepeat"
-                               type="password" ng-pattern="regexPattern('bankAccountNumber')" maxlength="50" class="form-control" ng-required="isElemMandatory('bankAccountNumberRepeat')"/>
+                <div class="row col-md-12 ">
+                    <div class="row col-md-8 ">
+                        <div class="form-group" ng-if="!isElemHidden('bankAccountNumberRepeat')">
+                            <label class="control-label col-sm-3">{{'label.input.accountnumber' | translate}}
+                                <span ng-show="isElemMandatory('bankAccountNumberRepeat')" class="required">*</span></label>
+                
+                            <div class="col-sm-6">
+                                <input name="bankAccountNumberRepeat" id="bankAccountNumberRepeat"
+                                    ng-model="repeatFormData.accountNumberRepeat" type="password"
+                                    ng-pattern="regexPattern('bankAccountNumber')" maxlength="50" class="form-control"
+                                    ng-required="isElemMandatory('bankAccountNumberRepeat')" />
+                            </div>
+                            <div class="col-sm-6">
+                                <span ng-show="bankaccountdetail.bankAccountNumberRepeat.$error.pattern">
+                                    <small class="required">{{'invalid.accountnumber.format' | translate}}</small>
+                                </span>
+                                <span
+                                    ng-show="formData.accountNumber != undefined && formData.accountNumber != repeatFormData.accountNumberRepeat">
+                                    <small class="required">{{'label.mismatch.account.number' | translate}}</small>
+                                </span>
+                                <form-validate valattributeform="bankaccountdetail" valattribute="bankAccountNumberRepeat" />
+                            </div>
+                        </div>
+                        <div class="form-group" ng-if="!isElemHidden('bankAccountNumber')">
+                            <label class="control-label col-sm-3">{{'label.input.accountnumber.repeat' | translate}}
+                                <span ng-show="isElemMandatory('bankAccountNumber')" class="required">*</span></label>
+                        
+                            <div class="col-sm-6" ng-if="showAccNo">
+                                <input name="bankAccountNumber" id="bankAccountNumber" ng-model="formData.accountNumber" type="text"
+                                    autocomplete="off" ng-pattern="regexPattern('bankAccountNumber')" maxlength="50" class="form-control"
+                                    ng-required="isElemMandatory('bankAccountNumber')" onpaste="return false;" />
+                                <span class="icon-eye-open text-success field-icon"
+                                    ng-hide="hideIconOnErr(bankaccountdetail.bankAccountNumber.$error.pattern, formData.accountNumber)"
+                                    ng-mouseup="toggleAccNo()"></span>
+                            </div>
+                            <div class="col-sm-6" ng-if="!showAccNo">
+                                <input name="bankAccountNumber" id="bankAccountNumber" ng-model="formData.accountNumber" type="password"
+                                    autocomplete="off" ng-pattern="regexPattern('bankAccountNumber')" maxlength="50" class="form-control"
+                                    ng-required="isElemMandatory('bankAccountNumber')" onpaste="return false;" />
+                                <span class="icon-eye-close text-success field-icon"
+                                    ng-hide="hideIconOnErr(bankaccountdetail.bankAccountNumber.$error.pattern, formData.accountNumber)"
+                                    ng-mousedown="toggleAccNo()"></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <span ng-show="bankaccountdetail.bankAccountNumber.$error.pattern">
+                                    <small class="required">{{'invalid.accountnumber.format' | translate}}</small>
+                                </span>
+                                <form-validate valattributeform="bankaccountdetail" valattribute="bankAccountNumber" />
+                            </div>
+                        </div>
+                
+                        <div class="form-group" ng-if="!isElemHidden('bankIFSCCodeRepeat')">
+                            <label class="control-label col-sm-3">{{'label.input.ifsccode' | translate}}
+                                <span ng-show="isElemMandatory('bankIFSCCode')" class="required">*</span></label>
+                
+                            <div class="col-sm-6">
+                                <input name="bankIFSCCodeRepeat" id="bankIFSCCodeRepeat" ng-model="repeatFormData.ifscCodeRepeat"
+                                    minlength="11" maxlength="11" type="password" ng-pattern="regexPattern('bankIFSCCode')"
+                                    class="form-control" ng-required="isElemMandatory('bankIFSCCodeRepeat')"
+                                    ng-blur="getBankDetails(!bankaccountdetail.bankIFSCCode.$error.pattern)" />
+                            </div>
+                            <div class="col-sm-6">
+                                <span ng-show="bankaccountdetail.bankIFSCCodeRepeat.$error.pattern">
+                                    <small class="required">{{'inavalid.ifsc.format' | translate}}</small>
+                                </span>
+                                <span ng-show="formData.ifscCode != undefined && formData.ifscCode != repeatFormData.ifscCodeRepeat">
+                                    <small class="required">{{'label.mismatch.ifsc.number' | translate}}</small>
+                                </span>
+                                <form-validate code="bankaccountdetail" valattribute="bankIFSCCodeRepeat" />
+                            </div>
+                        </div>
+                        <div class="form-group" ng-if="!isElemHidden('bankIFSCCode')">
+                            <label class="control-label col-sm-3">{{'label.input.ifsccode.repeat' | translate}}
+                                <span ng-show="isElemMandatory('bankIFSCCode')" class="required">*</span></label>
+                
+                            <div class="col-sm-6" ng-if="showIfsc">
+                                <input name="bankIFSCCode" id="bankIFSCCode" ng-model="formData.ifscCode" ng-minlength="11"
+                                    maxlength="11" type="text" autocomplete="off" ng-pattern="regexPattern('bankIFSCCode')"
+                                    class="form-control" ng-required="isElemMandatory('bankIFSCCode')" onpaste="return false;"
+                                    ng-blur="getBankDetails(!bankaccountdetail.bankIFSCCode.$error.pattern)">
+                                <span class="icon-eye-open text-success field-icon"
+                                    ng-hide="hideIconOnErr(bankaccountdetail.bankIFSCCode.$error.pattern, formData.ifscCode)"
+                                    ng-mouseup="toggleIfsc()"></span>
+                            </div>
+                            <div class="col-sm-6" ng-if="!showIfsc">
+                                <input name="bankIFSCCode" id="bankIFSCCode" ng-model="formData.ifscCode" ng-minlength="11"
+                                    maxlength="11" type="password" autocomplete="off" ng-pattern="regexPattern('bankIFSCCode')"
+                                    class="form-control" ng-required="isElemMandatory('bankIFSCCode')" onpaste="return false;"
+                                    ng-blur="getBankDetails(!bankaccountdetail.bankIFSCCode.$error.pattern)">
+                                <span class="icon-eye-close text-success field-icon"
+                                    ng-hide="hideIconOnErr(bankaccountdetail.bankIFSCCode.$error.pattern, formData.ifscCode)"
+                                    ng-mousedown="toggleIfsc()"></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <span ng-show="bankaccountdetail.bankIFSCCode.$invalid && bankaccountdetail.bankIFSCCode.$dirty">
+                                    <small class="required" ng-show="bankaccountdetail.bankIFSCCode.$error.pattern">
+                                        {{'error.msg.invalid.ifscCode' | translate}}</small></span>
+                                <span ng-show="bankaccountdetail.bankIFSCCode.$error.minlength">
+                                    <small class="required"> {{'error.msg.ifsc.minimum.number' | translate}}</small>
+                                </span>
+                                <form-validate valattributeform="bankaccountdetail" valattribute="bankIFSCCode" />
+                            </div>
+                        </div>
+                
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">{{'label.input.bankname' | translate}}
+                                <span ng-show="isElemMandatory('bankName')" class="required">*</span></label>
+                
+                            <div class="col-sm-6">
+                                <input name="bankName" id="bankName" ng-model="formData.bankName" type="text" autocomplete="off"
+                                    ng-pattern="regexPattern('bankName')" class="form-control"
+                                    ng-required="isElemMandatory('bankName')" />
+                            </div>
+                            <div class="col-sm-6">
+                                <span ng-show="bankaccountdetail.bankName.$error.pattern">
+                                    <small class="required">{{'invalid.bankName.format' | translate}}</small>
+                                </span>
+                                <form-validate valattributeform="bankaccountdetail" valattribute="bankName" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">{{'label.input.branchName' | translate}}
+                                <span ng-show="isElemMandatory('branchName')" class="required">*</span></label>
+                            <div class="col-sm-6">
+                                <input name="branchName" id="branchName" ng-model="formData.branchName" type="text" autocomplete="off"
+                                    ng-pattern="regexPattern('branchName')" ng-required="isElemMandatory('branchName')"
+                                    class="form-control" />
+                            </div>
+                            <div class="col-sm-6">
+                                <span ng-show="bankaccountdetail.branchName.$error.pattern">
+                                    <small class="required">{{'invalid.branchName.format' | translate}}</small>
+                                </span>
+                                <form-validate valattributeform="bankaccountdetail" valattribute="branchName" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">{{'label.input.bankcity' | translate}}
+                                <span ng-show="isElemMandatory('bankCity')" class="required">*</span></label>
+                
+                            <div class="col-sm-6">
+                                <input name="bankCity" id="bankCity" ng-model="formData.bankCity" type="text" autocomplete="off"
+                                    ng-pattern="regexPattern('bankCity')" class="form-control"
+                                    ng-required="isElemMandatory('bankCity')" />
+                            </div>
+                            <div class="col-sm-6">
+                                <span ng-show="bankaccountdetail.bankCity.$error.pattern">
+                                    <small class="required">{{'invalid.bankCity.format' | translate}}</small>
+                                </span>
+                                <form-validate valattributeform="bankaccountdetail" valattribute="bankCity" />
+                            </div>
+                        </div>
+                        <div class="col-md-offset-2 paddedleft">
+                            <a id="cancel" ng-click="cancel()" ng-show="viewConfig.hasData"
+                                class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                            <button id="save" type="submit" class="btn btn-primary"
+                                has-permission='CREATE_BANKACCOUNTDETAIL'>{{'label.button.save' | translate}}</button>
+                        </div>
                     </div>
-                    <div class="col-sm-2">
-                        <span ng-show="bankaccountdetail.bankAccountNumberRepeat.$error.pattern">
-                            <small class="required">{{'invalid.accountnumber.format' | translate}}</small>
-                        </span>
-                        <span ng-show="formData.accountNumber != undefined && formData.accountNumber != repeatFormData.accountNumberRepeat">
-                            <small class="required">{{'label.mismatch.account.number' | translate}}</small>
-                        </span>
-                        <form-validate valattributeform="bankaccountdetail" valattribute="bankAccountNumberRepeat"/>
+                
+                    <div class="row col-md-4 " ng-show="insuranceCliamDetials.insuredClientType.value == 'CO-INSURED'">
+                        <br>
+                        <br>
+                        <button id="fetchBankDetails" type="button" ng-click="fetchBankDetails()"
+                            class=" col-md-offset-2 btn btn-primary">{{'label.button.fetch.client.bank.details' | translate}}</button>
+                        <table class="table  table-striped" ng-show="bankAccountDetails.length > 0">
+                            <thead>
+                                <tr>
+                                    <th class="ng-binding">{{'label.menu.select' | translate}}</th>
+                                    <th class="ng-binding">{{'label.heading.accnum' | translate}}</th>
+                                    <th class="ng-binding">{{'label.input.ifsc' | translate}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-ng-repeat="account in bankAccountDetails" class="ng-scope">
+                                    <td class="col-md-1">
+                                        <input type="radio" name="account" ng-click="constructNomineeBankdetails(account)"
+                                            class="ng-pristine ng-valid">
+                                    </td>
+                                    <td class="col-md-1">
+                                        <span class="ng-binding">{{account.accountNumber}}</span>
+                                    </td>
+                                    <td class="col-md-1">
+                                        <span class="ng-binding">{{account.ifscCode}}</span>
+                                    </td>
+                    
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div ng-show="bankAccountDetailsNotAvailbale">
+                                <br>
+                                <br>
+                                <span >{{'error.msg.no.active.bank.account.for.clients' | translate}}</span>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group" ng-if="!isElemHidden('bankAccountNumber')">
-                    <label class="control-label col-sm-3" >{{'label.input.accountnumber.repeat' | translate}}
-                        <span ng-show="isElemMandatory('bankAccountNumber')" class="required">*</span></label>
-    
-                    <div class="col-sm-3" ng-if="showAccNo">
-                        <input name="bankAccountNumber" id="bankAccountNumber" ng-model="formData.accountNumber"
-                            type="text" autocomplete="off" ng-pattern="regexPattern('bankAccountNumber')" maxlength="50" class="form-control" ng-required="isElemMandatory('bankAccountNumber')" onpaste="return false;"/>
-                            <span class="icon-eye-open text-success field-icon" ng-hide="hideIconOnErr(bankaccountdetail.bankAccountNumber.$error.pattern, formData.accountNumber)" ng-mouseup="toggleAccNo()" ></span>
-                    </div>
-                    <div class="col-sm-3" ng-if="!showAccNo">
-                        <input name="bankAccountNumber" id="bankAccountNumber" ng-model="formData.accountNumber"
-                            type="password" autocomplete="off" ng-pattern="regexPattern('bankAccountNumber')" maxlength="50" class="form-control" ng-required="isElemMandatory('bankAccountNumber')" onpaste="return false;"/>
-                            <span class="icon-eye-close text-success field-icon" ng-hide="hideIconOnErr(bankaccountdetail.bankAccountNumber.$error.pattern, formData.accountNumber)" ng-mousedown="toggleAccNo()"></span>
-                    </div>
-                    <div class="col-sm-2">
-                        <span ng-show="bankaccountdetail.bankAccountNumber.$error.pattern">
-                            <small class="required">{{'invalid.accountnumber.format' | translate}}</small>
-                        </span>
-                        <form-validate valattributeform="bankaccountdetail" valattribute="bankAccountNumber"/>
-                    </div>
-                </div>
-    
-                <div class="form-group"  ng-if="!isElemHidden('bankIFSCCodeRepeat')">
-                    <label class="control-label col-sm-3" >{{'label.input.ifsccode' | translate}}
-                        <span ng-show="isElemMandatory('bankIFSCCode')" class="required">*</span></label>
-    
-                    <div class="col-sm-3">
-                        <input name="bankIFSCCodeRepeat" id="bankIFSCCodeRepeat" ng-model="repeatFormData.ifscCodeRepeat"
-                               minlength="11" maxlength="11" type="password"
-                               ng-pattern="regexPattern('bankIFSCCode')" class="form-control" ng-required="isElemMandatory('bankIFSCCodeRepeat')" ng-blur="getBankDetails(!bankaccountdetail.bankIFSCCode.$error.pattern)"/>
-                    </div>
-                    <div class="col-sm-2">
-                         <span ng-show="bankaccountdetail.bankIFSCCodeRepeat.$error.pattern">
-                            <small class="required">{{'inavalid.ifsc.format' | translate}}</small>
-                         </span>
-                         <span ng-show="formData.ifscCode != undefined && formData.ifscCode != repeatFormData.ifscCodeRepeat">
-                            <small class="required">{{'label.mismatch.ifsc.number' | translate}}</small>
-                         </span>
-                         <form-validate code="bankaccountdetail" valattribute="bankIFSCCodeRepeat"/>
-                    </div>
-                </div>
-                <div class="form-group" ng-if="!isElemHidden('bankIFSCCode')">
-                    <label class="control-label col-sm-3" >{{'label.input.ifsccode.repeat' | translate}}
-                        <span ng-show="isElemMandatory('bankIFSCCode')" class="required">*</span></label>
-    
-                    <div class="col-sm-3" ng-if="showIfsc" >
-                        <input name="bankIFSCCode" id="bankIFSCCode" ng-model="formData.ifscCode"
-                               ng-minlength="11" maxlength="11" type="text" autocomplete="off" ng-pattern="/^[A-Za-z]{4}0[A-Z0-9a-z]{6}$/"  class="form-control" ng-required="isElemMandatory('bankIFSCCode')" onpaste="return false;" ng-blur="getBankDetails(!bankaccountdetail.bankIFSCCode.$error.pattern)">
-                               <span class="icon-eye-open text-success field-icon" ng-hide="hideIconOnErr(bankaccountdetail.bankIFSCCode.$error.pattern, formData.ifscCode)" ng-mouseup="toggleIfsc()"></span>
-                    </div>
-                    <div class="col-sm-3" ng-if="!showIfsc" >
-                        <input name="bankIFSCCode" id="bankIFSCCode" ng-model="formData.ifscCode"
-                                ng-minlength="11" maxlength="11" type="password" autocomplete="off" ng-pattern="/^[A-Za-z]{4}0[A-Z0-9a-z]{6}$/"  class="form-control" ng-required="isElemMandatory('bankIFSCCode')" onpaste="return false;" ng-blur="getBankDetails(!bankaccountdetail.bankIFSCCode.$error.pattern)">
-                                <span class="icon-eye-close text-success field-icon" ng-hide="hideIconOnErr(bankaccountdetail.bankIFSCCode.$error.pattern, formData.ifscCode)" ng-mousedown="toggleIfsc()"></span>
-                    </div>
-                    <div class="col-sm-3">
-                        <span ng-show="bankaccountdetail.bankIFSCCode.$invalid && bankaccountdetail.bankIFSCCode.$dirty">
-                           <small class="required" ng-show="bankaccountdetail.bankIFSCCode.$error.pattern">
-                              {{'error.msg.invalid.ifscCode' | translate}}</small></span>
-                        <span ng-show="bankaccountdetail.bankIFSCCode.$error.minlength">
-                           <small class="required"> {{'error.msg.ifsc.minimum.number' | translate}}</small>
-                        </span>
-                        <form-validate valattributeform="bankaccountdetail" valattribute="bankIFSCCode"/>
-                    </div>
-                </div>
-    
-                <div class="form-group" >
-                    <label class="control-label col-sm-3" >{{'label.input.bankname' | translate}}
-                        <span ng-show="isElemMandatory('bankName')" class="required">*</span></label>
-    
-                    <div class="col-sm-3">
-                        <input name="bankName" id="bankName" ng-model="formData.bankName"
-                               type="text" autocomplete="off" ng-pattern="regexPattern('bankName')" class="form-control" ng-required="isElemMandatory('bankName')"/>
-                    </div>
-                    <div class="col-sm-2">
-                        <span ng-show="bankaccountdetail.bankName.$error.pattern">
-                            <small class="required">{{'invalid.bankName.format' | translate}}</small>
-                        </span>
-                        <form-validate valattributeform="bankaccountdetail" valattribute="bankName"/>
-                    </div>
-                </div>
-                <div class="form-group" >
-                    <label class="control-label col-sm-3" >{{'label.input.branchName' | translate}}
-                        <span ng-show="isElemMandatory('branchName')" class="required">*</span></label>
-                    <div class="col-sm-3">
-                        <input name="branchName" id="branchName" ng-model="formData.branchName"
-                               type="text" autocomplete="off" ng-pattern="regexPattern('branchName')" ng-required="isElemMandatory('branchName')" class="form-control"/>
-                    </div>
-                    <div class="col-sm-2">
-                        <span ng-show="bankaccountdetail.branchName.$error.pattern">
-                            <small class="required">{{'invalid.branchName.format' | translate}}</small>
-                        </span>
-                        <form-validate valattributeform="bankaccountdetail" valattribute="branchName"/>
-                    </div>
-                </div>
-                <div class="form-group" >
-                    <label class="control-label col-sm-3" >{{'label.input.bankcity' | translate}}
-                        <span ng-show="isElemMandatory('bankCity')" class="required">*</span></label>
-    
-                    <div class="col-sm-3">
-                        <input name="bankCity" id="bankCity" ng-model="formData.bankCity"
-                               type="text" autocomplete="off" ng-pattern="regexPattern('bankCity')" class="form-control" ng-required="isElemMandatory('bankCity')"/>
-                    </div>
-                    <div class="col-sm-2">
-                        <span ng-show="bankaccountdetail.bankCity.$error.pattern">
-                            <small class="required">{{'invalid.bankCity.format' | translate}}</small>
-                        </span>
-                        <form-validate valattributeform="bankaccountdetail" valattribute="bankCity"/>
-                    </div>
-                </div>
-                <div class="col-md-offset-2 paddedleft">
-                    <a id="cancel" ng-click="cancel()" ng-show="viewConfig.hasData" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
-                    <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_BANKACCOUNTDETAIL'>{{'label.button.save' | translate}}</button>
                 </div>
             </fieldset>
         </form>

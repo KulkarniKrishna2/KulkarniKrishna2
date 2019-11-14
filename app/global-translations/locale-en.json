@@ -4876,6 +4876,7 @@
     "label.input.holdername": "Bank Account Holder Name",
     "label.input.accountnumber": "Bank Account Number",
     "label.input.ifsccode": "Bank IFSC code",
+    "label.input.ifsc":"Bank IFSC",
     "label.input.micrcode": "Bank MICR code",
     "label.input.bankname": "Bank Name",
     "label.input.bankcity": "Bank City",
@@ -8286,7 +8287,7 @@
      "label.heading.menu.insurance.intimation.approval.pending" : "Intimation Approval Pending",
      "label.heading.menu.insurance.document.upload" : "Document Upload",
      "label.heading.menu.insurance.claim.verification.pending" : "Claim Verfication Pending",
-     "label.heading.menu.insurance.verified.claims" : "Verfied Claims",
+     "label.heading.menu.insurance.verified.claims" : "Verified Claims",
      "label.heading.menu.insurance.settelment.pending" : "Settlement Pending",
      "label.heading.menu.insurance.setteled.claims" : "Settled Claims",
      "label.heading.menu.insurance.claims.approval.pending" : "Approval Pending",
@@ -8406,6 +8407,8 @@
      "label.heading.total.loans.crossed.maturity.date" : "Total Number of Loans beyond Maturity Date",
      "label.heading.maximum.dpd": "Maximum DPD",
      "label.heading.cummulative.dpd": "Cummulative DPD",
-
-     "------ end of translation file ------": "----------"
+     "label.button.fetch.client.bank.details": "Fetch Client Active Bank Details",
+     "error.msg.no.active.bank.account.for.clients" : "Active bank account details for client not available",
+     "error.msg.insurance.mandatory.documents.are.not.uploded" : "Insurance Mandatory documents `{{params[0].value}}` are not uploaded",
+"------ end of translation file ------": "----------"
 }

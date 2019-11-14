@@ -266,6 +266,31 @@
                         });
                 };
             };
+
+
+
+            scope.fetchBankDetails = function () {
+                scope.status="active";
+                resourceFactory.bankAccountDetailResources.getAll({entityType: 'clients',entityId:scope.insuranceCliamDetials.clientId,status:scope.status}, function (data) {
+                    scope.bankAccountDetails = data;
+                    if(!scope.bankAccountDetails.length > 0) {
+                        scope.bankAccountDetailsNotAvailbale = true;
+                    } else {
+                        scope.bankAccountDetailsNotAvailbale = false;
+                    }
+                });
+            }
+
+            scope.constructNomineeBankdetails = function(account) {
+                scope.formData.nomineeName = account.name;
+                scope.repeatFormData.accountNumberRepeat = account.accountNumber;
+                scope.formData.accountNumber = account.accountNumber;
+                scope.repeatFormData.ifscCodeRepeat = account.ifscCode;
+                scope.formData.ifscCode = account.ifscCode;
+                scope.formData.bankName = account.bankName;
+                scope.formData.branchName = account.branchName;
+                scope.formData.bankCity = account.bankCity;
+            }
  
         }
     });
