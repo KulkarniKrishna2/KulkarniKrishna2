@@ -2016,6 +2016,12 @@
                     }),
                     creditHistoryResource: defineResource(apiVer + "/clients/:clientId/credithistory", {clientId: '@clientId'}, {
                         get: {method:'GET', params: {clientId: '@clientId'}, isArray: true}
+                    }),
+                    InsuranceDeceasedDocumentsResource: defineResource(apiVer + "/clients/:clientId/documents", {deceasedId: '@deceasedId'}, {
+                        getAllDeceasedDocuments: {method: 'GET', params: {}, isArray: true}
+                    }),
+                    InsuranceDeceasedDeleteDocumentsResource: defineResource(apiVer + "/clients/:clientId/documents/:documentId", {deceasedId: '@deceasedId', documentId: '@documentId'}, {
+                        deleteDocument: {method: 'DELETE', params: {}}
                     })
                 };
             }];

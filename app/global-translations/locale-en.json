@@ -8410,5 +8410,7 @@
      "label.button.fetch.client.bank.details": "Fetch Client Active Bank Details",
      "error.msg.no.active.bank.account.for.clients" : "Active bank account details for client not available",
      "error.msg.insurance.mandatory.documents.are.not.uploded" : "Insurance Mandatory documents `{{params[0].value}}` are not uploaded",
-"------ end of translation file ------": "----------"
+     "label.heading.insured.document.upload" : "Insured Documents Upload",
+     "label.heading.coinsured.document.upload" : "Co-Insured Documents Upload",
+     "------ end of translation file ------": "----------"
 }

@@ -1,18 +1,67 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewClaimIntimationApproval: function ($controller, scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope,CommonUtilService, $modal) {
+        ViewClaimIntimationApproval: function ($controller, scope, resourceFactory, location, dateFilter, $http, routeParams, API_VERSION, $upload, $rootScope,CommonUtilService, $modal) {
             
             scope.deceasedId = routeParams.id;
 
             function fetchInsuranceData() {
-                resourceFactory.getInsuranceClaimStatusDetailsResource.getClaimIntimationApproval({ claimStatus: 'intimationapprovalpending', deceasedId : scope.deceasedId }, {},
+                resourceFactory.getInsuranceClaimStatusDetailsResource.getClaimIntimationApproval({ claimStatus: 'intimationapprovalpending', deceasedId: scope.deceasedId }, {},
                     function (data) {
                         scope.insuranceCliamDetials = data;
                         calculateClientAge(scope.insuranceCliamDetials.dateOfBirth);
+                        if (scope.insuranceCliamDetials.insuredClientType.value == 'INSURED') {
+                            scope.codeName = "Insured Deceased Document Tags";
+                        } else {
+                            scope.codeName = "CoInsured Deceased Document Tags";
+                        }
+                        scope.getInsuredDocumentsTeplate();
                     });
             };
 
             fetchInsuranceData();
+
+
+            scope.getInsuredDocumentsTeplate = function ()  {
+                resourceFactory.codeValueByCodeNameResources.get({codeName: scope.codeName}, function (codeValueData) {
+                    scope.insuranceDocumentTagOptions = codeValueData;
+                    getInsuredDocuments(codeValueData);
+                });
+            }
+
+            function getInsuredDocuments(codeValueData) {
+                resourceFactory.InsuranceDeceasedDocumentsResource.getAllDeceasedDocuments({ clientId: scope.insuranceCliamDetials.clientId }, function (data) {
+                    for (var j = 0; j < codeValueData.length; j++) {
+                        for (var l = 0; l < data.length; l++) {
+                            if (data[l].id) {
+                                if (data[l].tagIdentifier == codeValueData[j].id) {
+                                    var url = {};
+                                    url = $rootScope.hostUrl + API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/download';
+                                    data[l].docUrl = url;
+                                    codeValueData[j].url = url;
+                                    codeValueData[j].isDocumentAttached = true;
+                                    codeValueData[j].parentEntityType = data[l].parentEntityType;
+                                    codeValueData[j].parentEntityId = data[l].parentEntityId;
+                                    codeValueData[j].documentId = data[l].id;
+                                    codeValueData[j].allowDeleteDocument = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    scope.insuranceDocumentTagOptions = codeValueData;
+                });
+
+            };
+
+            scope.viewDocument = function (document) {
+                var url = document.url;
+                $http({
+                    method: 'GET',
+                    url: url
+                }).then(function (documentImage) {
+                    scope.documentImg = documentImage.data;
+                });
+            }
 
             function calculateClientAge(dateOfBirth){
                 dateOfBirth = new Date(dateFilter(dateOfBirth, scope.df));
