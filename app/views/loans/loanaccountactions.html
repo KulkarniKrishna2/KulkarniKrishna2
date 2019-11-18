@@ -314,7 +314,9 @@
                 translate}}</label>
 
             <div class="col-sm-3">
-                {{netAmount |  number}}
+                <input id="netDisbursalAmount" type="text" autocomplete="off" name="netDisbursalAmount" ng-model="netAmount"
+                       class="form-control" ng-disabled="true"
+                       number-format >
             </div>
             <div class="col-sm-3">
             </div>
