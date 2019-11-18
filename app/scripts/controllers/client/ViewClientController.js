@@ -1966,6 +1966,9 @@
                 });
             };
 
+            scope.routeToCreditHistory = function() {
+                location.path('/clients/' + scope.clientId + '/credithistory').search({clientName: scope.client.displayName}); 
+            }
         }
     });
 

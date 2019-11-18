@@ -2007,6 +2007,12 @@
                         getAll: {method: 'GET', params: {loanId: '@loanId'}, isArray: true},
                         update: {method: 'PUT', params: {loanId: '@loanId'}},
                         delete: {method: 'DELETE', params: {loanId: '@loanId'}}
+                    }),
+                    creditSummaryResource: defineResource(apiVer + "/clients/:clientId/credithistory/summary", {clientId: '@clientId'}, {
+                        get: {method:'GET', params: {clientId: '@clientId'}}
+                    }),
+                    creditHistoryResource: defineResource(apiVer + "/clients/:clientId/credithistory", {clientId: '@clientId'}, {
+                        get: {method:'GET', params: {clientId: '@clientId'}, isArray: true}
                     })
                 };
             }];

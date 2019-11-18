@@ -352,7 +352,9 @@
 									<a href="#/transferhistory/{{entityType}}/{{client.id}}" has-permission='READ_TRANSFERHISTORY'>{{'label.button.view.transfer.history' |
 												translate }}</a>
 								</li>
-
+								<li>
+									<a ng-click="routeToCreditHistory()" has-permission='READ_CREDITHISTORY'>{{'label.button.view.credit.history' | translate }}</a>
+								</li>
 							</ul>
 						</span>
 				    </div>
