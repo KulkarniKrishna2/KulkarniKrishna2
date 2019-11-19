@@ -1,0 +1,102 @@
+<div class="col-md-12" ng-controller="CreditHistoryController">
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="#/clients">{{'label.anchor.clients' | translate}}</a></li>
+            <li><a href='#/viewclient/{{clientId}}'>{{clientName}}</a></li>
+            <li class="active">{{'label.anchor.view.credit.history' | translate}}</li>
+        </ul>
+    </div>
+    <form name="creditsummaryform" ng-if="showSummary" class="form-horizontal well">
+        <api-validate></api-validate>
+        <fieldset>
+            <legend>{{'label.heading.credit.summary' | translate}}</legend>
+            <div class="col-md-8">
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <td>{{'label.heading.updatedon' | translate}}</td>
+                        <td>{{summary.updatedDate| DateFormat}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.no.of.loans' | translate}}</td>
+                        <td>{{summary.noOfLoans}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.no.of.delayed.repayments' | translate}}</td>
+                        <td>{{summary.noOfDelayedPayments}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.no.of.active.loans.crossed.maturity.date' | translate}}</td>
+                        <td>{{summary.noOfActiveLoansCrossedMaturityDate}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.total.loans.crossed.maturity.date' | translate}}</td>
+                        <td>{{summary.totalLoansCrossedMaturityDate}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.maximum.dpd' | translate}}</td>
+                        <td>{{summary.maximumDpd}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.cummulative.dpd' | translate}}</td>
+                        <td>{{summary.cummulativeDpd}}</td>
+                    </tr>
+                </table>
+        </fieldset>
+    </form>
+    <div ng-show="showSummary">
+        <a>
+            <label class="control-label col-sm-2" ng-click="changeHistoryDisplayStatus()">
+                {{'label.heading.view.credit.history' | translate}}
+            </label>
+        </a>
+        <wbr>
+    </div>
+    <form name="credithistoryform" ng-if="!showSummary" class="form-horizontal well">
+        <api-validate></api-validate>
+        <legend>{{'label.heading.credit.history' | translate}}</legend>
+        <table class="table table-bordered table-striped" ng-init="getHistory()">
+            <tbody>
+                <tr>
+                    <th class="col-md-2">{{'label.heading.updatedon' | translate}}</th>
+                    <th>{{'label.heading.no.of.loans' | translate}}</th>
+                    <th>{{'label.heading.no.of.delayed.repayments' | translate}}</th>
+                    <th>{{'label.heading.no.of.active.loans.crossed.maturity.date' | translate}}</th>
+                    <th>{{'label.heading.total.loans.crossed.maturity.date' | translate}}</th>
+                    <th>{{'label.heading.maximum.dpd' | translate}}</th>
+                    <th>{{'label.heading.cummulative.dpd' | translate}}</th>
+                </tr>
+                <tr ng-if="historyList.currentPageItems.length > 0" class="pointer-main"
+                    ng-repeat="history in historyList.currentPageItems ">
+                    <td class="col-md-2">{{history.updatedDate| DateFormat}}</td>
+                    <td>{{history.noOfLoans}}</td>
+                    <td>{{history.noOfDelayedPayments}}</td>
+                    <td>{{history.noOfActiveLoansCrossedMaturityDate}}</td>
+                    <td>{{history.totalLoansCrossedMaturityDate}}</td>
+                    <td>{{history.maximumDpd}}</td>
+                    <td>{{history.cummulativeDpd}}</td>
+                </tr>
+                <tr ng-if="historyList.isResponsePresent && historyList.currentPageItems.length == 0">
+                    <td>
+                        <div class="alert alert-info col-sm-12" style="border-style: dashed;">
+                            <span class="fa fa-info-circle"></span> {{'label.message.no.data.found' | translate}}
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <ul class="pager">
+            <li class="previous">
+                <a id="prev" ng-click="historyList.previous($index+1)" href="" ng-hide="!historyList.hasPrevious($index+1)">&larr;
+                    {{'label.button.previous' | translate}}</a>
+            </li>
+            <li class="next">
+                <a id="next" ng-click="historyList.next()" href=""
+                    ng-hide="!historyList.hasNext()">{{'label.button.next' | translate}} &rarr;</a></li>
+        </ul>
+        <div class="center">
+            <button ng-click="changeHistoryDisplayStatus()" class="btn btn-default ng-binding">{{'label.button.back'
+                    | translate}}
+            </button>
+        </div>
+    </form>
+</div>

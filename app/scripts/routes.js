@@ -2112,6 +2112,9 @@
             .when('/insurance/settledClaims/:id', {
                 templateUrl: 'views/insurance/viewsettledclaim.html'
             })
+            .when('/clients/:clientId/credithistory', {
+                templateUrl: 'views/clients/credithistory.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {
