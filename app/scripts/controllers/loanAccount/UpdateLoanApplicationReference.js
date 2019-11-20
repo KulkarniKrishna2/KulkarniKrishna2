@@ -162,6 +162,9 @@
                         }
                         if(scope.loanaccountinfo.loanEMIPacks){
                             scope.formData.loanEMIPackId = scope.loanaccountinfo.loanEMIPacks[0].id;
+                            if(scope.isGlobalWorkflowEnabled){
+                                scope.setLoanEMIPacks(scope.loanaccountinfo.loanEMIPacks[0]);
+                            } 
                             if(scope.showUpfrontAmount && scope.loanaccountinfo.allowUpfrontCollection){
                                 scope.formData.amountForUpfrontCollection = scope.loanaccountinfo.loanEMIPacks[0].fixedEmi;
                             }
@@ -215,6 +218,9 @@
                     }else{
                         if(scope.applicationData.loanEMIPackData){
                             scope.formData.loanEMIPackId = scope.applicationData.loanEMIPackData.id;
+                            if(scope.isGlobalWorkflowEnabled){
+                                scope.setLoanEMIPacks(scope.applicationData.loanEMIPackData);
+                            }
                         }else{
                             scope.formData.loanAmountRequested = scope.applicationData.loanAmountRequested;
                             scope.formData.numberOfRepayments = scope.applicationData.numberOfRepayments;
@@ -690,7 +696,14 @@
 
             scope.canDisburseToGroupsBanks = function(){
                 return (scope.canDisburseToGroupBankAccounts && scope.allowBankAccountsForGroups && scope.allowDisbursalToGroupBankAccounts);
-            }; 
+            };
+            
+            scope.setLoanEMIPacks = function(loanEMIPack){
+                scope.loanaccountinfo.loanEMIPacks = [];
+                scope.loanaccountinfo.loanEMIPacks.push(loanEMIPack);
+                scope.loanaccountinfo.loanEMIPacks[0].combinedRepayEvery = scope.loanaccountinfo.loanEMIPacks[0].repaymentEvery
+                    + ' - ' + $filter('translate')(scope.loanaccountinfo.loanEMIPacks[0].repaymentFrequencyType.value);
+            }
         }
     });
     mifosX.ng.application.controller('UpdateLoanApplicationReference', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', '$filter', mifosX.controllers.UpdateLoanApplicationReference]).run(function ($log) {
