@@ -13,6 +13,8 @@
             scope.destGroup = {};
             scope.isTransaferToSameGroup = false;
             scope.referenceNumber = false;
+            scope.noGroupSelectedErrMSg = false;
+            scope.noClientSelectedErrMSg = false;
 
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewClient && scope.response.uiDisplayConfigurations.viewClient.isHiddenField){
                 if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.referenceNo){
@@ -119,6 +121,8 @@
             scope.add = function () {
                 scope.isClientExceedingLimit = false;
                 scope.clientRemaining = '';
+                scope.noGroupSelectedErrMSg = false;
+                scope.noClientSelectedErrMSg = false;
                 if (scope.selectedGroup != undefined && scope.selectedGroup.id != undefined && scope.selectedClients.length > 0) {
                     if (scope.isMaxClientInGroupEnable) {
                         var availableClientLimit = scope.getAvailableMemberLimit(scope.selectedGroup.id);
@@ -131,6 +135,10 @@
                     } else {
                         scope.addMemberToTransfer();
                     }
+                } else if(_.isUndefined(scope.selectedClients) || scope.selectedClients.length == 0){
+                    scope.noClientSelectedErrMSg = true;
+                } else {
+                    scope.noGroupSelectedErrMSg = true;
                 }
             };
 
@@ -184,10 +192,13 @@
             }
 
             scope.submitDetails = function () {
-                scope.formData = {};
-                scope.formData.locale = scope.optlang.code;
-                scope.formData.data = scope.dataList;
-                scope.formData.transferType = scope.clientToGroupTransferType;
+                scope.formData = {
+                    locale : scope.optlang.code,
+                    data : scope.dataList,
+                    transferType : scope.clientToGroupTransferType,
+                    toOfficeId : scope.toOfficeId,
+                    fromOfficeId : scope.fromOfficeId
+                };
                 $modal.open({
                     templateUrl: 'submitdetail.html',
                     controller: SubmitCtrl,

@@ -28,7 +28,7 @@
 
         <div class="col-sm-12 col-md-12">
             <div class="col-sm-6 col-sm-offset-3">
-                <select chosen="offices" id="OfficeId" ng-model="OfficeId" ng-change="getCenters(OfficeId)" class="form-control" ng-options="office.id as office.name for office in offices"
+                <select chosen="offices" id="OfficeId" ng-model="officeId" ng-change="getCenters(officeId)" class="form-control" ng-options="office.id as office.name for office in offices"
                     value="{{office.id}}">
                     <option value="">{{'label.menu.selectoffice' | translate}}</option>
                 </select>

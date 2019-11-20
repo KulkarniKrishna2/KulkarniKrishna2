@@ -43,10 +43,6 @@
                         scope.showMigrateOpeningBalances = !scope.response.uiDisplayConfigurations.accounting.isHiddenField.migrateOpeningBalances;
                     }
                 }
-                if(scope.response.uiDisplayConfigurations.organization && scope.response.uiDisplayConfigurations.organization.isHiddenField && 
-                    scope.response.uiDisplayConfigurations.organization.isHiddenField.transfer){
-                     scope.showTransfer = !scope.response.uiDisplayConfigurations.organization.isHiddenField.transfer;
-                }
                 if (scope.response.uiDisplayConfigurations.workflow && scope.response.uiDisplayConfigurations.workflow.hiddenFields) {
                     scope.isSendToCBReviewHidden = scope.response.uiDisplayConfigurations.workflow.hiddenFields.sendToCBReview;
                     scope.isInsuranceChargeHidden = scope.response.uiDisplayConfigurations.workflow.hiddenFields.insuranceCharge;

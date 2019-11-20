@@ -207,6 +207,7 @@
                 scope.formData.locale = scope.optlang.code;
                 scope.formData.data = scope.dataList;
                 scope.formData.transferType = scope.clientToGroupTransferType;
+                scope.formData.officeId = scope.officeId;
                 $modal.open({
                     templateUrl: 'submitdetail.html',
                     controller: SubmitCtrl,

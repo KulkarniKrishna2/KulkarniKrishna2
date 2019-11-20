@@ -23,15 +23,34 @@
         </ul>
     </div>
     <api-validate></api-validate>
-    <div ng-show="sameOfficeError" class="error">
-        {{'error.msg.branch.transfer.to.same.office' | translate}}
+    <div class="error">
+        <div ng-show="sameOfficeError">{{'error.msg.branch.transfer.to.same.office' | translate}}</div>
+        <div ng-show="toVillageMandatoryError">{{'error.msg.destination.village.is.mandatory' | translate}}</div>
+        <div ng-show="toStaffMandatoryError">{{'error.msg.destination.staff.is.mandatory' | translate}}</div>
+        <div ng-show="noCentersSelectedError">{{'error.msg.no.centers.selected' | translate}}</div>
     </div>
     <div class="col-sm-6 col-md-6">
-        <div class="col-sm-12">
-            <select chosen="offices" id="fromOfficeId" ng-model="fromOfficeId" ng-change="getFromCenters()" class="form-control" ng-options="office.id as office.name for office in offices"
+        <div class="col-sm-12" style="padding-top:10px">
+            <select chosen="offices" id="fromOfficeId" ng-model="fromOfficeId" ng-change="fromOfficeChange()" class="form-control" ng-options="office.id as office.name for office in offices"
                 value="{{office.id}}">
                 <option value="">{{'label.menu.selectoffice' | translate}}</option>
             </select>
+        </div>
+        <div class="col-sm-12" style="padding-top:10px" ng-show="!createWithoutVillage">
+            <select chosen="fromVillages" id="fromVillageId" name="fromVillageId" ng-model="fromVillageId" ng-options="fromVillage.villageId as fromVillage.villageName for fromVillage in fromVillages"
+                value="{{fromVillage.villageId}}" class="form-control">
+                <option value="">{{'label.menu.selectvillage' | translate}}</option>
+            </select>
+        </div>
+        <div class="col-sm-12" style="padding-top:10px">
+            <select chosen="fromStaffs" id="fromStaffId" name="fromStaffId" ng-model="fromStaffId" ng-options="fromStaff.id as fromStaff.displayName for fromStaff in fromStaffs"
+                value="{{fromStaff.id}}" class="form-control">
+                <option value="">{{'label.menu.selectstaff' | translate}}</option>
+            </select>
+        </div>
+        <div class="col-sm-12" style="padding-top:10px">
+            <button type="button" class="btn btn-primary" data-ng-click="fetchCenters()">{{ 'label.button.fetchcenters' | translate
+                }}</button>
         </div>
         <div ng-repeat="center in fromCenters" class="col-sm-12" style="margin-top:10px" ng-init="center.checked=false" ng-show="isCenterSelected(center.id) && !referenceNumber">
             <input type="checkbox" ng-model="center.checked" ng-change="selectCenters(center)"> {{center.name}}-({{center.referenceNumber}})
@@ -41,10 +60,22 @@
         </div>
     </div>
     <div class="col-sm-6 col-md-6">
-        <div class="col-sm-12">
-            <select chosen="offices" id="toOffice" ng-model="toOffice" class="form-control" ng-change="toOfficeChange()" ng-options="office as office.name for office in offices"
-                value="{{office}}">
+        <div class="col-sm-12" style="padding-top:10px">
+            <select chosen="toOffices" id="toOffice" ng-model="toOffice" class="form-control" ng-change="toOfficeChange()" ng-options="transferToOffice as transferToOffice.name for transferToOffice in toOffices"
+                value="{{transferToOffice.id}}">
                 <option value="">{{'label.menu.selectoffice' | translate}}</option>
+            </select>
+        </div>
+        <div class="col-sm-12" style="padding-top:10px" ng-show="!createWithoutVillage">
+            <select chosen="toVillages" id="toVillageId" name="toVillage" ng-model="toVillage" ng-options="toVillage as toVillage.villageName for toVillage in toVillages"
+                value="{{toVillage.villageId}}" class="form-control">
+                <option value="">{{'label.menu.selectvillage' | translate}}</option>
+            </select>
+        </div>
+        <div class="col-sm-12" style="padding-top:10px">
+            <select chosen="toStaffs" id="toStaff" name="toStaffId" ng-model="toStaff" ng-options="toStaff as toStaff.displayName for toStaff in toStaffs"
+                value="{{toStaff.id}}" class="form-control">
+                <option value="">{{'label.menu.selectstaff' | translate}}</option>
             </select>
         </div>
     </div>
@@ -62,6 +93,8 @@
                 <tr class="graybg" style="height:60px;">
                     <th>{{'label.heading.centers' | translate}}</th>
                     <th>{{'label.heading.office' | translate}}</th>
+                    <th>{{'label.heading.villagename' | translate}}</th>
+                    <th>{{'label.heading.staff' | translate}}</th>
                     <th></th>
                 </tr>
             </thead>
@@ -73,6 +106,8 @@
                         </div>
                     </td>
                     <td class="pointer">{{data.office.name}}</td>
+                    <td class="pointer">{{data.village.name}}</td>
+                    <td class="pointer">{{data.staff.name}}</td>
                     <td>
                         <button type="button" ng-click="remove($index)" class="btn btn-danger">
                             <i tooltip="Delete" class="icon-trash icon-white"></i>

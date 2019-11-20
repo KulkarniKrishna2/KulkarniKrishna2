@@ -21,22 +21,47 @@
             
             resourceFactory.officeResource.getAllOffices(function (data) {
                 scope.offices = data;
+                scope.toOffices = data;
             });
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.centerTransfer
+                && scope.response.uiDisplayConfigurations.centerTransfer.isMandatory) {
+                scope.isToVillageMandatory = scope.response.uiDisplayConfigurations.centerTransfer.isMandatory.toVillage;
+                scope.isToStaffMandatory = scope.response.uiDisplayConfigurations.centerTransfer.isMandatory.toStaff;
+            }
 
-            scope.getFromCenters = function () {
+            scope.fetchCenters = function () {
                 scope.sameOfficeError = false;
                 if (scope.fromOfficeId) {
-                    resourceFactory.centerDropDownResource.getAllCenters({ officeId: scope.fromOfficeId, limit:-1, paged:false}, function (data) {
+                    resourceFactory.centerDropDownResource.getAllCenters({ officeId: scope.fromOfficeId, staffId: scope.fromStaffId, villageId: scope.fromVillageId, limit: -1, paged: false }, function (data) {
                         scope.fromCenters = data;
                     });
-                } else {
+                }
+                else {
                     scope.fromCenters = [];
                 }
+            };
 
+            scope.fromOfficeChange = function () {
+                scope.fromStaffs = [];
+                scope.fromVillages = [];
+                if (scope.fromOfficeId) {
+                    resourceFactory.centerTemplateResource.get({ officeId: scope.fromOfficeId, villagesInSelectedOfficeOnly: true, villageStatus: 'active', staffInSelectedOfficeOnly: true }, function (data) {
+                        scope.fromStaffs = data.staffOptions;
+                        scope.fromVillages = data.villageOptions;
+                    });
+                }
             };
 
             scope.toOfficeChange = function () {
                 scope.sameOfficeError = false;
+                scope.toStaffs = [];
+                scope.toVillages = [];
+                if (scope.toOffice && scope.toOffice.id) {
+                    resourceFactory.centerTemplateResource.get({ officeId: scope.toOffice.id, villagesInSelectedOfficeOnly: true, villageStatus: 'active', staffInSelectedOfficeOnly: true }, function (data) {
+                        scope.toStaffs = data.staffOptions;
+                        scope.toVillages = data.villageOptions;
+                    });
+                }
             }
 
             scope.isCenterSelected = function (id) {
@@ -79,36 +104,62 @@
 
             scope.addCentersToTransfer = function () {
                 scope.sameOfficeError = false;
+                scope.toVillageMandatoryError = false;
+                scope.toStaffMandatoryError = false;
+                scope.noCentersSelectedError = false;
                 if (scope.selectedCenters.length > 0 && scope.toOffice) {
                     if (scope.toOffice.id != scope.fromOfficeId) {
-                        var data = {};
-                        data.centers = scope.selectedCenters;
-                        var office = {};
-                        office.id = scope.toOffice.id;
-                        office.name = scope.toOffice.name;
+                        if (!scope.createWithoutVillage && scope.isToVillageMandatory && !scope.toVillage) {
+                            scope.toVillageMandatoryError = true;
+                        }
+                        if (scope.isToStaffMandatory && !scope.toStaff) {
+                            scope.toStaffMandatoryError = true;
+                        }
+                        if(scope.toVillageMandatoryError || scope.toStaffMandatoryError){
+                            return;
+                        }
+                        var office = {
+                            id: scope.toOffice.id,
+                            name: scope.toOffice.name
+                        };
                         if (scope.toOffice.referenceNumber) {
-                            office.name = office.name + "(" + scope.toOffice.referenceNumber + ")"
+                            office.name = office.name + "(" + scope.toOffice.referenceNumber + ")";
                         }
-                        data.office = office;
+                        var village = {};
+                        var staff = {};
+                        if (scope.toVillage) {
+                            var toVillageObject = angular.fromJson(scope.toVillage);
+                            village.id = toVillageObject.villageId;
+                            village.name = toVillageObject.villageName;
+                        }
+                        if (scope.toStaff) {
+                            var toStaffObject = angular.fromJson(scope.toStaff);
+                            staff.id = toStaffObject.id;
+                            staff.name = toStaffObject.displayName;
+                        }
+                        var data = {
+                            centers: scope.selectedCenters,
+                            office: office,
+                            village: village,
+                            staff: staff
+                        };
                         scope.dataList.push(data);
-                        for (var j in scope.selectedCenters.centers) {
-                            for (var i in scope.fromCenters) {
-                                if (scope.selectedCenters[j].id == scope.fromCenters[i].id) {
-                                    scope.fromCenters[i].checked = false;
-                                }
-
-                            }
-                        }
                         scope.selectedCenters = [];
-                        scope.toOfficeId = undefined;
-
+                        delete scope.toOffice;
+                        delete scope.toStaff;
+                        delete scope.toVillage;
+                        scope.toOffices = [];
+                        scope.toStaffs = [];
+                        scope.toVillages = [];
+                        setTimeout(function () {
+                            scope.toOffices = scope.offices;
+                        }, 500);
                     } else {
                         scope.sameOfficeError = true;
                     }
-
-
+                } else {
+                    scope.noCentersSelectedError = true;
                 }
-
             };
 
             scope.remove = function (index) {
@@ -128,6 +179,8 @@
                 scope.formData.locale = scope.optlang.code;
                 scope.formData.data = scope.dataList;
                 scope.formData.transferType = scope.centerToOfficeTransferType;
+                scope.formData.fromOfficeId = scope.fromOfficeId;
+                scope.formData.fromStaffId = scope.fromStaffId;
                 $modal.open({
                     templateUrl: 'submitdetail.html',
                     controller: SubmitCtrl,

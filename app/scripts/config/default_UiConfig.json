@@ -716,7 +716,6 @@
 		},
 		"organization": {
 			"isHiddenField":{
-				"transfer": true,
 				"initiateBulkTransfer": true
 			}
 		},
@@ -730,6 +729,12 @@
 			"isHiddenField": {
 				"villageOptions": false,
 				"staffOptions": false
+			}
+		},
+		"centerTransfer": {
+			"isMandatory": {
+				"toVillage": true,
+				"toStaff": true
 			}
 		}	
 	}

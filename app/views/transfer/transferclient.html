@@ -29,6 +29,10 @@
     <div class="form-group marginbottom0" style="color: red" ng-show="isTransaferToSameGroup">
             {{'error.msg.group.member.can.not.transfer.to.same.group' | translate}}
     </div>
+    <div class="error">
+        <span ng-show="noGroupSelectedErrMSg">{{'error.msg.no.group.selected' | translate}}</span>
+        <span ng-show="noClientSelectedErrMSg">{{'error.msg.no.client.selected' | translate}}</span>
+    </div> 
     <br>
     <div class="col-sm-6 col-md-6">
         <div class="col-sm-12">
