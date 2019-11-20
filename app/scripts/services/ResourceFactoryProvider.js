@@ -1898,6 +1898,9 @@
                         save: {method: 'POST', params: {loanId: '@loanId'}},
                         update: {method: 'PUT', params: {loanId: '@loanId',loanAccountDpDetailId: '@loanAccountDpDetailId'}}
                     }),
+                    getDeceasedDetailsResource: defineResource(apiVer + "/insurance/:clientId/deceaseddetails", {clientId: '@clientId'},  {
+                         getDeceasedDetails: {method:'GET', params: {clientId: '@clientId'} }
+                    }),
                     taskGenerateDocumentsResource: defineResource(apiVer + "/tasks/generatedocuments", {}, {
                     }),
                     documentsWithReportIdentifiersResource: defineResource(apiVer + "/:entityType/:entityId/documents/withreportidentifiers", {}, {
@@ -1956,7 +1959,7 @@
                          save: {method:'POST', params: {} }
                     }),
                     getDeceasedDetailsResource: defineResource(apiVer + "/insurance/:clientId/deceaseddetails", {clientId: '@clientId'},  {
-                         getDeceasedDetails: {method:'GET', params: {clientId: '@clientId'} , isArray: true}
+                         getDeceasedDetails: {method:'GET', params: {clientId: '@clientId'} }
                     }),
                     deleteDeceasedDetailsResource: defineResource(apiVer + "/insurance/:deceasedId", {deceasedId: '@deceasedId'},  {
                         getDeceasedDetails: {method:'DELETE', params: {deceasedId: '@deceasedId'} }

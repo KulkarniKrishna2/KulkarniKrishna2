@@ -7,106 +7,18 @@
         </ul>
     </div>
     <api-validate></api-validate>
-        <h2>{{'label.heading.intimation.approval' | translate}}</h2>
-        <br>
-    <div class="col-md-12 section">
-        <div class="col-md-9"> 
-            <h3>{{'label.heading.insurance.loan.details' | translate}}</h3>
-            <table class="table well" >
-                <thead>
-                    <tr class="graybg">
-                        <th colspan="2">
-                            <span>{{'label.heading.serialno' | translate}}</span>
-                        </th>
-                        <th colspan="2">
-                            <span>{{'label.heading.insurance.coi.number' | translate}}</span>
-                        </th>
-                        <th colspan="2">
-                            <span>{{'label.heading.insurance.loan.account.number' | translate}}</span>
-                        </th>
-                        <th colspan="2">
-                            <span>{{'label.heading.insurance.policy.provider' | translate}}</span>
-                        </th>
-                        <th colspan="2">
-                            <span>{{'label.heading.insurance.insured.amount' | translate}}</span>
-                        </th>
-                        <th colspan="2">
-                            <span>{{'label.heading.insurance.insured.loan.amount' | translate}}</span>
-                        </th>
-                        <th colspan="2">
-                            <span>{{'label.heading.insurance.insured.loan.outstanding.amount' | translate}}</span>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat = "data in insuranceCliamDetials.insuranceLoanPolicyDatas">
-                        <td colspan="2">{{$index+1}}</td>
-                        <td colspan="2">{{data.coiNumber}}</td>
-                        <td colspan="2">{{data.loanAccountNumber}}</td>
-                        <td colspan="2">{{data.policyProvider}}</td>
-                        <td colspan="2">{{data.insuranceAmount}}</td>
-                        <td colspan="2">{{data.loanAmount}}</td>
-                        <td colspan="2">{{data.loanOutstandingAmount}}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <br>
-            <div class="row graybg">
-                <div class="col-md-6">
-                    <h4><strong>{{'label.heading.deceased.person' | translate}}</strong> 
-                    <span>   {{insuranceCliamDetials.insuredClientType.value}}</span></h4> 
-                </div>
-                <div class="col-md-6">
-                    <h4><strong>{{'label.heading.death.date' | translate}}</strong>
-                    <span class="paddingleft2px">  {{insuranceCliamDetials.deathDate | DateFormat}}</span></h4>  
-                </div>
-            </div>
-            <br>
-            <div class="row graybg ">
-                <div class="col-sm-6">
-                    <h4><strong>{{'label.heading.death.intimation.date' | translate}}</strong>
-                    <span>  {{insuranceCliamDetials.intimationDate | DateFormat}}</span></h4> 
-                </div>
-                <div class="col-sm-6">
-                    <h4><strong>{{'label.input.insurance.contact.number' | translate}}</strong>
-                    <span>:  {{insuranceCliamDetials.contactNumber}}</span></h4> 
-                </div>
-            </div>
-
-        </div>
-        <div class="col-md-3">
-            <h3>{{'label.heading.insurance.applicant.details' | translate}}</h3>
-            <div class="thumbnail row">
-                <table class="table table-minified table-striped">
-                    <tr >
-                        <td ><b><span class="padded">{{'label.heading.insurance.applicant.name' | translate}}</span></b></td>
-                        <td><a ng-href="#/viewclient/{{insuranceCliamDetials.clientId}}"><span class="padded-td">{{insuranceCliamDetials.clientName}}</span></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td ><b><span class="padded">{{'label.heading.insurance.applicant.client.id' | translate}}</span></b></td>
-                        <td><a ng-href="#/viewclient/{{insuranceCliamDetials.clientId}}"><span class="padded-td">{{insuranceCliamDetials.clientId}}</span></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td ><b><span class="padded">{{'label.heading.insurance.applicant.age' | translate}}</span></b></td>
-                        <td><span class="padded-td">{{age}}</span></td>
-                    </tr>
-                    <tr>
-                        <td ><b><span class="padded">{{'label.heading.insurance.applicant.office' | translate}}</span></b></td>
-                        <td><span class="padded-td">{{insuranceCliamDetials.office}}</span>
-                        </td>
-                    </tr>
-                </table>  
-            </div>   
-        </div>
+    <h2>{{'label.heading.intimation.approval' | translate}}</h2>
+    <br>
+    <div ng-include="'views/insurance/insurancebasicdetailsview.html'">
     </div>
     <div class="col-md-12 section">
         <br> </br>
         <br> </br>
-        <button id="save" type="submit" ng-click="approve()" class="btn btn-primary col-md-offset-5"  ng-hide="blockUI" has-permission='APPROVE_INSURANCEINTIMATIONAPPROVAL'>{{'label.heading.insurance.status.approve' | translate}}</button>
-        <a id="cancel" ng-click="reject()" class="btn btn-default" has-permission='REJECT_INSURANCEINTIMATIONAPPROVAL'>{{'label.heading.insurance.status.reject' | translate}}</a>
-    </div>    
+        <button id="save" type="submit" ng-click="approve()" class="btn btn-primary col-md-offset-5" ng-hide="blockUI"
+            has-permission='APPROVE_INSURANCEINTIMATIONAPPROVAL'>{{'label.heading.insurance.status.approve' | translate}}</button>
+        <a id="cancel" ng-click="reject()" class="btn btn-default"
+            has-permission='REJECT_INSURANCEINTIMATIONAPPROVAL'>{{'label.heading.insurance.status.reject' | translate}}</a>
+    </div>
 
     <div ng-click="getHistory()"  class=" col-md-offset-10">
         <h4><strong><a href="" >{{'label.button.insurance.history'

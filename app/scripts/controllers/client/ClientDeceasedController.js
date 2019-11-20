@@ -21,8 +21,11 @@
                 resourceFactory.getDeceasedDetailsResource.getDeceasedDetails({ clientId: routeParams.clientId }, {},
                     function (data) {
                         if (angular.isDefined(data) ) {
-                            scope.isDeceasedDetailsCreated = true;
-                            scope.deceasedDetails = data;
+                            scope.deceasedDetails = data.insuranceClientDeceasedData;
+                            scope.clientData = data.clientData;
+                            if(scope.deceasedDetails.length > 0) {
+                                scope.isDeceasedDetailsCreated = true;
+                            }
                             for(var i=0;i<scope.deceasedDetails.length;i++) {
                                 if(scope.deceasedDetails[i].clientType.value == 'INSURED') {
                                     var index = scope.deceasedDetailsData.map(function(item) { return item.clientType; }).indexOf('INSURED');
