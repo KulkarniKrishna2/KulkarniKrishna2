@@ -17,6 +17,45 @@
                 scope.mobileNumberPattern = scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber.mobileNumberPattern;
             }
             
+            scope.getInsuredDocumentsTeplate = function ()  {
+                resourceFactory.codeValueByCodeNameResources.get({codeName: "Insured Deceased Document Tags"}, function (codeValueData) {
+                    scope.insuredDocumentTagOptions = codeValueData;
+                    getInsuredDocuments(codeValueData);
+                });
+            }
+
+            scope.getCoInsuredDocumentsTeplate = function ()  {
+                resourceFactory.codeValueByCodeNameResources.get({codeName: "CoInsured Deceased Document Tags"}, function (codeValueData) {
+                    scope.coInsuredDocumentTagOptions = codeValueData;
+                    getInsuredDocuments(codeValueData);
+                });
+            }
+
+            function getInsuredDocuments(codeValueData) {
+                resourceFactory.InsuranceDeceasedDocumentsResource.getAllDeceasedDocuments({ clientId: scope.clientId }, function (data) {
+                    for (var j = 0; j < codeValueData.length; j++) {
+                        for (var l = 0; l < data.length; l++) {
+                            if (data[l].id) {
+                                if (data[l].tagIdentifier == codeValueData[j].id) {
+                                    var url = {};
+                                    url = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment';
+                                    data[l].docUrl = url;
+                                    codeValueData[j].url = url;
+                                    codeValueData[j].isDocumentAttached = true;
+                                    codeValueData[j].parentEntityType = data[l].parentEntityType;
+                                    codeValueData[j].parentEntityId = data[l].parentEntityId;
+                                    codeValueData[j].documentId = data[l].id;
+                                    codeValueData[j].allowDeleteDocument = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                });
+
+            };
+            
+
             scope.getDeceasedDetails = function () {
                 resourceFactory.getDeceasedDetailsResource.getDeceasedDetails({ clientId: routeParams.clientId }, {},
                     function (data) {
@@ -48,6 +87,8 @@
           
             scope.init = function () {
                 scope.getDeceasedDetails();
+                scope.getInsuredDocumentsTeplate();
+                scope.getCoInsuredDocumentsTeplate();
             }
             
             scope.init();
@@ -81,6 +122,139 @@
                 scope.formData.deceasedReason = scope.deceasedDetailsData.deceasedReason.id;
                 scope.isDeceasedDetailsCreated = false;
             }
+
+
+            scope.deleteInsuredDocument = function (doc) {
+                $modal.open({
+                    templateUrl: 'deleteDocument.html',
+                    controller: InsuredDocumentDeleteCtrl,
+                    resolve: {
+                        document: function () {
+                            return doc;
+                        }
+                    }
+                });
+            };
+
+            scope.deleteCoInsuredDocument = function (doc) {
+                $modal.open({
+                    templateUrl: 'deleteDocument.html',
+                    controller: CoInsuredDocumentDeleteCtrl,
+                    resolve: {
+                        document: function () {
+                            return doc;
+                        }
+                    }
+                });
+            };
+
+            var InsuredDocumentDeleteCtrl = function ($scope, $modalInstance, document) {
+                $scope.delete = function () {
+                    resourceFactory.InsuranceDeceasedDeleteDocumentsResource.deleteDocument({ clientId: scope.clientId, documentId: document.documentId }, '', function (data) {
+                        for (var j = 0; j < scope.insuredDocumentTagOptions.length; j++) {
+                            if (document.documentId == scope.insuredDocumentTagOptions[j].documentId) {
+                                delete scope.insuredDocumentTagOptions[j].url;
+                                scope.insuredDocumentTagOptions[j].isDocumentAttached = false;
+                                delete scope.insuredDocumentTagOptions[j].parentEntityType;
+                                delete scope.insuredDocumentTagOptions[j].parentEntityId;
+                                delete scope.insuredDocumentTagOptions[j].documentId;
+                                break;
+                            }
+                        }
+
+                        getInsuredDocuments(scope.insuredDocumentTagOptions);
+                        $modalInstance.close('close');
+                    });
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            };
+
+            var CoInsuredDocumentDeleteCtrl = function ($scope, $modalInstance, document) {
+                $scope.delete = function () {
+                    resourceFactory.InsuranceDeceasedDeleteDocumentsResource.deleteDocument({ clientId: scope.clientId, documentId: document.documentId }, '', function (data) {
+                        for (var j = 0; j < scope.coInsuredDocumentTagOptions.length; j++) {
+                            if (document.documentId == scope.coInsuredDocumentTagOptions[j].documentId) {
+                                delete scope.coInsuredDocumentTagOptions[j].url;
+                                scope.coInsuredDocumentTagOptions[j].isDocumentAttached = false;
+                                delete scope.coInsuredDocumentTagOptions[j].parentEntityType;
+                                delete scope.coInsuredDocumentTagOptions[j].parentEntityId;
+                                delete scope.coInsuredDocumentTagOptions[j].documentId;
+                                break;
+                            }
+                        }
+
+                        getInsuredDocuments(scope.coInsuredDocumentTagOptions);
+                        $modalInstance.close('close');
+                    });
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            };
+
+            var viewDocumentCtrl = function ($scope, $modalInstance, documentDetail) {
+                $scope.data = documentDetail;
+                $scope.close = function () {
+                    $modalInstance.close('close');
+                };
+
+            };
+            scope.openViewDocument = function (documentDetail) {
+                $modal.open({
+                    templateUrl: 'viewDocument.html',
+                    controller: viewDocumentCtrl,
+                    resolve: {
+                        documentDetail: function () {
+                            return documentDetail;
+                        }
+                    }
+                });
+            };
+
+            scope.uploadDoument = function (documentDetail) {
+                $modal.open({
+                    templateUrl: 'createsubgroup.html',
+                    controller: uploadDoumentCtrl,
+                    resolve: {
+                        documentDetail: function () {
+                            return documentDetail;
+                        }
+                    }
+                });
+            };
+
+            var uploadDoumentCtrl = function ($scope, $modalInstance, documentDetail) {
+                $scope.df = scope.df;
+                $scope.codeValue = documentDetail;
+                $scope.formData = {};
+                $scope.formData.tagIdentifier = documentDetail.id;
+                $scope.formData.name = documentDetail.name;
+                $scope.close = function () {
+                    $modalInstance.close('close');
+                };
+
+                $scope.onFileSelect = function ($files) {
+                    $scope.file = $files[0];
+                };
+
+                $scope.submit = function () {
+                    $upload.upload({
+                        url: $rootScope.hostUrl + API_VERSION + '/clients/' + scope.clientId + '/documents',
+                        data: $scope.formData,
+                        file: $scope.file
+                    }).then(function (data) {
+                        // to fix IE not refreshing the model
+                        if (!scope.$$phase) {
+                            scope.$apply();
+                        }
+                        getInsuredDocuments(scope.insuredDocumentTagOptions);
+                        getInsuredDocuments(scope.coInsuredDocumentTagOptions);
+                        $modalInstance.close('close');
+                    });
+                };
+            };
         }
     });
     mifosX.ng.application.controller('ClientDeceasedController', ['$controller', '$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', 'CommonUtilService', '$modal', mifosX.controllers.ClientDeceasedController]).run(function ($log) {
