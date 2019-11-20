@@ -66,6 +66,8 @@
                                 scope.isDeceasedDetailsCreated = true;
                             }
                             for(var i=0;i<scope.deceasedDetails.length;i++) {
+
+                                scope.deceasedDetailsData[i].deathIntimationDate = new Date();
                                 if(scope.deceasedDetails[i].clientType.value == 'INSURED') {
                                     var index = scope.deceasedDetailsData.map(function(item) { return item.clientType; }).indexOf('INSURED');
                                     scope.deceasedDetailsData.splice(index,1);
@@ -81,14 +83,23 @@
                                 scope.isCreateDeceasedDetailsShow= false;
                             }
                         }
+                        getDocuments();
                     });
             }
 
+            function getDocuments() {
+                for(var i=0;i<scope.deceasedDetailsData.length;i++) {
+                    if(scope.deceasedDetailsData[i].clientType == 'INSURED') {
+                        scope.getInsuredDocumentsTeplate();
+                    }
+                    if(scope.deceasedDetailsData[i].clientType == 'CO-INSURED') {
+                        scope.getCoInsuredDocumentsTeplate();
+                    }
+                }
+            }
           
             scope.init = function () {
                 scope.getDeceasedDetails();
-                scope.getInsuredDocumentsTeplate();
-                scope.getCoInsuredDocumentsTeplate();
             }
             
             scope.init();
@@ -110,6 +121,8 @@
                 }
                 resourceFactory.postDeceasedDetailsResource.save(scope.clientDeceased, function (data) {
                     scope.init();
+                    scope.insuredDocumentTagOptions = null;
+                    scope.coInsuredDocumentTagOptions = null;
                 });
 
             }
