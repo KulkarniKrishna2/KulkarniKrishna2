@@ -24,7 +24,7 @@
                 </div>
             </div>
             <div class="col-md-12">
-                <div class="col-md-6">
+                <div class="col-md-6" ng-if="insuredDocumentTagOptions.length > 0">
                      <h4>{{'label.heading.insured.document.upload' | translate}}</h4> 
                     <div class="thumbnail">
                         <table class="table table-minified table-striped">
@@ -56,7 +56,7 @@
                         </table>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6" ng-if="coInsuredDocumentTagOptions.length > 0">
                     <h4>{{'label.heading.coinsured.document.upload' | translate}}</h4> 
                     <div class="thumbnail">
                         <table class="table table-minified table-striped">
@@ -117,7 +117,7 @@
                         </td>
                         <td colspan="2"><input id="deceasedDate" type="text" autocomplete="off" name="deceasedDate"
                                 datepicker-pop="{{df}}" ng-model="deceased.deathIntimationDate" is-open="opened1"
-                                max="'2020-06-22'" class="form-control" /></td>
+                                max="'2020-06-22'" class="form-control" disabled=true /></td>
                     </tr>
                 </tbody>
             </table>

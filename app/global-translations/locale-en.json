@@ -8379,7 +8379,7 @@
      "error.msg.deathIntimationDate.cannot.be.before.death.date" : "Death intimation date cannot be before death date",
      "label.heading.deceasedtotalduecollections" : "Deceased Total Amount",
      "loan.cannot.be.adjusted.as.it.is.Deceased" : "Undo can not be processed for deceased loan",
-     "validation.msg.Verified Claims.deceasedMemberArray.cannot.be.empty" : "Deceased member array cannot be empty",
+     "validation.msg.Verified Claims.deceasedMemberArray.cannot.be.empty" : "Please select atleast one member",
      "error.msg.settlementDate.cannot.be.before.death.intimation.date" : "SettlementDate cannot be before death intimation date",
      "error.msg.for.rejecting.insurance.settlement.amount.cannot.be.more.than.zero" : "Rejecting insurance settlement amount cannot be more than zero",
      "error.msg.loan.is.in.closed.state.amount.cannot.be.more.than.zero" : "Loan is in closed state, settlement amount to organisation cannot be more than zero",
@@ -8412,5 +8412,6 @@
      "error.msg.insurance.mandatory.documents.are.not.uploded" : "Insurance Mandatory documents `{{params[0].value}}` are not uploaded",
      "label.heading.insured.document.upload" : "Insured Documents Upload",
      "label.heading.coinsured.document.upload" : "Co-Insured Documents Upload",
+     "label.button.insurance.nominee.details" : "Nominee details",
      "------ end of translation file ------": "----------"
 }
