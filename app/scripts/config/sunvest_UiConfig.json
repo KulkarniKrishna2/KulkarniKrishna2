@@ -5,7 +5,7 @@
 			"isValidateDOBField": {
 				"active": true,
 				"ageCriteria": {
-					"minAge": "18",
+					"minAge": "23",
 					"maxAge": "60"
 				}
 			},
