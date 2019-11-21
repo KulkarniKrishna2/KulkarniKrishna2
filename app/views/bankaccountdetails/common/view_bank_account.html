@@ -1,9 +1,8 @@
-<div class="col-md-12" >
-       
+<div class="col-md-12">
     <api-validate></api-validate>
     <legend>{{'label.anchor.bankaccountdetails' | translate}}</legend>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-8">
             <div class="form-group paddedtop">
                 <span><b>{{'label.input.holdername' | translate}}:&nbsp;</b></span>
                 <span>{{bankAccountData.name}}</span>
@@ -40,59 +39,120 @@
                 <span><b>{{'label.input.mobilenumber' | translate}}:&nbsp;</b></span>
                 <span>{{bankAccountData.mobileNumber}}</span>
             </div>
-            <div class="form-group paddedtop" ng-if = "bankAccountData.email">
+            <div class="form-group paddedtop" ng-if="bankAccountData.email">
                 <span><b>{{'label.input.email' | translate}}:&nbsp;</b></span>
                 <span>{{bankAccountData.email}}</span>
+            </div>
+            <div class="form-group paddedtop" ng-if="bankAccountData.isVerified">
+                <span><b>{{'label.heading.verified' | translate}}:&nbsp;</b></span>
+                <span>{{bankAccountData.isVerified ? 'Yes' : 'No'}}</span>
+            </div>
+            <div class="form-group paddedtop" ng-if="bankAccountData.isVerified">
+                <span><b>{{'label.heading.verified.status' | translate}}:&nbsp;</b></span>
+                <span>{{bankAccountData.verificationStatus.value}}</span>
+            </div>
+            <div class="form-group paddedtop" ng-if="bankAccountData.isVerified">
+                <span><b>{{'label.button.verified.on' | translate}}:&nbsp;</b></span>
+                <span>{{bankAccountData.verifiedOn | DateTimeFormat}}</span>
+            </div>
+            <div class="form-group paddedtop" ng-if="bankAccountData.isVerified">
+                <span><b>{{'label.button.verified.comment' | translate}}:&nbsp;</b></span>
+                <span>{{bankAccountData.verifiedComment}}</span>
             </div>
             <div class="form-group paddedtop" ng-hide="isElemHidden('lastTransactionDate')">
                 <span><b>{{'label.input.last.transaction.date' | translate}}:&nbsp;</b></span>
                 <span>{{bankAccountData.lastTransactionDate | DateFormat}}</span>
             </div>
-
         </div>
+
+        <div class="col-md-4" ng-if="bankData.verificationStatus.id > 2">
+            <h3><b>Account Verification Name Match</b></h3>
+            <div class="col-sm-4 multiselectmin">
+                <button ng-if="bankAccountData.verificationStatus.id == 3" type="button" class="btn btn-success btn-circle width100 fullscreen default-pointer">
+                    <i class="icon-ok icon-white font-size-14pt"></i>
+                </button>
+
+                <button ng-if="bankAccountData.verificationStatus.id == 4" type="button" class="btn btn-danger btn-circle width100 fullscreen default-pointer">
+                    <i class="icon-remove icon-white font-size-14pt"></i>
+                </button>
+            </div>
+
+            <div class="col-sm-8">
+                <label class="gray-head">As per customer declaration</label>
+                <br>
+                <label class="paddedbottom"><b>{{bankData.name}}</b></label>
+                <br>
+                <label class="gray-head">As per bank records</label>
+                <br>
+                <label class="paddedbottom"><b>{{bankData.verifiedBeneficiaryName}}</b></label>
+            </div>
+        </div>
+
         <div class="col-md-6" ng-if="bankAccountDocuments.length>0">
             <span><b>{{'label.input.attachments' | translate}}:&nbsp;</b></span>
             <table class="table">
                 <thead>
-                <tr class="graybg">
-                    <th>{{'label.heading.name' | translate}}</th>
-                    <th>{{'label.heading.filename' | translate}}</th>
-                    <th ng-if="editable()">{{'label.heading.actions' | translate}}</th>
-                </tr>
+                    <tr class="graybg">
+                        <th>{{'label.heading.name' | translate}}</th>
+                        <th>{{'label.heading.filename' | translate}}</th>
+                        <th ng-if="editable()">{{'label.heading.actions' | translate}}</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="document in bankAccountDocuments">
-                    <td>{{document.name}}</td>
-                    <td><span>{{document.fileName}}&nbsp;
-                        <a target="_blank" data-ng-click="viewDocument(document)"><i
-                                class="icon-eye-open text-success"></i></a></span>
-                    </td>
-                    <td ng-if="editable()">
-                        <a ng-show="document.id" ng-click="deleteDocument(document.id)" has-permission='UPDATE_BANKACCOUNTDETAIL'><i class="icon-remove"></i></a>
-                    </td>
-                </tr>
+                    <tr ng-repeat="document in bankAccountDocuments">
+                        <td>{{document.name}}</td>
+                        <td><span>{{document.fileName}}&nbsp;
+                                <a target="_blank" data-ng-click="viewDocument(document)"><i
+                                        class="icon-eye-open text-success"></i></a></span>
+                        </td>
+                        <td ng-if="editable()">
+                            <a ng-show="document.id" ng-click="deleteDocument(document.id)"
+                                has-permission='UPDATE_BANKACCOUNTDETAIL'><i class="icon-remove"></i></a>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <image-viewer image="documentImg"></image-viewer>
         </div>
     </div>
-    </div>
-    
-    <div class="col-md-offset-2 paddedleft paddedtop" >
-        <a id="attachDocument" ng-if="editable()" ng-click="uploadDocument()" class="btn btn-primary" has-permission='UPDATE_BANKACCOUNTDETAIL'>{{'label.button.upload.image' | translate}}</a>
-        <a ng-if="editable()" id="edit" ng-click="edit()" class="btn btn-primary" has-permission='UPDATE_BANKACCOUNTDETAIL'>{{'label.button.edit' | translate}}</a>
-        <button ng-if="deletable()" id="delete" class="btn btn-primary" ng-click="delete()" has-permission='DELETE_BANKACCOUNTDETAIL'>{{'label.button.delete' | translate}}</button>
-        <button ng-if="verifyable()" id="delete" class="btn btn-primary" ng-click="verify()" has-permission='VERIFY_BANKACCOUNTDETAIL'>{{'label.button.verify' | translate}}</button>
-        <button ng-if="approvable()" id="activate" class="btn btn-primary" ng-click="activate()" has-permission='ACTIVATE_BANKACCOUNTDETAIL'>{{'label.button.activate' | translate}}</button>
-        <button ng-if="undoApprovable()" id="activate" class="btn btn-primary" ng-click="inActivateAssociation()" has-permission='INACTIVATE_BANKACCOUNTASSOCIATION'>{{'label.button.inactivate' | translate}}</button>
-        <button ng-if="showReactivateButton" id="activateAssotiation" class="btn btn-primary" ng-click="activateAssociation()" has-permission='ACTIVATE_BANKACCOUNTASSOCIATION'>{{'label.button.reactivate' | translate}}</button>
-        
-    </div>
-    
+</div>
 
-    <div>
+<div class="col-md-offset-0 paddedleft paddedtop paddedbottom">
+    <a id="attachDocument" ng-if="uploadimage()" ng-click="uploadDocument()" class="btn btn-primary"
+        has-permission='UPDATE_BANKACCOUNTDETAIL'>{{'label.button.upload.image' | translate}}</a>
 
-        <script type="text/ng-template" id="uploadDocument.html">
+    <a ng-if="detailseditable()" id="edit" ng-click="edit()" class="btn btn-primary"
+        has-permission='UPDATE_BANKACCOUNTDETAIL'>{{'label.button.edit' | translate}}</a>
+
+    <button ng-if="deletable()" id="delete" class="btn btn-primary" ng-click="delete()"
+        has-permission='DELETE_BANKACCOUNTDETAIL'>{{'label.button.delete' | translate}}</button>
+    
+    <button ng-if="verifyable()" id="verifyable" class="btn btn-warning" ng-click="initBankAccountVerification(false)"
+        has-permission='VERIFY_BANKACCOUNTDETAIL'>{{'label.button.verify' | translate}}</button>
+    
+    <button ng-if="bankData.verificationStatus.value=='Pending'" id="refresh" class="btn btn-success" ng-click="initBankAccountVerification(false)"
+        has-permission='VERIFY_BANKACCOUNTDETAIL'>
+        {{'label.button.refresh.verification.status' | translate}}
+    </button>
+
+    <button ng-if="bankData.verificationStatus.value=='Failed'" id="reVerifyable" class="btn btn-danger"
+        ng-click="initBankAccountVerification(true)"
+        has-permission='REVERIFY_BANKACCOUNTDETAIL'>
+        {{'label.button.re.verify' | translate}}
+    </button>
+
+    <button ng-if="approvable()" id="activate" class="btn btn-primary" ng-click="activate()"
+        has-permission='ACTIVATE_BANKACCOUNTDETAIL'>{{'label.button.activate' | translate}}</button>
+
+    <button ng-if="undoApprovable()" id="activate" class="btn btn-primary" ng-click="inActivateAssociation()"
+        has-permission='INACTIVATE_BANKACCOUNTASSOCIATION'>{{'label.button.inactivate' | translate}}</button>
+
+    <button ng-if="showReactivateButton" id="activateAssotiation" class="btn btn-primary"
+        ng-click="activateAssociation()" has-permission='ACTIVATE_BANKACCOUNTASSOCIATION'>{{'label.button.reactivate' | translate}}</button>
+</div>
+
+<div>
+    <script type="text/ng-template" id="uploadDocument.html">
         <div class="modal-header silver">
             <h3 class="bolder">{{'label.heading.upload.image' | translate}}</h3>
         </div>
@@ -101,8 +161,8 @@
             <api-validate></api-validate>
             <br>
             <div ng-if="docformatErr" class="error">
-				{{docformatErrMsg | translate}}
-			</div>
+                {{docformatErrMsg | translate}}
+            </div>
             <div class="form-group">
                 <label class="control-label col-sm-2" for="name">{{'label.input.name' | translate}}
                 <span class="required">*</span></label>
@@ -117,14 +177,15 @@
             <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
             <button class="btn btn-primary" ng-click="upload()">{{'label.button.upload' | translate}}</button>
         </div>
-        </script>
-        <script type="text/ng-template" id="delete.html">
+    </script>
+
+    <script type="text/ng-template" id="delete.html">
         <div class="modal-header silver">
             <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
         </div>
         <div class="modal-body">
             <api-validate></api-validate>
-           
+            
             <div ng-show="error != null" class="error">
                 {{'label.error' | translate}}: {{error}}
             </div>
@@ -134,26 +195,26 @@
             <button class="btn btn-primary" ng-click="submitDelete()">{{'label.heading.delete' | translate}}</button>
         </div>
     </script>
+</div>
+
+<div class="col-md-12">
+    <a class="" ng-click="displayAuditLogs()">{{'label.button.audit.log' | translate}}</a>
+</div>
+<div ng-if="auditLogs" class="row client">
+    <div class="col-md-12">
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th>{{"label.heading.audit.action" | translate}}</th>
+                <th>{{"label.heading.audit.updateDate"| translate}}</th>
+                <th>{{"label.heading.audit.updateBy"| translate}}</th>
+            </tr>
+            <tr ng-repeat="audit in auditLogs">
+                <td>{{audit.actionName | translate}}</td>
+                <td>{{audit.madeOnDate | DateFormat}}</td>
+                <td>{{audit.maker}}</td>
+            </tr>
+        </table>
     </div>
 
-    <div  class="col-md-12">
-            <a  class="" ng-click="displayAuditLogs()">{{'label.button.audit.log' | translate}}</a>
-    </div>
-    <div ng-if="auditLogs" class="row client">
-            <div class="col-md-12">
-                <table class="table table-bordered table-striped" >
-                    <tr>
-                        <th>{{"label.heading.audit.action" | translate}}</th>
-                        <th>{{"label.heading.audit.updateDate"| translate}}</th>
-                        <th>{{"label.heading.audit.updateBy"| translate}}</th>
-                    </tr>
-                    <tr ng-repeat="audit in auditLogs">
-                        <td>{{audit.actionName | translate}}</td>
-                        <td>{{audit.madeOnDate | DateFormat}}</td>
-                        <td>{{audit.maker}}</td>
-                    </tr>
-                </table>
-            </div>
-
-    </div>
+</div>
 </div>

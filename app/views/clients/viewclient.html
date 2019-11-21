@@ -15,6 +15,7 @@
 	<div class="row">
 	    <div class="col-md-8 col-sm-8">
 	        <h3 class="client-title">
+				<i ng-if="client.gender" tooltip="{{client.gender.name}}" ng-class="(client.gender.name=='Female')?'icon-female':'icon-male'"></i>
 	        	<i class="icon-circle {{client.status.code | StatusLookup}}"></i>
 				<small ng-if="client.subStatus">
 					[{{client.subStatus.value}}]
@@ -441,8 +442,8 @@
 				    <div class="col-sm-3 col-md-3">
 				    	<div class="thumbnail row">
 				    		<h4><strong ng-if="!displayNameInReverseOrder">{{client.displayName}}</strong>
-				    		 <strong ng-if="displayNameInReverseOrder">{{client.displayNameInReverseOrder}}</strong> </h4>
-					    	<img ng-hide="client.imagePresent" ng-src="./images/client-image-placeholder.png" alt="Avatar">
+							 <strong ng-if="displayNameInReverseOrder">{{client.displayNameInReverseOrder}}</strong> </h4>
+							<img ng-hide="client.imagePresent" ng-src="{{client.gender && client.gender.name=='Female' && './images/client-image-placeholder-female.png' || './images/client-image-placeholder.png'}}" alt="Avatar">
 				        	<img ng-show="client.imagePresent"  ng-src="{{image}}" alt="Avatar" data-ng-click="showPicture()" title="{{'label.zoom' | translate}}" >
 					        <div class="btn-group-xs center">
 					            <button type="button" class="btn btn-primary" data-ng-click="uploadPic()" has-permission='CREATE_CLIENTIMAGE'

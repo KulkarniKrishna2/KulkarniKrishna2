@@ -1206,6 +1206,19 @@
                         update: {method: 'PUT'},
                         delete: {method: 'DELETE'}
                     }),
+                    bankAccountDetailVerifyResource: defineResource(apiVer + "/bankaccountdetails/:bankAccountDetailId/verify", {bankAccountDetailId: "@bankAccountDetailId"}, {
+                        doVerify: {method: 'POST'}
+                    }),
+                    bankAccountDetailReVerifyResource: defineResource(apiVer + "/bankaccountdetails/:bankAccountDetailId/reverify", {bankAccountDetailId: "@bankAccountDetailId"}, {
+                        doReVerify: {method: 'POST'}
+                    }),
+                    bankAccountDetailCheckVerificationStatusVerifyResource: defineResource(apiVer + "/bankaccountdetails/:bankAccountDetailId/verificationstatus", {bankAccountDetailId: "@bankAccountDetailId"}, {
+                        checkVerificationStatus: {method: 'POST'}
+                    }),
+                    bankAccountDetailResourcesLatest: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetail/latest", {entityType: "@entityType",entityId: '@entityId',clientBankAccountDetailAssociationId: '@clientBankAccountDetailAssociationId'}, {
+                        getLatest: {method: 'GET'},
+                        createOrUpdate: {method: 'POST'}
+                    }),
                     bankAccountDetailResources: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetail", {entityType: "@entityType",entityId: '@entityId'}, {
                         getAll: {method: 'GET', params: {}, isArray: true},
                         create: {method: 'POST'},

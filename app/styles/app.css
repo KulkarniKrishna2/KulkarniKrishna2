@@ -511,6 +511,10 @@ a:hover
     cursor: pointer;
 }
 
+.default-pointer{
+    pointer-events: none;
+}
+
 tr.pointer-main:hover {
     background-color: #007FFF;
     color: #ffffff !important;

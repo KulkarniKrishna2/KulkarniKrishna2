@@ -1,7 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         MainController: function (scope, location, sessionManager, translate, $rootScope, localStorageService, keyboardManager, $idle, tmhDynamicLocale, 
-                  uiConfigService, $http, authenticationService, resourceFactory, $timeout, popUpUtilService,$modalStack) {
+                  uiConfigService, $http, authenticationService, resourceFactory, $timeout, popUpUtilService,$modalStack, globalConstantsService) {
             var publicKey = undefined;
             scope.hideLoginPannel = false;
             scope.mainUIConfigData = {};
@@ -82,7 +82,11 @@
                     }
                 });
             }
+
             uiConfigService.init(scope, $rootScope.tenantIdentifier);
+            
+            globalConstantsService.init(scope);
+
             scope.$on('uiConfigServicePerformed', function(event, response) {
                 scope.response = response;
                 if(scope.response && scope.response.uiDisplayConfigurations) {
@@ -581,6 +585,7 @@
         '$timeout',
         'PopUpUtilService',
         '$modalStack',
+        'GlobalConstantsService',
         mifosX.controllers.MainController
     ]).run(function ($log) {
         $log.info("MainController initialized");

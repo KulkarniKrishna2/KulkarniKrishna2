@@ -17,7 +17,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'CommonUtilService',
             'ExcelExportTableService',
             'PopUpUtilService',
-            'LoanDetailsService'
+            'LoanDetailsService',
+            'GlobalConstantsService'
         ],
         controllers: [
             'main/MainController',

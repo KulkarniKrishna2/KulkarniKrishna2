@@ -20,10 +20,11 @@
                 <thead>
                     <tr class="graybg">
                         <th>{{'label.heading.serialno' | translate}}</th>
-                        <th>{{'label.heading.holdername' | translate}}</th>
-                        <th>{{'label.heading.accountnumber' | translate}}</th>
+                        <th>{{'label.heading.bank.account.holder.name' | translate}}</th>
+                        <th>{{'label.heading.bank.account.number' | translate}}</th>
                         <th>{{'label.heading.ifsc' | translate}}</th>
                         <th>{{'label.heading.verified' | translate}}</th>
+                        <th>{{'label.heading.verified.status' | translate}}</th>
                         <th>{{'label.createdon' | translate}}</th>
                         <th>{{'label.heading.lastupdatedon' | translate}}</th>
                     </tr>
@@ -35,6 +36,7 @@
                         <td class="pointer" data-ng-click="routeTo(record.bankAccountAssociationId)">{{record.accountNumber}}</td>
                         <td class="pointer" data-ng-click="routeTo(record.bankAccountAssociationId)">{{record.ifscCode}}</td>
                         <td class="pointer" data-ng-click="routeTo(record.bankAccountAssociationId)">{{record.isVerified ? 'Yes' : 'No'}}</td>
+                        <td class="pointer" data-ng-click="routeTo(record.bankAccountAssociationId)">{{record.verificationStatus.value}}</td>
                         <td class="pointer" data-ng-click="routeTo(record.bankAccountAssociationId)">{{record.createdDate | DateTimeFormat}}</td>
                         <td class="pointer" data-ng-click="routeTo(record.bankAccountAssociationId)">{{record.lastModifiedDate | DateTimeFormat}}</td>
                     </tr>
@@ -52,9 +54,11 @@
                 <thead>
                     <tr class="graybg">
                         <th>{{'label.heading.serialno' | translate}}</th>
-                        <th>{{'label.heading.holdername' | translate}}</th>
-                        <th>{{'label.heading.accountnumber' | translate}}</th>
+                        <th>{{'label.heading.bank.account.holder.name' | translate}}</th>
+                        <th>{{'label.heading.bank.account.number' | translate}}</th>
                         <th>{{'label.heading.ifsc' | translate}}</th>
+                        <th>{{'label.heading.verified' | translate}}</th>
+                        <th>{{'label.heading.verified.status' | translate}}</th>
                         <th>{{'label.createdon' | translate}}</th>
                         <th>{{'label.heading.lastupdatedon' | translate}}</th>
                     </tr>
@@ -65,8 +69,10 @@
                         <td class="pointer" data-ng-click="routeTowithQueryParam(record.bankAccountAssociationId)">{{record.name}}</td>
                         <td class="pointer" data-ng-click="routeTowithQueryParam(record.bankAccountAssociationId)">{{record.accountNumber}}</td>
                         <td class="pointer" data-ng-click="routeTowithQueryParam(record.bankAccountAssociationId)">{{record.ifscCode}}</td>
-                        <td class="pointer" data-ng-click="routeTo(record.bankAccountAssociationId)">{{record.createdDate | DateTimeFormat}}</td>
-                        <td class="pointer" data-ng-click="routeTo(record.bankAccountAssociationId)">{{record.lastModifiedDate | DateTimeFormat}}</td>
+                        <td class="pointer" data-ng-click="routeTowithQueryParam(record.bankAccountAssociationId)">{{record.isVerified ? 'Yes' : 'No'}}</td>
+                        <td class="pointer" data-ng-click="routeTowithQueryParam(record.bankAccountAssociationId)">{{record.verificationStatus.value}}</td>
+                        <td class="pointer" data-ng-click="routeTowithQueryParam(record.bankAccountAssociationId)">{{record.createdDate | DateTimeFormat}}</td>
+                        <td class="pointer" data-ng-click="routeTowithQueryParam(record.bankAccountAssociationId)">{{record.lastModifiedDate | DateTimeFormat}}</td>
                     </tr>
                 </tbody>
             </table>
