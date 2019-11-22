@@ -1,0 +1,141 @@
+{
+
+    "WORK_FLOW" : "work-flow",
+
+    "ENCRYPT_LOGIN_PASSWORD_FOR_AUTHENTICATION" : "encrypt-login-password-for-authentication",
+
+    "EVERY_USER_LOGIN_GENERATE_NEW_CRYPTOGRAPHIC_KEY_PAIR" : "every-user-login-generate-new-cryptographic-key-pair",
+
+    "ALLOW_PAYMANTS_ON_CLOSED_LOANS" : "allow-payments-on-closed-loans",
+
+    "DISPLAY_FIRSTNAME_LAST_LASTNAME_FIRST_FOR_CLIENT" : "display-firstname-last-lastname-first-for-client",
+
+    "CLIENT_VERIFICATION" : "client-verification",
+
+    "NUMBER_OF_DAYS_FOR_TASK_ARCHIVING" : "number-of-days-for-task-archiving",
+
+    "SWITCH_USER_TOKEN_EXPIRY_IN_MINUTES" : "switch-user-token-expiry-in-minutes",
+
+    "AUTO_POPULATE_DETAILS_BASED_ON_SA_ID" : "auto-populate-details-based-on-SA-id",
+
+    "TWO_FACTOR_AUTHENTICATION" : "two-factor-authentication",
+
+    "CONDITIONAL_TWO_FACTOR_AUTHENTICATION" : "conditional-two-factor-authentication",
+
+    "CAPTCHA_AT_LOGIN" : "enable_captcha_after_N_successive_failed_attempts",
+
+    "CAPTCHA_EXPIRY_MINUTES" : "captcha-expiry-in-minutes",
+
+    "ALLOW_BANK_ACCOUNT_FOR_GROUPS" : "allow-bank-account-for-groups",
+
+    "ALLOW_MULTIPLE_BANK_DISBURSAL" : "allow-multiple-bank-disbursal",
+
+    "ENABLE_PENDING_FOR_APPROVAL" : "enable-pending-for-approval-stage",
+
+    "ALLOW_EXPECTED_DISBURSEMENT_DATE_UPDATE_DURING_ATTACH_MEETING" : "allow-expected-disbursement-date-update-during-attach-meeting",
+
+    "APPLY_ACCOUNTING_CLOSURE_TO_ALL" : "apply-accounting-closures-to-all-loans-savings",
+
+    "SPECIFIC_KYC_CHECK" : "specific-kyc-check-enabled-for-cb",
+
+    "ENABLE_VALUE_DATE_FOR_LOAN_TRANSACTION" : "enable-value-date-for-loan-transaction",
+
+    "DEFAULT_VALUE_FOR_VALUE_DATE" : "default-value-for-value-date",
+
+    "DEFAULT_VALUE_DATE_FOR_ACCRUAL" : "default-value-date-for-accrual",
+
+    "ALLOW_AUTO_GENERATE_RECEIPT_NUMBER" : "allow-auto-generate-receipt-number",
+
+    "ALLOW_CLIENT_CREATION_AT_OFFICE" : "allow-client-creation-at-office",
+
+    "INSURANC_CHARGE_VALIDATION_REQUIRED_FOR_LOAN_APPLICATION_CREATION_OR_MODIFICATION" : "insurance-charge-validation-required-while-loan-application-creation-or-modification",
+
+    "REPAYMENT_FREQUENCY_VALIDATION_WITH_PRODUCT" : "validate-repayment-frequency-with-product",
+
+    "GENERATE_LONA_ACCOUNT_NUMBER_WHILE_CREATING_LOAN_APPLICATION_REFERENCE" : "generate-loan-accnum-while-creating-loanapplicationreference",
+
+    "BC_PARTNER_ID" : "bc_partner_id",
+
+    "AJENT_ID" : "ajent_id",
+
+    "BCIF" : "BCIF",
+
+    "NCIF" : "NCIF",
+
+    "ENABLE_USER_ACTIVITY_LOG" : "enable-user-activity-log",
+
+    "BC_ACCOUNTING" : "bc-accounting",
+
+    "FILE_STORAGE_PATH" : "file-storage-path",
+
+    "RECALCULATE_SCHEDULE_ON_MEETING_DATE_CHANGES" : "recalculate-schedule-on-meeting-date-change",
+
+    "FLDG_PERCENTAGE" : "fldg-percentage",
+
+    "DEFAULT_SAVING_PRODUCT_FOR_CLIENT_ACCOUNT" : "default-saving-product-for-client-account",
+
+    "BC_TAX_PERCENTAGE_ON_FEES" : "bc-tax-percentage-on-fees",
+
+    "BC_TAX_PERCENTAGE_ON_INTEREST" : "bc-tax-percentage-on-interest",
+
+    "IS_ENABLE_FIELD_OFFICE" : "is-field-office-enable",
+
+    "IS_ENABLE_DELETE_SAVING_ACCOUNT" : "is-saving-account-delete-enable",
+
+    "RESTRICT_PARTIAL_PAYMENT" : "restrict-partial-payment",
+
+    "IS_ATTENDANCE_MANDATORY_FOR_COLLECTION_SHEET" : "is-attendance-mandatory-for-collection-sheet",
+
+    "STOP_BATCH_ACCOUNTING_FOR_FLDG_LOANS" : "stop-batch-accounting-for-fldg-loans",
+
+    "LOAD_CLIENT_MEMBERS_DETAILS_IN_CENTER_PAGE" : "load-client-members-details-in-center-page",
+
+    "BANK_CB_APPROVAL_PROVIDER_KEY" : "bank-cb-approval-provider-key",
+
+    "BANK_CB_APPROVAL_PROVIDER_PREFIX" : "bank-cb-approval-provider-prefix",
+
+    "IS_SFTP_ENABLED" : "enable-sftp-for-rbl",
+
+    "DPD_FOR_FLDG" : "dpd-for-fldg",
+
+    "ENABLE_CENTER_COUNT_FOR_EACH_VILLAGE" : "enable-center-count-for-each-village",
+
+    "ADVANCED_ACCOUNTING_BASED_STATE" : "advanced-accounting-based-on-state",
+
+    "RECALCULATE_SCHEDULE_ON_UNDO_PRECLOSE" : "recalculate-schedule-on-undo-preclose",
+
+    "ENABLE_CURRENT_DAY_ACCOUNTING" : "enable-current-day-accounting",
+
+    "SINGLE_LOAN_APPLICATION_WORKFLOW" : "single-loan-application-workflow",
+
+    "ENABLE_LEVEL_BASED_ADDRESS" : "enable_level_based_address",
+
+    "ALLOW_ALL_GL_TYPES_FOR_PRODUCT_MAPPING" : "allow-all-gl-types-for-product-mapping",
+
+    "RESTRICT_EDIT_CENTER_MEETING_WITH_ACTIVE_LOANS" : "restrict-edit-center-meeting-with-active-loans",
+
+    "ENABLE_ADJUSTED_AMOUNT_ACCOUNTING" : "enable-adjusted-amount-accounting",
+
+    "ORGANISATION_MIGRATION_DATE" : "organisation-migration-date",
+
+    "DEFAULT_PAYMENT_TYPE_ID" : "default-payment-type-id",
+
+    "EQUIFAX_FOR_RETAIL" : "equifax_for_retail",
+
+    "ALLOW_TRANSACTION_ONLY_ON_PREVIOUS_WORKING_DAY_EOD_CLOSURE" : "allow-transaction-only-on-previous-working-day-eod-closure",
+
+    "VALIDATE_MONTH_END_CLOSURE_ONLY" : "validate-for-month-end-accounting-closure",
+
+    "INCLUDE_OVERDUE_AMOUNT_IN_INDIVIDUAL_COLLECTION_SHEET" : "include-overdue-amount-in-individual-collection-sheet",
+
+    "OWN_INSTITUTE_NAME" : "own institute name",
+
+    "AMAZON_S3_TEMP_URL" : "amazon-S3-temp-url",
+
+    "FINANCIAL_YEAR_BEGINING_MONTH" : "financial-year-beginning-month",
+
+    "LOAN_EXTENTION" : "loan-extension",
+
+    "DEFAULT_PENNY_DROP_TRANSACTION_PAYMENT_TYPE_ID" : "default-penny-drop-transaction-payment-type-id"
+}
+    

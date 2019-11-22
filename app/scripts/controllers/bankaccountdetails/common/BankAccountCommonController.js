@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        BankAccountCommonController: function ($controller, scope, routeParams, resourceFactory, location, $modal, route, $window, dateFilter, $upload, $rootScope, API_VERSION, $http, commonUtilService, $sce) {
+        BankAccountCommonController: function ($controller, scope, routeParams, resourceFactory, location, $modal, dateFilter, $upload, $rootScope, API_VERSION, $http) {
             angular.extend(this, $controller('defaultUIConfigController', {
                 $scope: scope,
                 $key: "bankAccountDetails"
@@ -98,18 +98,10 @@
                 scope.viewConfig.isVerified = scope.bankData.isVerified;
 
                 scope.bankAccountData = scope.bankData;
-                if(scope.bankData.accountNumber !=undefined) {
+                if(scope.bankData.accountNumber != undefined) {
                     scope.viewConfig.hasData = true;
                     enableShowSummary();
                 }else{
-                    disableShowSummary();
-                }
-
-                scope.bankAccountData = scope.bankData;
-                if (scope.bankData.accountNumber != undefined) {
-                    scope.viewConfig.hasData = true;
-                    enableShowSummary();
-                } else {
                     disableShowSummary();
                 }
 
@@ -154,19 +146,19 @@
 
             function submitData() {
                 resourceFactory.bankAccountDetailResources.create({
-                        entityType: getEntityType(),
-                        entityId: getEntityId()
-                    }, scope.formData,
-                    function (data) {
-                        scope.clientBankAccountDetailAssociationId = data.resourceId;
-                        if (scope.isTask) {
-                            populateDetails();
-                        } else {
-                            scope.routeToViewBankAccountdetails();
-                            //scope.routeToBankAccountdetails();
-                        }
+                    entityType: getEntityType(),
+                    entityId: getEntityId()
+                }, scope.formData,
+                function (data) {
+                    scope.clientBankAccountDetailAssociationId = data.resourceId;
+                    if (scope.isTask) {
+                        populateDetails();
+                    } else {
+                        scope.routeToViewBankAccountdetails();
+                        //scope.routeToBankAccountdetails();
+                    }
 
-                    });
+                });
             };
 
             function isFormValid() {
@@ -289,8 +281,26 @@
                 }
             };
 
+            scope.uploadimage = function () {
+                if (scope.isTask) {
+                    return !scope.isTaskCompleted();
+                } else {
+                    return !scope.viewConfig.approved;
+                }
+            };
+
             scope.editable = function () {
                 if (scope.isTask) {
+                    return !scope.isTaskCompleted();
+                } else {
+                    return !scope.viewConfig.approved;
+                }
+            };
+
+            scope.detailseditable = function () {
+                if(scope.bankData.verificationStatus.id == 3){
+                   return false;
+                }else if (scope.isTask) {
                     return !scope.isTaskCompleted();
                 } else {
                     return !scope.viewConfig.approved;
@@ -303,6 +313,23 @@
                 } else {
                     return !scope.viewConfig.approved;
                 }
+            };
+
+            scope.verifyable = function () {
+                if(!scope.isSystemGlobalConfigurationEnabled(scope.globalConstants.DEFAULT_PENNY_DROP_TRANSACTION_PAYMENT_TYPE_ID)){
+                    return false;
+                }
+                if(scope.viewConfig.isVerified){
+                    return false;
+                }
+                return true;
+            };
+
+            scope.reVerifyable = function () {
+                if(!scope.viewConfig.isVerified){
+                    return false;
+                }
+                return true;
             };
 
             scope.deletable = function () {
@@ -558,10 +585,39 @@
                     
                 }
             };
-            
+
+            scope.initBankAccountVerification = function(reRerify){
+                if(scope.bankData.isVerified == true && !reRerify){
+                    populateDetails();
+                }else{
+                    var timeDealy = 5;
+                    if(scope.bankData.verificationStatus && scope.bankData.verificationStatus.id == 2){
+                        resourceFactory.bankAccountDetailCheckVerificationStatusVerifyResource.checkVerificationStatus({ bankAccountDetailId: scope.bankData.id }, {}, function (data) {
+                            setTimeout(function () {
+                                populateDetails();
+                            }, timeDealy);
+                        });
+
+                    }else{
+                        if(reRerify){
+                            resourceFactory.bankAccountDetailReVerifyResource.doReVerify({ bankAccountDetailId: scope.bankData.id }, {}, function (data) {
+                                setTimeout(function () {
+                                    populateDetails();
+                                }, timeDealy);
+                            });
+                        }else{
+                            resourceFactory.bankAccountDetailVerifyResource.doVerify({ bankAccountDetailId: scope.bankData.id }, {}, function (data) {
+                                setTimeout(function () {
+                                    populateDetails();
+                                }, timeDealy);
+                            });
+                        }
+                    }
+                }
+            }
         }
     });
-    mifosX.ng.application.controller('BankAccountCommonController', ['$controller', '$scope', '$routeParams', 'ResourceFactory', '$location', '$modal', '$route', '$window', 'dateFilter', '$upload', '$rootScope', 'API_VERSION', '$http', 'CommonUtilService', '$sce', mifosX.controllers.BankAccountCommonController]).run(function ($log) {
+    mifosX.ng.application.controller('BankAccountCommonController', ['$controller', '$scope', '$routeParams', 'ResourceFactory', '$location', '$modal', 'dateFilter', '$upload', '$rootScope', 'API_VERSION', '$http', mifosX.controllers.BankAccountCommonController]).run(function ($log) {
         $log.info("BankAccountCommonController initialized");
     });
 }(mifosX.controllers || {}));
