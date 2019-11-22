@@ -8421,5 +8421,13 @@
      "label.heading.insured.document.upload" : "Insured Documents Upload",
      "label.heading.coinsured.document.upload" : "Co-Insured Documents Upload",
      "label.button.insurance.nominee.details" : "Nominee details",
+     "error.msg.destination.village.is.mandatory": "Destination village is mandatory",
+     "error.msg.destination.staff.is.mandatory": "Destination staff is mandatory",
+     "label.button.fetchcenters": "Fetch Centers",
+     "error.msg.no.centers.selected": "Kindly select a center to transfer", 
+     "error.msg.village.submittedOnDate.after.activation.date": "Village activation date cannot be before submitted date `{{params[0].value}}`",
+     "error.msg.no.group.selected" : "Kindly select the group to which clients should be transferred",
+     "error.msg.no.client.selected" : "Kindly select a client to transfer",
+
      "------ end of translation file ------": "----------"
 }

@@ -212,7 +212,6 @@
 				"maxDaysLimit": 14
 			}
 		},
-		},
 		"createVillage": {
 			"isReadOnlyField": {
 				"active": true
@@ -345,9 +344,10 @@
 				"postTransactionTypeEntries": false 
 			}
 		},
-		"organization": {
-			"isHiddenField":{
-				"transfer": false
+		"centerTransfer": {
+			"isMandatory": {
+				"toVillage": true,
+				"toStaff": true
 			}
 		}
 	}
