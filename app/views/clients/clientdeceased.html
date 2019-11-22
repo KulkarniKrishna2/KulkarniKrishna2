@@ -6,9 +6,9 @@
             </li>
         </ul>
     </div>
-    <form name="createdeceaseddetailsform" novalidate="" class="form-horizontal well" rc-submit="submit()">
+    <form name="createdeceaseddetailsform" novalidate="" class="form-horizontal well" rc-submit="submit()" ng-show="isCreateDeceasedDetailsShow">
         <api-validate></api-validate>
-        <fieldset ng-show="isCreateDeceasedDetailsShow">
+        <fieldset >
             <legend>{{'label.heading.create.deceased' | translate}}</legend>
         
             <div class=" table well">
@@ -104,20 +104,40 @@
                         <th colspan="2">
                             <span>{{'label.heading.death.intimation.date' | translate}}</span>
                         </th>
+                        <th colspan="2">
+                            <span>{{'label.input.insurance.cause.of.death' | translate}}</span>
+                        </th>
+                        <th colspan="2">
+                            <span>{{'label.input.insurance.place.of.death' | translate}}</span>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
+                    <span> <small class="required" ng-show="noClientSelected">
+                            {{'label.insurance.select.deceased.person' | translate}}
+                        </small></span>
                     <tr ng-repeat="deceased in deceasedDetailsData">
                         <td colspan="2"><input id="select" ng-checked="selectall" type="checkbox" name="select"
-                                ng-model="deceased.selected" /></td>
+                                ng-model="deceased.selected" />
+                        </td>
                         <td colspan="2">{{deceased.clientType}}</td>
                         <td colspan="2"><input id="deceasedDate" type="text" autocomplete="off" name="deceasedDate"
                                 datepicker-pop="{{df}}" ng-model="deceased.deathDate" is-open="opened1" max="'2020-06-22'"
                                 class="form-control" />
                         </td>
                         <td colspan="2"><input id="deceasedDate" type="text" autocomplete="off" name="deceasedDate"
-                                datepicker-pop="{{df}}" ng-model="deceased.deathIntimationDate" is-open="opened1"
-                                max="'2020-06-22'" class="form-control" disabled=true /></td>
+                                datepicker-pop="{{df}}" ng-model="deceased.deathIntimationDate" is-open="opened1" max="'2020-06-22'"
+                                class="form-control" disabled=true /></td>
+                        <td colspan="2">
+                            <select id="causeOfDeathId" name="causeOfDeathId" ng-model="deceased.causeOfDeathId"
+                                ng-options="type.id as type.name for type in causeOfDeath" class="form-control">
+                                <option value="{{type.id}}">{{'label.insurance.nominee.select.cause.of.death' | translate}}</option>
+                            </select>
+                        </td>
+                        <td colspan="2">
+                            <input name="placeOfDeath" ng-model="deceased.placeOfDeath" type="text" autocomplete="off"
+                                class="form-control" />
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -166,6 +186,12 @@
                     <th colspan="2">
                         <span>{{'label.heading.death.intimation.date' | translate}}</span>
                     </th>
+                    <th colspan="2">
+                        <span>{{'label.input.insurance.cause.of.death' | translate}}</span>
+                    </th>
+                    <th colspan="2">
+                        <span>{{'label.input.insurance.place.of.death' | translate}}</span>
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -174,6 +200,8 @@
                     <td colspan="2">{{data.clientType.value}}</td>
                     <td colspan="2">{{data.deathDate | DateFormat}}</td>
                     <td colspan="2">{{data.deathIntimationDate | DateFormat}}</td>
+                    <td colspan="2">{{data.causeOfDeath.name}}</td>
+                    <td colspan="2">{{data.placeOfDeath}}</td>
                 </tr>
             </tbody>
         </table>
