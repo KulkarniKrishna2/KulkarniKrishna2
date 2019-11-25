@@ -728,7 +728,9 @@
                 // Make sure charges and collaterals are empty before initializing.
                 delete scope.formData.charges;
                 delete scope.formData.collateral;
-
+                if (scope.clientId) {
+                    scope.formData.clientId = scope.clientId;
+                }
                 if (scope.charges.length > 0) {
                     scope.formData.charges = [];
                     for (var i in scope.charges) {
