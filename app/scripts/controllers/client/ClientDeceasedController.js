@@ -31,6 +31,10 @@
                 });
             }
 
+            resourceFactory.codeValueByCodeNameResources.get({ codeName: "Deceased Reason" }, function (codeValueData) {
+                scope.causeOfDeath = codeValueData;
+            });
+
             function getInsuredDocuments(codeValueData) {
                 resourceFactory.InsuranceDeceasedDocumentsResource.getAllDeceasedDocuments({ clientId: scope.clientId }, function (data) {
                     for (var j = 0; j < codeValueData.length; j++) {
@@ -66,9 +70,7 @@
                                 scope.isDeceasedDetailsCreated = true;
                             }
                             for(var i=0;i<scope.deceasedDetails.length;i++) {
-
-                                scope.deceasedDetailsData[i].deathIntimationDate = new Date();
-                                if(scope.deceasedDetails[i].clientType.value == 'INSURED') {
+                                    if(scope.deceasedDetails[i].clientType.value == 'INSURED') {
                                     var index = scope.deceasedDetailsData.map(function(item) { return item.clientType; }).indexOf('INSURED');
                                     scope.deceasedDetailsData.splice(index,1);
                                 }
@@ -78,6 +80,10 @@
                                 }
                             }
                             if(scope.deceasedDetailsData.length > 0) {
+                                for(var i=0;i<scope.deceasedDetailsData.length;i++) {
+                                    scope.deceasedDetailsData[i].deathIntimationDate = new Date();
+                                    scope.deceasedDetailsData[i].deathDate = new Date();
+                                }
                                 scope.isCreateDeceasedDetailsShow= true;
                             } else {
                                 scope.isCreateDeceasedDetailsShow= false;
@@ -105,6 +111,8 @@
             scope.init();
 
             scope.submit = function () {
+                scope.noClientSelected = false;
+                scope.isValidationErrorExist = false;
                 scope.clientDeceased = {};
                 scope.clientDeceased.clientId =  routeParams.clientId;
                 scope.clientDeceased.locale = scope.formData.locale;
@@ -113,17 +121,25 @@
                 scope.clientDeceased.clientDeceasedData = [];
                 for(var i = 0 ; i < scope.deceasedDetailsData.length; i++) {
                     if(scope.deceasedDetailsData[i].selected == true) {
+                        if(scope.deceasedDetailsData[i].deathDate == undefined || scope.deceasedDetailsData[i].deathIntimationDate  == undefined || scope.deceasedDetailsData[i].causeOfDeathId  == undefined ||
+                            scope.deceasedDetailsData[i].placeOfDeath  == undefined || scope.deceasedDetailsData[i].placeOfDeath  == "") {
+                            scope.isValidationErrorExist = true;
+                        }
                         scope.deceasedDetailsData[i].deathDate =  dateFilter(new Date(scope.deceasedDetailsData[i].deathDate), scope.df);
                         scope.deceasedDetailsData[i].deathIntimationDate =  dateFilter(new Date(scope.deceasedDetailsData[i].deathIntimationDate), scope.df);
                         delete scope.deceasedDetailsData[i].selected;
                         scope.clientDeceased.clientDeceasedData.push(scope.deceasedDetailsData[i]);
                     }
                 }
-                resourceFactory.postDeceasedDetailsResource.save(scope.clientDeceased, function (data) {
-                    scope.init();
-                    scope.insuredDocumentTagOptions = null;
-                    scope.coInsuredDocumentTagOptions = null;
-                });
+                if (scope.clientDeceased && scope.clientDeceased.clientDeceasedData && scope.clientDeceased.clientDeceasedData.length > 0 && !scope.isValidationErrorExist) {
+                    resourceFactory.postDeceasedDetailsResource.save(scope.clientDeceased, function (data) {
+                        scope.init();
+                        scope.insuredDocumentTagOptions = null;
+                        scope.coInsuredDocumentTagOptions = null;
+                    });
+                } else {
+                    scope.noClientSelected = true;
+                }
 
             }
 

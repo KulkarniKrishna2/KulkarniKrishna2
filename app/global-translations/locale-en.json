@@ -8428,6 +8428,9 @@
      "error.msg.village.submittedOnDate.after.activation.date": "Village activation date cannot be before submitted date `{{params[0].value}}`",
      "error.msg.no.group.selected" : "Kindly select the group to which clients should be transferred",
      "error.msg.no.client.selected" : "Kindly select a client to transfer",
-
+     "label.input.insurance.place.of.death" : "Place of death",
+     "label.input.insurance.cause.of.death" : "Cause of death",
+     "label.insurance.nominee.select.cause.of.death" : "Select Cause of death",
+     "label.insurance.select.deceased.person" : "Select Deceased person and fill all details",
      "------ end of translation file ------": "----------"
 }

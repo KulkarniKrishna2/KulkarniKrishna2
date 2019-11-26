@@ -40,28 +40,127 @@
                 </tbody>
             </table>
             <br>
-            <div class="row graybg">
-                <div class="col-md-6">
-                    <h4><strong>{{'label.heading.deceased.person' | translate}}</strong> 
-                    <span>   {{insuranceCliamDetials.insuredClientType.value}}</span></h4> 
+            <div ng-if="!showEditScreen">
+                <div class="row graybg">
+                    <div class="col-md-6">
+                        <h4><strong>{{'label.heading.deceased.person' | translate}}</strong>
+                            <span> {{insuranceCliamDetials.insuredClientType.value}}</span></h4>
+                    </div>
+                    <div class="col-md-4">
+                        <h4><strong>{{'label.heading.death.date' | translate}}</strong>
+                            <span class="paddingleft2px"> {{insuranceCliamDetials.deathDate | DateFormat}}</span></h4>
+                    </div>
+                    <div class="col-md-2" ng-if="isEditAllowed">
+                        <a role="button" has-permission="UPDATE_DECEASED_DETAILS" ng-click="editDeceasedDetails()"
+                            class="btn btn-primary pull-right">
+                            <i class="icon-edit icon-white"></i>
+                        </a>
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <h4><strong>{{'label.heading.death.date' | translate}}</strong>
-                    <span class="paddingleft2px">  {{insuranceCliamDetials.deathDate | DateFormat}}</span></h4>  
+                <br>
+                <div class="row graybg ">
+                    <div class="col-sm-6">
+                        <h4><strong>{{'label.heading.death.intimation.date' | translate}}</strong>
+                            <span> {{insuranceCliamDetials.intimationDate | DateFormat}}</span></h4>
+                    </div>
+                    <div class="col-sm-6">
+                        <h4><strong>{{'label.input.insurance.contact.number' | translate}}</strong>
+                            <span>: {{insuranceCliamDetials.contactNumber}}</span></h4>
+                    </div>
+                </div>
+                <br>
+                <div class="row graybg ">
+                    <div class="col-sm-6">
+                        <h4><strong>{{'label.input.insurance.cause.of.death' | translate}}</strong>
+                            <span>: {{insuranceCliamDetials.causeOfDeath.name}}</span></h4>
+                    </div>
+                    <div class="col-sm-6">
+                        <h4><strong>{{'label.input.insurance.place.of.death' | translate}}</strong>
+                            <span>: {{insuranceCliamDetials.placeOfDeath}}</span></h4>
+                    </div>
                 </div>
             </div>
-            <br>
-            <div class="row graybg ">
-                <div class="col-sm-6">
-                    <h4><strong>{{'label.heading.death.intimation.date' | translate}}</strong>
-                    <span>  {{insuranceCliamDetials.intimationDate | DateFormat}}</span></h4> 
-                </div>
-                <div class="col-sm-6">
-                    <h4><strong>{{'label.input.insurance.contact.number' | translate}}</strong>
-                    <span>:  {{insuranceCliamDetials.contactNumber}}</span></h4> 
-                </div>
+            <div ng-if="showEditScreen">
+                <form name="editDeceasedDetail" novalidate="" rc-submit="submitClientDeceased()" class="form-horizontal" autocomplete="off">
+                    <fieldset>
+                        <div class="row graybg form-group">
+                            <div class="col-md-6">
+                                <h4><strong>{{'label.heading.deceased.person' | translate}}</strong></h4>
+                                    <input name="clientType" ng-model="clientDeceased.clientType" type="text" autocomplete="off"
+                                    class="form-control" disabled=true  required/>
+                                <div class="col-sm-6">
+                                    <form-validate valattributeform="editDeceasedDetail" valattribute="clientType" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <h4><strong>{{'label.heading.death.date' | translate}}</strong></h4>
+                                <input id="deathDate" type="text" autocomplete="off" name="deathDate" datepicker-pop="{{df}}"
+                                    ng-model="clientDeceased.deathDate" is-open="opened1" max="'2020-06-22'" class="form-control" required />
+            
+                                <div class="col-sm-6">
+                                    <form-validate valattributeform="editDeceasedDetail" valattribute="deathDate" />
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row graybg form-group">
+                            <div class="col-sm-6">
+                                <h4><strong>{{'label.heading.death.intimation.date' | translate}}</strong></h4>
+                                <input id="deathIntimationDate" type="text" autocomplete="off" name="deathIntimationDate" datepicker-pop="{{df}}"
+                                    ng-model="clientDeceased.deathIntimationDate" is-open="opened1" max="'2020-06-22'"
+                                    class="form-control" disabled=true  required/>
+            
+                                <div class="col-sm-6">
+                                    <form-validate valattributeform="editDeceasedDetail" valattribute="deathIntimationDate" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <h4><strong>{{'label.input.insurance.contact.number' | translate}}</strong></h4>
+                                    <input name="contactNumber" ng-model="clientDeceased.contactNumber" type="text" autocomplete="off"
+                                    class="form-control" ng-pattern="{{regexFormats.mobileNumberPattern}}" 
+                                    ng-required="isElemMandatory('contactNumber')" ng-minlength="10" maxlength="10"required/>
+                                <div class="col-sm-6">
+                                    <form-validate valattributeform="editDeceasedDetail" valattribute="contactNumber" />
+                                
+                                    <span ng-show="clientDeceased.contactNumber.$invalid && clientDeceased.contactNumber.$dirty">
+                                        <small class="required" ng-show="clientDeceased.contactNumber.$error.pattern">
+                                            {{'label.mustbenumeric.and.valid' | translate}}
+                                        </small>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row graybg form-group">
+                            <div class="col-sm-6">
+                                <h4><strong>{{'label.input.insurance.cause.of.death' | translate}}</strong></h4>
+                                <select id="causeOfDeathId" name="causeOfDeathId" ng-model="clientDeceased.causeOfDeathId"
+                                    ng-options="type.id as type.name for type in causeOfDeath" class="form-control" required>
+                                    <option value="{{type.id}}">{{'label.insurance.nominee.select.cause.of.death' | translate}}
+                                    </option>
+                                </select>
+                                <div class="col-sm-6">
+                                    <form-validate valattributeform="editDeceasedDetail" valattribute="causeOfDeathId" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <h4><strong>{{'label.input.insurance.place.of.death' | translate}}</strong></h4>
+                                <input name="placeOfDeath" ng-model="clientDeceased.placeOfDeath" type="text" autocomplete="off"
+                                    class="form-control" required />
+                                <div class="col-sm-6">
+                                    <form-validate valattributeform="editDeceasedDetail" valattribute="placeOfDeath" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-offset-5 paddedleft">
+                            <a id="cancel" ng-click="cancel()"
+                                class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                            <button id="save" type="submit" class="btn btn-primary"
+                                has-permission='CREATE_BANKACCOUNTDETAIL'>{{'label.button.save' | translate}}</button>
+                        </div>
+                    </fieldset>
+                </form>
             </div>
-
         </div>
         <div class="col-md-3">
             <h3>{{'label.heading.insurance.applicant.details' | translate}}</h3>

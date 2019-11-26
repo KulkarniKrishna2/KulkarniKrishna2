@@ -10,7 +10,17 @@
             scope.deceasedId = routeParams.id;
             scope.formData = {};
             scope.formData.locale = scope.optlang.code;
-            scope.claimStatus = 'documentsupload';
+            scope.claimStatus = 'documentsupload';            
+            scope.showIfsc = false;
+            scope.showAccNo = false;
+            scope.isEditAllowed = true;
+            scope.clientDeceased = {};
+
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
+                scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber && scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber.mobileNumberPattern) {
+                scope.mobileNumberPattern = scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber.mobileNumberPattern;
+            }
+
             function fetchInsuranceData() {
                 resourceFactory.getInsuranceClaimStatusDetailsResource.getClaimIntimationApproval({ claimStatus: 'documentsupload', deceasedId : scope.deceasedId }, {},
                     function (data) {
@@ -37,8 +47,45 @@
                 scope.relationships = codeValueData;
             });
 
+            scope.toggleIfsc = function () {
+                scope.showIfsc = !scope.showIfsc; 
+            };
+
+            scope.toggleAccNo = function(){
+                scope.showAccNo = !scope.showAccNo;
+            };
+
+            scope.editDeceasedDetails = function () {
+                scope.showEditScreen = true;
+                scope.clientDeceased.deceasedId = scope.deceasedId;
+                scope.clientDeceased.clientId = scope.insuranceCliamDetials.clientId;
+                scope.clientDeceased.placeOfDeath = scope.insuranceCliamDetials.placeOfDeath;
+                scope.clientDeceased.deathDate = new Date(dateFilter(scope.insuranceCliamDetials.deathDate, scope.df));
+                scope.clientDeceased.deathIntimationDate = new Date(dateFilter(scope.insuranceCliamDetials.intimationDate, scope.df));
+                scope.clientDeceased.contactNumber = scope.insuranceCliamDetials.contactNumber;
+                scope.clientDeceased.clientType = scope.insuranceCliamDetials.insuredClientType.value;
+                scope.clientDeceased.locale = scope.formData.locale;
+                scope.clientDeceased.dateFormat = scope.df;
+                resourceFactory.codeValueByCodeNameResources.get({ codeName: "Deceased Reason" }, function (codeValueData) {
+                    scope.causeOfDeath = codeValueData;
+                    scope.clientDeceased.causeOfDeathId = scope.insuranceCliamDetials.causeOfDeath.id;
+                });
+            };
+
+            scope.submitClientDeceased = function() {
+                scope.clientDeceased.deathDate =  dateFilter(new Date(scope.clientDeceased.deathDate), scope.df);
+                scope.clientDeceased.deathIntimationDate =  dateFilter(new Date(scope.clientDeceased.deathIntimationDate), scope.df);
+                resourceFactory.updateDeceasedDetailsResource.save({ deceasedId : scope.deceasedId }, scope.clientDeceased, function (data) {
+                    fetchInsuranceData();
+                });
+            }
+
+            scope.cancel = function () {
+                scope.showEditScreen = false;
+            }
 
             function getDocumentsTeplate() {
+                scope.showEditScreen = false;
                 resourceFactory.codeValueByCodeNameResources.get({codeName: "Insurance Document Tags"}, function (codeValueData) {
                     scope.insuranceDocumentTagOptions = codeValueData;
                     getDeceasedDocuments(codeValueData);

@@ -1971,6 +1971,9 @@
                     postDeceasedDetailsResource: defineResource(apiVer + "/insurance/markasdeceased", {},  {
                          save: {method:'POST', params: {} }
                     }),
+                    updateDeceasedDetailsResource: defineResource(apiVer + "/insurance/markasdeceased/:deceasedId", {deceasedId: '@deceasedId'},  {
+                         save: {method:'PUT', params: {deceasedId: '@deceasedId'} }
+                    }),
                     getDeceasedDetailsResource: defineResource(apiVer + "/insurance/:clientId/deceaseddetails", {clientId: '@clientId'},  {
                          getDeceasedDetails: {method:'GET', params: {clientId: '@clientId'} }
                     }),
