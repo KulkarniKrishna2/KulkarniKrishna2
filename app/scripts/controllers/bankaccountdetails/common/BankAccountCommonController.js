@@ -553,6 +553,9 @@
                         param.entityType = 'clients';
                         param.bankAssociationId = routeParams.clientBankAccountDetailAssociationId ;
                         param.entityId = routeParams.entityId;
+                        if(param.bankAssociationId==undefined){
+                            param.bankAssociationId = -1;
+                        }
                         scope.getBankAccountAuditLogs(param);
                     }
                     
