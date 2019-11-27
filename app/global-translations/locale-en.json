@@ -8431,6 +8431,10 @@
      "label.input.insurance.place.of.death" : "Place of death",
      "label.input.insurance.cause.of.death" : "Cause of death",
      "label.insurance.nominee.select.cause.of.death" : "Select Cause of death",
-     "label.insurance.select.deceased.person" : "Select Deceased person and fill all details",
-     "------ end of translation file ------": "----------"
+     "label.insurance.select.deceased.person" : "Select Deceased person and fill all details","label.insurance.claim.number" : "Claim No",
+     "validation.msg.Insurance Policy.policyNo.exceeds.max.length" :" Policy number exceeds max length",
+     "validation.msg.Insurance Policy.coiNo.exceeds.max.length" : "CoiNo number exceeds max length",
+     "validation.msg.Insurance Policy.policyNo.cannot.be.blank" : "Policy number can not be blank",
+     "validation.msg.Insurance Policy.coiNo.cannot.be.blank" : "CoiNo number can not be blank",
+    "------ end of translation file ------": "----------"
 }

@@ -38,6 +38,9 @@
                               <span>{{'label.heading.insurance.settelement.amount.received' | translate}}</span>
                           </th>
                           <th colspan="2">
+                              <span>{{'label.insurance.claim.number' | translate}}</span>
+                          </th>
+                          <th colspan="2">
                               <span>{{'label.heading.insurance.settelement.cheque.utr.number' | translate}}</span>
                           </th>
                           <th colspan="2">
@@ -54,6 +57,7 @@
                             <td colspan="2">{{settlementDetail.settlementDate | DateFormat}}
                             </td>
                             <td colspan="2">{{settlementDetail.settlementAmount}}</td>
+                            <td colspan="2">{{settlementDetail.claimNumber}}</td>
                             <td colspan="2">{{settlementDetail.cheque}}</td>
                             <td colspan="2">{{settlementDetail.settlementType.value}}</td>
                     </tr>
