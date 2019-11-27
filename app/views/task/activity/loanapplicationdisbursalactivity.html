@@ -537,7 +537,7 @@
                                                 ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentsStartingFromDate == true">
                                                 <input id="repaymentsStartingFromDate" name="repaymentsStartingFromDate"
                                                        type="text" autocomplete="off" datepicker-pop="{{df}}"
-                                                       ng-model="date.repaymentsStartingFromDate" is-open="opened3"
+                                                       ng-model="formRequestData.disburse.repaymentsStartingFromDate" is-open="opened3"
                                                        min="minDate" max="'2020-06-22'" class="form-control"
                                                        ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.repaymentsStartingFromDate" ng-readonly="isDatePickerReadOnly"/>
                                             </td>

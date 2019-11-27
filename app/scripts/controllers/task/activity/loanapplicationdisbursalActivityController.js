@@ -253,7 +253,8 @@
                     scope.fetchBankAccountDetails();
                     if(scope.formData.approvedData.amountForUpfrontCollection){
                         scope.formRequestData.submitApplication.amountForUpfrontCollection = scope.formData.approvedData.amountForUpfrontCollection;
-                    }                  
+                    }
+                    scope.validateFRD();                  
 
                 });
             };
@@ -759,6 +760,28 @@
                         }
                     
                         }
+            }
+            scope.$watch('formRequestData.disburse.actualDisbursementDate', function () {
+                scope.validateFRD();
+            });
+            scope.validateFRD = function(){
+                if(scope.loanaccountinfo && scope.loanaccountinfo.calendarOptions && scope.loanaccountinfo.product){
+                    var minimumDayBtwFRDAndDisburseDate = scope.loanaccountinfo.product.minimumDaysBetweenDisbursalAndFirstRepayment;
+                    if(!_.isUndefined(scope.formRequestData.disburse.actualDisbursementDate)){
+                        var expectedDisbursementDate = new Date(dateFilter(scope.formRequestData.disburse.actualDisbursementDate,scope.df));
+                        var expectedFirstRepaymentOnDate = expectedDisbursementDate;
+                        if(!_.isUndefined(minimumDayBtwFRDAndDisburseDate)){
+                            expectedFirstRepaymentOnDate = new Date(dateFilter(expectedDisbursementDate.setDate(expectedDisbursementDate.getDate() + minimumDayBtwFRDAndDisburseDate),scope.df));
+                        }
+                        for(var i in scope.loanaccountinfo.calendarOptions[0].nextTenRecurringDates){
+                            var nextMeeting = new Date(dateFilter(scope.loanaccountinfo.calendarOptions[0].nextTenRecurringDates[i],scope.df));
+                            if(expectedFirstRepaymentOnDate <= nextMeeting){
+                                scope.formRequestData.disburse.repaymentsStartingFromDate = dateFilter(nextMeeting,scope.df);
+                                break;
+                            }
+                        }
+                    }
+                }
             }
 
         }
