@@ -164,7 +164,7 @@
                min="'2000-01-01'" ng-readonly="isDatePickerReadOnly" />
     </div>
 </div>
-<div class="form-group" ng-if="showApprovalAmount && !isLoanEmiPackEnabled">
+<div class="form-group" ng-if="showApprovalAmount && !loanEMIPacks">
     <label class="control-label col-sm-2">{{ 'label.heading.approvedamount' |
         translate}}</label>
 
@@ -225,13 +225,13 @@
 </div>
 
 
-<div class="form-group" ng-if="isLoanEmiPackEnabled && (action =='approve' || action =='disburse')">
+<div class="form-group" ng-if="isLoanEmiPackEnabled && loanEMIPacks && (action =='approve' || action =='disburse')">
     <label class="control-label col-sm-2">{{ 'label.heading.chooseloanemipack' | translate }}</label>
     <div class="col-sm-3">
         <input ng-autofocus="true" ng-model="filterText" type="text" autocomplete="off" ng-keyup="onFilter()" class="form-control"  placeholder="{{'label.input.filterbytext' | translate}}"/>
     </div>
 </div>
-<div class="form-group" ng-if="isLoanEmiPackEnabled && (action =='approve' || action =='disburse')">    
+<div class="form-group" ng-if="isLoanEmiPackEnabled && loanEMIPacks && (action =='approve' || action =='disburse')">    
     <div class="col-sm-offset-2">
         <table class="table well col-sm-9">
                             <thead>
@@ -283,7 +283,7 @@
 </div>
 
     <div ng-hide="disbursementDetails">
-    <div class="form-group" ng-if="showAmountField  && !(isLoanEmiPackEnabled  && (action =='approve' || action =='disburse'))">
+    <div class="form-group" ng-if="showAmountField  && !(isLoanEmiPackEnabled  && loanEMIPacks && (action =='approve' || action =='disburse'))">
         <label class="control-label col-sm-2" for="transactionAmount">{{ 'label.input.transactionamount' |
             translate}}<span class="required">*</span></label>
 
@@ -535,7 +535,7 @@
 
 
 
-    <div class="form-group" ng-if="showEMIAmountField  && !(isLoanEmiPackEnabled  && (action =='approve' || action =='disburse'))">
+    <div class="form-group" ng-if="showEMIAmountField  && !(isLoanEmiPackEnabled  && loanEMIPacks && (action =='approve' || action =='disburse'))">
         <label class="control-label col-sm-2" for="fixedEmiAmount">{{ 'label.input.fixedemiamount' | translate}}</label>
         <div class="col-sm-3" ng-show = "showEmiAmount">
             <input type="text" autocomplete="off" class="form-control" name="emiAmount"
