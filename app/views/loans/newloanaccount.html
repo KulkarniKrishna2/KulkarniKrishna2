@@ -127,8 +127,8 @@
                     <label>{{ 'label.input.syncdisbursementdatewithmeeting' | translate }}</label></td>
             </tr>
         </table>
-        <hr ng-show="!isLoanEmiPackEnabled"/>
-        <div  ng-show="loanaccountinfo && showPreferredPaymentChannel && !isLoanEmiPackEnabled"  class="width100">
+        <hr ng-show="!loanaccountinfo.loanEMIPacks"/>
+        <div  ng-show="loanaccountinfo && showPreferredPaymentChannel && !loanaccountinfo.loanEMIPacks"  class="width100">
             <div>
                 <label ng-show="loanaccountinfo"><strong>{{ 'label.heading.preferredpaymentchannel' | translate }}</strong></label>
             </div>
@@ -194,12 +194,12 @@
             
         </div>
         <div ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.linkAccountId == true">
-            <hr ng-show="loanaccountinfo && !isLoanEmiPackEnabled"/>
+            <hr ng-show="loanaccountinfo && !loanaccountinfo.loanEMIPacks"/>
         </div>
         <div ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.linkAccountId == true">
-        <label ng-if="loanaccountinfo && !isLoanEmiPackEnabled"><strong>{{ 'label.heading.savingsLinkage' | translate }}</strong></label>
+        <label ng-if="loanaccountinfo && !loanaccountinfo.loanEMIPacks"><strong>{{ 'label.heading.savingsLinkage' | translate }}</strong></label>
         </div>
-        <table ng-if="loanaccountinfo && !isLoanEmiPackEnabled" class="width100">
+        <table ng-if="loanaccountinfo && !loanaccountinfo.loanEMIPacks" class="width100">
             <tr>
                 <td class="width19" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.linkAccountId == true">
                     <label>{{ 'label.input.linksavings' | translate }}:</label>
@@ -312,9 +312,9 @@
            </table>            
         </div> 
         
-        <label ng-if="loanaccountinfo && !isLoanEmiPackEnabled" ><strong>{{ 'label.heading.terms' | translate }}</strong></label>
+        <label ng-if="loanaccountinfo && !loanaccountinfo.loanEMIPacks" ><strong>{{ 'label.heading.terms' | translate }}</strong></label>
 
-        <table ng-if="loanaccountinfo && !isLoanEmiPackEnabled" ng-hide="previewRepayment" class="width100">
+        <table ng-if="loanaccountinfo && !loanaccountinfo.loanEMIPacks" ng-hide="previewRepayment" class="width100">
             <tr>
                 <td class="width19"><label>{{ 'label.input.principal' | translate }}&nbsp;<span
                         class="required">*</span>:</label></td>
