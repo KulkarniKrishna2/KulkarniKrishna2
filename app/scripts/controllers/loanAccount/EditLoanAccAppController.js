@@ -21,6 +21,7 @@
             scope.extenalIdReadOnlyType = false;
             scope.loanAccountDpDetailData = {};
             scope.onDayTypeOptions = commonUtilService.onDayTypeOptions();
+            scope.showLoanTerms = true;
             
             if (scope.response && scope.response.uiDisplayConfigurations) {
                 scope.isProductNameReadOnly = scope.response.uiDisplayConfigurations.editJlgLoan.isReadOnlyField.productName;
@@ -315,6 +316,7 @@
             
             resourceFactory.loanResource.get({loanId: routeParams.id, template: true, associations: 'charges,collateral,meeting,multiDisburseDetails,loanTopupDetails',staffInSelectedOfficeOnly:true, fetchRDAccountOnly: scope.fetchRDAccountOnly}, function (data) {
                 scope.loanaccountinfo = data;
+                scope.showLoanTerms =!(scope.loanaccountinfo.loanEMIPacks && scope.isLoanEmiPackEnabled)?true:false;
                 if(data.loanEMIPackData){
                     scope.formData.loanEMIPackId = data.loanEMIPackData.id;
                 }
@@ -545,6 +547,7 @@
                 inparams.staffInSelectedOfficeOnly = true;
                 resourceFactory.loanResource.get(inparams, function (data) {
                     scope.loanaccountinfo = data;
+                    scope.showLoanTerms =!(scope.loanaccountinfo.loanEMIPacks && scope.isLoanEmiPackEnabled)?true:false;
                     scope.collaterals = [];
                     var refreshLoanCharges  = true;
                     scope.canDisburseToGroupBankAccounts = data.product.allowDisbursementToGroupBankAccounts;
