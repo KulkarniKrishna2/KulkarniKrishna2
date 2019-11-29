@@ -60,8 +60,7 @@
 			}
     },
     "regexFormats": {
-			"lastName": "\/^[a-zA-Z\\s_@]*$\/",
-			"middleName":"\/^[a-zA-Z\\s_@]*$\/"
+      "namePattern" : "/^[a-zA-Z\\s][a-zA-Z\\s_/@]*$/"
 		}
   }
 }
