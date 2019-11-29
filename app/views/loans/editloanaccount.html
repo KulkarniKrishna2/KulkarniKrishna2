@@ -126,8 +126,8 @@
             </tr>
         </table>
 
-        <hr ng-show="!loanaccountinfo.loanEMIPacks"/>
-        <div  ng-show="loanaccountinfo && showPreferredPaymentChannel && !loanaccountinfo.loanEMIPacks"  class="width100">
+        <hr ng-show="showLoanTerms"/>
+        <div  ng-show="loanaccountinfo && showPreferredPaymentChannel && showLoanTerms"  class="width100">
             <div>
                 <label ng-show="loanaccountinfo"><strong>{{ 'label.heading.preferredpaymentchannel' | translate }}</strong></label>
             </div>
@@ -183,12 +183,12 @@
             </table>
         </div>
         <div ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.linkAccountId == true">
-            <hr ng-show="!loanaccountinfo.loanEMIPacks"/>
+            <hr ng-show="showLoanTerms"/>
         </div>
-        <div ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.linkAccountId == true && response.uiDisplayConfigurations.loanAccount.isHiddenField.createStandingInstruction == true && loanaccountinfo.loanEMIPacks">
-        <label ng-show="loanaccountinfo && !loanaccountinfo.loanEMIPacks"><strong>{{ 'label.heading.savingsLinkage' | translate }}</strong></label>
+        <div ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.linkAccountId == true && response.uiDisplayConfigurations.loanAccount.isHiddenField.createStandingInstruction == true && !showLoanTerms">
+        <label ng-show="loanaccountinfo && showLoanTerms"><strong>{{ 'label.heading.savingsLinkage' | translate }}</strong></label>
         </div>
-        <table ng-show="loanaccountinfo && !loanaccountinfo.loanEMIPacks" ng-hide="previewRepayment" class="width100">
+        <table ng-show="loanaccountinfo && showLoanTerms" ng-hide="previewRepayment" class="width100">
             <tr>
                 <td class="width19" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.linkAccountId == true">
                     <label>{{ 'label.input.linksavings' | translate }}:</label>
@@ -298,8 +298,8 @@
                     </div>
                 </td>
         </tr>
-        <label  ng-if="!loanaccountinfo.loanEMIPacks" ><strong>{{ 'label.heading.terms' | translate }}</strong></label>
-        <table class="width100" ng-if="!loanaccountinfo.loanEMIPacks">
+        <label  ng-if="showLoanTerms" ><strong>{{ 'label.heading.terms' | translate }}</strong></label>
+        <table class="width100" ng-if="showLoanTerms">
             <tr>
                 <td class="width19"><label>{{ 'label.input.principal' | translate }}&nbsp;<span
                         class="required">*</span>:</label></td>
@@ -933,8 +933,8 @@
                 </tr>
             </table>
         </div><br><br>
-        <hr ng-show="pledges.length>0 && !loanaccountinfo.loanEMIPacks"/>
-        <div class="col-md-12" ng-show="pledges.length>0 && !loanaccountinfo.loanEMIPacks">
+        <hr ng-show="pledges.length>0 && showLoanTerms"/>
+        <div class="col-md-12" ng-show="pledges.length>0 && showLoanTerms">
             <label><strong>{{ 'label.view.collaterals' | translate }}</strong></label>
             <br>
             <div class="">
