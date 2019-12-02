@@ -76,7 +76,7 @@
                         </td>
                         <td>
                             <input id="effectiveDate" name="effectiveDate" type="text" autocomplete="off"
-                                name="effectiveDate" datepicker-pop="{{df}}"
+                                name="effectiveDate" datepicker-pop="{{df}}" disabled = true
                                 ng-model="insurancePolicyDetail.effectiveDate" max="restrictDate" class="form-control"
                                 readonly />
                             <div>
@@ -86,7 +86,7 @@
                         <td>
                             <input id="expiryDate" type="text" autocomplete="off" name="expiryDate"
                                 datepicker-pop="{{df}}" ng-model="insurancePolicyDetail.expiryDate" max="restrictDate"
-                                class="form-control" readonly />
+                                class="form-control" readonly  disabled = true/>
                             <div>
                                 <form-validate valattributeform="insurancepolicyform" valattribute="effectiveDate" />
                             </div>

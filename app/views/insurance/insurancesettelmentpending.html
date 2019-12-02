@@ -43,6 +43,9 @@
                                 <span>{{'label.heading.insurance.settelement.amount.received' | translate}}</span>
                             </th>
                             <th colspan="2">
+                                <span>{{'label.insurance.claim.number' | translate}}</span>
+                            </th>
+                            <th colspan="2">
                                 <span>{{'label.heading.insurance.settelement.cheque.utr.number' | translate}}</span>
                             </th>
                             <th colspan="2">
@@ -66,13 +69,15 @@
                                     datepicker-pop="{{df}}" ng-model="organisationPolicySettlement.setteledDate"
                                     is-open="opened1" max="'2020-06-22'" class="form-control" />
                             </td>
-                            <td colspan="2" ng-if="organisationPolicySettlement.loanId != undefined"><input
-                                    id="amountRecieved" type="text" autocomplete="off" name="amountRecieved"
-                                    ng-model="organisationPolicySettlement.amountRecieved" class="form-control"
-                                    number-format /></td>
-                            <td colspan="2" ng-if="organisationPolicySettlement.loanId != undefined"><input id="cheque"
-                                    type="text" autocomplete="off" name="cheque"
-                                    ng-model="organisationPolicySettlement.chequeNumber" class="form-control" /></td>
+                            <td colspan="2" ng-if="organisationPolicySettlement.loanId != undefined"><input id="amountRecieved" type="text"
+                                    autocomplete="off" name="amountRecieved" ng-model="organisationPolicySettlement.amountRecieved"
+                                    class="form-control" number-format /></td>
+                            <td colspan="2" ng-if="organisationPolicySettlement.loanId != undefined"><input id="claimNumber" type="text"
+                                    autocomplete="off" name="claimNumber" ng-model="organisationPolicySettlement.claimNumber" class="form-control" />
+                            </td>
+                            <td colspan="2" ng-if="organisationPolicySettlement.loanId != undefined"><input id="cheque" type="text"
+                                    autocomplete="off" name="cheque" ng-model="organisationPolicySettlement.chequeNumber" class="form-control" />
+                            </td>
                             <td colspan="2" ng-if="organisationPolicySettlement.loanId != undefined"><button id="save" type="submit"
                                     ng-click="organisationSettlement(organisationPolicySettlement)" class="btn btn-primary" ng-hide="blockUI"
                                     data-toggle="tooltip" tooltip-placement="right"
@@ -111,6 +116,9 @@
                                 <span>{{'label.heading.insurance.settelement.amount.received' | translate}}</span>
                             </th>
                             <th colspan="2">
+                                <span>{{'label.insurance.claim.number' | translate}}</span>
+                            </th>
+                            <th colspan="2">
                                 <span>{{'label.heading.insurance.settelement.cheque.utr.number' | translate}}</span>
                             </th>
                             <th colspan="2">
@@ -130,13 +138,15 @@
                                     datepicker-pop="{{df}}" ng-model="nomineePolicySettlement.setteledDate"
                                     is-open="opened1" max="'2020-06-22'" class="form-control" />
                             </td>
-                            <td colspan="2" ng-if="nomineePolicySettlement.loanId != undefined"><input
-                                    id="amountRecieved" type="text" autocomplete="off" name="amountRecieved"
-                                    ng-model="nomineePolicySettlement.amountRecieved" class="form-control"
+                            <td colspan="2" ng-if="nomineePolicySettlement.loanId != undefined"><input id="amountRecieved" type="text"
+                                    autocomplete="off" name="amountRecieved" ng-model="nomineePolicySettlement.amountRecieved" class="form-control"
                                     number-format /></td>
-                            <td colspan="2" ng-if="nomineePolicySettlement.loanId != undefined"><input id="cheque"
-                                    type="text" autocomplete="off" name="cheque"
-                                    ng-model="nomineePolicySettlement.chequeNumber" class="form-control" /></td>
+                            <td colspan="2" ng-if="nomineePolicySettlement.loanId != undefined"><input id="claimNumber" type="text"
+                                    autocomplete="off" name="claimNumber" ng-model="nomineePolicySettlement.claimNumber"
+                                    class="form-control" />
+                            </td>
+                            <td colspan="2" ng-if="nomineePolicySettlement.loanId != undefined"><input id="cheque" type="text" autocomplete="off"
+                                    name="cheque" ng-model="nomineePolicySettlement.chequeNumber" class="form-control" /></td>
                             <td colspan="2"><button id="save" type="submit"
                                     ng-click="nomineeSettlement(nomineePolicySettlement)" class="btn btn-primary"
                                     ng-hide="blockUI">{{'label.heading.insurance.status.settle' | translate}}</button>
@@ -173,6 +183,9 @@
                             <span>{{'label.heading.insurance.settelement.amount.received' | translate}}</span>
                         </th>
                         <th colspan="2">
+                            <span>{{'label.insurance.claim.number' | translate}}</span>
+                        </th>
+                        <th colspan="2">
                             <span>{{'label.heading.insurance.settelement.cheque.utr.number' | translate}}</span>
                         </th>
                         <th colspan="2">
@@ -191,6 +204,7 @@
                         <td colspan="2">{{settlementDetail.settlementDate | DateFormat}}
                         </td>
                         <td colspan="2">{{settlementDetail.settlementAmount}}</td>
+                        <td colspan="2">{{settlementDetail.claimNumber}}</td>
                         <td colspan="2">{{settlementDetail.cheque}}</td>
                         <td colspan="2">{{settlementDetail.settlementType.value}}</td>
                     </tr>

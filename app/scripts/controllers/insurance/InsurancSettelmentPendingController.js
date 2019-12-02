@@ -92,10 +92,15 @@
                             scope.organisationFormData.deceasedId = scope.deceasedId;
                             scope.organisationFormData.loanId = data.loanId;
                             scope.organisationFormData.policyId = data.policyId;
-                            scope.organisationFormData.settlementType = 1;
                             scope.organisationFormData.settlementDate = dateFilter(new Date(data.setteledDate), scope.df);
-                            scope.organisationFormData.settlementAmount = data.amountRecieved;
                             scope.organisationFormData.chequeNumber = data.chequeNumber;
+                            scope.organisationFormData.claimNumber = data.claimNumber;
+
+                            scope.organisationFormData.settlementDetails = [];
+                            scope.organisationSettlementData = {};
+                            scope.organisationSettlementData.settlementType = 1;
+                            scope.organisationSettlementData.settlementAmount = data.amountRecieved;
+                            scope.organisationFormData.settlementDetails.push( scope.organisationSettlementData);
 
                             resourceFactory.insuranceClaimStatusDetailsResource.submitOrganisationSettlement({ claimStatus: 'settlementpending', command: 'submit' }, scope.organisationFormData,
                                 function (data) {
@@ -115,11 +120,15 @@
                             scope.nomineeFormData.deceasedId = scope.deceasedId;
                             scope.nomineeFormData.loanId = data.loanId;
                             scope.nomineeFormData.policyId = data.policyId;
-                            scope.nomineeFormData.settlementType = 2;
                             scope.nomineeFormData.settlementDate = dateFilter(new Date(data.setteledDate), scope.df);
-                            scope.nomineeFormData.settlementAmount = data.amountRecieved;
                             scope.nomineeFormData.chequeNumber = data.chequeNumber;
+                            scope.nomineeFormData.claimNumber = data.claimNumber;
 
+                            scope.nomineeFormData.settlementDetails = [];
+                            scope.nomineeSettlementData = {};
+                            scope.nomineeSettlementData.settlementType = 2;
+                            scope.nomineeSettlementData.settlementAmount = data.amountRecieved;
+                            scope.nomineeFormData.settlementDetails.push( scope.nomineeSettlementData);
 
                             resourceFactory.insuranceClaimStatusDetailsResource.submitNomineeSettlement({ claimStatus: 'settlementpending', command: 'submit' }, scope.nomineeFormData,
                                 function (data) {
@@ -143,6 +152,7 @@
                             scope.organisationFormData.settlementDate = dateFilter(new Date(data.setteledDate), scope.df);
                             scope.organisationFormData.settlementAmount = data.amountRecieved;
                             scope.organisationFormData.chequeNumber = data.chequeNumber;
+                            scope.nomineeFormData.claimNumber = data.claimNumber;
 
                             resourceFactory.insuranceClaimStatusDetailsResource.approveClaimIntimationApproval({ claimStatus: 'settlementpending', command: 'reject' }, scope.organisationFormData,
                                 function (data) {
