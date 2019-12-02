@@ -1620,7 +1620,13 @@
             .when('/fileprocess', {
                 templateUrl: 'views/fileprocess/fileprocess.html'
             })
+            .when('/viewfileprocess/:fileProcessIdentifier', {
+                templateUrl: 'views/fileprocess/viewfileprocess.html'
+            })
             .when('/uploadfileprocess', {
+                templateUrl: 'views/fileprocess/uploadfileprocess.html'
+            })
+            .when('/uploadfileprocess/:fileProcessIdentifier', {
                 templateUrl: 'views/fileprocess/uploadfileprocess.html'
             })
             .when('/run_overdue_charges',{

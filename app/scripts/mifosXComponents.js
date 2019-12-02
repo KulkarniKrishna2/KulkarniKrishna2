@@ -546,6 +546,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'task/showcase/OfficeOnboardingWorkflowController',
             'task/showcase/DistrictOnboardingWorkflowController',
             'districts/DistrictController',
+            'fileprocess/ViewFileProcessController',
             'fileprocess/FileProcessController',
             'fileprocess/UploadFileProcessController',
             'task/config/ViewWorkflowEntityMappingController',

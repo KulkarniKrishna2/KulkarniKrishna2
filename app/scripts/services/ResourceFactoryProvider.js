@@ -1399,7 +1399,10 @@
                         getAllFiles: {method: 'GET', params: {limit:1000, orderBy: 'createdDate', sortOrder: 'DESC'}}
                     }),
                     fileProcessTemplateResource:defineResource(apiVer+"/fileprocess/template",{},{
-
+                    }),
+                    fileProcessTypeTemplateResource:defineResource(apiVer+"/fileprocess/template",{},{
+                        get: {method: 'GET', params: {},isArray:true},
+                        
                     }),
                     overdueChargeResource: defineResource(apiVer + "/loans/overduecharges/:loanIdParam", {loanId: '@loanId'}, {
                         get: {method: 'GET', params: {}},
