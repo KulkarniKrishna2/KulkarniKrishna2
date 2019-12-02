@@ -2203,6 +2203,10 @@
     "label.tooltip.floatingisdifferential": "If checked, Interest rate mentioned is added to base lending rate as of the from date of this period, absolute otherwise",
     "label.tooltip.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType": "Setting minimum duration(either one loan repayment period or number of days) between disbursal date and first repayment date",
 
+    "label.tooltip.download.template": "Dowload template",
+    "label.tooltip.view.processed.file": "View processed file",
+    "label.tooltip.upload.file.for.bulk.process": "Upload file for bulk process",
+
 
     "#Enumeration & Error Messages": "..",
     "loanTransactionType.disbursement": "Disbursement",
@@ -6758,6 +6762,7 @@
     "label.heading.upload.fileprocess.document": "Upload File Process Document",
     "label.input.fileprocesstype": "File Process Type",
     "label.input.file.source.type": "File Source Type",
+    "label.anchor.view.fileprocess": "Processed Files",
 
     "validation.msg.savingsaccount.undotransaction.results.in.balance.exceeding.overdraft.limit": "Undoing transaction results in balnce exceeding overdraft limit.",
     "validation.msg.savingsaccountPAY_CHARGE.results.in.balance.exceeding.overdraft.limit": "Paying charge transaction failed due to balance exceeding overdraft limit.",

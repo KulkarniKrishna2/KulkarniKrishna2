@@ -12,10 +12,10 @@
                 <label class="control-label col-sm-2">{{ 'label.input.fileprocesstype' | translate }}<span class="required">*</span></label>
                 <div class="col-sm-3">
                     <select id="fileProcessType" name="fileProcessType" ng-model="formData.fileProcessType" class="form-control"
-                            ng-options="fileProcessTypeOption.systemCode as fileProcessTypeOption.value for fileProcessTypeOption in fileProcessTypeOptions"
-                            value="{{fileProcessTypeOption.systemCode}}" 
+                            ng-options="fileProcessTypeOption.fileProcessIdentifier as fileProcessTypeOption.fileProcessDisplayName for fileProcessTypeOption in fileProcessTypeOptions"
+                            value="{{fileProcessTypeOption.fileProcessIdentifier}}" 
                             ng-change="onFileProcessTypeChange(formData.fileProcessType)"
-                            required late-validate>
+                            required late-validate disabled= true>
                         <option value="">{{'label.menu.selectone'| translate }}</option>
                     </select>
                 </div>
@@ -23,11 +23,11 @@
                     <form-validate valattributeform="fileProcess" valattribute="fileProcessType"/>
                 </div>
             </div>
-            <div ng-if="isSourceTypeReq" class="form-group">
+            <div ng-if="formData.fileProcessType == 'sanctionedButNotDisbursed' || formData.fileProcessType == 'bulkCBApproval' || formData.fileProcessType == 'bookedButNotDisbursed'" class="form-group">
                 <label class="control-label col-sm-2">{{ 'label.input.file.source.type' | translate }}<span class="required">*</span></label>
                 <div class="col-sm-3">
                     <select id="sourceType" name="sourceType" ng-model="formData.sourceType" class="form-control"
-                            ng-options="sourceTypeOption.systemCode as sourceTypeOption.value for sourceTypeOption in sourceTypeOptions"
+                            ng-options="sourceTypeOption.systemCode as sourceTypeOption.value for sourceTypeOption in sourceType"
                             value="{{sourceTypeOption.systemCode}}" required late-validate >
                         <option value="">{{'label.menu.selectone'| translate }}</option>
                     </select>

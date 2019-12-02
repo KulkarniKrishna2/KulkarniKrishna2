@@ -3,42 +3,126 @@
         <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
         <li class="active">{{'label.anchor.fileprocess' | translate}}</li>
     </ul>
-    <api-validate></api-validate>
-    <a href="#/uploadfileprocess" class="btn btn-primary pull-right"><i class="icon-plus icon-white"></i>{{'label.button.upload' | translate}}</a>
-    <div class="clearfix"></div>
-    <div class="col-md-4">
-        <input ng-autofocus="true" ng-model="filterText" type="text" autocomplete="off" class="span form-control" placeholder="{{'label.input.filterbyfilenameorstatus' | translate}}">
+    <div class="paddedtop panel-group">
+        <div class="list-group panel panel-info" ng-show="loans.length>0">
+            <div class="list-group-item-heading accordion  panel-heading">
+                <h3>Loans</h3>
+            </div>
+            <div class="col-md-12 paddedleft paddedtop panel-body">
+                <div class="col-md-3 list-group paddedleft paddedtop" ng-repeat="fileTemplate in loans ">
+                    <h4 class="list-group-item-heading paddedtop"
+                        tooltip="{{ fileTemplate.fileProcessDescription | translate}}">
+                        <i></i>&nbsp;&nbsp;<b>{{fileTemplate.fileProcessDisplayName}}</b></h4>
+                    <div class="paddedtop paddedbottom10">&nbsp;&nbsp;&nbsp;
+                        <a><i class="icon-file icon-dark" style="font-size:15px" tooltip-placement="right"
+                                tooltip="{{ 'label.tooltip.download.template' | translate}}"
+                                ng-click="downloadFileTemplate(fileTemplate)"></i></a>&nbsp;
+                        <a><i class="paddedleft icon-eye-open icon-dark" style="font-size:15px"
+                                tooltip-placement="right" tooltip="{{ 'label.tooltip.view.processed.file' | translate}}"
+                                ng-click="viewProcessedFiles(fileTemplate)"></i></a>&nbsp;
+                        <a><i class="paddedleft icon-upload-alt icon-dark" style="font-size:15px"
+                                tooltip-placement="right"
+                                tooltip="{{ 'label.tooltip.upload.file.for.bulk.process' | translate}}"
+                                ng-click="upload(fileTemplate)"></i></a>&nbsp;
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="list-group panel panel-info" ng-show="savings.length>0">
+            <div class="list-group-item-heading accordion panel-heading">
+                <h3>Savings</h3>
+            </div>
+            <div class="col-md-12 paddedleft paddedtop panel-body" style="display:none">
+                <div class="col-md-3 list-group paddedleft paddedtop" ng-repeat="fileTemplate in savings">
+                    <h4 class="list-group-item-heading paddedtop"
+                        tooltip="{{ fileTemplate.fileProcessDescription | translate}}">
+                        <i></i>&nbsp;&nbsp;<b>{{fileTemplate.fileProcessDisplayName}}</b></h4>
+                    <div class="paddedtop paddedbottom10">&nbsp;&nbsp;&nbsp;
+                        <a><i class="icon-file icon-dark" style="font-size:15px" tooltip-placement="right"
+                                tooltip="{{ 'label.tooltip.download.template' | translate}}"
+                                ng-click="downloadFileTemplate(fileTemplate)"></i></a>&nbsp;
+                        <a><i class="paddedleft icon-eye-open icon-dark" style="font-size:15px"
+                                tooltip-placement="right" tooltip="{{ 'label.tooltip.view.processed.file' | translate}}"
+                                ng-click="viewProcessedFiles(fileTemplate)"></i></a>&nbsp;
+                        <a><i class="paddedleft icon-upload-alt icon-dark" style="font-size:15px"
+                                tooltip-placement="right"
+                                tooltip="{{ 'label.tooltip.upload.file.for.bulk.process' | translate}}"
+                                ng-click="upload(fileTemplate)"></i></a>&nbsp;
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="list-group panel panel-info" ng-show="accounting.length>0">
+            <div class="list-group-item-heading accordion panel-heading">
+                <h3>Accounting</h3>
+            </div>
+            <div class="col-md-12 paddedleft paddedtop panel-body" style="display:none">
+                <div class="col-md-3 list-group paddedleft paddedtop" ng-repeat="fileTemplate in accounting">
+                    <h4 class="list-group-item-heading paddedtop"
+                        tooltip="{{ fileTemplate.fileProcessDescription | translate}}">
+                        <i></i>&nbsp;&nbsp;<b>{{fileTemplate.fileProcessDisplayName}}</b></h4>
+                    <div class="paddedtop paddedbottom10">&nbsp;&nbsp;&nbsp;
+                        <a><i class="icon-file icon-dark" style="font-size:15px" tooltip-placement="right"
+                                tooltip="{{ 'label.tooltip.download.template' | translate}}"
+                                ng-click="downloadFileTemplate(fileTemplate)"></i></a>&nbsp;
+                        <a><i class="paddedleft icon-eye-open icon-dark" style="font-size:15px"
+                                tooltip-placement="right" tooltip="{{ 'label.tooltip.view.processed.file' | translate}}"
+                                ng-click="viewProcessedFiles(fileTemplate)"></i></a>&nbsp;
+                        <a><i class="paddedleft icon-upload-alt icon-dark" style="font-size:15px"
+                                tooltip-placement="right"
+                                tooltip="{{ 'label.tooltip.upload.file.for.bulk.process' | translate}}"
+                                ng-click="upload(fileTemplate)"></i></a>&nbsp;
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="list-group panel panel-info" ng-show="organisation.length>0">
+            <div class="list-group-item-heading accordion panel-heading">
+                <h3>Organisation</h3>
+            </div>
+            <div class="col-md-12 paddedleft paddedtop panel-body" style="display:none">
+                <div class="col-md-3 list-group paddedleft paddedtop" ng-repeat="fileTemplate in organisation">
+                    <h4 class="list-group-item-heading paddedtop"
+                        tooltip="{{ fileTemplate.fileProcessDescription | translate}}">
+                        <i></i>&nbsp;&nbsp;<b>{{fileTemplate.fileProcessDisplayName}}</b></h4>
+                    <div class="paddedtop paddedbottom10">&nbsp;&nbsp;&nbsp;
+                        <a><i class="icon-file icon-dark" style="font-size:15px" tooltip-placement="right"
+                                tooltip="{{ 'label.tooltip.download.template' | translate}}"
+                                ng-click="downloadFileTemplate(fileTemplate)"></i></a>&nbsp;
+                        <a><i class="paddedleft icon-eye-open icon-dark" style="font-size:15px"
+                                tooltip-placement="right" tooltip="{{ 'label.tooltip.view.processed.file' | translate}}"
+                                ng-click="viewProcessedFiles(fileTemplate)"></i></a>&nbsp;
+                        <a><i class="paddedleft icon-upload-alt icon-dark" style="font-size:15px"
+                                tooltip-placement="right"
+                                tooltip="{{ 'label.tooltip.upload.file.for.bulk.process' | translate}}"
+                                ng-click="upload(fileTemplate)"></i></a>&nbsp;
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="list-group  panel panel-info" ng-show="insurance.length>0">
+            <div class="list-group-item-heading accordion panel-heading">
+                <h3>Insurance</h3>
+            </div>
+            <div class="col-md-12 paddedleft paddedtop panel-body" style="display:none">
+                <div class="col-md-3 list-group paddedleft paddedtop" ng-repeat="fileTemplate in insurance">
+                    <h4 class="list-group-item-heading paddedtop"
+                        tooltip="{{ fileTemplate.fileProcessDescription | translate}}">
+                        <i></i>&nbsp;&nbsp;<b>{{fileTemplate.fileProcessDisplayName}}</b></h4>
+                    <div class="paddedtop paddedbottom10">&nbsp;&nbsp;&nbsp;
+                        <a><i class="icon-file icon-dark" style="font-size:15px" tooltip-placement="right"
+                                tooltip="{{ 'label.tooltip.download.template' | translate}}"
+                                ng-click="downloadFileTemplate(fileTemplate)"></i></a>&nbsp;
+                        <a><i class="paddedleft icon-eye-open icon-dark" style="font-size:15px"
+                                tooltip-placement="right" tooltip="{{ 'label.tooltip.view.processed.file' | translate}}"
+                                ng-click="viewProcessedFiles(fileTemplate)"></i></a>&nbsp;
+                        <a><i class="paddedleft icon-upload-alt icon-dark" style="font-size:15px"
+                                tooltip-placement="right"
+                                tooltip="{{ 'label.tooltip.upload.file.for.bulk.process' | translate}}"
+                                ng-click="upload(fileTemplate)"></i></a>&nbsp;
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <table class="table">
-        <thead>
-        <tr class="graybg">
-            <th>{{'label.heading.filename' | translate}}</th>
-            <th>{{'label.heading.status' | translate}}</th>
-            <th>{{'label.heading.pendingrecords' | translate}}</th>
-            <th>{{'label.heading.successedrecords' | translate}}</th>
-            <th>{{'label.heading.failedrecords' | translate}}</th>
-            <th>{{'label.heading.totalrecords' | translate}}</th>
-            <th>{{'label.heading.uploadedDate' | translate}}</th>
-            <th>{{'label.heading.actions' | translate}}</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        <tr class="pointer-main" dir-paginate="fileProcess in fileProcesses | filter:filterText | itemsPerPage: recordsPerPage" total-items="totalRecords">
-            <td>{{fileProcess.fileName}}</td>
-            <td>{{fileProcess.status.value}}</td>
-            <td>{{fileProcess.totalPendingRecords}}</td>
-            <td>{{fileProcess.totalSuccessRecords}}</td>
-            <td>{{fileProcess.totalFailureRecords}}</td>
-            <td>{{fileProcess.totalRecords}}</td>
-            <td>{{fileProcess.createdDate | DateFormat}}</td>
-            <td>
-                <a target="_blank" ng-click="download(fileProcess)" has-permission='DOWNLOAD_DOCUMENT'><i class="icon-cloud-download"></i></a>&nbsp;
-                <a ng-click="fetchUpdatedData(fileProcess)"><i class="icon-refresh"></i></a>
-            </td>
-        </tr>
-        </tbody>
-
-    </table>
-    <dir-pagination-controls boundary-links="true" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html" on-page-change="getResultsPage(newPageNumber)"></dir-pagination-controls>
 </div>
