@@ -274,6 +274,8 @@
                             scope.isGlimPaymentAsGroupEnabled = data.globalConfiguration[i].enabled;
                         }else if(data.globalConfiguration[i].name=='enable-cgt'){
                             scope.cgtEnabled = data.globalConfiguration[i].enabled;
+                        }else if(data.globalConfiguration[i].name=='exclude-meetingdate-for-prepone-or-postpone-date'){
+                            scope.excludeMeetingDateForPreponeOrPostponeDate = data.globalConfiguration[i].enabled;
                         } 
                         data.globalConfiguration[i].showEditvalue = true;
                         scope.configs.push(data.globalConfiguration[i])

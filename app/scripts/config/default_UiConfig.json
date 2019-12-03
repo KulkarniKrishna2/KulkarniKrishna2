@@ -559,6 +559,12 @@
 				"showOnlyStaff": true,
 				"bulkUndoTransactions":false,
 				"attachmeeting" : false
+			},
+			"editCenterMeeting": {
+				"config": {
+					"showAllMeetingDates": true,
+					"count": null
+				}
 			}
 		},
 		"createOffice": {
