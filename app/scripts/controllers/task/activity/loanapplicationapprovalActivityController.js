@@ -1181,7 +1181,9 @@
             };
 
             scope.deleteCharge = function (index) {
-                scope.charges.splice(index, 1);
+                var deleteCharge = scope.feeCharges[index];
+                var indexCharge = scope.charges.findIndex( charge => charge.id === deleteCharge.id);
+                scope.charges.splice(indexCharge,1);
                 if($filter){
                     scope.existingPenalCharges = $filter('filter')(scope.existingCharges, { penalty: true }) || [];
                     scope.existingFeeCharges = $filter('filter')(scope.existingCharges, { penalty: false }) || [];
