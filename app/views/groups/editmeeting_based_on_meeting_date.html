@@ -12,15 +12,16 @@
 
             <label class="control-label col-sm-2">{{'label.input.existingmeetingdates' | translate}}</label>
             <div class="col-sm-3">
-                <select id="presentmeetingdateId" ng-model="formData.presentMeetingDate"  class="form-control"
-                        ng-options="presentmeetingdate for presentmeetingdate in presentmeetingdates" value="{{presentmeetingdate}}">
+                <select id="presentmeetingdateId" ng-model="formData.presentMeetingDate" class="form-control" ng-change="setRangeForNewMeetingDate(formData.presentMeetingDate)">
+                    <option ng-repeat="presentmeetingdate in presentmeetingdates" value="{{presentmeetingdate}}">
+                        {{presentmeetingdate}}</option>
                 </select>
             </div>
 
             <label class="control-label col-sm-2">{{'label.input.revisedmeetingdates' | translate}}</label>
             <div class="col-sm-3">
-                <input id="newmeetingdateId" type="text" autocomplete="off" name="newmeetingdate" datepicker-pop="{{df}}"
-                       ng-model="formData.newMeetingDate" class="form-control" ng-readonly="isDatePickerReadOnly"/>
+                <input id="newmeetingdateId" type="text" autocomplete="off" name="newmeetingdate" datepicker-pop="{{df}}" is-open="true" min="mindate" max="maxdate" show-today = "showToday"
+                       ng-model="formData.newMeetingDate" class="form-control" ng-readonly="true"/>
             </div>
 
         </div>

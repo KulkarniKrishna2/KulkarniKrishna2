@@ -160,7 +160,13 @@
         		"showOnlyStaff": false,
 				"bulkUndoTransactions":true,
 				"attachmeeting" : true
-			}			
+			},	
+			"editCenterMeeting": {
+				"config": {
+					"showAllMeetingDates": false,
+					"count": 1
+				}
+			}
 		},
 		"createOffice": {
 			"selfActive": true,
