@@ -52,12 +52,12 @@
                 }
                 resourceFactory.loanApplicationReferencesResource.getChargesByLoanAppId({
                     loanApplicationReferenceId: scope.loanApplicationReferenceId,
-                    command: 'loanapplicationcharges'
+                    command: 'loanapplicationchargeswithchargetemplate'
                 }, function (loanAppChargeData) {
                     scope.loanAppChargeData = loanAppChargeData;
                     for (var i = 0; i < scope.loanAppChargeData.length; i++) {
                         if (scope.loanAppChargeData[i].chargeId) {
-                            scope.constructExistingCharges(i, scope.loanAppChargeData[i].chargeId);
+                            scope.constructExistingCharges(scope.loanAppChargeData[i].templateChargeData);
                         } else {
                             curIndex++;
                         }
@@ -75,33 +75,31 @@
                 scope.showLoanEmiPack = true;
             };
 
-            scope.constructExistingCharges = function (index, chargeId) {
-                resourceFactory.chargeResource.get({chargeId: chargeId, template: 'true'}, function (data) {
-                    data.chargeId = data.id;
-                    scope.charges.push(data);
-                    curIndex++;
-                    if (curIndex == scope.loanAppChargeData.length) {
-                        for (var i = 0; i < scope.charges.length; i++) {
-                            for (var j = 0; j < scope.loanAppChargeData.length; j++) {
-                                if (scope.charges[i].chargeId == scope.loanAppChargeData[j].chargeId) {
-                                    scope.charges[i].loanAppChargeId = scope.loanAppChargeData[j].loanAppChargeId;
-                                    scope.charges[i].loanApplicationReferenceId = scope.loanAppChargeData[j].loanApplicationReferenceId;
-                                    if(scope.loanAppChargeData[j].dueDate){
-                                        scope.charges[i].dueDate = dateFilter(new Date(scope.loanAppChargeData[j].dueDate), scope.df);
-                                    }
-                                    scope.charges[i].amount = scope.loanAppChargeData[j].amount;
-                                    scope.charges[i].isMandatory = scope.loanAppChargeData[j].isMandatory;
-                                    scope.charges[i].isAmountNonEditable = scope.loanAppChargeData[j].isAmountNonEditable;
+            scope.constructExistingCharges = function (data) {
+                data.chargeId = data.id;
+                scope.charges.push(data);
+                curIndex++;
+                if (curIndex == scope.loanAppChargeData.length) {
+                    for (var i = 0; i < scope.charges.length; i++) {
+                        for (var j = 0; j < scope.loanAppChargeData.length; j++) {
+                            if (scope.charges[i].chargeId == scope.loanAppChargeData[j].chargeId) {
+                                scope.charges[i].loanAppChargeId = scope.loanAppChargeData[j].loanAppChargeId;
+                                scope.charges[i].loanApplicationReferenceId = scope.loanAppChargeData[j].loanApplicationReferenceId;
+                                if(scope.loanAppChargeData[j].dueDate){
+                                    scope.charges[i].dueDate = dateFilter(new Date(scope.loanAppChargeData[j].dueDate), scope.df);
                                 }
+                                scope.charges[i].amount = scope.loanAppChargeData[j].amount;
+                                scope.charges[i].isMandatory = scope.loanAppChargeData[j].isMandatory;
+                                scope.charges[i].isAmountNonEditable = scope.loanAppChargeData[j].isAmountNonEditable;
                             }
                         }
-                        angular.copy(scope.charges,scope.existingCharges);
-                        scope.existingPenalCharges = $filter('filter')(scope.existingCharges, { penalty: true }) || [];
-                        scope.existingFeeCharges = $filter('filter')(scope.existingCharges, { penalty: false }) || [];
-                        scope.penalCharges = $filter('filter')(scope.charges, { penalty: true }) || [];
-                        scope.feeCharges = $filter('filter')(scope.charges, { penalty: false }) || [];
                     }
-                });
+                    angular.copy(scope.charges,scope.existingCharges);
+                    scope.existingPenalCharges = $filter('filter')(scope.existingCharges, { penalty: true }) || [];
+                    scope.existingFeeCharges = $filter('filter')(scope.existingCharges, { penalty: false }) || [];
+                    scope.penalCharges = $filter('filter')(scope.charges, { penalty: true }) || [];
+                    scope.feeCharges = $filter('filter')(scope.charges, { penalty: false }) || [];
+                }
             };
 
             scope.loanProductChange = function (loanProductId) {
