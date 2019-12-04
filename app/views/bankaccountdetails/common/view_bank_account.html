@@ -43,19 +43,19 @@
                 <span><b>{{'label.input.email' | translate}}:&nbsp;</b></span>
                 <span>{{bankAccountData.email}}</span>
             </div>
-            <div class="form-group paddedtop" ng-if="bankAccountData.isVerified">
+            <div class="form-group paddedtop" ng-if="bankAccountData.verificationStatus.id > 0">
                 <span><b>{{'label.heading.verified' | translate}}:&nbsp;</b></span>
                 <span>{{bankAccountData.isVerified ? 'Yes' : 'No'}}</span>
             </div>
-            <div class="form-group paddedtop" ng-if="bankAccountData.isVerified">
+            <div class="form-group paddedtop" ng-if="bankAccountData.verificationStatus.id > 0">
                 <span><b>{{'label.heading.verified.status' | translate}}:&nbsp;</b></span>
                 <span>{{bankAccountData.verificationStatus.value}}</span>
             </div>
-            <div class="form-group paddedtop" ng-if="bankAccountData.isVerified">
+            <div class="form-group paddedtop" ng-if="bankAccountData.verificationStatus.id > 2 && bankAccountData.verifiedOn">
                 <span><b>{{'label.button.verified.on' | translate}}:&nbsp;</b></span>
                 <span>{{bankAccountData.verifiedOn | DateTimeFormat}}</span>
             </div>
-            <div class="form-group paddedtop" ng-if="bankAccountData.isVerified">
+            <div class="form-group paddedtop" ng-if="bankAccountData.verifiedComment">
                 <span><b>{{'label.button.verified.comment' | translate}}:&nbsp;</b></span>
                 <span>{{bankAccountData.verifiedComment}}</span>
             </div>

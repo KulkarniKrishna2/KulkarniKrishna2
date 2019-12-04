@@ -322,6 +322,9 @@
                 if(scope.viewConfig.isVerified){
                     return false;
                 }
+                if(scope.bankData.verificationStatus.id == 2){
+                    return false;
+                }
                 return true;
             };
 
