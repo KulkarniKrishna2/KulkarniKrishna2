@@ -35,11 +35,11 @@
                         <td colspan="2">{{deceased.clientType}}</td>
                         <td colspan="2"><input id="deceasedDate" type="text" autocomplete="off" name="deceasedDate"
                                 datepicker-pop="{{df}}" ng-model="deceased.deathDate" is-open="opened1"
-                                max="'2020-06-22'" class="form-control" />
+                                max="globalMaxDate" class="form-control" />
                         </td>
                         <td colspan="2"><input id="deceasedDate" type="text" autocomplete="off" name="deceasedDate"
                                 datepicker-pop="{{df}}" ng-model="deceased.deathIntimationDate" is-open="opened1"
-                                max="'2020-06-22'" class="form-control" /></td>
+                                max="globalMaxDate" class="form-control" /></td>
                     </tr>
                 </tbody>
             </table>

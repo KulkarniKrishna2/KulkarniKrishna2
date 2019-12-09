@@ -149,7 +149,7 @@
                             <td colspan="2" ng-if="organisationPolicySettlement.loanId != undefined"><input
                                     id="settelmentDate" type="text" autocomplete="off" name="settelmentDate"
                                     datepicker-pop="{{df}}" ng-model="organisationPolicySettlement.setteledDate"
-                                    is-open="opened1" max="'2020-06-22'" class="form-control" />
+                                    is-open="opened1" max="globalMaxDate" class="form-control" />
                             </td>
                             <td colspan="2" ng-if="organisationPolicySettlement.loanId != undefined"><input
                                     id="amountRecieved" type="text" autocomplete="off" name="amountRecieved"
@@ -213,7 +213,7 @@
                             <td colspan="2" ng-if="nomineePolicySettlement.loanId != undefined"><input
                                     id="settelmentDate" type="text" autocomplete="off" name="settelmentDate"
                                     datepicker-pop="{{df}}" ng-model="nomineePolicySettlement.setteledDate"
-                                    is-open="opened1" max="'2020-06-22'" class="form-control" />
+                                    is-open="opened1" max="globalMaxDate" class="form-control" />
                             </td>
                             <td colspan="2" ng-if="nomineePolicySettlement.loanId != undefined"><input
                                     id="amountRecieved" type="text" autocomplete="off" name="amountRecieved"

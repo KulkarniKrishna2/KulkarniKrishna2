@@ -47,13 +47,13 @@
 <div class="form-group">
     <label class="control-label col-sm-2">{{ 'label.input.startdate' | translate }}</label>
     <div class="col-sm-2">
-        <input id="startDate" sort type="text" autocomplete="off" class="form-control" datepicker-pop="{{df}}" ng-model="date.first" is-open="opened" min="minDate" max="'2020-06-22'" ng-readonly="isDatePickerReadOnly" />
+        <input id="startDate" sort type="text" autocomplete="off" class="form-control" datepicker-pop="{{df}}" ng-model="date.first" is-open="opened" min="minDate" max="globalMaxDate" ng-readonly="isDatePickerReadOnly" />
     </div>
     <div class="col-sm-2">
     </div>
     <label class="control-label col-sm-2">{{ 'label.input.closedate' | translate }}</label>
     <div class="col-sm-2">
-        <input id="closeDate" sort type="text" autocomplete="off" class="form-control" datepicker-pop="{{df}}" ng-model="date.second" is-open="opened1" min="minDate" max="'2020-06-22'" ng-readonly="isDatePickerReadOnly" />
+        <input id="closeDate" sort type="text" autocomplete="off" class="form-control" datepicker-pop="{{df}}" ng-model="date.second" is-open="opened1" min="minDate" max="globalMaxDate" ng-readonly="isDatePickerReadOnly" />
     </div>
 </div>
 <h3>{{ 'label.heading.currency' | translate }}</h3>

@@ -13,7 +13,7 @@
                         class="required">*</span></label>
                 <div class="col-sm-3">
                     <input id="transactionDate" name="transactionDate" class="form-control" type="text" autocomplete="off" sort datepicker-pop="{{df}}"
-                           ng-model="formData.transactionDate" max="'2020-06-22'" is-open="opened" ng-readonly="isDatePickerReadOnly"/>
+                           ng-model="formData.transactionDate" max="globalMaxDate" is-open="opened" ng-readonly="isDatePickerReadOnly"/>
                 </div>
             </div>
             <div class="form-group">

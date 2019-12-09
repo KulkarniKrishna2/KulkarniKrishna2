@@ -520,7 +520,7 @@
                                                        placeholder="{{'label.tooltip.disbursementon' | translate}}"
                                                        ng-model="formRequestData.disburse.actualDisbursementDate"
                                                        is-open="opened" min="minDate" max="restrictDate"
-                                                       class="form-control" ng-readonly="isDatePickerReadOnly" ng-bind="updateTrancheDate()"
+                                                       class="form-control" ng-readonly="isDatePickerReadOnly"
                                                        required/>
                                             </td>
 
@@ -538,7 +538,7 @@
                                                 <input id="repaymentsStartingFromDate" name="repaymentsStartingFromDate"
                                                        type="text" autocomplete="off" datepicker-pop="{{df}}"
                                                        ng-model="formRequestData.disburse.repaymentsStartingFromDate" is-open="opened3"
-                                                       min="minDate" max="'2020-06-22'" class="form-control"
+                                                       min="minDate" max="globalMaxDate" class="form-control"
                                                        ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.repaymentsStartingFromDate" ng-readonly="isDatePickerReadOnly"/>
                                             </td>
                                         </tr>
@@ -577,7 +577,7 @@
                                                 <input id="interestChargedFromDate" type="text" autocomplete="off"
                                                        datepicker-pop="{{df}}"
                                                        ng-model="date.interestChargedFromDate"
-                                                       is-open="opened2" min="minDate" max="'2020-06-22'"
+                                                       is-open="opened2" min="minDate" max="globalMaxDate"
                                                        class="form-control"
                                                        ng-disabled="response.uiDisplayConfigurations.loanAccount.isReadOnlyField.interestChargedFromDate" ng-readonly="isDatePickerReadOnly"/>
                                             </td>
@@ -751,7 +751,7 @@
                                                    datepicker-pop="{{df}}"
                                                    placeholder="{{'label.input.expecteddisbursementon' | translate}}"
                                                    ng-model="disbursementDetail.expectedDisbursementDate"
-                                                   is-open="'openedtranche'+$index" min="minDate" max="'2020-06-22'" ng-readonly="isDatePickerReadOnly" required ng-disabled="$index == 0"/>
+                                                   is-open="'openedtranche'+$index" min="minDate" max="globalMaxDate" ng-readonly="isDatePickerReadOnly" required ng-disabled="$index == 0"/>
                                             <form-validate valattributeform="approveloanapplicationform"
                                                            valattribute="expectedTrancheDisbursementDate"/>
                                         </td>

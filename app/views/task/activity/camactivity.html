@@ -397,7 +397,7 @@
                                        datepicker-pop="{{df}}"
                                        ng-model="formRequestData.expectedDisbursementDate"
                                        is-open="opened" min="minDate"
-                                       max="'2020-06-22'"
+                                       max="globalMaxDate"
                                        class="form-control"  ng-readonly="isDatePickerReadOnly" required/>
                             </td>
                         </tr>
@@ -523,7 +523,7 @@
                                 <input id="repaymentsStartingFromDate" name="repaymentsStartingFromDate"
                                        type="text" autocomplete="off" datepicker-pop="{{df}}"
                                        ng-model="formRequestData.repaymentsStartingFromDate" is-open="opened3"
-                                       min="minDate" max="'2020-06-22'" class="form-control"
+                                       min="minDate" max="globalMaxDate" class="form-control"
                                        ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.repaymentsStartingFromDate"/>
                             </td>
 
@@ -628,7 +628,7 @@
                                            datepicker-pop="{{df}}"
                                            placeholder="{{'label.input.expecteddisbursementon' | translate}}"
                                            ng-model="disbursementDetail.expectedTrancheDisbursementDate"
-                                           is-open="'openedtranche'+$index" min="minDate" max="'2020-06-22'"
+                                           is-open="'openedtranche'+$index" min="minDate" max="globalMaxDate"
                                            class="form-control" ng-readonly="isDatePickerReadOnly" required ng-disabled="$index == 0"/>
 
                                     <label>
@@ -696,7 +696,7 @@
                                        class="form-control"
                                        placeholder="{{'label.input.duedate' | translate}}"
                                        ng-model="charge.dueDate"
-                                       is-open="'openedch'+$index" min="minDate" max="'2020-06-22'" ng-readonly="isDatePickerReadOnly"/>
+                                       is-open="'openedch'+$index" min="minDate" max="globalMaxDate" ng-readonly="isDatePickerReadOnly"/>
                             </td>
                             <td ng-hide="charge.isMandatory == true"><a ng-click="deleteCharge($index)"><i
                                     class="icon-remove icon-white"></i></a></td>
