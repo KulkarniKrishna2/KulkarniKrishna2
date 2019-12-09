@@ -138,7 +138,8 @@
 			}
 		},
 		"regexFormats": {
-			"lastName": "\/^([^0-9]*)$\/"
+			"lastName": "\/^([^0-9]*)$\/",
+			"namePattern" : "\/^[\u1000-\u109F\uAA60-\uAA7F\uA9E0-\uA9FFA-Za-z\\s]*$\/"
 		},
 		"createLoanApplication": {
 			"isMandatory": {
