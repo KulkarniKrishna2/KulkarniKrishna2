@@ -353,8 +353,10 @@
                 if (this.date.interestChargedFromDate) {
                     scope.formRequestPreveieData.interestChargedFromDate = dateFilter(new Date(this.date.interestChargedFromDate), scope.df);
                 }
-                if (this.date.repaymentsStartingFromDate) {
-                    scope.formRequestPreveieData.repaymentsStartingFromDate = dateFilter(new Date(this.date.repaymentsStartingFromDate), scope.df);
+                if (!_.isUndefined(this.formRequestData.disburse.repaymentsStartingFromDate)) {
+                    scope.formRequestPreveieData.repaymentsStartingFromDate = dateFilter(new Date(this.formRequestData.disburse.repaymentsStartingFromDate), scope.df);
+                }else{
+                    scope.formRequestPreveieData.repaymentsStartingFromDate = undefined;
                 }
 
                 if (this.formRequestData.disburse.fixedEmiAmount) {
