@@ -53,14 +53,14 @@
 				<label class="control-label col-sm-2">{{ 'label.input.startdate' | translate }}</label>
 				<i class="icon-question-sign col-sm-1" tooltip="{{'label.tooltip.loanproduct.startdate' | translate}}" tooltip-append-to-body="true"></i>
 				<div class="col-sm-3">
-					<input id="startDate" sort type="text" autocomplete="off" class="form-control" datepicker-pop="{{df}}" ng-model="date.first" is-open="opened" min="minDate" max="'2020-06-22'" ng-readonly="isDatePickerReadOnly" />
+					<input id="startDate" sort type="text" autocomplete="off" class="form-control" datepicker-pop="{{df}}" ng-model="date.first" is-open="opened" min="minDate" max="globalMaxDate" ng-readonly="isDatePickerReadOnly" />
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-2">{{ 'label.input.closedate' | translate }}</label>
 				<i class="icon-question-sign col-sm-1" tooltip="{{'label.tooltip.loanproduct.closedate' | translate}}" tooltip-append-to-body="true"></i>
 				<div class="col-sm-3">
-					<input id="closeDate" sort type="text" autocomplete="off" class="form-control" datepicker-pop="{{df}}" ng-model="date.second" is-open="opened1" min="minDate" max="'2020-06-22'" ng-readonly="isDatePickerReadOnly" />
+					<input id="closeDate" sort type="text" autocomplete="off" class="form-control" datepicker-pop="{{df}}" ng-model="date.second" is-open="opened1" min="minDate" max="globalMaxDate" ng-readonly="isDatePickerReadOnly" />
 				</div>
 			</div>
 			<h3>{{ 'label.heading.currency' | translate }}</h3>

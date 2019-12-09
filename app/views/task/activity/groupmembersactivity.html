@@ -208,7 +208,7 @@
                             <label class="control-label col-sm-2">{{'label.input.incorpValidityTillDate' | translate}}</label>
 
                             <div class="col-sm-3">
-                                <input id="incorpValidityTillDate" type="text" autocomplete="off" name="incorpValidityTillDate" datepicker-pop="{{df}}" ng-model="first.incorpValidityTillDate" is-open="opened1" max="'2020-06-22'" class="form-control" ng-readonly="isDatePickerReadOnly" />
+                                <input id="incorpValidityTillDate" type="text" autocomplete="off" name="incorpValidityTillDate" datepicker-pop="{{df}}" ng-model="first.incorpValidityTillDate" is-open="opened1" max="globalMaxDate" class="form-control" ng-readonly="isDatePickerReadOnly" />
                             </div>
                         </div>
                     </div>
@@ -772,7 +772,7 @@
                     </td>
                     <td>{{charge.chargeTimeType.value}}</td>
                     <td>
-                        <input id="charges[{{$index}}].duedate" type="text" autocomplete="off" datepicker-pop="{{df}}" class="form-control" placeholder="{{'label.input.duedate' | translate}}" ng-model="charge.dueDate" is-open="'openedch'+$index" min="restrictDate" max="'2020-06-22'" ng-readonly="isDatePickerReadOnly" />
+                        <input id="charges[{{$index}}].duedate" type="text" autocomplete="off" datepicker-pop="{{df}}" class="form-control" placeholder="{{'label.input.duedate' | translate}}" ng-model="charge.dueDate" is-open="'openedch'+$index" min="restrictDate" max="globalMaxDate" ng-readonly="isDatePickerReadOnly" />
                     </td>
                     <td ng-hide="charge.isMandatory == true" has-permission='DELETE_LOANCHARGE'><a ng-click="deleteCharge($index)"><i class="icon-remove icon-white"></i></a></td>
                 </tr>

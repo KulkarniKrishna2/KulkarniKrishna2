@@ -48,7 +48,7 @@
 										<td>{{loanAccount.loanType.value}} - {{loanAccount.accountNo}}</td>
 										<td>{{loanAccount.outstandingPrinciple | number:0}}</td>
 										<td ng-if="!ispreCloseDateHidden"> <input id="preclosureDate" name="preclosureDate" class="form-control" type="text"
-											 autocomplete="off" sort datepicker-pop="{{df}}" ng-model="preClosureTempFormData[$index].preclosureDate" max="'2020-06-22'"
+											 autocomplete="off" sort datepicker-pop="{{df}}" ng-model="preClosureTempFormData[$index].preclosureDate" max="globalMaxDate"
 											 is-open="opened" ng-readonly="isDatePickerReadOnly" ng-disabled="!isAccChecked" />
 											<form-validate valattributeform="reviewFormData" valattribute="preclosureDate" />
 										</td>

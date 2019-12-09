@@ -4,6 +4,8 @@
                   uiConfigService, $http, authenticationService, resourceFactory, $timeout, popUpUtilService,$modalStack) {
             var publicKey = undefined;
             scope.hideLoginPannel = false;
+            scope.globalMaxDate = new Date();
+            scope.globalMaxDate.setYear(scope.globalMaxDate.getFullYear() + 2);
             scope.mainUIConfigData = {};
             if (QueryParameters["username"] != undefined && QueryParameters["username"] != "" && QueryParameters["password"] != undefined &&
                 QueryParameters["password"] != "" && QueryParameters["landingPath"] != undefined && QueryParameters["landingPath"] != "") {

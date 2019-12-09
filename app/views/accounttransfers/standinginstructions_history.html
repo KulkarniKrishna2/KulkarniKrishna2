@@ -36,10 +36,10 @@
             <input class="form-control width155px" type="text" autocomplete="off" ng-model="formData.fromAccountId" placeholder="{{ 'label.input.fromAccountId' | translate }}"/>
         </div>
         <div class="form-group">
-            <input class="form-control width155px" type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="date.first" is-open="opened" min="minDate" max="'2020-06-22'" placeholder="{{ 'label.input.fromdate' | translate }}" ng-readonly="isDatePickerReadOnly"/>
+            <input class="form-control width155px" type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="date.first" is-open="opened" min="minDate" max="globalMaxDate" placeholder="{{ 'label.input.fromdate' | translate }}" ng-readonly="isDatePickerReadOnly"/>
         </div>
         <div class="form-group">
-            <input class="form-control width155px" type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="date.second" is-open="opened1" min="minDate" max="'2020-06-22'" placeholder="{{ 'label.input.todate' | translate }}" ng-readonly="isDatePickerReadOnly"/>
+            <input class="form-control width155px" type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="date.second" is-open="opened1" min="minDate" max="globalMaxDate" placeholder="{{ 'label.input.todate' | translate }}" ng-readonly="isDatePickerReadOnly"/>
         </div>
         <div class="form-group clear">
             <a ng-click="getTransactions()" class="btn btn-primary control" has-permission='READ_STANDINGINSTRUCTION '><i class="icon-search icon-white"></i></a></center>

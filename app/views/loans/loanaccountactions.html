@@ -67,7 +67,7 @@
 
     <div class="col-sm-3">
         <input id="{{modelName}}" sort type="text" autocomplete="off" datepicker-pop="{{df}}" class="form-control"
-               ng-model="formData[modelName]" min="'2000-01-01'" max="'2020-06-22'" ng-readonly="isDatePickerReadOnly"/>
+               ng-model="formData[modelName]" min="'2000-01-01'" max="globalMaxDate" ng-readonly="isDatePickerReadOnly"/>
     </div>
     <div class="col-sm-3"  ng-show="overduechargespresent || showFetchButton">
         <a id="fetchpenalties" ng-click="fetchPenalties()" class="btn btn-primary " has-permission="'READ_OVERDUECHARGE'">{{ 'label.button.fetchpenalties' | translate }}</a>
@@ -134,7 +134,7 @@
 
         <div class="col-sm-3">
             <input id="repaymentsStartingFromDate" sort type="text" autocomplete="off" datepicker-pop="{{df}}" class="form-control"
-                   ng-model="formData.repaymentsStartingFromDate" min="minDate"  max="'2020-06-22'" ng-readonly="isDatePickerReadOnly"/>
+                   ng-model="formData.repaymentsStartingFromDate" min="minDate"  max="globalMaxDate" ng-readonly="isDatePickerReadOnly"/>
         </div>
     </div>
 
@@ -151,7 +151,7 @@
 
         <div class="col-sm-3">
             <input id="{{adjustRepaymentDate}}" sort type="text" autocomplete="off" datepicker-pop="{{df}}" class="form-control"
-                   ng-model="formData.adjustRepaymentDate" min="minDate" max="'2020-06-22'" ng-readonly="isDatePickerReadOnly"/>
+                   ng-model="formData.adjustRepaymentDate" min="minDate" max="globalMaxDate" ng-readonly="isDatePickerReadOnly"/>
         </div>
     </div>
 
@@ -198,7 +198,7 @@
                     <input id="details[{{$index}}].expectedDisbursementDate" type="text" autocomplete="off"
                            datepicker-pop="{{df}}" class="form-control"
                            ng-model="details.expectedDisbursementDate" is-open="'openedtranche'+$index"
-                           min="minDate" max="'2020-06-22'" ng-readonly="isDatePickerReadOnly"/>
+                           min="minDate" max="globalMaxDate" ng-readonly="isDatePickerReadOnly"/>
                 </td>
                 <td>
                     <input type="text" autocomplete="off" class="form-control" id="details[{{$index}}].principal"
@@ -793,7 +793,7 @@
                        datepicker-pop="{{df}}" class="form-control"
                        placeholder="{{'label.input.expecteddisbursementon' | translate}}"
                        ng-model="disbursementDetail.expectedDisbursementDate" is-open="'openedtranche'+$index"
-                       min="minDate" max="'2020-06-22'" ng-readonly="isDatePickerReadOnly"/>
+                       min="minDate" max="globalMaxDate" ng-readonly="isDatePickerReadOnly"/>
             </td>
             <td ng-hide="disbursementDetail.id">
                 <input id="{{disbursementDetail[$index].principal}}" class="form-control" number-format type="text" autocomplete="off"
@@ -828,7 +828,7 @@
                        ng-model="disbursementDetail.expectedDisbursementDate" ng-disabled="true"
                        is-open="'openedtranche'+$index"
                        ng-show="disbursementDetail.actualDisbursementDate == null"
-                       min="minDate" max="'2020-06-22'" ng-readonly="isDatePickerReadOnly"/>
+                       min="minDate" max="globalMaxDate" ng-readonly="isDatePickerReadOnly"/>
             </td>
             <td>
                 <input id="{{disbursementDetail[$index].principal}}" class="form-control" number-format type="text" autocomplete="off"

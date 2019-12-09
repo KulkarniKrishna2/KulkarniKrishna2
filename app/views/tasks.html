@@ -33,13 +33,13 @@
 				    <div collapse="isCollapsed" class="blockoverlay" style="overflow-y: scroll">
 				        <div class="form-group">
 				            <input type="text" autocomplete="off" placeholder="{{'label.input.fromdate' | translate}}" datepicker-pop="{{df}}"
-				                   ng-model="date.from" is-open="opened"  max="'2020-06-22'"
+				                   ng-model="date.from" is-open="opened"  max="globalMaxDate"
 				                   date-disabled="disabled(date, mode)" class="form-control" ng-readonly="isDatePickerReadOnly"/>
 				        </div>
 				        <div class="form-group">
 				            <div>
 				                <input type="text" autocomplete="off" placeholder="{{'label.input.todate' | translate}}" datepicker-pop="{{df}}"
-				                       ng-model="date.to" is-open="opened1" max="'2020-06-22'"
+				                       ng-model="date.to" is-open="opened1" max="globalMaxDate"
 				                       date-disabled="disabled(date, mode)" class="form-control" ng-readonly="isDatePickerReadOnly"/>
 				            </div>
 				        </div>
