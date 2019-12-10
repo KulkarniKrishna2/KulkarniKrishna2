@@ -7254,7 +7254,7 @@
     "label.input.roundingmode": "Rounding Mode",
 
     "error.msg.center.groups.count.must.be.in.permissible.range": "Number of group in the center with Id :`{{params[0].value}}` should be between `{{params[1].value}}` and `{{params[2].value}}`",
-    "error.msg.Residential Address.address.with.addresstype.already.exists": "Address type `{{params[0].value}}` already exists for `{{params[1].value}}` with identifier `{{params[2].value}}`",
+    "error.msg.address.with.addresstype.already.exists": "Address type `{{params[0].value}}` already exists for `{{params[1].value}}` with identifier `{{params[2].value}}`",
     "error.msg.calendar.new.start.date.cannot.be.in.past": "Next meeting date can't be less than current date",
     "validation.msg.calendar.multiple.collection.calendar.not.supported": "Meeting date is already attached",
     "error.msg.loan.disbursal.account.is.not.approve.not.disbursed.state": "The loan is not approved yet, Cannot disburse",
@@ -7864,7 +7864,6 @@
     "error.msg.stale.period.expired": "Cannot Disburse the loan as the CB report has Expired. Initiate a new CB request to disburse the loan.",
     "label.input.wardAndVillage" : "Ward/Village",
     "label.menu.selectward.village" : "Select Ward/Village",
-    "error.msg.Aadhaar Address.address.with.addresstype.already.exists": "Address type Aadhaar already exists",
     "error.msg.transfer.amount.should.be.greater.than.zero": "Amount to be transferred must be greater than zero",
     "label.error.entities.under.the.staff.have.already.been.transferred": "Entities under the staff have already been transferred",
     
@@ -8083,7 +8082,6 @@
 	"error.msg.villages.cannot.be.deleted" : "Active village cannot be deleted" ,
 	"error.msg.charge.slab.installment.slabChargeType.installment.number.range.overlapping" : "Installment number cannot overlap for the slab base charge" ,
 	"validation.msg.charge.minValue.same.as.maxValue" : "Minimum installment number cannot be same as maximum installment number" ,
-    "error.msg.kycAddress.address.with.addresstype.already.exists" : "`{{params[0].value}}` for the entity `{{params[1].value}}`  already exists" , 
     "validation.msg.savingsaccount.date.cannot.be.before.product.start.date" : "Account submitted on date cannot be before product start date `{{params[1].value}}`" ,
     "validation.msg.savingsaccount.date.cannot.be.after.product.close.date" : "Account submitted on date cannot be after product close date `{{params[1].value}}`" , 
     "validation.msg.fixeddepositaccount.date.cannot.be.before.product.start.date" : "Account submitted on date cannot be before product start date `{{params[1].value}}`" ,
@@ -8266,7 +8264,6 @@
     "validation.msg.collectionsheet.`{{params[0].value}}`.attendanceType.cannot.be.blank": "Kindly select an attendance type",
     "validation.msg.recurringdepositaccount.toSavingsAccountId.must.be.provided.when.onAccountClosureId.is.depositAccountClosureType.transferToSavings": "Please provide to Savings account, to transfer the amount",
     "validation.msg.recurringdepositaccount.activate.not.in.approved.state": "The account is not in approved state",
-    "error.msg.Permanent Address.address.with.addresstype.already.exists": "`{{params[0].value}}` for the entity `{{params[1].value}}`  already exists" , 
     "validation.msg.bank.account.detail.lastTransactionDate.is.greater.than.date": "Last Transaction date cannot be in future",
     "validation.msg.existingLoan.sourceId.cannot.be.blank": "Kindly select a source",
     "validation.msg.loanemipacks.numberOfRepayments.cannot.be.blank" : "Number of repayments cannot be blank",
