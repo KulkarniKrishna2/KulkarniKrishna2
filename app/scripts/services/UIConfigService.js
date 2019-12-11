@@ -43,9 +43,12 @@
                         console.log("Configuration file not found");
                     });
                 };
+
                 isObjectData = function(tenantSpecificData){
-                    if(!_.isUndefined(tenantSpecificData.length)){
-                        return false;
+                    if(!_.isUndefined(tenantSpecificData) && tenantSpecificData != null){
+                        if(!_.isUndefined(tenantSpecificData.length)){
+                            return false;
+                        }
                     }
                     return true;
                 }
