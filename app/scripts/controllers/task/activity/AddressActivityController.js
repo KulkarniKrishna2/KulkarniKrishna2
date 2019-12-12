@@ -47,7 +47,7 @@
                 scope.formData = {};
                 scope.addressData={};
                 scope.formDataList = [scope.formData];
-                scope.formData.addressTypes = [];
+                scope.addressTypes = [];
                 var villageConfig = 'populate_client_address_from_villages';
                 scope.isPopulateClientAddressFromVillages = scope.isSystemGlobalConfigurationEnabled(villageConfig);
                 
@@ -378,9 +378,11 @@
                     if (scope.formData.talukaId == null || scope.formData.talukaId == ""){
                         delete scope.formData.talukaId;
                     }
-                    if (scope.formData.addressTypes == null || scope.formData.addressTypes == "") {
-                        delete scope.formData.addressTypes;
-                    }
+                if (scope.addressTypes.length>0 &&  scope.addressTypes[0] != null) {
+                    scope.formData.addressTypes = scope.addressTypes;
+                } else {
+                    delete scope.formData.addressTypes;
+                }
                     if (scope.formData.houseNo == null || scope.formData.houseNo == "") {
                         delete scope.formData.houseNo;
                     }
