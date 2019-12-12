@@ -397,7 +397,7 @@
                         <input id="instrumentationDate" readonly name="instrumentationDate" type="text" autocomplete="off" class="form-control"
                                datepicker-pop="{{df}}" ng-model="formData.paymentDetails.instrumentationDate"
                                is-open="opened"
-                               min="minDate" max="'2020-06-22'" required />
+                               min="minDate" max="globalMaxDate" required />
                     </div>
                     <div class="col-sm-2">
                         <form-validate valattributeform="createVoucherForm" valattribute="instrumentationDate"/>

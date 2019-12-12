@@ -210,7 +210,7 @@
             </tr>
             <tr ng-repeat="audit in auditLogs">
                 <td>{{audit.actionName | translate}}</td>
-                <td>{{audit.madeOnDate | DateFormat}}</td>
+                <td>{{audit.madeOnDate | DateTimeFormat}}</td>
                 <td>{{audit.maker}}</td>
             </tr>
         </table>

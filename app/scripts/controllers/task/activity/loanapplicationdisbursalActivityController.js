@@ -353,8 +353,10 @@
                 if (this.date.interestChargedFromDate) {
                     scope.formRequestPreveieData.interestChargedFromDate = dateFilter(new Date(this.date.interestChargedFromDate), scope.df);
                 }
-                if (this.date.repaymentsStartingFromDate) {
-                    scope.formRequestPreveieData.repaymentsStartingFromDate = dateFilter(new Date(this.date.repaymentsStartingFromDate), scope.df);
+                if (!_.isUndefined(this.formRequestData.disburse.repaymentsStartingFromDate)) {
+                    scope.formRequestPreveieData.repaymentsStartingFromDate = dateFilter(new Date(this.formRequestData.disburse.repaymentsStartingFromDate), scope.df);
+                }else{
+                    scope.formRequestPreveieData.repaymentsStartingFromDate = undefined;
                 }
 
                 if (this.formRequestData.disburse.fixedEmiAmount) {
@@ -446,11 +448,14 @@
                 }
             
                 if (!scope.date.repaymentsStartingFromDate || scope.date.repaymentsStartingFromDate == "") {
-                    this.formRequestData.submitApplication.repaymentsStartingFromDate = undefined;
-                    this.formRequestData.disburse.repaymentsStartingFromDate = undefined;
+                    this.formRequestData.submitApplication.repaymentsStartingFromDate = undefined;                   
                 }else{
                     this.formRequestData.submitApplication.repaymentsStartingFromDate = dateFilter(new Date(scope.date.repaymentsStartingFromDate), scope.df);
-                    this.formRequestData.disburse.repaymentsStartingFromDate = dateFilter(new Date(scope.date.repaymentsStartingFromDate), scope.df);
+                }
+                if(!_.isUndefined(this.formRequestData.disburse.repaymentsStartingFromDate)){
+                    this.formRequestData.disburse.repaymentsStartingFromDate = dateFilter(new Date(this.formRequestData.disburse.repaymentsStartingFromDate), scope.df);
+                }else{
+                    this.formRequestData.disburse.repaymentsStartingFromDate = undefined;
                 }
 
                 if (scope.date.recalculationRestFrequencyDate) {
@@ -803,7 +808,7 @@
                 scope.validateFRD();
             });
             scope.validateFRD = function(){
-                if(scope.loanaccountinfo && scope.loanaccountinfo.calendarOptions && scope.loanaccountinfo.product){
+                if(scope.loanaccountinfo && scope.loanaccountinfo.product){
                     var minimumDayBtwFRDAndDisburseDate = scope.loanaccountinfo.product.minimumDaysBetweenDisbursalAndFirstRepayment;
                     if(!_.isUndefined(scope.formRequestData.disburse.actualDisbursementDate)){
                         var expectedDisbursementDate = new Date(dateFilter(scope.formRequestData.disburse.actualDisbursementDate,scope.df));
@@ -811,13 +816,16 @@
                         if(!_.isUndefined(minimumDayBtwFRDAndDisburseDate)){
                             expectedFirstRepaymentOnDate = new Date(dateFilter(expectedDisbursementDate.setDate(expectedDisbursementDate.getDate() + minimumDayBtwFRDAndDisburseDate),scope.df));
                         }
-                        for(var i in scope.loanaccountinfo.calendarOptions[0].nextTenRecurringDates){
-                            var nextMeeting = new Date(dateFilter(scope.loanaccountinfo.calendarOptions[0].nextTenRecurringDates[i],scope.df));
-                            if(expectedFirstRepaymentOnDate <= nextMeeting){
-                                scope.formRequestData.disburse.repaymentsStartingFromDate = dateFilter(nextMeeting,scope.df);
-                                break;
+                        if(scope.loanaccountinfo.calendarOptions){
+                            for(var i in scope.loanaccountinfo.calendarOptions[0].nextTenRecurringDates){
+                                var nextMeeting = new Date(dateFilter(scope.loanaccountinfo.calendarOptions[0].nextTenRecurringDates[i],scope.df));
+                                if(expectedFirstRepaymentOnDate <= nextMeeting){
+                                    expectedFirstRepaymentOnDate = dateFilter(nextMeeting,scope.df);
+                                    break;
+                                }
                             }
                         }
+                        scope.formRequestData.disburse.repaymentsStartingFromDate = expectedFirstRepaymentOnDate;                        
                     }
                 }
             }

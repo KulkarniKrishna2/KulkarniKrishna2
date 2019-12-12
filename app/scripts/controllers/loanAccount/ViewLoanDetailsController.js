@@ -900,7 +900,7 @@
                 }
                 scope.isWriteOff = false;
                 if(scope.loandetails.summary!=null) {
-                    if (scope.loandetails.summary.writeoffReasonId != null) {
+                    if (scope.loandetails.summary.writeoffReasonId != null && scope.loandetails.status.value == "Closed (written off)") {
                         scope.isWriteOff = true;
                     }
                 }

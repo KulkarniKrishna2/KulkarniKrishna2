@@ -509,7 +509,7 @@
                 updateData();
             };
 
-            scope.getBankDetails = function (isvalidIfsc) {
+            /*scope.getBankDetails = function (isvalidIfsc) {
                 resourceFactory.bankIFSCResource.get({
                     ifscCode: scope.formData.ifscCode
                 }, function (data) {
@@ -518,7 +518,7 @@
                     scope.formData.branchName = scope.bankData.branchName;
                     scope.formData.bankCity = scope.bankData.bankCity;
                 });
-            }
+            }*/
             
             scope.inActivateAssociation = function () {
                 resourceFactory.bankAccountDetailActionResource.doAction({

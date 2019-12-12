@@ -73,7 +73,7 @@
         <td class="paddedbottom10">
             <input id="expectedDisbursementDate" sort type="text" autocomplete="off" name="expecteddisbursementon" required
                    datepicker-pop="{{df}}" ng-model="date.second" is-open="opened1" min="minDate"
-                   max="'2020-06-22'" class="form-control" ng-readonly="isDatePickerReadOnly"/>
+                   max="globalMaxDate" class="form-control" ng-readonly="isDatePickerReadOnly"/>
             <form-validate valattributeform="newloanaccountform" valattribute="expecteddisbursementon"/>
         </td>
     </tr>
@@ -127,8 +127,8 @@
                     <label>{{ 'label.input.syncdisbursementdatewithmeeting' | translate }}</label></td>
             </tr>
         </table>
-        <hr ng-show="!isLoanEmiPackEnabled"/>
-        <div  ng-show="loanaccountinfo && showPreferredPaymentChannel && !isLoanEmiPackEnabled"  class="width100">
+        <hr ng-show="showLoanTerms"/>
+        <div  ng-show="loanaccountinfo && showPreferredPaymentChannel && showLoanTerms"  class="width100">
             <div>
                 <label ng-show="loanaccountinfo"><strong>{{ 'label.heading.preferredpaymentchannel' | translate }}</strong></label>
             </div>
@@ -194,12 +194,12 @@
             
         </div>
         <div ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.linkAccountId == true">
-            <hr ng-show="loanaccountinfo && !isLoanEmiPackEnabled"/>
+            <hr ng-show="loanaccountinfo && showLoanTerms"/>
         </div>
         <div ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.linkAccountId == true">
-        <label ng-if="loanaccountinfo && !isLoanEmiPackEnabled"><strong>{{ 'label.heading.savingsLinkage' | translate }}</strong></label>
+        <label ng-if="loanaccountinfo && showLoanTerms"><strong>{{ 'label.heading.savingsLinkage' | translate }}</strong></label>
         </div>
-        <table ng-if="loanaccountinfo && !isLoanEmiPackEnabled" class="width100">
+        <table ng-if="loanaccountinfo && showLoanTerms" class="width100">
             <tr>
                 <td class="width19" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.linkAccountId == true">
                     <label>{{ 'label.input.linksavings' | translate }}:</label>
@@ -312,9 +312,9 @@
            </table>            
         </div> 
         
-        <label ng-if="loanaccountinfo && !isLoanEmiPackEnabled" ><strong>{{ 'label.heading.terms' | translate }}</strong></label>
+        <label ng-if="loanaccountinfo && showLoanTerms" ><strong>{{ 'label.heading.terms' | translate }}</strong></label>
 
-        <table ng-if="loanaccountinfo && !isLoanEmiPackEnabled" ng-hide="previewRepayment" class="width100">
+        <table ng-if="loanaccountinfo && showLoanTerms" ng-hide="previewRepayment" class="width100">
             <tr>
                 <td class="width19"><label>{{ 'label.input.principal' | translate }}&nbsp;<span
                         class="required">*</span>:</label></td>
@@ -412,7 +412,7 @@
                 </td>
                 <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentsStartingFromDate == true">
                     <input id="repaymentsStartingFromDate" type="text" autocomplete="off" datepicker-pop="{{df}}"
-                           ng-model="date.fourth" is-open="opened3" min="minDate" max="'2020-06-22'" class="form-control" name="repaymentsStartingFromDate"
+                           ng-model="date.fourth" is-open="opened3" min="minDate" max="globalMaxDate" class="form-control" name="repaymentsStartingFromDate"
                             ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.repaymentsStartingFromDate" ng-disabled="firstRepaymentDateReadOnlyType" ng-readonly="isDatePickerReadOnly"/>
                     <form-validate valattributeform="newloanaccountform" valattribute="repaymentsStartingFromDate"/>
                 </td>
@@ -420,7 +420,7 @@
                 <i class="icon-question-sign" tooltip="{{'label.tooltip.interestchargedfrom' | translate}}"></i></td>
                 <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.interestChargedFromDate == true">
                     <input id="interestChargedFromDate" type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="date.third"
-                           is-open="opened2" min="minDate" max="'2020-06-22'" class="form-control" ng-disabled="response.uiDisplayConfigurations.loanAccount.isReadOnlyField.interestChargedFromDate" ng-readonly="isDatePickerReadOnly"/>
+                           is-open="opened2" min="minDate" max="globalMaxDate" class="form-control" ng-disabled="response.uiDisplayConfigurations.loanAccount.isReadOnlyField.interestChargedFromDate" ng-readonly="isDatePickerReadOnly"/>
                 </td>
             </tr>
 
@@ -752,7 +752,7 @@
                                    datepicker-pop="{{df}}"
                                    placeholder="{{'label.input.expecteddisbursementon' | translate}}"
                                    ng-model="disbursementDetail.expectedDisbursementDate"
-                                   is-open="'openedtranche'+$index" min="minDate" max="'2020-06-22'" class="form-control" ng-readonly="isDatePickerReadOnly"/>
+                                   is-open="'openedtranche'+$index" min="minDate" max="globalMaxDate" class="form-control" ng-readonly="isDatePickerReadOnly"/>
                         </td>
                         <td>
                             <input id="{{disbursementDetail[$index].principal}}"  class="input-sm form-control" number-format type="text" autocomplete="off"
@@ -924,7 +924,7 @@
                     <td>
                         <input id="charges[{{$index}}].duedate" type="text" autocomplete="off" datepicker-pop="{{df}}" class="form-control"
                                placeholder="{{'label.input.duedate' | translate}}" ng-model="charge.dueDate"
-                               is-open="'openedch'+$index" ng-readonly="isDatePickerReadOnly || charge.chargeTimeType.value == upfrontFee" min="minDate" max="'2020-06-22'"/>
+                               is-open="'openedch'+$index" ng-readonly="isDatePickerReadOnly || charge.chargeTimeType.value == upfrontFee" min="minDate" max="globalMaxDate"/>
                     </td>
                     <td>{{charge.isCapitalized}}</td>
                     <td ng-hide="charge.isMandatory == true" has-permission='DELETE_LOANCHARGE'><a ng-click="deleteCharge($index)"><i class="icon-remove icon-white"></i></a></td>

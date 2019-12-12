@@ -325,7 +325,7 @@
                                datepicker-pop="{{df}}" class="form-control"
                                placeholder="{{'label.input.expecteddisbursementon' | translate}}"
                                ng-model="disbursementDetail.expectedTrancheDisbursementDate" is-open="'openedtranche'+$index"
-                               min="minDate" max="'2020-06-22'" ng-readonly="isDatePickerReadOnly"/>
+                               min="minDate" max="globalMaxDate" ng-readonly="isDatePickerReadOnly"/>
                     </td>
                     <td>
                         <input id="{{disbursementDetail[$index].trancheAmount}}" class="form-control" number-format type="text" autocomplete="off" ng-model="disbursementDetail.trancheAmount" name="trancheAmount" required=""placeholder="{{'label.input.principal' | translate}}">
@@ -391,7 +391,7 @@
                     <input id="feeCharges[{{$index}}].duedate" type="text" autocomplete="off" datepicker-pop="{{df}}"
                            class="form-control"
                            placeholder="{{'label.input.duedate' | translate}}" ng-model="charge.dueDate"
-                           is-open="'openedch'+$index" min="minDate" max="'2020-06-22'" ng-readonly="isDatePickerReadOnly"/>
+                           is-open="'openedch'+$index" min="minDate" max="globalMaxDate" ng-readonly="isDatePickerReadOnly"/>
                 </td>
                 <td ng-hide="charge.isMandatory == true" has-permission='DELETE_LOANCHARGE'><a ng-click="deleteCharge($index)"><i class="icon-remove icon-white"></i></a></td>
             </tr>

@@ -839,7 +839,9 @@
             };
 
             scope.deleteCharge = function (index) {
-                scope.charges.splice(index, 1);
+                var deleteCharge = scope.feeCharges[index];
+                var indexCharge = scope.charges.findIndex( charge => charge.id === deleteCharge.id);
+                scope.charges.splice(indexCharge,1);
                 scope.penalCharges = $filter('filter')(scope.charges, { penalty: true }) || [];
                 scope.feeCharges = $filter('filter')(scope.charges, { penalty: false }) || [];
             };

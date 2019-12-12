@@ -121,12 +121,11 @@
                                 ng-model="deceased.selected" />
                         </td>
                         <td colspan="2">{{deceased.clientType}}</td>
-                        <td colspan="2"><input id="deceasedDate" type="text" autocomplete="off" name="deceasedDate"
-                                datepicker-pop="{{df}}" ng-model="deceased.deathDate" is-open="opened1" max="'2020-06-22'"
+                        <td colspan="2"><input id="deceasedDate" type="text" autocomplete="off" name="deceasedDate" datepicker-pop="{{df}}" ng-model="deceased.deathDate" is-open="opened1" max="globalMaxDate"
                                 class="form-control" />
                         </td>
                         <td colspan="2"><input id="deceasedDate" type="text" autocomplete="off" name="deceasedDate"
-                                datepicker-pop="{{df}}" ng-model="deceased.deathIntimationDate" is-open="opened1" max="'2020-06-22'"
+                                datepicker-pop="{{df}}" ng-model="deceased.deathIntimationDate" is-open="opened1" max="globalMaxDate"
                                 class="form-control" disabled=true /></td>
                         <td colspan="2">
                             <select id="causeOfDeathId" name="causeOfDeathId" ng-model="deceased.causeOfDeathId"

@@ -38,6 +38,7 @@
             scope.showLoanPurposeGroup = true;
             scope.loanAccountDpDetailData = {};
             scope.onDayTypeOptions = commonUtilService.onDayTypeOptions();
+            scope.showLoanTerms = true;
             if(routeParams.clientId){
                 resourceFactory.clientResource.get({clientId: routeParams.clientId, associations:'hierarchyLookup'}, function (data) {
                     if (data.groups && data.groups.length == 1) {
@@ -155,6 +156,7 @@
                 scope.inparams.fetchRDAccountOnly = scope.response.uiDisplayConfigurations.loanAccount.savingsAccountLinkage.reStrictLinkingToRDAccount;
                 resourceFactory.loanResource.get(scope.inparams, function (data) {
                     scope.loanaccountinfo = data;
+                    scope.showLoanTerms =!(scope.loanaccountinfo.loanEMIPacks && scope.isLoanEmiPackEnabled)?true:false;
                     scope.getProductPledges(scope.loanaccountinfo);
                     scope.previewClientLoanAccInfo();
                     scope.canDisburseToGroupBankAccounts = data.product.allowDisbursementToGroupBankAccounts;                    
