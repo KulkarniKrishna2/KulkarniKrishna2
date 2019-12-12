@@ -214,6 +214,16 @@
 					"maxAge": ""
 				}
 			},
+			"forNonPerson": {
+				"isValidateDOBField": {
+					"active": false,
+					"ageCriteria": {
+						"minNonPersonAge": "",
+						"maxNonPersonAge": ""
+					}
+				},
+				"incorporationNumberSize": ""
+			},
 			"defaultGender": "",
 			"isHiddenField": {
 				"hideClientClassification": false,
@@ -240,7 +250,9 @@
 				"gender": false,
 				"staff": false,
 				"streetName": false,
-				"houseNo": false
+				"houseNo": false,
+				"incorporationDate": false,
+				"incorporationNumber": false
 			},
 			"isAutoPopulate": {
 				"genderOption": true

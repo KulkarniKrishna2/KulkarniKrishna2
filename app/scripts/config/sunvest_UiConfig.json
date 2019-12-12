@@ -9,11 +9,23 @@
 					"maxAge": "60"
 				}
 			},
+			"forNonPerson": {
+				"isValidateDOBField": {
+					"active": false,
+					"ageCriteria": {
+						"minNonPersonAge": "24",
+						"maxNonPersonAge": "60"
+					}
+				},
+				"incorporationNumberSize" : 21
+			},
 			"isMandatoryField": {
 				"dateOfBirth": true,
 				"mobileNumber": true,
 				"emailId": true,
-				"gender": true
+				"gender": true,
+				"incorporationDate": true,
+				"incorporationNumber": true
 			}
         },
         "clientIdentifier": {

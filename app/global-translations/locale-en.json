@@ -8392,6 +8392,8 @@
      "label.heading.insurance.settlement.settle.note" : "Loan account shall be preclosed as on Death Intimation Date",
      "label.heading.insurance.settlement.reject.note" : "Loan account shall be written off as on Death Intimation Date",
      "label.heading.waivedorwrittenoff" : "Waived/Written Off",
+     "label.vintage" : "Vintage",
+     "label.msg.invalid.incorporation.number" : "Invalid Incorporation Number",
      
      "------ end of translation file ------": "----------"
 }
