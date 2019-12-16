@@ -30,7 +30,7 @@
                 scope.incomeAndLiabilityAccountOptions = scope.incomeAccountOptions.concat(scope.liabilityAccountOptions);
 
                 _.each(data.accountingRuleOptions, function (accountingRule){
-                    if(accountingRule.value != 'ACCRUAL UPFRONT' && accountingRule.value != 'ACCRUAL PERIODIC'){
+                    if(accountingRule.value != 'ACCRUAL UPFRONT'){
                         scope.accountingRuleOptions.push(accountingRule);
                     }
                 });

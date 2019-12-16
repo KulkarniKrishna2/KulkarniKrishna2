@@ -237,6 +237,16 @@
                     scope.paymentRequired = false;
                     scope.taskPermissionName = 'HOLDAMOUNT_SAVINGSACCOUNT';
                     break;
+                case "postAccrualAsOn":
+                    resourceFactory.savingsTrxnsTemplateResource.get({savingsId: scope.accountId}, function (data) {
+                       scope.accountnumber=data.accountNo;
+                    });
+                    scope.labelName = 'label.input.transactiondate';
+                    scope.modelName = 'transactionDate';
+                    scope.showDateField = true;
+                    scope.showAccountNumber=true;
+                    scope.taskPermissionName = 'POSTACCRUALASON_SAVINGSACCOUNT';
+                    break;    
             }
 
             scope.cancel = function () {
@@ -354,8 +364,12 @@
                         if (this.formData.closedOnDate) {
                             this.formData.closedOnDate = dateFilter(this.formData.closedOnDate, scope.df);
                         }
+                    } else if(scope.action=="postAccrualAsOn"){
+                        if (this.formData.transactionDate) {
+                            this.formData.transactionDate = dateFilter(this.formData.transactionDate, scope.df);
+                        }
+                        this.formData.isPostAccraulAsOn=true;
                     }
-
                     resourceFactory.savingsResource.save(params, this.formData, function (data) {
                         location.path('/viewsavingaccount/' + data.savingsId);
                     });

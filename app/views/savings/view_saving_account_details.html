@@ -440,6 +440,10 @@
                     </div>
                 </tab>
                 <tab heading="{{'label.heading.transactions' | translate}}" ng-show="savingaccountdetails.transactions" select="convertDateArrayToObject('date')">
+                    <div class="pull-left col-sm-offset-8" ng-show="showAccrualTransactionOption">
+                        <input type="checkbox" data-ng-model="viewAccrualTransaction.show">&nbsp;&nbsp;
+                        <label class="control-label">{{ 'label.input.hide.accrual.transactions' | translate }}</label>&nbsp;&nbsp;
+                    </div>
                     <button class="btn btn-primary pull-right" ng-show="checkStatus()" ng-click="export()">{{'label.button.export' | translate}}</button>
                     <button class="btn btn-primary pull-right" ng-show="checkStatus()" ng-click="viewJournalEntries()" style="margin-right: 8px;">{{'label.button.viewjournalentries' | translate}}</button><br>
                     <table class="table table-bordered">
@@ -460,7 +464,7 @@
                         </thead>
                         <tbody>
                         <tr class="pointer-main" ng-class="{strikeoff : transaction.isManuallyReversed==true}"
-                            ng-repeat="transaction in savingaccountdetails.transactions | orderBy:[transactionSort.column,transactionSort.columnId]:transactionSort.descending">
+                            ng-hide = "hideTransactions(transaction)" ng-repeat="transaction in savingaccountdetails.transactions | orderBy:[transactionSort.column,transactionSort.columnId]:transactionSort.descending">
                             <td class="pointer"
                                 data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
                                 {{transaction.id}}

@@ -8437,6 +8437,14 @@
      "validation.msg.Insurance Policy.policyNo.exceeds.max.length" :" Policy number exceeds max length",
      "validation.msg.Insurance Policy.coiNo.exceeds.max.length" : "CoiNo number exceeds max length",
      "validation.msg.Insurance Policy.policyNo.cannot.be.blank" : "Policy number can not be blank",
-     "validation.msg.Insurance Policy.coiNo.cannot.be.blank" : "CoiNo number can not be blank",
+     "validation.msg.Insurance Policy.coiNo.cannot.be.blank" : "CoiNo number can not be blank",    
+     "label.button.postAccrualAsOn" : "Post Accrual As On",
+     "label.button.postAccrual" : "Post Accrual",
+     "err.msg.savings.account.product.accrual.accounting.not.enabled" : "Accrual accounting not enabled.",
+     "error.msg.accrual.already.posted" : "Accrual already posted till `{{params[0].value}}`. `{{params[1].value}}` before `{{params[0].value}}` not allowed.",
+     "error.msg.charge.cannot.be.applied.to.non.overdraft.savings.product" : "Overdraft charge can not be applied to non overdraft savings product",
+     "error.msg.charge.cannot.be.applied.to.non.overdraft.savings.account" : "Overdraft charge can not be applied to non overdraft savings account",
+   
+
     "------ end of translation file ------": "----------"
 }

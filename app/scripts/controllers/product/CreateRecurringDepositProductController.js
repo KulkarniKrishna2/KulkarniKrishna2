@@ -45,7 +45,7 @@
                 scope.autoRenewalGracePeriodTypeOptions = data.autoRenewalData.autoRenewalGracePeriodTypeOptions;
                 scope.autoRenewalConfigEnumOptions = data.autoRenewalData.autoRenewalConfigEnumOptions;
                 _.each(data.accountingRuleOptions, function (accountingRule){
-                    if(accountingRule.value != 'ACCRUAL UPFRONT' && accountingRule.value != 'ACCRUAL PERIODIC'){
+                    if(accountingRule.value != 'ACCRUAL UPFRONT'){
                         scope.accountingRuleOptions.push(accountingRule);
                     }
                 });

@@ -11,6 +11,7 @@
                 <strong ng-show="savingaccountdetails.isAutoRenewAccount"><i class="icon-stop {{savingaccountdetails.status.code | StatusLookup}}"></i>&nbsp;{{savingaccountdetails.depositProductName}}({{'label.heading.renewed'|translate}})(#{{savingaccountdetails.accountNo}})</strong>
           </span>
     </div>
+    <api-validate></api-validate>
     <div class="col-md-12 primarydiv">
         <div class="pull-right">
               <span ng-repeat="button in buttons.singlebuttons">
@@ -179,6 +180,10 @@
     </div>
 </tab>
 <tab heading="{{'label.heading.transactions' | translate}}" ng-show="savingaccountdetails.transactions" select="convertDateArrayToObject('date')">
+    <div class="pull-left col-sm-offset-9" ng-show="showAccrualTransactionOption"> <!--   -->
+        <input type="checkbox" data-ng-model="viewAccrualTransaction.show">&nbsp;&nbsp;
+        <label class="control-label">{{ 'label.input.hide.accrual.transactions' | translate }}</label>&nbsp;&nbsp;
+    </div>
     <button class="btn btn-primary pull-right" ng-show="checkStatus()"  ng-click="viewJournalEntries()" style="margin-right: 8px;">{{'label.button.viewjournalentries' | translate}}</button><br>
     <table class="table table-bordered">
         <colgroup span="4"></colgroup>
@@ -195,7 +200,7 @@
         </thead>
         <tbody>
         <tr class="pointer-main" ng-class="{strikeoff : transaction.reversed==true}"
-            ng-repeat="transaction in savingaccountdetails.transactions  | orderBy:[transactionSort.column,transactionSort.columnId]:transactionSort.descending">
+        ng-hide = "hideTransactions(transaction)" ng-repeat="transaction in savingaccountdetails.transactions  | orderBy:[transactionSort.column,transactionSort.columnId]:transactionSort.descending">
             <td class="pointer"
                 data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
                 {{transaction.id}}
