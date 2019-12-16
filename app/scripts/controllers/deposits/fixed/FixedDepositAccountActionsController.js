@@ -50,48 +50,7 @@
                     scope.showDateField = true;
                     scope.showNoteField = false;
                     scope.actionName = 'Approve application';
-                    break;
-                /*case "deposit":
-                 resourceFactory.savingsTrxnsTemplateResource.get({savingsId:scope.accountId, command:'deposit'}, function (data) {
-                 scope.paymentTypes=data.paymentTypeOptions;
-                 });
-                 scope.title = 'label.heading.depositmoneytosavingaccount';
-                 scope.labelName = 'label.input.transactiondate';
-                 scope.modelName = 'transactionDate';
-                 scope.showDateField = true;
-                 scope.showNoteField = false;
-                 scope.isTransaction = true;
-                 scope.showPaymentDetails = false;
-                 break;
-                 case "withdrawal":
-                 resourceFactory.savingsTrxnsTemplateResource.get({savingsId:scope.accountId, command:'withdrawal'}, function (data) {
-                 scope.paymentTypes=data.paymentTypeOptions;
-                 });
-                 scope.title = 'label.heading.withdrawmoneyfromsavingaccount';
-                 scope.labelName = 'label.input.transactiondate';
-                 scope.modelName = 'transactionDate';
-                 scope.showDateField = true;
-                 scope.showNoteField = false;
-                 scope.isTransaction = true;
-                 scope.showPaymentDetails = false;
-                 break;
-                 case "applyAnnualFees":
-                 resourceFactory.savingsResource.get({accountId : routeParams.id, resourceType : 'charges', chargeId : routeParams.chargeId},
-                 function (data) {
-                 scope.formData.amount = data.amount;
-                 if (data.dueDate) {
-                 var dueDate = dateFilter(data.dueDate, scope.df);
-                 scope.formData.dueDate = new Date(dueDate);
-                 }
-                 });
-                 scope.title = 'label.heading.savingaccountapplyannualFee';
-                 scope.labelName = 'label.input.annualfeetransactiondate';
-                 scope.modelName = 'dueDate';
-                 scope.showDateField = true;
-                 scope.showAnnualAmountField = true;
-                 scope.showAmountField = false;
-                 scope.showNoteField = false;
-                 break;*/
+                    break;                
                 case "close":
                     resourceFactory.fixedDepositAccountResource.get({accountId: routeParams.id, resourceType: 'template', command: 'close'},
                         function (data) {
@@ -186,6 +145,14 @@
                 case "waive":
                     scope.waiveCharge = true;
                     break;
+                case "postAccrualAsOn":
+                    scope.title = 'label.heading.postaccrualasondate';
+                    scope.labelName = 'label.input.transactiondate';
+                    scope.modelName = 'transactionDate';
+                    scope.showDateField = true;
+                    scope.showNoteField = false;
+                    scope.retrievePreMatureAmount = false;
+                    break;    
             }
 
             scope.cancel = function () {
@@ -306,6 +273,11 @@
                             scope.retrievePreMatureAmount = false;
                             return;
                         }
+                    } else if (scope.action === "postAccrualAsOn") {
+                        if (this.formData.transactionDate) {
+                            this.formData.transactionDate = dateFilter(this.formData.transactionDate, scope.df);
+                        }
+                        this.formData.isPostAccrualAsOn = true;
                     }
 
                     resourceFactory.fixedDepositAccountResource.save(params, this.formData, function (data) {

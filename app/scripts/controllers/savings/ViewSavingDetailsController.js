@@ -16,6 +16,10 @@
             scope.requestoffset = 0;
             scope.limit = 10;
             scope.hidePaymentType = true;
+            scope.showPostAccrual = false;
+            scope.showAccrualTransactionOption = false;
+            scope.viewAccrualTransaction = {};
+            scope.viewAccrualTransaction.show = false;
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.savingsAccount &&
                 scope.response.uiDisplayConfigurations.savingsAccount.overDraft) {
                 if(scope.response.uiDisplayConfigurations.savingsAccount.overDraft.isHiddenField &&
@@ -30,7 +34,7 @@
             }
             scope.isDebit = function (savingsTransactionType) {
                 return savingsTransactionType.withdrawal == true || savingsTransactionType.feeDeduction == true
-                    || savingsTransactionType.overdraftInterest == true || savingsTransactionType.withholdTax == true || savingsTransactionType.amountHold == true;
+                    || savingsTransactionType.overdraftInterest == true || savingsTransactionType.withholdTax == true || savingsTransactionType.amountHold == true || savingsTransactionType.accrual == true;
             };
             
             scope.isHoldOrRelease = function (savingsTransactionType) {
@@ -51,6 +55,13 @@
 
             scope.viewCharge = function (id){
                 location.path('/savings/'+scope.savingaccountdetails.id+'/viewcharge/'+id).search({'status':scope.savingaccountdetails.status.value});
+            }
+
+            scope.hideTransactions = function(transaction){
+                if(scope.viewAccrualTransaction.show==false && transaction.transactionType.accrual==true){
+                    return true;
+                }
+                return false;
             }
 
             scope.clickEvent = function (eventName, accountId) {
@@ -106,6 +117,11 @@
                             route.reload();
                         });
                         break;
+                    case "postAccrual":
+                        resourceFactory.savingsResource.save({accountId: accountId, command: 'postAccrual'}, {}, function (data) {
+                            route.reload();
+                        });
+                        break;    
                     case "applyAnnualFees":
                         location.path('/savingaccountcharge/' + accountId + '/applyAnnualFees/' + scope.annualChargeId);
                         break;
@@ -163,6 +179,9 @@
                     case "holdAmount":
                         location.path('/savingaccount/' + accountId + '/holdAmount');
                         break;
+                    case "postAccrualAsOn":
+                            location.path('/savingaccount/' + accountId + '/postAccrualAsOn');
+                            break;
 
                 }
             };
@@ -281,7 +300,8 @@
                     ]
                     };
                 }
-
+                scope.showPostAccrual = (data.status.value == "Active" && data.accountingRuleType.isAccrualPeriodic==true);
+                scope.showAccrualTransactionOption = (data.accountingRuleType.isAccrualPeriodic==true);
                 if (data.status.value == "Active") {
                     scope.buttons = { singlebuttons: [
                         {
@@ -321,6 +341,12 @@
                         ]
 
                     };
+                    if(scope.showPostAccrual){
+                        scope.buttons.options.push({
+                            name: "button.postAccrual",
+                            taskPermissionName:"POSTACCRUAL_SAVINGSACCOUNT"
+                        });
+                    }
                     if(data.status.value == "Active"){
                         if(data.subStatus.value == "None"){
                             scope.buttons.options.push({

@@ -2,9 +2,15 @@
     mifosX.controllers = _.extend(module, {
         ViewRecurringDepositAccountDetailsController: function (scope, routeParams, resourceFactory, location, route, dateFilter,$modal) {
             scope.isDebit = function (savingsTransactionType) {
-                return savingsTransactionType.withdrawal == true || savingsTransactionType.feeDeduction == true || savingsTransactionType.withholdTax == true;
+                return savingsTransactionType.withdrawal == true || savingsTransactionType.feeDeduction == true || savingsTransactionType.withholdTax == true || savingsTransactionType.accrual == true;
             };
-
+            scope.viewAccrualTransaction = {};
+            scope.viewAccrualTransaction.show = false;
+            scope.showPostAccrual = false;
+            scope.showAccrualTransactionOption = false;
+            scope.activeStatus = 300;
+            scope.maturedStatus = 800;
+            scope.postAccrualOptionAllowedStatus = [scope.activeStatus,scope.maturedStatus];
             scope.clickEvent = function (eventName, accountId) {
                 eventName = eventName || "";
                 switch (eventName) {
@@ -88,11 +94,17 @@
                     case "assignfieldofficer":
                         location.path('/assignsavingsofficer/' + accountId);
                         break;
+                    case "postAccrual":
+                        resourceFactory.recurringDepositAccountResource.save({accountId: accountId, command: 'postAccrual'}, {}, function (data) {
+                            route.reload();
+                        });
+                        break;    
                 }
             };
 
             resourceFactory.recurringDepositAccountResource.get({accountId: routeParams.id, associations: 'all'}, function (data) {
                 scope.savingaccountdetails = data;
+                scope.showAccrualTransactionOption = (data.accountingRuleType.isAccrualPeriodic==true);
                 scope.depositProductName = data.depositProductName;
                 scope.clientId=data.clientId;
                 scope.savingsaccountholderclientName=data.clientName;
@@ -269,6 +281,11 @@
                         });
                     }
                 }
+                if(scope.showAccrualTransactionOption ==true && scope.postAccrualOptionAllowedStatus.indexOf(data.status.id)>-1){
+                    scope.buttons.options.push({
+                        name: "button.postAccrual"
+                    });
+                }
                 /*var annualdueDate = [];
                  annualdueDate = data.annualFee.feeOnMonthDay;
                  annualdueDate.push(2013);
@@ -287,6 +304,13 @@
             resourceFactory.DataTablesResource.getAllDataTables({apptable: 'm_savings_account'}, function (data) {
                 scope.savingdatatables = data;
             });
+
+            scope.hideTransactions = function(transaction){
+                if(scope.viewAccrualTransaction.show==false && transaction.transactionType.accrual==true){
+                    return true;
+                }
+                return false;
+            }
 
             scope.routeTo = function (accountId, transactionId, accountTransfer, transferId) {
                 if (accountTransfer) {
@@ -380,9 +404,12 @@
              * @param dateFieldName
              */
             scope.convertDateArrayToObject = function(dateFieldName){
-                for(var i in scope.savingaccountdetails.transactions){
-                    scope.savingaccountdetails.transactions[i][dateFieldName] = new Date(scope.savingaccountdetails.transactions[i].date);
+                if(scope.savingaccountdetails){
+                    for(var i in scope.savingaccountdetails.transactions){
+                        scope.savingaccountdetails.transactions[i][dateFieldName] = new Date(scope.savingaccountdetails.transactions[i].date);
+                    }
                 }
+                
             };
 
             scope.transactionSort = {

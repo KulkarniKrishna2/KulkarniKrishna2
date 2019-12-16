@@ -2,8 +2,11 @@
     mifosX.controllers = _.extend(module, {
         ViewFixedDepositAccountDetailsController: function (scope, routeParams, resourceFactory, location, route, dateFilter,$modal) {
             scope.isDebit = function (savingsTransactionType) {
-                return savingsTransactionType.withdrawal == true || savingsTransactionType.feeDeduction == true || savingsTransactionType.withholdTax == true;
+                return savingsTransactionType.withdrawal == true || savingsTransactionType.feeDeduction == true || savingsTransactionType.withholdTax == true || savingsTransactionType.accrual == true;
             };
+            scope.showAccrualTransactionOption = false;
+            scope.viewAccrualTransaction = {};
+            scope.viewAccrualTransaction.show = false;
 
             scope.clickEvent = function (eventName, accountId) {
                 eventName = eventName || "";
@@ -46,14 +49,11 @@
                             route.reload();
                         });
                         break;
-                    /*          case "applyAnnualFees":
-                     location.path('/savingaccountcharge/' + accountId + '/applyAnnualFees/' + scope.annualChargeId);
-                     break;
-                     case "transferFunds":
-                     if (scope.savingaccountdetails.clientId) {
-                     location.path('/accounttransfers/fromsavings/'+accountId);
-                     }
-                     break;*/
+                    case "postAccrual":
+                        resourceFactory.fixedDepositAccountResource.save({accountId: accountId, command: 'postAccrual'}, {}, function (data) {
+                            route.reload();
+                        });
+                        break;
                     case "close":
                         location.path('/fixeddepositaccount/' + accountId + '/close');
                         break;
@@ -76,8 +76,16 @@
                             route.reload();
                         });
                         break;
+
                 }
             };
+
+            scope.hideTransactions = function(transaction){
+                if(scope.viewAccrualTransaction.show==false && transaction.transactionType.accrual==true){
+                    return true;
+                }
+                return false;
+            }
 
             scope.routeTo = function (accountId, transactionId, accountTransfer, transferId) {
                 if (accountTransfer) {
@@ -89,6 +97,8 @@
 
             resourceFactory.fixedDepositAccountResource.get({accountId: routeParams.id, associations: 'all'}, function (data) {
                 scope.savingaccountdetails = data;
+                scope.showPostAccrual = (data.status.value == "Active" && data.accountingRuleType.isAccrualPeriodic==true);
+                scope.showAccrualTransactionOption = (data.accountingRuleType.isAccrualPeriodic==true);
                 scope.depositProductName = data.depositProductName;
                 scope.clientId=data.clientId;
                 scope.savingsaccountholderclientName=data.clientName;
@@ -169,6 +179,13 @@
                         ]
 
                     };
+                    
+                    if(scope.showPostAccrual){
+                        scope.buttons.options.push({
+                            name: "button.postAccrual",
+                            taskPermissionName:"POSTACCRUAL_SAVINGSACCOUNT"
+                        });
+                    }
                     if(data.taxGroup){
                         if(data.withHoldTax){
                             scope.buttons.options.push({
@@ -182,11 +199,6 @@
                             });
                         }
                     }
-                    /*if (data.clientId) {
-                     scope.buttons.options.push({
-                     name:"button.transferFunds"
-                     });
-                     }*/
 
                 }else if (data.status.value == "Matured") {
                     scope.buttons = { singlebuttons: [
@@ -209,11 +221,6 @@
                         ]
 
                     };
-                    /*if (data.clientId) {
-                     scope.buttons.options.push({
-                     name:"button.transferFunds"
-                     });
-                     }*/
 
                 }
                 scope.convertDateArrayToObject('date');
@@ -331,9 +338,11 @@
              * @param dateFieldName
              */
             scope.convertDateArrayToObject = function(dateFieldName){
-                for(var i in scope.savingaccountdetails.transactions){
-                    scope.savingaccountdetails.transactions[i][dateFieldName] = new Date(scope.savingaccountdetails.transactions[i].date);
-                }
+                if(scope.savingaccountdetails){
+                    for(var i in scope.savingaccountdetails.transactions){
+                        scope.savingaccountdetails.transactions[i][dateFieldName] = new Date(scope.savingaccountdetails.transactions[i].date);
+                    }
+                }                
             };
 
             var IncentiveCtrl = function ($scope, $modalInstance, chartSlab) {
