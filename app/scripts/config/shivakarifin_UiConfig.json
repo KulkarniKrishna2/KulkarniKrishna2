@@ -1,0 +1,10 @@
+{
+	"enableUIDisplayConfiguration": true,
+	"uiDisplayConfigurations": {
+		"createCenter": {
+			"isReadOnlyField": {
+				"active": true
+			}
+		}
+	}
+}
