@@ -5007,7 +5007,7 @@
 	"label.heading.total.outstanding.amount": "ຍອດຄ້າງຈ່າຍທັງໝົດ",
 	"label.heading.total.emi.amount": "ຈໍານວນທັງໝົດຂອງ EMI",
 	"label.heading.overdue.amount": "ຈໍານວນທີ່ຄ້າງຊໍາລະ",
-	"label.heading.no.of,closed.loans": "ຈໍານວນເງິນກູ້ທີ່ຖືກປິດ",
+	"label.heading.no.of.closed.loans": "ຈໍານວນເງິນກູ້ທີ່ຖືກປິດ",
 	"label.heading.total.disbursal.amount": "ຈໍານວນເບີກຈ່າຍທັງໝົດ",
 	"label.heading.last.closure.date": "ວັນທີປິດລ້າສຸດ",
 	"label.heading.write.off.amount": "ຈໍານວນທີ່ຫັກລ້າງແລ້ວ",
