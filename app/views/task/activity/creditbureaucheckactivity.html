@@ -49,7 +49,7 @@
 							<input type="checkbox" ng-model="activeClientMember.isMemberChecked" ng-hide="activeClientMember.status.code == 'clientStatusType.onHold'" ng-disabled="disableCBCheck(activeClientMember)"
 							    data-toggle="tooltip" data-placement="top" title="{{'label.tooltip.cb.initiation.not.done' | translate}}" ng-change="captureMembersToNextStep(activeClientMember.id, activeClientMember.loanAccountBasicData.id, activeClientMember.isMemberChecked)"></input>
 						</td>
-						<td class="col-md-2">{{activeClientMember.displayName}}</td>
+						<td ng-click="viewAdditionalDetails(activeClientMember.id)" class=" pointer" class="col-md-2">{{activeClientMember.displayName}}</td>
 						<td class="col-md-1">{{activeClientMember.fcsmNumber}}</td>
 						<td class="col-md-1">{{activeClientMember.cbExistingLoansSummaryData.totalOutstanding}}</td>
 						<td class="col-md-1">{{activeClientMember.cbExistingLoansSummaryData.totalDPD}}</td>
