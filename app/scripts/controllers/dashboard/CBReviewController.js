@@ -1,25 +1,20 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CBReviewController: function (scope, resourceFactory, paginatorUsingOffsetService, $rootScope, $sce, $http, $modal, route, dateFilter,location) {
+        CBReviewController: function (scope, resourceFactory, $rootScope, $sce, $http, $modal, route,location) {
             scope.offices = [];
             scope.formData = {};
             scope.limit = 15;
             scope.requestoffset = 0;
-            scope.cbCriteriaStatusOptions = [];
             resourceFactory.officeDropDownResource.getAllOffices({}, function (officelist) {
                 scope.offices = officelist.allowedParents;
             })
-            resourceFactory.cbReviewTemplateResource.query(function(data) {
-                scope.cbCriteriaStatusOptions = data;
-            })
+            
             scope.getWorkflowCBReviewData = function () {
                 resourceFactory.cbReviewResource.query({
                     offset: scope.requestoffset,
                     limit: scope.limit,
                     officeId: scope.formData.officeId,
                     centerId: scope.formData.centerId,
-                    loanOfficerId: scope.formData.loanOfficerId,
-                    status: scope.formData.status
                 }, function (data) {
                     scope.cbReviewData = data;
                     scope.totalMembers = data.length;
@@ -51,15 +46,10 @@
             
             scope.getOfficeTemplateData = function () {
                 scope.centerOptions = [];
-                scope.loanOfficers = [];
-                resourceFactory.groupTemplateResource.get({
-                    officeId: scope.formData.officeId,
-                    center: true,
-                    staffInSelectedOfficeOnly: true,
-                    loanOfficersOnly: true
+                resourceFactory.centerUnderCBReviewResource.getAll({
+                    officeId: scope.formData.officeId
                 }, function (data) {
-                    scope.centerOptions = data.centerOptions;
-                    scope.loanOfficers = data.staffOptions;
+                    scope.centerOptions = data;
                 });
             };
             scope.previousRequest = function () {
@@ -174,7 +164,7 @@
 
         }
     });
-    mifosX.ng.application.controller('CBReviewController', ['$scope', 'ResourceFactory', 'PaginatorUsingOffsetService', '$rootScope', '$sce', '$http', '$modal', '$route', 'dateFilter','$location', mifosX.controllers.CBReviewController]).run(function ($log) {
+    mifosX.ng.application.controller('CBReviewController', ['$scope', 'ResourceFactory', '$rootScope', '$sce', '$http', '$modal', '$route', '$location', mifosX.controllers.CBReviewController]).run(function ($log) {
         $log.info("CBReviewController initialized");
     });
 }(mifosX.controllers || {}));

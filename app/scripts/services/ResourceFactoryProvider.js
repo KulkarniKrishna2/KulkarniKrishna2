@@ -2007,6 +2007,9 @@
                         getAll: {method: 'GET', params: {loanId: '@loanId'}, isArray: true},
                         update: {method: 'PUT', params: {loanId: '@loanId'}},
                         delete: {method: 'DELETE', params: {loanId: '@loanId'}}
+                    }),
+                    centerUnderCBReviewResource: defineResource(apiVer + "/centers/undercbreview", {}, {
+                        getAll: {method: 'GET', params: {}, isArray: true}
                     })
                 };
             }];
