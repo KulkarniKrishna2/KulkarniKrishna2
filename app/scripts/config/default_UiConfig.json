@@ -553,6 +553,11 @@
 			},
 			"newLoanApplicationLimitAllowed": false
 		},
+		"editLoanApplication": {
+			"editableFields":{
+				"emiPacks":false
+			}
+		},
 		"creditBureau": {
 			"isHiddenField":{
 				"viewHistoryCBReportButton":true

@@ -113,6 +113,11 @@
       },
       "newLoanApplicationLimitAllowed" : true
     },
+    "editLoanApplication": {
+			"editableFields":{
+				"emiPacks":true
+			}
+		},
     "meeting": {
 			"showAllRepeatsOptions": false
 		},
