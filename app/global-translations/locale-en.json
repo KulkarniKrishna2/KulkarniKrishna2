@@ -217,6 +217,9 @@
     "label.heading.activatedgroup": "Group is activated",
     "label.heading.kotak.approval.status": "Kotak Approval Status",
     "label.heading.generatedocuments": "Generate Documents",
+    "label.heading.campute.income": "Compute Income",
+    "label.heading.cbreport.order.number": "Report Order Number",
+    "label.heading.loanpurposegroup": "Loan Purpose group",
 
 
     "#Menu Links": "..",
@@ -246,8 +249,8 @@
     "label.anchor.savingsaccountlimits": "Savings Account Limits",
     "label.anchor.loanaccountlimits": "Loan Account Limits",
     "label.anchor.pendingvaluedatetransactions": "Pending value date transactions",
-
     "label.anchor.registered.devices": "Registered Devices",
+    "label.anchor.task.adhoc.create": "Create Task",
 
     "#Inputs": "..",
     "label.input.name": "Name",
@@ -334,6 +337,8 @@
     "label.anchor.accountLimits": "Account Limits",
     "label.input.document.subCategoryTypeId": "Sub Category Type",
     "label.input.filterbynameorusername": "Filter By Name/UserName ",
+    "label.input.anyotherreason": "Any other Reason",
+    "label.input.selectloanpurpose": "Loan Purpose",
     
     "#Buttons": "..",
     "label.button.previous": "Previous",
@@ -410,6 +415,7 @@
     "label.button.loanaccountreport": "Loan Account Reports",
     "label.button.savingaccountreport": "Saving Account Reports",
     "label.button.preapprove": "Pre Approve",
+    "label.button.overridecrn": "Tag CRN",
 
     "#Misc Labels": "..",
     "label.uniquelyidentifiedwithid": "Uniquely identified with Id",
@@ -440,6 +446,7 @@
     "label.today": "Today",
     "label.relDate": "FINFLUX Release Date: ",
     "label.relVersion": "Release Version: ",
+    "label.repeatsevery": "Repeat Survey",
     "label.finflux": "FINFLUX",
     "label.select": "Select an Option",
     "label.copyright": "Copyright © ",
@@ -448,6 +455,9 @@
     "label.alert.member.create.message": "Member created successfully with Id #",
     "label.alert.loanapplication.preapproval.success.message": "Loan application was successfully Preapproved",
     "label.alert.loanapplication.preapproval.failure.message": "Loan application could not be Preapproved!",
+    "label.crn.status": "CRN",
+    "label.err.code": "Error Code :",
+    "label.err.desc": "Error Description :",
 
     "#Tab Messages": "..",
     "label.tab.myworkflowtasks": "My Workflow Tasks",
@@ -715,6 +725,8 @@
     "label.heading.categoryname": "Category Name",
     "label.heading.productnamewithloanId": "Product Name(LoanId)",
     "label.heading.clientnamewithaccountnumber": "Client Name(Account Number)",
+    "label.heading.bss.loans.summary": "Loans Summary",
+    "label.heading.ncif.details": "NCIF Details",
     "#Menu Links": "..",
     "label.menu.office": "Office",
     "label.menu.loan.products": "Loan Products",
@@ -2206,6 +2218,10 @@
     "label.tooltip.download.template": "Dowload template",
     "label.tooltip.view.processed.file": "View processed file",
     "label.tooltip.upload.file.for.bulk.process": "Upload file for bulk process",
+    "label.tooltip.preclosureinterestcalculationstrategy": "Preclosure Interest Calculation Strategy",
+    "label.tooltip.receivablepenalties": "Receivable Penalties",
+    "label.tooltip.isflatinterestrate": "Check If This Is Flat Interest Rate",
+    "label.tooltip.loanproduct.group": "Loan Product Group",
 
 
     "#Enumeration & Error Messages": "..",
@@ -5358,6 +5374,7 @@
     "label.heading.enddate": "End Date",
     "label.heading.is_active": "is_active",
     "label.credit.bureau.enquiry.initiated": "Credit bureau enquiry is initiated",
+    "label.credit.reviewed": "Credit Review",
 
     "label.input.alias": "Alias",
     "label.input.country": "Country",
@@ -5974,7 +5991,7 @@
     "label.heading.total.outstanding.amount": "Total Outstanding Amount",
     "label.heading.total.emi.amount": "Total EMI Amount",
     "label.heading.overdue.amount": "Overdue Amount",
-    "label.heading.no.of,closed.loans": "No of Closed Loans",
+    "label.heading.no.of.closed.loans": "No of Closed Loans",
     "label.heading.total.disbursal.amount": "Total Disbursal Amount",
     "label.heading.last.closure.date": "Last Closure Date",
     "label.heading.write.off.amount": "Write off Amount",
@@ -7389,6 +7406,7 @@
     "label.placeholder.expected.disbursement.date": "ExpectedDisbursementDate",
     "label.placeholder.task.created.date": "TaskCreatedDate",
     "label.placeholder.clientId": "ClientId",
+    "label.placeholder.amount": "Amount",
 
     "label.heading.eod.process": "EOD Process",
     "label.anchor.eod.process": "EOD Process",
@@ -8192,8 +8210,8 @@
     "error.msg.tranche.details.required.as.product.is.having.dp.details" : "Tranche details are required as product is having dp details",
     "label.is.auto.renewal.allowed" : " Is AutoRenewal Allowed",
     "label.tooltip.of.auto.renewal.in.deposit.product": "Auto renewal of the account will happen when grace period is over with some interest rate, duration and new deposit",
-    "label.heading.new.accounts.interest.rate.and tenure": "New Account's Interest rate and tenure",
-    "label.input.new.accounts.interest.rate.and tenure": "New Account's Interest rate and tenure",
+    "label.heading.new.accounts.interest.rate.and.tenure": "New Account's Interest rate and tenure",
+    "label.input.new.accounts.interest.rate.and.tenure": "New Account's Interest rate and tenure",
     "label.input.values.as.per.parent.account": "Values as per Parent account",
     "label.input.values.as.per.product.configuration": "Values as per Product Configuration",
     "label.input.autorenewalconfigtype.parentaccount": "Values as per Parent account",
