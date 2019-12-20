@@ -8394,6 +8394,8 @@
      "label.heading.waivedorwrittenoff" : "Waived/Written Off",
      "label.vintage" : "Vintage",
      "label.msg.invalid.incorporation.number" : "Invalid Incorporation Number",
+     "label.input.incorporation.date.cannot.be.future.date" : "Incorporation date cannot be in the future",
+     "validation.msg.client.dateOfBirth.is.greater.than.date": "Date of Birth must be less than provided date `{{params[1].value}}`",
      
      "------ end of translation file ------": "----------"
 }

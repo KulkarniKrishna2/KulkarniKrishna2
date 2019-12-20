@@ -109,9 +109,6 @@
                         if (scope.response.uiDisplayConfigurations.createClient.isMandatoryField.incorporationNumber) {
                             scope.isIncorporationNumberMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.incorporationNumber;
                         }
-                        if (scope.response.uiDisplayConfigurations.createClient.forNonPerson.incorporationNumberSize) {
-                            scope.incorporationNumberSize = scope.response.uiDisplayConfigurations.createClient.forNonPerson.incorporationNumberSize;
-                        }
                         if (scope.response.uiDisplayConfigurations.createClient.isMandatoryField.staff) {
                             scope.isStaffMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.staff;
                         }
@@ -153,12 +150,10 @@
                     if (scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber && scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber.mobileNumberPattern) {
                         scope.mobileNumberPattern = scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber.mobileNumberPattern;
                     }
-
+                    if (scope.response.uiDisplayConfigurations.createClient.forNonPerson) {
+                        scope.incorporationNumberSize = scope.response.uiDisplayConfigurations.createClient.forNonPerson.incorporationNumberSize;
+                    }
                 }
-
-
-
-
             }
 
             
@@ -200,10 +195,10 @@
             scope.maxNonPersonAge = 0;
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient && 
                 scope.response.uiDisplayConfigurations.createClient.forNonPerson && scope.response.uiDisplayConfigurations.createClient.forNonPerson.isValidateDOBField &&scope.response.uiDisplayConfigurations.createClient.forNonPerson.isValidateDOBField.active) {
-                if (scope.response.uiDisplayConfigurations.createClient.createClient.forNonPerson.isValidateDOBField.ageCriteria.minNonPersonAge > 0) {
+                if (scope.response.uiDisplayConfigurations.createClient.forNonPerson.isValidateDOBField.ageCriteria.minNonPersonAge > 0) {
                     scope.minNonPersonAge = scope.response.uiDisplayConfigurations.createClient.forNonPerson.isValidateDOBField.ageCriteria.minNonPersonAge;
                 }
-                if (scope.response.uiDisplayConfigurations.createClient.createClient.forNonPerson.isValidateDOBField.ageCriteria.maxNonPersonAge > 0) {
+                if (scope.response.uiDisplayConfigurations.createClient.forNonPerson.isValidateDOBField.ageCriteria.maxNonPersonAge > 0) {
                     scope.maxNonPersonAge = scope.response.uiDisplayConfigurations.createClient.forNonPerson.isValidateDOBField.ageCriteria.maxNonPersonAge;
                 }
             } else{

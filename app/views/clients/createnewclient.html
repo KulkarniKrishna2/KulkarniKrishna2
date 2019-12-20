@@ -99,11 +99,16 @@
 				<div>
 					<label class="control-label col-sm-2" ng-hide="showNonPersonOptions">{{'label.input.dateofbirth' | translate}}<span ng-show="isDateOfBirthMandatory" class="required">*</span></label>
 					<label class="control-label col-sm-2" ng-show="showNonPersonOptions">{{'label.input.incorporationdate' | translate}}<span ng-show="isIncorporationDateMandatory" class="required">*</span></label>
-					<div class="col-sm-3">
+					<div ng-hide="showNonPersonOptions" class="col-sm-3">
 					<input id="dateofbirth" type="text" autocomplete="off" name="dateofbirth" datepicker-pop="{{df}}" ng-model="first.dateOfBirth"
-						   min="minDateOfBirth" max="maxDateOfBirth" is-open="opened1" class="form-control" ng-required="((!showNonPersonOptions && isDateOfBirthMandatory) || (showNonPersonOptions && isIncorporationDateMandatory))" ng-readonly="isDatePickerReadOnly"/>
+						   min="minDateOfBirth" max="maxDateOfBirth" is-open="opened1" class="form-control" ng-required="isDateOfBirthMandatory" ng-readonly="isDatePickerReadOnly"/>
 					    <span class="error" ng-show="dateOfBirthNotInRange">{{'label.input.dob.not.range' | translate}} {{minAge}} {{'label.input.and' | translate}} {{maxAge}} {{'label.input.year' | translate}}</span>
 					</div>
+					<div ng-show="showNonPersonOptions" class="col-sm-3">
+						<input id="dateofbirth" type="text" autocomplete="off" name="dateofbirth" datepicker-pop="{{df}}" ng-model="first.dateOfBirth"
+						     max="maxNonPersonDateOfIncorporation" is-open="opened1" class="form-control" ng-required="isIncorporationDateMandatory" ng-readonly="isDatePickerReadOnly"/>
+							<span class="error" ng-show="dateOfBirthNotInRange">{{'label.input.incorporation.date.cannot.be.future.date' | translate}}</span>
+						</div>
 					<div class="col-sm-1">
 						<label class="control-label col-sm-1" ng-show="displayAge && !showNonPersonOptions">{{'label.input.age' | translate}}{{":"}}{{age}}</label>
 						<form-validate valattributeform="createclientform" valattribute="dateofbirth"/>
@@ -129,17 +134,17 @@
 					</div>
 				</div>
 				</div>
-				<div data-ng-switch on="showNonPersonOptions">
-					<div data-ng-switch-when="true">
-						<label class="control-label col-sm-2">{{'label.input.incorpValidityTillDate' | translate}}</label>
+			</div>
+			<div class="form-group">
+				<div ng-if="showNonPersonOptions">
+					<label class="control-label col-sm-2">{{'label.input.incorpValidityTillDate' | translate}}</label>
 
-						<div class="col-sm-3">
-							<input id="incorpValidityTillDate" type="text" autocomplete="off" name="incorpValidityTillDate" datepicker-pop="{{df}}"
-								   ng-model="first.incorpValidityTillDate" is-open="opened1" max="globalMaxDate"  class="form-control" ng-readonly="isDatePickerReadOnly"/>
-						</div>
+					<div class="col-sm-3">
+						<input id="incorpValidityTillDate" type="text" autocomplete="off" name="incorpValidityTillDate" datepicker-pop="{{df}}"
+							   ng-model="first.incorpValidityTillDate" is-open="opened1" max="globalMaxDate"  class="form-control" ng-readonly="isDatePickerReadOnly"/>
 					</div>
 				</div>
-	        </div>
+			</div>
 
 	        <div class="form-group">
 	        	<div data-ng-switch on="showNonPersonOptions">
@@ -196,7 +201,7 @@
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="incorpNumber">{{'label.input.incorpNumber' | translate}}<span ng-show="isIncorporationNumberMandatory"  class="required">*</span></label>		
 						<div class="col-sm-3">
-							<input type="text" autocomplete="off" name="incorpNumber" id="incorpNumber" ng-required="isIncorporationNumberMandatory" ng-model="formData.clientNonPersonDetails.incorpNumber"  class="form-control"/>
+							<input type="text" autocomplete="off" name="incorpNumber" id="incorpNumber" ng-required="isIncorporationNumberMandatory" ng-model="formData.clientNonPersonDetails.incorpNumber"  ng-pattern="{{regexFormats.alphaNumricPattern}}" class="form-control"/>
 						</div>
 						<span ng-show="showIncorporationNumberSizeError" class="col-sm-2">
 							<small class="required">{{'label.msg.invalid.incorporation.number' | translate}}</small></span>
