@@ -99,11 +99,15 @@
 			<div class="form-group">
 				<label class="control-label col-sm-2" ng-hide="showNonPersonOptions">{{'label.input.dateofbirth' | translate}}<span ng-show="isDateOfBirthMandatory" class="required">*</span></label>
 				<label class="control-label col-sm-2" ng-show="showNonPersonOptions">{{'label.input.incorporationdate' | translate}}</label>
-			
-			    <div class="col-sm-3">
+				<div ng-hide="showNonPersonOptions" class="col-sm-3">
 			        <input id="dateofbirth" type="text" autocomplete="off" name="dateofbirth" datepicker-pop="{{df}}"
 			               ng-model="date.dateOfBirth" is-open="opened1" min="minDateOfBirth" max="maxDateOfBirth"  class="form-control" ng-required="isDateOfBirthMandatory" ng-readonly="isDatePickerReadOnly" ng-change = "isDateOfBirthNotInRange(date.dateOfBirth)"/>
 					<span class="error" ng-show="dateOfBirthNotInRange">{{'label.input.dob.not.range' | translate}} {{minAge}} {{'label.input.and' | translate}} {{maxAge}} {{'label.input.year' | translate}}</span>
+				</div>
+			    <div ng-show="showNonPersonOptions" class="col-sm-3">
+			        <input id="dateofbirth" type="text" autocomplete="off" name="dateofbirth" datepicker-pop="{{df}}"
+			               ng-model="date.dateOfBirth" max="maxNonPersonDateOfIncorporation" is-open="opened1" class="form-control" ng-required="isDateOfBirthMandatory" ng-readonly="isDatePickerReadOnly" ng-change = "isDateOfBirthNotInRange(date.dateOfBirth)"/>
+					<span class="error" ng-show="dateOfBirthNotInRange">{{'label.input.incorporation.date.cannot.be.future.date' | translate}}</span>
 				</div>
 				<div class="col-sm-2">
 					<label class="control-label col-sm-1" ng-show="displayAge">{{'label.input.age' | translate}}{{":"}}{{age}}</label>
@@ -187,10 +191,15 @@
 			<div data-ng-switch on="showNonPersonOptions">
 				<div data-ng-switch-when="true">
 					<div class="form-group">
-						<label class="control-label col-sm-2" for="incorpNumber">{{'label.input.incorpNumber' | translate}}</label>
+						<label class="control-label col-sm-2" for="incorpNumber">{{'label.input.incorpNumber' | translate}}<span ng-show="isIncorporationNumberMandatory"  class="required">*</span></label>
 
 						<div class="col-sm-3">
-							<input type="text" autocomplete="off" id="incorpNumber" ng-model="formData.clientNonPersonDetails.incorpNumber"  class="form-control"/>
+							<input type="text" autocomplete="off" name="incorpNumber" id="incorpNumber" ng-model="formData.clientNonPersonDetails.incorpNumber" ng-required="isIncorporationNumberMandatory" ng-pattern="{{regexFormats.alphaNumricPattern}}" class="form-control"/>
+							<span ng-show="showIncorporationNumberSizeError" class="col-sm-2">
+								<small class="required">{{'label.msg.invalid.incorporation.number' | translate}}</small></span>
+							<div ng-if="isIncorporationNumberMandatory" class="col-sm-2">
+								<form-validate valattributeform="editclientform" valattribute="incorpNumber"/>
+							</div>
 						</div>
 
 						<label class="control-label col-sm-2">{{'label.input.mainBusinessLine' | translate}}</label>

@@ -1465,32 +1465,37 @@
                         };
 
                         if ($scope.docFile) {
-                            $upload.upload({
-                                url: $rootScope.hostUrl + API_VERSION + '/' + bankAccountDetails.entityType + '/' + bankAccountDetails.entityId + '/documents',
-                                data: $scope.docData,
-                                file: $scope.docFile
-                            }).then(function (data) {
-                                if (data != undefined) {
-                                    documentId = data.data.resourceId;
-                                    if (documentId != undefined) {
-                                        bankAccountDetails.bankAccFormData.documents = [];
-                                        for (var j in bankAccountDetails.bankAccountDocuments) {
-                                            bankAccountDetails.bankAccFormData.documents.push(bankAccountDetails.bankAccountDocuments[j].id);
+                            if (!$scope.docFile.type.includes('image')) {
+                                $scope.docformatErr = true;
+                                $scope.docformatErrMsg = 'label.error.only.files.of.type.image.are.allowed';
+                            } else {
+                                $upload.upload({
+                                    url: $rootScope.hostUrl + API_VERSION + '/' + bankAccountDetails.entityType + '/' + bankAccountDetails.entityId + '/documents',
+                                    data: $scope.docData,
+                                    file: $scope.docFile
+                                }).then(function (data) {
+                                    if (data != undefined) {
+                                        documentId = data.data.resourceId;
+                                        if (documentId != undefined) {
+                                            bankAccountDetails.bankAccFormData.documents = [];
+                                            for (var j in bankAccountDetails.bankAccountDocuments) {
+                                                bankAccountDetails.bankAccFormData.documents.push(bankAccountDetails.bankAccountDocuments[j].id);
+                                            }
+                                            bankAccountDetails.bankAccFormData.documents.push(documentId);
                                         }
-                                        bankAccountDetails.bankAccFormData.documents.push(documentId);
+                                        bankAccountDetails.bankAccFormData.locale = scope.optlang.code;
+                                        resourceFactory.bankAccountDetailResource.update({
+                                            entityType: bankAccountDetails.entityType,
+                                            entityId: bankAccountDetails.entityId,
+                                            clientBankAccountDetailAssociationId: getClientBankAccountDetailAssociationId()
+                                        }, bankAccountDetails.bankAccFormData, function (data) {
+                                            populateDetails();
+                                            reComputeProfileRating($scope.clientId);
+                                        });
                                     }
-                                    bankAccountDetails.bankAccFormData.locale = scope.optlang.code;
-                                    resourceFactory.bankAccountDetailResource.update({
-                                        entityType: bankAccountDetails.entityType,
-                                        entityId: bankAccountDetails.entityId,
-                                        clientBankAccountDetailAssociationId: getClientBankAccountDetailAssociationId()
-                                    }, bankAccountDetails.bankAccFormData, function (data) {
-                                        populateDetails();
-                                        reComputeProfileRating($scope.clientId);
-                                    });
-                                }
-                            });
-                            $modalInstance.close('upload');
+                                });
+                                $modalInstance.close('upload');
+                            }
                         }
                     };
 

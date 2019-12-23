@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreditBureauCheckActivityController: function ($controller, scope, routeParams, $modal, resourceFactory, location, dateFilter, ngXml2json, route, $http, $rootScope, $sce, CommonUtilService, $route, $upload, API_VERSION) {
+        CreditBureauCheckActivityController: function ($controller, scope, $modal, resourceFactory, dateFilter, $http, $rootScope, $sce, CommonUtilService, $upload, API_VERSION) {
             angular.extend(this, $controller('defaultActivityController', { $scope: scope }));
 
             scope.showBulkCBInitiate = false;
@@ -1207,9 +1207,741 @@
                     }
                 }
             }
+
+            scope.viewAdditionalDetails = function (clientId) {
+                $modal.open({
+                    templateUrl: 'views/task/popup/viewadditionaldetail.html',
+                    controller: viewAdditionalDetailCtrl,
+                    backdrop: 'static',
+                    windowClass: 'app-modal-window-full-screen',
+                    size: 'lg',
+                    resolve: {
+                        memberParams: function () {
+                            return {'clientId': clientId };
+                        }
+                    }
+                });
+            }
+
+            var viewAdditionalDetailCtrl = function ($scope, $modalInstance, memberParams, $sce) {
+                angular.extend(this, $controller('defaultUIConfigController', {
+                    $scope: $scope,
+                    $key: "bankAccountDetails"
+                }));
+                $scope.showHouseHoldExpense = true;
+                $scope.taskconfig = scope.taskconfig;
+                $scope.regexFormats = scope.regexFormats;
+                $scope.df = scope.df;
+                $scope.clientId = memberParams.clientId;
+                $scope.showaddressform = false;
+                $scope.shownidentityform = false;
+                $scope.shownFamilyMembersForm = false;
+                $scope.showLoanAccountForm = false;
+                $scope.isLoanAccountExist = true;
+                $scope.displayCashFlow = true;
+                $scope.displaySurveyInfo = true;
+                $scope.surveyName = scope.response.uiDisplayConfigurations.viewClient.takeSurveyName;
+
+                if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.bankAccountDetails) {
+                    if (scope.response.uiDisplayConfigurations.bankAccountDetails.isMandatory) {
+                        $scope.isMandatoryFields = scope.response.uiDisplayConfigurations.bankAccountDetails.isMandatory;
+                    }
+                }
+
+                $scope.getBankDetails = function(isvalidIfsc){
+                    if($scope.bankAccFormData.ifscCode != undefined && $scope.bankAccFormData.ifscCode === $scope.repeatBankAccFormData.ifscCodeRepeat && isvalidIfsc){
+                        resourceFactory.bankIFSCResource.get({
+                            ifscCode: $scope.bankAccFormData.ifscCode
+                        }, function (data) {
+                            $scope.bankData = data;
+                            $scope.bankAccFormData.bankName = $scope.bankData.bankName;
+                            $scope.bankAccFormData.branchName = $scope.bankData.branchName;
+                            $scope.bankAccFormData.bankCity = $scope.bankData.bankCity;
+                        });
+                    }
+                }
+
+                function getClientData() {
+                    resourceFactory.clientResource.get({
+                        clientId: $scope.clientId,
+                        associations: 'hierarchyLookup'
+                    }, function (data) {
+                        $scope.clientDetails = data;
+                        if ($scope.clientDetails.lastname != undefined) {
+                            $scope.clientDetails.displayNameInReverseOrder = $scope.clientDetails.lastname.concat(" ");
+                        }
+                        if ($scope.clientDetails.middlename != undefined) {
+                            $scope.clientDetails.displayNameInReverseOrder = $scope.clientDetails.displayNameInReverseOrder.concat($scope.clientDetails.middlename).concat(" ");
+                        }
+                        if ($scope.clientDetails.firstname != undefined) {
+                            $scope.clientDetails.displayNameInReverseOrder = $scope.clientDetails.displayNameInReverseOrder.concat($scope.clientDetails.firstname);
+                        }
+                    });
+                }
+                getClientData();
+
+                $scope.getCashFlow = function () {
+                    $scope.showSummary = true;
+                    $scope.showAddClientoccupationdetailsForm = false;
+                    $scope.showEditClientoccupationdetailsForm = false;
+                    $scope.showAddClientassetdetailsForm = false;
+                    $scope.showEditClientassetdetailsForm = false;
+                    $scope.showAddClienthouseholddetailsForm = false;
+                    $scope.showEditClienthouseholddetailsForm = false;
+                    $scope.totalIncome = 0;
+                    refreshAndShowSummaryView();
+                }
+
+                function hideAll() {
+                    $scope.showSummary = false;
+                    $scope.showAddClientoccupationdetailsForm = false;
+                    $scope.showEditClientoccupationdetailsForm = false;
+                    $scope.showAddClientassetdetailsForm = false;
+                    $scope.showEditClientassetdetailsForm = false;
+                    $scope.showAddClienthouseholddetailsForm = false;
+                    $scope.showEditClienthouseholddetailsForm = false;
+                };
+
+                function incomeAndexpense() {
+                    resourceFactory.incomeExpenseAndHouseHoldExpense.getAll({
+                        clientId: $scope.clientId
+                    }, function (data) {
+                        $scope.incomeAndExpenses = data;
+                        $scope.totalIncomeOcc = $scope.calculateOccupationTotal();
+                        $scope.totalIncomeAsset = $scope.calculateTotalAsset();
+                        $scope.totalHouseholdExpense = $scope.calculateTotalExpense();
+                        $scope.showSummaryView();
+                    });
+                };
+
+                $scope.calculateOccupationTotal = function () {
+                    var total = 0;
+                    angular.forEach($scope.incomeAndExpenses, function (incomeExpense) {
+                        if (!_.isUndefined(incomeExpense.incomeExpenseData.cashFlowCategoryData.categoryEnum) && incomeExpense.incomeExpenseData.cashFlowCategoryData.categoryEnum.id == 1) {
+                            if (!_.isUndefined(incomeExpense.totalIncome) && !_.isNull(incomeExpense.totalIncome)) {
+                                if (!_.isUndefined(incomeExpense.totalExpense) && !_.isNull(incomeExpense.totalExpense)) {
+                                    total = total + incomeExpense.totalIncome - incomeExpense.totalExpense;
+                                } else {
+                                    total = total + incomeExpense.totalIncome;
+                                }
+                            }
+                        }
+                    });
+                    return total;
+                };
+
+                $scope.calculateTotalAsset = function () {
+                    var total = 0;
+                    angular.forEach($scope.incomeAndExpenses, function (incomeExpense) {
+                        if (!_.isUndefined(incomeExpense.incomeExpenseData.cashFlowCategoryData.categoryEnum) && incomeExpense.incomeExpenseData.cashFlowCategoryData.categoryEnum.id == 2) {
+                            if (!_.isUndefined(incomeExpense.totalIncome) && !_.isNull(incomeExpense.totalIncome)) {
+                                if (!_.isUndefined(incomeExpense.totalExpense) && !_.isNull(incomeExpense.totalExpense)) {
+                                    total = total + incomeExpense.totalIncome - incomeExpense.totalExpense;
+                                } else {
+                                    total = total + incomeExpense.totalIncome;
+                                }
+                            }
+                        }
+                    });
+                    return total;
+                };
+
+                $scope.updateTotalIncome = function (quantity, income) {
+                    if ($scope.isQuantifierNeeded && quantity && income) {
+                        $scope.totalIncome = parseFloat(quantity) * parseFloat(income);
+                    } else {
+                        $scope.totalIncome = undefined;
+                    }
+                };
+
+                $scope.calculateTotalExpense = function () {
+                    var total = 0;
+                    angular.forEach($scope.incomeAndExpenses, function (incomeExpense) {
+                        if (!_.isUndefined(incomeExpense.incomeExpenseData.cashFlowCategoryData.typeEnum) && incomeExpense.incomeExpenseData.cashFlowCategoryData.typeEnum.id == 2) {
+                            if (!_.isUndefined(incomeExpense.totalExpense) && !_.isNull(incomeExpense.totalExpense)) {
+                                total = total + incomeExpense.totalExpense;
+                            }
+                        }
+                    });
+                    return total;
+                };
+
+                $scope.showSummaryView = function () {
+                    hideAll();
+                    $scope.showSummary = true;
+                };
+
+                function refreshAndShowSummaryView() {
+                    incomeAndexpense();
+                };
+
+                //edit
+
+                $scope.editClientoccupationdetails = function (incomeExpenseId) {
+                    hideAll();
+                    $scope.showEditClientoccupationdetailsForm = true;
+                    initEditClientoccupationdetails(incomeExpenseId);
+                };
+
+                $scope.editClientassetdetails = function (incomeExpenseId) {
+                    hideAll();
+                    $scope.showEditClientassetdetailsForm = true;
+                    initEditClientoccupationdetails(incomeExpenseId);
+                };
+
+                $scope.editClienthouseholddetails = function (incomeExpenseId) {
+                    hideAll();
+                    $scope.showEditClienthouseholddetailsForm = true;
+                    initEditClientoccupationdetails(incomeExpenseId);
+                };
+
+                function initEditClientoccupationdetails(incomeExpenseId) {
+                    $scope.incomeAndExpenseId = incomeExpenseId;
+                    $scope.formData = {};
+                    $scope.formData.isMonthWiseIncome = false;
+                    $scope.isQuantifierNeeded = false;
+
+                    resourceFactory.cashFlowCategoryResource.getAll({
+                        isFetchIncomeExpenseDatas: true
+                    }, function (data) {
+                        $scope.occupations = data;
+                    });
+
+                    resourceFactory.incomeExpenseAndHouseHoldExpense.get({
+                        clientId: $scope.clientId,
+                        incomeAndExpenseId: $scope.incomeAndExpenseId
+                    }, function (data) {
+                        angular.forEach($scope.occupations, function (occ) {
+                            if (occ.id == data.incomeExpenseData.cashflowCategoryId) {
+                                $scope.occupationOption = occ;
+                            }
+                        });
+                        $scope.formData.incomeExpenseId = data.incomeExpenseData.id;
+                        $scope.formData.quintity = data.quintity;
+                        $scope.formData.totalIncome = data.defaultIncome;
+                        $scope.formData.totalExpense = data.totalExpense;
+
+                        $scope.formData.isPrimaryIncome = data.isPrimaryIncome;
+                        $scope.formData.isRemmitanceIncome = data.isRemmitanceIncome;
+                        $scope.isQuantifierNeeded = data.incomeExpenseData.isQuantifierNeeded;
+                        if (scope.isQuantifierNeeded) {
+                            $scope.updateTotalIncome($scope.formData.quintity, $scope.formData.totalIncome);
+                        }
+                        $scope.quantifierLabel = data.incomeExpenseData.quantifierLabel;
+                    });
+                };
+
+                $scope.addClientoccupationdetails = function () {
+                    hideAll();
+                    $scope.showAddClientoccupationdetailsForm = true;
+                    initAddClientoccupationdetails();
+                };
+
+                $scope.addClientassetdetails = function () {
+                    hideAll();
+                    $scope.showAddClientassetdetailsForm = true;
+                    initAddClientoccupationdetails();
+                };
+
+                $scope.addClienthouseholddetails = function () {
+                    hideAll();
+                    $scope.showAddClienthouseholddetailsForm = true;
+                    initAddClientoccupationdetails();
+                };
+
+                function initAddClientoccupationdetails() {
+                    $scope.formData = {};
+                    $scope.subOccupations = [];
+                    $scope.formData.clientMonthWiseIncomeExpense = [];
+                    $scope.formData.isMonthWiseIncome = false;
+                    $scope.isQuantifierNeeded = false;
+                    $scope.quantifierLabel = undefined;
+
+                    resourceFactory.cashFlowCategoryResource.getAll({
+                        isFetchIncomeExpenseDatas: true
+                    }, function (data) {
+                        $scope.occupations = data;
+                    });
+                };
+
+                $scope.slectedOccupation = function (occupationId, subOccupationId) {
+                    _.each($scope.occupations, function (occupation) {
+                        if (occupation.id == occupationId) {
+                            _.each(occupation.incomeExpenseDatas, function (iterate) {
+                                if (iterate.cashflowCategoryId == occupationId && iterate.id == subOccupationId) {
+                                    if (iterate.defaultIncome) {
+                                        $scope.formData.totalIncome = iterate.defaultIncome;
+                                    }
+                                    if (iterate.defaultExpense) {
+                                        $scope.formData.totalExpense = iterate.defaultExpense;
+                                    }
+                                    if (iterate.isQuantifierNeeded == true) {
+                                        $scope.quantifierLabel = iterate.quantifierLabel;
+                                        $scope.isQuantifierNeeded = iterate.isQuantifierNeeded;
+                                    }
+                                    $scope.isQuantifierNeeded = iterate.isQuantifierNeeded;
+                                    $scope.updateTotalIncome($scope.formData.quintity, $scope.formData.totalIncome);
+                                }
+                            })
+                        }
+
+                    });
+                };
+
+                $scope.subOccupationNotAvailable = function (occupationId) {
+                    _.each($scope.occupationOption, function (occupation) {
+                        if (occupation == occupationId && _.isUndefined(occupation.incomeExpenseDatas)) {
+                            $scope.isQuantifierNeeded = false;
+                            $scope.updateTotalIncome($scope.formData.quintity, $scope.formData.totalIncome);
+                            return $scope.isQuantifierNeeded;
+                        }
+                    })
+                };
+
+                $scope.addClientoccupationdetailsSubmit = function () {
+                    $scope.formData.locale = scope.optlang.code;
+                    resourceFactory.incomeExpenseAndHouseHoldExpense.save({
+                        clientId: $scope.clientId
+                    }, $scope.formData, function (data) {
+                        refreshAndShowSummaryView();
+                    });
+                };
+
+                $scope.addClientassetdetailsSubmit = function () {
+                    $scope.addClientoccupationdetailsSubmit();
+                };
+
+                $scope.addClienthouseholddetailsSubmit = function () {
+                    $scope.addClientoccupationdetailsSubmit();
+                };
+
+                $scope.editClientassetdetailsSubmit = function () {
+                    $scope.editClientoccupationdetailsSubmit();
+                }
+                $scope.editClienthouseholddetailsSubmit = function () {
+                    $scope.editClientoccupationdetailsSubmit();
+                }
+                $scope.editClientoccupationdetailsSubmit = function () {
+                    $scope.formData.locale = scope.optlang.code;
+                    resourceFactory.incomeExpenseAndHouseHoldExpense.update({
+                        clientId: $scope.clientId,
+                        incomeAndExpenseId: $scope.incomeAndExpenseId
+                    },
+                        $scope.formData,
+                        function (data) {
+                            refreshAndShowSummaryView();
+                            });
+                };
+
+                $scope.close = function () {
+                    $modalInstance.dismiss('close');
+                };
+
+                function initDocumentUploadTask() {
+                    $scope.formData = {};
+                    $scope.isUploadDocumentTagMandatory = true;
+                    $scope.isFileMandatory = true;
+                    $scope.entityType = 'clients';
+                    $scope.entityId = $scope.clientId;
+                    $scope.isFileSelected = false;
+                    $scope.documentTagName = 'Client Document Tags';
+                    getClientAdditionalDocuments();
+                };
+
+                initDocumentUploadTask();
+
+                function getAdditionalDocumentNames() {
+                    resourceFactory.codeValueByCodeNameResources.get({ codeName: $scope.documentTagName }, function (codeValueData) {
+                        $scope.additionalDocumentNames = [];
+                        $scope.availableDocumentNames = [];
+                        $scope.additionalDocumentNames = codeValueData;
+                        $scope.availableDocumentNames = codeValueData;
+                        initAdditionalDocumentNames();
+                    });
+                }
+
+                function initAdditionalDocumentNames() {
+                    if ($scope.clientdocuments != undefined) {
+                        for (var key in $scope.clientdocuments) {
+                            for (var value in $scope.clientdocuments[key]) {
+                                var index = $scope.additionalDocumentNames.findIndex(obj => obj.name === $scope.clientdocuments[key][value].name);
+                                if (index >= 0) {
+                                    $scope.availableDocumentNames.splice(index, 1);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                function getClientAdditionalDocuments() {
+                    resourceFactory.clientDocumentsResource.getAllClientDocuments({ clientId: $scope.clientId }, function (data) {
+                        $scope.clientdocuments = {};
+                        for (var l = 0; l < data.length; l++) {
+                            if (data[l].id) {
+                                data[l].docUrl = documentsURL(data[l]);
+                            }
+                            if (data[l].tagValue) {
+                                pushDocumentToTag(data[l], data[l].tagValue);
+                            }
+                        }
+                        getAdditionalDocumentNames();
+                    });
+                };
+
+                function pushDocumentToTag(document, tagValue) {
+                    if ($scope.clientdocuments && $scope.clientdocuments.hasOwnProperty(tagValue)) {
+                        $scope.clientdocuments[tagValue].push(document);
+                    } else {
+                        $scope.clientdocuments[tagValue] = [];
+                        $scope.clientdocuments[tagValue].push(document);
+                    }
+                };
+
+                $scope.onFileSelect = function ($files) {
+                    $scope.file = $files[0];
+                    $scope.isFileSelected = true;
+                };
+
+                function documentsURL(document) {
+                    return API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment';
+                };
+
+                $scope.deleteDoc = function (documentId, index, tagValue) {
+                    resourceFactory.documentsResource.delete({ entityType: $scope.entityType, entityId: $scope.entityId, documentId: documentId.id }, '', function (data) {
+                        getClientAdditionalDocuments();
+                    });
+                };
+
+                $scope.setFileName = function () {
+                    for (var i in $scope.additionalDocumentNames) {
+                        if ($scope.additionalDocumentNames[i].id == $scope.formData.tagIdentifier) {
+                            $scope.filename = $scope.additionalDocumentNames[i].name;
+                            $scope.formData.name = $scope.filename;
+                        }
+                    }
+                }
+
+                $scope.submitDocument = function () {
+                    $upload.upload({
+                        url: $rootScope.hostUrl + API_VERSION + '/' + $scope.entityType + '/' + $scope.entityId + '/documents',
+                        data: $scope.formData,
+                        file: $scope.file
+                    }).then(function (data) {
+                        getClientAdditionalDocuments();
+                        if (!_.isUndefined($scope.formData) && !_.isUndefined($scope.formData.name)) {
+                            var index = $scope.additionalDocumentNames.findIndex(x => x.name === $scope.formData.name);
+                            if (index >= 0) {
+                                $scope.availableDocumentNames.splice(index, 1);
+                            }
+                        }
+                        $scope.formData = {};
+                        $scope.filename = '';
+                        angular.element('#file').val(null);
+                        $scope.isFileSelected = false;
+                    });
+                };
+
+                $scope.openViewDocument = function (documentDetail) {
+                    $modal.open({
+                        templateUrl: 'viewUploadedDocument.html',
+                        controller: viewUploadedDocumentCtrl,
+                        resolve: {
+                            documentDetail: function () {
+                                return documentDetail;
+                            }
+                        }
+                    });
+                };
+
+                var viewUploadedDocumentCtrl = function ($scope, $modalInstance, documentDetail) {
+                    $scope.data = documentDetail;
+                    $scope.close = function () {
+                        $modalInstance.close('close');
+                    };
+                };
+
+                $scope.viewConfig = {
+                    showSummary: false,
+                    hasData: false,
+                    approved: false
+                };
+                $scope.docData = {};
+                $scope.repeatBankAccFormData = {};
+                $scope.bankAccFormData = {};
+                $scope.bankAccountTypeOptions = [];
+                $scope.deFaultBankName = null;
+                $scope.fileError = false;
+                $scope.bankAccountDocuments = [];
+
+                function init() {
+                    resourceFactory.bankAccountDetailResource.getAll({ entityType: $scope.entityType, entityId: $scope.entityId }, function (data) {
+                        if (!_.isUndefined(data[0])) {
+                            $scope.clientBankAccountDetailAssociationId = data[0].bankAccountAssociationId;
+                            populateDetails();
+                        } else {
+                            populateTemplate();
+                        }
+                    });
+                }
+
+                init();
+
+                function populateTemplate() {
+                    resourceFactory.bankAccountDetailsTemplateResource.get({
+                        entityType: $scope.entityType,
+                        entityId: $scope.entityId
+                    }, function (data) {
+                        $scope.bankAccountTypeOptions = data.bankAccountTypeOptions;
+                        $scope.bankAccFormData.accountTypeId = data.bankAccountTypeOptions[0].id;
+                    });
+                }
+
+                function populateDetails() {
+                    resourceFactory.bankAccountDetailResource.get({
+                        entityType: $scope.entityType,
+                        entityId: $scope.entityId,
+                        clientBankAccountDetailAssociationId: getClientBankAccountDetailAssociationId()
+                    }, function (data) {
+                        $scope.bankData = data;
+                        $scope.bankAccountTypeOptions = $scope.bankData.bankAccountTypeOptions;
+                        constructBankAccountDetails();
+                    });
+                }
+
+                function constructBankAccountDetails() {
+                    $scope.bankAccFormData = {
+                        name: $scope.bankData.name,
+                        accountNumber: $scope.bankData.accountNumber,
+                        ifscCode: $scope.bankData.ifscCode,
+                        micrCode: $scope.bankData.micrCode,
+                        mobileNumber: $scope.bankData.mobileNumber,
+                        email: $scope.bankData.email,
+                        bankName: $scope.bankData.bankName,
+                        bankCity: $scope.bankData.bankCity,
+                        branchName: $scope.bankData.branchName
+                    };
+                    $scope.repeatBankAccFormData = {
+                        accountNumberRepeat: $scope.bankData.accountNumber,
+                        ifscCodeRepeat: $scope.bankData.ifscCode
+                    };
+                    if (!_.isUndefined($scope.bankData.lastTransactionDate)) {
+                        $scope.bankAccFormData.lastTransactionDate = new Date(dateFilter($scope.bankData.lastTransactionDate, $scope.df));
+                    }
+
+                    if (!$scope.bankAccFormData.bankName) {
+                        $scope.bankAccFormData.bankName = $scope.deFaultBankName;
+                    }
+                    if ($scope.bankData.accountType) {
+                        $scope.bankAccFormData.accountTypeId = $scope.bankData.accountType.id;
+                    } else {
+                        $scope.bankAccFormData.accountTypeId = $scope.bankAccountTypeOptions[0].id;
+                    }
+                    $scope.bankAccountData = $scope.bankData;
+                    if ($scope.bankData.accountNumber != undefined) {
+                        $scope.viewConfig.hasData = true;
+                        enableShowSummary();
+                    } else {
+                        disableShowSummary();
+                    }
+
+                    $scope.bankAccountDocuments = $scope.bankData.bankAccountDocuments || [];
+                    for (var i = 0; i < $scope.bankAccountDocuments.length; i++) {
+                        var docs = {};
+                        docs = $rootScope.hostUrl + API_VERSION + '/' + $scope.entityType + '/' + $scope.entityId + '/documents/' + $scope.bankAccountDocuments[i].id + '/download';
+                        $scope.bankAccountDocuments[i].docUrl = docs;
+                    }
+                    if (!_.isUndefined($scope.bankAccountDocuments) && $scope.bankAccountDocuments.length > 0) {
+                        $scope.viewDocument($scope.bankAccountDocuments[0]);
+                    }
+                }
+
+                function getClientBankAccountDetailAssociationId() {
+                    return $scope.clientBankAccountDetailAssociationId;
+                }
+
+                $scope.createBankAccount = function () {
+                    if (!isFormValid()) {
+                        return false;
+                    }
+                    if ($scope.viewConfig.hasData) {
+                        $scope.update();
+                        return;
+                    }
+                    $scope.bankAccFormData.locale = scope.optlang.code;
+                    $scope.bankAccFormData.dateFormat = scope.df;
+                    submitData();
+                };
+
+                function submitData() {
+                    resourceFactory.bankAccountDetailResources.create({
+                        entityType: $scope.entityType,
+                        entityId: $scope.entityId
+                    }, $scope.bankAccFormData,
+                        function (data) {
+                            $scope.clientBankAccountDetailAssociationId = data.resourceId;
+                            populateDetails();
+                        });
+                };
+
+                function isFormValid() {
+                    if (!$scope.isElemHidden('bankIFSCCodeRepeat')) {
+                        if ($scope.bankAccFormData.ifscCode != $scope.repeatBankAccFormData.ifscCodeRepeat) {
+                            return false;
+                        }
+                    }
+                    if (!$scope.isElemHidden('bankAccountNumberRepeat')) {
+                        if ($scope.bankAccFormData.accountNumber != $scope.repeatBankAccFormData.accountNumberRepeat) {
+                            return false;
+                        }
+                    }
+                    if ($scope.isElemMandatory('docFile')) {
+                        if ((_.isUndefined($scope.docFile)) && (_.isUndefined($scope.imageId))) {
+                            $scope.fileError = true;
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+
+                $scope.edit = function () {
+                    disableShowSummary();
+                };
+
+                $scope.update = function () {
+                    if (!isFormValid()) {
+                        return false;
+                    }
+                    $scope.bankAccFormData.locale = scope.optlang.code;
+                    $scope.bankAccFormData.dateFormat = scope.df;
+                    $scope.bankAccFormData.lastTransactionDate = dateFilter($scope.bankAccFormData.lastTransactionDate, scope.df);
+                    updateData();
+                };
+
+                function updateData() {
+                    resourceFactory.bankAccountDetailResource.update({
+                        entityType: $scope.entityType,
+                        entityId: $scope.entityId,
+                        clientBankAccountDetailAssociationId: getClientBankAccountDetailAssociationId()
+                    }, $scope.bankAccFormData, function (data) {
+                        populateDetails();
+                    });
+                }
+
+                $scope.cancel = function () {
+                    if ($scope.viewConfig.hasData) {
+                        enableShowSummary();
+                    }
+                };
+
+                function enableShowSummary() {
+                    $scope.viewConfig.showSummary = true;
+                }
+
+                function disableShowSummary() {
+                    $scope.viewConfig.showSummary = false;
+                };
+
+                $scope.uploadBankAccountDocument = function () {
+                    $modal.open({
+                        templateUrl: 'uploadBankAccountDocument.html',
+                        controller: uploadBankAccountDocumentCtrl,
+                        resolve: {
+                            bankAccountDetails: function () {
+                                return {
+                                    'entityId': $scope.entityId,
+                                    'entityType': $scope.entityType,
+                                    'bankAccFormData': $scope.bankAccFormData,
+                                    'bankAccountDocuments': $scope.bankAccountDocuments
+                                };
+                            }
+                        }
+                    });
+                };
+
+                var uploadBankAccountDocumentCtrl = function ($scope, $modalInstance, bankAccountDetails) {
+                    $scope.data = {
+                        documentName: ""
+                    };
+
+                    $scope.onFileSelect = function ($files) {
+                        $scope.docFile = $files[0];
+                    };
+
+                    $scope.upload = function () {
+                        if (!$scope.data.documentName) {
+                            return false;
+                        }
+
+                        $scope.docData = {
+                            name: $scope.data.documentName
+                        };
+
+                        if ($scope.docFile) {
+                            if (!$scope.docFile.type.includes('image')) {
+                                $scope.docformatErr = true;
+                                $scope.docformatErrMsg = 'label.error.only.files.of.type.image.are.allowed';
+                            } else {
+                                $upload.upload({
+                                    url: $rootScope.hostUrl + API_VERSION + '/' + bankAccountDetails.entityType + '/' + bankAccountDetails.entityId + '/documents',
+                                    data: $scope.docData,
+                                    file: $scope.docFile
+                                }).then(function (data) {
+                                    if (data != undefined) {
+                                        documentId = data.data.resourceId;
+                                        if (documentId != undefined) {
+                                            bankAccountDetails.bankAccFormData.documents = [];
+                                            for (var j in bankAccountDetails.bankAccountDocuments) {
+                                                bankAccountDetails.bankAccFormData.documents.push(bankAccountDetails.bankAccountDocuments[j].id);
+                                            }
+                                            bankAccountDetails.bankAccFormData.documents.push(documentId);
+                                        }
+                                        bankAccountDetails.bankAccFormData.locale = scope.optlang.code;
+                                        resourceFactory.bankAccountDetailResource.update({
+                                            entityType: bankAccountDetails.entityType,
+                                            entityId: bankAccountDetails.entityId,
+                                            clientBankAccountDetailAssociationId: getClientBankAccountDetailAssociationId()
+                                        }, bankAccountDetails.bankAccFormData, function (data) {
+                                            populateDetails();
+                                        });
+                                    }
+                                });
+                                $modalInstance.close('upload');
+                            }
+                        }
+                    };
+
+                    $scope.cancel = function () {
+                        $modalInstance.dismiss('cancel');
+                    };
+                };
+
+                $scope.viewDocument = function (document) {
+                    var url = document.docUrl;
+                    $http({
+                        method: 'GET',
+                        url: url
+                    }).then(function (documentImage) {
+                        $scope.documentImg = documentImage.data;
+                    });
+                }
+
+                $scope.deleteDocument = function (documentId) {
+                    $scope.bankAccFormData.locale = scope.optlang.code;
+                    $scope.bankAccFormData.dateFormat = scope.df;
+                    $scope.bankAccFormData.documents = [];
+                    for (var i in $scope.bankAccountDocuments) {
+                        $scope.bankAccFormData.documents.push($scope.bankAccountDocuments[i].id);
+                    }
+                    if (documentId) {
+                        $scope.bankAccFormData.documents.splice($scope.bankAccFormData.documents.indexOf(documentId), 1);
+                    }
+                    updateData();
+                };
+            };
+
         }
     });
-    mifosX.ng.application.controller('CreditBureauCheckActivityController', ['$controller', '$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', 'ngXml2json', '$route', '$http', '$rootScope', '$sce', 'CommonUtilService', '$route', '$upload', 'API_VERSION', mifosX.controllers.CreditBureauCheckActivityController]).run(function ($log) {
+    mifosX.ng.application.controller('CreditBureauCheckActivityController', ['$controller', '$scope', '$modal', 'ResourceFactory', 'dateFilter', '$http', '$rootScope', '$sce', 'CommonUtilService', '$upload', 'API_VERSION', mifosX.controllers.CreditBureauCheckActivityController]).run(function ($log) {
         $log.info("CreditBureauCheckActivityController initialized");
     });
 }(mifosX.controllers || {}));

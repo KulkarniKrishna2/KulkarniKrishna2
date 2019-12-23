@@ -27,19 +27,25 @@
                 scope.isDateOfBirthMandatory = true;
             }
             scope.invalidClassificationId = false;
+            scope.showIncorporationNumberSizeError = false;
+            scope.incorporationNumberSize = null;
 
-            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
-                scope.response.uiDisplayConfigurations.createClient.isMandatoryField) {
-                if(scope.response.uiDisplayConfigurations.createClient.isMandatoryField.staff){
-                    scope.isStaffMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.staff;
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient ) {
+                if(scope.response.uiDisplayConfigurations.createClient.isReadOnlyField){
+                    scope.isGenderReadOnly = scope.response.uiDisplayConfigurations.createClient.isReadOnlyField.gender;   
                 }
-                
+                if(scope.response.uiDisplayConfigurations.createClient.isMandatoryField){
+                    scope.isStaffMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.staff;
+                    scope.isIncorporationNumberMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.incorporationNumber;
+                }
+                if (scope.response.uiDisplayConfigurations.createClient.forNonPerson && scope.response.uiDisplayConfigurations.createClient.forNonPerson) {
+                    scope.incorporationNumberSize = scope.response.uiDisplayConfigurations.createClient.forNonPerson.incorporationNumberSize;
+                }
             }
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
                 scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber && scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber.mobileNumberPattern) {
                 scope.mobileNumberPattern = scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber.mobileNumberPattern;
            }
-            scope.isGenderReadOnly = scope.response.uiDisplayConfigurations.createClient.isReadOnlyField.gender;   
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
                 scope.response.uiDisplayConfigurations.createClient.isMandatoryField && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.clientClassificationId) {
                 scope.isClientClassificationMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.clientClassificationId;
@@ -100,6 +106,36 @@
             function getMaximumRestrictedDate(restrictedDate) {
 
                 restrictedDate.setYear(restrictedDate.getFullYear() - scope.minAge);
+                return restrictedDate;
+            };
+
+            scope.minNonPersonAge = 0;
+            scope.maxNonPersonAge = 0;
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient && 
+                scope.response.uiDisplayConfigurations.createClient.forNonPerson && scope.response.uiDisplayConfigurations.createClient.forNonPerson.isValidateDOBField &&scope.response.uiDisplayConfigurations.createClient.forNonPerson.isValidateDOBField.active) {
+                if (scope.response.uiDisplayConfigurations.createClient.forNonPerson.isValidateDOBField.ageCriteria.minNonPersonAge > 0) {
+                    scope.minNonPersonAge = scope.response.uiDisplayConfigurations.createClient.forNonPerson.isValidateDOBField.ageCriteria.minNonPersonAge;
+                }
+                if (scope.response.uiDisplayConfigurations.createClient.forNonPerson.isValidateDOBField.ageCriteria.maxNonPersonAge > 0) {
+                    scope.maxNonPersonAge = scope.response.uiDisplayConfigurations.createClient.forNonPerson.isValidateDOBField.ageCriteria.maxNonPersonAge;
+                }
+            } else{
+                scope.minNonPersonAge = 0;
+                scope.maxNonPersonAge = scope.restrictDate;
+            }
+            scope.minNonPersonDateOfIncorporation = getMinimumRestrictedDateForNonPerson(new Date());
+            scope.maxNonPersonDateOfIncorporation = getMaximumRestrictedDateForNonPerson(new Date());
+
+            
+            function getMaximumRestrictedDateForNonPerson(restrictedDate) {
+
+                restrictedDate.setYear(restrictedDate.getFullYear() - scope.minNonPersonAge);
+                return restrictedDate;
+            };
+
+            function getMinimumRestrictedDateForNonPerson(restrictedDate) {
+
+                restrictedDate.setYear(restrictedDate.getFullYear() - scope.maxNonPersonAge);
                 return restrictedDate;
             };
 
@@ -234,14 +270,15 @@
                 }
             };
             scope.isDateOfBirthNotInRange = function(dateOfBirth){
-               if(dateOfBirth && scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.active) {
-                    if(!(dateOfBirth < scope.maxDateOfBirth && dateOfBirth > scope.minDateOfBirth)){
-                        scope.dateOfBirthNotInRange = true;
-                    } else{
-                        scope.dateOfBirthNotInRange = false;
-                    }
-                } else {
+               if(dateOfBirth && scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isValidateDOBField) {
                     scope.dateOfBirthNotInRange = false;
+                    if(!scope.showNonPersonOptions && scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.active && !(dateOfBirth < scope.maxDateOfBirth && dateOfBirth > scope.minDateOfBirth)){
+                        scope.dateOfBirthNotInRange = true;
+                    } else if(scope.showNonPersonOptions && scope.response.uiDisplayConfigurations.createClient.forNonPerson && scope.response.uiDisplayConfigurations.createClient.forNonPerson.isValidateDOBField.active){
+                        if(!(dateOfBirth < scope.maxNonPersonDateOfIncorporation && dateOfBirth > scope.minNonPersonDateOfIncorporation)){
+                            scope.dateOfBirthNotInRange = true;
+                        } 
+                    } 
                 } 
             }
 
@@ -265,7 +302,14 @@
                 if (scope.opensavingsproduct == 'false') {
                     this.formData.savingsProductId = null;
                 }
-
+                if(scope.showNonPersonOptions && scope.isIncorporationNumberMandatory){
+                    if(scope.incorporationNumberSize != null){
+                        if(scope.formData.clientNonPersonDetails.incorpNumber.length != scope.incorporationNumberSize){
+                            scope.showIncorporationNumberSizeError = true;
+                            return;
+                        }
+                    }
+                }
                 if (scope.choice === 1) {
                     if (scope.date.activationDate) {
                         this.formData.activationDate = dateFilter(scope.date.activationDate, scope.df);

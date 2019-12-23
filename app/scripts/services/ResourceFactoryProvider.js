@@ -58,7 +58,6 @@
                         update: { method: 'PUT'}
                     }),
                     clientDedupetagsResource: defineResource(apiVer + "/clients/:clientId/dedupetags", {clientId: '@clientId'}, {
-                        
                     }),
                     clientsSearchResource: defineResource(apiVer + "/clients/search", {searchConditions: '@searchConditions'}, {
                         getAllClients: {method: 'GET', params: {searchConditions: '@searchConditions'}, isArray: true}
@@ -662,13 +661,10 @@
                     loanReassignmentResource: defineResource(apiVer + "/loans/loanreassignment/:templateSource", {templateSource: '@templateSource'}, {
                         get: {method: 'GET', params: {}}
                     }),
-                    
                     loanRepaymentRescheduleResource: defineResource(apiVer + "/loans/bulkLoanReschedule/:templateSource", {templateSource: '@templateSource'}, {
                         get: {method: 'GET', params: {}}
-                    
                     }),
                     bulkLoanReschedule:defineResource(apiVer + "/rescheduleloans/bulkCreateAndApprove",  {
-                    	
                     }),
                     loanRescheduleResource: defineResource(apiVer + "/rescheduleloans/:scheduleId",{scheduleId:'@scheduleId', command: '@command'},{
                      get: {method: 'GET',params:{}},
@@ -740,7 +736,7 @@
                     }),
                     collectionSheetResource: defineResource(apiVer + "/collectionsheet/:collectionSheetId", {collectionSheetId: "@collectionSheetId"}, {
                         get: {method: 'GET', params : {collectionSheetId: "@collectionSheetId"}},
-                        getAllCollections: {method: 'GET', params: {}, isArray: true} 
+                        getAllCollections: {method: 'GET', params: {}, isArray: true}
                     }),
                     collectionSheetV2Resource: defineResource(apiVer2 + "/collectionsheet", {}, {
                     }),
@@ -890,7 +886,7 @@
                         update: {method: 'PUT', params: {}}
                     }),
                     smsCampaignTemplateResource: defineResource(apiVer + "/smscampaigns/template", {}, {
-                        get: {method: 'GET', params: {}}             
+                        get: {method: 'GET', params: {}}
                     }),
                     smsCampaignResource: defineResource(apiVer + "/smscampaigns/:campaignId/:additionalParam", {campaignId: '@campaignId', additionalParam: '@additionalParam'}, {
                         getAll: {method: 'GET', params: {}},
@@ -1306,7 +1302,7 @@
                     }),
                     tasksConfigResource: defineResource(apiVer + "/tasksconfigurations/:entityType/:entityId", {}, {
                         create: {method: 'POST', params: {entityType:"@entityType", entityId: '@entityId'}}
-                    }),    
+                    }),
                     fundTemplateResource: defineResource(apiVer + "/funds/template", {command: '@command'}, {
                         getTemplate: {method: 'GET', params: {command: '@command'}}
                     }),
@@ -1390,7 +1386,6 @@
 
                     }),
                     districtsVillageResource:defineResource(apiVer+"/districts/:districtId/villages",{districtId: '@districtId'},{
-                        
                     }),
                     bulkVillageResource:defineResource(apiVer+"/villages/bulk",{},{
                         reject:{method:'POST',params:{command:'reject'}}
@@ -1401,8 +1396,7 @@
                     fileProcessTemplateResource:defineResource(apiVer+"/fileprocess/template",{},{
                     }),
                     fileProcessTypeTemplateResource:defineResource(apiVer+"/fileprocess/template",{},{
-                        get: {method: 'GET', params: {},isArray:true},
-                        
+                        get: {method: 'GET', params: {},isArray:true}
                     }),
                     overdueChargeResource: defineResource(apiVer + "/loans/overduecharges/:loanIdParam", {loanId: '@loanId'}, {
                         get: {method: 'GET', params: {}},
@@ -1513,7 +1507,7 @@
                         get: {method: 'GET', params: {}},
                         changePassword: {method:'POST', params:{command:'changepassword'}},
                         logout: { method: 'POST', params: { command: 'logout' } }
-                    }),                    
+                    }),
                     userPasswordResource: defineResource(apiVer + "/users/resetpassword", {}, {
                         resetpassword: {method:'POST', params:{}}
                     }),
@@ -1524,10 +1518,8 @@
                         update: {method: 'PUT', params: {}}
                     }),
                     proxyUserMappingTemplateResource: defineResource(apiVer + "/proxyusermappings/template", {}, {
-                        
                     }),
                     switchUserResource: defineResource(apiVer + "/switchuser", {}, {
-                        
                     }),
                     taskQueryResource: defineResource(apiVer + "/tasks/:taskId/execute/queries",{taskId:'@taskId'}, {
                         getAll: {method: 'GET', params: {}, isArray: true},
@@ -1537,7 +1529,6 @@
                     groupBankAccountResource: defineResource(apiVer + "/groups/:groupId/bankaccountdetails", {groupId: '@groupId'}, {
                         retrieveAll: {method: 'GET', params: {}},
                         create: {method: 'POST'}
-                        
                     }),
                     groupBankAccountResourceTemplate: defineResource(apiVer + "/groups/:groupId/bankaccountdetails/template",  {groupId: '@groupId'}, {
                       get: {method: 'GET', params: {}}
@@ -1700,7 +1691,7 @@
                     }),
                     bulkTransferResource: defineResource(apiVer + "/bulktransfer/:branchTransferId", {branchTransferId:'@branchTransferId'}, {
                         getAll:{method:'GET' , params:{}, isArray:true},
-                        get:{method:'GET' , params:{branchTransferId:'@branchTransferId'}, isArray:false},                        
+                        get:{method:'GET' , params:{branchTransferId:'@branchTransferId'}, isArray:false},
                         actions:{method:'POST' , params:{branchTransferId:'@branchTransferId'}}
                     }),
                     registeredDevicesResource: defineResource(apiVer + "/registereddevices/:registeredDeviceId", { registeredDeviceId: '@registeredDeviceId'}, {
@@ -1722,7 +1713,7 @@
                     }),
                     bulkTransferResource: defineResource(apiVer + "/bulktransfer/:branchTransferId", {branchTransferId:'@branchTransferId'}, {
                         getAll:{method:'GET' , params:{}, isArray:true},
-                        get:{method:'GET' , params:{branchTransferId:'@branchTransferId'}, isArray:false},                        
+                        get:{method:'GET' , params:{branchTransferId:'@branchTransferId'}, isArray:false},
                         actions:{method:'POST' , params:{branchTransferId:'@branchTransferId'}}
                     }),
                     bulkBankApprovalActionResource: defineResource(apiVer + "/tasktracking/bulkbankapproval",{}, {
@@ -1773,10 +1764,10 @@
                     }),
                     bcifCreateResource: defineResource(apiVer + '/bcif/client', {}, {
                         post: {method: "POST"}
-                    }),  
+                    }),
                     overridebcifDedupecrnResource: defineResource(apiVer + '/bcif/crn', {}, {
                         post: {method: "POST"}
-                    }),              
+                    }),
                     subActionResource : defineResource(apiVer + "/taskactiongroups/:actionGroupId/taskactions/:actionId/subactions",{actionGroupId: '@actionGroupId',actionId : '@actionId'},{
                         save:{method:'POST', params:{}},
                         get: {method: 'GET', params: {},isArray:true},
@@ -1811,7 +1802,7 @@
                     createTranchetemplate: defineResource(apiVer + "/accounting/fldg/tranche/template", {}, {
                     }),
                     createTranche: defineResource(apiVer + "/accounting/fldg/tranche/:trancheId", { trancheId: '@trancheId' }, {
-                    }),               
+                    }),
                     apscRepaymentResource: defineResource(apiVer + "/centers/:centerId/apscRepayment", { centerId: '@centerId' }, {
                         getAll: { method: 'GET', params: {}, isArray: true },
                     }),
@@ -1879,7 +1870,7 @@
                         getStateData: {method: 'GET', params: {countryId: '@countryId',stateId: '@stateId'}}
                     }),
                     talukaResource: defineResource(apiVer + "/districts/:districtId/talukas/:talukaId", {districtId: '@districtId',talukaId: '@talukaId'}, {
-                    }),   
+                    }),
                     multipleFileUploadResource: defineResource(apiVer + "/:entityType/:entityId/utilizationchecks",{entityType:'@entityType',entityId:'@entityId'}, {
                         upload: {method: 'POST', headers: {'Content-Type': undefined},transformRequest: angular.identity, params: {}}
                     }),
@@ -1952,7 +1943,7 @@
                     }),
                     stateResource: defineResource(apiVer + "/countries/:countryId/states/:stateId", {countryId: '@countryId',stateId: '@stateId'}, {
                         getStateData: {method: 'GET', params: {countryId: '@countryId',stateId: '@stateId'}}
-                    }), 
+                    }),
                     talukaResource: defineResource(apiVer + "/districts/:districtId/talukas/:talukaId", {districtId: '@districtId',talukaId: '@talukaId'}, {
                     }),
                     financialYearClosuresResource: defineResource(apiVer + "/fyclosures/:id", {id: '@id'}, {
@@ -2017,7 +2008,7 @@
                     }),
                     InsuranceDeleteDocumentsResource: defineResource(apiVer + "/insurance/:deceasedId/documents/:documentId", {deceasedId: '@deceasedId', documentId: '@documentId'}, {
                         deleteDocument: {method: 'DELETE', params: {}}
-                    }), 
+                    }),
                     insuranceDeceasedLogResource: defineResource(apiVer + "/insurance/claim/logs/:deceasedId", {deceasedId: '@deceasedId'}, {
                         getDeacesdLogs: {method: 'GET', params: {}, isArray: true}
                     }),
@@ -2041,6 +2032,9 @@
                     }),
                     InsuranceDeceasedDeleteDocumentsResource: defineResource(apiVer + "/clients/:clientId/documents/:documentId", {deceasedId: '@deceasedId', documentId: '@documentId'}, {
                         deleteDocument: {method: 'DELETE', params: {}}
+                    }),
+                    centerUnderCBReviewResource: defineResource(apiVer + "/centers/undercbreview", {}, {
+                        getAll: {method: 'GET', params: {}, isArray: true}
                     })
                 };
             }];

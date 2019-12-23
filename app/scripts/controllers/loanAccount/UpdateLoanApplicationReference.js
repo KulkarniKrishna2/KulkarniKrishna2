@@ -37,6 +37,7 @@
             scope.isMultiDisburse = false;
             scope.showUpfrontAmount = true;
             scope.isMandatoryUpfrontAmountCollection = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.amountForUpfrontCollection;
+            scope.isEmiPacksEditable = false;
 
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createLoanApplication &&
                 scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField && scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.disbursementPaymentType) {
@@ -65,6 +66,12 @@
                 if (scope.response.uiDisplayConfigurations.createLoanApplication.isMandatory) {
                     scope.loanReferenceTrancheData = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatory.trancheData;
                     scope.isLoanPurposeRequired = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatory.loanPurposeId;
+                }
+            }
+
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.editLoanApplication) {
+                if(scope.response.uiDisplayConfigurations.editLoanApplication.editableFields){
+                     scope.isEmiPacksEditable = scope.response.uiDisplayConfigurations.editLoanApplication.editableFields.emiPacks;
                 }
             }
             resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (applicationData) {
@@ -183,7 +190,7 @@
                         }
                         if(scope.loanaccountinfo.loanEMIPacks){
                             scope.formData.loanEMIPackId = scope.loanaccountinfo.loanEMIPacks[0].id;
-                            if(scope.isGlobalWorkflowEnabled){
+                            if(scope.isGlobalWorkflowEnabled && !scope.isEmiPacksEditable){
                                 scope.setLoanEMIPacks(scope.loanaccountinfo.loanEMIPacks[0]);
                             } 
                             if(scope.showUpfrontAmount && scope.loanaccountinfo.allowUpfrontCollection){
@@ -239,7 +246,7 @@
                     }else{
                         if(scope.applicationData.loanEMIPackData){
                             scope.formData.loanEMIPackId = scope.applicationData.loanEMIPackData.id;
-                            if(scope.isGlobalWorkflowEnabled){
+                            if(scope.isGlobalWorkflowEnabled && !scope.isEmiPacksEditable){
                                 scope.setLoanEMIPacks(scope.applicationData.loanEMIPackData);
                             }
                         }else{
