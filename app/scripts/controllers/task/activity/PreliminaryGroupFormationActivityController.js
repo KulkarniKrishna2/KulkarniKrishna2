@@ -798,7 +798,7 @@
                     $scope.talukas = [];
                     $scope.formData = {};
                     $scope.formDataList = [$scope.formData];
-                    $scope.formData.addressTypes = [];
+                    $scope.addressTypes = [];
                     $scope.villageConfig = 'populate_client_address_from_villages';
                     $scope.address.isPopulateClientAddressFromVillages = scope.isSystemGlobalConfigurationEnabled($scope.villageConfig);
                     $scope.isCountryReadOnly = false;
@@ -856,7 +856,9 @@
                     if ($scope.formData.talukaId == null || $scope.formData.talukaId == "") {
                         delete $scope.formData.talukaId;
                     }
-                    if ($scope.formData.addressTypes == null || $scope.formData.addressTypes == "") {
+                    if ($scope.addressTypes.length>0 &&  $scope.addressTypes[0] != null) {
+                        $scope.formData.addressTypes = $scope.addressTypes;
+                    } else {
                         delete $scope.formData.addressTypes;
                     }
                     if ($scope.formData.houseNo == null || $scope.formData.houseNo == "") {

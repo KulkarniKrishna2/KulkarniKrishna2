@@ -353,6 +353,9 @@
             <form name="uploadDocument" novalidate="" class="form-horizontal" autocomplete="off">
                 <api-validate></api-validate>
                 <br>
+                <div ng-if="docformatErr" class="error">
+                    {{docformatErrMsg | translate}}
+                </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="name">{{'label.input.name' | translate}}
                     <span class="required">*</span></label>

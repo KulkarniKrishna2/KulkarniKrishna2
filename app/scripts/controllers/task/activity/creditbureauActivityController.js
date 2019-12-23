@@ -306,7 +306,7 @@
                         entityType: scope.entityType,
                         entityId: scope.entityId,
                         isForce: isForce
-                    }, function (loansSummary) {
+                    }, {}, function (loansSummary) {
                         $modalInstance.close('creditBureauReport');
                         scope.loansSummary = loansSummary;
                         if (scope.loansSummary && scope.loansSummary.cbStatus) {
