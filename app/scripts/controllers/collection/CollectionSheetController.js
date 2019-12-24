@@ -966,9 +966,9 @@
             scope.validateAmount = function(groupIndex,clientIndex,loanIndex,updateLoanAmount){
                 var loanAmount = scope.colectionsSheetsCopy[groupIndex].clients[clientIndex].loans[loanIndex].totalDue;
                 if(!_.isUndefined(loanAmount) && (loanAmount != updateLoanAmount)){
-                    scope.savingsgroups[groupIndex].clients[clientIndex].loans[loanIndex].isShowReasonDropDown = true;
+                    scope.collectionsheetdata.groups[groupIndex].clients[clientIndex].loans[loanIndex].isShowReasonDropDown = true;
                 }else{
-                    scope.savingsgroups[groupIndex].clients[clientIndex].loans[loanIndex].isShowReasonDropDown = false;
+                    scope.collectionsheetdata.groups[groupIndex].clients[clientIndex].loans[loanIndex].isShowReasonDropDown = false;
                 }
             }
 
