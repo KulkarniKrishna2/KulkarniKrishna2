@@ -173,7 +173,7 @@
                 }
                 resourceFactory.collectionSheetV2Resource.save({command: 'saveCollectionSheet'}, data, function (data) {
                     localStorageService.addToLocalStorage('Success', true);
-                    route.reload();
+                    location.path('/viewallcollections');
                 });
             };
 
