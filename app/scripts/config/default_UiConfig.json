@@ -192,9 +192,6 @@
 				"clientForNoRepayments": false,
 				"ToggleButton":true
 			},
-			"isMandatory": {
-				"officeId": false
-			},
 			"attendanceType": {
 				"defaultValue": "",
 				"showAllAttendanceTypes" : true

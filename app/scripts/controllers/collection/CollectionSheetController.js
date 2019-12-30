@@ -33,6 +33,7 @@
             scope.showRejectReason = false;
             scope.isShowReasonDropDown = false;
             scope.isRejectReasonMandatory = false;
+            scope.isProductive = false;
             
             scope.showAllAttendanceTypes = true;
             resourceFactory.configurationResource.get({configName:'reason-code-allowed'}, function (data) {
@@ -181,12 +182,14 @@
                     resourceFactory.employeeResource.getAllEmployees({officeId: scope.officeId, status: 'active'}, function (loanOfficerData) {
                         scope.loanOfficers = loanOfficerData.pageItems;
                     });
-                    resourceFactory.centerSearchResource.getAllCenters({searchConditions: searchConditions, orderBy: 'name', sortOrder: 'ASC', limit: -1}, function (centersData) {
-                        scope.centers = centersData;
-                    });
-                    resourceFactory.groupResource.getAllGroups({officeId: scope.officeId,status:'active', orderBy: 'name', sortOrder: 'ASC', limit: -1}, function (groupsData) {
-                        scope.groups = groupsData;
-                    });
+                    if(!scope.isProductive){
+                        resourceFactory.centerSearchResource.getAllCenters({searchConditions: searchConditions, orderBy: 'name', sortOrder: 'ASC', limit: -1}, function (centersData) {
+                            scope.centers = centersData;
+                        });
+                        resourceFactory.groupResource.getAllGroups({officeId: scope.officeId,status:'active', orderBy: 'name', sortOrder: 'ASC', limit: -1}, function (groupsData) {
+                            scope.groups = groupsData;
+                        });
+                    }
                 }
             };
 
@@ -989,6 +992,9 @@
                 scope.showEmiAmountOverTotalDue = false;
                 scope.collectionsheetdata = angular.copy(scope.originalCollectionsheetData);
                 scope.sumTotalDueCollection();
+            }
+            scope.isProductiveColectionSheet = function(isProductive){
+                scope.isProductive = isProductive;
             }
         }
     })

@@ -356,7 +356,7 @@
                     }
 
                     if (centerIdArray.length === submittedStaffId.length) {
-                        location.path('/entercollectionsheet');
+                        location.path('/viewallcollections');
                     }
 
                     if (centerIdArray.length-1 === submittedStaffId.length) {
