@@ -252,31 +252,31 @@
         <tr class="pointer-main" ng-class="{strikeoff : transaction.reversed==true}"
         ng-hide = "hideTransactions(transaction)" ng-repeat="transaction in savingaccountdetails.transactions | orderBy:transactionSort.column:transactionSort.descending ">
             <td class="pointer"
-                data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
+                data-ng-click="routeTo(transaction)">
                 {{transaction.id}}
             </td>
             <td class="pointer"
-                data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
+                data-ng-click="routeTo(transaction)">
                 {{transaction.date | DateFormat}}
             </td>
             <td class="pointer"
-                data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
+                data-ng-click="routeTo(transaction)">
                 {{transaction.transactionType.value}}
             </td>
             <td class="pointer"
-                data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
+                data-ng-click="routeTo(transaction)">
                 <div ng-show="isDebit(transaction.transactionType)">
                     {{transaction.amount | number}}
                 </div>
             </td>
             <td class="pointer"
-                data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
+                data-ng-click="routeTo(transaction)">
                 <div ng-show="!isDebit(transaction.transactionType)">
                     {{transaction.amount | number}}
                 </div>
             </td>
             <td class="pointer"
-                data-ng-click="routeTo(transaction.accountId,transaction.id,transaction.transfer,transaction.transfer.id)">
+                data-ng-click="routeTo(transaction)">
                 {{transaction.runningBalance | number}}
             </td>
             <td> <a tooltip="{{'label.anchor.viewjournalentries' | translate}}" ng-click="viewSavingsTransactionJournalEntries(transaction.id)">
