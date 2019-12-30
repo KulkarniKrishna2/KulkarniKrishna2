@@ -4936,10 +4936,11 @@
     "externalServiceType.bcifserver": "BCIF Server",
     "externalServiceType.ncifserver": "NCIF Server",
 
-    "transactionType.ft": "Fund Transfer",
-    "transactionType.imps": "IMPS Transfer",
-    "transactionType.neft": "NEFT Transfer",
-    "transactionType.rtgs": "RTGS Transfer",
+    "bankTransferType.ft": "Fund Transfer",
+    "bankTransferType.imps": "IMPS Transfer",
+    "bankTransferType.neft": "NEFT Transfer",
+    "bankTransferType.rtgs": "RTGS Transfer",
+    "bankTransferType.any": "Any Transfer",
     "label.transfer.type": "Mode of Transfer",
     "label.heading.transferType": "Mode of Transfer",
 
@@ -8455,6 +8456,7 @@
      "error.msg.client.transfer.date.cannot.be.less.than.last.transaction.date":"Transfer date cannot be less than last transaction date",
      "error.msg.client.transfer.cannot.be.allow.on.same.office" : "Client transfer cannot be allow on same office",
      "label.heading.productive.collectionsheet": "Productive Collection Sheet",
+     "error.msg.overdraft.not.allowed" : "Overdraft not allowed.",
      
      "------ end of translation file ------": "----------"
 
