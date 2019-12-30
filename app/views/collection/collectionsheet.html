@@ -10,6 +10,11 @@
 	<h2><strong ng-show="val" class="display-save-message">{{'label.savecollectionsheetsuccessfully' |
 	    translate}}</strong></h2>
 	<fieldset ng-hide="val || noData">
+	<tabset>
+		<tab heading="{{'label.heading.collectionsheet' | translate}}" select="isProductiveColectionSheet(false)"></tab>
+		<tab heading="{{'label.heading.productive.collectionsheet' | translate}}" select="isProductiveColectionSheet(true)"></tab>
+	</tabset>
+	<br>
 	<div>
 	    <div class="form-group">
 	        <label class="control-label col-sm-2">{{ 'label.input.branchoffice' | translate }}<span
@@ -64,16 +69,16 @@
 			</div>
 	    </div>
 	
-	    <div class="form-group">
+	    <div class="form-group" ng-show="isProductive">
 	    	<div class="col-sm-2">
 		        <button class="btn btn-primary" ng-click="productiveCollectionSheet()">
-		            {{'label.button.productivecollectionsheet' | translate}}
-		            <i class="icon-circle-arrow-right"></i></button>
-	        </div>
+		            {{'label.button.fetchdetails' | translate}}
+					<i class="icon-circle-arrow-right"></i></button>
+			</div>
 	    </div>
 	
 	
-	    <div class="form-group">
+	    <div class="form-group" ng-hide="isProductive">
 	        <label class="control-label col-sm-2">{{ 'label.input.center' | translate }}</label>
 	
 	        <div class="col-sm-3">
@@ -85,7 +90,7 @@
 	        </div>
 	    </div>
 	
-	    <div class="form-group">
+	    <div class="form-group" ng-hide="isProductive">
 	        <label class="control-label col-sm-2">{{ 'label.input.group' | translate }}</label>
 	
 	        <div class="col-sm-3">
@@ -96,14 +101,14 @@
 	        </div>
 	    </div>
 	
-	    <div class="form-group">
+	    <div class="form-group" ng-hide="isProductive">
 	    	<div class="col-sm-2">
-		        <a class="btn btn-primary" ng-click="previewCollectionSheet()">{{'label.button.collectionsheet' |
-		            translate}}
-		            <i class="icon-circle-arrow-right"></i></a>
+		        <a class="btn btn-primary" ng-click="previewCollectionSheet()">{{'label.button.fetchdetails' |translate}}
+					<i class="icon-circle-arrow-right"></i></a>
 			</div>
 	    </div>
 	</div>
+	<div ng-hide="isProductive">
 	<div class="paddedbottom"></div>
 	<div ng-hide="EmiAmountTotalDueToggleButton">
 		<div ng-hide="showEmiAmountOverTotalDue">
@@ -370,7 +375,7 @@
 	    <br>
 	    <br>
 	</div>
-	<div ng-hide="noData" ng-show="collectionsheetdata" class="col-sm-3 col-md-3 paddedtop10">
+	<div ng-hide="noData" ng-if="collectionsheetdata" class="col-sm-3 col-md-3 paddedtop10">
 	    <strong><h4 style="background-color: #D6D6C2">{{'label.heading.totalduecollections' | translate}}</h4>
 	    </strong>
 	
@@ -387,7 +392,7 @@
 			{{currencySymbol}}
 		</div>
 	</div>
-    <div ng-show="showPaymentDetails"
+    <div ng-show="showPaymentDetails && collectionsheetdata"
          style="float:left; max-width:700px; min-width:600px; overflow-x:auto!important; white-space:nowrap;">
         <table class="table table-bordered">
             <thead>
@@ -419,16 +424,16 @@
             </tr>
             </tbody>
         </table>
-    </div>
+	</div>
 	<div class="col-sm-12 col-md-12 paddedtop10">
 	    <div class="col-md-offset-3 paddedtop">
-			<button id="cancel" type="reset" class="btn btn-default" ng-click="reset()">{{'label.button.reset' |
+			<button id="cancel" type="reset"  ng-show="collectionsheetdata" class="btn btn-default" ng-click="reset()">{{'label.button.reset' |
 	            translate}}
 	        </button>
-            <button class="btn btn-default" ng-show="collectionsheetdata && !showPaymentDetails"
+            <a class="btn btn-default" ng-show="collectionsheetdata && !showPaymentDetails"
                     data-ng-click="showPaymentDetailsFn()"
                     >{{'label.button.addpaymentdetail'| translate}}
-			</button>
+			</a>
 	        <button id="save" class="btn btn-primary" ng-show="collectionsheetdata">
 				{{'label.button.save' | translate}}
 	        </button>
@@ -437,6 +442,7 @@
 			</button>
 	    </div>
 	</div>
+    </div>
 	</fieldset>
 	</form>
 </div>

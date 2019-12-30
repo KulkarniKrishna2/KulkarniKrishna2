@@ -8454,6 +8454,7 @@
      "label.input.transferOn":"Transfer On",
      "error.msg.client.transfer.date.cannot.be.less.than.last.transaction.date":"Transfer date cannot be less than last transaction date",
      "error.msg.client.transfer.cannot.be.allow.on.same.office" : "Client transfer cannot be allow on same office",
+     "label.heading.productive.collectionsheet": "Productive Collection Sheet",
      
      "------ end of translation file ------": "----------"
 
