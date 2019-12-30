@@ -4940,7 +4940,7 @@
     "bankTransferType.imps": "IMPS Transfer",
     "bankTransferType.neft": "NEFT Transfer",
     "bankTransferType.rtgs": "RTGS Transfer",
-    "bankTransferType.any": "Any Transfer",
+    "bankTransferType.any": "ANY Transfer",
     "label.transfer.type": "Mode of Transfer",
     "label.heading.transferType": "Mode of Transfer",
 
