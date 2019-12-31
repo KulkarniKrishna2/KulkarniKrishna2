@@ -435,7 +435,9 @@
 												</tr>
 											</table>
 										</div>
-						                <h4><strong>{{ 'label.heading.summary' | translate }}</strong></h4>
+										<h4> <strong>{{ 'label.heading.summary' | translate }}</strong></h4>
+										<button ng-hide="showCenterSummary" class="col-md-offset-3 btn btn-primary" ng-click="showCenterSummaryOnClick()"> <strong>{{'label.view.center.summary' | translate}}</strong></button>
+										<div  ng-show="showCenterSummary">
 								        <table class="table-minified">
 								            <tr>
 						                        <th>{{ 'label.numofactiveclient' | translate }}</th>
@@ -465,7 +467,8 @@
 						                        <th>{{ 'label.numofactiveoverdueclientloans' | translate }}</th>
 						                        <td><span class="padded-td">{{summary.overdueClientLoans}}</span></td>
 						                    </tr>
-								        </table>
+										</table>
+									</div>
 							    	</div>
 						    	</div>
 						    </div>
