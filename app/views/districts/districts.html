@@ -25,7 +25,12 @@
             </div>
             <div class="col-sm-1">
                 <span class="input-group-btn">
-                    <button class="btn btn-primary form-control">
+                    <button class="btn btn-primary form-control" ng-hide="!(formData.countryId && formData.stateId)">
+                        <span class="icon-search"></span>
+                    </button>
+                </span>
+                <span class="input-group-btn">
+                    <button class="btn btn-secondary form-control" disabled ng-show="!(formData.countryId && formData.stateId)">
                         <span class="icon-search"></span>
                     </button>
                 </span>
@@ -40,7 +45,12 @@
             'label.button.createdistrict' | translate }}</a>
     </div>
     <div>
-        <table class="table">
+        <div class="row" ng-hide="districts">
+            <div class="center-block" style="width:200px;">
+                <h2 class="">No Data Found </h2>
+            </div>
+        </div>
+        <table class="table" ng-show="districts">
             <thead>
             <tr class="graybg">
                 <th>{{'label.heading.name' | translate}}</th>
@@ -48,7 +58,6 @@
                 <th>{{'label.heading.status' | translate}}</th>
             </tr>
             </thead>
-
             <tbody>
             <tr class="pointer-main" ng-repeat="district in districts | orderBy:'districtName':reverse  | filter:filterText" ng-click="routeToDistrict(district.districtId)">
                 <td>{{district.districtName}}</td>
