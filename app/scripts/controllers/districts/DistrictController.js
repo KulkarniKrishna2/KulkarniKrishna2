@@ -41,7 +41,7 @@
                 }
             };
             scope.fetchDistricts = function(){
-                resourceFactory.districtsResource.query({stateId:scope.formData.stateId}, function(data){
+                resourceFactory.districtsResource.query({stateId:scope.formData.stateId, status: 'all'}, function(data){
                     scope.districts = data;
                     scope.onFilter();
                 });
