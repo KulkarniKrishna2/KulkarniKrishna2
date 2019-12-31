@@ -8457,6 +8457,7 @@
      "error.msg.client.transfer.cannot.be.allow.on.same.office" : "Client transfer cannot be allow on same office",
      "label.heading.productive.collectionsheet": "Productive Collection Sheet",
      "error.msg.overdraft.not.allowed" : "Overdraft not allowed.",
+     "error.msg.destination.office.is.mandatory":"Kindly select destination office",
      
      "------ end of translation file ------": "----------"
 
