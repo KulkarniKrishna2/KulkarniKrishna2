@@ -27,6 +27,7 @@
             scope.showAttendance = true;
             scope.isHideAccountNumber = false;
             scope.isHideReferenceNumber = true;
+            scope.showCenterSummary = false;
             if(scope.isWorkflowEnabled && scope.hideManageGroup){
                 scope.isHideCreateEntity = true;
             }
@@ -148,9 +149,14 @@
             scope.routeTo = function (id) {
                 location.path('/viewsavingaccount/' + id);
             };
-            resourceFactory.runReportsResource.get({reportSource: 'GroupSummaryCounts', genericResultSet: 'false', R_groupId: routeParams.id}, function (data) {
-                scope.summary = data[0];
-            });
+
+            scope.showCenterSummaryOnClick = function() {  
+                scope.showCenterSummary = true;        
+                resourceFactory.runReportsResource.get({reportSource: 'GroupSummaryCounts', genericResultSet: 'false', R_groupId: routeParams.id}, function (data) {
+                    scope.summary = data[0];
+                });
+                
+            };
 
             if(scope.isConfiguredClientCenterAssociation){
                 resourceFactory.centerAccountResource.get({centerId: routeParams.id}, function (data) {
