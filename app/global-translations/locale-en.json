@@ -8396,6 +8396,8 @@
      "label.msg.invalid.incorporation.number" : "Invalid Incorporation Number",
      "label.input.incorporation.date.cannot.be.future.date" : "Incorporation date cannot be in the future",
      "validation.msg.client.dateOfBirth.is.greater.than.date": "Date of Birth must be less than provided date `{{params[1].value}}`",
+     "label.view.center.summary" : "View Center Summary",
+     "label.view.group.summary" : "View Group Summary",
      
      "------ end of translation file ------": "----------"
 }
