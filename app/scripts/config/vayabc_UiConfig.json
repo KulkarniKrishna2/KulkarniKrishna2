@@ -117,9 +117,14 @@
       }
     },
     "accounting": {
-			"isHiddenField":{
-				"migrateOpeningBalances": true 
-			}
-		}
+	"isHiddenField":{
+		"migrateOpeningBalances": true 
+	}
+     },
+     "editLoanApplication": {
+	"editableFields":{
+		"emiPacks":true
+	}
+     }
   }
 }
