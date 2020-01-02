@@ -8458,6 +8458,8 @@
      "label.heading.productive.collectionsheet": "Productive Collection Sheet",
      "error.msg.overdraft.not.allowed" : "Overdraft not allowed.",
      "error.msg.destination.office.is.mandatory":"Kindly select destination office",
+     "label.view.center.summary" : "View Center Summary",
+     "label.view.group.summary" : "View Group Summary",
      
      "------ end of translation file ------": "----------"
 

@@ -11,6 +11,7 @@
             scope.editMeeting = false;
             scope.sections = [];
             scope.showInitiateOnCompletion = false;
+            scope.showGroupSummary = false;
             scope.allowBankAccountForGroups = scope.isSystemGlobalConfigurationEnabled('allow-bank-account-for-groups');
             scope.isHideAccountNumber = scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.accountNo;
             scope.isHideReferenceNumber = scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.referenceNo;
@@ -58,9 +59,12 @@
                 }
 
             });
-            resourceFactory.runReportsResource.get({reportSource: 'GroupSummaryCounts', genericResultSet: 'false', R_groupId: routeParams.id}, function (data) {
-                scope.summary = data[0];
-            });
+            scope.showGroupSummaryOnClick = function(){
+                scope.showGroupSummary = true;
+                resourceFactory.runReportsResource.get({reportSource: 'GroupSummaryCounts', genericResultSet: 'false', R_groupId: routeParams.id}, function (data) {
+                    scope.summary = data[0];
+                });
+            };
             resourceFactory.groupAccountResource.get({groupId: routeParams.id}, function (data) {
                 scope.groupAccounts = data;
             });
