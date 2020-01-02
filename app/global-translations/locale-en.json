@@ -8460,6 +8460,9 @@
      "error.msg.destination.office.is.mandatory":"Kindly select destination office",
      "label.view.center.summary" : "View Center Summary",
      "label.view.group.summary" : "View Group Summary",
+     "validation.msg.savingsproduct.paymentChannelToFundSourceMappings.duplicate": "Remove Duplicate PaymentChannelToFundSourceMappings",
+     "validation.msg.savingsproduct.feeToIncomeAccountMappings.chargeId.duplicate": "Remove Duplicate feeToIncomeAccountMappings",     
+     "validation.msg.savingsaccount.undotransaction.account.is.not.active" : "Account is not active.",
      
      "------ end of translation file ------": "----------"
 
