@@ -31,6 +31,7 @@
 
             scope.fetchCenters = function () {
                 scope.sameOfficeError = false;
+                scope.selectedCenters = [];
                 if (scope.fromOfficeId) {
                     resourceFactory.centerDropDownResource.getAllCenters({ officeId: scope.fromOfficeId, staffId: scope.fromStaffId, villageId: scope.fromVillageId, limit: -1, paged: false }, function (data) {
                         scope.fromCenters = data;

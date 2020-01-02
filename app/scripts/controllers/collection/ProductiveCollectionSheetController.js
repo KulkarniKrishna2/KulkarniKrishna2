@@ -215,11 +215,11 @@
                     }
                     if(!scope.showAllAttendanceTypes){
                         var allowedAttendanceTypeOptions = ['Present','Absent'];
-                        var temp = angular.copy(scope.collectionsheetdata.attendanceTypeOptions);
+                        var temp = angular.copy(scope.originalCollectionsheetData.attendanceTypeOptions);
                         for (var i in temp) {
                             if (allowedAttendanceTypeOptions.indexOf(temp[i].value) <= -1) {
-                                var index = scope.collectionsheetdata.attendanceTypeOptions.findIndex(x => x.value==temp[i].value);
-                                scope.collectionsheetdata.attendanceTypeOptions.splice(index, 1);
+                                var index = scope.originalCollectionsheetData.attendanceTypeOptions.findIndex(x => x.value==temp[i].value);
+                                scope.originalCollectionsheetData.attendanceTypeOptions.splice(index, 1);
                             }
                         }
                     }
