@@ -17,7 +17,6 @@
             scope.newGroupTotal = {};
             scope.savingsGroupsTotal = [];
             scope.date.transactionDate = new Date();
-            var centerOrGroupResource = '';
 
             if(scope.response){
                     scope.paymentDetails = !scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild.paymentDetails;
