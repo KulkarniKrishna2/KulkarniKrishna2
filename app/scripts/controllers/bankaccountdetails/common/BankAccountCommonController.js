@@ -315,8 +315,9 @@
                 }
             };
 
+            scope.isDefaultPennyDropTransactionPaymentTypeId = scope.isSystemGlobalConfigurationEnabled(scope.globalConstants.DEFAULT_PENNY_DROP_TRANSACTION_PAYMENT_TYPE_ID);
             scope.verifyable = function () {
-                if(!scope.isSystemGlobalConfigurationEnabled(scope.globalConstants.DEFAULT_PENNY_DROP_TRANSACTION_PAYMENT_TYPE_ID)){
+                if(!scope.isDefaultPennyDropTransactionPaymentTypeId){
                     return false;
                 }
                 if(scope.viewConfig.isVerified){
