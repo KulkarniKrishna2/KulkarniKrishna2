@@ -46,12 +46,16 @@
             
             scope.getOfficeTemplateData = function () {
                 scope.centerOptions = [];
-                resourceFactory.centerUnderCBReviewResource.getAll({
-                    officeId: scope.formData.officeId
-                }, function (data) {
-                    scope.centerOptions = data;
-                });
+                delete scope.formData.centerId;
+                if(scope.formData.officeId){
+                    resourceFactory.centerUnderCBReviewResource.getAll({
+                        officeId: scope.formData.officeId
+                    }, function (data) {
+                        scope.centerOptions = data;
+                    });
+                }
             };
+            
             scope.previousRequest = function () {
                 if (scope.requestoffset != 0) {
                     scope.requestoffset = scope.requestoffset - scope.limit;
@@ -88,7 +92,7 @@
                         { command: params.command, reviewId: params.reviewId }, {}
                         , function (data) {
                             $modalInstance.close('approve');
-                            route.reload();
+                            scope.getWorkflowCBReviewData();
                         });
                 };
                 $scope.cancel = function () {
@@ -113,7 +117,7 @@
                     resourceFactory.cbReviewResource.update({ command: params.command, reviewId: params.reviewId }, {},
                         function (data) {
                             $modalInstance.close('reject');
-                            route.reload();
+                            scope.getWorkflowCBReviewData();
                         });
                 };
                 $scope.cancel = function () {
