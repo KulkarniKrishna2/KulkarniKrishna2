@@ -244,7 +244,6 @@
                 scope.getSelectedClients = [];
                 scope.getSelectedGroups = [];
                 scope.getSelectedCenters = [];
-                scope.isStaffReassignment = [];
             };
 
         }
