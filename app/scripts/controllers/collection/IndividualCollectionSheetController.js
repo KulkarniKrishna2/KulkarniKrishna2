@@ -17,7 +17,6 @@
             scope.newGroupTotal = {};
             scope.savingsGroupsTotal = [];
             scope.date.transactionDate = new Date();
-            var centerOrGroupResource = '';
 
             if(scope.response){
                     scope.paymentDetails = !scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild.paymentDetails;
@@ -168,12 +167,10 @@
                 scope.constructBulkLoanAndSavingsRepaymentTransactions();
                 data.bulkRepaymentTransactions = scope.bulkRepaymentTransactions;
                 data.bulkSavingsTransactions = scope.bulkSavingsDueTransactions;
-                if(scope.response.uiDisplayConfigurations.collectionSheet.isMandatory.officeId){
-                    data.officeId = scope.officeId;
-                }
+                data.officeId = scope.officeId;
                 resourceFactory.collectionSheetV2Resource.save({command: 'saveCollectionSheet'}, data, function (data) {
                     localStorageService.addToLocalStorage('Success', true);
-                    route.reload();
+                    location.path('/viewallcollections');
                 });
             };
 

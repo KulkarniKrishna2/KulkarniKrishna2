@@ -31,25 +31,8 @@
             scope.isLargeLogoPath = false;
             scope.showCollections = false;
             scope.searchRule = true;
-            scope.searchRuleLabel = 'label.tooltip.exactsearch';
-            if(scope.response && scope.response.uiDisplayConfigurations){
-                if(scope.response.uiDisplayConfigurations.navBar && scope.response.uiDisplayConfigurations.navBar.isHiddenField && 
-                    scope.response.uiDisplayConfigurations.navBar.isHiddenField.kotakApproval){
-                    scope.showKotakApproval = !scope.response.uiDisplayConfigurations.navBar.isHiddenField.kotakApproval;
-                }
-                if(scope.response.uiDisplayConfigurations.accounting && scope.response.uiDisplayConfigurations.accounting.isHiddenField){
-                    if(scope.response.uiDisplayConfigurations.accounting.isHiddenField.postTransactionTypeEntries){
-                        scope.showPostTransactionTypeEntries = !scope.showscope.response.uiDisplayConfigurations.accounting.isHiddenField.postTransactionTypeEntries;
-                    }
-                    if(scope.response.uiDisplayConfigurations.accounting.isHiddenField.migrateOpeningBalances){
-                        scope.showMigrateOpeningBalances = !scope.response.uiDisplayConfigurations.accounting.isHiddenField.migrateOpeningBalances;
-                    }
-                }
-                if (scope.response.uiDisplayConfigurations.workflow && scope.response.uiDisplayConfigurations.workflow.hiddenFields) {
-                    scope.isSendToCBReviewHidden = scope.response.uiDisplayConfigurations.workflow.hiddenFields.sendToCBReview;
-                    scope.isInsuranceChargeHidden = scope.response.uiDisplayConfigurations.workflow.hiddenFields.insuranceCharge;
-                };
-            }  
+            scope.searchRuleLabel = 'label.tooltip.exactsearch'; 
+
             if(!scope.islogofoldernamefetched && $rootScope.tenantIdentifier && $rootScope.tenantIdentifier != "default"){
                 scope.islogofoldernamefetched = true;
                 $http.get('scripts/config/LogoConfig.json').success(function(datas) {
@@ -91,13 +74,31 @@
                     scope.mainUIConfigData = scope.response.uiDisplayConfigurations;
                     scope.regexFormats = scope.response.uiDisplayConfigurations.regexFormats;
                     //console.log(JSON.stringify(scope.mainUIConfigData));
-                }
-                if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.bc) {
-                    scope.enableBc = scope.response.uiDisplayConfigurations.bc.enableBc;
-                }
-                if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.readOnlyFields) {
-                    $rootScope.isDatePickerReadOnly = scope.response.uiDisplayConfigurations.readOnlyFields.datePicker;
-                }
+                    if(scope.response.uiDisplayConfigurations.navBar && scope.response.uiDisplayConfigurations.navBar.isHiddenField){
+                        scope.showKotakApproval = !scope.response.uiDisplayConfigurations.navBar.isHiddenField.kotakApproval;
+                    }
+                    if(scope.response.uiDisplayConfigurations.accounting && scope.response.uiDisplayConfigurations.accounting.isHiddenField){
+                        if(scope.response.uiDisplayConfigurations.accounting.isHiddenField){
+                            scope.showPostTransactionTypeEntries = !scope.response.uiDisplayConfigurations.accounting.isHiddenField.postTransactionTypeEntries;
+                        }
+                        if(scope.response.uiDisplayConfigurations.accounting.isHiddenField){
+                            scope.showMigrateOpeningBalances = !scope.response.uiDisplayConfigurations.accounting.isHiddenField.migrateOpeningBalances;
+                        }
+                    }
+                    if(scope.response.uiDisplayConfigurations.organization && scope.response.uiDisplayConfigurations.organization.isHiddenField){
+                        scope.showTransfer = !scope.response.uiDisplayConfigurations.organization.isHiddenField.transfer;
+                    }
+                    if (scope.response.uiDisplayConfigurations.workflow && scope.response.uiDisplayConfigurations.workflow.hiddenFields) {
+                        scope.isSendToCBReviewHidden = scope.response.uiDisplayConfigurations.workflow.hiddenFields.sendToCBReview;
+                        scope.isInsuranceChargeHidden = scope.response.uiDisplayConfigurations.workflow.hiddenFields.insuranceCharge;
+                    }
+                    if (scope.response.uiDisplayConfigurations.bc) {
+                        scope.enableBc = scope.response.uiDisplayConfigurations.bc.enableBc;
+                    }
+                    if (scope.response.uiDisplayConfigurations.readOnlyFields) {
+                        $rootScope.isDatePickerReadOnly = scope.response.uiDisplayConfigurations.readOnlyFields.datePicker;
+                    }
+                }            
             });
             //hides loader
             scope.domReady = true;

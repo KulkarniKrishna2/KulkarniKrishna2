@@ -87,11 +87,17 @@
                 return false;
             }
 
-            scope.routeTo = function (accountId, transactionId, accountTransfer, transferId) {
-                if (accountTransfer) {
-                    location.path('/viewaccounttransfers/' + transferId).search('redirectPath','viewfixeddepositaccount').search('accoutId',accountId);
-                } else {
-                    location.path('/viewfixeddepositaccounttrxn/' + accountId + '/' + transactionId);
+            scope.routeTo = function (transaction) {
+                var accountId = transaction.accountId;
+                var transactionId= transaction.id;
+                var accountTransfer = transaction.transfer ;
+                if(transaction.transactionType.accrual==false){
+                    if (accountTransfer) {
+                        var transferId = transaction.transfer.id;
+                        location.path('/viewaccounttransfers/' + transferId).search('redirectPath','viewfixeddepositaccount').search('accoutId',accountId);
+                    } else {
+                        location.path('/viewfixeddepositaccounttrxn/' + accountId + '/' + transactionId);
+                    }
                 }
             };
 

@@ -41,12 +41,18 @@
                 return  savingsTransactionType.amountHold == true ||  savingsTransactionType.amountRelease == true;
             };
 
-            scope.routeTo = function (savingsAccountId, transactionId, accountTransfer, transferId) {
-                if (accountTransfer) {
-                    location.path('/viewaccounttransfers/' + transferId).search('redirectPath','viewsavingaccount').search('accoutId',savingsAccountId);
-                } else {
-                    location.path('/viewsavingtrxn/' + savingsAccountId + '/trxnId/' + transactionId);
-                }
+            scope.routeTo = function (transaction) {
+                var savingsAccountId = transaction.accountId;
+                var transactionId= transaction.id;
+                var accountTransfer = transaction.transfer ;
+                if(transaction.transactionType.accrual==false){
+                    if (accountTransfer) {
+                        var transferId = transaction.transfer.id;
+                        location.path('/viewaccounttransfers/' + transferId).search('redirectPath','viewsavingaccount').search('accoutId',savingsAccountId);
+                    } else {
+                        location.path('/viewsavingtrxn/' + savingsAccountId + '/trxnId/' + transactionId);
+                    }
+                }                
             };
 
             scope.isRecurringCharge = function (charge) {

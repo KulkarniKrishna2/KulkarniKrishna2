@@ -5,8 +5,12 @@
             scope.hideEdit = false;
             scope.isHold = false;
             scope.isRejectReasonRequired = false;
+            scope.isAccrual = false;
             resourceFactory.savingsTrxnsResource.get({savingsId: routeParams.accountId, transactionId: routeParams.id}, function (data) {
                 scope.transaction = data;
+                if(scope.transaction.transactionType.accrual==true){
+                    scope.isAccrual = true;
+                }
                 if (scope.transaction.transactionType.value == 'Transfer' || scope.transaction.reversed == 'true'
                     || scope.transaction.transactionType.id==3 || scope.transaction.transactionType.id==17 || scope.transaction.transactionType.id==20 || scope.transaction.transactionType.id==21) {
                     scope.flag = true;

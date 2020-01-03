@@ -3,7 +3,7 @@
     <li class="active">{{'label.button.collectionsheet' | translate}}</li>
 </ul>
 <form name="collectionsheetform" novalidate class="form-horizontal well"
-      ng-controller="IndividualCollectionSheetController">
+      ng-controller="IndividualCollectionSheetController" rc-submit="submit()">
 <api-validate></api-validate>
 <h2><strong ng-show="noData" style="padding-top: 400px !important;">{{'label.norepaymentsandcollectionsareavailable'
     |
@@ -36,7 +36,10 @@
 
         <div class="col-sm-3">
             <input type="text" autocomplete="off" id="transactionDate" name="transactiondate" datepicker-pop="{{df}}"
-                   ng-model="date.transactionDate" is-open="opened" class="form-control"  ng-readonly="isDatePickerReadOnly"/>
+                   ng-model="date.transactionDate" is-open="opened" class="form-control"  ng-readonly="isDatePickerReadOnly" required/>
+        </div>
+        <div class="col-sm-3">
+            <form-validate valattributeform="collectionsheetform" valattribute="transactiondate"/>
         </div>
     </div>
 
@@ -47,8 +50,7 @@
             <select chosen="loanOfficers" id="loanOfficerId" ng-model="loanOfficerId"
                     ng-options="loanOfficer.id as loanOfficer.displayName for loanOfficer in loanOfficers"
                     value="{{loanOfficer.id}}" ng-change="loanOfficerSelected(loanOfficerId)"
-                    class="form-control"
-                    required>
+                    class="form-control">
                 <option value="">{{'label.selectloanofficer' | translate}}</option>
             </select>
         </div>
@@ -56,10 +58,9 @@
 
     <div class="form-group">
         <div class="col-sm-2">
-            <button class="btn btn-primary" ng-click="previewCollectionSheet()">
-                {{'label.button.collectionsheet' |
-                translate}}
-                <i class="icon-circle-arrow-right"></i></button>
+            <a class="btn btn-primary" ng-disabled="collectionsheetform.$invalid == true" ng-click="previewCollectionSheet()">
+                {{'label.button.collectionsheet' |translate}}
+                <i class="icon-circle-arrow-right"></i></a>
         </div>
     </div>
 </div>
@@ -95,10 +96,10 @@
                                ng-model= "loan.totalDue">
                     </td>
                     <td ng-show = "paymentDetails">
-                        <button class="btn btn-default" ng-show="!loan.showPaymentDetails"
+                        <a class="btn btn-default" ng-show="!loan.showPaymentDetails"
                                 data-ng-click="showLoanPaymentDetails($parent.$index,$index)"
                                 >{{'label.button.addpaymentdetail'| translate}}
-                        </button>
+                        </a>
                     </td>
                 </tr>
                 <tr ng-show="loan.showPaymentDetails" ng-repeat-end>
@@ -166,10 +167,10 @@
                                ng-model="saving.dueAmount">
                     </td>
                     <td  ng-show = "paymentDetails">
-                        <button class="btn btn-default" ng-show="!saving.showPaymentDetails"
+                        <a class="btn btn-default" ng-show="!saving.showPaymentDetails"
                                 data-ng-click="showSavingsPaymentDetails($parent.$index,$index)"
                                 >{{'label.button.addpaymentdetail'| translate}}
-                        </button>
+                        </a>
                     </td>
                 </tr>
                 <tr ng-show="saving.showPaymentDetails" ng-repeat-end>
@@ -217,9 +218,8 @@
 
 <div class="col-sm-12 col-md-12 paddedtop10">
     <div class="col-md-offset-3 paddedtop">
-        <button id="cancel" type="cancel" class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-        <button id="save" type="submit" class="btn btn-primary" ng-show="collectionsheetdata"
-                ng-click="submit()">{{'label.button.save' | translate}}
+        <button id="cancel" class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+        <button id="save" class="btn btn-primary" ng-if="collectionsheetdata" >{{'label.button.save' | translate}}
         </button>
     </div>
 </div>

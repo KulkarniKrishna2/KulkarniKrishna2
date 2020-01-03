@@ -2,8 +2,12 @@
     mifosX.controllers = _.extend(module, {
         ViewRecurringDepositTransactionController: function (scope, resourceFactory, location, routeParams, dateFilter) {
             scope.flag = false;
+            scope.showEdit = false;
             resourceFactory.recurringDepositTrxnsResource.get({savingsId: routeParams.accountId, transactionId: routeParams.transactionId}, function (data) {
                 scope.transaction = data;
+                if(scope.transaction.transactionType.accrual==true || scope.transaction.transactionType.interestPosting==true){
+                    scope.showEdit = true;
+                }
                 if (scope.transaction.transactionType.value == 'Transfer' || scope.transaction.reversed == 'true') {
                     scope.flag = true;
                 }

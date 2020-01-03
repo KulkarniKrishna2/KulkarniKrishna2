@@ -11,6 +11,14 @@
         <br>
         <fieldset>
             <div class="form-group">
+                <label class="control-label col-sm-2">{{'label.input.transferOn' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <input id="transferOn" type="text" autocomplete="off" name="transferOn" datepicker-pop="{{df}}"
+                           ng-model="first.date" is-open="opened1" min="'2000-01-01'" max="restrictDate"  class="form-control" ng-readonly="isDatePickerReadOnly"/>
+                </div>
+            </div>
+            <div class="form-group">
                 <label class="control-label col-sm-2">{{ 'label.input.office' | translate }}:<span
                         class="required">*</span></label>
 

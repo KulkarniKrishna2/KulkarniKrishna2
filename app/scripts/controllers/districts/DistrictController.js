@@ -39,12 +39,15 @@
                     })
                     scope.states = scope.selectCountry[0].statesDatas;
                 }
+                scope.formData.stateId = undefined;
+                scope.districts = null;
             };
             scope.fetchDistricts = function(){
-                resourceFactory.districtsResource.query({stateId:scope.formData.stateId}, function(data){
+                resourceFactory.districtsResource.query({stateId:scope.formData.stateId, status: 'all'}, function(data){
                     scope.districts = data;
                     scope.onFilter();
                 });
+                
             };
             scope.initiateWorkflow = function (districtId) {
                 resourceFactory.districtsResource.save({districtId: districtId, command: 'initiateWorkflow'},{}, function (data) {
