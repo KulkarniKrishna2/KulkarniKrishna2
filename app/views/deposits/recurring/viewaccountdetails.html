@@ -286,44 +286,25 @@
         </tbody>
     </table>
 </tab>
-<tab heading="{{savingdatatable.registeredTableName}}" ng-repeat="savingdatatable in savingdatatables"
-     select="dataTableChange(savingdatatable)">
-            <span data-ng-show="choice">
-                <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right"
-                   ng-click="deleteAll(savingdatatable.registeredTableName, savingaccountdetails.id)"><i
-                        class="icon-trash icon-white"></i>{{'label.button.deleteall' | translate}}</a>
-                <span ng-show="!datatabledetails.isData || datatabledetails.isMultirow" class="pull-right ">
-                  <a href="#/makedatatableentry/{{savingdatatable.registeredTableName}}/{{savingaccountdetails.id}}"
-                     class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.add' | translate}}</a>
-                </span></br>
-            </span>
-
-    <div data-ng-show="datatabledetails.isData">
-        <table ng-show="datatabledetails.isMultirow" class="table">
-            <thead>
-            <th ng-repeat="column in datatabledetails.columnHeaders">{{column.columnName}}</th>
-            </thead>
-            <tbody>
-            <tr ng-repeat="data in datatabledetails.data">
-                <td ng-repeat="row in data.row">
-                          <span ng-show="$index == 0">
-                            <a href="#/viewdatatableentry/{{savingdatatable.registeredTableName}}/{{savingaccountdetails.id}}/{{data.row[0]}}"
-                               ng-show="datatabledetails.isMultirow">{{row}}</a>
-                            <a href="#/viewdatatableentry/{{savingdatatable.registeredTableName}}/{{savingaccountdetails.id}}/"
-                               ng-hide="datatabledetails.isMultirow">{{row}}</a>
-                          </span>
-                    <span ng-hide="$index == 0">{{row}}</span>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <table class="table table-bordered" data-ng-show="!datatabledetails.isMultirow" style="width: 450px">
-            <tr ng-repeat="value in singleRow">
-                <td class="graybg" style="font-weight: bold">{{value.key}}</td>
-                <td><span class="padded-td">{{value.value}}</span></td>
-            </tr>
-        </table>
+<tab heading="{{datatable.registeredTableName}}" ng-repeat="datatable in datatables"
+     select="dataTableChange(datatable)">
+     <div data-ng-show="choice" class="btn-group pull-right">
+        <a ng-show="datatabledetails.isData" class="btn btn-danger pull-right"
+           has-permission='DELETE_{{savingdatatable.registeredTableName}}'
+           ng-click="deleteAll(datatable.registeredTableName, savingaccountdetails.id)"><i
+                class="icon-trash icon-white"></i>{{'label.button.deleteall' | translate}}</a>
+        <a data-ng-show="showDataTableAddButton"
+           href="#/makedatatableentry/{{datatable.registeredTableName}}/{{savingaccountdetails.id}}?fromEntity=recurringdeposit"
+           class="btn btn-primary" has-permission='CREATE_{{datatable.registeredTableName}}'><i
+                class="icon-plus icon-white"></i>{{'label.button.add' | translate}}</a>
+        <a data-ng-show="showDataTableEditButton"
+           ng-href="#/viewsingledatatableentry/{{datatable.registeredTableName}}/{{savingaccountdetails.id}}?mode=edit&&fromEntity=recurringdeposit"
+           class="btn btn-primary" has-permission='UPDATE_{{datatable.registeredTableName}}'><i
+                class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
     </div>
+    <br>
+    <br>
+    <div ng-show="datatabledetails.isData" ng-include="'views/system/view_datatable_data.html'"></div>
 </tab>
 <tab ng-show="chargeTableShow" heading="{{'label.heading.charges' | translate}}">
     <table class="table" width="100%">

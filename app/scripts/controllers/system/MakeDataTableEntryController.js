@@ -27,6 +27,8 @@
             scope.associateAppTable = null;
             scope.count = 0;
             scope.issubmitcontinue = false ;
+            scope.fixedDeposit = false;
+            scope.recurringDeposit = false;
             var  idList = ['client_id', 'office_id', 'group_id', 'center_id', 'loan_id', 'savings_account_id', 'gl_journal_entry_id', 'loan_application_reference_id', 'journal_entry_id', 'district_id', 'villages_id', 'staff_id'];
 
             if (routeParams.fromEntity == 'client') {
@@ -57,6 +59,10 @@
                 scope.villageName = $rootScope.villageNameDataParameter;
             }else if (routeParams.fromEntity == 'staff') {
                 scope.staffId = scope.entityId;
+            } else if (routeParams.fromEntity == 'fixeddeposit') {
+                scope.fixedDeposit = true;
+            } else if (routeParams.fromEntity == 'recurringdeposit') {
+                scope.recurringDeposit = true;
             }
             if(scope.tableName =='Address' && scope.fromEntity == 'client'){
                 scope.showSelect=false;
@@ -318,6 +324,10 @@
                     location.path('/viewvillage/' + routeParams.entityId).search({});
                 }else if(scope.fromEntity == 'employee'){
                     location.path('/viewemployee/' + routeParams.entityId).search({});
+                } else if(scope.fixedDeposit){
+                    location.path('/viewfixeddepositaccount/' + routeParams.entityId).search({});
+                } else if(scope.recurringDeposit){
+                    location.path('/viewrecurringdepositaccount/' + routeParams.entityId).search({});
                 };
             };
             scope.submit = function () {
@@ -366,8 +376,12 @@
                         destination = '/viewloanaccount/' + data.loanId;
                     }else if(scope.village){
                         destination = '/viewvillage/'+ routeParams.entityId;
-                    }else if (data.savingsId) {
+                    }else if (scope.savingsaccount) {
                         destination = '/viewsavingaccount/' + data.savingsId;
+                    } else if (scope.fixedDeposit) {
+                        destination = '/viewfixeddepositaccount/' + data.savingsId;
+                    } else if (scope.recurringDeposit) {
+                        destination = '/viewrecurringdepositaccount/' + data.savingsId;
                     } else if (data.clientId) {
                         destination = '/viewclient/' + data.clientId;
                     } else if (data.groupId) {
