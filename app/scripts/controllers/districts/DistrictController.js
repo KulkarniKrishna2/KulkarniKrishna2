@@ -3,7 +3,7 @@
         DistrictController: function(scope, resourceFactory, location) {
             scope.districts = [];
             scope.formData = {};
-
+            scope.isNoDistrictData = false;
             if (!scope.searchCriteria.distircts) {
                 scope.searchCriteria.distircts = {};
                 scope.searchCriteria.distircts.filterText = null;
@@ -33,6 +33,7 @@
             };
 
             scope.changeCountry = function(countryId) {
+                scope.isNoDistrictData = false;
                 if (countryId != null) {
                     scope.selectCountry = _.filter(scope.countries, function(country) {
                         return country.countryId == countryId;
@@ -40,11 +41,21 @@
                     scope.states = scope.selectCountry[0].statesDatas;
                 }
                 scope.formData.stateId = undefined;
-                scope.districts = null;
+                scope.districts = undefined;
             };
+
+            scope.changeState = function(stateId) {
+                scope.isNoDistrictData = false;
+                scope.districts = undefined;
+            };
+
             scope.fetchDistricts = function(){
+                scope.isNoDistrictData = false;
                 resourceFactory.districtsResource.query({stateId:scope.formData.stateId, status: 'all'}, function(data){
                     scope.districts = data;
+                    if(scope.districts == undefined || scope.districts.length == 0){
+                        scope.isNoDistrictData = true;
+                    }
                     scope.onFilter();
                 });
                 

@@ -8463,7 +8463,8 @@
      "validation.msg.savingsproduct.paymentChannelToFundSourceMappings.duplicate": "Remove Duplicate PaymentChannelToFundSourceMappings",
      "validation.msg.savingsproduct.feeToIncomeAccountMappings.chargeId.duplicate": "Remove Duplicate feeToIncomeAccountMappings",     
      "validation.msg.savingsaccount.undotransaction.account.is.not.active" : "Account is not active.",
-     
+     "label.msg.no.data.found" : "No data found",
+
      "------ end of translation file ------": "----------"
 
 }
