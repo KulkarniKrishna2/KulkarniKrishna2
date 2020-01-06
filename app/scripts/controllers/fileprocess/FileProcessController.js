@@ -1,7 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         FileProcessController: function (scope, resourceFactory, location, routeParams, API_VERSION, $upload, $rootScope, commonUtilService) {
-
+            var fileProcessCategory = routeParams.fileProcessCategory;
             scope.formData = {};
             scope.isSourceTypeReq = false;
             resourceFactory.fileProcessTypeTemplateResource.get({}, function (data) {
@@ -62,9 +62,25 @@
                 commonUtilService.downloadFile(url,fileType);
             }
 
+
+            if(fileProcessCategory){
+                if(fileProcessCategory == "LOANS"){
+                    document.getElementById("loans").style.display = "";
+                }else if(fileProcessCategory == "SAVINGS"){
+                    document.getElementById("savings").style.display = "";
+                }else if(fileProcessCategory == "ACCOUNTING"){
+                    document.getElementById("accounting").style.display = "";
+                }else if(fileProcessCategory == "ORGANISATION"){
+                    document.getElementById("organisation").style.display = "";
+                }else if(fileProcessCategory == "INSURANCE"){
+                    document.getElementById("insurance").style.display = "";
+                }
+            }else{
+                document.getElementById("loans").style.display = "";
+            }
+
             var acc = document.getElementsByClassName("accordion");
             var i;
-
             for (i = 0; i < acc.length; i++) {
                 acc[i].addEventListener("click", function () {
                     var acc1 = document.getElementsByClassName("accordion");
@@ -80,8 +96,6 @@
                     }
                 });
             }
-            
-
         }
     });
     mifosX.ng.application.controller('FileProcessController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'API_VERSION', '$upload', '$rootScope', 'CommonUtilService', mifosX.controllers.FileProcessController]).run(function ($log) {
