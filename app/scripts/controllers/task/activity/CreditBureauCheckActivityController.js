@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreditBureauCheckActivityController: function ($controller, scope, $modal, resourceFactory, dateFilter, $http, $rootScope, $sce, CommonUtilService, $upload, API_VERSION) {
+        CreditBureauCheckActivityController: function ($controller, scope, $modal, resourceFactory, dateFilter, $http, $rootScope, $sce, CommonUtilService, $upload, API_VERSION, routeParams) {
             angular.extend(this, $controller('defaultActivityController', { $scope: scope }));
 
             scope.showBulkCBInitiate = false;
@@ -1208,64 +1208,229 @@
                 }
             }
 
-            scope.viewAdditionalDetails = function (clientId) {
+            scope.viewMemberDetails = function (groupId, activeClientMember) {
                 $modal.open({
-                    templateUrl: 'views/task/popup/viewadditionaldetail.html',
-                    controller: viewAdditionalDetailCtrl,
+                    templateUrl: 'views/task/popup/viewmember.html',
+                    controller: ViewMemberCtrl,
                     backdrop: 'static',
                     windowClass: 'app-modal-window-full-screen',
                     size: 'lg',
                     resolve: {
                         memberParams: function () {
-                            return {'clientId': clientId };
+                            return { 'groupId': groupId, 'activeClientMember' : activeClientMember };
                         }
                     }
                 });
             }
 
-            var viewAdditionalDetailCtrl = function ($scope, $modalInstance, memberParams, $sce) {
-                angular.extend(this, $controller('defaultUIConfigController', {
-                    $scope: $scope,
-                    $key: "bankAccountDetails"
-                }));
-                $scope.showHouseHoldExpense = true;
-                $scope.taskconfig = scope.taskconfig;
-                $scope.regexFormats = scope.regexFormats;
+            var ViewMemberCtrl = function ($scope, $modalInstance, memberParams) {
+                $scope.regexFormats = scope.regexFormats;                
                 $scope.df = scope.df;
-                $scope.clientId = memberParams.clientId;
+                $scope.canAddCharges=scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.canAddCharge;
+                $scope.response = scope.response;
+                $scope.clientId = memberParams.activeClientMember.id;
+                $scope.groupId = memberParams.groupId;
                 $scope.showaddressform = false;
                 $scope.shownidentityform = false;
                 $scope.shownFamilyMembersForm = false;
                 $scope.showLoanAccountForm = false;
-                $scope.isLoanAccountExist = true;
-                $scope.displayCashFlow = true;
-                $scope.displaySurveyInfo = true;
-                $scope.surveyName = scope.response.uiDisplayConfigurations.viewClient.takeSurveyName;
+                $scope.isLoanAccountExist = false;
+                $scope.showLoanProductList = false;
+                $scope.showOnlyLoanTab = true;
+                var UPFRONT_FEE = 'upfrontFee';
+                $scope.displayCashFlow = false;
+                $scope.displaySurveyInfo = false;
+                $scope.isStreetNameMandatory=false;
+                $scope.firstNamePattern = scope.firstNamePattern;
+                $scope.familyMemberMinAge = scope.familyMemberMinAge;
+                $scope.familyMemberMaxAge = scope.familyMemberMaxAge;
+                $scope.isValidAge = true;
 
-                if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.bankAccountDetails) {
-                    if (scope.response.uiDisplayConfigurations.bankAccountDetails.isMandatory) {
-                        $scope.isMandatoryFields = scope.response.uiDisplayConfigurations.bankAccountDetails.isMandatory;
+                if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow) {
+                    $scope.showDeleteClientIdentifierAction = scope.response.uiDisplayConfigurations.workflow.showDeleteClientIdentifierAction;
+                }
+
+                if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow &&
+                    scope.response.uiDisplayConfigurations.workflow.disableVillageDropDown) {
+                    $scope.disableVillageDropDown = scope.response.uiDisplayConfigurations.workflow.disableVillageDropDown;
+                }
+
+                if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewClient && scope.response.uiDisplayConfigurations.viewClient.familyDeatils && scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isMandatoryField) {
+                    $scope.isAgeMandatory = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isMandatoryField.age;
+                    $scope.isfamilyMemeberIDTypeMandatory = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isMandatoryField.familyMemeberIDType;
+                    $scope.isAgeRequired = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isMandatoryField.age;
+                    $scope.isfamilyMemeberIDTypeRequired = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isMandatoryField.familyMemeberIDType;
+                    $scope.isDateOfBirthMandatory = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isMandatoryField.dateOfBirth;
+                }
+
+                $scope.setDefaultGISConfig = function () {
+                    if (scope.responseDefaultGisData && scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig && scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address) {
+                        if (scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address.countryName) {
+
+                            var countryName = scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address.countryName;
+                            $scope.defaultCountry = _.filter($scope.countries, function (country) {
+                                return country.countryName === countryName;
+
+                            });
+                            $scope.formData.countryId = $scope.defaultCountry[0].countryId;
+                            $scope.states = $scope.defaultCountry[0].statesDatas;
+                        }
+
+                        if ($scope.states && $scope.states.length > 0 && scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address.stateName) {
+                            var stateName = scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address.stateName;
+                            $scope.defaultState = _.filter(scope.states, function (state) {
+                                return state.stateName === stateName;
+
+                            });
+                            $scope.formData.stateId = scope.defaultState[0].stateId;
+                            $scope.districts = scope.defaultState[0].districtDatas;
+                        }
+
+                    }
+
+                };
+                if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isMandatoryField) {
+                    $scope.isStreetNameMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.streetName;
+                    $scope.isHouseNoMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.houseNo;
+                }
+                $scope.isHideDocumentExpiryDate = scope.response.uiDisplayConfigurations.clientIdentifier.hiddenFields.documentExpiryDate;
+                $scope.isHideDocumentIssueDate = scope.response.uiDisplayConfigurations.clientIdentifier.hiddenFields.documentIssueDate;
+                $scope.isHideSalutation = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isHiddenField.salutation;
+                $scope.changeCountry = function (countryId) {
+                    if (countryId != null) {
+                        $scope.selectCountry = _.filter($scope.countries, function (country) {
+                            return country.countryId == countryId;
+                        })
+                        if ($scope.formData.stateId) {
+                            delete $scope.formData.stateId;
+                        }
+                        if ($scope.formData.districtId) {
+                            delete $scope.formData.districtId;
+                        }
+                        if ($scope.formData.talukaId) {
+                            delete $scope.formData.talukaId;
+                        }
+
+                        $scope.states = $scope.selectCountry[0].statesDatas;
                     }
                 }
 
-                $scope.getBankDetails = function(isvalidIfsc){
-                    if($scope.bankAccFormData.ifscCode != undefined && $scope.bankAccFormData.ifscCode === $scope.repeatBankAccFormData.ifscCodeRepeat && isvalidIfsc){
-                        resourceFactory.bankIFSCResource.get({
-                            ifscCode: $scope.bankAccFormData.ifscCode
-                        }, function (data) {
-                            $scope.bankData = data;
-                            $scope.bankAccFormData.bankName = $scope.bankData.bankName;
-                            $scope.bankAccFormData.branchName = $scope.bankData.branchName;
-                            $scope.bankAccFormData.bankCity = $scope.bankData.bankCity;
+                $scope.changeState = function (stateId) {
+                    if (stateId != null) {
+                        $scope.selectState = _.filter($scope.states, function (state) {
+                            return state.stateId == stateId;
+                        })
+                        if ($scope.formData.districtId) {
+                            delete $scope.formData.districtId;
+                        }
+                        if ($scope.formData.talukaId) {
+                            delete $scope.formData.talukaId;
+                        }
+                        $scope.districts = $scope.selectState[0].districtDatas;
+                        $scope.getActiveDistricts();
+                    }
+                }
+                $scope.activeStatus = 300;
+                $scope.getActiveDistricts = function(){
+                    var tempDist = [];
+                    for(var i in $scope.districts){
+                        if($scope.districts[i].status.id==$scope.activeStatus){
+                            tempDist.push($scope.districts[i]);
+                        }
+                    }
+                    $scope.districts = tempDist;
+                }
+
+                $scope.changeDistrict = function (districtId) {
+                    if (districtId != null) {
+                        $scope.selectDistrict = _.filter($scope.districts, function (districts) {
+                            return districts.districtId == districtId;
+                        })
+
+                        if ($scope.formData.talukaId) {
+                            delete $scope.formData.talukaId;
+                        }
+                        $scope.talukas = $scope.selectDistrict[0].talukaDatas;
+                    }
+                    
+                }
+
+                $scope.changeVillage = function () {
+                    if ($scope.formData.villageId != null && $scope.formData.villageId != undefined) {
+                        if($scope.formData.stateId){
+                            delete $scope.formData.stateId;
+                        }
+                        if ($scope.formData.districtId) {
+                            delete $scope.formData.districtId;
+                        }
+                        if ($scope.formData.talukaId) {
+                            delete $scope.formData.talukaId;
+                        }
+                        $scope.formData.villageTown = null;
+                        $scope.talukas = null;
+                        $scope.formData.postalCode = null;
+                        $scope.districts = null;
+                        $scope.states = null;
+                        resourceFactory.villageResource.get({ villageId: $scope.formData.villageId }, function (response) {
+                            if (response.addressData.length > 0) {
+                                if (response.villageName) {
+                                    $scope.formData.villageTown = response.villageName;
+                                }
+                                if (response.addressData[0].countryData) {
+                                    $scope.formData.countryId = response.addressData[0].countryData.countryId;
+                                    $scope.changeCountry($scope.formData.countryId)
+                                }
+                                if (response.addressData[0].stateData) {
+                                    $scope.formData.stateId = response.addressData[0].stateData.stateId;
+                                    $scope.changeState($scope.formData.stateId);
+                                }
+                                if (response.addressData[0].districtData) {
+                                    $scope.formData.districtId = response.addressData[0].districtData.districtId;
+                                    $scope.changeDistrict($scope.formData.districtId);
+                                }
+
+                                if (response.addressData[0].talukaData) {
+                                    $scope.formData.talukaId = response.addressData[0].talukaData.talukaId;
+                                }
+                                if (response.addressData[0].postalCode) {
+                                    $scope.formData.postalCode = response.addressData[0].postalCode;
+                                }
+                            }
+
                         });
                     }
                 }
+                $scope.changeAddressTypeChange = function(addressTypeId){
+                    $scope.address.isPopulateClientAddressFromVillages = scope.isSystemGlobalConfigurationEnabled($scope.villageConfig);
+                    var idx = $scope.addressType.findIndex(x => x.id == addressTypeId);
+                    if($scope.addressType[idx] && ($scope.addressType[idx].systemIdentifier === "AeKyc" || $scope.addressType[idx].systemIdentifier === "VeKyc")){
+                        $scope.address.isPopulateClientAddressFromVillages = false;
+                        if ($scope.formData.villageId) {
+                            delete $scope.formData.villageId;
+                        }
+                        $scope.formData.villageTown = null;
+                        $scope.formData.postalCode = null;                    
+                    }else{
+                        $scope.formData.villageId =  memberParams.activeClientMember.villageId;
+                        $scope.changeVillage();
+                    }
+                }
+
+                $scope.close = function () {
+                    $modalInstance.dismiss('close');
+                    initTask();
+                };
+                $scope.validateAge = function(){
+                    $scope.isValidAge = false;
+                    if($scope.familyMembersFormData.age){
+                        if($scope.familyMemberMinAge <= $scope.familyMembersFormData.age && $scope.familyMembersFormData.age <= $scope.familyMemberMaxAge){
+                            $scope.isValidAge = true;
+                        }
+                    }
+                };
 
                 function getClientData() {
-                    resourceFactory.clientResource.get({
-                        clientId: $scope.clientId,
-                        associations: 'hierarchyLookup'
-                    }, function (data) {
+                    resourceFactory.clientResource.get({ clientId: $scope.clientId, associations: 'hierarchyLookup' }, function (data) {
                         $scope.clientDetails = data;
                         if ($scope.clientDetails.lastname != undefined) {
                             $scope.clientDetails.displayNameInReverseOrder = $scope.clientDetails.lastname.concat(" ");
@@ -1280,371 +1445,231 @@
                 }
                 getClientData();
 
-                $scope.getCashFlow = function () {
-                    $scope.showSummary = true;
-                    $scope.showAddClientoccupationdetailsForm = false;
-                    $scope.showEditClientoccupationdetailsForm = false;
-                    $scope.showAddClientassetdetailsForm = false;
-                    $scope.showEditClientassetdetailsForm = false;
-                    $scope.showAddClienthouseholddetailsForm = false;
-                    $scope.showEditClienthouseholddetailsForm = false;
-                    $scope.totalIncome = 0;
-                    refreshAndShowSummaryView();
-                }
-
-                function hideAll() {
-                    $scope.showSummary = false;
-                    $scope.showAddClientoccupationdetailsForm = false;
-                    $scope.showEditClientoccupationdetailsForm = false;
-                    $scope.showAddClientassetdetailsForm = false;
-                    $scope.showEditClientassetdetailsForm = false;
-                    $scope.showAddClienthouseholddetailsForm = false;
-                    $scope.showEditClienthouseholddetailsForm = false;
-                };
-
-                function incomeAndexpense() {
-                    resourceFactory.incomeExpenseAndHouseHoldExpense.getAll({
-                        clientId: $scope.clientId
-                    }, function (data) {
-                        $scope.incomeAndExpenses = data;
-                        $scope.totalIncomeOcc = $scope.calculateOccupationTotal();
-                        $scope.totalIncomeAsset = $scope.calculateTotalAsset();
-                        $scope.totalHouseholdExpense = $scope.calculateTotalExpense();
-                        $scope.showSummaryView();
-                    });
-                };
-
-                $scope.calculateOccupationTotal = function () {
-                    var total = 0;
-                    angular.forEach($scope.incomeAndExpenses, function (incomeExpense) {
-                        if (!_.isUndefined(incomeExpense.incomeExpenseData.cashFlowCategoryData.categoryEnum) && incomeExpense.incomeExpenseData.cashFlowCategoryData.categoryEnum.id == 1) {
-                            if (!_.isUndefined(incomeExpense.totalIncome) && !_.isNull(incomeExpense.totalIncome)) {
-                                if (!_.isUndefined(incomeExpense.totalExpense) && !_.isNull(incomeExpense.totalExpense)) {
-                                    total = total + incomeExpense.totalIncome - incomeExpense.totalExpense;
-                                } else {
-                                    total = total + incomeExpense.totalIncome;
-                                }
-                            }
-                        }
-                    });
-                    return total;
-                };
-
-                $scope.calculateTotalAsset = function () {
-                    var total = 0;
-                    angular.forEach($scope.incomeAndExpenses, function (incomeExpense) {
-                        if (!_.isUndefined(incomeExpense.incomeExpenseData.cashFlowCategoryData.categoryEnum) && incomeExpense.incomeExpenseData.cashFlowCategoryData.categoryEnum.id == 2) {
-                            if (!_.isUndefined(incomeExpense.totalIncome) && !_.isNull(incomeExpense.totalIncome)) {
-                                if (!_.isUndefined(incomeExpense.totalExpense) && !_.isNull(incomeExpense.totalExpense)) {
-                                    total = total + incomeExpense.totalIncome - incomeExpense.totalExpense;
-                                } else {
-                                    total = total + incomeExpense.totalIncome;
-                                }
-                            }
-                        }
-                    });
-                    return total;
-                };
-
-                $scope.updateTotalIncome = function (quantity, income) {
-                    if ($scope.isQuantifierNeeded && quantity && income) {
-                        $scope.totalIncome = parseFloat(quantity) * parseFloat(income);
-                    } else {
-                        $scope.totalIncome = undefined;
-                    }
-                };
-
-                $scope.calculateTotalExpense = function () {
-                    var total = 0;
-                    angular.forEach($scope.incomeAndExpenses, function (incomeExpense) {
-                        if (!_.isUndefined(incomeExpense.incomeExpenseData.cashFlowCategoryData.typeEnum) && incomeExpense.incomeExpenseData.cashFlowCategoryData.typeEnum.id == 2) {
-                            if (!_.isUndefined(incomeExpense.totalExpense) && !_.isNull(incomeExpense.totalExpense)) {
-                                total = total + incomeExpense.totalExpense;
-                            }
-                        }
-                    });
-                    return total;
-                };
-
-                $scope.showSummaryView = function () {
-                    hideAll();
-                    $scope.showSummary = true;
-                };
-
-                function refreshAndShowSummaryView() {
-                    incomeAndexpense();
-                };
-
-                //edit
-
-                $scope.editClientoccupationdetails = function (incomeExpenseId) {
-                    hideAll();
-                    $scope.showEditClientoccupationdetailsForm = true;
-                    initEditClientoccupationdetails(incomeExpenseId);
-                };
-
-                $scope.editClientassetdetails = function (incomeExpenseId) {
-                    hideAll();
-                    $scope.showEditClientassetdetailsForm = true;
-                    initEditClientoccupationdetails(incomeExpenseId);
-                };
-
-                $scope.editClienthouseholddetails = function (incomeExpenseId) {
-                    hideAll();
-                    $scope.showEditClienthouseholddetailsForm = true;
-                    initEditClientoccupationdetails(incomeExpenseId);
-                };
-
-                function initEditClientoccupationdetails(incomeExpenseId) {
-                    $scope.incomeAndExpenseId = incomeExpenseId;
-                    $scope.formData = {};
-                    $scope.formData.isMonthWiseIncome = false;
-                    $scope.isQuantifierNeeded = false;
-
-                    resourceFactory.cashFlowCategoryResource.getAll({
-                        isFetchIncomeExpenseDatas: true
-                    }, function (data) {
-                        $scope.occupations = data;
-                    });
-
-                    resourceFactory.incomeExpenseAndHouseHoldExpense.get({
-                        clientId: $scope.clientId,
-                        incomeAndExpenseId: $scope.incomeAndExpenseId
-                    }, function (data) {
-                        angular.forEach($scope.occupations, function (occ) {
-                            if (occ.id == data.incomeExpenseData.cashflowCategoryId) {
-                                $scope.occupationOption = occ;
+                $scope.entityAddressLoaded = false;
+                $scope.fetchEntityAddress = function () {
+                    if (!$scope.entityAddressLoaded) {
+                        resourceFactory.addressDataResource.getAll({
+                            entityType: "clients",
+                            entityId: $scope.clientId
+                        }, function (response) {
+                            if (response != null) {
+                                $scope.addressData = response;
                             }
                         });
-                        $scope.formData.incomeExpenseId = data.incomeExpenseData.id;
-                        $scope.formData.quintity = data.quintity;
-                        $scope.formData.totalIncome = data.defaultIncome;
-                        $scope.formData.totalExpense = data.totalExpense;
-
-                        $scope.formData.isPrimaryIncome = data.isPrimaryIncome;
-                        $scope.formData.isRemmitanceIncome = data.isRemmitanceIncome;
-                        $scope.isQuantifierNeeded = data.incomeExpenseData.isQuantifierNeeded;
-                        if (scope.isQuantifierNeeded) {
-                            $scope.updateTotalIncome($scope.formData.quintity, $scope.formData.totalIncome);
-                        }
-                        $scope.quantifierLabel = data.incomeExpenseData.quantifierLabel;
-                    });
-                };
-
-                $scope.addClientoccupationdetails = function () {
-                    hideAll();
-                    $scope.showAddClientoccupationdetailsForm = true;
-                    initAddClientoccupationdetails();
-                };
-
-                $scope.addClientassetdetails = function () {
-                    hideAll();
-                    $scope.showAddClientassetdetailsForm = true;
-                    initAddClientoccupationdetails();
-                };
-
-                $scope.addClienthouseholddetails = function () {
-                    hideAll();
-                    $scope.showAddClienthouseholddetailsForm = true;
-                    initAddClientoccupationdetails();
-                };
-
-                function initAddClientoccupationdetails() {
-                    $scope.formData = {};
-                    $scope.subOccupations = [];
-                    $scope.formData.clientMonthWiseIncomeExpense = [];
-                    $scope.formData.isMonthWiseIncome = false;
-                    $scope.isQuantifierNeeded = false;
-                    $scope.quantifierLabel = undefined;
-
-                    resourceFactory.cashFlowCategoryResource.getAll({
-                        isFetchIncomeExpenseDatas: true
-                    }, function (data) {
-                        $scope.occupations = data;
-                    });
-                };
-
-                $scope.slectedOccupation = function (occupationId, subOccupationId) {
-                    _.each($scope.occupations, function (occupation) {
-                        if (occupation.id == occupationId) {
-                            _.each(occupation.incomeExpenseDatas, function (iterate) {
-                                if (iterate.cashflowCategoryId == occupationId && iterate.id == subOccupationId) {
-                                    if (iterate.defaultIncome) {
-                                        $scope.formData.totalIncome = iterate.defaultIncome;
-                                    }
-                                    if (iterate.defaultExpense) {
-                                        $scope.formData.totalExpense = iterate.defaultExpense;
-                                    }
-                                    if (iterate.isQuantifierNeeded == true) {
-                                        $scope.quantifierLabel = iterate.quantifierLabel;
-                                        $scope.isQuantifierNeeded = iterate.isQuantifierNeeded;
-                                    }
-                                    $scope.isQuantifierNeeded = iterate.isQuantifierNeeded;
-                                    $scope.updateTotalIncome($scope.formData.quintity, $scope.formData.totalIncome);
-                                }
-                            })
-                        }
-
-                    });
-                };
-
-                $scope.subOccupationNotAvailable = function (occupationId) {
-                    _.each($scope.occupationOption, function (occupation) {
-                        if (occupation == occupationId && _.isUndefined(occupation.incomeExpenseDatas)) {
-                            $scope.isQuantifierNeeded = false;
-                            $scope.updateTotalIncome($scope.formData.quintity, $scope.formData.totalIncome);
-                            return $scope.isQuantifierNeeded;
-                        }
-                    })
-                };
-
-                $scope.addClientoccupationdetailsSubmit = function () {
-                    $scope.formData.locale = scope.optlang.code;
-                    resourceFactory.incomeExpenseAndHouseHoldExpense.save({
-                        clientId: $scope.clientId
-                    }, $scope.formData, function (data) {
-                        refreshAndShowSummaryView();
-                    });
-                };
-
-                $scope.addClientassetdetailsSubmit = function () {
-                    $scope.addClientoccupationdetailsSubmit();
-                };
-
-                $scope.addClienthouseholddetailsSubmit = function () {
-                    $scope.addClientoccupationdetailsSubmit();
-                };
-
-                $scope.editClientassetdetailsSubmit = function () {
-                    $scope.editClientoccupationdetailsSubmit();
-                }
-                $scope.editClienthouseholddetailsSubmit = function () {
-                    $scope.editClientoccupationdetailsSubmit();
-                }
-                $scope.editClientoccupationdetailsSubmit = function () {
-                    $scope.formData.locale = scope.optlang.code;
-                    resourceFactory.incomeExpenseAndHouseHoldExpense.update({
-                        clientId: $scope.clientId,
-                        incomeAndExpenseId: $scope.incomeAndExpenseId
-                    },
-                        $scope.formData,
-                        function (data) {
-                            refreshAndShowSummaryView();
-                            });
-                };
-
-                $scope.close = function () {
-                    $modalInstance.dismiss('close');
-                };
-
-                function initDocumentUploadTask() {
-                    $scope.formData = {};
-                    $scope.isUploadDocumentTagMandatory = true;
-                    $scope.isFileMandatory = true;
-                    $scope.entityType = 'clients';
-                    $scope.entityId = $scope.clientId;
-                    $scope.isFileSelected = false;
-                    $scope.documentTagName = 'Client Document Tags';
-                    getClientAdditionalDocuments();
-                };
-
-                initDocumentUploadTask();
-
-                function getAdditionalDocumentNames() {
-                    resourceFactory.codeValueByCodeNameResources.get({ codeName: $scope.documentTagName }, function (codeValueData) {
-                        $scope.additionalDocumentNames = [];
-                        $scope.availableDocumentNames = [];
-                        $scope.additionalDocumentNames = codeValueData;
-                        $scope.availableDocumentNames = codeValueData;
-                        initAdditionalDocumentNames();
-                    });
-                }
-
-                function initAdditionalDocumentNames() {
-                    if ($scope.clientdocuments != undefined) {
-                        for (var key in $scope.clientdocuments) {
-                            for (var value in $scope.clientdocuments[key]) {
-                                var index = $scope.additionalDocumentNames.findIndex(obj => obj.name === $scope.clientdocuments[key][value].name);
-                                if (index >= 0) {
-                                    $scope.availableDocumentNames.splice(index, 1);
-                                }
-                            }
-                        }
+                        $scope.entityAddressLoaded = true;
                     }
                 }
 
-                function getClientAdditionalDocuments() {
-                    resourceFactory.clientDocumentsResource.getAllClientDocuments({ clientId: $scope.clientId }, function (data) {
-                        $scope.clientdocuments = {};
-                        for (var l = 0; l < data.length; l++) {
-                            if (data[l].id) {
-                                data[l].docUrl = documentsURL(data[l]);
-                            }
-                            if (data[l].tagValue) {
-                                pushDocumentToTag(data[l], data[l].tagValue);
-                            }
-                        }
-                        getAdditionalDocumentNames();
+                $scope.loadNewAdressForm = function () {
+                    $scope.showaddressform = !$scope.showaddressform;
+                    $scope.addressType = [];
+                    $scope.countrys = [];
+                    $scope.states = [];
+                    $scope.address = {};
+                    $scope.districts = [];
+                    $scope.talukas = [];
+                    $scope.formData = {};
+                    $scope.formDataList = [$scope.formData];
+                    $scope.addressTypes = [];
+                    $scope.villageConfig = 'populate_client_address_from_villages';
+                    $scope.address.isPopulateClientAddressFromVillages = scope.isSystemGlobalConfigurationEnabled($scope.villageConfig);
+                    $scope.isCountryReadOnly = false;
+                    $scope.pincode = false;
+                    $scope.isVillageTownMandatory = false;
+                    $scope.isCountryReadOnly = false;
+                    $scope.isAddressTypeMandatory = false;
+                    $scope.formData.villageId =  memberParams.activeClientMember.villageId;
+                    if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.addressType) {
+                        $scope.isAddressTypeMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.addressType;
+                    }
+                    if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.defaultGISConfig.isReadOnlyField.countryName) {
+                        $scope.isCountryReadOnly = scope.response.uiDisplayConfigurations.defaultGISConfig.isReadOnlyField.countryName;
+                    }
+                    if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isHiddenField.pincode) {
+                        $scope.pincode = scope.response.uiDisplayConfigurations.createClient.isHiddenField.pincode;
+                    }
+                    if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.villageTown) {
+                        $scope.isVillageTownMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.villageTown;
+                    }
+                    if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.defaultGISConfig.isReadOnlyField.countryName) {
+                        $scope.isCountryReadOnly = scope.response.uiDisplayConfigurations.defaultGISConfig.isReadOnlyField.countryName;
+                    }
+                    if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.addressType) {
+                        $scope.isAddressTypeMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.addressType;
+                    }
+                    resourceFactory.addressTemplateResource.get({}, function (data) {
+                        $scope.addressType = data.addressTypeOptions;
+                        $scope.countries = data.countryDatas;
+                        $scope.setDefaultGISConfig();
+                        $scope.changeVillage();
                     });
-                };
 
-                function pushDocumentToTag(document, tagValue) {
-                    if ($scope.clientdocuments && $scope.clientdocuments.hasOwnProperty(tagValue)) {
-                        $scope.clientdocuments[tagValue].push(document);
+                    resourceFactory.villageResource.getAllVillages({ officeId: routeParams.officeId, limit: 1000 }, function (data) {
+                        $scope.villages = data;
+                    });
+                }
+
+                $scope.submit = function () {
+
+                    $scope.entityType = "clients";
+                    $scope.formData.locale = scope.optlang.code;
+                    $scope.formData.dateFormat = scope.df;
+                    
+
+                    if ($scope.formData.countryId == null || $scope.formData.countryId == "") {
+                        delete $scope.formData.countryId;
+                    }
+                    if ($scope.formData.stateId == null || $scope.formData.stateId == "") {
+                        delete $scope.formData.stateId;
+                    }
+                    if ($scope.formData.districtId == null || $scope.formData.districtId == "") {
+                        delete $scope.formData.districtId;
+                    }
+                    if ($scope.formData.talukaId == null || $scope.formData.talukaId == "") {
+                        delete $scope.formData.talukaId;
+                    }
+                    if ($scope.addressTypes.length>0 &&  $scope.addressTypes[0] != null) {
+                        $scope.formData.addressTypes = $scope.addressTypes;
                     } else {
-                        $scope.clientdocuments[tagValue] = [];
-                        $scope.clientdocuments[tagValue].push(document);
+                        delete $scope.formData.addressTypes;
+                    }
+                    if ($scope.formData.houseNo == null || $scope.formData.houseNo == "") {
+                        delete $scope.formData.houseNo;
+                    }
+                    if ($scope.formData.addressLineOne == null || $scope.formData.addressLineOne == "") {
+                        delete $scope.formData.addressLineOne;
+                    }
+                    resourceFactory.addressResource.create({ entityType: $scope.entityType, entityId: $scope.clientId }, { addresses: $scope.formDataList }, function (data) {
+                        $scope.showaddressform = false;
+                        resourceFactory.addressDataResource.getAll({ entityType: "clients", entityId: $scope.clientId }, function (response) {
+                            if (response != null) {
+                                $scope.addressData = response;
+                            }
+                        scope.reComputeProfileRating($scope.clientId);
+                        });
+                    });
+                };
+
+                $scope.closeAddressForm = function () {
+                    $scope.showaddressform = false;
+                }
+
+                //client identities related
+
+                $scope.clientIdentityDocumentsLoaded = false;
+                $scope.getClientIdentityDocuments = function () {
+                    if (!$scope.clientIdentityDocumentsLoaded) {
+                        resourceFactory.clientResource.getAllClientDocuments({
+                            clientId: $scope.clientId,
+                            anotherresource: 'identifiers'
+                        }, function (data) {
+                            $scope.identitydocuments = data;
+                            for (var i = 0; i < $scope.identitydocuments.length; i++) {
+                                resourceFactory.clientIdentifierResource.get({ clientIdentityId: $scope.identitydocuments[i].id }, function (data) {
+                                    for (var j = 0; j < $scope.identitydocuments.length; j++) {
+                                        if (data.length > 0 && $scope.identitydocuments[j].id == data[0].parentEntityId) {
+                                            for (var l in data) {
+
+                                                var loandocs = {};
+                                                loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment';
+                                                data[l].docUrl = loandocs;
+                                            }
+                                            $scope.identitydocuments[j].documents = data;
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                        $scope.clientIdentityDocumentsLoaded = true;
                     }
                 };
+
+                $scope.deleteClientIdentifierDocument = function (clientId, entityId, index) {
+                    resourceFactory.clientIdenfierResource.delete({clientId: $scope.clientId, id: entityId}, '', function (data) {
+                        $scope.identitydocuments.splice(index, 1);
+                    });
+                };
+                $scope.loadIdentitiesForm = function () {
+                    $scope.shownidentityform = true;
+
+                    $scope.identityFormData = {};
+                    $scope.first = {};
+                    $scope.documenttypes = [];
+                    $scope.statusTypes = [];
+                    resourceFactory.clientIdenfierTemplateResource.get({ clientId: $scope.clientId }, function (data) {
+                        $scope.documenttypes = data.allowedDocumentTypes;
+                        $scope.identityFormData.documentTypeId = data.allowedDocumentTypes[0].id;
+                        $scope.statusTypes = data.clientIdentifierStatusOptions;
+                        
+                        if (data.clientIdentifierStatusOptions && scope.response &&
+                            scope.response.uiDisplayConfigurations.clientIdentifier.hiddenFields.status) {
+                            $scope.identityFormData.status = data.clientIdentifierStatusOptions[1].id;
+                        }
+                    });
+
+                }
+
+                $scope.submitIdentitfyForm = function () {
+                    $scope.identityFormData.locale = scope.optlang.code;
+                    $scope.identityFormData.dateFormat = scope.df;
+                    if ($scope.first.documentIssueDate) {
+                        $scope.identityFormData.documentIssueDate = dateFilter($scope.first.documentIssueDate, scope.df);
+                    }
+                    if ($scope.first.documentExpiryDate) {
+                        $scope.identityFormData.documentExpiryDate = dateFilter($scope.first.documentExpiryDate, scope.df);
+                    }
+                    resourceFactory.clientIdenfierResource.save({ clientId: $scope.clientId }, $scope.identityFormData, function (data) {
+                        $scope.shownidentityform = false;
+                        $scope.clientIdentityDocumentsLoaded = false;
+                        $scope.getClientIdentityDocuments();
+                        scope.reComputeProfileRating($scope.clientId);
+                    });
+                };
+
+                $scope.closeIdentityForm = function () {
+                    $scope.shownidentityform = false;
+                }
+
+                $scope.uploadClientDocumentIdentifier = function (clientIdentifierId) {
+                    $scope.shownUploadIdentifierDocumentForm = true;
+                    $scope.shownidentityform = false;
+                    $scope.clientIdentifierId = clientIdentifierId;
+                    $scope.documentFormData = {};
+
+                }
 
                 $scope.onFileSelect = function ($files) {
                     $scope.file = $files[0];
-                    $scope.isFileSelected = true;
                 };
 
-                function documentsURL(document) {
-                    return API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment';
-                };
-
-                $scope.deleteDoc = function (documentId, index, tagValue) {
-                    resourceFactory.documentsResource.delete({ entityType: $scope.entityType, entityId: $scope.entityId, documentId: documentId.id }, '', function (data) {
-                        getClientAdditionalDocuments();
-                    });
-                };
-
-                $scope.setFileName = function () {
-                    for (var i in $scope.additionalDocumentNames) {
-                        if ($scope.additionalDocumentNames[i].id == $scope.formData.tagIdentifier) {
-                            $scope.filename = $scope.additionalDocumentNames[i].name;
-                            $scope.formData.name = $scope.filename;
-                        }
-                    }
-                }
-
-                $scope.submitDocument = function () {
+                $scope.uploadDocument = function () {
                     $upload.upload({
-                        url: $rootScope.hostUrl + API_VERSION + '/' + $scope.entityType + '/' + $scope.entityId + '/documents',
-                        data: $scope.formData,
+                        url: $rootScope.hostUrl + API_VERSION + '/client_identifiers/' + $scope.clientIdentifierId + '/documents',
+                        data: $scope.documentFormData,
                         file: $scope.file
                     }).then(function (data) {
-                        getClientAdditionalDocuments();
-                        if (!_.isUndefined($scope.formData) && !_.isUndefined($scope.formData.name)) {
-                            var index = $scope.additionalDocumentNames.findIndex(x => x.name === $scope.formData.name);
-                            if (index >= 0) {
-                                $scope.availableDocumentNames.splice(index, 1);
-                            }
-                        }
-                        $scope.formData = {};
-                        $scope.filename = '';
-                        angular.element('#file').val(null);
-                        $scope.isFileSelected = false;
+                        $scope.shownUploadIdentifierDocumentForm = false;
+                        $scope.clientIdentityDocumentsLoaded = false;
+                        $scope.getClientIdentityDocuments();
                     });
+                };
+
+                $scope.closeDocumentUploadForm = function () {
+                    $scope.shownUploadIdentifierDocumentForm = false;
+                }
+
+                var viewDocumentCtrl = function ($scope, $modalInstance, documentDetail) {
+                    $scope.df = scope.df;
+                    $scope.data = documentDetail;
+                    $scope.close = function () {
+                        $modalInstance.close('close');
+                    };
                 };
 
                 $scope.openViewDocument = function (documentDetail) {
                     $modal.open({
-                        templateUrl: 'viewUploadedDocument.html',
-                        controller: viewUploadedDocumentCtrl,
+                        templateUrl: 'viewDocument.html',
+                        controller: viewDocumentCtrl,
                         resolve: {
                             documentDetail: function () {
                                 return documentDetail;
@@ -1653,295 +1678,156 @@
                     });
                 };
 
-                var viewUploadedDocumentCtrl = function ($scope, $modalInstance, documentDetail) {
-                    $scope.data = documentDetail;
-                    $scope.close = function () {
-                        $modalInstance.close('close');
-                    };
-                };
-
-                $scope.viewConfig = {
-                    showSummary: false,
-                    hasData: false,
-                    approved: false
-                };
-                $scope.docData = {};
-                $scope.repeatBankAccFormData = {};
-                $scope.bankAccFormData = {};
-                $scope.bankAccountTypeOptions = [];
-                $scope.deFaultBankName = null;
-                $scope.fileError = false;
-                $scope.bankAccountDocuments = [];
-
-                function init() {
-                    resourceFactory.bankAccountDetailResource.getAll({ entityType: $scope.entityType, entityId: $scope.entityId }, function (data) {
-                        if (!_.isUndefined(data[0])) {
-                            $scope.clientBankAccountDetailAssociationId = data[0].bankAccountAssociationId;
-                            populateDetails();
-                        } else {
-                            populateTemplate();
-                        }
-                    });
+                $scope.download = function (file) {
+                    var url =$rootScope.hostUrl + file.docUrl;
+                    var fileType = file.fileName.substr(file.fileName.lastIndexOf('.') + 1);
+                    CommonUtilService.downloadFile(url,fileType);
                 }
-
-                init();
-
-                function populateTemplate() {
-                    resourceFactory.bankAccountDetailsTemplateResource.get({
-                        entityType: $scope.entityType,
-                        entityId: $scope.entityId
-                    }, function (data) {
-                        $scope.bankAccountTypeOptions = data.bankAccountTypeOptions;
-                        $scope.bankAccFormData.accountTypeId = data.bankAccountTypeOptions[0].id;
-                    });
-                }
-
-                function populateDetails() {
-                    resourceFactory.bankAccountDetailResource.get({
-                        entityType: $scope.entityType,
-                        entityId: $scope.entityId,
-                        clientBankAccountDetailAssociationId: getClientBankAccountDetailAssociationId()
-                    }, function (data) {
-                        $scope.bankData = data;
-                        $scope.bankAccountTypeOptions = $scope.bankData.bankAccountTypeOptions;
-                        constructBankAccountDetails();
-                    });
-                }
-
-                function constructBankAccountDetails() {
-                    $scope.bankAccFormData = {
-                        name: $scope.bankData.name,
-                        accountNumber: $scope.bankData.accountNumber,
-                        ifscCode: $scope.bankData.ifscCode,
-                        micrCode: $scope.bankData.micrCode,
-                        mobileNumber: $scope.bankData.mobileNumber,
-                        email: $scope.bankData.email,
-                        bankName: $scope.bankData.bankName,
-                        bankCity: $scope.bankData.bankCity,
-                        branchName: $scope.bankData.branchName
-                    };
-                    $scope.repeatBankAccFormData = {
-                        accountNumberRepeat: $scope.bankData.accountNumber,
-                        ifscCodeRepeat: $scope.bankData.ifscCode
-                    };
-                    if (!_.isUndefined($scope.bankData.lastTransactionDate)) {
-                        $scope.bankAccFormData.lastTransactionDate = new Date(dateFilter($scope.bankData.lastTransactionDate, $scope.df));
-                    }
-
-                    if (!$scope.bankAccFormData.bankName) {
-                        $scope.bankAccFormData.bankName = $scope.deFaultBankName;
-                    }
-                    if ($scope.bankData.accountType) {
-                        $scope.bankAccFormData.accountTypeId = $scope.bankData.accountType.id;
-                    } else {
-                        $scope.bankAccFormData.accountTypeId = $scope.bankAccountTypeOptions[0].id;
-                    }
-                    $scope.bankAccountData = $scope.bankData;
-                    if ($scope.bankData.accountNumber != undefined) {
-                        $scope.viewConfig.hasData = true;
-                        enableShowSummary();
-                    } else {
-                        disableShowSummary();
-                    }
-
-                    $scope.bankAccountDocuments = $scope.bankData.bankAccountDocuments || [];
-                    for (var i = 0; i < $scope.bankAccountDocuments.length; i++) {
-                        var docs = {};
-                        docs = $rootScope.hostUrl + API_VERSION + '/' + $scope.entityType + '/' + $scope.entityId + '/documents/' + $scope.bankAccountDocuments[i].id + '/download';
-                        $scope.bankAccountDocuments[i].docUrl = docs;
-                    }
-                    if (!_.isUndefined($scope.bankAccountDocuments) && $scope.bankAccountDocuments.length > 0) {
-                        $scope.viewDocument($scope.bankAccountDocuments[0]);
-                    }
-                }
-
-                function getClientBankAccountDetailAssociationId() {
-                    return $scope.clientBankAccountDetailAssociationId;
-                }
-
-                $scope.createBankAccount = function () {
-                    if (!isFormValid()) {
-                        return false;
-                    }
-                    if ($scope.viewConfig.hasData) {
-                        $scope.update();
-                        return;
-                    }
-                    $scope.bankAccFormData.locale = scope.optlang.code;
-                    $scope.bankAccFormData.dateFormat = scope.df;
-                    submitData();
-                };
-
-                function submitData() {
-                    resourceFactory.bankAccountDetailResources.create({
-                        entityType: $scope.entityType,
-                        entityId: $scope.entityId
-                    }, $scope.bankAccFormData,
-                        function (data) {
-                            $scope.clientBankAccountDetailAssociationId = data.resourceId;
-                            populateDetails();
+                $scope.familyConditionTypeOptions = [{id:1,name:'label.input.dependent'},{id:2,name:'label.input.isSeriousIllness'},{id:3,name:'label.input.isDeceased'}];
+                $scope.familyConditionType = {};
+                $scope.familyDetailsLoaded = false;
+                $scope.showRadioType =scope.showRadioType;
+                $scope.getFamilyDetails = function () {
+                    if (!$scope.familyDetailsLoaded) {
+                        resourceFactory.familyDetails.getAll({ clientId: $scope.clientId }, function (data) {
+                            $scope.familyMembers = data;
                         });
+                        $scope.familyDetailsLoaded = true;
+                    }
                 };
 
-                function isFormValid() {
-                    if (!$scope.isElemHidden('bankIFSCCodeRepeat')) {
-                        if ($scope.bankAccFormData.ifscCode != $scope.repeatBankAccFormData.ifscCodeRepeat) {
-                            return false;
-                        }
-                    }
-                    if (!$scope.isElemHidden('bankAccountNumberRepeat')) {
-                        if ($scope.bankAccFormData.accountNumber != $scope.repeatBankAccFormData.accountNumberRepeat) {
-                            return false;
-                        }
-                    }
-                    if ($scope.isElemMandatory('docFile')) {
-                        if ((_.isUndefined($scope.docFile)) && (_.isUndefined($scope.imageId))) {
-                            $scope.fileError = true;
-                            return false;
-                        }
-                    }
-                    return true;
-                }
+                $scope.familyMembersForm = function () {
+                    $scope.shownFamilyMembersForm = true;
+                    $scope.salutationOptions = [];
+                    $scope.relationshipOptions = [];
+                    $scope.genderOptions = [];
+                    $scope.educationOptions = [];
+                    $scope.occupationOptions = [];
+                    $scope.subOccupations = [];
+                    $scope.isExisitingClient = false;
+                    $scope.familyMembersFormData = {};
+                    $scope.familyConditionType = {};
 
-                $scope.edit = function () {
-                    disableShowSummary();
-                };
 
-                $scope.update = function () {
-                    if (!isFormValid()) {
-                        return false;
-                    }
-                    $scope.bankAccFormData.locale = scope.optlang.code;
-                    $scope.bankAccFormData.dateFormat = scope.df;
-                    $scope.bankAccFormData.lastTransactionDate = dateFilter($scope.bankAccFormData.lastTransactionDate, scope.df);
-                    updateData();
-                };
 
-                function updateData() {
-                    resourceFactory.bankAccountDetailResource.update({
-                        entityType: $scope.entityType,
-                        entityId: $scope.entityId,
-                        clientBankAccountDetailAssociationId: getClientBankAccountDetailAssociationId()
-                    }, $scope.bankAccFormData, function (data) {
-                        populateDetails();
+                    resourceFactory.familyDetailsTemplate.get({ clientId: $scope.clientId }, function (data) {
+                        $scope.salutationOptions = data.salutationOptions;
+                        $scope.relationshipOptions = data.relationshipOptions;
+                        $scope.genderOptions = data.genderOptions;
+                        $scope.educationOptions = data.educationOptions;
+                        $scope.occupationOptions = data.occupationOptions;
+                        $scope.relationshipGenderData = data.relationshipGenderData;
                     });
+
+                    resourceFactory.clientIdenfierTemplateResource.get({ clientId: $scope.clientId }, function (data) {
+                        $scope.documenttypes = data.allowedDocumentTypes;
+                    });
+                    
                 }
 
-                $scope.cancel = function () {
-                    if ($scope.viewConfig.hasData) {
-                        enableShowSummary();
+                $scope.$watch('familyMembersFormData.dateOfBirth', function (newValue, oldValue) {
+                if ($scope.familyMembersFormData != undefined && $scope.familyMembersFormData.dateOfBirth != undefined) {
+                    var ageDifMs = Date.now() - $scope.familyMembersFormData.dateOfBirth.getTime();
+                    var ageDifMs = Date.now() - $scope.familyMembersFormData.dateOfBirth.getTime();
+                    var ageDate = new Date(ageDifMs); // miliseconds from epoch
+                    $scope.familyMembersFormData.age=Math.abs(ageDate.getUTCFullYear() - 1970);
+                } 
+            });
+
+                $scope.submitFamilyMembers = function () {
+                    $scope.familyMembersFormData.dateFormat = scope.df;
+                    $scope.familyMembersFormData.locale = scope.optlang.code;
+                    if (!$scope.familyMembersFormData.documentTypeId) {
+                        if ($scope.familyMembersFormData.documentKey != undefined) {
+                            delete $scope.familyMembersFormData.documentKey;
+                            delete $scope.familyMembersFormData.documentTypeId;
+                        }
                     }
+                    if($scope.showRadioType && $scope.familyConditionType.type>0){
+                        if($scope.familyConditionType.type==1){
+                            $scope.familyMembersFormData.isDependent = true;
+                        }else if($scope.familyConditionType.type==2){
+                            $scope.familyMembersFormData.isSeriousIllness = true;
+                        }else{
+                            $scope.familyMembersFormData.isDeceased = true;
+                        }
+                    }
+                    if ($scope.familyMembersFormData.dateOfBirth) {
+                        this.familyMembersFormData.dateOfBirth = dateFilter($scope.familyMembersFormData.dateOfBirth, scope.df);
+                    }
+                    resourceFactory.familyDetails.save({ clientId: $scope.clientId }, $scope.familyMembersFormData, function (data) {
+                        $scope.shownFamilyMembersForm = false;
+                        $scope.familyDetailsLoaded = false;
+                        $scope.getFamilyDetails();
+                        scope.reComputeProfileRating($scope.clientId);
+                    });
                 };
-
-                function enableShowSummary() {
-                    $scope.viewConfig.showSummary = true;
-                }
-
-                function disableShowSummary() {
-                    $scope.viewConfig.showSummary = false;
-                };
-
-                $scope.uploadBankAccountDocument = function () {
-                    $modal.open({
-                        templateUrl: 'uploadBankAccountDocument.html',
-                        controller: uploadBankAccountDocumentCtrl,
-                        resolve: {
-                            bankAccountDetails: function () {
-                                return {
-                                    'entityId': $scope.entityId,
-                                    'entityType': $scope.entityType,
-                                    'bankAccFormData': $scope.bankAccFormData,
-                                    'bankAccountDocuments': $scope.bankAccountDocuments
-                                };
+                $scope.findRelationCodeValue = function(value){
+                    $scope.familyMembersFormData.genderId = null;
+                    if($scope.relationshipGenderData && $scope.relationshipGenderData.codeValueRelations){
+                        for(var i in $scope.relationshipGenderData.codeValueRelations){
+                            if($scope.relationshipGenderData.codeValueRelations[i].codeValueFrom === value){
+                                    $scope.familyMembersFormData.genderId = $scope.relationshipGenderData.codeValueRelations[i].codeValueTo;
                             }
                         }
-                    });
+                    }
+                    $scope.changeMandatoryFields(value);
                 };
-
-                var uploadBankAccountDocumentCtrl = function ($scope, $modalInstance, bankAccountDetails) {
-                    $scope.data = {
-                        documentName: ""
-                    };
-
-                    $scope.onFileSelect = function ($files) {
-                        $scope.docFile = $files[0];
-                    };
-
-                    $scope.upload = function () {
-                        if (!$scope.data.documentName) {
-                            return false;
-                        }
-
-                        $scope.docData = {
-                            name: $scope.data.documentName
-                        };
-
-                        if ($scope.docFile) {
-                            if (!$scope.docFile.type.includes('image')) {
-                                $scope.docformatErr = true;
-                                $scope.docformatErrMsg = 'label.error.only.files.of.type.image.are.allowed';
-                            } else {
-                                $upload.upload({
-                                    url: $rootScope.hostUrl + API_VERSION + '/' + bankAccountDetails.entityType + '/' + bankAccountDetails.entityId + '/documents',
-                                    data: $scope.docData,
-                                    file: $scope.docFile
-                                }).then(function (data) {
-                                    if (data != undefined) {
-                                        documentId = data.data.resourceId;
-                                        if (documentId != undefined) {
-                                            bankAccountDetails.bankAccFormData.documents = [];
-                                            for (var j in bankAccountDetails.bankAccountDocuments) {
-                                                bankAccountDetails.bankAccFormData.documents.push(bankAccountDetails.bankAccountDocuments[j].id);
-                                            }
-                                            bankAccountDetails.bankAccFormData.documents.push(documentId);
+                $scope.changeMandatoryFields = function (value) {
+                    $scope.isAgeMandatory = $scope.isAgeRequired;
+                    $scope.isfamilyMemeberIDTypeMandatory = $scope.isfamilyMemeberIDTypeRequired;
+                    if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.relationshipOptions && scope.response.uiDisplayConfigurations.relationshipOptions.AgeMandatoryFor && scope.response.uiDisplayConfigurations.relationshipOptions.AgeMandatoryFor.length > 0) {
+                        $scope.AgeMandatoryRelationshipOptions = scope.response.uiDisplayConfigurations.relationshipOptions.AgeMandatoryFor && scope.response.uiDisplayConfigurations.relationshipOptions.AgeMandatoryFor;
+                    }
+                    if ($scope.relationshipOptions && $scope.relationshipOptions.length > 0) {
+                        for (var i in $scope.relationshipOptions) {
+                            if ($scope.relationshipOptions[i].id == value) {
+                                if ($scope.AgeMandatoryRelationshipOptions) {
+                                    for (var j in $scope.AgeMandatoryRelationshipOptions) {
+                                        if ($scope.relationshipOptions[i].name.toLowerCase() == $scope.AgeMandatoryRelationshipOptions[j].toLowerCase()) {
+                                            $scope.isAgeMandatory = true;
+                                            $scope.isfamilyMemeberIDTypeMandatory = true;
                                         }
-                                        bankAccountDetails.bankAccFormData.locale = scope.optlang.code;
-                                        resourceFactory.bankAccountDetailResource.update({
-                                            entityType: bankAccountDetails.entityType,
-                                            entityId: bankAccountDetails.entityId,
-                                            clientBankAccountDetailAssociationId: getClientBankAccountDetailAssociationId()
-                                        }, bankAccountDetails.bankAccFormData, function (data) {
-                                            populateDetails();
-                                        });
                                     }
-                                });
-                                $modalInstance.close('upload');
+                                }
                             }
                         }
-                    };
-
-                    $scope.cancel = function () {
-                        $modalInstance.dismiss('cancel');
-                    };
+                    }
                 };
 
-                $scope.viewDocument = function (document) {
-                    var url = document.docUrl;
-                    $http({
-                        method: 'GET',
-                        url: url
-                    }).then(function (documentImage) {
-                        $scope.documentImg = documentImage.data;
-                    });
+
+                $scope.closeFamilyMembersForm = function () {
+                    $scope.shownFamilyMembersForm = false;
                 }
+            }
 
-                $scope.deleteDocument = function (documentId) {
-                    $scope.bankAccFormData.locale = scope.optlang.code;
-                    $scope.bankAccFormData.dateFormat = scope.df;
-                    $scope.bankAccFormData.documents = [];
-                    for (var i in $scope.bankAccountDocuments) {
-                        $scope.bankAccFormData.documents.push($scope.bankAccountDocuments[i].id);
+            scope.reComputeProfileRating = function (clientId) {
+                scope.profileRatingData = {};
+                resourceFactory.computeProfileRatingTemplate.get(function (response) {
+                    for(var i in response.scopeEntityTypeOptions){
+                        if(response.scopeEntityTypeOptions[i].value === 'OFFICE'){
+                            scope.profileRatingData.scopeEntityType = response.scopeEntityTypeOptions[i].id;
+                            scope.profileRatingData.scopeEntityId =  scope.officeId;
+                            break;
+                        }
                     }
-                    if (documentId) {
-                        $scope.bankAccFormData.documents.splice($scope.bankAccFormData.documents.indexOf(documentId), 1);
+                    for(var i in response.entityTypeOptions){
+                        if(response.entityTypeOptions[i].value === 'CLIENT'){
+                            scope.profileRatingData.entityType = response.entityTypeOptions[i].id;
+                            scope.profileRatingData.entityId =  clientId;
+                            break;
+                        }
                     }
-                    updateData();
-                };
-            };
+                    scope.profileRatingData.locale = scope.optlang.code;
+                    resourceFactory.computeProfileRating.save(scope.profileRatingData, function (response) {
+                        getprofileRating(clientId);
+                    });
+                });
+            }
 
         }
     });
-    mifosX.ng.application.controller('CreditBureauCheckActivityController', ['$controller', '$scope', '$modal', 'ResourceFactory', 'dateFilter', '$http', '$rootScope', '$sce', 'CommonUtilService', '$upload', 'API_VERSION', mifosX.controllers.CreditBureauCheckActivityController]).run(function ($log) {
+    mifosX.ng.application.controller('CreditBureauCheckActivityController', ['$controller', '$scope', '$modal', 'ResourceFactory', 'dateFilter', '$http', '$rootScope', '$sce', 'CommonUtilService', '$upload', 'API_VERSION', '$routeParams', mifosX.controllers.CreditBureauCheckActivityController]).run(function ($log) {
         $log.info("CreditBureauCheckActivityController initialized");
     });
 }(mifosX.controllers || {}));
