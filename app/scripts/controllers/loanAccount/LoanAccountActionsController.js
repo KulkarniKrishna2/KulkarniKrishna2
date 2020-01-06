@@ -359,7 +359,7 @@
                 resourceFactory.bankAccountDetailResources.getAll({entityType: "loans",entityId: scope.accountId}, function (data) {
                     if(scope.bankAccountDetails && scope.bankAccountDetails.length >0 && data ) {
                         for (var i = 0; i < scope.bankAccountDetails.length; i++) {
-                            if(data[0].id === scope.bankAccountDetails[i].id){
+                            if(data[0] && data[0].id === scope.bankAccountDetails[i].id){
                                 scope.bankAccountDetails[i].checked = true;
                                 break;
                             }
