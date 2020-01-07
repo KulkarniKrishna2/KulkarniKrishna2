@@ -49,7 +49,7 @@
             </div>
             <div class="form-group paddedtop" ng-if="bankAccountData.verificationStatus.id > 0">
                 <span><b>{{'label.heading.verified.status' | translate}}:&nbsp;</b></span>
-                <span>{{bankAccountData.verificationStatus.value}}</span>
+                <span>{{bankAccountData.verificationStatus.value == 'Invalid' ? 'Not Verified' : bankAccountData.verificationStatus.value}}</span>
             </div>
             <div class="form-group paddedtop" ng-if="bankAccountData.verificationStatus.id > 2 && bankAccountData.verifiedOn">
                 <span><b>{{'label.button.verified.on' | translate}}:&nbsp;</b></span>
@@ -65,7 +65,7 @@
             </div>
         </div>
 
-        <div class="col-md-4" ng-if="bankData.verificationStatus.id > 2">
+        <div class="col-md-4" ng-if="bankData.verificationStatus.id > 2 && bankData.verificationStatus.id < 6">
             <h3><b>Account Verification Name Match</b></h3>
             <div class="col-sm-4 multiselectmin">
                 <button ng-if="bankAccountData.verificationStatus.id == 3" type="button" class="btn btn-success btn-circle width100 fullscreen default-pointer">
@@ -135,7 +135,7 @@
         {{'label.button.refresh.verification.status' | translate}}
     </button>
 
-    <button ng-if="bankData.verificationStatus.value=='Failed'" id="reVerifyable" class="btn btn-danger"
+    <button ng-if="bankData.verificationStatus.value=='Failed' || bankData.verificationStatus.value=='Error' " id="reVerifyable" class="btn btn-danger"
         ng-click="initBankAccountVerification(true)"
         has-permission='REVERIFY_BANKACCOUNTDETAIL'>
         {{'label.button.re.verify' | translate}}
