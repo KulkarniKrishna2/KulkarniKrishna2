@@ -364,7 +364,7 @@
                             entityType: scope.entityType,
                             entityId: scope.entityId,
                             isForce: isForce
-                        }, function (loansSummary) {
+                        }, {}, function (loansSummary) {
                             $modalInstance.close('creditBureauReport');
                             scope.isResponPresent = false;
                             scope.isStalePeriodExceeded = false;
