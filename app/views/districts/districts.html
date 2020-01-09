@@ -19,7 +19,7 @@
             <div class="col-sm-3">
                 <select chosen="states" id="stateId" name="states" ng-model="formData.stateId" class="form-control"
                         ng-options="state.stateId as state.stateName for state in states"
-                        value="{{state.stateId}}">
+                        value="{{state.stateId}}" ng-change="changeState(formData.stateId)">
                     <option value="">{{'label.menu.selectState' | translate}}</option>
                 </select>
             </div>
@@ -45,9 +45,9 @@
             'label.button.createdistrict' | translate }}</a>
     </div>
     <div>
-        <div class="row" ng-hide="districts">
+        <div class="row" ng-show="isNoDistrictData">
             <div class="center-block" style="width:200px;">
-                <h2 class="">No Data Found </h2>
+                <h2 class="">{{'label.msg.no.data.found' | translate}}</h2>
             </div>
         </div>
         <table class="table" ng-show="districts">

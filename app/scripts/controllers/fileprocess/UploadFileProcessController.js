@@ -8,6 +8,12 @@
             resourceFactory.fileProcessTypeTemplateResource.get({},function(data){
                 scope.fileProcessTypeOptions = data;
                 scope.formData.fileProcessType = scope.fileProcessIdentifier;
+                for(var i in scope.fileProcessTypeOptions){
+                    if(scope.fileProcessTypeOptions[i].fileProcessIdentifier === scope.fileProcessIdentifier){
+                        scope.fileProcessCategory = scope.fileProcessTypeOptions[i].fileProcessCategory;
+                        break;
+                    }
+                }
                 scope.getSourceType(data);
             });
 
@@ -34,7 +40,7 @@
                         if (!scope.$$phase) {
                             scope.$apply();
                         }
-                        location.path('/fileprocess');
+                        location.path('/fileprocess/'+scope.fileProcessCategory);
                     });
                 }
             };

@@ -1620,6 +1620,9 @@
             .when('/fileprocess', {
                 templateUrl: 'views/fileprocess/fileprocess.html'
             })
+            .when('/fileprocess/:fileProcessCategory', {
+                templateUrl: 'views/fileprocess/fileprocess.html'
+            })
             .when('/viewfileprocess/:fileProcessIdentifier', {
                 templateUrl: 'views/fileprocess/viewfileprocess.html'
             })

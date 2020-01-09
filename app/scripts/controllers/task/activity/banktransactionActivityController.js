@@ -40,7 +40,9 @@
                 if(actionName==='approve'){
                     if (scope.transferData.status.id == 2) {
                         scope.initiate(actionName);
-                    }else{
+                    }else if(scope.transferData.status.id == 3){
+                        scope.doActionAndRefresh(actionName);
+                    } else if (scope.transferData.status.id == 1) {
                         scope.setTaskActionExecutionError('label.error.banktransaction.notsubmitted');
                     }
                 }else if(actionName==='activitycomplete'){

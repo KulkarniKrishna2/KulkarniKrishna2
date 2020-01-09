@@ -85,7 +85,7 @@
                 if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField){
                     scope.showWhiteList = !scope.response.uiDisplayConfigurations.viewClient.isHiddenField.whiteList;
                 }
-                if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.createLoanApplication){
+                if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField){
                     scope.createLoanApplication = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.createLoanApplication;
                 }
                 if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.crnNumber){

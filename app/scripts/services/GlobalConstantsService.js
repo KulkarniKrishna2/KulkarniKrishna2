@@ -2,7 +2,7 @@
     mifosX.services = _.extend(module, {
         GlobalConstantsService: function ($http) {
             this.init = function (scope) {
-                $http.get('globalconstants/GlobalConstants.json').success(function (data) {
+                $http.get('scripts/globalconstants/GlobalConstants.json').success(function (data) {
                     scope.globalConstants = data;
                 }).error(function (data) {
                     console.log("Configuration file not found");

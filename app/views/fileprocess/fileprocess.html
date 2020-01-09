@@ -5,18 +5,18 @@
     </ul>
     <div class="paddedtop panel-group">
         <div class="list-group panel panel-info" ng-show="loans.length>0">
-            <div class="list-group-item-heading accordion  panel-heading">
+            <div class="list-group-item-heading accordion panel-heading">
                 <h3>Loans</h3>
             </div>
-            <div class="col-md-12 paddedleft paddedtop panel-body">
+            <div id="loans" class="col-md-12 paddedleft paddedtop panel-body" style="display:none">
                 <div class="col-md-3 list-group paddedleft paddedtop" ng-repeat="fileTemplate in loans ">
                     <h4 class="list-group-item-heading paddedtop"
                         tooltip="{{ fileTemplate.fileProcessDescription | translate}}">
                         <i></i>&nbsp;&nbsp;<b>{{fileTemplate.fileProcessDisplayName}}</b></h4>
                     <div class="paddedtop paddedbottom10">&nbsp;&nbsp;&nbsp;
-                        <a><i class="icon-file icon-dark" style="font-size:15px" tooltip-placement="right"
+                        <a ng-hide="isHideDownloadTemplate"><i class="icon-file icon-dark" style="font-size:15px" tooltip-placement="right"
                                 tooltip="{{ 'label.tooltip.download.template' | translate}}"
-                                ng-click="downloadFileTemplate(fileTemplate)"></i></a>&nbsp;
+                                ng-click="downloadFileTemplate(fileTemplate)" ></i></a>&nbsp;
                         <a><i class="paddedleft icon-eye-open icon-dark" style="font-size:15px"
                                 tooltip-placement="right" tooltip="{{ 'label.tooltip.view.processed.file' | translate}}"
                                 ng-click="viewProcessedFiles(fileTemplate)"></i></a>&nbsp;
@@ -32,13 +32,13 @@
             <div class="list-group-item-heading accordion panel-heading">
                 <h3>Savings</h3>
             </div>
-            <div class="col-md-12 paddedleft paddedtop panel-body" style="display:none">
+            <div id="savings" class="col-md-12 paddedleft paddedtop panel-body" style="display:none">
                 <div class="col-md-3 list-group paddedleft paddedtop" ng-repeat="fileTemplate in savings">
                     <h4 class="list-group-item-heading paddedtop"
                         tooltip="{{ fileTemplate.fileProcessDescription | translate}}">
                         <i></i>&nbsp;&nbsp;<b>{{fileTemplate.fileProcessDisplayName}}</b></h4>
                     <div class="paddedtop paddedbottom10">&nbsp;&nbsp;&nbsp;
-                        <a><i class="icon-file icon-dark" style="font-size:15px" tooltip-placement="right"
+                        <a ng-hide="isHideDownloadTemplate"><i class="icon-file icon-dark" style="font-size:15px" tooltip-placement="right"
                                 tooltip="{{ 'label.tooltip.download.template' | translate}}"
                                 ng-click="downloadFileTemplate(fileTemplate)"></i></a>&nbsp;
                         <a><i class="paddedleft icon-eye-open icon-dark" style="font-size:15px"
@@ -56,13 +56,13 @@
             <div class="list-group-item-heading accordion panel-heading">
                 <h3>Accounting</h3>
             </div>
-            <div class="col-md-12 paddedleft paddedtop panel-body" style="display:none">
+            <div id="accounting" class="col-md-12 paddedleft paddedtop panel-body" style="display:none">
                 <div class="col-md-3 list-group paddedleft paddedtop" ng-repeat="fileTemplate in accounting">
                     <h4 class="list-group-item-heading paddedtop"
                         tooltip="{{ fileTemplate.fileProcessDescription | translate}}">
                         <i></i>&nbsp;&nbsp;<b>{{fileTemplate.fileProcessDisplayName}}</b></h4>
                     <div class="paddedtop paddedbottom10">&nbsp;&nbsp;&nbsp;
-                        <a><i class="icon-file icon-dark" style="font-size:15px" tooltip-placement="right"
+                        <a ng-hide="isHideDownloadTemplate"><i class="icon-file icon-dark" style="font-size:15px" tooltip-placement="right"
                                 tooltip="{{ 'label.tooltip.download.template' | translate}}"
                                 ng-click="downloadFileTemplate(fileTemplate)"></i></a>&nbsp;
                         <a><i class="paddedleft icon-eye-open icon-dark" style="font-size:15px"
@@ -80,13 +80,13 @@
             <div class="list-group-item-heading accordion panel-heading">
                 <h3>Organisation</h3>
             </div>
-            <div class="col-md-12 paddedleft paddedtop panel-body" style="display:none">
+            <div id="organisation" class="col-md-12 paddedleft paddedtop panel-body" style="display:none">
                 <div class="col-md-3 list-group paddedleft paddedtop" ng-repeat="fileTemplate in organisation">
                     <h4 class="list-group-item-heading paddedtop"
                         tooltip="{{ fileTemplate.fileProcessDescription | translate}}">
                         <i></i>&nbsp;&nbsp;<b>{{fileTemplate.fileProcessDisplayName}}</b></h4>
                     <div class="paddedtop paddedbottom10">&nbsp;&nbsp;&nbsp;
-                        <a><i class="icon-file icon-dark" style="font-size:15px" tooltip-placement="right"
+                        <a ng-hide="isHideDownloadTemplate"><i class="icon-file icon-dark" style="font-size:15px" tooltip-placement="right"
                                 tooltip="{{ 'label.tooltip.download.template' | translate}}"
                                 ng-click="downloadFileTemplate(fileTemplate)"></i></a>&nbsp;
                         <a><i class="paddedleft icon-eye-open icon-dark" style="font-size:15px"
@@ -104,13 +104,13 @@
             <div class="list-group-item-heading accordion panel-heading">
                 <h3>Insurance</h3>
             </div>
-            <div class="col-md-12 paddedleft paddedtop panel-body" style="display:none">
+            <div id="insurance" class="col-md-12 paddedleft paddedtop panel-body" style="display:none">
                 <div class="col-md-3 list-group paddedleft paddedtop" ng-repeat="fileTemplate in insurance">
                     <h4 class="list-group-item-heading paddedtop"
                         tooltip="{{ fileTemplate.fileProcessDescription | translate}}">
                         <i></i>&nbsp;&nbsp;<b>{{fileTemplate.fileProcessDisplayName}}</b></h4>
                     <div class="paddedtop paddedbottom10">&nbsp;&nbsp;&nbsp;
-                        <a><i class="icon-file icon-dark" style="font-size:15px" tooltip-placement="right"
+                        <a ng-hide="isHideDownloadTemplate"><i class="icon-file icon-dark" style="font-size:15px" tooltip-placement="right"
                                 tooltip="{{ 'label.tooltip.download.template' | translate}}"
                                 ng-click="downloadFileTemplate(fileTemplate)"></i></a>&nbsp;
                         <a><i class="paddedleft icon-eye-open icon-dark" style="font-size:15px"

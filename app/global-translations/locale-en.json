@@ -8481,6 +8481,8 @@
      "validation.msg.savingsproduct.paymentChannelToFundSourceMappings.duplicate": "Remove Duplicate PaymentChannelToFundSourceMappings",
      "validation.msg.savingsproduct.feeToIncomeAccountMappings.chargeId.duplicate": "Remove Duplicate feeToIncomeAccountMappings",     
      "validation.msg.savingsaccount.undotransaction.account.is.not.active" : "Account is not active.",
+     "label.msg.no.data.found" : "No data found",
+     "error.msg.new.cb.report.cannot.be.generated.as.already.a.cb.report.is.fetched.before.the.specified.duration": "New CB report cannot be generated as already a CB report is fetched before last `{{params[0].value}}`  seconds",
      
      "------ end of translation file ------": "----------"
 
