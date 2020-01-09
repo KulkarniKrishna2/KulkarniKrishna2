@@ -529,7 +529,6 @@
                         command: 'inactivateAssociation'
                     }, scope.formData,
                     function (data) {
-                        populateDetails();
                         enableShowSummary();
                         scope.routeToBankAccountdetails();
 
@@ -544,7 +543,6 @@
                         command: 'activateAssociation'
                     }, scope.formData,
                     function (data) {
-                        populateDetails();
                         enableShowSummary();
                         scope.routeToBankAccountdetails();
 
