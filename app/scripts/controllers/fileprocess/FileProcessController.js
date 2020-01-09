@@ -3,6 +3,7 @@
         FileProcessController: function (scope, resourceFactory, location, routeParams, API_VERSION, $upload, $rootScope, commonUtilService) {
             var fileProcessCategory = routeParams.fileProcessCategory;
             scope.formData = {};
+            scope.isHideDownloadTemplate=true;
             scope.isSourceTypeReq = false;
             resourceFactory.fileProcessTypeTemplateResource.get({}, function (data) {
                 scope.filter(data);
