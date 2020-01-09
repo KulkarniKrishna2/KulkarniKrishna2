@@ -14,9 +14,9 @@
                         tooltip="{{ fileTemplate.fileProcessDescription | translate}}">
                         <i></i>&nbsp;&nbsp;<b>{{fileTemplate.fileProcessDisplayName}}</b></h4>
                     <div class="paddedtop paddedbottom10">&nbsp;&nbsp;&nbsp;
-                        <a><i class="icon-file icon-dark" style="font-size:15px" tooltip-placement="right"
+                        <a ng-hide="isHideDownloadTemplate"><i class="icon-file icon-dark" style="font-size:15px" tooltip-placement="right"
                                 tooltip="{{ 'label.tooltip.download.template' | translate}}"
-                                ng-click="downloadFileTemplate(fileTemplate)"></i></a>&nbsp;
+                                ng-click="downloadFileTemplate(fileTemplate)" ></i></a>&nbsp;
                         <a><i class="paddedleft icon-eye-open icon-dark" style="font-size:15px"
                                 tooltip-placement="right" tooltip="{{ 'label.tooltip.view.processed.file' | translate}}"
                                 ng-click="viewProcessedFiles(fileTemplate)"></i></a>&nbsp;
@@ -38,7 +38,7 @@
                         tooltip="{{ fileTemplate.fileProcessDescription | translate}}">
                         <i></i>&nbsp;&nbsp;<b>{{fileTemplate.fileProcessDisplayName}}</b></h4>
                     <div class="paddedtop paddedbottom10">&nbsp;&nbsp;&nbsp;
-                        <a><i class="icon-file icon-dark" style="font-size:15px" tooltip-placement="right"
+                        <a ng-hide="isHideDownloadTemplate"><i class="icon-file icon-dark" style="font-size:15px" tooltip-placement="right"
                                 tooltip="{{ 'label.tooltip.download.template' | translate}}"
                                 ng-click="downloadFileTemplate(fileTemplate)"></i></a>&nbsp;
                         <a><i class="paddedleft icon-eye-open icon-dark" style="font-size:15px"
@@ -62,7 +62,7 @@
                         tooltip="{{ fileTemplate.fileProcessDescription | translate}}">
                         <i></i>&nbsp;&nbsp;<b>{{fileTemplate.fileProcessDisplayName}}</b></h4>
                     <div class="paddedtop paddedbottom10">&nbsp;&nbsp;&nbsp;
-                        <a><i class="icon-file icon-dark" style="font-size:15px" tooltip-placement="right"
+                        <a ng-hide="isHideDownloadTemplate"><i class="icon-file icon-dark" style="font-size:15px" tooltip-placement="right"
                                 tooltip="{{ 'label.tooltip.download.template' | translate}}"
                                 ng-click="downloadFileTemplate(fileTemplate)"></i></a>&nbsp;
                         <a><i class="paddedleft icon-eye-open icon-dark" style="font-size:15px"
@@ -86,7 +86,7 @@
                         tooltip="{{ fileTemplate.fileProcessDescription | translate}}">
                         <i></i>&nbsp;&nbsp;<b>{{fileTemplate.fileProcessDisplayName}}</b></h4>
                     <div class="paddedtop paddedbottom10">&nbsp;&nbsp;&nbsp;
-                        <a><i class="icon-file icon-dark" style="font-size:15px" tooltip-placement="right"
+                        <a ng-hide="isHideDownloadTemplate"><i class="icon-file icon-dark" style="font-size:15px" tooltip-placement="right"
                                 tooltip="{{ 'label.tooltip.download.template' | translate}}"
                                 ng-click="downloadFileTemplate(fileTemplate)"></i></a>&nbsp;
                         <a><i class="paddedleft icon-eye-open icon-dark" style="font-size:15px"
@@ -110,7 +110,7 @@
                         tooltip="{{ fileTemplate.fileProcessDescription | translate}}">
                         <i></i>&nbsp;&nbsp;<b>{{fileTemplate.fileProcessDisplayName}}</b></h4>
                     <div class="paddedtop paddedbottom10">&nbsp;&nbsp;&nbsp;
-                        <a><i class="icon-file icon-dark" style="font-size:15px" tooltip-placement="right"
+                        <a ng-hide="isHideDownloadTemplate"><i class="icon-file icon-dark" style="font-size:15px" tooltip-placement="right"
                                 tooltip="{{ 'label.tooltip.download.template' | translate}}"
                                 ng-click="downloadFileTemplate(fileTemplate)"></i></a>&nbsp;
                         <a><i class="paddedleft icon-eye-open icon-dark" style="font-size:15px"
