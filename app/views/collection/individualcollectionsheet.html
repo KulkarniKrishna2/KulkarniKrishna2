@@ -67,7 +67,7 @@
 <div class="paddedbottom"></div>
 <div class="span">
     <div class="col-sm-9 col-md-9">
-        <div ng-show="collectionsheetdata"
+        <div ng-show="collectionsheetdata && collectionsheetdata.clients"
              style="float:left; max-width:800px; min-width:600px; overflow-x:auto!important; white-space:nowrap;">
             <table class="table table-bordered">
                 <thead>
@@ -216,10 +216,10 @@
     <br>
 </div>
 
-<div class="col-sm-12 col-md-12 paddedtop10">
+<div class="col-sm-12 col-md-12 paddedtop10" ng-if="collectionsheetdata">
     <div class="col-md-offset-3 paddedtop">
-        <button id="cancel" class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-        <button id="save" class="btn btn-primary" ng-if="collectionsheetdata" >{{'label.button.save' | translate}}
+        <button id="cancel" class="btn btn-default"  ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+        <button id="save" class="btn btn-primary"  >{{'label.button.save' | translate}}
         </button>
     </div>
 </div>

@@ -69,6 +69,8 @@
                 scope.formData.staffId = scope.loanOfficerId;
                 scope.formData.officeId = scope.officeId;
 
+                scope.collectionsheetdata = null;
+
                 resourceFactory.collectionSheetResource.save({command: 'generateCollectionSheet'}, scope.formData, function (data) {
                     if (data.clients.length > 0) {
                         scope.collectionsheetdata = data;
