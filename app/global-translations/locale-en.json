@@ -8483,6 +8483,13 @@
      "validation.msg.savingsaccount.undotransaction.account.is.not.active" : "Account is not active.",
      "label.msg.no.data.found" : "No data found",
      "error.msg.new.cb.report.cannot.be.generated.as.already.a.cb.report.is.fetched.before.the.specified.duration": "New CB report cannot be generated as already a CB report is fetched before last `{{params[0].value}}`  seconds",
+
+     "label.anchor.village.transfer": "Transfer Villages",
+     "label.define.village.transfer":" Transfer villages to different branch",
+     "label.anchor.view.village.transfer" :"View Village tTransfer",
+     "label.button.villagetransfer" : "Viilage Transfer",
+     "label.heading.villages":"Villages",
+     "error.msg.no.villages.selected":"Kindly select village",
      
      "------ end of translation file ------": "----------"
 

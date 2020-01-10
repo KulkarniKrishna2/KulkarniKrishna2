@@ -1,0 +1,96 @@
+<div class="col-md-12" ng-controller="VillageTransferController">
+    <script type="text/ng-template" id="submitdetail.html">
+        <div class="modal-header silver">
+            
+        </div>
+        <div class="modal-body ">
+            <api-validate></api-validate>
+            <h3 class="bolder">{{'label.heading.transfer.client.active.loan.update.repayment.schedule' | translate}}</h3>
+            <br>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="confirm()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+    <div>
+        <ul class="breadcrumb">
+            <li>
+                <a href="#/organization">{{'label.anchor.organization' | translate}}</a>
+            </li>
+            <li>
+                <a href="#/transfer">{{'label.anchor.transfer' | translate}}</a>
+            </li>
+            <li class="active">{{'label.anchor.village.transfer' | translate}}</li>
+        </ul>
+    </div>
+    <api-validate></api-validate>
+    <div class="error">
+        <div ng-show="sameOfficeError">{{'error.msg.branch.transfer.to.same.office' | translate}}</div>
+        <div ng-show="toStaffMandatoryError">{{'error.msg.destination.staff.is.mandatory' | translate}}</div>
+        <div ng-show="noVillagesSelectedError">{{'error.msg.no.villages.selected' | translate}}</div>
+        <div ng-show="toOfficeMandatoryError">{{'error.msg.destination.office.is.mandatory' | translate}}</div>
+    </div>
+    <div class="col-sm-6 col-md-6">
+        <div class="col-sm-12" style="padding-top:10px">
+            <select chosen="offices" id="fromOfficeId" ng-model="fromOfficeId" ng-change="fromOfficeChange()" class="form-control" ng-options="office.id as office.name for office in offices"
+                value="{{office.id}}">
+                <option value="">{{'label.menu.selectoffice' | translate}}</option>
+            </select>
+        </div>
+        <div ng-repeat="village in villages" class="col-sm-12" style="margin-top:10px" ng-init="village.checked=false" ng-show="isVillageSelected(village.villageId)">
+            <input type="checkbox" ng-model="village.checked" ng-change="selectVillages(village)"> {{village.villageName}}
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-6">
+        <div class="col-sm-12" style="padding-top:10px">
+            <select chosen="toOffices" id="toOffice" ng-model="toOffice" class="form-control" ng-change="toOfficeChange()" ng-options="transferToOffice as transferToOffice.name for transferToOffice in toOffices"
+                value="{{transferToOffice.id}}">
+                <option value="">{{'label.menu.selectoffice' | translate}}</option>
+            </select>
+        </div>
+        <div class="col-sm-12" style="padding-top:10px">
+            <select chosen="toStaffs" id="toStaff" name="toStaffId" ng-model="toStaff" ng-options="toStaff as toStaff.displayName for toStaff in toStaffs"
+                value="{{toStaff.id}}" class="form-control">
+                <option value="">{{'label.menu.selectstaff' | translate}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-sm-12">
+
+        <div class="col-md-offset-4">
+            <a id="cancel" class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</a>
+            <button id="save" type="submit" ng-click="addVillagesToTransfer()" class="btn btn-primary">{{'label.button.add' | translate}}</button>
+        </div>
+    </div>
+
+    <div class="col-sm-12" ng-show="dataList.length>0">
+        <table class="table well ">
+            <thead>
+                <tr class="graybg" style="height:60px;">
+                    <th>{{'label.heading.villages' | translate}}</th>
+                    <th>{{'label.heading.office' | translate}}</th>
+                    <th>{{'label.heading.staff' | translate}}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-class="($index%2!=0)?'graybg':''" ng-repeat="data in dataList" style="height:60px;cursor: pointer;">
+                    <td class="pointer">
+                        <div class="col-sm-12" ng-repeat="village in data.villages">
+                            <span>{{village.name}}</span>
+                        </div>
+                    </td>
+                    <td class="pointer">{{data.office.name}}</td>
+                    <td class="pointer">{{data.staff.name}}</td>
+                    <td>
+                        <button type="button" ng-click="remove($index)" class="btn btn-danger">
+                            <i tooltip="Delete" class="icon-trash icon-white"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="col-md-offset-5">
+            <a id="cancel" class="btn btn-default" ng-click="deleteSubmitDetails()">{{'label.button.cancel' | translate}}</a>
+            <button id="submit" type="submit" ng-click="submitDetails()" class="btn btn-primary" has-permission='CREATE_TRANSFER_ENTITY'>{{'label.button.submit' | translate}}</button>
+        </div>
+    </div>
+</div>
