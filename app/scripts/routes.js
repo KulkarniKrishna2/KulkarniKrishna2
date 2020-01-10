@@ -2124,6 +2124,12 @@
             .when('/clients/:clientId/credithistory', {
                 templateUrl: 'views/clients/credithistory.html'
             })
+            .when('/transfer/viewvillagetransfer', {
+                templateUrl: 'views/transfer/viewvillagetransfer.html'
+            })
+            .when('/transfer/village', {
+                templateUrl: 'views/transfer/villagetransfer.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {
