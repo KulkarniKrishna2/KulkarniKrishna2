@@ -326,14 +326,17 @@
                 if(scope.bankData.verificationStatus.id > 0){
                     return false;
                 }
-                return true;
+                return false;
             };
-
+            
             scope.reVerifyable = function () {
-                if(!scope.viewConfig.isVerified){
+                if(!scope.isDefaultPennyDropTransactionPaymentTypeId){
                     return false;
                 }
-                return true;
+                if(scope.bankData.verificationStatus.value=='Failed' || scope.bankData.verificationStatus.value=='Error' || scope.bankData.verificationStatus.value=='Partial'){
+                    return true;
+                }
+                return false;
             };
 
             scope.deletable = function () {
