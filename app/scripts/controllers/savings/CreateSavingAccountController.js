@@ -35,7 +35,6 @@
             scope.changeProduct = function () {
                 scope.inparams.productId = scope.formData.productId;
                 resourceFactory.savingsTemplateResource.get(scope.inparams, function (data) {
-
                     scope.data = data;
                     scope.charges = data.charges;
 
@@ -127,10 +126,12 @@
                 this.formData.dateFormat = scope.df;
                 this.formData.monthDayFormat = "dd MMM";
                 this.formData.charges = [];
-
                 if (scope.clientId) this.formData.clientId = scope.clientId;
                 if (scope.groupId) this.formData.groupId = scope.groupId;
-
+                if(this.formData.allowOverdraft!=true){
+                    this.formData.nominalAnnualInterestRateOverdraft = undefined;
+                    this.formData.overdraftLimit = undefined;
+                }
                 if (scope.charges.length > 0) {
 
                     for (var i in scope.charges) {

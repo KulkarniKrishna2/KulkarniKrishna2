@@ -110,7 +110,7 @@
         <table ng-show="loanaccountinfo.calendarOptions" class="width100">
             <tr ng-repeat="calendar in loanaccountinfo.calendarOptions">
                 <td class="width14"><label>{{ 'label.heading.startdate' | translate }}:</label></td>
-                <td class="width36">{{calendar.startDate | DateFormat}}</td>
+                <td class="width36">{{calendar.nextTenRecurringDates[0] | DateFormat}}</td>
                 <td class="width14" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.syncDisbursementDateWithMeeting">
                     <label>{{ 'label.heading.repeatson' | translate }}:</label></td>
                 <td class="width36" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.syncDisbursementDateWithMeeting">

@@ -19,13 +19,18 @@
             <div class="col-sm-3">
                 <select chosen="states" id="stateId" name="states" ng-model="formData.stateId" class="form-control"
                         ng-options="state.stateId as state.stateName for state in states"
-                        value="{{state.stateId}}">
+                        value="{{state.stateId}}" ng-change="changeState(formData.stateId)">
                     <option value="">{{'label.menu.selectState' | translate}}</option>
                 </select>
             </div>
             <div class="col-sm-1">
                 <span class="input-group-btn">
-                    <button class="btn btn-primary form-control">
+                    <button class="btn btn-primary form-control" ng-hide="!(formData.countryId && formData.stateId)">
+                        <span class="icon-search"></span>
+                    </button>
+                </span>
+                <span class="input-group-btn">
+                    <button class="btn btn-secondary form-control" disabled ng-show="!(formData.countryId && formData.stateId)">
                         <span class="icon-search"></span>
                     </button>
                 </span>
@@ -40,7 +45,12 @@
             'label.button.createdistrict' | translate }}</a>
     </div>
     <div>
-        <table class="table">
+        <div class="row" ng-show="isNoDistrictData">
+            <div class="center-block" style="width:200px;">
+                <h2 class="">{{'label.msg.no.data.found' | translate}}</h2>
+            </div>
+        </div>
+        <table class="table" ng-show="districts">
             <thead>
             <tr class="graybg">
                 <th>{{'label.heading.name' | translate}}</th>
@@ -48,7 +58,6 @@
                 <th>{{'label.heading.status' | translate}}</th>
             </tr>
             </thead>
-
             <tbody>
             <tr class="pointer-main" ng-repeat="district in districts | orderBy:'districtName':reverse  | filter:filterText" ng-click="routeToDistrict(district.districtId)">
                 <td>{{district.districtName}}</td>

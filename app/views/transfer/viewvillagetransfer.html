@@ -1,4 +1,4 @@
-<div class="col-md-12" ng-controller="ViewTransferCenterController">
+<div class="col-md-12" ng-controller="ViewVillageTransferController">
     <ul class="breadcrumb">
         <li>
             <a href="#/organization">{{'label.anchor.organization' | translate}}</a>
@@ -6,20 +6,19 @@
         <li>
             <a href="#/transfer">{{'label.anchor.transfer' | translate}}</a>
         </li>
-        <li class="active">{{'label.anchor.view.center.transfer' | translate}}</li>
+        <li class="active">{{'label.anchor.view.village.transfer' | translate}}</li>
     </ul>
     <div class="pull-right btn-group">
-        <a has-permission="CREATE_TRANSFER_ENTITY" href="#/transfer/center" class="btn btn-primary">
-            <i class="icon-plus icon-white"></i>{{ 'label.button.centertransfer' | translate }}</a>
+        <a has-permission="CREATE_TRANSFER_ENTITY" href="#/transfer/village" class="btn btn-primary">
+            <i class="icon-plus icon-white"></i>{{ 'label.button.villagetransfer' | translate }}</a>
     </div>
     <api-validate></api-validate>
     <table class="table well">
         <thead>
             <tr class="graybg">
                 <th class="col-md-2">{{'label.heading.status' | translate}}</th>
-                <th class="col-md-2">{{'label.heading.centers' | translate}}</th>
-                <th class="col-md-2">{{'label.heading.office' | translate}}</th>
-                <th class="col-md-2">{{'label.heading.villagename' | translate}}</th>
+                <th class="col-md-2">{{'label.heading.villages' | translate}}</th>
+                <th class="col-md-2">{{'label.heading.office' | translate}}</th>               
                 <th class="col-md-2">{{'label.heading.staff' | translate}}</th>
                 <th class="col-md-2">{{'label.heading.action' | translate}}</th>
             </tr>
@@ -28,16 +27,15 @@
         <tbody>
             <tr ng-repeat="bulkTransfer in bulkTransfers">
                 <td class="col-md-2">{{bulkTransfer.status.value}}</td>
-                <td colspan="4" class="col-md-8">
+                <td colspan="3" class="col-md-8">
                     <table class="table well">
                         <tbody>
                             <tr ng-class="($index%2!=0)?'graybg':''" ng-repeat="data in bulkTransfer.dataList"
                                 style="height:60px;cursor: pointer;">
                                 <td class="col-md-2" style="padding-left: 1px;">
-                                    <div ng-repeat="center in data.centers"><label>{{center.name}}</label></div>
+                                    <div ng-repeat="village in data.villages"><label>{{village.name}}</label></div>
                                 </td>
                                 <td class="col-md-2">{{data.office.name}}</td>
-                                <td class="col-md-2">{{data.village.name}}</td>
                                 <td class="col-md-2">{{data.staff.name}}</td>
                             </tr>
                         </tbody>
@@ -57,7 +55,7 @@
         </tbody>
     </table>
 </div>
-<script type="text/ng-template" id="centerTransferAction.html">
+<script type="text/ng-template" id="villagetransferaction.html">
     <div class="modal-header silver">
         <h3 class="bolder" ng-show="isApproveAction">{{'label.heading.approve' | translate}}</h3>
         <h3 class="bolder" ng-hide="isApproveAction">{{'label.heading.reject' | translate}}</h3>

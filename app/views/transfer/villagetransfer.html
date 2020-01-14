@@ -1,4 +1,4 @@
-<div class="col-md-12" ng-controller="TransferCenterController">
+<div class="col-md-12" ng-controller="VillageTransferController">
     <script type="text/ng-template" id="submitdetail.html">
         <div class="modal-header silver">
             
@@ -19,15 +19,14 @@
             <li>
                 <a href="#/transfer">{{'label.anchor.transfer' | translate}}</a>
             </li>
-            <li class="active">{{'label.anchor.center.transfer' | translate}}</li>
+            <li class="active">{{'label.anchor.village.transfer' | translate}}</li>
         </ul>
     </div>
     <api-validate></api-validate>
     <div class="error">
         <div ng-show="sameOfficeError">{{'error.msg.branch.transfer.to.same.office' | translate}}</div>
-        <div ng-show="toVillageMandatoryError">{{'error.msg.destination.village.is.mandatory' | translate}}</div>
         <div ng-show="toStaffMandatoryError">{{'error.msg.destination.staff.is.mandatory' | translate}}</div>
-        <div ng-show="noCentersSelectedError">{{'error.msg.no.centers.selected' | translate}}</div>
+        <div ng-show="noVillagesSelectedError">{{'error.msg.no.villages.selected' | translate}}</div>
         <div ng-show="toOfficeMandatoryError">{{'error.msg.destination.office.is.mandatory' | translate}}</div>
     </div>
     <div class="col-sm-6 col-md-6">
@@ -37,27 +36,8 @@
                 <option value="">{{'label.menu.selectoffice' | translate}}</option>
             </select>
         </div>
-        <div class="col-sm-12" style="padding-top:10px" ng-show="!createWithoutVillage">
-            <select chosen="fromVillages" id="fromVillageId" name="fromVillageId" ng-model="fromVillageId" ng-options="fromVillage.villageId as fromVillage.villageName for fromVillage in fromVillages"
-                value="{{fromVillage.villageId}}" class="form-control">
-                <option value="">{{'label.menu.selectvillage' | translate}}</option>
-            </select>
-        </div>
-        <div class="col-sm-12" style="padding-top:10px">
-            <select chosen="fromStaffs" id="fromStaffId" name="fromStaffId" ng-model="fromStaffId" ng-options="fromStaff.id as fromStaff.displayName for fromStaff in fromStaffs"
-                value="{{fromStaff.id}}" class="form-control">
-                <option value="">{{'label.menu.selectstaff' | translate}}</option>
-            </select>
-        </div>
-        <div class="col-sm-12" style="padding-top:10px">
-            <button type="button" class="btn btn-primary" data-ng-click="fetchCenters()">{{ 'label.button.fetchcenters' | translate
-                }}</button>
-        </div>
-        <div ng-repeat="center in fromCenters" class="col-sm-12" style="margin-top:10px" ng-init="center.checked=false" ng-show="isCenterSelected(center.id) && !referenceNumber">
-            <input type="checkbox" ng-model="center.checked" ng-change="selectCenters(center)"> {{center.name}}-({{center.referenceNumber}})
-        </div>
-        <div ng-repeat="center in fromCenters" class="col-sm-12" style="margin-top:10px" ng-init="center.checked=false" ng-show="isCenterSelected(center.id) && referenceNumber">
-            <input type="checkbox" ng-model="center.checked" ng-change="selectCenters(center)"> {{center.name}}
+        <div ng-repeat="village in villages" class="col-sm-12" style="margin-top:10px" ng-init="village.checked=false" ng-show="isVillageSelected(village.villageId)">
+            <input type="checkbox" ng-model="village.checked" ng-change="selectVillages(village)"> {{village.villageName}}
         </div>
     </div>
     <div class="col-sm-6 col-md-6">
@@ -65,12 +45,6 @@
             <select chosen="toOffices" id="toOffice" ng-model="toOffice" class="form-control" ng-change="toOfficeChange()" ng-options="transferToOffice as transferToOffice.name for transferToOffice in toOffices"
                 value="{{transferToOffice.id}}">
                 <option value="">{{'label.menu.selectoffice' | translate}}</option>
-            </select>
-        </div>
-        <div class="col-sm-12" style="padding-top:10px" ng-show="!createWithoutVillage">
-            <select chosen="toVillages" id="toVillageId" name="toVillage" ng-model="toVillage" ng-options="toVillage as toVillage.villageName for toVillage in toVillages"
-                value="{{toVillage.villageId}}" class="form-control">
-                <option value="">{{'label.menu.selectvillage' | translate}}</option>
             </select>
         </div>
         <div class="col-sm-12" style="padding-top:10px">
@@ -82,9 +56,9 @@
     </div>
     <div class="col-sm-12">
 
-        <div class="col-md-offset-5">
+        <div class="col-md-offset-4">
             <a id="cancel" class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</a>
-            <button id="save" type="submit" ng-click="addCentersToTransfer()" class="btn btn-primary">{{'label.button.add' | translate}}</button>
+            <button id="save" type="submit" ng-click="addVillagesToTransfer()" class="btn btn-primary">{{'label.button.add' | translate}}</button>
         </div>
     </div>
 
@@ -92,9 +66,8 @@
         <table class="table well ">
             <thead>
                 <tr class="graybg" style="height:60px;">
-                    <th>{{'label.heading.centers' | translate}}</th>
+                    <th>{{'label.heading.villages' | translate}}</th>
                     <th>{{'label.heading.office' | translate}}</th>
-                    <th>{{'label.heading.villagename' | translate}}</th>
                     <th>{{'label.heading.staff' | translate}}</th>
                     <th></th>
                 </tr>
@@ -102,12 +75,11 @@
             <tbody>
                 <tr ng-class="($index%2!=0)?'graybg':''" ng-repeat="data in dataList" style="height:60px;cursor: pointer;">
                     <td class="pointer">
-                        <div class="col-sm-12" ng-repeat="center in data.centers">
-                            <span>{{center.name}}</span>
+                        <div class="col-sm-12" ng-repeat="village in data.villages">
+                            <span>{{village.name}}</span>
                         </div>
                     </td>
                     <td class="pointer">{{data.office.name}}</td>
-                    <td class="pointer">{{data.village.name}}</td>
                     <td class="pointer">{{data.staff.name}}</td>
                     <td>
                         <button type="button" ng-click="remove($index)" class="btn btn-danger">

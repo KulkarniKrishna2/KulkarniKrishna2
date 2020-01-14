@@ -575,8 +575,8 @@
                     standingInstructionHistoryResource: defineResource(apiVer + "/standinginstructionrunhistory", {}, {
                         get: {method: 'GET', params: {}}
                     }),
-                    captchaResource: defineResource(apiVer + "/captcha/generate", {}, {
-                        generate: {method: 'GET', params: {}}
+                    captchaResource: defineResource(apiVer2 + "/captcha/generate", {}, {
+                        generate: {method: 'POST', params: {}}
                     }),
                     centerAccountResource: defineResource(apiVer + "/centers/:centerId/accounts", {centerId: '@centerId'}, {
                         getAll: {method: 'GET', params: {}, isArray: true}
@@ -1235,8 +1235,9 @@
                     bankIFSCResource: defineResource(apiVer + "/ifsc/:ifscCode", {ifscCode: "@ifscCode"}, {
                         get: {method: 'GET'}
                     }),
-                    bankAccountDetailWorkflowResource: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetail/workflow", {entityType: "@entityType",entityId: '@entityId'}, {
-                        get: {method: 'GET', params: {}}
+                    bankAccountDetailWorkflowResource: defineResource(apiVer2 + "/:entityType/:entityId/bankaccountdetail/workflow", {entityType: "@entityType",entityId: '@entityId'}, {
+                        get: {method: 'GET', params: {}},
+                        create: {method: 'POST'}
                     }),
                     cgtTemplateResource:defineResource(apiVer+"/cgt/template", {entityType: '@entityType', entityId: '@entityId'}, {
                         getAll: {method: 'GET', parms: {entityId : '@entityId'}, isArray: false },

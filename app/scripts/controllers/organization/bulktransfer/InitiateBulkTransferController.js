@@ -28,6 +28,7 @@
              scope.getFromStaffOptions = function (officeId) {
                 scope.isOfficeSelected = true;
                 scope.fromStaffOptions = [];
+                scope.resetSelectedEntity();
                 resourceFactory.fieldOfficersResource.retrievefieldOfficers({staffInSelectedOfficeOnly:true,officeId: officeId}, function (data) {
                     scope.fromStaffOptions = data;
                  
@@ -231,6 +232,18 @@
 
             scope.displayError = function(){
                 return (scope.showErrorMessage && scope.isEntityNotSelectedForReassignment);
+            };
+            scope.resetSelectedEntity = function(){
+                scope.showAssignToStaff = false;
+                scope.allCenter.checked = false;
+                scope.allGroups.checked = false;
+                scope.allClients.checked = false;
+                scope.centers = [];
+                scope.groups = [];
+                scope.clients = [];        
+                scope.getSelectedClients = [];
+                scope.getSelectedGroups = [];
+                scope.getSelectedCenters = [];
             };
 
         }

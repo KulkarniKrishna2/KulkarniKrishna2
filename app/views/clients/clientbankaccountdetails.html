@@ -36,7 +36,7 @@
                         <td class="pointer" data-ng-click="routeTo(record.bankAccountAssociationId)">{{record.accountNumber}}</td>
                         <td class="pointer" data-ng-click="routeTo(record.bankAccountAssociationId)">{{record.ifscCode}}</td>
                         <td class="pointer" data-ng-click="routeTo(record.bankAccountAssociationId)">{{record.isVerified ? 'Yes' : 'No'}}</td>
-                        <td class="pointer" data-ng-click="routeTo(record.bankAccountAssociationId)">{{record.verificationStatus.value}}</td>
+                        <td class="pointer" data-ng-click="routeTo(record.bankAccountAssociationId)">{{record.verificationStatus.value == 'Invalid' ? 'Not Verified' : record.verificationStatus.value}}</td>
                         <td class="pointer" data-ng-click="routeTo(record.bankAccountAssociationId)">{{record.createdDate | DateTimeFormat}}</td>
                         <td class="pointer" data-ng-click="routeTo(record.bankAccountAssociationId)">{{record.lastModifiedDate | DateTimeFormat}}</td>
                     </tr>
@@ -70,7 +70,7 @@
                         <td class="pointer" data-ng-click="routeTowithQueryParam(record.bankAccountAssociationId)">{{record.accountNumber}}</td>
                         <td class="pointer" data-ng-click="routeTowithQueryParam(record.bankAccountAssociationId)">{{record.ifscCode}}</td>
                         <td class="pointer" data-ng-click="routeTowithQueryParam(record.bankAccountAssociationId)">{{record.isVerified ? 'Yes' : 'No'}}</td>
-                        <td class="pointer" data-ng-click="routeTowithQueryParam(record.bankAccountAssociationId)">{{record.verificationStatus.value}}</td>
+                        <td class="pointer" data-ng-click="routeTowithQueryParam(record.bankAccountAssociationId)">{{record.verificationStatus.value == 'Invalid' ? 'Not Verified' : record.verificationStatus.value}}</td>
                         <td class="pointer" data-ng-click="routeTowithQueryParam(record.bankAccountAssociationId)">{{record.createdDate | DateTimeFormat}}</td>
                         <td class="pointer" data-ng-click="routeTowithQueryParam(record.bankAccountAssociationId)">{{record.lastModifiedDate | DateTimeFormat}}</td>
                     </tr>

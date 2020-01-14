@@ -1620,6 +1620,9 @@
             .when('/fileprocess', {
                 templateUrl: 'views/fileprocess/fileprocess.html'
             })
+            .when('/fileprocess/:fileProcessCategory', {
+                templateUrl: 'views/fileprocess/fileprocess.html'
+            })
             .when('/viewfileprocess/:fileProcessIdentifier', {
                 templateUrl: 'views/fileprocess/viewfileprocess.html'
             })
@@ -2120,6 +2123,12 @@
             })
             .when('/clients/:clientId/credithistory', {
                 templateUrl: 'views/clients/credithistory.html'
+            })
+            .when('/transfer/viewvillagetransfer', {
+                templateUrl: 'views/transfer/viewvillagetransfer.html'
+            })
+            .when('/transfer/village', {
+                templateUrl: 'views/transfer/villagetransfer.html'
             })
         $locationProvider.html5Mode(false);
     };

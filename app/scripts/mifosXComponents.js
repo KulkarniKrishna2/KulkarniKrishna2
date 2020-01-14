@@ -739,7 +739,9 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'loanAccount/InsurancePolicyController',
             'insurance/InsurancSettelmentPendingController',
             'insurance/InsurancSetteledClaimsController',
-            'client/CreditHistoryController'
+            'client/CreditHistoryController',
+            'transfer/ViewVillageTransferController',
+            'transfer/VillageTransferController'
         ],
         filters: [
             'StatusLookup',

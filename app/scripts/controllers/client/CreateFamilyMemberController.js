@@ -141,6 +141,7 @@
             }
 
              scope.clientOptions = function(value){
+                 if(value.length > 3){
                 var deferred = $q.defer();
                 resourceFactory.globalSearch.search({query: value, resource: 'clients', exactMatch: routeParams.exactMatch,
                 orderBy : 'displayName',
@@ -155,6 +156,8 @@
                     deferred.resolve(data);
                 });
                 return deferred.promise;
+            }
+            return null;
             };
 
             scope.add = function () {

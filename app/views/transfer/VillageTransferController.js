@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        TransferCenterController: function (scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $modal, $rootScope) {
+        VillageTransferController: function (scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $modal, $rootScope) {
             scope.fromCenters = [];
             scope.toCenters = [];
             scope.offices = [];
@@ -240,7 +240,7 @@
             }
         }
     });
-    mifosX.ng.application.controller('TransferCenterController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$modal', '$rootScope', mifosX.controllers.TransferCenterController]).run(function ($log) {
-        $log.info("TransferCenterController initialized");
+    mifosX.ng.application.controller('VillageTransferController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$modal', '$rootScope', mifosX.controllers.VillageTransferController]).run(function ($log) {
+        $log.info("VillageTransferController initialized");
     });
 }(mifosX.controllers || {}));

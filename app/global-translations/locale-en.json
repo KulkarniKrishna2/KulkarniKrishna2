@@ -4952,10 +4952,11 @@
     "externalServiceType.bcifserver": "BCIF Server",
     "externalServiceType.ncifserver": "NCIF Server",
 
-    "transactionType.ft": "Fund Transfer",
-    "transactionType.imps": "IMPS Transfer",
-    "transactionType.neft": "NEFT Transfer",
-    "transactionType.rtgs": "RTGS Transfer",
+    "bankTransferType.ft": "Fund Transfer",
+    "bankTransferType.imps": "IMPS Transfer",
+    "bankTransferType.neft": "NEFT Transfer",
+    "bankTransferType.rtgs": "RTGS Transfer",
+    "bankTransferType.any": "ANY Transfer",
     "label.transfer.type": "Mode of Transfer",
     "label.heading.transferType": "Mode of Transfer",
 
@@ -8469,6 +8470,26 @@
      "label.input.incorporation.date.cannot.be.future.date" : "Incorporation date cannot be in the future",
      "validation.msg.client.dateOfBirth.is.greater.than.date": "Date of Birth must be less than provided date `{{params[1].value}}`",
      "validation.msg.initiateBankPennyDropTransaction.Benificiary Mobile Number.cannot.be.blank" : "Benificiary mobile number is mandatory.",
+     "label.input.transferOn":"Transfer On",
+     "error.msg.client.transfer.date.cannot.be.less.than.last.transaction.date":"Transfer date cannot be less than last transaction date",
+     "error.msg.client.transfer.cannot.be.allow.on.same.office" : "Client transfer cannot be allow on same office",
+     "label.heading.productive.collectionsheet": "Productive Collection Sheet",
+     "error.msg.overdraft.not.allowed" : "Overdraft not allowed.",
+     "error.msg.destination.office.is.mandatory":"Kindly select destination office",
+     "label.view.center.summary" : "View Center Summary",
+     "label.view.group.summary" : "View Group Summary",
+     "validation.msg.savingsproduct.paymentChannelToFundSourceMappings.duplicate": "Remove Duplicate PaymentChannelToFundSourceMappings",
+     "validation.msg.savingsproduct.feeToIncomeAccountMappings.chargeId.duplicate": "Remove Duplicate feeToIncomeAccountMappings",     
+     "validation.msg.savingsaccount.undotransaction.account.is.not.active" : "Account is not active.",
+     "label.msg.no.data.found" : "No data found",
+     "error.msg.new.cb.report.cannot.be.generated.as.already.a.cb.report.is.fetched.before.the.specified.duration": "New CB report cannot be generated as already a CB report is fetched before last `{{params[0].value}}`  seconds",
+
+     "label.anchor.village.transfer": "Transfer Villages",
+     "label.define.village.transfer":" Transfer villages to different branch",
+     "label.anchor.view.village.transfer" :"View Village tTransfer",
+     "label.button.villagetransfer" : "Viilage Transfer",
+     "label.heading.villages":"Villages",
+     "error.msg.no.villages.selected":"Kindly select village",
      
      "------ end of translation file ------": "----------"
 

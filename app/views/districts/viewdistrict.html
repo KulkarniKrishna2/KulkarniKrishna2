@@ -1,9 +1,8 @@
 <form name="viewbankform" novalidate="" class="form-horizontal" ng-controller="ViewDistrictController" rc-submit="submit()">
     <div>
         <ul class="breadcrumb">
-            <li>
-                <a href="#/districts">{{'label.view.viewdistricts' | translate}}</a>
-            </li>
+            <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+            <li><a href="#/districts">{{'label.anchor.districts' | translate}}</a></li>
             <li class="active">{{'label.anchor.viewdistrict' | translate}}</li>
         </ul>
     </div>
@@ -14,7 +13,7 @@
     <br>
     <api-validate></api-validate>
     <legend>{{'label.heading.districtdetails' | translate}}</legend>
-    <div class="col-md-12 form-horizontal">        
+    <div class="col-md-12 form-horizontal">    
         <table class="table">
             <tr>
                 <td class="col-sm-2" align="right">
