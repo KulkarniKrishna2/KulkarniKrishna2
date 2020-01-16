@@ -1,0 +1,10 @@
+<div class="modal-header silver">
+    <h3 class="bolder">{{header |  translate }}</h3>
+</div>
+<div class="modal-body ">
+    <api-validate></api-validate>
+    <p>{{text | translate}}</p>
+    <br>
+    <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+    <button class="btn btn-primary" ng-click="confirm()">{{'label.button.confirm' | translate}}</button>
+</div>

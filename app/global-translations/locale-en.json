@@ -8465,7 +8465,11 @@
      "validation.msg.savingsaccount.undotransaction.account.is.not.active" : "Account is not active.",
      "label.msg.no.data.found" : "No data found",
      "error.msg.new.cb.report.cannot.be.generated.as.already.a.cb.report.is.fetched.before.the.specified.duration": "New CB report cannot be generated as already a CB report is fetched before last `{{params[0].value}}`  seconds",
-     
+     "label.confirmPopup.header":"Confirmation needed",
+
+     "message.confirmPopup.text":"Are you sure?",
+     "message.loanaccount.refund.confirm":"Refund cannot be reversed. Please confirm",
+
      "------ end of translation file ------": "----------"
 
 }

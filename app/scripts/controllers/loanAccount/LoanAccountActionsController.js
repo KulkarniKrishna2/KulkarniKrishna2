@@ -1,7 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         LoanAccountActionsController: function (scope, resourceFactory, location, routeParams, rootScope, $modal, dateFilter, http, API_VERSION, $rootScope, $sce, loanDetailsService) {
-            
+            scope.isConfirmNeeded = false;
             scope.loandetails = rootScope.headerLoanDetails;
             delete rootScope.headerLoanDetails;
             scope.action = routeParams.action || "";
@@ -731,6 +731,8 @@
                     scope.taskPermissionName = 'REMOVELOANOFFICER_LOAN';
                     break;
                 case "refund":
+                    scope.isConfirmNeeded = true;
+                    scope.confirmText="message.loanaccount.refund.confirm";
                     scope.modelName = 'transactionDate';
                     if (scope.isValueDateEnabled) {
                         scope.showValueDateField = true;
@@ -1098,6 +1100,11 @@
                 }else {
                     scope.finalSubmit() ;
                 }
+            };
+
+            scope.testSubmit= function() {
+              console.log("Clicked on submit")  ;
+
             };
 
             scope.finalSubmit = function() {
