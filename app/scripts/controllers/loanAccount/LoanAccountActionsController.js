@@ -1101,12 +1101,6 @@
                     scope.finalSubmit() ;
                 }
             };
-
-            scope.testSubmit= function() {
-              console.log("Clicked on submit")  ;
-
-            };
-
             scope.finalSubmit = function() {
                 scope.processDate = false;
                 if(scope.errorDetails){

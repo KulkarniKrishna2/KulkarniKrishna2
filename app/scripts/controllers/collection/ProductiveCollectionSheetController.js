@@ -83,7 +83,15 @@
                 scope.collectionReasonList = data;
             });
 
+
+            scope.setvaluesByClient = function(client){
+                client.reasonId = undefined;
+                client.codeValueOptions = undefined;
+                client.reason = undefined;
+            }
+
             scope.setvalues = function(clientId){
+                scope.client.codeReasonId = undefined;
                 scope.groups = scope.savingsgroups;
                 var gl = scope.groups.length;
                 for (var i = 0; i < gl; i++) {
@@ -151,6 +159,17 @@
                 return [];
             };
 
+
+            scope.getValuesByClient = function (client, codeId) {
+                for (var i in scope.reasonAttendenceList) {
+                    if (scope.reasonAttendenceList[i].id == codeId) {
+                       
+                                    client.codeValueOptions = scope.reasonAttendenceList[i].values;
+                    }
+                }
+                return [];
+            };
+
             scope.getLoanReasons = function(loanId, codeId){
                 for(var i in scope.reasonAttendenceList){
                     if (scope.reasonAttendenceList[i].id == codeId) {
@@ -178,6 +197,7 @@
             }
 
             scope.getAllGroupsByCenter = function (centerId, calendarId) {
+                scope.details = false;
                 scope.clientsAttendance = [];
                 scope.submitNextShow = true;
                 scope.submitShow = false;
@@ -237,6 +257,8 @@
                     scope.isWithDrawForSavingsIncludedInCollectionSheet = data.isWithDrawForSavingsIncludedInCollectionSheet;
                     scope.clientsAttendanceList(data.groups);
                     scope.sumTotalDueCollection();
+                    scope.collectionsheetdataFirst = scope.collectionsheetdata.attendanceTypeOptions[0].value;
+
                 });
             };
 
