@@ -14,7 +14,6 @@
 
                 elem.bind('click' , function(e) {
                     e.stopImmediatePropagation();
-                    console.log('Clicked on confirmPopup Directive');
                    
                     $modal.open({
                         /*
