@@ -91,7 +91,6 @@
             }
 
             scope.setvalues = function(clientId){
-                console.log(scope.attendenceListForReason);
                 scope.client.codeReasonId = undefined;
                 scope.groups = scope.savingsgroups;
                 var gl = scope.groups.length;
