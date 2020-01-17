@@ -92,7 +92,7 @@
 
             scope.setvalues = function(clientId){
                 console.log(scope.attendenceListForReason);
-                scope.client.codeReasonId = null;
+                scope.client.codeReasonId = undefined;
                 scope.groups = scope.savingsgroups;
                 var gl = scope.groups.length;
                 for (var i = 0; i < gl; i++) {
@@ -258,7 +258,6 @@
                     scope.isWithDrawForSavingsIncludedInCollectionSheet = data.isWithDrawForSavingsIncludedInCollectionSheet;
                     scope.clientsAttendanceList(data.groups);
                     scope.sumTotalDueCollection();
-                    console.log(data.groups);
                     scope.collectionsheetdataFirst = scope.collectionsheetdata.attendanceTypeOptions[0].value;
 
                 });
