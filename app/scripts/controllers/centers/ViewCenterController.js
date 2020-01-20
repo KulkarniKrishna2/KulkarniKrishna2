@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewCenterController: function (scope, routeParams, resourceFactory, location, route, http, $modal, dateFilter, API_VERSION, $sce, $rootScope) {
+        ViewCenterController: function (scope, routeParams, resourceFactory, location, route, http, $modal, dateFilter, API_VERSION, $sce, $rootScope, popUpUtilService) {
             scope.uiData = {};
             scope.center = [];
             scope.staffData = {};
@@ -469,10 +469,17 @@
             scope.hideId = function(row){
                 return  (row.columnName === 'id');
             };
+
+            scope.showmap = function() {
+                scope.center = scope.centerId;
+                var templateUrl = 'views/centers/centergeolocation.html';
+                var controller = 'CenterGeoLocationController';
+                popUpUtilService.openFullScreenPopUp(templateUrl, controller, scope);
+            }
         }
     });
 
-    mifosX.ng.application.controller('ViewCenterController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$http', '$modal', 'dateFilter', 'API_VERSION', '$sce', '$rootScope', mifosX.controllers.ViewCenterController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewCenterController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$http', '$modal', 'dateFilter', 'API_VERSION', '$sce', '$rootScope', 'PopUpUtilService', mifosX.controllers.ViewCenterController]).run(function ($log) {
         $log.info("ViewCenterController initialized");
     });
 }(mifosX.controllers || {}));
