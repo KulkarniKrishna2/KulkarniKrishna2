@@ -42,7 +42,7 @@
                scope.showEmiAmountOverTotalDue = scope.response.uiDisplayConfigurations.collectionSheet.isAutoPopulate.showEmiAmount; 
             }
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild){
-               scope.EmiAmountTotalDueToggleButton = scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild.ToggleButton; 
+               scope.showEmiAmountTotalDueButton = !scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild.toggleButton; 
             }
             resourceFactory.configurationResource.get({configName:'reason-code-allowed'}, function (data) {
                 scope.showRejectReason = data.enabled;
@@ -863,7 +863,7 @@
                 scope.sumTotalDueCollection();
             }
             scope.showEmiTotalDueButton = function(){
-                if(scope.details && !scope.EmiAmountTotalDueToggleButton){
+                if(scope.details && scope.showEmiAmountTotalDueButton){
                     return true;
                 }
                 return false;

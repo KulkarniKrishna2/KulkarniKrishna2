@@ -16,10 +16,6 @@
                     e.stopImmediatePropagation();
                    
                     $modal.open({
-                        /*
-                        template: '<div class="modal-header"> '+header+'</div>'+'<div class="modal-body">'+text+
-                        '</div>'+'<div class="modal-footer">'+'<button class="btn btn-primary" data-ng-click="ok()">Yes</button>'+'<button class="btn btn-warning" data-ng-click="cancel()">No</button>'+'</div>',
-                        */
                        templateUrl:'views/common/confirmpopup.html',
                         controller: function($scope, $modalInstance) {
                             $scope.header = attrs.header || 'label.confirmPopup.header';
