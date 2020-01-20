@@ -190,7 +190,7 @@
 				"loanAccountNumber": false,
 				"savingsAccountNumber": false,
 				"clientForNoRepayments": false,
-				"ToggleButton":true
+				"toggleButton":true
 			},
 			"attendanceType": {
 				"defaultValue": "",

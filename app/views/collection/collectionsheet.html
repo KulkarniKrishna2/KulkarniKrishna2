@@ -110,7 +110,7 @@
 	</div>
 	<div ng-hide="isProductive">
 	<div class="paddedbottom"></div>
-	<div ng-hide="EmiAmountTotalDueToggleButton">
+	<div ng-show="showEmiAmountTotalDueButton && collectionsheetdata"> 
 		<div ng-hide="showEmiAmountOverTotalDue">
 		    <a type="button" class="btn btn-primary" ng-click="populateEmiAmount(collectionsheetdata)">{{'label.button.populate.emi.amount' | translate}}</a>
 		</div>

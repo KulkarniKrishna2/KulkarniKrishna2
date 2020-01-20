@@ -54,7 +54,7 @@
                     scope.showEmiAmountOverTotalDue = scope.response.uiDisplayConfigurations.collectionSheet.isAutoPopulate.showEmiAmount; 
                 }
                 if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild){
-                    scope.EmiAmountTotalDueToggleButton = scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild.ToggleButton; 
+                    scope.showEmiAmountTotalDueButton = !scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild.toggleButton; 
                 }
             }
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow &&
