@@ -1,7 +1,7 @@
 (function (module) {
   mifosX.controllers = _.extend(module, {
     CenterGeoLocationController: function (scope, resourceFactory) {
-      scope.centerId = scope.center;
+      scope.centerId = scope.centerId;
       scope.isCenterGeoDefined = true;
       scope.init = function () {
         scope.getGoogleApiKey();
@@ -17,14 +17,14 @@
 
             var googleMapLibraryScriptTag = document.createElement("script");
             googleMapLibraryScriptTag.setAttribute("data-button", "buynow");
-            googleMapLibraryScriptTag.src = "http://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false";
+            googleMapLibraryScriptTag.src = "https://maps.googleapis.com/maps/api/js?libraries=geometry";
             document.head.appendChild(googleMapLibraryScriptTag);
 
-            scope.getDeceasedDetails();
+            scope.getGeoDetails();
           });
       }
 
-      scope.getDeceasedDetails = function () {
+      scope.getGeoDetails = function () {
         resourceFactory.getCenterGeoDetailsResource.getGeoDetails({ centerId: scope.centerId }, {},
           function (data) {
             scope.memberData = [];
