@@ -471,7 +471,6 @@
             };
 
             scope.showmap = function() {
-                scope.center = scope.centerId;
                 var templateUrl = 'views/centers/centergeolocation.html';
                 var controller = 'CenterGeoLocationController';
                 popUpUtilService.openFullScreenPopUp(templateUrl, controller, scope);
