@@ -39,6 +39,8 @@
                     scope.showLoanPurpose = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.loanPurpose;
                     scope.showPreferredPaymentChannel = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.preferredPaymentChannel;
                     scope.isAutoUpdateInterestStartDate = scope.response.uiDisplayConfigurations.loanAccount.isAutoPopulate.interestChargedFromDate;
+                    scope.hideFirstRepaymentDate = scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentsStartingFromDate;
+                    scope.hideInterestChargedFromDate = scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.interestChargedFromDate;
                 }
             }
 
