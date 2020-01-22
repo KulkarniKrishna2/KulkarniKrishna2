@@ -100,6 +100,8 @@
                 scope.showIsDeferPaymentsForHalfTheLoanTerm = scope.response.uiDisplayConfigurations.loanAccount.isShowField.isDeferPaymentsForHalfTheLoanTerm;
                 scope.canAddCharges = scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.canAddCharge;
                 scope.isCollateralEnabled = scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.collateral;
+                scope.hideFirstRepaymentDate = scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentsStartingFromDate;
+                scope.hideInterestChargedFromDate = scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.interestChargedFromDate;
             }
 
             scope.inparams.staffInSelectedOfficeOnly = true;
