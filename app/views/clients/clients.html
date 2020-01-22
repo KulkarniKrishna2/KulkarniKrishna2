@@ -6,9 +6,15 @@
 
     <a href="#/createclient" class="btn btn-primary pull-right" has-permission='CREATE_CLIENT' ng-hide="isHideCreateEntity"><i class="icon-plus icon-white"></i>{{'label.button.createclient' | translate}}</a>
     <div class="clearfix"></div>
-    <br ng-if="isHideCreate">
+    <h3 class="bolder">{{ 'label.heading.search.clients' | translate }}</h3>
+    <div class="pull-right">
+            <a href="javascript:void(0)" ng-hide="showSearch" ng-click="showSearchForm()">{{'label.button.modify.search' |
+                translate}}
+            </a>
+    </div>
+    <br>
     <div class="form-horizontal">
-        <div ng-if="!isSearchData">
+        <div ng-show="showSearch">
             <form name="searchClientsForm">
                 <api-validate></api-validate>
                 <fieldset>
@@ -82,7 +88,6 @@
                     </div>
 
                     <div class="col-md-offset-5">
-                        <button id="back" type="button" data-ng-click="back()" class="btn btn-default">{{'label.button.back'| translate}}</button>
                         <button id="reset" type="button" data-ng-click="resetSearchData()" class="btn btn-primary">{{'label.button.reset'| translate}}</button>
                         <button id="search" type="button" data-ng-click="searchData()" class="btn btn-primary"
                                 has-permission='READ_CLIENT'>{{'label.button.search'| translate}}
@@ -91,15 +96,8 @@
                 </fieldset>
             </form>
         </div>
-
-        <div ng-if="isSearchData">
-            <div class="pull-left">
-                <div class="btn-group">
-                    <button type="button" data-ng-click="newSearch()" class="btn btn-primary">{{'label.button.search' |
-                        translate}}
-                    </button>
-                </div>
-            </div>
+<br>
+        <div>
             <div id="print">
                 <table class="table">
                     <thead ng-if="clients.currentPageItems.length > 0">

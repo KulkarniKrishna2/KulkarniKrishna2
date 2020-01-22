@@ -1,7 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         ClientController: function (scope, resourceFactory, location, paginatorUsingOffsetService) {
-            scope.isSearchData = true;
+            scope.showSearch = true;
             scope.clientsPerPage = 15;
             scope.isWorkflowEnabled = scope.isSystemGlobalConfigurationEnabled('work-flow');
             scope.isHideCreateEntity = false;
@@ -46,18 +46,11 @@
             };
             
             scope.searchData = function () {
+                scope.showSearch = false;
                 scope.clients = paginatorUsingOffsetService.paginate(fetchFunction, scope.clientsPerPage);
-                scope.isSearchData = true;
-            };
-            scope.searchData();
-
-            scope.back = function () {
-                scope.isSearchData = true;
-                scope.searchConditions = {};
             };
 
             scope.newSearch = function () {
-                scope.isSearchData = false;
                 if(_.isUndefined(scope.officeOptions)){
                     resourceFactory.clientSearchTemplateResource.get(function (data) {
                         scope.officeOptions = data.officeOptions;
@@ -65,9 +58,9 @@
                     });
                 }
             };
-
+            scope.newSearch();
+            
             scope.resetSearchData = function () {
-                scope.isSearchData = false;
                 scope.searchConditions = {};
             };
 
@@ -95,6 +88,10 @@
                     client.displayNameInReverseOrder = client.displayName;
                 }
             }
+
+            scope.showSearchForm = function () {
+                scope.showSearch = scope.showSearch ? false: true;
+            };
         }
     });
 
