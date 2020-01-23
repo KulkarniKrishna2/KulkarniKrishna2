@@ -8473,6 +8473,8 @@
      "label.center.houses.inside.periphery" : "Houses inside center periphery",
      "label.center.houses.outside.periphery" : "Houses outside center periphery",
      "label.center.geo.details.not.provided" : "Center Geo details not provided",
+     "label.button.modify.search" : "Modify Search",
+     "label.heading.search.clients" : "Search clients",
      "------ end of translation file ------": "----------"
 
 }
