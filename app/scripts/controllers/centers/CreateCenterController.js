@@ -33,6 +33,8 @@
                 if(scope.response.uiDisplayConfigurations.createCenter.nameWithBranchName){
                     scope.isBranchNameIncluded = scope.response.uiDisplayConfigurations.createCenter.nameWithBranchName;
                 }
+                scope.centerNamePattern=scope.isBranchNameIncluded ? scope.response.uiDisplayConfigurations.regexFormats.centerNameWithBranchNamePattern: scope.response.uiDisplayConfigurations.regexFormats.centerNamePattern;
+                
                 if (!scope.hideAreaCategory) {
                     getAreaCategories();
                 }
