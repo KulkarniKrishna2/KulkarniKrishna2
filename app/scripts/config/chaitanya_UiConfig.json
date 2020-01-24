@@ -204,6 +204,9 @@
       "isMandatoryField": {
         "disbursementPaymentMode":true
       },
+      "isMandatory": {
+	"loanPurposeId": true
+     },
       "isHiddenField": {
         "upfrontAmount":false
       },
