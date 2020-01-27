@@ -8490,6 +8490,9 @@
      "label.button.villagetransfer" : "Viilage Transfer",
      "label.heading.villages":"Villages",
      "error.msg.no.villages.selected":"Kindly select village",
+     "label.button.modify.search" : "Modify Search",
+     "label.heading.search.groups" : "Search Groups",
+     "label.heading.search.centers" : "Search Centers",
      
      "------ end of translation file ------": "----------"
 
