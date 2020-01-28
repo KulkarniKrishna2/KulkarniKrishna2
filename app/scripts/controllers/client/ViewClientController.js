@@ -467,7 +467,7 @@
                             scope.buttons.push({
                                 name: "label.button.markasdeceased",
                                 href: "#/clients",
-                                subhref: "deceasedonboarding",
+                                subhref: "viewdeceased",
                                 icon: "icon-plus",
                                 taskPermissionName: "CREATE_DECEASED_WORKFLOW"
                             });

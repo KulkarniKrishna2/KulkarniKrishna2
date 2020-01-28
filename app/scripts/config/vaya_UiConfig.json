@@ -121,6 +121,11 @@
 			"isHiddenField":{
 				"migrateOpeningBalances": true 
 			}
+		},
+		"createCharges": {
+			"isHiddenField": {
+				"chargeCategoryType": false
+			}
 		}
   }
 }
