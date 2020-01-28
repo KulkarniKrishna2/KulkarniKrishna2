@@ -2,6 +2,7 @@
     mifosX.controllers = _.extend(module, {
         CenterController: function (scope, resourceFactory, location, paginatorUsingOffsetService) {
             scope.itemsPerPage = 15;
+            scope.showSearch = true;
             /**
              * Get the record based on the offset limit
              */
@@ -21,9 +22,15 @@
             }
             scope.searchConditions = {};
             scope.searchData = function () {
+                scope.showSearch = false;
+                if(scope.searchConditions.officeId == null){
+                    delete scope.searchConditions.officeId;
+                }
+                if(scope.searchConditions.staffId == null){
+                    delete scope.searchConditions.staffId;
+                }
                 scope.centers = paginatorUsingOffsetService.paginate(fetchFunction, scope.itemsPerPage);
             };
-            scope.searchData();
 
             scope.routeTo = function (id) {
                 location.path('/viewcenter/' + id);
@@ -37,20 +44,26 @@
                 }
             };
 
-            scope.onFilter = function () {
-                scope.saveSC();
+            scope.showSearchForm = function () {
+                scope.showSearch = scope.showSearch ? false: true;
             };
 
-            scope.newSearch = function(){
-                if(!_.isUndefined(scope.searchText) && scope.searchText !== ""){
-                    scope.filterText = undefined;
-                    var searchString = scope.searchText.replace(/(^"|"$)/g, '');
-                    scope.searchConditions.searchString = searchString;
-                }else{
-                    scope.searchConditions = {};
+            scope.resetSearchData = function () {
+                scope.searchConditions = {};
+                delete scope.centers;
+            };
+
+            resourceFactory.officeResource.getAllOffices(function (data) {
+                scope.offices = data;
+            });
+
+            scope.getOfficeStaff = function () {
+                if(scope.searchConditions.officeId){
+                    resourceFactory.loanOfficerDropdownResource.getAll({ officeId: scope.searchConditions.officeId }, function (data) {
+                        scope.staffs = data;
+                    });
                 }
-                scope.searchData();
-            }
+            };
         }
     });
     mifosX.ng.application.controller('CenterController', ['$scope', 'ResourceFactory', '$location', 'PaginatorUsingOffsetService', mifosX.controllers.CenterController]).run(function ($log) {

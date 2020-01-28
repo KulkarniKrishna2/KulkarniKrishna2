@@ -2036,6 +2036,12 @@
                     }),
                     centerUnderCBReviewResource: defineResource(apiVer + "/centers/undercbreview", {}, {
                         getAll: {method: 'GET', params: {}, isArray: true}
+                    }),
+                    getCenterGeoDetailsResource: defineResource(apiVer + "/centers/:centerId/geo", {centerId: '@centerId'},  {
+                        getGeoDetails: {method:'GET', params: {centerId: '@centerId'}, isArray: true }
+                   }),
+                    loanOfficerDropdownResource: defineResource(apiVer + "/staff/template/:officeId", {officeId: '@officeId'}, {
+                        getAll: {method: 'GET', params: {}, isArray: true},
                     })
                 };
             }];
