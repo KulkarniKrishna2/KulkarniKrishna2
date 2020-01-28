@@ -121,10 +121,15 @@
 		"migrateOpeningBalances": true 
 	}
      },
-     "editLoanApplication": {
-	"editableFields":{
-		"emiPacks":true
-	}
+  "editLoanApplication": {
+	      "editableFields":{
+		        "emiPacks":true
+	    }
+    },
+     "createCharges": {
+       "isHiddenField": {
+         "chargeCategoryType": false
+       }
      }
   }
 }
