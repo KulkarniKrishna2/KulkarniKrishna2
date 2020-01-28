@@ -39,7 +39,7 @@
                 <input id="name" autocomplete="off" name="fullname" placeholder="{{'label.heading.name' | translate}}" ng-model="searchConditions.displayName" ng-minlength="3"  class="form-control"/>
                 <span class="finflux-alert alert-dismissible alert-danger" ng-if="searchform.fullname.$invalid"><small>{{'validation.msg.search.valid.name.size' | translate}}</small></span>
             </div>
-            <div ng-show="!showRefNo">
+            <div ng-show="showRefNo">
                 <label class="control-label col-sm-2">{{'label.input.referencenumber' | translate}}</label>
                 <div class="col-sm-3">
                     <input placeholder="{{'label.input.referencenumber' | translate}}" autocomplete="off" ng-model="searchConditions.referenceNumber"  class="form-control">
