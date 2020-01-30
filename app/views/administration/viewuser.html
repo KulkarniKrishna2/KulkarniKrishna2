@@ -92,6 +92,7 @@
             <table class="table" ng-if="uiData.isFetchDevicesToUser">
                 <tr>
                     <th>{{'label.device.id' | translate}}</th>
+                    <th>{{'label.device.status' | translate}}</th>
                     <th>{{'label.device.model' | translate}}</th>
                     <th>{{'label.imei.number' | translate}}</th>
                     <th>{{'label.last.login.date.time' | translate}}</th>
@@ -99,9 +100,9 @@
                     <th>{{'label.heading.status' | translate}}</th>
                     <th>{{'label.heading.action' | translate}}</th>
                 </tr>
-                <tr class="pointer-main" ng-repeat="device in devicesToUser" ng-if="device.status.systemCode == 'activated'">
-
+                <tr class="pointer-main" ng-repeat="device in devicesToUser">
                     <td class="pointer" ng-click="routeToDevice(device)">{{device.deviceId}}</td>
+                    <td class="pointer" ng-click="routeToDevice(device)">{{device.status.value}}</td>
                     <td class="pointer" ng-click="routeToDevice(device)">{{device.deviceModel}}</td>
                     <td class="pointer" ng-click="routeToDevice(device)">{{device.imeiNumber}}</td>
                     <td class="pointer" ng-click="routeToDevice(device)">{{device.registeredDeviceToUserDatas[0].lastLoggedInDate | DateTimeFormat}}</td>
