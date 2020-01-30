@@ -466,6 +466,7 @@
                                 <div class="whitebg" ng-view>
                                 </div>
                             </div>
+                            <i onclick="topFunction()" class="icon-circle-arrow-up" id="myTopBtn"></i>
                             <!-- Footer -->
                             <footer class="footer">
                                 <div> {{'label.relVersion' | translate}} {{version}} | {{'label.finflux' | translate}} {{'label.copyright'
@@ -485,6 +486,28 @@
     <!-- Le javascript -->
     <script type='text/javascript' data-main="scripts/loader.js" src='bower_components/requirejs/require.js'></script>
     <script type="text/javascript" src="bower_components/devtools-detect/index.js"></script>
+
+    <script>
+        //Get the button
+        var mybutton = document.getElementById("myTopBtn");
+
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function () { scrollFunction() };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
 </body>
 
 </html>
