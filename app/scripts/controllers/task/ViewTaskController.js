@@ -36,70 +36,80 @@
                 });
             };
 
+            function initTaskTemplateData(data){
+                scope.eventType = data.eventType.systemCode;
+                if (scope.taskData != undefined) {
+                    if (scope.taskData.taskType.id == 1) {
+                        scope.isWorkflowTask = true;
+                    } else if (scope.taskData.taskType.id == 2) {
+                        scope.isSingleTask = true;
+                    }
+                    if (scope.taskData.configValues != undefined) {
+                        scope.clientId = scope.taskData.configValues.clientId;
+                        scope.loanApplicationId = scope.taskData.configValues.loanApplicationId;
+                        scope.loanApplicationCoApplicantId = scope.taskData.configValues.loanApplicationCoApplicantId;
+                        scope.loanApplicationReferenceId = scope.loanApplicationId;
+                        scope.loanId = scope.taskData.configValues.loanId;
+                        scope.groupId=scope.taskData.configValues.groupId;
+                        scope.centerId=scope.taskData.configValues.centerId;
+                        scope.eodProcessId = scope.taskData.configValues.eodProcessId;
+                    }
+                }
+                if(scope.loanId!=undefined){
+                    fetchLoanData();
+                }
+                if(scope.loanApplicationId){
+                    resourceFactory.loanApplicationReferencesResource.getByLoanAppId({
+                        loanApplicationReferenceId: scope.loanApplicationId},
+                        function (data) {
+                        scope.loanApplicationData = data;
+                        if(scope.groupId == undefined){
+                            if(scope.loanApplicationData.groupId != undefined){
+                               scope.groupId = scope.loanApplicationData.groupId;
+                               resourceFactory.groupResource.get({groupId: scope.groupId, associations: 'all'}, function (data) {
+                                    scope.groupData = data;
+                               });
+                            }
+                        }
+                        if(scope.loanApplicationCoApplicantId){
+                            resourceFactory.loanCoApplicantsResource.get({loanApplicationReferenceId: scope.loanApplicationId,
+                                coApplicantId: scope.loanApplicationCoApplicantId}, function (data) {
+                                scope.loanApplicationCoApplicantData = data;
+                            });
+                        }
+                    });
+                };
+
+                if(scope.groupId){
+                   resourceFactory.groupResource.get({groupId: scope.groupId, associations: 'all'}, function (data) {
+                       scope.groupData = data;
+                   });
+               }
+               
+               if(scope.centerId){
+                   resourceFactory.centerResource.get({centerId: scope.centerId, associations: 'all'}, function (data) {
+                       scope.centerData = data;
+                   });
+               }
+
+               if (scope.eodProcessId) {
+                   resourceFactory.eodProcessResource.get({ eodProcessId: scope.eodProcessId}, function (data) {
+                        scope.eodData = data;
+                    });
+               }
+            }
+
             function init() {
-                resourceFactory.taskExecutionTemplateResource.get({taskId: getTaskId()}, function (data) {
-                    scope.taskData = data;
-                    scope.eventType = data.eventType.systemCode;
-                    if (scope.taskData != undefined) {
-                        if (scope.taskData.taskType.id == 1) {
-                            scope.isWorkflowTask = true;
-                        } else if (scope.taskData.taskType.id == 2) {
-                            scope.isSingleTask = true;
-                        }
-                        if (scope.taskData.configValues != undefined) {
-                            scope.clientId = scope.taskData.configValues.clientId;
-                            scope.loanApplicationId = scope.taskData.configValues.loanApplicationId;
-                            scope.loanApplicationCoApplicantId = scope.taskData.configValues.loanApplicationCoApplicantId;
-                            scope.loanApplicationReferenceId = scope.loanApplicationId;
-                            scope.loanId = scope.taskData.configValues.loanId;
-                            scope.groupId=scope.taskData.configValues.groupId;
-                            scope.centerId=scope.taskData.configValues.centerId;
-                            scope.eodProcessId = scope.taskData.configValues.eodProcessId;
-                        }
-                    }
-                    if(scope.loanId!=undefined){
-                        fetchLoanData();
-                    }
-                    if(scope.loanApplicationId){
-                        resourceFactory.loanApplicationReferencesResource.getByLoanAppId({
-                            loanApplicationReferenceId: scope.loanApplicationId},
-                            function (data) {
-                            scope.loanApplicationData = data;
-                            if(scope.groupId == undefined){
-                                if(scope.loanApplicationData.groupId != undefined){
-                                   scope.groupId = scope.loanApplicationData.groupId;
-                                   resourceFactory.groupResource.get({groupId: scope.groupId, associations: 'all'}, function (data) {
-                                        scope.groupData = data;
-                                   });
-                                }
-                            }
-                            if(scope.loanApplicationCoApplicantId){
-                                resourceFactory.loanCoApplicantsResource.get({loanApplicationReferenceId: scope.loanApplicationId,
-                                    coApplicantId: scope.loanApplicationCoApplicantId}, function (data) {
-                                    scope.loanApplicationCoApplicantData = data;
-                                });
-                            }
-                        });
-                    };
 
-                    if(scope.groupId){
-                       resourceFactory.groupResource.get({groupId: scope.groupId, associations: 'all'}, function (data) {
-                           scope.groupData = data;
-                       });
-                   }
-                   
-                   if(scope.centerId){
-                       resourceFactory.centerResource.get({centerId: scope.centerId, associations: 'all'}, function (data) {
-                           scope.centerData = data;
-                       });
-                   }
-
-                   if (scope.eodProcessId) {
-                       resourceFactory.eodProcessResource.get({ eodProcessId: scope.eodProcessId}, function (data) {
-                            scope.eodData = data;
-                        });
-                   }
-                });
+                if( scope.isEmbedded() && scope.commonConfig.taskData.template != undefined){
+                    scope.taskData = scope.commonConfig.taskData.template;
+                    initTaskTemplateData(scope.taskData);
+                }else{
+                    resourceFactory.taskExecutionTemplateResource.get({taskId: getTaskId()}, function (data) {
+                        scope.taskData = data;
+                        initTaskTemplateData(scope.taskData);
+                    });
+                }
             }
 
             init();

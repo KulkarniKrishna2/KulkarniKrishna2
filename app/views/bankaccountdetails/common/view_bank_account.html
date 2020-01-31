@@ -135,7 +135,7 @@
         {{'label.button.refresh.verification.status' | translate}}
     </button>
 
-    <button ng-if="bankData.verificationStatus.value=='Failed' || bankData.verificationStatus.value=='Error' " id="reVerifyable" class="btn btn-danger"
+    <button ng-if="reVerifyable()" id="reVerifyable" class="btn btn-danger"
         ng-click="initBankAccountVerification(true)"
         has-permission='REVERIFY_BANKACCOUNTDETAIL'>
         {{'label.button.re.verify' | translate}}

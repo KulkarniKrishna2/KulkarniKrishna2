@@ -113,9 +113,9 @@
                     }
 
                     if(scope.taskData.taskType.id==2 &&  scope.taskData.parentId!=null) {
-                        scope.displayAdhocTasks();
+                       // scope.displayAdhocTasks();
                     }else {
-                        scope.displayNotes();
+                        //scope.displayNotes();
                     }
                 }
             }
@@ -332,7 +332,7 @@
                     resourceFactory.entitySingleTasksResource.getAll({entityId: scope.taskData.parentId, entityType:"task"}, function (data) {
                         scope.adhocTaskData={};
                         scope.adhocTaskList = data;
-                        console.log(scope.adhocTaskList);
+                        // console.log(scope.adhocTaskList);
                     });
                 }
             }
@@ -463,7 +463,7 @@
                 }
             };
 
-            initTask();
+            //initTask();
 
             function getTaskDocuments() {
                 scope.docData={};

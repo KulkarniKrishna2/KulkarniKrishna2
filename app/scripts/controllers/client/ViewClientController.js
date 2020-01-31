@@ -467,7 +467,7 @@
                             scope.buttons.push({
                                 name: "label.button.markasdeceased",
                                 href: "#/clients",
-                                subhref: "deceasedonboarding",
+                                subhref: "viewdeceased",
                                 icon: "icon-plus",
                                 taskPermissionName: "CREATE_DECEASED_WORKFLOW"
                             });
@@ -740,12 +740,6 @@
                 scope.age = Math.abs(ageDate.getUTCFullYear() - 1970);
             }
 
-            scope.deleteClient = function () {
-                $modal.open({
-                    templateUrl: 'deleteClient.html',
-                    controller: ClientDeleteCtrl
-                });
-            };
             scope.uploadPic = function () {
                 $modal.open({
                     templateUrl: 'uploadpic.html',
@@ -929,17 +923,6 @@
                     templateUrl: 'clientunassignstaff.html',
                     controller: ClientUnassignCtrl
                 });
-            };
-            var ClientDeleteCtrl = function ($scope, $modalInstance) {
-                $scope.delete = function () {
-                    resourceFactory.clientResource.delete({clientId: routeParams.id}, {}, function (data) {
-                        $modalInstance.close('delete');
-                        location.path('/clients');
-                    });
-                };
-                $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
-                };
             };
             var DeleteAllDataFromDatatable = function ($scope, $modalInstance) {
                 $scope.delete = function () {

@@ -17,15 +17,19 @@
             scope.bankAccountDocuments = [];
 
             function getEntityType(){
-               return scope.commonConfig.bankAccount.entityType;
+               return scope.entityType || scope.commonConfig.bankAccount.entityType;
             }
 
             function getEntityId(){
-                return scope.commonConfig.bankAccount.entityId;
+                return scope.entityId || scope.commonConfig.bankAccount.entityId;
             }
 
             function getClientBankAccountDetailAssociationId(){
-                return scope.clientBankAccountDetailAssociationId;
+                return scope.clientBankAccountDetailAssociationId || scope.commonConfig.bankAccount.clientBankAccountDetailAssociationId;
+            }
+
+            function getClientBankAccountDetailData(){
+                return scope.commonConfig.bankAccount.bankAccountData;
             }
 
             function setClientBankAccountDetailAssociationId(){
@@ -49,58 +53,69 @@
                 scope.deFaultBankName = scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.bankAccountDetails.bankName;
             }
 
-            function populateDetails(){
-                resourceFactory.bankAccountDetailResource.get({entityType: getEntityType(),entityId: getEntityId(), clientBankAccountDetailAssociationId: getClientBankAccountDetailAssociationId()}, function (data) {
-                    scope.externalservices = data.externalServiceOptions;
-                    scope.bankAccountTypeOptions = data.bankAccountTypeOptions;
-                    if(data.checkerInfo!=undefined){
-                        scope.checkerBankAccountData = JSON.parse(data.checkerInfo);
-                        scope.formData = {
-                            name: scope.checkerBankAccountData.name,
-                            accountNumber: scope.checkerBankAccountData.accountNumber,
-                            ifscCode: scope.checkerBankAccountData.ifscCode,
-                            micrCode: scope.checkerBankAccountData.micrCode,
-                            mobileNumber: scope.checkerBankAccountData.mobileNumber,
-                            email: scope.checkerBankAccountData.email,
-                            bankName: scope.checkerBankAccountData.bankName,
-                            bankCity: scope.checkerBankAccountData.bankCity,
-                            branchName: scope.checkerBankAccountData.branchName
-                        };
-                        if(scope.checkerBankAccountData.accountType){
-                            scope.formData.accountTypeId = scope.checkerBankAccountData.accountType.id;
-                            scope.formData.accountType = scope.bankAccountTypeOptions[scope.bankAccountTypeOptions.findIndex(x => x.id==scope.checkerBankAccountData.accountType.id)];
-                        }else{
-                            scope.formData.accountTypeId = scope.bankAccountTypeOptions[0].id;
-                            scope.formData.accountType = scope.bankAccountTypeOptions[0];
-                        }
-                        scope.repeatFormData = {
-                            accountNumberRepeat:  scope.checkerBankAccountData.accountNumber,
-                            ifscCodeRepeat:  scope.checkerBankAccountData.ifscCode
-                        };
-                        if(scope.checkerBankAccountData.accountNumber !=undefined) {
-                            scope.viewConfig.hasData = true;
-                            scope.viewConfig.showSummary = true;
-                        }
+            function processBankAccountData(data){
+                scope.externalservices = data.externalServiceOptions;
+                scope.bankAccountTypeOptions = data.bankAccountTypeOptions;
+                if(data.checkerInfo!=undefined){
+                    scope.checkerBankAccountData = JSON.parse(data.checkerInfo);
+                    scope.formData = {
+                        name: scope.checkerBankAccountData.name,
+                        accountNumber: scope.checkerBankAccountData.accountNumber,
+                        ifscCode: scope.checkerBankAccountData.ifscCode,
+                        micrCode: scope.checkerBankAccountData.micrCode,
+                        mobileNumber: scope.checkerBankAccountData.mobileNumber,
+                        email: scope.checkerBankAccountData.email,
+                        bankName: scope.checkerBankAccountData.bankName,
+                        bankCity: scope.checkerBankAccountData.bankCity,
+                        branchName: scope.checkerBankAccountData.branchName
+                    };
+                    if(scope.checkerBankAccountData.accountType){
+                        scope.formData.accountTypeId = scope.checkerBankAccountData.accountType.id;
+                        scope.formData.accountType = scope.bankAccountTypeOptions[scope.bankAccountTypeOptions.findIndex(x => x.id==scope.checkerBankAccountData.accountType.id)];
                     }else{
-                       scope.formData.accountType = scope.bankAccountTypeOptions[0]; 
+                        scope.formData.accountTypeId = scope.bankAccountTypeOptions[0].id;
+                        scope.formData.accountType = scope.bankAccountTypeOptions[0];
                     }
-                    
-                    if(!_.isUndefined(data.bankAccountDocuments)){
-                        scope.bankAccountDocuments = data.bankAccountDocuments;
-                        for (var i = 0; i < scope.bankAccountDocuments.length; i++) {
-                            var docs = {};
-                            docs = $rootScope.hostUrl + API_VERSION + '/' + getEntityType() + '/' + getEntityId() + '/documents/' + scope.bankAccountDocuments[i].id + '/download';
-                            scope.bankAccountDocuments[i].docUrl = docs;
-                        }
-                        scope.viewDocument(scope.bankAccountDocuments[0]);
+                    scope.repeatFormData = {
+                        accountNumberRepeat:  scope.checkerBankAccountData.accountNumber,
+                        ifscCodeRepeat:  scope.checkerBankAccountData.ifscCode
+                    };
+                    if(scope.checkerBankAccountData.accountNumber !=undefined) {
+                        scope.viewConfig.hasData = true;
+                        scope.viewConfig.showSummary = true;
                     }
-                });
+                }else{
+                   scope.formData.accountType = scope.bankAccountTypeOptions[0]; 
+                }
+                
+                if(!_.isUndefined(data.bankAccountDocuments)){
+                    scope.bankAccountDocuments = data.bankAccountDocuments;
+                    for (var i = 0; i < scope.bankAccountDocuments.length; i++) {
+                        var docs = {};
+                        docs = $rootScope.hostUrl + API_VERSION + '/' + getEntityType() + '/' + getEntityId() + '/documents/' + scope.bankAccountDocuments[i].id + '/download';
+                        scope.bankAccountDocuments[i].docUrl = docs;
+                    }
+                    scope.viewDocument(scope.bankAccountDocuments[0]);
+                }
+            }
+
+            function populateDetails(){
+                var bankAccountData = getClientBankAccountDetailData();
+                if(bankAccountData!=undefined){
+                    processBankAccountData(bankAccountData);
+                }else{
+                    resourceFactory.bankAccountDetailResource.get({entityType: getEntityType(),entityId: getEntityId(), clientBankAccountDetailAssociationId: getClientBankAccountDetailAssociationId()}, function (data) {
+                        processBankAccountData(data);
+                    });
+                }
             }
 
             scope.onSubmit = function () {
                 scope.setTaskActionExecutionError(null);
                 if(!isFormValid()){
                     return false;
+                }else {
+                    scope.commonConfig.bankAccount.bankAccountData =undefined;
                 }
                 resourceFactory.bankAccountDetailActionResource.doAction({entityType: getEntityType(),entityId: getEntityId(), clientBankAccountDetailAssociationId: getClientBankAccountDetailAssociationId(), command:'updateCheckerInfo'},scope.formData,
                     function (data) {
@@ -146,8 +161,6 @@
                 populateDetails();
             }
 
-            init();
-
             scope.viewDocument = function(document){
                 if(document){
                     var url = document.docUrl;
@@ -188,6 +201,8 @@
                     });
                 }
             }
+
+            init();
         }
     });
     mifosX.ng.application.controller('CheckerBankAccountCommonController', ['$controller','$scope', '$routeParams', 'ResourceFactory', '$location', '$modal', '$route','$window','dateFilter','$upload', '$rootScope','API_VERSION', '$http', 'CommonUtilService', '$sce', mifosX.controllers.CheckerBankAccountCommonController]).run(function ($log) {

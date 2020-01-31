@@ -279,7 +279,10 @@
                             scope.cgtEnabled = data.globalConfiguration[i].enabled;
                         }else if(data.globalConfiguration[i].name=='exclude-meetingdate-for-prepone-or-postpone-date'){
                             scope.excludeMeetingDateForPreponeOrPostponeDate = data.globalConfiguration[i].enabled;
-                        } 
+                        }else if(data.globalConfiguration[i].name=='google-map-geo-fencing-radius-limit') {
+                            scope.googleMapGeoFencingRadiusLimit = data.globalConfiguration[i].value;
+                        }
+
                         data.globalConfiguration[i].showEditvalue = true;
                         scope.configs.push(data.globalConfiguration[i])
                     }

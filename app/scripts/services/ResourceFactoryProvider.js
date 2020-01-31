@@ -2042,7 +2042,7 @@
                    }),
                     loanOfficerDropdownResource: defineResource(apiVer + "/staff/template/:officeId", {officeId: '@officeId'}, {
                         getAll: {method: 'GET', params: {}, isArray: true},
-                    })
+                   })
                 };
             }];
         }

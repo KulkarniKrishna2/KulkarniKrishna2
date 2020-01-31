@@ -471,6 +471,11 @@
                 }
                 this.formData.submittedOnDate = dateFilter(this.formData.submittedOnDate, scope.df);
                 this.formData.expectedDisbursementDate = dateFilter(this.formData.expectedDisbursementDate, scope.df);
+                if (!_.isUndefined(this.formData.submittedOnDate) && _.isUndefined(this.formData.expectedDisbursementDate)) {
+                    this.formData.expectedDisbursementDate = this.formData.submittedOnDate;
+                } else {
+                    this.formData.expectedDisbursementDate = dateFilter(new Date(), scope.df);
+                }
                 this.formData.repaymentsStartingFromDate = dateFilter(this.formData.repaymentsStartingFromDate, scope.df);
                 this.formData.accountType = scope.inparams.templateType;
                 if (scope.parentGroups != undefined && scope.parentGroups.length > 0 && !scope.canDisburseToGroupsBanks()) {

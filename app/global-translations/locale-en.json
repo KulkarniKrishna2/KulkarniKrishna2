@@ -459,6 +459,7 @@
     "label.err.code": "Error Code :",
     "label.err.desc": "Error Description :",
 
+    
     "#Tab Messages": "..",
     "label.tab.myworkflowtasks": "My Workflow Tasks",
     "label.tab.mytasks": "My Other Tasks",
@@ -7552,8 +7553,10 @@
     "label.view.registered.devices": "View all devices",
     "label.anchor.manage.devices": "Manage Devices",
     "label.input.requred.user": "Requested User",
+    "label.input.last.used.by": "Last Used By",
     "label.registered.user": "Registered User",
     "label.device.id": " Device Id",
+    "label.device.status": " Device Status",
     "label.device.model": "Device Model",
     "label.device.list": "Device List",
     "label.pending.devices": "Pending Devices",
@@ -8489,11 +8492,21 @@
      "label.anchor.view.village.transfer" :"View Village tTransfer",
      "label.button.villagetransfer" : "Viilage Transfer",
      "label.heading.villages":"Villages",
-     "error.msg.no.villages.selected":"Kindly select village",
-     "label.button.modify.search" : "Modify Search",
+     "error.msg.no.villages.selected":"Please select village",
      "label.heading.search.groups" : "Search Groups",
      "label.heading.search.centers" : "Search Centers",
      
+     "label.confirmPopup.header":"Confirmation needed",
+
+     "message.confirmPopup.text":"Are you sure?",
+     "message.loanaccount.refund.confirm":"Refund cannot be reversed. Please confirm",
+
+     "label.view.center.geo.location" : "Center Geo Location",
+     "label.center.houses.inside.periphery" : "Houses inside center periphery",
+     "label.center.houses.outside.periphery" : "Houses outside center periphery",
+     "label.center.geo.details.not.provided" : "Center Geo details not provided",
+     "label.button.modify.search" : "Modify Search",
+     "label.heading.search.clients" : "Search clients",
      "------ end of translation file ------": "----------"
 
 }

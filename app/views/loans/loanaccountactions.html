@@ -910,9 +910,19 @@
     <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{ 'label.button.cancel' |
         translate}}
     </button>
-    <button id="save" type="submit" has-permission='{{taskPermissionName}}' class="btn btn-primary" ng-hide="showPenaltiesNotApplicable">{{
+    <button type="button" 
+    data-text="{{confirmText}}"
+    data-confirm-popup 
+    ng-confirm-success="submit()"
+    class="btn btn-primary btn-xs" 
+    ng-if="isConfirmNeeded"
+    >{{submitbutton | translate}}</button>
+
+    <button id="save" type="submit" has-permission='{{taskPermissionName}}' class="btn btn-primary" ng-hide="showPenaltiesNotApplicable" ng-if="!isConfirmNeeded">{{
         submitbutton | translate}}
-    </button>
+    </button> 
+
+
 </div>
     <div collapse="hidePentahoReport" class="row alert-block span tab-content">
         <br>
@@ -921,3 +931,4 @@
 </fieldset>
 </form>
 </div>
+

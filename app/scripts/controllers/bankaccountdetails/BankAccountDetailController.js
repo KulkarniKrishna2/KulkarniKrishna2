@@ -7,6 +7,8 @@
             scope.clientBankAccountDetailAssociationId=routeParams.clientBankAccountDetailAssociationId;
             scope.eventType = "view";
 
+            scope.isInitiated = false;
+
             var bankAccountConfig = {bankAccount :{entityType:scope.entityType,
                 entityId:scope.entityId,
                 clientBankAccountDetailAssociationId: scope.clientBankAccountDetailAssociationId,
@@ -24,12 +26,15 @@
             
                 resourceFactory.bankAccountDetailResource.get({entityType:scope.entityType, entityId: scope.entityId, clientBankAccountDetailAssociationId: scope.clientBankAccountDetailAssociationId,'command':scope.fetchInactiveAssociation}, function (data) {
 
-                    var bankData = {bankAccountData:data};
+                    var bankData = {bankAccount:{entityId:scope.entityId, entityType:scope.entityType, clientBankAccountDetailAssociationId:scope.clientBankAccountDetailAssociationId, bankAccountData:data}}
                     angular.extend(scope.commonConfig,bankData);
                     if(data!=undefined && data.id!=undefined){
                         if(!(data.status.id==200 || data.status.id==400)){
                             createWorkflow(false);
+                        }else{
+                            scope.isInitiated = true;
                         }
+
                     }else{
                         createWorkflow(true);
                         templateResource();
@@ -46,10 +51,11 @@
                     if(data!=undefined && data.id!=undefined){
                         if(data.status.id !=7){
                             scope.isTask= true;
-                            var taskConfig= {taskData:{id:data.id,embedded:true}};
+                            var taskConfig= {taskData:{id:data.id,embedded:true,template:data}};
                             angular.extend(scope.commonConfig,taskConfig);
                         }
                     }
+                    scope.isInitiated = true;
 
                 });
             }
@@ -60,7 +66,7 @@
                     entityId: scope.entityId
                 }, function (data) {
                     var bankData = {bankAccountData:data};
-
+                    angular.extend(scope.commonConfig, bankData);
                 });
             }
 

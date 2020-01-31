@@ -5,6 +5,16 @@
 			"isReadOnlyField": {
 				"active": true
 			}
+		},
+		"createLoanApplication": {
+			"isHiddenField": {
+				"firstRepaymentDate": false
+			}
+		},
+		"loanAccount": {
+			"isHiddenField": {
+				"repaymentsStartingFromDate": false
+			}
 		}
 	}
 }
