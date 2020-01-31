@@ -6,7 +6,7 @@
             scope.isBankAccountDeatilsAvailable = false;
             scope.bankhtml = "";
             scope.getBankAssociationsDetails = function (){
-                resourceFactory.bankAccountDetailResource.getAll({entityType: scope.entityType,entityId: scope.entityId}, function (data) {
+                resourceFactory.bankAccountDetailResources.getAll({entityType: scope.entityType,entityId: scope.entityId}, function (data) {
                         if(!_.isUndefined(data[0])){
                             scope.clientBankAccountDetailAssociationId =  data[0].bankAccountAssociationId;
                             scope.eventType = "view"; 
@@ -14,12 +14,12 @@
                             scope.eventType = "create";
                         } 
                         //multiple bank account activity
-                        if(!_.isUndefined(scope.commonConfig)) {
+                        if(!_.isUndefined(scope.commonConfig) && !_.isUndefined(scope.commonConfig.bankAccount) && !_.isUndefined(scope.commonConfig.bankAccount.eventType)) {
                             scope.eventType = scope.commonConfig.bankAccount.eventType;
                         }
-                        var bankAccountConfig = {bankAccount :{entityType:scope.entityType,
-                                                entityId:scope.entityId,clientBankAccountDetailAssociationId: scope.clientBankAccountDetailAssociationId,
-                                                eventType:scope.eventType}};
+                         var bankAccountConfig = {bankAccount :{entityType:scope.entityType,
+                                                 entityId:scope.entityId,clientBankAccountDetailAssociationId: scope.clientBankAccountDetailAssociationId,
+                                                  eventType:scope.eventType}};
                         if(scope.commonConfig === undefined){
                             scope.commonConfig = {};
                         }
@@ -54,8 +54,13 @@
                     scope.entityType = "clients";
                     scope.entityId = scope.taskconfig['clientId'];
                 }
-                
-                 scope.getBankAssociationsDetails();
+
+                if(scope.commonConfig!=undefined && scope.commonConfig.bankAccount!=undefined && scope.commonConfig.bankAccount.bankAccountData !=undefined){
+                    scope.isBankAccountDeatilsAvailable = true;
+                    scope.bankhtml = 'views/bankaccountdetails/common/checker_bank_account_common.html';  
+                }else {
+                    scope.getBankAssociationsDetails();
+                }
             };
 
             initTask();
