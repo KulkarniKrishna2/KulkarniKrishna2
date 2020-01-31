@@ -5,22 +5,22 @@
             scope.entityId = routeParams.entityId;
             scope.clientId=routeParams.entityId;
             scope.eventType = "create";
+            scope.isInitiated = false;
 
-            var bankAccountConfig = {bankAccount :{entityType:scope.entityType,
-                entityId:scope.entityId,eventType:scope.eventType}};
+  
             if(scope.commonConfig === undefined){
                 scope.commonConfig = {};
             }
-            angular.extend(scope.commonConfig,bankAccountConfig);
 
 
             function populateDetails() {
                 resourceFactory.bankAccountDetailsTemplateResource.get({entityType:scope.entityType, entityId: scope.entityId}, function (data) {
-                    var bankData = {bankAccountData:data};
-                    angular.extend(scope.commonConfig,bankData);
-                    if(data!=undefined && data.id!=undefined){
-                      
-                    }else{
+                     
+                    if(data!=undefined){
+                        var bankAccountConfig = {bankAccount :{entityType:scope.entityType,
+                            entityId:scope.entityId,eventType:scope.eventType,templateData: data}};
+                        angular.extend(scope.commonConfig, bankAccountConfig);
+                    
                         createWorkflow(true);
                     }
                 });
@@ -39,6 +39,7 @@
                             angular.extend(scope.commonConfig,taskConfig);
                         }
                     }
+                    scope.isInitiated = true;
 
                 });
             }

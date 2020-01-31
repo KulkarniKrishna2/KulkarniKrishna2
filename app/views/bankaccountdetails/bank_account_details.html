@@ -5,7 +5,7 @@
             <li ng-if="entityType == 'groups'"><a href="#/viewgroup/{{entityId}}">{{'label.heading.' +entityType | translate}}</a></li>
             <li class="active">{{'label.anchor.bankaccountdetails' | translate}}</li>
         </ul>
-        <div ng-if="!isTask" class="row" ng-include="'views/bankaccountdetails/common/bank_account_common.html'"></div>
-        <div ng-if="isTask" class="row" ng-include="'views/task/viewtask.html'"></div>
+        <div ng-if="isInitiated && !isTask" class="row" ng-include="'views/bankaccountdetails/common/bank_account_common.html'"></div>
+        <div ng-if="isInitiated && isTask" class="row" ng-include="'views/task/viewtask.html'"></div>
     </div>
 </div>
