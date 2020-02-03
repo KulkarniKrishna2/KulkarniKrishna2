@@ -76,6 +76,44 @@
                                         <td><strong>{{ 'label.heading.action' | translate }}</strong></td>
                                         <td>{{campaignData.triggerActionType.value}}</td>
                                     </tr>
+                                    <tr ng-if="campaignData.smsCampainMappingData.selectedOffices.length > 0">
+                                        <td><strong>{{ 'label.input.selected.office' | translate }}</strong></td>
+                                        <td>
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <td><strong>{{ 'label.heading.id' | translate }}</strong></td>
+                                                        <td><strong>{{ 'label.heading.officeName' | translate }}</strong></td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="selectedOffice in campaignData.smsCampainMappingData.selectedOffices">
+                                                        <td class="col-sm-1"> {{selectedOffice.id}}</td>
+                                                        <td class="col-sm-1">{{selectedOffice.name}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr ng-if="campaignData.smsCampainMappingData.selectedProducts.length > 0">
+                                        <td><strong>{{ 'label.input.selected.product' | translate }}</strong></td>
+                                        <td>
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <td><strong>{{ 'label.heading.id' | translate }}</strong></td>
+                                                        <td><strong>{{ 'label.heading.productname' | translate }}</strong></td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="selectedProduct in campaignData.smsCampainMappingData.selectedProducts">
+                                                        <td class="col-sm-1"> {{selectedProduct.id}}</td class="col-sm-1">
+                                                        <td class="col-sm-1">{{selectedProduct.name}}</td class="col-sm-1">
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
                                 </table>
                             </div>
                         </div>

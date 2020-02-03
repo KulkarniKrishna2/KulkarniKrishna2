@@ -5170,6 +5170,12 @@
     "label.menu.selectreport": "Select Report",
     "label.menu.selectcampaigntype": "Select Campaign Type",
     "label.menu.selectevent": "Select Event",
+    "label.input.available.office" : "Available Offices",
+    "label.input.selected.office" : "Selected Offices",
+    "label.input.available.product" : "Available Products",
+    "label.input.selected.product" : "Selected Products",
+    "label.anchor.showofficedetails" : "Show Office's to map ",
+    "label.anchor.showproductdetails" : "Show Product's to map",
 
     "#Bank Statement Payment Reconciliation": "....",
     "label.anchor.uploadbankstatement": "Upload Bank Statement",

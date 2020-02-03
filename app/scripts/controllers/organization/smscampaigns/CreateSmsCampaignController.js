@@ -33,6 +33,8 @@
             var simpleTime = new Date(scope.simpleDate.getTime());
             scope.campaignData.time = new Date(0, 0, 0, simpleTime.getHours(), simpleTime.getMinutes(), simpleTime.getSeconds());
             scope.dft = 'yyyy-MM-dd HH:mm:ss';
+            scope.selectedOffices = [];
+            scope.selectedProducts = [];
 
             scope.buildMessageTemplate = function (paramName) {
                 scope.campaignData.campaignMessage += " " + "{{" + paramName + "}}";
@@ -212,6 +214,88 @@
                         scope.totalNumberOfMessages = data.totalNumberOfMessages;
                     });
             }
+
+            scope.showOfficeDetails = function () {
+                scope.showOfficeDetails = !scope.showOfficeDetails;
+
+                resourceFactory.officeResource.getAllOfficesInAlphabeticalOrder(function (data) {
+                    scope.offices = data;
+                    var allOffice = {
+                        'name' : 'Select all Offices',
+                        'id' : -1
+                    }
+                    scope.offices.splice( 0, 0, allOffice );
+                });
+            }
+
+            scope.addOffice = function() {
+                for (var i in this.selectedOffice) {
+                    for (var j in scope.offices) {
+                        if (scope.offices[j].id == this.selectedOffice[i]) {
+                            var temp = {};
+                            temp.id = this.selectedOffice[i];
+                            temp.name = scope.offices[j].name;
+                            scope.selectedOffices.push(temp);
+                            scope.offices.splice(j, 1);
+                        }
+                    }
+                }
+
+                for (var i in this.selectedOffice) {
+                    for (var j in scope.selectedOffices) {
+                        if (scope.selectedOffices[j].id == this.selectedOffice[i]) {
+                            scope.selectedOffice.splice(i, 1);
+                        }
+                    }
+                }
+            };
+
+            scope.removeOffice = function(index) {
+                var temp = scope.selectedOffices[index];
+                scope.offices.push(temp);
+                scope.selectedOffices.splice(index, 1);
+            };
+
+            scope.showProductDetails = function () {
+                scope.showProductDetails = !scope.showProductDetails;
+
+                resourceFactory.loanProductAssociationResource.getAll(function (data) {
+                    scope.products = data;
+                    var allProduct = {
+                        'name' : 'Select all Products',
+                        'id' : -1
+                    }
+                    scope.products.splice( 0, 0, allProduct );
+                });
+            }
+
+            scope.addProduct = function() {
+                for (var i in this.selectedProduct) {
+                    for (var j in scope.products) {
+                        if (scope.products[j].id == this.selectedProduct[i]) {
+                            var temp = {};
+                            temp.id = this.selectedProduct[i];
+                            temp.name = scope.products[j].name;
+                            scope.selectedProducts.push(temp);
+                            scope.products.splice(j, 1);
+                        }
+                    }
+                }
+
+                for (var i in this.selectedProduct) {
+                    for (var j in scope.selectedProducts) {
+                        if (scope.selectedProducts[j].id == this.selectedProduct[i]) {
+                            scope.selectedProduct.splice(i, 1);
+                        }
+                    }
+                }
+            };
+
+            scope.removeProduct = function(index) {
+                var temp = scope.selectedProducts[index];
+                scope.products.push(temp);
+                scope.selectedProducts.splice(index, 1);
+            };
 
             function buildReportParms() {
                 var paramCount = 1;
@@ -398,6 +482,7 @@
                     scope.scheduledDateTime.setSeconds(scope.campaignData.time.getSeconds());
                     scope.scheduledDateTime = dateFilter(scope.scheduledDateTime, scope.dft);
                 }
+                scope.getSelectedOfficeProduct();
                     //dateFilter(scope.campaignData.recurrenceStartDate, scope.df) + ' ' + scope.campaignData.time.getHours() + ':' + scope.campaignData.time.getMinutes() + ':' + scope.campaignData.time.getSeconds();
                 scope.submissionData = {
                     providerId: scope.campaignData.smsProvider.id,
@@ -414,7 +499,9 @@
                     dateTimeFormat: scope.dft,
                     frequency: scope.campaignData.frequency,
                     interval: scope.campaignData.repeatsEvery,
-                    repeatsOnDay: scope.campaignData.repeatsOnDay
+                    repeatsOnDay: scope.campaignData.repeatsOnDay,
+                    selectedEntityConfig : {'selectedOffices' : scope.selectedOffices,
+                    'selectedProducts' : scope.selectedProducts}
                 }
 
                 scope.submissionData.runReportId = scope.campaignData.report.reportId;
@@ -425,6 +512,21 @@
                 });
 
             };
+
+            scope.getSelectedOfficeProduct = function () {
+                for (var i = 0; i < scope.selectedOffices.length; i++) {
+                    if (scope.selectedOffices[i].id == -1) {
+                        scope.selectedOffices = [];
+                        break;
+                    }
+                }
+                for (var i = 0; i < scope.selectedProducts.length; i++) {
+                    if (scope.selectedProducts[i].id == -1) {
+                        scope.selectedProducts = [];
+                        break;
+                    }
+                }
+            }
 
             var setDisableTimeout = function(){
                 scope.isButtonDisabled = true;
