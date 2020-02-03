@@ -760,8 +760,10 @@
                             scope.paymentModeOptions = data.paymentModeOptions;
                             scope.formData.transactionAmount = data.amount;
                             scope.formData[scope.modelName] = new Date(data.date) || new Date();
-                            scope.glimTransactions = data.glimTransactions;
-                            scope.isGLIM = (data.glimTransactions.length>0);
+                            if (data.glimTransactions){
+                                scope.glimTransactions = data.glimTransactions;
+                                scope.isGLIM = (data.glimTransactions.length>0);
+                            }
                             if (data.paymentDetailData) {
                                 if (data.paymentDetailData.paymentType) {
                                     scope.formData.paymentTypeId = data.paymentDetailData.paymentType.id;

@@ -62,6 +62,7 @@
             
             scope.resetSearchData = function () {
                 scope.searchConditions = {};
+                delete scope.clients;
             };
 
 
