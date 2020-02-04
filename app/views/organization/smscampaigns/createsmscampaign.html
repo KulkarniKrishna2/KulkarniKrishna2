@@ -219,6 +219,95 @@
                                                                valattribute="{{reportParam.inputName}}"/>
                                             </div>
                                         </div>
+                                        <div class="form-group">
+                                            <div class="form-horizontal">
+                                                <div class="width25"><label>{{ 'label.anchor.showofficedetails' | translate}}</label>
+                                                    <a class="btn btn-primary icon-plus icon-white" ng-show="showOfficeDetails" ng-click="showOfficeDetails()">
+                                                    </a></div>
+                                                <div class="width25"></div>
+                                                <div class="width25 paddedbottom10"></div>
+                                            </div>
+                                            <div>
+                                                <div collapse="showOfficeDetails">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-3 col-md-3 col-md-offset-1">
+                                                            <label
+                                                                class="control-label col-sm-9"><span><b>{{ 'label.input.available.office' | translate }}</b></span></label>
+                                                            <select id="availableOffices" ng-model="selectedOffice" name="availableOffices"
+                                                                class="form-control multiselectmin" multiple>
+                                                                <option ng-repeat="office in offices" value="{{office.id}}">
+                                                                    {{office.name}}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-sm-1 col-md-1 paddedtop25px">
+                                                            <button type="button" class="btn btn-primary"
+                                                                data-ng-click="addOffice()">{{'label.button.add' | translate}}</button>
+                                                        </div>
+                                                        <div class="col-sm-3 col-md-3">
+                                                            <div class="table-response">
+                                                                <table class="table table-striped">
+                                                                    <thead>
+                                                                        <th>{{'label.input.selected.office' | translate}}</th>
+                                                                    </thead>
+                                                                    <tbody ui-sortable="sortableOptions" ng-model="selectedOffices">
+                                                                        <tr class="pointer" ng-repeat="selectedOffice in selectedOffices">
+                                                                            <td>{{selectedOffice.name}}</td>
+                                                                            <td class="col-sm-1"><a ng-click="removeOffice($index)"><i
+                                                                                        class="icon-remove icon-white"></i></a></td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="width100">
+                                            <div class="form-group form-horizontal">
+                                                <div class="width25"><label>{{ 'label.anchor.showproductdetails' | translate}}</label>
+                                                    <a class="btn btn-primary icon-plus icon-white" ng-show="showProductDetails"
+                                                        ng-click="showProductDetails()">
+                                                    </a></div>
+                                                <div class="width25"></div>
+                                                <div class="width25 paddedbottom10"></div>
+                                            </div>
+                                            <div>
+                                                <div collapse="showProductDetails">
+                                                    <div class="col-sm-3 col-md-3 col-md-offset-1">
+                                                        <label
+                                                            class="control-label col-sm-9"><span><b>{{ 'label.input.available.product' | translate }}</b></span></label>
+                                                        <select id="availableProduct" ng-model="selectedProduct" name="availableProduct"
+                                                            class="form-control multiselectmin" multiple>
+                                                            <option ng-repeat="product in products" value="{{product.id}}">
+                                                                {{product.name}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-sm-1 col-md-1 paddedtop25px">
+                                                        <button type="button" class="btn btn-primary"
+                                                            data-ng-click="addProduct()">{{'label.button.add' | translate}}</button>
+                                                    </div>
+                                                    <div class="col-sm-3 col-md-3">
+                                                        <div class="table-response">
+                                                            <table class="table table-striped">
+                                                                <thead>
+                                                                    <th>{{'label.input.selected.product' | translate}}</th>
+                                                                </thead>
+                                                                <tbody ui-sortable="sortableOptions" ng-model="selectedProduct">
+                                                                    <tr class="pointer" ng-repeat="selectedProduct in selectedProducts">
+                                                                        <td>{{selectedProduct.name}}</td>
+                                                                        <td class="col-sm-1"><a ng-click="removeProduct($index)"><i
+                                                                                    class="icon-remove icon-white"></i></a></td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                             <hr>
                                             <div class="pull-right">
                                                 <button id="save1" type="submit" class="btn btn-primary" ng-click="getColumnHeaders()">
