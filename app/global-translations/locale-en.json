@@ -5188,6 +5188,12 @@
     "label.menu.selectreport": "Select Report",
     "label.menu.selectcampaigntype": "Select Campaign Type",
     "label.menu.selectevent": "Select Event",
+    "label.input.available.office" : "Available Offices",
+    "label.input.selected.office" : "Selected Offices",
+    "label.input.available.product" : "Available Products",
+    "label.input.selected.product" : "Selected Products",
+    "label.anchor.showofficedetails" : "Show Office's to map ",
+    "label.anchor.showproductdetails" : "Show Product's to map",
 
     "#Bank Statement Payment Reconciliation": "....",
     "label.anchor.uploadbankstatement": "Upload Bank Statement",
@@ -8170,7 +8176,7 @@
     "error.msg.glim.max.amount.exception" : "Glim amount can not be more than '{{params[0].value}}'.",
     "error.msg.office.id.list.invalid":"Office with identifiers {{params[0].value}} does not exist",
      "label.input.isbulkclosure" : "Is Bulk Closure",
-     "label.input.isfilter" : "Is Filter",
+     "label.input.combo.filter" : "Combo Filter",
      "label.heading.wardAndVillage": "Ward/Village",
      "validation.msg.addresses.addressRegionValueId.cannot.be.blank" : "Please select complete address",
      "error.msg.office.product.or.charge.not.found" : "Product or Charge with Id in `{{params[0].value}}` not Office Specific Product for officeId `{{params[1].value}}`",
@@ -8507,6 +8513,7 @@
      "label.center.geo.details.not.provided" : "Center Geo details not provided",
      "label.button.modify.search" : "Modify Search",
      "label.heading.search.clients" : "Search clients",
+     "label.tooltip.to.search.based.on.combination.of.filters" : "To search based on combination of filters",
      "------ end of translation file ------": "----------"
 
 }
