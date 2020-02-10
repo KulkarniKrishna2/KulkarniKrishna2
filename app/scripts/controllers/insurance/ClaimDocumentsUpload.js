@@ -77,6 +77,7 @@
                 scope.clientDeceased.deathIntimationDate =  dateFilter(new Date(scope.clientDeceased.deathIntimationDate), scope.df);
                 resourceFactory.updateDeceasedDetailsResource.save({ deceasedId : scope.deceasedId }, scope.clientDeceased, function (data) {
                     fetchInsuranceData();
+                    scope.showEditScreen = false;
                 });
             }
 
