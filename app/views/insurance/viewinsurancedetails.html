@@ -80,7 +80,15 @@
                                 class="icon-search"></i>{{'label.button.fetchdetails' | translate}}</button>
                     </div>
                 </div>
-            <td>
+              </td>
+              <td ng-show="exportInsuredData">
+                <div class="col-sm-1">
+                    <div>
+                      <button class="btn btn-primary" ng-click="exportVerfiedInsuranceData()"><i
+                              class="icon-file icon-white"></i>{{'label.heading.export' | translate}}</button>
+                  </div>
+                </div>
+              </td>
         </tr>
     </table>
 
