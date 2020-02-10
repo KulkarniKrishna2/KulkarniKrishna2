@@ -8514,6 +8514,9 @@
      "label.button.modify.search" : "Modify Search",
      "label.heading.search.clients" : "Search clients",
      "label.tooltip.to.search.based.on.combination.of.filters" : "To search based on combination of filters",
+     "error.msg.aadhaar.cannot.be.added" : "Aadhaar cannot be added",
+     "error.msg.aadhaar.cannot.be.modified" : "Aadhaar cannot be modified",
+     
      "------ end of translation file ------": "----------"
 
 }
