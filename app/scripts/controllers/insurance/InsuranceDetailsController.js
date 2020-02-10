@@ -27,8 +27,10 @@
                 scope.toDate = undefined;
                 if(scope.claimStatusForNavigate == 'verifiedClaims') {
                     scope.selectAllOption = true;
+                    scope.exportInsuredData = true;
                 }  else {
                     scope.selectAllOption = false;
+                    scope.exportInsuredData = false;
                 }
                 if(scope.claimStatusForNavigate == 'intimationapprovalpending') {
                     scope.rejectTabToBeshown = true;
@@ -63,6 +65,34 @@
                     function (data) {
                         scope.insuranceData = data;
                     });
+            }
+
+            scope.exportVerfiedInsuranceData = function () {
+                scope.deceasedMemberArray = [];
+                scope.errorDetails = [];
+                for (var i = 0; i < scope.insuranceData.length; i++) {
+                    if (scope.insuranceData[i].isMemberChecked) {
+                        scope.deceasedMemberArray.push(scope.insuranceData[i].deceasedId)
+                    }
+                } 
+                var R_resourceId = scope.deceasedMemberArray.toString();
+                if (R_resourceId.undefined || R_resourceId == "") {
+                    var errorObj = new Object();
+                    errorObj.field = '';
+                    errorObj.code = 'error.minimum.one.client.required';
+                    errorObj.args = {params: []};
+                    errorObj.args.params.push({value: 'error.minimum.one.client.required'});
+                    scope.errorDetails.push(errorObj);
+                    return;
+                }
+                var params = {
+                    "reportName":"Insurance Verified Claim Data",
+                    "reportParams":{"R_resourceId": R_resourceId, "output-type":"XLS"},
+                    "displayParams":{}
+                }
+                resourceFactory.advancedReportsResource.post(params, function (data) {
+                    location.path('/reports');
+                });
             }
 
             resourceFactory.officeResource.getAllOffices(function (data) {
@@ -110,6 +140,7 @@
 
             scope.submit = function(){
                 scope.deceasedMemberArray = [];
+                scope.errorDetails = [];
                 for(var i = 0; i< scope.insuranceData.length; i++){
                     if(scope.insuranceData[i].isMemberChecked){
                         scope.deceasedMemberArray.push(
@@ -117,6 +148,15 @@
                             })
                     }
 
+                }
+                if (!scope.deceasedMemberArray.length > 0) {
+                    var errorObj = new Object();
+                    errorObj.field = '';
+                    errorObj.code = 'error.minimum.one.client.required';
+                    errorObj.args = {params: []};
+                    errorObj.args.params.push({value: 'error.minimum.one.client.required'});
+                    scope.errorDetails.push(errorObj);
+                    return;
                 }
                 scope.formdata.deceasedMemberArray = scope.deceasedMemberArray;
                 resourceFactory.insuranceClaimStatusDetailsResource.submitVerifiedClaim({ claimStatus: 'verifiedClaims', command : 'submit' }, scope.formdata,
