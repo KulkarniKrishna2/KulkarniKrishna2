@@ -31,9 +31,13 @@
         <button type="button" ng-show="!isTaskCompleted() && status=='VIEW' && datatabledetails.isMultirow == false" ng-click="editData()" class="btn btn-primary">{{'label.button.edit' | translate}}</button>
         <button type="button" ng-show="isTaskCompleted() && status=='VIEW' && datatabledetails.isMultirow == false && !isWorkFlow" ng-click="editData()" has-permission="EDIT_TASK" class="btn btn-primary">{{'label.button.edit' | translate}}</button>
         <button type="button" ng-show="!isTaskCompleted() && isViewMultiRowTable" ng-click="editMultiRowDataTable()" class="btn btn-primary">{{'label.button.edit' | translate}}</button>
+        <a id="printsurvey" class="btn btn-warning" ng-click="printPreview('print')">
+                <i class="icon-print"></i>
+        </a> 
     </div>
-    <div ng-show="status=='VIEW' && !isViewMultiRowTable">
-        <table class="table" data-ng-show="datatabledetails.isMultirow">
+    
+    <div  id="print" ng-show="status=='VIEW' && !isViewMultiRowTable">
+        <table class="table" ng-if="datatabledetails.isMultirow">
             <thead>
             <th ng-repeat="column in datatabledetails.columnData[0].row track by $index" ng-init="multirowThIndex = $index" ng-hide="hideField(column)" >
                             <label ng-if="column.displayName != undefined && column.displayName != 'null'">{{column.displayName | prettifyDataTableColumn}} </label>
@@ -51,7 +55,7 @@
             </tbody>
         </table>
 
-        <div class="row" data-ng-hide="datatabledetails.isMultirow" ng-if="!isSectioned">
+        <div class="row" ng-if="!datatabledetails.isMultirow" ng-if="!isSectioned">
             <div class="col-md-8">
                 <table class="table width100">
                     <tr ng-repeat="value in singleRow">
