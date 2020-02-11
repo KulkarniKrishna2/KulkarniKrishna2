@@ -165,8 +165,10 @@
                 if(this.formData.documentTypeId){
                     for(var i in scope.documenttypes){
                         if(scope.documenttypes[i].name === "Aadhaar"){
-                            this.formData.documentKey = this.formData.documentKey.replace(/ +/g, "");
-                            break;
+                            if(this.formData.documentKey !== "XXXX XXXX XXXX"){
+                                this.formData.documentKey = this.formData.documentKey.replace(/ +/g, "");
+                                break;
+                            }
                         }
                     }
                 }
