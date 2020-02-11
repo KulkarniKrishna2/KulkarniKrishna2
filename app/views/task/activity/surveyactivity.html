@@ -1,5 +1,5 @@
 <div class="col-md-12 col-sm-12" ng-controller="surveyActivityController">
-    <div ng-if="isDisplaySurveys">
+    <div id="survey" ng-if="isDisplaySurveys">
         <div class="col-md-12 col-sm-12" ng-show="surveys && surveys.length > 0">
             <span>
                 <span>
@@ -47,9 +47,12 @@
             </span>
 
             <span class="pull-right" ng-if="!isTaskCompleted()">
-                <a id="takesurvey" class="btn btn-primary" ng-click="takeNewSurvey()">
-                    <i class="icon-edit-sign"></i>
-                </a>
+                    <a id="takesurvey" class="btn btn-primary" ng-click="takeNewSurvey()">
+                            <i class="icon-edit"></i>
+                    </a>
+                <a id="printsurvey" class="btn btn-warning" ng-click="printPreview('survey')">
+                        <i class="icon-print"></i>
+                </a> 
             </span>
         </div>
 

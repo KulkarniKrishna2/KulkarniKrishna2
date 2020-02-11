@@ -383,6 +383,15 @@
                     scope.formData.surveyedBy = null;
                 }
             };
+
+            scope.printPreview = function(print) {
+                var printContents = document.getElementById(print).innerHTML;
+                var popupWin = window.open('', '_blank', 'width=1024,height=720');
+                popupWin.document.open();
+                popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="styles/repaymentscheduleprintstyle.css" />' +
+                '</head><body onload="window.print()">' + printContents + '<br></body></html>');
+                popupWin.document.close();
+            }
         }
     });
     mifosX.ng.application.controller('surveyActivityController', ['$controller', '$scope', 'ResourceFactory', 'API_VERSION', '$location', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', 'dateFilter', mifosX.controllers.surveyActivityController]).run(function ($log) {
