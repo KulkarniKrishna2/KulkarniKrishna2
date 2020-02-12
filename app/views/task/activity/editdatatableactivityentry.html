@@ -27,11 +27,12 @@
         </label>
     </div>
     <span data-ng-switch on="columnHeader.columnDisplayType">
-        <select chosen="columnHeader.columnValues" ng-show="fieldType(columnHeader.columnDisplayType) == 'SELECT'"
+        <select chosen="columnHeader.columnValuesLookup" ng-show="fieldType(columnHeader.columnDisplayType) == 'SELECT'"
                 data-ng-switch-when="CODELOOKUP"
                 ng-model="formData[columnHeader.columnName]"
-                ng-options="columnValue.id as columnValue.value for columnValue in columnHeader.columnValues"
-                value="{{columnValue.id}}" class="form-control">
+                ng-options="columnValue.id as columnValue.value for columnValue in columnHeader.columnValuesLookup"
+                value="{{columnValue.id}}" class="form-control"
+                ng-change="getDependencyList(formData[columnHeader.columnName])">
             <option value="">{{'label.selectone' | translate}}</option>
         </select>
         <div  ng-show="showSelect==true">
