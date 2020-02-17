@@ -298,6 +298,10 @@
                     location.path('/listfamilydetails/' + scope.clientId)
                 });
             };
+
+            scope.documentTypeChange = function(){
+                scope.formData.documentKey = undefined;
+            }
         }
     });
     mifosX.ng.application.controller('EditFamilyMemberController', ['$q','$scope', '$routeParams', 'ResourceFactory', '$location', '$modal', '$route', 'dateFilter', mifosX.controllers.EditFamilyMemberController]).run(function ($log) {

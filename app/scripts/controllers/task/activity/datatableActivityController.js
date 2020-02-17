@@ -175,6 +175,13 @@
                     for (var i in data.columnHeaders) {
                         if (data.columnHeaders[i].columnDisplayType == 'DATETIME') {
                             scope.formDat[data.columnHeaders[i].columnName] = {};
+                        } else if (data.columnHeaders[i].columnDisplayType == 'CODELOOKUP' && data.columnHeaders[i].columnValues) {
+                            scope.columnValueLookUp = data.columnHeaders[i].columnValues;
+                            scope.newcolumnHeaders = angular.fromJson(data.columnHeaders);
+                            for (var j in data.columnHeaders[i].columnValues) {
+                                scope.newcolumnHeaders[i].columnValuesLookup = scope.columnValueLookUp;
+                            }
+
                         }
                     }
                     scope.columnHeaders = data.columnHeaders;
@@ -358,6 +365,16 @@
             scope.processData = function(reqparams){
                 resourceFactory.DataTablesResource.getTableDetails(reqparams, function (data) {
                     for (var i in data.columnHeaders) {
+                        if (data.columnHeaders[i].columnDisplayType == 'DATETIME') {
+                            scope.formDat[data.columnHeaders[i].columnName] = {};
+                        } else if (data.columnHeaders[i].columnDisplayType == 'CODELOOKUP' && data.columnHeaders[i].columnValues) {
+                            scope.columnValueLookUp = data.columnHeaders[i].columnValues;
+                            scope.newcolumnHeaders = angular.fromJson(data.columnHeaders);
+                            for (var j in data.columnHeaders[i].columnValues) {
+                                scope.newcolumnHeaders[i].columnValuesLookup = scope.columnValueLookUp;
+                            }
+    
+                        }
                         for(var s in data.columnData[0].row){
                             if(data.columnHeaders[i].columnName === data.columnData[0].row[s].columnName){
                                  if (data.columnHeaders[i].columnCode) {
@@ -589,6 +606,57 @@
                 popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="styles/repaymentscheduleprintstyle.css" />' +
                 '</head><body onload="window.print()">' + printContents + '<br></body></html>');
                 popupWin.document.close();
+            }
+
+            scope.getDependencyList = function (codeId) {
+                if (codeId != null) {
+                    scope.columnValuesLookup = [];
+                    var count = 0;
+                    for (var i in scope.columnHeaders) {
+                        var obj = angular.fromJson(scope.columnHeaders);
+                        if (scope.columnHeaders[i].columnValues != null && scope.columnHeaders[i].columnValues != "") {
+                            for (var j in scope.columnHeaders[i].columnValues) {
+                                if (scope.columnHeaders[i].columnValues[j].parentId > 0 && scope.columnHeaders[i].columnValues[j].parentId === codeId) {
+                                    scope.columnValuesLookup.push(scope.columnHeaders[i].columnValues[j])
+                                } else {
+                                    if (scope.columnHeaders[i].columnValues[j].id == codeId) {
+                                        var id = scope.columnHeaders[i].columnValues[j].parentId;
+                                        for (var k in scope.columnHeaders) {
+                                            for (var n in scope.columnHeaders[k].columnValues) {
+                                                if (scope.columnHeaders[k].columnValues[n].id === id) {
+                                                    scope.formData[scope.columnHeaders[k].columnName] = scope.columnHeaders[k].columnValues[n].id;
+                                                    scope.dependentCodeId = scope.columnHeaders[k].columnValues[n].id;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                            }
+                            if (scope.columnValuesLookup != null && scope.columnValuesLookup != "" && count == 0) {
+                                obj[i].columnValuesLookup = scope.columnValuesLookup;
+                                count++;
+                            }
+                        }
+                    }
+                    scope.columnHeaders = obj;
+                    if(scope.tempDependentCodeId != scope.dependentCodeId){
+                        scope.tempDependentCodeId = angular.copy(scope.dependentCodeId);
+                        scope.getDependencyList(scope.dependentCodeId);
+                    }
+                } else {
+                    for (var i in scope.columnHeaders) {
+                        if (scope.columnHeaders[i].columnDisplayType == 'CODELOOKUP' && scope.columnHeaders[i].columnValues) {
+                            scope.columnValueLookUp = scope.columnHeaders[i].columnValues
+                            scope.newcolumnHeaders = angular.fromJson(scope.columnHeaders);
+                            for (var j in scope.columnHeaders[i].columnValues) {
+                                scope.newcolumnHeaders[i].columnValuesLookup = scope.columnValueLookUp;
+                            }
+                        }
+                    }
+                    scope.columnHeaders = scope.newcolumnHeaders;
+                }
             }
         }
     });

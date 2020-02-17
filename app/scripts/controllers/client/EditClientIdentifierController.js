@@ -50,6 +50,7 @@
             });
 
             scope.fetchDocumentCategories = function () {
+                scope.formData.documentKey = undefined;
                 scope.documentCategories = [];
                 if (!_.isUndefined(scope.formData.documentTypeId)) {
                     var columnIndex = scope.documenttypes.findIndex(x => x.id == scope.formData.documentTypeId) || 0;
