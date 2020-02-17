@@ -10,6 +10,7 @@
             scope.forcedSubmit = false;
             scope.forceActivateClientPermission = 'FORCE_ACTIVATE_CLIENT';
             scope.loanApplicationReferenceId = routeParams.loanApplicationReferenceId;
+            scope.showDedupeTag = false;
 
             // Transaction UI Related
 
@@ -17,7 +18,7 @@
                 case "activate":
                     resourceFactory.clientResourceTemplate.getActivateTemplate({clientId: routeParams.id, command : 'activate'}, function (data) {
                         scope.client = data;
-                        if(scope.client.subStatus.value === 'Blacklist'){
+                        if(scope.client.subStatus && scope.client.subStatus.value === 'Blacklist'){
                             scope.openClientValidationPopUp();
                         }
                         if (data.timeline.submittedOnDate) {
@@ -32,6 +33,10 @@
                                     scope.client.identitiesCompiled = compileDocuments(scope.clientIdentities);
                                 }
                             });
+                            if(scope.client.dedupeClientId){
+                                scope.matchClientId = scope.client.dedupeClientId;
+                                scope.matchClient(scope.matchClientId);
+                            }
                         }
                     });
                     scope.labelName = 'label.input.activationdate';
@@ -257,6 +262,7 @@
                         }
                     });
                 }
+                scope.showDedupeTag = true;
             }
 
             function compileDocuments(data) {

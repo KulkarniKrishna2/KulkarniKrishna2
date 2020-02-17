@@ -169,9 +169,13 @@
                     icon: "icon-undo",
                     taskPermissionName: "WITHDRAWTRANSFER_CLIENT"
                 }],
-                "Dedupe": [
-
-                ],
+                "Dedupe": [{
+                    name: "label.button.activate",
+                    href: "#/client",
+                    subhref: "activate",
+                    icon: "icon-ok-sign",
+                    taskPermissionName: "ACTIVATE_CLIENT"
+                }],
                 "Assign Staff": {
                     name: "label.button.assignstaff",
                     href: "#/client",
