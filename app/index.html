@@ -216,18 +216,10 @@
 
                         <li>
                             <a class="black" href="#/workflowtaskdashboard">
-                                <i class="icon-bar-chart icon-large" data-toggle="tooltip" tooltip-placement="right" tooltip="{{ 'label.heading.workflow.task.dashboard' | translate}}"></i>
+                                <i class="icon-sort-by-attributes-alt icon-large" data-toggle="tooltip" tooltip-placement="right" tooltip="{{ 'label.heading.workflow.task.dashboard' | translate}}"></i>
                             </a>
                         </li>
                         <li class="divider"></li>
-
-                        <li>
-                            <a class="black" href="#/tasklist">
-                                <i class="icon-tasks icon-large" data-toggle="tooltip" tooltip-placement="right" tooltip="{{ 'label.heading.workflow.tasks' | translate}}"></i>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-
                         <li>
                             <a class="black" href="#/nav/offices">
                                 <i class="icon-compass icon-large" data-toggle="tooltip" tooltip-placement="right" tooltip="{{ 'label.anchor.navigation' | translate}}"></i>
@@ -336,6 +328,10 @@
                                 <img src="{{headerLogoPath}}" alt="FINFLUX" style="width: 150px; height: 40px;" ng-if="isHeaderLogoPath">
                             </a>
                             <ul class="nav navbar-nav" id="main-menu-left">
+                                <li>
+                                    <a ng-class="{ activate: isActive('litasks') }" href="#/tasklist">
+                                        <i class="icon-tasks"></i> {{ 'label.heading.workflow.tasks' | translate }}</a>
+                                </li>
                                 <li class="dropdown">
                                     <a class="dropdown-toggle" data-toggle="dropdown" ng-class="{ activate: isActive('centers') }" href="#">
                                         <i class="{{mainUIConfigData.headerMenuSettings.menuIcon}}"></i> {{ mainUIConfigData.headerMenuSettings.menuLable | translate }}
