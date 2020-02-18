@@ -100,6 +100,10 @@
                                 data-ng-click="showLoanPaymentDetails($parent.$index,$index)"
                                 >{{'label.button.addpaymentdetail'| translate}}
                         </a>
+                        <a class="btn btn-default" ng-show="loan.showPaymentDetails"
+                                data-ng-click="removeLoanPaymentDetails($parent.$index,$index)"
+                                >{{'label.button.removepaymentdetail'| translate}}
+                        </a>
                     </td>
                 </tr>
                 <tr ng-show="loan.showPaymentDetails" ng-repeat-end>
@@ -121,15 +125,15 @@
                                             class="form-control"
                                             ng-options="paymentType.id as paymentType.name for paymentType in collectionsheetdata.paymentTypeOptions"
                                             value="{{paymentType.id}}"></select></td>
-                                <td><input type="text" autocomplete="off" class="form-control"
+                                <td ng-show="loan.paymentTypeId"><input type="text" autocomplete="off" class="form-control"
                                            ng-model="loan.accountNumber"></td>
-                                <td><input class="form-control" type="text" autocomplete="off"
+                                <td ng-show="loan.paymentTypeId"><input class="form-control" type="text" autocomplete="off"
                                            ng-model="loan.checkNumber"></td>
-                                <td><input class="form-control" type="text" autocomplete="off"
+                                <td ng-show="loan.paymentTypeId"><input class="form-control" type="text" autocomplete="off"
                                            ng-model="loan.routingCode"></td>
-                                <td><input class="form-control" type="text" autocomplete="off"
+                                <td ng-show="loan.paymentTypeId"><input class="form-control" type="text" autocomplete="off"
                                            ng-model="loan.receiptNumber"></td>
-                                <td><input class="form-control" type="text" autocomplete="off"
+                                <td ng-show="loan.paymentTypeId"><input class="form-control" type="text" autocomplete="off"
                                            ng-model="loan.bankNumber"></td>
                             </tr>
                             </tbody>
@@ -171,6 +175,10 @@
                                 data-ng-click="showSavingsPaymentDetails($parent.$index,$index)"
                                 >{{'label.button.addpaymentdetail'| translate}}
                         </a>
+                        <a class="btn btn-default" ng-show="saving.showPaymentDetails"
+                                data-ng-click="removeSavingsPaymentDetails($parent.$index,$index)"
+                                >{{'label.button.removepaymentdetail'| translate}}
+                        </a>
                     </td>
                 </tr>
                 <tr ng-show="saving.showPaymentDetails" ng-repeat-end>
@@ -192,15 +200,15 @@
                                             class="form-control"
                                             ng-options="paymentType.id as paymentType.name for paymentType in collectionsheetdata.paymentTypeOptions"
                                             value="{{paymentType.id}}"></select></td>
-                                <td><input type="text" autocomplete="off" class="form-control"
+                                <td ng-show="saving.paymentTypeId"><input type="text" autocomplete="off" class="form-control"
                                            ng-model="saving.accountNumber"></td>
-                                <td><input class="form-control" type="text" autocomplete="off"
+                                <td ng-show="saving.paymentTypeId"><input class="form-control" type="text" autocomplete="off"
                                            ng-model="saving.checkNumber"></td>
-                                <td><input class="form-control" type="text" autocomplete="off"
+                                <td ng-show="saving.paymentTypeId"><input class="form-control" type="text" autocomplete="off"
                                            ng-model="saving.routingCode"></td>
-                                <td><input class="form-control" type="text" autocomplete="off"
+                                <td ng-show="saving.paymentTypeId"><input class="form-control" type="text" autocomplete="off"
                                            ng-model="saving.receiptNumber"></td>
-                                <td><input class="form-control" type="text" autocomplete="off"
+                                <td ng-show="saving.paymentTypeId"><input class="form-control" type="text" autocomplete="off"
                                            ng-model="saving.bankNumber"></td>
                             </tr>
                             </tbody>

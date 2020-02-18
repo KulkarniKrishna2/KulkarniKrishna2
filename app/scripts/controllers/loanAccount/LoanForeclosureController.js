@@ -122,6 +122,18 @@
             };
 
             scope.submit = function () {
+                if(this.formData.accountNumber || this.formData.checkNumber || this.formData.routingCode || this.formData.receiptNumber || this.formData.bankNumber){
+                    if(_.isUndefined(this.formData.paymentTypeId) || this.formData.paymentTypeId == null) {
+                        scope.errorDetails = [];
+                        var errorObj = new Object();
+                        errorObj.args = {
+                            params: []
+                        };
+                        errorObj.args.params.push({value: 'error.msg.paymentType.required'});
+                        scope.errorDetails.push(errorObj);
+                        return false;
+                    }
+                }
                 scope.foreclosureFormData = {
                     transactionDate: dateFilter(this.formData.transactionDate, scope.df),
                     locale:  scope.optlang.code,

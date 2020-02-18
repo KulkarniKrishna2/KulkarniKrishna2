@@ -8518,6 +8518,8 @@
      "error.minimum.one.client.required" : "Please select atleast one member",
      "error.msg.aadhaar.cannot.be.added" : "Aadhaar cannot be added",
      "error.msg.aadhaar.cannot.be.modified" : "Aadhaar cannot be modified",
+     "error.msg.paymentType.required":"Please select a payment type",
+     "label.button.removepaymentdetail":"Remove Payment Detail",
   
      "------ end of translation file ------": "----------"
 

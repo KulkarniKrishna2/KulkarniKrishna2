@@ -1178,6 +1178,20 @@
                         params.command = 'modify';
                         params.transactionId = routeParams.transactionId;
                     }
+                    if(scope.action == "modifytransaction" || scope.action == "repayment"){
+                        if(scope.formData.accountNumber || scope.formData.checkNumber || scope.formData.routingCode || scope.formData.receiptNumber || scope.formData.bankNumber){
+                            if(_.isUndefined(scope.formData.paymentTypeId) || scope.formData.paymentTypeId == null) {
+                                scope.errorDetails = [];
+                                var errorObj = new Object();
+                                errorObj.args = {
+                                    params: []
+                                };
+                                errorObj.args.params.push({value: 'error.msg.paymentType.required'});
+                                scope.errorDetails.push(errorObj);
+                                return false;
+                            }
+                        }
+                    }
                     params.loanId = scope.accountId;
                     scope.glimCommandParam = scope.action;
                     if (scope.isGlimEnabled() && scope.action != "modifytransaction") {
