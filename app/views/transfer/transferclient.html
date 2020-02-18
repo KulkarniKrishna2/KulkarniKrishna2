@@ -23,15 +23,19 @@
         </ul>
     </div>
     <api-validate></api-validate>
+    <hr>
+    <div class="text-warning">
+        {{'warning.msg.client.changes.in.the.staff.will.also.change.staff.assigned.to.associated.entities' | translate}} 
+    </div>
     <div class="form-group marginbottom0" style="color: red" ng-show="isClientExceedingLimit">
         {{'error.msg.group.member.limit.exceeded' | translate}}{{maxClientLimit}}
     </div>
     <div class="form-group marginbottom0" style="color: red" ng-show="isTransaferToSameGroup">
             {{'error.msg.group.member.can.not.transfer.to.same.group' | translate}}
     </div>
-    <div class="error">
-        <span ng-show="noGroupSelectedErrMSg">{{'error.msg.no.group.selected' | translate}}</span>
-        <span ng-show="noClientSelectedErrMSg">{{'error.msg.no.client.selected' | translate}}</span>
+    <div>
+        <span class="error" ng-show="noGroupSelectedErrMSg">{{'error.msg.no.group.selected' | translate}}</span>
+        <span class="error" ng-show="noClientSelectedErrMSg">{{'error.msg.no.client.selected' | translate}}</span>
     </div> 
     <br>
     <div class="col-sm-6 col-md-6">

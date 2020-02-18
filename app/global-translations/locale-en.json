@@ -1120,7 +1120,6 @@
     "label.input.addclients": "Add clients",
     "label.input.availableclients": "Available clients",
     "label.input.selectedclients": "Selected clients",
-    "label.input.inheritgrouploanofficer": "Inherit group loan officer",
     "label.input.destinationgroup": "Destination group",
     "label.input.searchformember": "Search for a Member",
     "label.input.existingmeetingdates": "Existing Meeting Dates",
@@ -8520,6 +8519,10 @@
      "error.msg.aadhaar.cannot.be.modified" : "Aadhaar cannot be modified",
      "error.msg.paymentType.required":"Please select a payment type",
      "label.button.removepaymentdetail":"Remove Payment Detail",
+     "validation.msg.group.staffId.cannot.be.other.than.parent.staff" : "Group staff cannot be other than parent staff",
+     "warning.msg.changes.in.the.staff.will.also.change.staff.assigned.to.associated.entities" : "Changes in the staff will also change staff assigned to associated groups, clients, loans, savings *",
+     "warning.msg.group.changes.in.the.staff.will.also.change.staff.assigned.to.associated.entities" : "Changes in the staff of group will also change staff assigned to associated clients, loans, savings *",
+     "warning.msg.client.changes.in.the.staff.will.also.change.staff.assigned.to.associated.entities" : "Changes in the staff of client will also change staff assigned to associated loans and savings *",
   
      "------ end of translation file ------": "----------"
 
