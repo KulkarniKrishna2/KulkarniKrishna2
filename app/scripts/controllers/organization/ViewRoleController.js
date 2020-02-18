@@ -203,6 +203,9 @@
 
             resourceFactory.roleResource.get({roleId: routeParams.id}, function (data) {
                 scope.roleBasedLimits =  data.roleBasedLimits;
+                var today  =  new Date();
+                scope.operationalStartTime=new Date(data.roleOperationalWorkingHoursData.startTime.iLocalMillis + (today.getTimezoneOffset() * 60 * 1000));
+                scope.operationalEndTime=new Date(data.roleOperationalWorkingHoursData.endTime.iLocalMillis + (today.getTimezoneOffset() * 60 * 1000));
             });
         }
     });

@@ -37,6 +37,32 @@
                 </div>
             </div>
 
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-6">
+                        <div class="form-group col-sm-12 autoheight">
+                            <div class="col-sm-4 text-right">
+                                <label class="control-label">{{'label.input.operational.starttime' | translate}}<span
+                                        class="required">*</span></label>
+                            </div>
+                            <div class="col-sm-3">
+                                <timepicker ng-model="formData.operationalStartTime"></timepicker>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group col-sm-12 autoheight">
+                            <div class="col-sm-4 text-right">
+                                <label class="control-label">{{'label.input.operational.endtime' | translate}}<span
+                                        class="required">*</span></label>
+                            </div>
+                            <div class="col-sm-3">
+                                <timepicker ng-model="formData.operationalEndTime"></timepicker>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div class="form-group">
                 <label class="control-label col-sm-2">{{ 'label.anchor.showrolebasedlimits' | translate}}</label>
