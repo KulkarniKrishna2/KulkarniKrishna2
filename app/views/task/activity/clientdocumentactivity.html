@@ -14,11 +14,8 @@
                 </div>
 
                 <div class="col-sm-2">
-                    <select id="tagIdentifier" name="tagIdentifier" ng-model="formData.tagIdentifier" class="form-control"
-                            ng-options="codeValue.id as codeValue.name for codeValue in documentTagOptions" value="{{codeValue.id}}" 
-                            ng-required="uiData.isUploadDocumentTagMandatory">
-                        <option value="">{{'label.selectdocumenttag' | translate}}</option>
-                    </select>
+                    <multi-level-code-value name="tagIdentifier" ng-model="formData.tagIdentifier" data-code={{codeName}}
+                    ng-required="uiData.isUploadDocumentTagMandatory" ></multi-level-code-value >
                     <span ng-if="uiData.isUploadDocumentTagMandatory">
                         <form-validate valattributeform="clientdocumentform" valattribute="tagIdentifier" />
                     </span>
