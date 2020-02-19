@@ -84,7 +84,7 @@
                                 <label class="control-label col-sm-2" for="paymentTypeId">{{ 'label.input.paymenttype' | translate}}<span ng-show="isPaymentTypeMandatory" class="required">*</span></label>
                             
                                 <div class="col-sm-3">
-                                    <select id="paymentTypeId" name="paymentTypeId" ng-model="formData.paymentTypeId" class="form-control" ng-options="paymentType.id as paymentType.name for paymentType in paymentTypeOptions"  ng-required="isPaymentTypeMandatory" late-validate>
+                                    <select id="paymentTypeId" name="paymentTypeId" ng-model="formData.paymentTypeId" class="form-control" ng-options="paymentType.id as paymentType.name for paymentType in paymentTypeOptions"  ng-required="isPaymentTypeMandatory" required>
                                         <option value="">{{'label.selectone' | translate}}</option>
                                     </select>
                                 </div>
