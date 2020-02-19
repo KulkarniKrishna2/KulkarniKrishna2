@@ -8484,6 +8484,10 @@
      "label.button.modify.search" : "Modify Search",
      "label.heading.search.clients" : "Search clients",
      "label.tooltip.to.search.based.on.combination.of.filters" : "To search based on combination of filters",
+     "label.anchor.manage.usertodevices" : "Manage user Devices",
+     "label.registered.user.device.list" : "Registered Users Device List",
+     "label.device.information" : "Device Information",
+     "error.msg.max.active.user.on.device" : "Max active user on device limit reached.",
      "------ end of translation file ------": "----------"
 
 }
