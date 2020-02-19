@@ -8524,6 +8524,11 @@
      "warning.msg.group.changes.in.the.staff.will.also.change.staff.assigned.to.associated.entities" : "Changes in the staff of group will also change staff assigned to associated clients, loans, savings *",
      "warning.msg.client.changes.in.the.staff.will.also.change.staff.assigned.to.associated.entities" : "Changes in the staff of client will also change staff assigned to associated loans and savings *",
   
+     "label.anchor.manage.usertodevices" : "Manage user Devices",
+     "label.registered.user.device.list" : "Registered Users Device List",
+     "label.device.information" : "Device Information",
+     "error.msg.max.active.user.on.device" : "Max active user on device limit reached.",
+     
      "------ end of translation file ------": "----------"
 
 }
