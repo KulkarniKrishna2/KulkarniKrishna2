@@ -31,7 +31,6 @@
                 
                 scope.groupName = scope.groups[index].name;
                 scope.associate = {};
-                scope.associate.inheritDestinationGroupLoanOfficer=false;
                 scope.associate.locale="en";
                 scope.associate.clients = [];
                 var client={};

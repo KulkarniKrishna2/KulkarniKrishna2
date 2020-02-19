@@ -18,6 +18,10 @@
             </div>
     </script>
     <api-validate></api-validate>
+    <br>
+    <div class="text-warning" ng-show="isLoanOfficerHierarchy">
+        {{'warning.msg.client.changes.in.the.staff.will.also.change.staff.assigned.to.associated.entities' | translate}} 
+    </div>
     <form name="managemembers" class="form-horizontal well">
         <fieldset>
             <div class="row">
