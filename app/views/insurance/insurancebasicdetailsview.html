@@ -93,7 +93,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <h4><strong>{{'label.heading.death.date' | translate}}</strong></h4>
+                                <h4><strong>{{'label.heading.death.date' | translate}}</strong><span class="required">*</span></h4>
                                 <input id="deathDate" type="text" autocomplete="off" name="deathDate" datepicker-pop="{{df}}"
                                     ng-model="clientDeceased.deathDate" is-open="opened1" max="'2020-06-22'" class="form-control" required />
             
@@ -115,18 +115,16 @@
                                 </div>
                             </div>
                             <div class="col-sm-6">
-                                <h4><strong>{{'label.input.insurance.contact.number' | translate}}</strong></h4>
+                                <h4><strong>{{'label.input.insurance.contact.number' | translate}}</strong><span class="required">*</span></h4>
                                     <input name="contactNumber" ng-model="clientDeceased.contactNumber" type="text" autocomplete="off"
-                                    class="form-control" ng-pattern="{{regexFormats.mobileNumberPattern}}" 
-                                    ng-required="isElemMandatory('contactNumber')" ng-minlength="10" maxlength="10"required/>
+                                    class="form-control" ng-pattern="{{regexFormats.mobileNumberPattern}}" ng-minlength="10" maxlength="10"required/>
                                 <div class="col-sm-6">
-                                    <form-validate valattributeform="editDeceasedDetail" valattribute="contactNumber" />
-                                
-                                    <span ng-show="clientDeceased.contactNumber.$invalid && clientDeceased.contactNumber.$dirty">
-                                        <small class="required" ng-show="clientDeceased.contactNumber.$error.pattern">
+                                    <span ng-show="editDeceasedDetail.contactNumber.$invalid && editDeceasedDetail.contactNumber.$dirty">
+                                        <small class="required" ng-show="editDeceasedDetail.contactNumber.$error.pattern">
                                             {{'label.mustbenumeric.and.valid' | translate}}
                                         </small>
                                     </span>
+                                    <form-validate valattributeform="editDeceasedDetail" valattribute="contactNumber" />
                                 </div>
                             </div>
                         </div>
@@ -144,7 +142,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-6">
-                                <h4><strong>{{'label.input.insurance.place.of.death' | translate}}</strong></h4>
+                                <h4><strong>{{'label.input.insurance.place.of.death' | translate}}</strong><span class="required">*</span></h4>
                                 <input name="placeOfDeath" ng-model="clientDeceased.placeOfDeath" type="text" autocomplete="off"
                                     class="form-control" required />
                                 <div class="col-sm-6">
