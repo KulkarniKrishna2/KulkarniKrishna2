@@ -4,7 +4,8 @@
         <fieldset>
             <legend>{{'label.anchor.checkerbankaccountdetails' | translate}}</legend>
             <div class="row">
-                <div class="col-md-7" ng-if="bankAccountDocuments.length>0">
+               <div class="col-md-7">
+                 <div ng-if="bankAccountDocuments.length>0">
                     <table class="table">
                         <thead>
                         <tr class="graybg">
@@ -27,6 +28,7 @@
                     </table>
                     <image-viewer image="documentImg" ></image-viewer>
                 </div>
+            </div>
                 <div class="col-md-5">
                     <div class="row">
                         <div class="form-group paddedtop" ng-if="!isElemHidden('bankAccountHolderName')" >
