@@ -787,7 +787,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'ImageViewerDirective',
             'ViewDocumentDirective',
             'LoanHeaderDetailsDirective',
-            'ConfirmPopupDirective'
+            'ConfirmPopupDirective',
+            'MultiLevelCodeValueDirective'
         ]
     };
 
