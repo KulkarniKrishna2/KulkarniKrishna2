@@ -7827,7 +7827,7 @@
     "error.msg.group.member.can.not.transfer.to.same.group": "Client can not transfer to same group",
     "label.heading.crnNumber": "CRN Number",
     "label.invalid.policyName": "Policy name is not valid",
-    "error.client.possible.duplicate.clients": "possible duplicate clients",
+    "error.client.possible.duplicate.clients": "Please select Force Activate checkbox to activate the client",
     "error.msg.loan.partial.payment": "Partial Payment not allowed",
     "label.input.tocenter": "To Center",
     "label.input.max.clients.limit.of.group.is.reached.transfer.client.to.other.group": "Maximum Clients limit of this Group is reached. Transfer Client to other Group",
