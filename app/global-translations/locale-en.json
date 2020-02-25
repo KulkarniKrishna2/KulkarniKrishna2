@@ -8528,6 +8528,7 @@
      "label.registered.user.device.list" : "Registered Users Device List",
      "label.device.information" : "Device Information",
      "error.msg.max.active.user.on.device" : "Max active user on device limit reached.",
+     "error.msg.bank.transaction.reject.not.allowed" : "Reject not allowed when bank transaction status is `{{params[0].value}}`", 
      
      "------ end of translation file ------": "----------"
 
