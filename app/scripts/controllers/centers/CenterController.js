@@ -63,6 +63,7 @@
                         scope.staffs = data;
                     });
                 }
+                delete scope.searchConditions.staffId;
             };
         }
     });
