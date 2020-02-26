@@ -1851,7 +1851,7 @@
                             </table>
                         </div>
                     </tab>
-                    <tab heading="{{'lable.tab.heading.insurance.policy' | translate}}">
+                    <tab ng-if="loandetails.summary && loandetails.summary.principalNetDisbursed" heading="{{'lable.tab.heading.insurance.policy' | translate}}">
                         <div has-permission="READ_INSURANCE_POLICY" ng-include="'views/loans/insurancepolicy.html'"></div>
                     </tab>
                 </tabset>

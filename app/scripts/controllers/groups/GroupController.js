@@ -64,6 +64,7 @@
                         scope.staffs = data;
                     });
                 }
+                delete scope.searchConditions.staffId;
             };
 
             scope.resetSearchData = function () {
