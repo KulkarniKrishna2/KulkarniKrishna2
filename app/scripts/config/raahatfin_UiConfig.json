@@ -63,14 +63,6 @@
 				"documentExpiryDate": true
 			}
 		},
-		"editCalendar": {
-			"editableFields": {
-				"repeat": false,
-				"repeatsevery": false,
-				"repeatson": false,
-				"meetingStartDate":true
-			}
-		},
 		"relationshipOptions": {
 			"AgeMandatoryFor": [
 				"Spouse"
@@ -108,6 +100,9 @@
 				"villageOptions": true,
 				"staffOptions": true
 			}
+		},
+		"workflow": {
+			"disableMeetingFrequency": false
 		}
 	}
 }
