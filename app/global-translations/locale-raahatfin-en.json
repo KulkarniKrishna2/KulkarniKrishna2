@@ -1,0 +1,21 @@
+{
+    "label.tooltip.cgt.photo": "Upload CCT Photo",
+    "error.msg.cgt.photo.not.uploaded": "CCT Photo not uploaded",
+    "label.header.upload.cgt.photo": "Upload CCT Photo",
+    "label.heading.cgt.date": "CCT Date",
+    "error.msg.cgt.start.time.cannot.be.after.cgt.end.time":"CCT Start time cannot be after CCT end time",
+    "validation.msg.cgt.startTime.cannot.be.blank":"CCT Start Time cannot be blank",
+    "validation.msg.cgt.endTime.cannot.be.blank":"CCT End Time cannot be blank",
+    "validation.msg.cgt.cgtCompletedDate.cannot.be.blank": "CCT Date cannot be blank",
+    "validation.msg.cgt.cgtCompletedDate.is.greater.than.date": "CCT Date cannot be future date",
+    "label.heading.grt.date": "CRT Date",
+    "label.tooltip.upload.grt.photo": "Upload CRT Photo",
+    "error.msg.grt.photo.not.uploaded": "Please Upload CRT Photo",
+    "validation.msg.GRT.startTime.cannot.be.blank": "Please Enter CRT start time ",
+    "validation.msg.GRT.endTime.cannot.be.blank": "Please Enter CRT end time ",
+    "validation.msg.GRT.grtDate.is.greater.than.date": "CRT Date cannot be a future date",
+    "validation.msg.GRT.grtDate.cannot.be.blank": "CRT Date cannot be blank",
+    
+    "------ end of translation file ------": "----------"
+    }
+    
