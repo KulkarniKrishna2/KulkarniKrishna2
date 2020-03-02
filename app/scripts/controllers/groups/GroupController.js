@@ -63,6 +63,8 @@
                     resourceFactory.loanOfficerDropdownResource.getAll({ officeId: scope.searchConditions.officeId }, function (data) {
                         scope.staffs = data;
                     });
+                } else {
+                    delete scope.staffs;
                 }
                 delete scope.searchConditions.staffId;
             };

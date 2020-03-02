@@ -13,7 +13,7 @@
         <div class="form-group">
             <label class="control-label col-sm-2">{{'label.heading.office' | translate}}</label>
             <div class="col-sm-3">
-                <select chosen="offices" id="officeId" ng-model="searchConditions.officeId" class="form-control" ng-options="office.id as office.name for office in offices" value="{{office.id}}" ng-change="getOfficeStaff()">
+                <select id="officeId" ng-model="searchConditions.officeId" class="form-control" ng-options="office.id as office.name for office in offices" value="{{office.id}}" ng-change="getOfficeStaff()">
                     <option value="">{{'label.all' | translate}}</option>
                 </select>
             </div>
@@ -25,7 +25,7 @@
         <div class="form-group">
             <label class="control-label col-sm-2">{{'label.heading.staff' | translate}}</label>
             <div class="col-sm-3">
-                <select chosen="staffs" id="staffId" ng-model="searchConditions.staffId" class="form-control" ng-options="staff.id as staff.displayName for staff in staffs" value="{{staff.id}}">
+                <select id="staffId" ng-model="searchConditions.staffId" class="form-control" ng-options="staff.id as staff.displayName for staff in staffs" value="{{staff.id}}">
                     <option value="">{{'label.all' | translate}}</option>
                 </select>
             </div>
