@@ -8473,10 +8473,10 @@
      "validation.msg.savingsaccount.undotransaction.account.is.not.active" : "Account is not active.",
      "label.msg.no.data.found" : "No data found",
      "error.msg.new.cb.report.cannot.be.generated.as.already.a.cb.report.is.fetched.before.the.specified.duration": "New CB report cannot be generated as already a CB report is fetched before last `{{params[0].value}}`  seconds",
-     "label.confirmPopup.header":"Confirmation needed",
+     "label.confirmPopup.header":"ALERT",
 
      "message.confirmPopup.text":"Are you sure?",
-     "message.loanaccount.refund.confirm":"Refund cannot be reversed. Please confirm",
+     "message.loanaccount.refund.confirm":"Refund transaction cannot be undone. Do you want to proceed ?",
 
      "label.view.center.geo.location" : "Center Geo Location",
      "label.center.houses.inside.periphery" : "Houses inside center periphery",
