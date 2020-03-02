@@ -7586,7 +7586,7 @@
 
     "--transfer entities--": "Transfer entity",
     "label.anchor.transfer": "Transfer",
-    "label.define.transfer.client.group.center": "Transfer member, subgroup and centers",
+    "label.define.transfer.client.group.center.and.village": "Transfer member, subgroup, centers and villages",
     "label.anchor.center.transfer": "Transfer Centers",
     "label.define.center.transfer": "Transfer center to different branch",
     "label.anchor.member.transfer": "Transfer Members",
