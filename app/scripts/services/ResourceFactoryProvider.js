@@ -241,11 +241,13 @@
                     }),
                     fixedDepositProductResource: defineResource(apiVer + "/fixeddepositproducts/:productId/:resourceType", {productId: '@productId', resourceType: '@resourceType'}, {
                         getAllFixedDepositProducts: {method: 'GET', params: {}, isArray: true},
-                        update: {method: 'PUT', params: {}}
+                        update: {method: 'PUT', params: {}},
+                        UpdateInterestCharts:{method: 'PUT', params: {command:"interestCharts"}}
                     }),
                     recurringDepositProductResource: defineResource(apiVer + "/recurringdepositproducts/:productId/:resourceType", {productId: '@productId', resourceType: '@resourceType'}, {
                         getAllRecurringDepositProducts: {method: 'GET', params: {}, isArray: true},
-                        update: {method: 'PUT', params: {}}
+                        update: {method: 'PUT', params: {}},
+                        UpdateInterestCharts:{method: 'PUT', params: {command:"interestCharts"}}
                     }),
                     customerAccountLimitsResource: defineResource(apiVer + "/clients/:clientId/accountlimits/:limitId", {clientId: '@clientId', limitId: '@limitId'}, {
                         get: {method: 'GET', params: {}, isArray: false},

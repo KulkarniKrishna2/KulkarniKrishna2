@@ -112,11 +112,11 @@
                 scope.formData.charts.push(chartData);//add chart details
                 //update deposit product with new chart
                 if (routeParams.productType === 'fixeddepositproduct') {
-                    resourceFactory.fixedDepositProductResource.update({productId: routeParams.productId}, scope.formData, function (data) {
+                    resourceFactory.fixedDepositProductResource.UpdateInterestCharts({productId: routeParams.productId}, scope.formData, function (data) {
                         location.path('/interestratecharts/' + routeParams.productId + '/' + routeParams.productName + '/' + scope.productType);
                     });
                 } else if (routeParams.productType === 'recurringdepositproduct') {
-                    resourceFactory.recurringDepositProductResource.update({productId: routeParams.productId}, scope.formData, function (data) {
+                    resourceFactory.recurringDepositProductResource.UpdateInterestCharts({productId: routeParams.productId}, scope.formData, function (data) {
                         location.path('/interestratecharts/' + routeParams.productId + '/' + routeParams.productName + '/' + scope.productType);
                     });
                 }
