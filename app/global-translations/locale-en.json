@@ -8529,7 +8529,8 @@
      "label.device.information" : "Device Information",
      "error.msg.max.active.user.on.device" : "Max active user on device limit reached.",
      "error.msg.bank.transaction.reject.not.allowed" : "Reject not allowed when bank transaction status is `{{params[0].value}}`", 
-     "error.msg.loan.id.with.status.invalid" : "Loan with id `{{params[0].value}}` and status `{{params[1].value}}` does not exist", 
+     "error.msg.loan.id.with.status.invalid" : "Loan with id `{{params[0].value}}` and status `{{params[1].value}}` does not exist",
+     "label.heading.transfer.village.along.with.center.group.client":"Village along with center,group & client will be transfered to the destination office",
      
      "------ end of translation file ------": "----------"
 
