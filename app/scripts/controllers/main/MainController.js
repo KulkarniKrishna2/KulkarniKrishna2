@@ -276,7 +276,12 @@
                             scope.isGlimPaymentAsGroupEnabled = data.globalConfiguration[i].enabled;
                         }else if(data.globalConfiguration[i].name=='enable-cgt'){
                             scope.cgtEnabled = data.globalConfiguration[i].enabled;
-                        } 
+                        } else if (data.globalConfiguration[i].name == 'google-analytics-tracking-id') {
+                            scope.trackingId = data.globalConfiguration[i].value;
+                            if (scope.trackingId) {
+                                createGaTracker();
+                            }
+                        }  
                         data.globalConfiguration[i].showEditvalue = true;
                         scope.configs.push(data.globalConfiguration[i])
                     }
@@ -564,6 +569,17 @@
                 }
                 return false;
             };
+            
+            function createGaTracker() {
+                // Creating Google analytics tracker
+                window.ga('create', scope.trackingId, 'auto');
+
+                // Sending Info to Google analytics on every path change
+                $rootScope.$on('$routeChangeSuccess', function () {
+                    window.ga('set', 'page', location.path());
+                    window.ga('send', 'pageview');
+                });
+            }
             
         }
     });
