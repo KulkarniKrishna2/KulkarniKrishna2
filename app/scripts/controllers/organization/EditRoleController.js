@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        EditRoleController: function (scope, routeParams, location, resourceFactory) {
+        EditRoleController: function (scope, routeParams, location, resourceFactory, dateFilter) {
             scope.formData = {};
             scope.roleId = routeParams.id;
             scope.showRoleBasedLimits = true;
@@ -8,6 +8,11 @@
                 scope.formData.id = data.id;
                 scope.formData.name = data.name;
                 scope.formData.description = data.description;
+
+                var today  =  new Date();
+                scope.formData.operationalStartTime=new Date(data.roleOperationalWorkingHoursData.startTime.iLocalMillis + (today.getTimezoneOffset() * 60 * 1000));
+                scope.formData.operationalEndTime=new Date(data.roleOperationalWorkingHoursData.endTime.iLocalMillis + (today.getTimezoneOffset() * 60 * 1000));
+
                 scope.formData.disabled = undefined;
                 scope.roleBasedLimits = [];
                 var existingCurrencyCodes = []
@@ -31,6 +36,14 @@
 
             });
             scope.submit = function (){
+                scope.formData.timeFormat='HH:mm:ss';
+
+                scope.formData.operationalStartTime = dateFilter(scope.formData.operationalStartTime,'HH:mm');
+                scope.formData.operationalStartTime = scope.formData.operationalStartTime.concat(":00");
+
+                scope.formData.operationalEndTime = dateFilter(scope.formData.operationalEndTime,'HH:mm');
+                scope.formData.operationalEndTime = scope.formData.operationalEndTime.concat(":00");
+
                 scope.formData.locale = scope.optlang.code;
                 scope.formData.roleBasedLimits =  []
                 for (var i = 0; i < scope.roleBasedLimits.length; i++) {
@@ -51,7 +64,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('EditRoleController', ['$scope', '$routeParams', '$location', 'ResourceFactory', mifosX.controllers.EditRoleController]).run(function ($log) {
+    mifosX.ng.application.controller('EditRoleController', ['$scope', '$routeParams', '$location', 'ResourceFactory', 'dateFilter', mifosX.controllers.EditRoleController]).run(function ($log) {
         $log.info("EditRoleController initialized");
     });
 }(mifosX.controllers || {}));
