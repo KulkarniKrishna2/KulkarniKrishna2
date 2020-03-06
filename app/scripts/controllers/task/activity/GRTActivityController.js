@@ -243,7 +243,8 @@
                 resourceFactory.codeValueByCodeNameResources.get({ codeName: 'groupDocumentNames' }, function (codeValueData) {
                     groupDocumentNames = codeValueData;
                     for (var i = 0; i < groupDocumentNames.length; i++) {
-                        if (angular.lowercase(groupDocumentNames[i].name.split(" ").join("")) == 'grtphoto') {
+                        var groupDocName = angular.lowercase(groupDocumentNames[i].name.split(" ").join(""))
+                        if (groupDocName == 'grtphoto' || groupDocName == 'crtphoto') {
                             scope.groupDocumentName = groupDocumentNames[i].name;
                         }
                     }
