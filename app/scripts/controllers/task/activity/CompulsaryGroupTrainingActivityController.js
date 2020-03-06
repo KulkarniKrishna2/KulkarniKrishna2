@@ -93,12 +93,13 @@
                 resourceFactory.codeValueByCodeNameResources.get({ codeName: 'groupDocumentNames' }, function (codeValueData) {
                     groupDocumentNames = codeValueData;
                     for (var i = 0; i < groupDocumentNames.length; i++) {
-                        if (angular.lowercase(groupDocumentNames[i].name.split(" ").join("")) == 'cgtphoto') {
+                        var groupDocName = angular.lowercase(groupDocumentNames[i].name.split(" ").join(""));
+                        if (groupDocName == 'cgtphoto' || groupDocName == 'cctphoto') {
                             scope.groupDocumentName = groupDocumentNames[i].name;
                         }
                     }
                     resourceFactory.documentsResource.getAllDocuments({ entityType: 'groups', entityId: scope.centerDetails.subGroupMembers[0].id }, function (data) {
-                        groupDocuments = data;
+                        groupDocuments = data; 
                         scope.isCGTPhotoUploaded = false;
                         for (var i in groupDocuments) {
                             if (groupDocuments[i].name == scope.groupDocumentName) {
