@@ -55,11 +55,15 @@
                     resourceFactory.recurringDepositTrxnsTemplateResource.get({savingsId: scope.accountId, command: 'deposit'}, function (data) {
                         scope.formData.transactionAmount = data.amount;
                         scope.paymentTypes = data.paymentTypeOptions;
-                        scope.formData.transactionDate=new Date(dateFilter(data.date, scope.df));
+                        scope.modelName = 'transactionDate';
+                        if(!_.isUndefined(data.date)){
+                            scope.formData[scope.modelName] = new Date(dateFilter(data.date, scope.df));
+                        }else{
+                            scope.formData[scope.modelName] = dateFilter(scope.restrictDate, scope.df);
+                        }
                     });
                     scope.title = 'label.heading.depositmoneytorecurringaccount';
                     scope.labelName = 'label.input.transactiondate';
-                    scope.modelName = 'transactionDate';
                     scope.showDateField = true;
                     scope.showNoteField = false;
                     scope.isTransaction = true;
