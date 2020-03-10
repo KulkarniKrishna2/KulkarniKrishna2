@@ -8533,6 +8533,8 @@
      "error.msg.bank.transaction.reject.not.allowed" : "Reject not allowed when bank transaction status is `{{params[0].value}}`", 
      "error.msg.loan.id.with.status.invalid" : "Loan with id `{{params[0].value}}` and status `{{params[1].value}}` does not exist",
      "label.heading.transfer.village.along.with.center.group.client":"Village along with center,group & client will be transfered to the destination office",
+     "label.button.add.details": "Add Details",
+     "label.anchor.add.details":"Add Details",
      
      "------ end of translation file ------": "----------"
 

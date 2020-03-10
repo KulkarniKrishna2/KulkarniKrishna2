@@ -105,7 +105,8 @@
 			"disableMeetingFrequency": false,
 			"centerMeeting":{
 				"maxDaysLimit": 28
-			}
+			},
+			"isEditTaskEnableAfterCompleted":true
 		}
 	}
 }
