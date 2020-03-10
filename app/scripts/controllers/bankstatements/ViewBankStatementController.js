@@ -132,7 +132,7 @@
 
             scope.download = function(fileName,docUrl){
                 var fileType = fileName.substr(fileName.lastIndexOf('.') + 1);
-                commonUtilService.downloadFile(docUrl,fileType);
+                commonUtilService.downloadFile(docUrl,fileType,fileName);
             }
         }
     });

@@ -15,7 +15,7 @@
                     <tbody>
                     <tr class="pointer-main" ng-repeat="report in reportrequestsData" has-permission='READ_{{report.reportName}}'>
                         <td>{{''+report.reportName+'' | translate}}</td>
-                        <td  ng-if="report.status.id == 2" class="pointer" data-ng-click="download(report.fileLocationId)" has-permission='DOWNLOAD_DOCUMENT'>
+                        <td  ng-if="report.status.id == 2" class="pointer" data-ng-click="download(report.fileLocationId,report.reportName)" has-permission='DOWNLOAD_DOCUMENT'>
                             <i class="icon-2x icon-cloud-download"></i></td>
                         <td  ng-if="report.status.id == 1"><i class="icon-spinner icon-spin icon-large "/> <span class="icon-large"> {{'label.heading.running' | translate}}</span>
                         &nbsp;
