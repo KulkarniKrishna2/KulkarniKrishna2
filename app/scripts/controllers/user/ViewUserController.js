@@ -19,8 +19,6 @@
                 }
             });
            scope.routeToDevice = function (device) {
-                location.search('userId',routeParams.id);
-                location.search('isSearch',false);
                 location.path('/organization/registereddevices/' + device.id);
             };
 
