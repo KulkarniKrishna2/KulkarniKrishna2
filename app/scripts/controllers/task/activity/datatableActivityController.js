@@ -118,7 +118,7 @@
                     }
                     } else {
                         scope.status = 'ADD';
-                        scope.addData(scope.datatabledetails);
+                        scope.addData();
                     }
                 });
 
@@ -142,7 +142,7 @@
 
             initTask();
 
-            scope.addData = function (datatabledetail) {
+            scope.addData = function () {
                 scope.status = 'ADD';
                 scope.fromEntity = 'client';
                 scope.columnHeaders = [];
@@ -157,7 +157,7 @@
                 scope.loanproduct = false;
                 scope.showSelect = true;
                 scope.clientName = 'chan';
-                var data = datatabledetail;
+                var data = scope.datatabledetails;  
                 var colName = data.columnHeaders[0].columnName;
                     if (colName == 'id') {
                         data.columnHeaders.splice(0, 1);
