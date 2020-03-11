@@ -60,7 +60,7 @@
             scope.downloadFileTemplate = function (fileTemplate) {
                 var url =$rootScope.hostUrl + fileTemplate.docUrl;
                 var fileType = fileTemplate.fileTemplatePath.substr(fileTemplate.fileTemplatePath.lastIndexOf('.') + 1);
-                commonUtilService.downloadFile(url,fileType);
+                commonUtilService.downloadFile(url,fileType,fileTemplate.fileTemplatePath);
             }
 
 

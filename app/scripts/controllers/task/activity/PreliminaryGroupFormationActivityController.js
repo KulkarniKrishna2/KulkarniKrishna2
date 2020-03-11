@@ -1009,7 +1009,7 @@
                 $scope.download = function (file) {
                     var url =$rootScope.hostUrl + file.docUrl;
                     var fileType = file.fileName.substr(file.fileName.lastIndexOf('.') + 1);
-                    CommonUtilService.downloadFile(url,fileType);
+                    CommonUtilService.downloadFile(url,fileType,file.fileName);
                 }
                 $scope.familyConditionTypeOptions = [{id:1,name:'label.input.dependent'},{id:2,name:'label.input.isSeriousIllness'},{id:3,name:'label.input.isDeceased'}];
                 $scope.familyConditionType = {};

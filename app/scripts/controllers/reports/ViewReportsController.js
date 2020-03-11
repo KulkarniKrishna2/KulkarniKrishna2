@@ -71,12 +71,12 @@
                 }
             } 
 
-            scope.download = function(fileId){
+            scope.download = function(fileId,reportName){
                 resourceFactory.fileUrlResource.get({fileId: fileId},function(data){
                     var url = data.locationPath;
                     if(data.storageType==1 || !scope.isS3Enabled){
                         url = $rootScope.hostUrl+API_VERSION+'/'+url;
-                        commonUtilService.downloadFile(url,data.contentType.toLowerCase());
+                        commonUtilService.downloadFile(url,data.contentType.toLowerCase(),reportName);
                     }else{
                         window.open(url);
                     }

@@ -158,7 +158,7 @@
                     var url = $rootScope.hostUrl + '/fineract-provider/api/v1/' + scope.reportEntityType + '/' +
                     historyId +'/documents/'+ document.documentId + '/attachment';
                     var fileType = document.fileName.substr(document.fileName.lastIndexOf('.') + 1);
-                    CommonUtilService.downloadFile(url,fileType);
+                    CommonUtilService.downloadFile(url,fileType,document.fileName);
                  }
 
              }
@@ -377,7 +377,7 @@
                     var url = $rootScope.hostUrl + '/fineract-provider/api/v1/' + scope.reportEntityType + '/' +
                     historyId +'/documents/'+ document.documentId + '/attachment';
                     var fileType = document.fileName.substr(document.fileName.lastIndexOf('.') + 1);
-                    CommonUtilService.downloadFile(url,fileType);
+                    CommonUtilService.downloadFile(url,fileType,document.fileName);
                  }
                 $scope.editLoanReviewProposal = function(loanReviewProposalId){
                     $scope.isEditpage = false;

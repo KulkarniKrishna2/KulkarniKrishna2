@@ -37,7 +37,7 @@
         scope.download = function(file){
             var url = scope.baseUri + file.cpifKeyDocumentId + '/attachment';
             var fileType = file.cpifFileName.substr(file.cpifFileName.lastIndexOf('.') + 1);
-            CommonUtilService.downloadFile(url,fileType);
+            CommonUtilService.downloadFile(url,fileType,file.cpifFileName);
         }
 
     }

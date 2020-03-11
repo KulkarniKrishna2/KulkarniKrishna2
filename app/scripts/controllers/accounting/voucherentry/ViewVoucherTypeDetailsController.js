@@ -242,7 +242,7 @@
             scope.download = function(file){
                 var url =$rootScope.hostUrl + file.docUrl;
                 var fileType = file.fileName.substr(file.fileName.lastIndexOf('.') + 1);
-                CommonUtilService.downloadFile(url,fileType);
+                CommonUtilService.downloadFile(url,fileType,file.fileName);
             }
 
             scope.runReport = function () {

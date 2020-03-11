@@ -21,9 +21,9 @@
                 return data;
             };
 
-            this.downloadFile = function(url,type){
+            this.downloadFile = function(url,type,fileName){
                 http.get(url, {responseType: 'arraybuffer'}).
-                success(function (data, status, headers, config) {
+                success((data, status, headers, config) => {
                     var fileType = '';
                     var contentType = headers('Content-Type');
                     if(type !== " "){
@@ -38,13 +38,27 @@
                     document.body.appendChild(doc);
                     doc.href = url;
                     doc.target = '_blank';
-                    var n = Date.now();
-                    doc.download = 'document_'+n+'.'+fileType;
+                    var now = new Date();
+                    var n = now.toLocaleDateString() + "_" + now.toLocaleTimeString();
+                    fileName = this.getDownloadableFileName(fileName);
+                    doc.download = fileName+'_'+n+'.'+fileType;
                     doc.click();
                     setTimeout(function(){
                         window.URL.revokeObjectURL(url)
                     , 100});
                 });
+            }
+
+            this.getDownloadableFileName = function (fileName) {
+                try {
+                    if (fileName.includes(".")) {
+                        fileName = fileName.substr(0, fileName.lastIndexOf('.'));
+                    }
+                } catch (error) {
+                    fileName = "document"
+                } finally {
+                    return fileName;
+                }
             }
         }
     });
