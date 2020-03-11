@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        NewDatatableController: function ($controller, scope, resourceFactory, dateFilter,  routeParams, API_VERSION, $rootScope,popUpUtilService,$modal) {
+        GroupLevelClientDatatableController: function ($controller, scope, resourceFactory, dateFilter,  routeParams, API_VERSION, $rootScope,popUpUtilService,$modal) {
         	angular.extend(this, $controller('defaultActivityController', {$scope: scope}));
             function initTask() {
                 scope.$parent.clientsCount();
@@ -322,7 +322,7 @@
 
         }   
     });
-    mifosX.ng.application.controller('NewDatatableController', ['$controller','$scope', 'ResourceFactory',  'dateFilter',  '$routeParams', 'API_VERSION', '$rootScope','PopUpUtilService','$modal', mifosX.controllers.NewDatatableController]).run(function ($log) {
-        $log.info("NewDatatableController initialized");
+    mifosX.ng.application.controller('GroupLevelClientDatatableController', ['$controller','$scope', 'ResourceFactory',  'dateFilter',  '$routeParams', 'API_VERSION', '$rootScope','PopUpUtilService','$modal', mifosX.controllers.GroupLevelClientDatatableController]).run(function ($log) {
+        $log.info("GroupLevelClientDatatableController initialized");
     });
 }(mifosX.controllers || {}));
