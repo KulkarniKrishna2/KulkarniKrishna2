@@ -41,11 +41,14 @@
                     <label class="control-label col-sm-2" for="staffId">{{'label.input.staff' | translate}}</label>
 
                     <div class="col-sm-3">
-                        <select chosen="staffs" id="staffId" ng-model="formData.staffId"
+                        <select chosen="staffs" id="staffId" ng-model="formData.staffId" name="staffId"
                                 data-ng-options="staff.id as staff.displayName for staff in staffs"
                                 value="{{staff.id}}" class="form-control">
                             <option value="">{{'label.selectstaff' | translate}}</option>
                         </select>
+                    </div>
+                    <div class="form-group text-warning col-sm-7" ng-show="isLoanOfficerHierarchy">
+                        {{'warning.msg.changes.in.the.staff.will.also.change.staff.assigned.to.associated.entities' | translate}} 
                     </div>
                 </div>
                 <div class="form-group">

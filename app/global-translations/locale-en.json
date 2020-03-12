@@ -217,6 +217,9 @@
     "label.heading.activatedgroup": "Group is activated",
     "label.heading.kotak.approval.status": "Kotak Approval Status",
     "label.heading.generatedocuments": "Generate Documents",
+    "label.heading.campute.income": "Compute Income",
+    "label.heading.cbreport.order.number": "Report Order Number",
+    "label.heading.loanpurposegroup": "Loan Purpose group",
 
 
     "#Menu Links": "..",
@@ -247,6 +250,7 @@
     "label.anchor.loanaccountlimits": "Loan Account Limits",
     "label.anchor.pendingvaluedatetransactions": "Pending value date transactions",
     "label.anchor.registered.devices": "Registered Devices",
+    "label.anchor.task.adhoc.create": "Create Task",
 
     "#Inputs": "..",
     "label.input.name": "Name",
@@ -333,6 +337,8 @@
     "label.anchor.accountLimits": "Account Limits",
     "label.input.document.subCategoryTypeId": "Sub Category Type",
     "label.input.filterbynameorusername": "Filter By Name/UserName ",
+    "label.input.anyotherreason": "Any other Reason",
+    "label.input.selectloanpurpose": "Loan Purpose",
     
     "#Buttons": "..",
     "label.button.previous": "Previous",
@@ -409,6 +415,7 @@
     "label.button.loanaccountreport": "Loan Account Reports",
     "label.button.savingaccountreport": "Saving Account Reports",
     "label.button.preapprove": "Pre Approve",
+    "label.button.overridecrn": "Tag CRN",
 
     "#Misc Labels": "..",
     "label.uniquelyidentifiedwithid": "Uniquely identified with Id",
@@ -439,6 +446,7 @@
     "label.today": "Today",
     "label.relDate": "FINFLUX Release Date: ",
     "label.relVersion": "Release Version: ",
+    "label.repeatsevery": "Repeat Survey",
     "label.finflux": "FINFLUX",
     "label.select": "Select an Option",
     "label.copyright": "Copyright © ",
@@ -447,6 +455,10 @@
     "label.alert.member.create.message": "Member created successfully with Id #",
     "label.alert.loanapplication.preapproval.success.message": "Loan application was successfully Preapproved",
     "label.alert.loanapplication.preapproval.failure.message": "Loan application could not be Preapproved!",
+    "label.crn.status": "CRN",
+    "label.err.code": "Error Code :",
+    "label.err.desc": "Error Description :",
+
     
     "#Tab Messages": "..",
     "label.tab.myworkflowtasks": "My Workflow Tasks",
@@ -714,6 +726,8 @@
     "label.heading.categoryname": "Category Name",
     "label.heading.productnamewithloanId": "Product Name(LoanId)",
     "label.heading.clientnamewithaccountnumber": "Client Name(Account Number)",
+    "label.heading.bss.loans.summary": "Loans Summary",
+    "label.heading.ncif.details": "NCIF Details",
     "#Menu Links": "..",
     "label.menu.office": "Office",
     "label.menu.loan.products": "Loan Products",
@@ -1106,7 +1120,6 @@
     "label.input.addclients": "Add clients",
     "label.input.availableclients": "Available clients",
     "label.input.selectedclients": "Selected clients",
-    "label.input.inheritgrouploanofficer": "Inherit group loan officer",
     "label.input.destinationgroup": "Destination group",
     "label.input.searchformember": "Search for a Member",
     "label.input.existingmeetingdates": "Existing Meeting Dates",
@@ -2205,6 +2218,10 @@
     "label.tooltip.download.template": "Dowload template",
     "label.tooltip.view.processed.file": "View processed file",
     "label.tooltip.upload.file.for.bulk.process": "Upload file for bulk process",
+    "label.tooltip.preclosureinterestcalculationstrategy": "Preclosure Interest Calculation Strategy",
+    "label.tooltip.receivablepenalties": "Receivable Penalties",
+    "label.tooltip.isflatinterestrate": "Check If This Is Flat Interest Rate",
+    "label.tooltip.loanproduct.group": "Loan Product Group",
 
 
     "#Enumeration & Error Messages": "..",
@@ -5364,6 +5381,7 @@
     "label.heading.enddate": "End Date",
     "label.heading.is_active": "is_active",
     "label.credit.bureau.enquiry.initiated": "Credit bureau enquiry is initiated",
+    "label.credit.reviewed": "Credit Review",
 
     "label.input.alias": "Alias",
     "label.input.country": "Country",
@@ -5980,7 +5998,7 @@
     "label.heading.total.outstanding.amount": "Total Outstanding Amount",
     "label.heading.total.emi.amount": "Total EMI Amount",
     "label.heading.overdue.amount": "Overdue Amount",
-    "label.heading.no.of,closed.loans": "No of Closed Loans",
+    "label.heading.no.of.closed.loans": "No of Closed Loans",
     "label.heading.total.disbursal.amount": "Total Disbursal Amount",
     "label.heading.last.closure.date": "Last Closure Date",
     "label.heading.write.off.amount": "Write off Amount",
@@ -7395,6 +7413,7 @@
     "label.placeholder.expected.disbursement.date": "ExpectedDisbursementDate",
     "label.placeholder.task.created.date": "TaskCreatedDate",
     "label.placeholder.clientId": "ClientId",
+    "label.placeholder.amount": "Amount",
 
     "label.heading.eod.process": "EOD Process",
     "label.anchor.eod.process": "EOD Process",
@@ -7567,7 +7586,7 @@
 
     "--transfer entities--": "Transfer entity",
     "label.anchor.transfer": "Transfer",
-    "label.define.transfer.client.group.center": "Transfer member, subgroup and centers",
+    "label.define.transfer.client.group.center.and.village": "Transfer member, subgroup, centers and villages",
     "label.anchor.center.transfer": "Transfer Centers",
     "label.define.center.transfer": "Transfer center to different branch",
     "label.anchor.member.transfer": "Transfer Members",
@@ -7808,7 +7827,7 @@
     "error.msg.group.member.can.not.transfer.to.same.group": "Client can not transfer to same group",
     "label.heading.crnNumber": "CRN Number",
     "label.invalid.policyName": "Policy name is not valid",
-    "error.client.possible.duplicate.clients": "possible duplicate clients",
+    "error.client.possible.duplicate.clients": "Please select Force Activate checkbox to activate the client",
     "error.msg.loan.partial.payment": "Partial Payment not allowed",
     "label.input.tocenter": "To Center",
     "label.input.max.clients.limit.of.group.is.reached.transfer.client.to.other.group": "Maximum Clients limit of this Group is reached. Transfer Client to other Group",
@@ -8034,14 +8053,15 @@
     "label.heading.cgt.date": "CGT Date",
     "label.anchor.start.time": "Start Time",
     "label.anchor.end.time": "End Time",
-    "label.tooltip.cgt.photo": "CGT Photo",
+    "label.tooltip.cgt.photo": "Upload CGT Photo",
     "error.msg.cgt.photo.not.uploaded": "CGT Photo not uploaded",
-    "label.tooltip.upload.cgt.photo": "Upload CGT Photo",
+    "label.header.upload.cgt.photo": "Upload CGT Photo",
     "error.msg.cgt.start.time.cannot.be.after.cgt.end.time":"CGT Start time cannot be after CGT end time",
     "validation.msg.cgt.startTime.cannot.be.blank":"CGT Start Time cannot be blank",
     "validation.msg.cgt.endTime.cannot.be.blank":"CGT End Time cannot be blank",
     "validation.msg.cgt.cgtCompletedDate.cannot.be.blank": "CGT Date cannot be blank",
     "validation.msg.cgt.cgtCompletedDate.is.greater.than.date": "CGT Date cannot be future date",
+    "validation.msg.GRT.grtDate.cannot.be.blank": "GRT Date cannot be blank",
     "label.heading.grt.date": "GRT Date",
     "label.tooltip.upload.grt.photo": "Upload GRT Photo",
     "error.msg.grt.photo.not.uploaded": "Please Upload GRT Photo",
@@ -8200,8 +8220,8 @@
     "error.msg.tranche.details.required.as.product.is.having.dp.details" : "Tranche details are required as product is having dp details",
     "label.is.auto.renewal.allowed" : " Is AutoRenewal Allowed",
     "label.tooltip.of.auto.renewal.in.deposit.product": "Auto renewal of the account will happen when grace period is over with some interest rate, duration and new deposit",
-    "label.heading.new.accounts.interest.rate.and tenure": "New Account's Interest rate and tenure",
-    "label.input.new.accounts.interest.rate.and tenure": "New Account's Interest rate and tenure",
+    "label.heading.new.accounts.interest.rate.and.tenure": "New Account's Interest rate and tenure",
+    "label.input.new.accounts.interest.rate.and.tenure": "New Account's Interest rate and tenure",
     "label.input.values.as.per.parent.account": "Values as per Parent account",
     "label.input.values.as.per.product.configuration": "Values as per Product Configuration",
     "label.input.autorenewalconfigtype.parentaccount": "Values as per Parent account",
@@ -8472,10 +8492,21 @@
      "validation.msg.savingsaccount.undotransaction.account.is.not.active" : "Account is not active.",
      "label.msg.no.data.found" : "No data found",
      "error.msg.new.cb.report.cannot.be.generated.as.already.a.cb.report.is.fetched.before.the.specified.duration": "New CB report cannot be generated as already a CB report is fetched before last `{{params[0].value}}`  seconds",
+
+     "label.anchor.village.transfer": "Transfer Villages",
+     "label.define.village.transfer":" Transfer villages to different branch",
+     "label.anchor.view.village.transfer" :"View Village tTransfer",
+     "label.button.villagetransfer" : "Viilage Transfer",
+     "label.heading.villages":"Villages",
+     "error.msg.no.villages.selected":"Please select village",
+     "label.heading.search.groups" : "Search Groups",
+     "label.heading.search.centers" : "Search Centers",
+     
      "label.confirmPopup.header":"Confirmation needed",
+     "label.confirmPopup.header":"ALERT",
 
      "message.confirmPopup.text":"Are you sure?",
-     "message.loanaccount.refund.confirm":"Refund cannot be reversed. Please confirm",
+     "message.loanaccount.refund.confirm":"Refund transaction cannot be undone. Do you want to proceed ?",
 
      "label.view.center.geo.location" : "Center Geo Location",
      "label.center.houses.inside.periphery" : "Houses inside center periphery",
@@ -8484,6 +8515,25 @@
      "label.button.modify.search" : "Modify Search",
      "label.heading.search.clients" : "Search clients",
      "label.tooltip.to.search.based.on.combination.of.filters" : "To search based on combination of filters",
+
+     "error.minimum.one.client.required" : "Please select atleast one member",
+     "error.msg.aadhaar.cannot.be.added" : "Aadhaar cannot be added",
+     "error.msg.aadhaar.cannot.be.modified" : "Aadhaar cannot be modified",
+     "error.msg.paymentType.required":"Please select a payment type",
+     "label.button.removepaymentdetail":"Remove Payment Detail",
+     "validation.msg.group.staffId.cannot.be.other.than.parent.staff" : "Group staff cannot be other than parent staff",
+     "warning.msg.changes.in.the.staff.will.also.change.staff.assigned.to.associated.entities" : "Changes in the staff will also change staff assigned to associated groups, clients, loans, savings *",
+     "warning.msg.group.changes.in.the.staff.will.also.change.staff.assigned.to.associated.entities" : "Changes in the staff of group will also change staff assigned to associated clients, loans, savings *",
+     "warning.msg.client.changes.in.the.staff.will.also.change.staff.assigned.to.associated.entities" : "Changes in the staff of client will also change staff assigned to associated loans and savings *",
+  
+     "label.anchor.manage.usertodevices" : "Manage user Devices",
+     "label.registered.user.device.list" : "Registered Users Device List",
+     "label.device.information" : "Device Information",
+     "error.msg.max.active.user.on.device" : "Max active user on device limit reached.",
+     "error.msg.bank.transaction.reject.not.allowed" : "Reject not allowed when bank transaction status is `{{params[0].value}}`", 
+     "error.msg.loan.id.with.status.invalid" : "Loan with id `{{params[0].value}}` and status `{{params[1].value}}` does not exist",
+     "label.heading.transfer.village.along.with.center.group.client":"Village along with center,group & client will be transfered to the destination office",
+     
      "------ end of translation file ------": "----------"
 
 }

@@ -248,7 +248,7 @@
                 </td>
             </tr>
 
-            <tr data-ng-show="(showUpfrontAmount || !loanaccountinfo.loanEMIPacks) && loanaccountinfo.allowUpfrontCollection">
+            <tr ng-if="(showUpfrontAmount || !loanaccountinfo.loanEMIPacks) && loanaccountinfo.allowUpfrontCollection">
                 <td>
                     <label>{{ 'label.input.amountforupfrontcollection' | translate }}<span class="required" ng-show="isMandatoryUpfrontAmountCollection">*</span></label>
                 </td>

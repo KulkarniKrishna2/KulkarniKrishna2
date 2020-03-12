@@ -1768,3 +1768,35 @@ table.table.table-striped tr.backgroundred td{
     margin-bottom: 20px;
     border: 1px solid transparent !important;
 }
+
+.sticky1{
+    position: sticky;
+    top: 50px;
+    background-color: white;
+}
+
+.sticky2{
+    position: sticky;
+    top: 85px;
+    background-color: white;
+}
+
+#myTopBtn {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 3px;
+    z-index: 99;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    background-color: #555;
+    color: white;
+    cursor: pointer;
+    padding: 7px;
+    border-radius: 5px;
+  }
+  
+  #myTopBtn:hover {
+    background-color: #0f82f5;
+  }

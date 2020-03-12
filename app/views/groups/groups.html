@@ -4,24 +4,62 @@
     </ul>
     <a href="#/creategroup" class="btn btn-primary pull-right" has-permission='CREATE_GROUP' ng-hide="isHideCreateEntity"><i class="icon-plus icon-white"></i>{{'label.button.creategroup' | translate}}</a>
     <div class="clearfix"></div>
-    <form ng-submit="newSearch()" class="form-horizontal">
+    <h3 class="bolder">{{ 'label.heading.search.groups' | translate }}</h3>
+    <div class="pull-right">
+        <a href="javascript:void(0)" ng-hide="showSearch" ng-click="showSearchForm()">{{'label.button.modify.search' |translate}}</a>
+    </div>
+    <form ng-show="showSearch" name="searchform" rc-submit="searchData()" class="form-horizontal">
         <div class="form-group">
-            <div class="col-lg-6">
-                <div class="input-group">
-                    <input  data-ng-model="searchText" type="text" autocomplete="off" placeholder="{{showRefNo ? 'label.input.searchbynameorexternalidorrefno' : 'label.input.searchbynameorexternalid' | translate}}" class="form-control"/>
-                    <span class="input-group-btn">
-                        <button class="btn btn-primary form-control">
-                            <span class="icon-search"></span>
-                        </button>
-                    </span>
-                </div>
+            <label class="control-label col-sm-2">{{'label.heading.office' | translate}}</label>
+            <div class="col-sm-3">
+                <select id="officeId" ng-model="searchConditions.officeId" class="form-control" ng-options="office.id as office.name for office in offices" value="{{office.id}}" ng-change="getOfficeStaff()">
+                    <option value="">{{'label.all' | translate}}</option>
+                </select>
             </div>
-            <div class="col-md-4">
-                <input ng-autofocus="true" ng-model="filterText" type="text" autocomplete="off" ng-keyup="onFilter()" class="span form-control" placeholder="{{showRefNo ? 'label.input.filterbynameorstatusorofficeorrefno' : 'label.input.filterbynameorstatusoroffice' | translate}}" />
+            <label class="control-label col-sm-2">{{'label.heading.externalid' | translate}}</label>
+            <div class="col-sm-3">
+                <input placeholder="{{'label.heading.externalid' | translate}}" autocomplete="off" ng-model="searchConditions.externalId"  class="form-control">
             </div>
         </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">{{'label.heading.staff' | translate}}</label>
+            <div class="col-sm-3">
+                <select id="staffId" ng-model="searchConditions.staffId" class="form-control" ng-options="staff.id as staff.displayName for staff in staffs" value="{{staff.id}}">
+                    <option value="">{{'label.all' | translate}}</option>
+                </select>
+            </div>
+            <label class="control-label col-sm-2">{{'label.heading.accountno' | translate}}</label>
+            <div class="col-sm-3">
+                <input placeholder="{{'label.heading.accountno' | translate}}" autocomplete="off" ng-model="searchConditions.accountNo"  class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">{{'label.heading.name' | translate}}</label>
+            <div class="col-sm-3">
+                <input id="name" autocomplete="off" name="fullname" placeholder="{{'label.heading.name' | translate}}" ng-model="searchConditions.displayName" ng-minlength="3"  class="form-control"/>
+                <span class="finflux-alert alert-dismissible alert-danger" ng-if="searchform.fullname.$invalid"><small>{{'validation.msg.search.valid.name.size' | translate}}</small></span>
+            </div>
+            <div ng-show="showRefNo">
+                <label class="control-label col-sm-2">{{'label.input.referencenumber' | translate}}</label>
+                <div class="col-sm-3">
+                    <input placeholder="{{'label.input.referencenumber' | translate}}" autocomplete="off" ng-model="searchConditions.referenceNumber"  class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-offset-5">
+            <a id="reset" data-ng-click="resetSearchData()" class="btn btn-primary">{{'label.button.reset'| translate}}</a>
+            <button id="search" class="btn btn-primary"
+                    has-permission='READ_GROUP'>{{'label.button.search'| translate}}
+            </button>
+        </div> 
     </form>
-    <div>
+    <br>
+    <div ng-if="groups.isResponsePresent && groups.currentPageItems.length == 0">
+        <div class="alert alert-info col-sm-12" style="border-style: dashed;">
+                <span class="fa fa-info-circle"></span> {{'label.message.no.data.found' | translate}}
+        </div>
+    </div>
+    <div ng-if="groups.currentPageItems.length > 0">
         <table class="table">
             <thead>
                 <tr class="graybg">

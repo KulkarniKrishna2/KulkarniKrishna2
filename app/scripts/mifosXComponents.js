@@ -740,6 +740,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'insurance/InsurancSettelmentPendingController',
             'insurance/InsurancSetteledClaimsController',
             'client/CreditHistoryController',
+            'transfer/ViewVillageTransferController',
+            'transfer/VillageTransferController',
             'centers/CenterGeoLocationController'
         ],
         filters: [
@@ -785,7 +787,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'ImageViewerDirective',
             'ViewDocumentDirective',
             'LoanHeaderDetailsDirective',
-            'ConfirmPopupDirective'
+            'ConfirmPopupDirective',
+            'MultiLevelCodeValueDirective'
         ]
     };
 

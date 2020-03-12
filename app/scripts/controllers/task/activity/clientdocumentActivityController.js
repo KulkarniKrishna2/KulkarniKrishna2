@@ -107,6 +107,11 @@
                             scope.documentTagName = 'Client Document Tags';
                             break;
                     }
+                    if(scope.taskData.taskActivity.configValues != undefined && scope.taskData.taskActivity.configValues.documentIds &&
+                        scope.taskData.taskActivity.configValues.documentIds.length > 0) {
+                        scope.documentTagName = scope.taskData.taskActivity.configValues.documentIds[0];
+                    }
+                    scope.codeName = scope.documentTagName;
                     getDocuments();
                     getDocumentTags();
                 } else {
@@ -114,6 +119,11 @@
                     scope.clientId = scope.taskconfig['clientId'];
                     scope.entityId = scope.taskconfig['clientId'];
                     scope.documentTagName = 'Client Document Tags';
+                    if(scope.taskData.taskActivity.configValues != undefined && scope.taskData.taskActivity.configValues.documentIds &&
+                        scope.taskData.taskActivity.configValues.documentIds.length > 0) {
+                        scope.documentTagName = scope.taskData.taskActivity.configValues.documentIds[0];
+                    }
+                    scope.codeName = scope.documentTagName;
                     getDocuments();
                     getDocumentTags();
                 }
@@ -123,7 +133,7 @@
             initTask();
 
             function getDocumentTags() {
-                resourceFactory.codeValueByCodeNameResources.get({codeName: scope.documentTagName}, function (codeValueData) {
+                resourceFactory.codeValueByCodeNameResources.get({codeName: scope.documentTagName, searchCondition:{'childCodeValue':true}}, function (codeValueData) {
                     scope.documentTagOptions = [];
                     if(scope.uiData.isDocumentRestrictedForTags){
                         if(!_.isUndefined(scope.documentConfiguration.documentRestrictedForTags)){
@@ -251,6 +261,7 @@
                 var documentType = document.fileName.substr(document.fileName.lastIndexOf('.') + 1);
                 commonUtilService.downloadFile(url,documentType);
             };
+
         }
     });
     mifosX.ng.application.controller('clientdocumentActivityController', ['$controller','$scope', 'ResourceFactory', 'API_VERSION', '$location', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', 'CommonUtilService', mifosX.controllers.clientdocumentActivityController]).run(function ($log) {

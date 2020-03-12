@@ -19,7 +19,7 @@
             scope.isCenterNameIncluded = false;
             scope.centerName = "";
 
-            var requestParams = {orderBy: 'name', sortOrder: 'ASC', staffInSelectedOfficeOnly: true};
+            var requestParams = {orderBy: 'name', sortOrder: 'ASC', staffInSelectedOfficeOnly: true, loanOfficersOnly: true};
             if (routeParams.centerId) {
                 requestParams.centerId = routeParams.centerId;
                 if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createGroup.centerNameIncluded){
@@ -111,8 +111,8 @@
             scope.changeOffice = function (officeId) {
                 scope.addedClients = [];
                 scope.available = [];
-                resourceFactory.groupTemplateResource.get({staffInSelectedOfficeOnly: false, officeId: officeId,staffInSelectedOfficeOnly:true
-                }, function (data) {
+                resourceFactory.groupTemplateResource.get({staffInSelectedOfficeOnly: false, officeId: officeId,
+                    staffInSelectedOfficeOnly:true, loanOfficersOnly: true}, function (data) {
                     scope.staffs = data.staffOptions;
                     scope.isWorkflowEnabled = (data.isWorkflowEnabled && data.isWorkflowEnableForBranch);
                     if(scope.selfActivate || (scope.response.uiDisplayConfigurations.createGroup.isAutoPopulate.active && !scope.isWorkflowEnabled)){

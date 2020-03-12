@@ -637,22 +637,22 @@
                             <colgroup span="4"></colgroup>
                             <thead>
                             <tr>
-                                <th colspan="1" scope="colgroup"></th>
-                                <th colspan="2" scope="colgroup">{{'label.heading.loanamountandbalance' | translate}}</th>
-                                <th colspan="3" scope="colgroup">{{'label.heading.totalcostofloan' | translate}}</th>
-                                <th colspan="1" scope="colgroup">{{'label.heading.installmenttotals' | translate}}</th>
+                                <th colspan="1" scope="colgroup" class="sticky1"></th>
+                                <th colspan="2" scope="colgroup" class="sticky1">{{'label.heading.loanamountandbalance' | translate}}</th>
+                                <th colspan="3" scope="colgroup" class="sticky1">{{'label.heading.totalcostofloan' | translate}}</th>
+                                <th colspan="1" scope="colgroup" class="sticky1">{{'label.heading.installmenttotals' | translate}}</th>
                             </tr>
                             <tr>
-                                <th scope="col">{{'label.heading.date' | translate}}</th>
+                                <th scope="col" class="sticky2">{{'label.heading.date' | translate}}</th>
 
-                                <th scope="col">{{'label.heading.principaldue' | translate}}</th>
-                                <th scope="col">{{'label.heading.balanceofloan' | translate}}</th>
+                                <th scope="col" class="sticky2">{{'label.heading.principaldue' | translate}}</th>
+                                <th scope="col" class="sticky2">{{'label.heading.balanceofloan' | translate}}</th>
 
-                                <th scope="col">{{'label.heading.interest' | translate}}</th>
-                                <th scope="col">{{'label.heading.fees' | translate}}</th>
-                                <th scope="col">{{'label.heading.penalties' | translate}}</th>
+                                <th scope="col" class="sticky2">{{'label.heading.interest' | translate}}</th>
+                                <th scope="col" class="sticky2">{{'label.heading.fees' | translate}}</th>
+                                <th scope="col" class="sticky2">{{'label.heading.penalties' | translate}}</th>
 
-                                <th scope="col">{{'label.heading.outstanding' | translate}}</th>
+                                <th scope="col" class="sticky2">{{'label.heading.outstanding' | translate}}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -690,31 +690,31 @@
                             <colgroup span="4"></colgroup>
                             <thead>
                             <tr>
-                                <th colspan="5" scope="colgroup"></th>
-                                <th colspan="2" scope="colgroup">{{'label.heading.loanamountandbalance' | translate}}</th>
-                                <th colspan="3" scope="colgroup">{{'label.heading.totalcostofloan' | translate}}</th>
-                                <th colspan="6" scope="colgroup">{{'label.heading.installmenttotals' | translate}}</th>
+                                <th colspan="5" scope="colgroup" class="sticky1"></th>
+                                <th colspan="2" scope="colgroup" class="sticky1">{{'label.heading.loanamountandbalance' | translate}}</th>
+                                <th colspan="3" scope="colgroup" class="sticky1">{{'label.heading.totalcostofloan' | translate}}</th>
+                                <th colspan="6" scope="colgroup" class="sticky1">{{'label.heading.installmenttotals' | translate}}</th>
                             </tr>
                             <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">{{'label.heading.days' | translate}}</th>
-                                <th scope="col">{{'label.heading.date' | translate}}</th>
-                                <th scope="col">{{'label.heading.paiddate' | translate}}</th>
-                                <th scope="col">&nbsp;</th>
+                                <th scope="col" class="sticky2">#</th>
+                                <th scope="col" class="sticky2">{{'label.heading.days' | translate}}</th>
+                                <th scope="col" class="sticky2">{{'label.heading.date' | translate}}</th>
+                                <th scope="col" class="sticky2">{{'label.heading.paiddate' | translate}}</th>
+                                <th scope="col" class="sticky2">&nbsp;</th>
 
-                                <th scope="col">{{'label.heading.principaldue' | translate}}</th>
-                                <th scope="col">{{'label.heading.balanceofloan' | translate}}</th>
+                                <th scope="col" class="sticky2">{{'label.heading.principaldue' | translate}}</th>
+                                <th scope="col" class="sticky2">{{'label.heading.balanceofloan' | translate}}</th>
 
-                                <th scope="col">{{'label.heading.interest' | translate}}</th>
-                                <th scope="col">{{'label.heading.fees' | translate}}</th>
-                                <th scope="col">{{'label.heading.penalties' | translate}}</th>
+                                <th scope="col" class="sticky2">{{'label.heading.interest' | translate}}</th>
+                                <th scope="col" class="sticky2">{{'label.heading.fees' | translate}}</th>
+                                <th scope="col" class="sticky2">{{'label.heading.penalties' | translate}}</th>
 
-                                <th scope="col">{{'label.heading.due' | translate}}</th>
-                                <th scope="col">{{'label.heading.paid' | translate}}</th>
-                                <th scope="col">{{'label.heading.inadvance' | translate}}</th>
-                                <th scope="col">{{'label.heading.late' | translate}}</th>
-                                <th scope="col" data-ng-show="isWaived">{{'label.heading.waived' | translate}}</th>
-                                <th scope="col">{{'label.heading.outstanding' | translate}}</th>
+                                <th scope="col" class="sticky2">{{'label.heading.due' | translate}}</th>
+                                <th scope="col" class="sticky2">{{'label.heading.paid' | translate}}</th>
+                                <th scope="col" class="sticky2">{{'label.heading.inadvance' | translate}}</th>
+                                <th scope="col" class="sticky2">{{'label.heading.late' | translate}}</th>
+                                <th scope="col" class="sticky2" data-ng-show="isWaived">{{'label.heading.waived' | translate}}</th>
+                                <th scope="col" class="sticky2">{{'label.heading.outstanding' | translate}}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -821,29 +821,29 @@
                             <colgroup span="4"></colgroup>
                             <thead>
                                 <tr class="graybg">
-                                    <th class="pointer" ng-click="changeTransactionSort('id')">{{'label.heading.id' | translate}}</th>
-                                    <th class="pointer" ng-click="changeTransactionSort('officeName')">{{'label.heading.office' | translate}}</th>
-                                    <th class="pointer" ng-click="changeTransactionSort('date')">{{'label.heading.transactiondate' | translate}}</th>
-                                    <th class="pointer" ng-click="changeTransactionSort('type.value')">{{'label.heading.transactiontype' | translate}}</th>
-                                    <th class="pointer" ng-click="changeTransactionSort('amount')">{{'label.heading.amount' | translate}}</th>
-                                    <th ng-hide="hideTransactionDetails" class="pointer" colspan="4" scope="colgroup">{{'label.heading.breakdown' | translate}}</th>
-                                    <th class="pointer" scope="colgroup">{{'label.heading.loan.balance' | translate}}</th>
-                                    <th></th>
-                                    <th></th>
+                                    <th class="pointer sticky1" ng-click="changeTransactionSort('id')">{{'label.heading.id' | translate}}</th>
+                                    <th class="pointer sticky1" ng-click="changeTransactionSort('officeName')">{{'label.heading.office' | translate}}</th>
+                                    <th class="pointer sticky1" ng-click="changeTransactionSort('date')">{{'label.heading.transactiondate' | translate}}</th>
+                                    <th class="pointer sticky1" ng-click="changeTransactionSort('type.value')">{{'label.heading.transactiontype' | translate}}</th>
+                                    <th class="pointer sticky1" ng-click="changeTransactionSort('amount')">{{'label.heading.amount' | translate}}</th>
+                                    <th ng-hide="hideTransactionDetails" class="pointer sticky1" colspan="4" scope="colgroup">{{'label.heading.breakdown' | translate}}</th>
+                                    <th class="pointer sticky1" scope="colgroup">{{'label.heading.loan.balance' | translate}}</th>
+                                    <th class="sticky1"></th>
+                                    <th class="sticky1"></th>
                                 </tr>
                                 <tr>
-                                    <th scope="col">&nbsp;</th>
-                                    <th scope="col">&nbsp;</th>
-                                    <th scope="col">&nbsp;</th>
-                                    <th scope="col">&nbsp;</th>
-                                    <th scope="col">&nbsp;</th>
-                                    <th ng-hide="hideTransactionDetails" class="pointer" scope="col" ng-click="changeTransactionSort('principalPortion')">{{'label.heading.principal' | translate}}</th>
-                                    <th ng-hide="hideTransactionDetails" class="pointer" scope="col" ng-click="changeTransactionSort('interestPortion')">{{'label.heading.interest' | translate}}</th>
-                                    <th ng-hide="hideTransactionDetails" class="pointer" scope="col" ng-click="changeTransactionSort('feeChargesPortion')">{{'label.heading.fees' | translate}}</th>
-                                    <th ng-hide="hideTransactionDetails" class="pointer" scope="col" ng-click="changeTransactionSort('penaltyChargesPortion')">{{'label.heading.penalities' | translate}}</th>
-                                    <th ng-show="isOverPaidLoan" class="pointer" scope="col" ng-click="changeTransactionSort('overpaymentPortion')">{{'label.heading.overpaid' | translate}}</th>
-                                    <th></th>
-                                    <th></th>
+                                    <th scope="col" class="sticky2">&nbsp;</th>
+                                    <th scope="col" class="sticky2">&nbsp;</th>
+                                    <th scope="col" class="sticky2">&nbsp;</th>
+                                    <th scope="col" class="sticky2">&nbsp;</th>
+                                    <th scope="col" class="sticky2">&nbsp;</th>
+                                    <th ng-hide="hideTransactionDetails" class="pointer sticky2" scope="col" ng-click="changeTransactionSort('principalPortion')">{{'label.heading.principal' | translate}}</th>
+                                    <th ng-hide="hideTransactionDetails" class="pointer sticky2" scope="col" ng-click="changeTransactionSort('interestPortion')">{{'label.heading.interest' | translate}}</th>
+                                    <th ng-hide="hideTransactionDetails" class="pointer sticky2" scope="col" ng-click="changeTransactionSort('feeChargesPortion')">{{'label.heading.fees' | translate}}</th>
+                                    <th ng-hide="hideTransactionDetails" class="pointer sticky2" scope="col" ng-click="changeTransactionSort('penaltyChargesPortion')">{{'label.heading.penalities' | translate}}</th>
+                                    <th ng-show="isOverPaidLoan" class="pointer sticky2" scope="col" ng-click="changeTransactionSort('overpaymentPortion')">{{'label.heading.overpaid' | translate}}</th>
+                                    <th class="sticky2"></th>
+                                    <th class="sticky2"></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -934,7 +934,7 @@
                                             has-permission="RETRY_BANK_TRANSACTION">{{'label.button.retry' | translate}}</button>
                                         <button class="btn btn-danger" type="button" ng-click="reject(transferData)" ng-if="showRejectButton(transferData)"
                                             has-permission="REJECT_BANK_TRANSACTION">{{'label.button.reject' | translate}}</button>
-                                        <button class="btn btn-danger" type="button" ng-click="forceReject(transferData)" ng-if="transferData.status.id == initiatedTransaction || transferData.status.id == pendingTransaction"
+                                        <button class="btn btn-danger" type="button" ng-click="forceReject(transferData)" ng-if="transferData.status.id == initiatedTransaction"
                                             has-permission="FORCE_REJECT_BANK_TRANSACTION">{{'label.button.force.reject' | translate}}</button>
                                         <button class="btn btn-danger" type="button" ng-click="closeBankTransfer(transferData)" ng-if="transferData.status.id == successTransaction"
                                             has-permission="CLOSE_BANK_TRANSACTION">{{'label.button.close' | translate}}</button>
@@ -1729,7 +1729,7 @@
                                             <span><strong>{{'label.heading.customer.since' | translate}}</strong></span>
                                         </td>
                                         <td>
-                                            <span><strong>{{'label.heading.no.of,closed.loans' | translate}}</strong></span>
+                                            <span><strong>{{'label.heading.no.of.closed.loans' | translate}}</strong></span>
                                         </td>
                                         <td>
                                             <span><strong>{{'label.heading.total.disbursal.amount' | translate}}</strong></span>
@@ -1851,7 +1851,7 @@
                             </table>
                         </div>
                     </tab>
-                    <tab heading="{{'lable.tab.heading.insurance.policy' | translate}}">
+                    <tab ng-if="loandetails.summary && loandetails.summary.principalNetDisbursed" heading="{{'lable.tab.heading.insurance.policy' | translate}}">
                         <div has-permission="READ_INSURANCE_POLICY" ng-include="'views/loans/insurancepolicy.html'"></div>
                     </tab>
                 </tabset>

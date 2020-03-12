@@ -34,7 +34,7 @@
             var addressConfig = 'enable-clients-address';
             scope.enableClientAddress = scope.isSystemGlobalConfigurationEnabled(addressConfig);
             scope.isBetaEnabled = scope.isSystemGlobalConfigurationEnabled('enable-beta');
-            scope.isS3TempUrlEnabled = scope.isSystemGlobalConfigurationEnabled('amazon-S3-temp-url');
+            scope.isS3Enabled = scope.isSystemGlobalConfigurationEnabled(scope.globalConstants.AMAZON_S3);
             scope.loancycledetail = [];
             scope.smartCardData = [];
             scope.smartformData = {};
@@ -659,7 +659,7 @@
                 getClientClientSummary ();
                 if (scope.client.imagePresent) {
                     var params = '';
-                    if(scope.isS3TempUrlEnabled){
+                    if(scope.isS3Enabled){
                         params = '?maxHeight=150&downloadableUrl=true';
                     }
                     http({
@@ -667,7 +667,7 @@
                         url: $rootScope.hostUrl + API_VERSION + '/client/' + routeParams.id + '/images' + params
                     }).then(function (imageData) {
                         scope.imageData = imageData.data[0];
-                        if(scope.imageData.storageType == 1 || !scope.isS3TempUrlEnabled){
+                        if(scope.imageData.storageType == 1 || !scope.isS3Enabled){
                             http({
                                 method: 'GET',
                                 url: $rootScope.hostUrl + API_VERSION + '/client/' + routeParams.id + '/images/'+scope.imageData.imageId+'?maxHeight=150'
@@ -1524,7 +1524,7 @@
                 var loadImage = function () {
                     if (scope.client.imagePresent) {
                         var params = '';
-                        if(scope.isS3TempUrlEnabled){
+                        if(scope.isS3Enabled){
                             params = '?maxHeight=860&downloadableUrl=true';
                         }
                         http({
@@ -1532,7 +1532,7 @@
                             url: $rootScope.hostUrl + API_VERSION + '/client/' + routeParams.id + '/images'+params
                         }).then(function (imageData) {
                             $scope.Image = imageData.data[0];
-                            if($scope.Image.storageType == 1 || !scope.isS3TempUrlEnabled){
+                            if($scope.Image.storageType == 1 || !scope.isS3Enabled){
                                 http({
                                 method: 'GET',
                                 url: $rootScope.hostUrl + API_VERSION + '/client/' + routeParams.id + '/images/'+$scope.Image.imageId+'?maxHeight=860'

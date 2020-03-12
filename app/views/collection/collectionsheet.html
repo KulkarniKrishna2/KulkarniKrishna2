@@ -393,16 +393,17 @@
 		</div>
 	</div>
     <div ng-show="showPaymentDetails && collectionsheetdata"
-         style="float:left; max-width:700px; min-width:600px; overflow-x:auto!important; white-space:nowrap;">
+         style="float:left; max-width:800px; min-width:700px; overflow-x:auto!important; white-space:nowrap;">
         <table class="table table-bordered">
             <thead>
             <tr>
                 <td>{{ 'label.input.paymenttype' | translate}}</td>
-                <td>{{ 'label.input.accnum' | translate}}</td>
-                <td>{{ 'label.input.checknumber' | translate}}</td>
-                <td>{{ 'label.input.routingcode' | translate}}</td>
-                <td>{{ 'label.input.receiptnumber' | translate}}</td>
-                <td>{{ 'label.input.banknumber' | translate}}</td>
+                <td ng-show="paymentDetail.paymentTypeId">{{ 'label.input.accnum' | translate}}</td>
+                <td ng-show="paymentDetail.paymentTypeId">{{ 'label.input.checknumber' | translate}}</td>
+                <td ng-show="paymentDetail.paymentTypeId">{{ 'label.input.routingcode' | translate}}</td>
+                <td ng-show="paymentDetail.paymentTypeId">{{ 'label.input.receiptnumber' | translate}}</td>
+                <td ng-show="paymentDetail.paymentTypeId">{{ 'label.input.banknumber' | translate}}</td>
+                <td>{{'label.heading.actions' | translate}}</td>
             </tr>
             </thead>
             <tbody>
@@ -411,16 +412,22 @@
                             class="form-control"
                             ng-options="paymentType.id as paymentType.name for paymentType in collectionsheetdata.paymentTypeOptions"
                             value="{{paymentType.id}}"></select></td>
-                <td><input type="text" autocomplete="off" class="form-control"
+                <td ng-show="paymentDetail.paymentTypeId"><input type="text" autocomplete="off" class="form-control"
                            ng-model="paymentDetail.accountNumber"></td>
-                <td><input class="form-control" type="text" autocomplete="off"
+                <td ng-show="paymentDetail.paymentTypeId"><input class="form-control" type="text" autocomplete="off"
                            ng-model="paymentDetail.checkNumber"></td>
-                <td><input class="form-control" type="text" autocomplete="off"
+                <td ng-show="paymentDetail.paymentTypeId"><input class="form-control" type="text" autocomplete="off"
                            ng-model="paymentDetail.routingCode"></td>
-                <td><input class="form-control" type="text" autocomplete="off"
+                <td ng-show="paymentDetail.paymentTypeId"><input class="form-control" type="text" autocomplete="off"
                            ng-model="paymentDetail.receiptNumber"></td>
-                <td><input class="form-control" type="text" autocomplete="off"
+                <td ng-show="paymentDetail.paymentTypeId"><input class="form-control" type="text" autocomplete="off"
                            ng-model="paymentDetail.bankNumber"></td>
+                <td>
+                    <a class="btn btn-default" ng-show="showPaymentDetails"
+                        data-ng-click="removePaymentDetails()"
+                        >{{'label.button.removepaymentdetail'| translate}}
+                    </a>
+                </td>
             </tr>
             </tbody>
         </table>

@@ -74,7 +74,11 @@
                         scope.bankAccountDocuments = data.bankAccountDocuments;
                         for (var i = 0; i < scope.bankAccountDocuments.length; i++) {
                             var docs = {};
-                            docs = $rootScope.hostUrl + API_VERSION + '/' + getEntityType() + '/' + getEntityId() + '/documents/' + scope.bankAccountDocuments[i].id + '/download';
+                            if(scope.bankAccountDocuments[i].storage && scope.bankAccountDocuments[i].storage.toLowerCase()=='s3'){
+                                docs = $rootScope.hostUrl + API_VERSION + '/' + getEntityType() + '/' + getEntityId() + '/documents/' + scope.bankAccountDocuments[i].id + '/downloadableURL';
+                            }else {
+                                docs = $rootScope.hostUrl + API_VERSION + '/' + getEntityType() + '/' + getEntityId() + '/documents/' + scope.bankAccountDocuments[i].id + '/download';
+                            }
                             scope.bankAccountDocuments[i].docUrl = docs;
                         }
                         scope.viewDocument(scope.bankAccountDocuments[0]);

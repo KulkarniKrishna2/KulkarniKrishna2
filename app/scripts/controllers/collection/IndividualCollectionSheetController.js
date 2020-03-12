@@ -46,11 +46,34 @@
                 loandetail.receiptNumber = "";
                 loandetail.bankNumber = "";
             };
+            scope.removeLoanPaymentDetails = function (parentindex, index) {
+                var client = scope.collectionsheetdata.clients[parentindex];
+                var loandetail = client.loans[index];
+                loandetail.showPaymentDetails = false;
+                loandetail.paymentTypeId = "";
+                loandetail.accountNumber = "";
+                loandetail.checkNumber = "";
+                loandetail.routingCode = "";
+                loandetail.receiptNumber = "";
+                loandetail.bankNumber = "";
+            };
 
             scope.showSavingsPaymentDetails = function (parentindex, index) {
                 var client = scope.collectionsheetdata.clients[parentindex];
                 var savings = client.savings[index];
                 savings.showPaymentDetails = true;
+                savings.paymentTypeId = "";
+                savings.accountNumber = "";
+                savings.checkNumber = "";
+                savings.routingCode = "";
+                savings.receiptNumber = "";
+                savings.bankNumber = "";
+            };
+
+            scope.removeSavingsPaymentDetails = function (parentindex, index) {
+                var client = scope.collectionsheetdata.clients[parentindex];
+                var savings = client.savings[index];
+                savings.showPaymentDetails = false;
                 savings.paymentTypeId = "";
                 savings.accountNumber = "";
                 savings.checkNumber = "";

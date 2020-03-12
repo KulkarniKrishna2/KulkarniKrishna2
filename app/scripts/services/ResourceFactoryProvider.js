@@ -241,11 +241,13 @@
                     }),
                     fixedDepositProductResource: defineResource(apiVer + "/fixeddepositproducts/:productId/:resourceType", {productId: '@productId', resourceType: '@resourceType'}, {
                         getAllFixedDepositProducts: {method: 'GET', params: {}, isArray: true},
-                        update: {method: 'PUT', params: {}}
+                        update: {method: 'PUT', params: {}},
+                        UpdateInterestCharts:{method: 'PUT', params: {command:"interestCharts"}}
                     }),
                     recurringDepositProductResource: defineResource(apiVer + "/recurringdepositproducts/:productId/:resourceType", {productId: '@productId', resourceType: '@resourceType'}, {
                         getAllRecurringDepositProducts: {method: 'GET', params: {}, isArray: true},
-                        update: {method: 'PUT', params: {}}
+                        update: {method: 'PUT', params: {}},
+                        UpdateInterestCharts:{method: 'PUT', params: {command:"interestCharts"}}
                     }),
                     customerAccountLimitsResource: defineResource(apiVer + "/clients/:clientId/accountlimits/:limitId", {clientId: '@clientId', limitId: '@limitId'}, {
                         get: {method: 'GET', params: {}, isArray: false},
@@ -575,8 +577,8 @@
                     standingInstructionHistoryResource: defineResource(apiVer + "/standinginstructionrunhistory", {}, {
                         get: {method: 'GET', params: {}}
                     }),
-                    captchaResource: defineResource(apiVer + "/captcha/generate", {}, {
-                        generate: {method: 'GET', params: {}}
+                    captchaResource: defineResource(apiVer2 + "/captcha/generate", {}, {
+                        generate: {method: 'POST', params: {}}
                     }),
                     centerAccountResource: defineResource(apiVer + "/centers/:centerId/accounts", {centerId: '@centerId'}, {
                         getAll: {method: 'GET', params: {}, isArray: true}
@@ -1235,8 +1237,9 @@
                     bankIFSCResource: defineResource(apiVer + "/ifsc/:ifscCode", {ifscCode: "@ifscCode"}, {
                         get: {method: 'GET'}
                     }),
-                    bankAccountDetailWorkflowResource: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetail/workflow", {entityType: "@entityType",entityId: '@entityId'}, {
-                        get: {method: 'GET', params: {}}
+                    bankAccountDetailWorkflowResource: defineResource(apiVer2 + "/:entityType/:entityId/bankaccountdetail/workflow", {entityType: "@entityType",entityId: '@entityId'}, {
+                        get: {method: 'GET', params: {}},
+                        create: {method: 'POST'}
                     }),
                     cgtTemplateResource:defineResource(apiVer+"/cgt/template", {entityType: '@entityType', entityId: '@entityId'}, {
                         getAll: {method: 'GET', parms: {entityId : '@entityId'}, isArray: false },
@@ -2038,6 +2041,9 @@
                     }),
                     getCenterGeoDetailsResource: defineResource(apiVer + "/centers/:centerId/geo", {centerId: '@centerId'},  {
                         getGeoDetails: {method:'GET', params: {centerId: '@centerId'}, isArray: true }
+                   }),
+                    loanOfficerDropdownResource: defineResource(apiVer + "/staff/template/:officeId", {officeId: '@officeId'}, {
+                        getAll: {method: 'GET', params: {}, isArray: true},
                    })
                 };
             }];

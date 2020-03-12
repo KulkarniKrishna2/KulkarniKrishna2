@@ -996,6 +996,15 @@
             scope.isProductiveColectionSheet = function(isProductive){
                 scope.isProductive = isProductive;
             }
+            scope.removePaymentDetails = function(){
+                scope.showPaymentDetails = false;
+                scope.paymentDetail.paymentTypeId = "";
+                scope.paymentDetail.accountNumber = "";
+                scope.paymentDetail.checkNumber = "";
+                scope.paymentDetail.routingCode = "";
+                scope.paymentDetail.receiptNumber = "";
+                scope.paymentDetail.bankNumber = ""; 
+            }
         }
     })
     ;

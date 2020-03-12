@@ -29,7 +29,7 @@
                 scope.isOfficeSelected = true;
                 scope.fromStaffOptions = [];
                 scope.resetSelectedEntity();
-                resourceFactory.fieldOfficersResource.retrievefieldOfficers({staffInSelectedOfficeOnly:true,officeId: officeId}, function (data) {
+                resourceFactory.loanOfficerDropdownResource.getAll({ officeId: officeId}, function (data) {
                     scope.fromStaffOptions = data;
                  
                     if(!scope.isStaffReassignment){
@@ -47,7 +47,7 @@
 
             scope.getToStaffOptions = function (officeId) {
                 scope.toStaffOptions = [];
-                resourceFactory.fieldOfficersResource.retrievefieldOfficers({staffInSelectedOfficeOnly:true,officeId: officeId}, function (data) {
+                resourceFactory.loanOfficerDropdownResource.getAll({ officeId: officeId}, function (data) {
                     scope.toStaffOptions = data;
                     scope.toStaffOptions.push(scope.unassignedStaff);
                 });

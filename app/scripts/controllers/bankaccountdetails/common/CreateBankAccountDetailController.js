@@ -32,7 +32,10 @@
                     entityId: scope.entityId,
                     isForceCreate : forceCreate
                 }, function (data) {
-                    if(data!=undefined && data.id!=undefined){
+                    console.log("data:"+JSON.stringify(data));
+                    if(data.id ===undefined || data.id === null){
+                        generateWorkFlow(forceCreate);
+                    }else if(data!=undefined && data.id!=undefined && data.id!= null){
                         if(data.status.id !=7){
                             scope.isTask= true;
                             var taskConfig= {taskData:{id:data.id,embedded:true}};
@@ -43,6 +46,19 @@
 
                 });
             }
+
+            function generateWorkFlow(forceCreate){
+                resourceFactory.bankAccountDetailWorkflowResource.create({
+                    entityType: scope.entityType,
+                    entityId: scope.entityId
+                },{isForceCreate : forceCreate},function (data) {
+                    console.log("resource:"+JSON.stringify(data));
+                    if(data.resourceId!==undefined || data.resourceId !== null){
+                        createWorkflow(forceCreate);
+                    }
+                });
+            }
+
 
             function init(){
                 populateDetails();

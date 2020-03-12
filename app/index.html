@@ -2,6 +2,17 @@
 <html lang="en">
 
 <head>
+
+    <!-- Google analytics script -->
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    </script>
+
     <meta charset="utf-8">
     <link rel="icon" type="image/png" href="./images/favicon.png" ng-if="!isFaviconPath" />
     <link rel="icon" type="image/png" href="{{faviconPath}}" ng-if="isFaviconPath" />
@@ -216,18 +227,10 @@
 
                         <li>
                             <a class="black" href="#/workflowtaskdashboard">
-                                <i class="icon-bar-chart icon-large" data-toggle="tooltip" tooltip-placement="right" tooltip="{{ 'label.heading.workflow.task.dashboard' | translate}}"></i>
+                                <i class="icon-sort-by-attributes-alt icon-large" data-toggle="tooltip" tooltip-placement="right" tooltip="{{ 'label.heading.workflow.task.dashboard' | translate}}"></i>
                             </a>
                         </li>
                         <li class="divider"></li>
-
-                        <li>
-                            <a class="black" href="#/tasklist">
-                                <i class="icon-tasks icon-large" data-toggle="tooltip" tooltip-placement="right" tooltip="{{ 'label.heading.workflow.tasks' | translate}}"></i>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-
                         <li>
                             <a class="black" href="#/nav/offices">
                                 <i class="icon-compass icon-large" data-toggle="tooltip" tooltip-placement="right" tooltip="{{ 'label.anchor.navigation' | translate}}"></i>
@@ -336,6 +339,10 @@
                                 <img src="{{headerLogoPath}}" alt="FINFLUX" style="width: 150px; height: 40px;" ng-if="isHeaderLogoPath">
                             </a>
                             <ul class="nav navbar-nav" id="main-menu-left">
+                                <li>
+                                    <a ng-class="{ activate: isActive('litasks') }" href="#/tasklist">
+                                        <i class="icon-tasks"></i> {{ 'label.heading.workflow.tasks' | translate }}</a>
+                                </li>
                                 <li class="dropdown">
                                     <a class="dropdown-toggle" data-toggle="dropdown" ng-class="{ activate: isActive('centers') }" href="#">
                                         <i class="{{mainUIConfigData.headerMenuSettings.menuIcon}}"></i> {{ mainUIConfigData.headerMenuSettings.menuLable | translate }}
@@ -466,6 +473,7 @@
                                 <div class="whitebg" ng-view>
                                 </div>
                             </div>
+                            <i onclick="topFunction()" class="icon-circle-arrow-up" id="myTopBtn"></i>
                             <!-- Footer -->
                             <footer class="footer">
                                 <div> {{'label.relVersion' | translate}} {{version}} | {{'label.finflux' | translate}} {{'label.copyright'
@@ -485,6 +493,28 @@
     <!-- Le javascript -->
     <script type='text/javascript' data-main="scripts/loader.js" src='bower_components/requirejs/require.js'></script>
     <script type="text/javascript" src="bower_components/devtools-detect/index.js"></script>
+
+    <script>
+        //Get the button
+        var mybutton = document.getElementById("myTopBtn");
+
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function () { scrollFunction() };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
 </body>
 
 </html>
