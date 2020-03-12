@@ -98,9 +98,6 @@
                     if (scope.response.uiDisplayConfigurations.readOnlyFields) {
                         $rootScope.isDatePickerReadOnly = scope.response.uiDisplayConfigurations.readOnlyFields.datePicker;
                     }
-                    if (scope.response.uiDisplayConfigurations.workflow) {
-                        scope.isEditTaskEnableAfterCompleted = scope.response.uiDisplayConfigurations.workflow.isEditTaskEnableAfterCompleted;
-                    }
                 }            
             });
             //hides loader
