@@ -490,7 +490,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'task/activity/villageRejectionActivityController',
             'task/activity/UserActivityController',
             'task/activity/BankCBApprovalActivityController',
-            'task/activity/GroupLevelClientDatatableController',
+            'task/activity/NewDatatableController',
             'reports/AuditReportController',
             'reports/ViewAuditReportController',
             'reports/IndividualAccountReportController',
