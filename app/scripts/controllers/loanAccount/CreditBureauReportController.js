@@ -342,19 +342,16 @@
                             }
                         }
                     });
-                }
-                else {
-                    scope.creditBureauReport = function (isForce) {
-                        resourceFactory.creditBureauReportResource.post({
-                            entityType: scope.entityType,
-                            entityId: scope.entityId,
-                            isForce: isForce
-                        }, function (loansSummary) {
-                            scope.isResponPresent = false;
-                            scope.isStalePeriodExceeded = false;
-                            getCreditBureauReportSummary();
-                        });
-                    };
+                } else {
+                    resourceFactory.creditBureauReportResource.post({
+                        entityType: scope.entityType,
+                        entityId: scope.entityId,
+                        isForce: isForce
+                    }, function (loansSummary) {
+                        scope.isResponPresent = false;
+                        scope.isStalePeriodExceeded = false;
+                        getCreditBureauReportSummary();
+                    });
                 }
             }
 
