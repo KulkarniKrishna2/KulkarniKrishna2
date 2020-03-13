@@ -6,20 +6,17 @@
       scope.searchConditions = {};
       scope.uiData = {};
       scope.uiData.status = 'pending';
-      if(location.search().userId){
-        scope.searchConditions.userId = location.search().userId;
-      }
-      if(location.search().officeId){
-        scope.searchConditions.officeId = location.search().officeId;
-      }
-      
       var fetchDevices = function (offset, limit, callback) {
-        var param = {  status: scope.uiData.status, searchConditions: scope.searchConditions, offset: offset, limit: limit };
-        resourceFactory.userRegisteredDevicesResource.getAll(param, callback);
+        resourceFactory.registeredDevicesResource.getAll({
+                    status: scope.uiData.status,
+                    searchConditions: scope.searchConditions,
+                    offset: offset,
+                    limit: limit
+                }, callback);
       }
       scope.searchData = function (status) {
         scope.uiData.status = status;
-        scope.registeredUserDevices = paginatorUsingOffsetService.paginate(fetchDevices, scope.devicesPerPage);
+        scope.registeredDevices = paginatorUsingOffsetService.paginate(fetchDevices, scope.devicesPerPage);
       };
 
       function init(){
@@ -44,15 +41,8 @@
           }    
       }
 
-      scope.routeTo = function (deviceId) {
-        location.search('userId',scope.searchConditions.userId);
-        location.search('officeId',scope.searchConditions.officeId);
-        location.search('isSearch',true);        
-        location.path('/organization/registereddevices/' + deviceId);
-      };
-
-      scope.routeToUser = function (userId) {
-        location.path('/viewuser/' + userId);
+      scope.routeTo = function (device) {
+        location.path('/organization/registereddevices/' + device.id);
       };
 
       scope.resetSearchData = function () {
@@ -70,16 +60,6 @@
           'command': command
         }, {}, function (data) {
             route.reload();
-        });
-      }
-
-      scope.userActionOnDevice = function (userDevice, command) {
-        resourceFactory.userRegisteredDeviceResource.action({
-            registeredDeviceId: userDevice.registeredDeviceData.id,
-            userId: userDevice.appUserData.id,
-            command: command
-        }, {}, function (data) {
-          route.reload();
         });
       }
     }

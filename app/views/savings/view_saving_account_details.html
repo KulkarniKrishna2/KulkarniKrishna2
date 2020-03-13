@@ -440,7 +440,7 @@
                     </div>
                 </tab>
                 <tab heading="{{'label.heading.transactions' | translate}}" ng-show="savingaccountdetails.transactions" select="convertDateArrayToObject('date')">
-                    <div class="pull-left col-sm-offset-8" ng-if="showAccrualTransactionOption">
+                    <div class="pull-left col-sm-offset-8" ng-show="showAccrualTransactionOption">
                         <input type="checkbox" data-ng-model="viewAccrualTransaction.show">&nbsp;&nbsp;
                         <label class="control-label">{{ 'label.input.hide.accrual.transactions' | translate }}</label>&nbsp;&nbsp;
                     </div>

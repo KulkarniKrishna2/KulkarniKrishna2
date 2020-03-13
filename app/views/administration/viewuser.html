@@ -100,17 +100,17 @@
                     <th>{{'label.heading.status' | translate}}</th>
                     <th>{{'label.heading.action' | translate}}</th>
                 </tr>
-                <tr ng-repeat="device in devicesToUser">
-                    <td  ng-click="routeToDevice(device)"><a>{{device.deviceId}}</a></td>
-                    <td>{{device.status.value}}</td>
-                    <td  ng-click="routeToDevice(device)"><a>{{device.deviceModel}}</a></td>
-                    <td  ng-click="routeToDevice(device)"><a>{{device.imeiNumber}}</a></td>
-                    <td>{{device.registeredDeviceToUserDatas[0].lastLoggedInDate | DateTimeFormat}}</td>
+                <tr class="pointer-main" ng-repeat="device in devicesToUser">
+                    <td class="pointer" ng-click="routeToDevice(device)">{{device.deviceId}}</td>
+                    <td class="pointer" ng-click="routeToDevice(device)">{{device.status.value}}</td>
+                    <td class="pointer" ng-click="routeToDevice(device)">{{device.deviceModel}}</td>
+                    <td class="pointer" ng-click="routeToDevice(device)">{{device.imeiNumber}}</td>
+                    <td class="pointer" ng-click="routeToDevice(device)">{{device.registeredDeviceToUserDatas[0].lastLoggedInDate | DateTimeFormat}}</td>
                     <td>
                         <a href=http://maps.google.com/?q={{device.registeredDeviceToUserDatas[0].latitude}},{{device.registeredDeviceToUserDatas[0].longitude}}
                             target="_blank">{{'label.location' | translate }}</a>
                     </td>
-                    <td>{{device.registeredDeviceToUserDatas[0].status.value}}</td>
+                    <td ng-click="routeToDevice(device)">{{device.registeredDeviceToUserDatas[0].status.value}}</td>
                     <td ng-if="device.registeredDeviceToUserDatas[0].status.systemCode == 'pending'">
                         <a has-permission='ACTIVATE_REGISTERED_DEVICE' ng-click="deviceAction(device,'activate')">{{'label.button.activate' | translate}}</a> |
                         <a has-permission='DEACTIVATE_REGISTERED_DEVICE' ng-click="deviceAction(device,'deactivate')">{{'label.button.deactivate' | translate}}</a>
