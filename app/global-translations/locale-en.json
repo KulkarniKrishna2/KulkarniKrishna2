@@ -8485,6 +8485,7 @@
      "label.button.modify.search" : "Modify Search",
      "label.heading.search.clients" : "Search clients",
      "label.tooltip.to.search.based.on.combination.of.filters" : "To search based on combination of filters",
+     "error.msg.deposit.account.interest.rate.chart.with.date.invalid":"Deposit Account Interest rate chart with Date:`{{params[0].value}}` does not exist",
      "------ end of translation file ------": "----------"
 
 }
