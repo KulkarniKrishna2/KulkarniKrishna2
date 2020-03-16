@@ -105,7 +105,7 @@
                                 <td>&nbsp;</td>
                             </tr>
 
-                            <tr ng-repeat="chartSlab in chart.chartSlabs">
+                            <tr ng-repeat="chartSlab in chart.chartSlabs" ng-hide="chartSlab.delete">
                                 <td ng-show="isPrimaryGroupingByAmount">
                                     <input id="amountRangeFrom1" name="amountRangeFrom" type="text" autocomplete="off" class="input-mini"
                                            ng-model="chartSlab.amountRangeFrom"/> -
@@ -147,7 +147,7 @@
                                     <a ng-click="removeRow($index)"><i class="icon-minus-sign icon-white"></i>{{'label.remove.row'
                                         | translate}}</a>
 
-                                    <div class="controls" ng-show="$last">
+                                    <div class="controls" ng-show="isLastRow($index)">
                                         <a ng-click="addNewRow()"><i class="icon-plus-sign icon-white"></i>{{'label.add.row'
                                             | translate}}</a>
                                     </div>
