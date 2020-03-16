@@ -3,7 +3,6 @@
         FileProcessController: function (scope, resourceFactory, location, routeParams, API_VERSION, $upload, $rootScope, commonUtilService) {
             var fileProcessCategory = routeParams.fileProcessCategory;
             scope.formData = {};
-            scope.isHideDownloadTemplate=true;
             scope.isSourceTypeReq = false;
             resourceFactory.fileProcessTypeTemplateResource.get({}, function (data) {
                 scope.filter(data);
@@ -21,7 +20,7 @@
             scope.filter = function (data) {
                 scope.loans = [];
                 scope.savings = [];
-                scope.accouting = [];
+                scope.accounting = [];
                 scope.organisation = [];
                 scope.insurance = [];
 
@@ -34,7 +33,7 @@
                     } else if (data[i].fileProcessCategory == "SAVINGS") {
                         scope.savings.push(data[i]);
                     } else if (data[i].fileProcessCategory == "ACCOUNTING") {
-                        scope.accouting.push(data[i]);
+                        scope.accounting.push(data[i]);
 
                     } else if (data[i].fileProcessCategory == "ORGANISATION") {
                         scope.organisation.push(data[i]);
@@ -61,6 +60,13 @@
                 var url =$rootScope.hostUrl + fileTemplate.docUrl;
                 var fileType = fileTemplate.fileTemplatePath.substr(fileTemplate.fileTemplatePath.lastIndexOf('.') + 1);
                 commonUtilService.downloadFile(url,fileType,fileTemplate.fileTemplatePath);
+            }
+
+            scope.isHideDownloadTemplate =  function(fileTemplate){
+                if(_.isUndefined(fileTemplate.fileTemplatePath)){
+                    return true;
+                }
+                return false;
             }
 
 
