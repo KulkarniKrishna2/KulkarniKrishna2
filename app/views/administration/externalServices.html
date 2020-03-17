@@ -5,81 +5,48 @@
             <li class="active">{{'label.anchor.externalServices' | translate}}</li>
         </ul>
     </div>
-    <div>
-        &nbsp;
-    </div>
     <div class="row paddedleft paddedtop">
         <div class="list-group">
-            <div class="col-sm-6 col-md-6">
-                <a class="list-group-item" has-permission="READ_CONFIGURATION" href="#/externalservices/S3">
-                    <h4 class="list-group-item-heading"><i class="icon-large icon-cloud"></i>&nbsp;&nbsp;{{'label.anchor.externalServices'
-                        | translate}}</h4>
+            <input ng-model="filterText" type="text" autocomplete="off" ng-keyup="onFilter()" class="form-control" placeholder="{{'label.input.filterbyname' | translate}}">
+            <table class="table span12">
+                <thead>
+                <tr class="graybg">
+                    <th class="width35">{{'label.heading.external.service.name' | translate}}</th>
+                    <th class="text-center width10">{{'label.heading.external.service.status' | translate}}</th>
+                    <th class="text-center width10">{{'label.heading.external.service.trapdoor' | translate}}</th>
+                    <th class="text-center width30">{{'label.heading.external.service.trapdoor.status' | translate}}</th>
+                    <th class="text-center width10">{{'label.heading.external.service.config' | translate}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="externalService in externalServiceList | orderBy:'displayOrderid':reverse | filter:filterText">
+                    <td class="width35">
+                    {{externalService.displayName | translate}}
+                    &nbsp; &nbsp; &nbsp;
+                    </td>
+                    <td class="text-center width10">
+                        <span ng-show= isStatusEnabled(externalService) class="label label-success">Enabled</span>
+                        <span ng-hide= isStatusEnabled(externalService) class="label label-warning">Disabled</span>
+                    </td>
+                    <td class="text-center width10">
+                        {{externalService.isTrapdoor | translate}}
+                        &nbsp; &nbsp; &nbsp;
+                    </td>  
+                    <td ng-if="externalService.isTrapdoor" class="text-center width30">
+                        {{externalService.trapdoorStatus | translate}}
+                        &nbsp; &nbsp; &nbsp;
+                    </td>
+                    <td ng-if="!externalService.isTrapdoor" class="text-center width30">
+                    </td>
+                    <td class="text-center width10">
+                        <a title="{{'label.edit' | translate}}" 
+                        href="#/externalservices/{{externalService.name}}">
+                         <i class="icon-cog"></i></a>
+                    </td>
 
-                    <p class="list-group-item-text">{{'label.S3.description' | translate}}</p>
-                </a>
-            </div>
-            <div class="col-sm-6 col-md-6">
-                <a class="list-group-item" has-permission="READ_CONFIGURATION" href="#/externalservices/Aadhaar">
-                    <h4 class="list-group-item-heading"><i class="icon-large icon-certificate"></i>&nbsp;&nbsp;{{'label.anchor.aadhaarservice'
-                        | translate}}</h4>
-
-                    <p class="list-group-item-text">{{'label.aadhaar.description' | translate}}</p>
-                </a>
-            </div>
-            <div class="col-sm-6 col-md-6">
-                <a class="list-group-item" has-permission="READ_CONFIGURATION" href="#/externalservices/SMTP">
-                    <h4 class="list-group-item-heading"><i class="icon-large icon-envelope"></i>&nbsp;&nbsp;{{'label.anchor.externalServices'
-                        | translate}}</h4>
-
-                    <p class="list-group-item-text">{{'label.SMTP.description' | translate}}</p>
-
-                </a>
-            </div>
-            <div class="col-sm-6 col-md-6">
-                <a class="list-group-item"  has-permission="READ_CONFIGURATION" href="#/externalservicesCB/CreditBureau">
-                    <h4 class="list-group-item-heading"><i class="icon-large icon-envelope"></i>&nbsp;&nbsp;{{'label.CreditBureau.description'
-                        | translate}}</h4>
-                    <p class="list-group-item-text">{{'label.CreditBureau.description' | translate}}</p>
-                </a>
-            </div>
-
-            <div class="col-sm-6 col-md-6">
-                <a class="list-group-item"  has-permission="READ_CONFIGURATION" href="#/externalservices/NACH">
-                    <h4 class="list-group-item-heading"><i class="icon-large icon-envelope"></i>&nbsp;&nbsp;{{'label.anchor.NACH'
-                        | translate}}</h4>
-                    <p class="list-group-item-text">{{'label.NACH.description' | translate}}</p>
-                </a>
-            </div>
-
-            <div class="col-sm-6 col-md-6">
-                <a class="list-group-item" has-permission="READ_CONFIGURATION" href="#/externalservices/SMS">
-                    <h4 class="list-group-item-heading"><i class="icon-large icon-envelope"></i>&nbsp;&nbsp;{{'label.anchor.externalServices'
-                        | translate}}</h4>
-                    <p class="list-group-item-text">{{'label.SMS.description' | translate}}</p>
-                </a>
-            </div>
-            
-            <div class="col-sm-6 col-md-6" ng-repeat="otherExternalService in otherExternalServiceList">
-                <a class="list-group-item"  has-permission="READ_CONFIGURATION" href="#/otherexternalservices/{{otherExternalService.id}}">
-                    <h4 class="list-group-item-heading"><i class="icon-large icon-certificate"></i>&nbsp;&nbsp;{{otherExternalService.displayCode | translate}}</h4>
-                    <p class="list-group-item-text">{{otherExternalService.type.code | translate}}</p>
-                </a>
-            </div>
-
-            <div class="col-sm-6 col-md-6">
-                <a class="list-group-item"  has-permission="READ_CONFIGURATION" href="#/externalservices/SFTP">
-                    <h4 class="list-group-item-heading"><i class="icon-large icon-share"></i>&nbsp;&nbsp;{{'label.anchor.sftp' | translate}}</h4>
-                    <p class="list-group-item-text">{{'label.sftp.description' | translate}}</p>
-                </a>
-            </div>
-
-            <div class="col-sm-6 col-md-6" ng-repeat="externalService in externalServiceList | filter: { displayRequired: true }">
-                <a class="list-group-item"  has-permission="READ_CONFIGURATION" href="#/externalservices/{{externalService.name}}">
-                    <h4 class="list-group-item-heading"><i class="icon-large icon-cog"></i>&nbsp;&nbsp;{{externalService.displayName | translate}}</h4>
-                    <p class="list-group-item-text">{{'label.anchor.servicesconfiguration' | translate}}</p>
-                </a>
-            </div>
-
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
