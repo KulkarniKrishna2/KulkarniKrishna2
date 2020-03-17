@@ -33,7 +33,7 @@
         </td>
     </tr>
     <tr ng-show="formData.productId && showLoanPurpose">
-        <td ng-show = "loanPurposeGroups" ><label>{{ 'label.input.loanpurposegroup' | translate }}<span span class="required" ng-show="response.uiDisplayConfigurations.loanAccount.isMandatory.loanPurposeId">*</span></label></td>
+        <td ng-show = "loanPurposeGroups" ><label>{{ 'label.input.loanpurposegroup' | translate }}<span span class="required" ng-show="isLoanPurposeMandatory">*</span></label></td>
         <td class="paddedbottom10" ng-if = "loanPurposeGroups" >
             <select chosen="loanPurposeGroups" id="loanPurposeGroupId" name="loanPurposeGroup" ng-model="loanPurposeGroupId"
                     ng-options="loanPurposeGroup.id as loanPurposeGroup.name for loanPurposeGroup in loanPurposeGroups | orderBy:'name':reverse" value="{{loanPurposeGroup.id}}"
@@ -44,7 +44,7 @@
             <form-validate valattributeform="editloanaccountform" valattribute="loanPurposeGroup"/>
         </td>
         <td>
-            <label>{{ 'label.input.loanpurpose' | translate }}<span class="required" ng-show="response.uiDisplayConfigurations.loanAccount.isMandatory.loanPurposeId">*</span>:&nbsp;</label>
+            <label>{{ 'label.input.loanpurpose' | translate }}<span class="required" ng-show="isLoanPurposeMandatory">*</span>:&nbsp;</label>
         </td>
         <td class="paddedbottom10">
             <select chosen="loanPurposeOptions" id="loanPurposeId" name="loanpurpose" ng-model="formData.loanPurposeId" class="form-control width170px"
@@ -488,23 +488,39 @@
                             ng-options="transactionProcessingStrategy.id as transactionProcessingStrategy.name for transactionProcessingStrategy in loanaccountinfo.transactionProcessingStrategyOptions"
                             value="{{transactionProcessingStrategy.id}}" ng-disabled="!loanaccountinfo.product.allowAttributeOverrides.transactionProcessingStrategyId"/>
                 </td>
+            </tr>
+            <tr ng-if="showLoanTerms && showMoratorium">
                 <td colspan=2 class="paddedbottom10">
-                    <label>{{ 'label.input.grace' | translate }}&nbsp;{{'label.input.onprincipalpayment' | translate}}</label>&nbsp;<input
-                            id="graceOnPrincipalPayment" class="input-mini-small" type="text" autocomplete="off"
-                            ng-disabled="!loanaccountinfo.product.allowAttributeOverrides.graceOnPrincipalAndInterestPayment"
-                            ng-model="formData.graceOnPrincipalPayment">&nbsp;
-					<label ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.graceOnInterestPayment == true">{{'label.input.oninterestpayment' |
-                        translate}}</label>&nbsp;<input ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.graceOnInterestPayment == true" id="graceOnInterestPayment" type="text" autocomplete="off" class="input-mini-small"
-                                                        ng-disabled="!loanaccountinfo.product.allowAttributeOverrides.graceOnPrincipalAndInterestPayment"
-                                                        ng-model="formData.graceOnInterestPayment"></label>
-					<label ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.recurringMoratoriumOnPrincipalPeriods">{{'label.input.recurringmoratoriumonprincipalperiods' | translate}}</label>
-                    <input ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.recurringMoratoriumOnPrincipalPeriods" id="recurringMoratoriumOnPrincipalPeriods" type="text" autocomplete="off" class="input-mini-small"
-                           ng-disabled="!loanaccountinfo.product.allowAttributeOverrides.graceOnPrincipalAndInterestPayment"
-                           ng-model="formData.recurringMoratoriumOnPrincipalPeriods">
+                    <label>{{ 'label.input.grace' | translate }}&nbsp;</label>
+                </td>
+            </tr>
+            <tr ng-if="showLoanTerms && showMoratorium">
+                <td colspan=2 ng-show="showGraceOnPrincipalPayment">
+                    <label>{{'label.input.onprincipalpayment' | translate}}<span class="required" ng-show="isGraceOnPrincipalPaymentMandatory && isOverrideMoratorium">*</span></label>&nbsp;
+                    <input id="graceOnPrincipalPayment" class="input-mini-small" type="text" autocomplete="off"
+                    name="graceOnPrincipalPayment" ng-disabled="!loanaccountinfo.product.allowAttributeOverrides.graceOnPrincipalAndInterestPayment"
+                    ng-model="formData.graceOnPrincipalPayment" ng-required="isGraceOnPrincipalPaymentMandatory && isOverrideMoratorium">&nbsp;
+                    <form-validate valattributeform="editloanaccountform" valattribute="graceOnPrincipalPayment"/>
+                </td>
+                <td colspan=2 ng-show="showGraceOnInterestPayment">      
+					<label>{{'label.input.oninterestpayment' | translate}}<span class="required" ng-show="isGraceOnInterestPaymentMandatory && isOverrideMoratorium">*</span></label>&nbsp;
+                        <input id="graceOnInterestPayment" type="text" autocomplete="off" class="input-mini-small"
+                            name="graceOnInterestPayment" ng-disabled="!loanaccountinfo.product.allowAttributeOverrides.graceOnPrincipalAndInterestPayment"
+                            ng-model="formData.graceOnInterestPayment" ng-required="isGraceOnInterestPaymentMandatory && isOverrideMoratorium">
+                    <form-validate valattributeform="editloanaccountform" valattribute="graceOnInterestPayment"/>
+                </td>
+            </tr>
+            <tr ng-if="showLoanTerms && showMoratorium">
+                <td colspan=2 ng-show="showRecurringMoratoriumOnPrincipalPeriods">
+					<label>{{'label.input.recurringmoratoriumonprincipalperiods' | translate}}<span class="required" ng-show="isRecurringMoratoriumOnPrincipalPeriodsMandatory && isOverrideMoratorium">*</span></label>
+                    <input id="recurringMoratoriumOnPrincipalPeriods" type="text" autocomplete="off" class="input-mini-small"
+                           name="recurringMoratoriumOnPrincipalPeriods" ng-disabled="!loanaccountinfo.product.allowAttributeOverrides.graceOnPrincipalAndInterestPayment"
+                           ng-model="formData.recurringMoratoriumOnPrincipalPeriods" ng-required="isRecurringMoratoriumOnPrincipalPeriodsMandatory && isOverrideMoratorium">
+                    <form-validate valattributeform="editloanaccountform" valattribute="recurringMoratoriumOnPrincipalPeriods"/>
                 </td>
             </tr>
             <tr ng-if="showLoanTerms">
-                <td colspan=2 class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.graceOnArrearsAgeing == true">
+                <td colspan=2 class="paddedbottom10" ng-hide="false">
                     <label>{{ 'label.input.grace' | translate }}&nbsp;{{'label.input.onduedate' | translate}}&nbsp;
                         <input
                             id="graceOnArrearsAgeing" class="input-mini-small" type="text" autocomplete="off"
