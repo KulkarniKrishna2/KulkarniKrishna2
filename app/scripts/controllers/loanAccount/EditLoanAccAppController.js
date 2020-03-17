@@ -22,6 +22,16 @@
             scope.loanAccountDpDetailData = {};
             scope.onDayTypeOptions = commonUtilService.onDayTypeOptions();
             scope.showLoanTerms = true;
+            scope.isLoanPurposeMandatory = false;
+            scope.isGraceOnInterestPaymentMandatory = false;
+            scope.isGraceOnPrincipalPaymentMandatory = false;
+            scope.isRecurringMoratoriumOnPrincipalPeriodsMandatory = false;
+            scope.showGraceOnInterestPayment = false;
+            scope.showRecurringMoratoriumOnPrincipalPeriods = false;
+            scope.showGraceOnPrincipalPayment = false;
+            scope.isLoanPurposeMandatory = false;
+            scope.showGraceOnArrearsAgeing = true;
+            scope.showMoratorium = false;
             
             if (scope.response && scope.response.uiDisplayConfigurations) {
                 scope.isProductNameReadOnly = scope.response.uiDisplayConfigurations.editJlgLoan.isReadOnlyField.productName;
@@ -31,18 +41,35 @@
                     scope.showLoanPurposeWithoutGroup = scope.response.uiDisplayConfigurations.loanAccount.loanPurposeGroup.showLoanPurposeWithoutGroup;
                     scope.showLoanPurposeGroup = scope.response.uiDisplayConfigurations.loanAccount.loanPurposeGroup.showLoanPurposeGroup;
                     scope.showIsDeferPaymentsForHalfTheLoanTerm = scope.response.uiDisplayConfigurations.loanAccount.isShowField.isDeferPaymentsForHalfTheLoanTerm;
-                    scope.canAddCharges = scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.canAddCharge;
                     scope.fetchRDAccountOnly = scope.response.uiDisplayConfigurations.loanAccount.savingsAccountLinkage.reStrictLinkingToRDAccount;
                     scope.extenalIdReadOnlyType = scope.response.uiDisplayConfigurations.loanAccount.isReadOnlyField.externalId;
                     scope.submittedOnReadOnlyType = scope.response.uiDisplayConfigurations.loanAccount.isReadOnlyField.submittedOn;
                     scope.firstRepaymentDateReadOnlyType = scope.response.uiDisplayConfigurations.loanAccount.isReadOnlyField.firstRepaymentDate;
-                    scope.showLoanPurpose = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.loanPurpose;
-                    scope.showPreferredPaymentChannel = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.preferredPaymentChannel;
                     scope.isAutoUpdateInterestStartDate = scope.response.uiDisplayConfigurations.loanAccount.isAutoPopulate.interestChargedFromDate;
-                    scope.hideFirstRepaymentDate = scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentsStartingFromDate;
-                    scope.hideInterestChargedFromDate = scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.interestChargedFromDate;
+                    
+                    if(scope.response.uiDisplayConfigurations.loanAccount.isHiddenField){
+                        scope.canAddCharges = scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.canAddCharge;
+                        scope.showLoanPurpose = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.loanPurpose;
+                        scope.showPreferredPaymentChannel = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.preferredPaymentChannel;
+                        scope.hideFirstRepaymentDate = scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentsStartingFromDate;
+                        scope.hideInterestChargedFromDate = scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.interestChargedFromDate;
+                        scope.showGraceOnInterestPayment = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.graceOnInterestPayment;
+                        scope.showRecurringMoratoriumOnPrincipalPeriods= !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.recurringMoratoriumOnPrincipalPeriods;
+                        scope.showGraceOnPrincipalPayment = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.graceOnPrincipalPayment;
+                        scope.showGraceOnArrearsAgeing = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.graceOnArrearsAgeing;
+                    }
+
+                    if(scope.response.uiDisplayConfigurations.loanAccount.isMandatory){
+                        scope.isLoanPurposeMandatory = scope.response.uiDisplayConfigurations.loanAccount.isMandatory.loanPurposeId;
+                        scope.isGraceOnInterestPaymentMandatory = scope.response.uiDisplayConfigurations.loanAccount.isMandatory.graceOnInterestPayment;
+                        scope.isGraceOnPrincipalPaymentMandatory = scope.response.uiDisplayConfigurations.loanAccount.isMandatory.graceOnPrincipalPayment;
+                        scope.isRecurringMoratoriumOnPrincipalPeriodsMandatory = scope.response.uiDisplayConfigurations.loanAccount.isMandatory.recurringMoratoriumOnPrincipalPeriods;
+                        scope.isLoanPurposeMandatory = scope.response.uiDisplayConfigurations.loanAccount.isMandatory.loanPurposeId;
+                    }
                 }
             }
+
+            scope.showMoratorium = scope.showGraceOnInterestPayment || scope.showRecurringMoratoriumOnPrincipalPeriods || scope.showGraceOnPrincipalPayment || scope.showGraceOnArrearsAgeing;
 
             for (var i = 1; i <= 28; i++) {
                 scope.repeatsOnDayOfMonthOptions.push(i);
@@ -318,6 +345,7 @@
             
             resourceFactory.loanResource.get({loanId: routeParams.id, template: true, associations: 'charges,collateral,meeting,multiDisburseDetails,loanTopupDetails',staffInSelectedOfficeOnly:true, fetchRDAccountOnly: scope.fetchRDAccountOnly}, function (data) {
                 scope.loanaccountinfo = data;
+                scope.isOverrideMoratorium = scope.loanaccountinfo.product.allowAttributeOverrides.graceOnPrincipalAndInterestPayment;
                 scope.showLoanTerms =!(scope.loanaccountinfo.loanEMIPacks && scope.isLoanEmiPackEnabled)?true:false;
                 if(data.loanEMIPackData){
                     scope.formData.loanEMIPackId = data.loanEMIPackData.id;
@@ -549,6 +577,7 @@
                 inparams.staffInSelectedOfficeOnly = true;
                 resourceFactory.loanResource.get(inparams, function (data) {
                     scope.loanaccountinfo = data;
+                    scope.isOverrideMoratorium = scope.loanaccountinfo.product.allowAttributeOverrides.graceOnPrincipalAndInterestPayment;
                     scope.showLoanTerms =!(scope.loanaccountinfo.loanEMIPacks && scope.isLoanEmiPackEnabled)?true:false;
                     scope.collaterals = [];
                     var refreshLoanCharges  = true;
