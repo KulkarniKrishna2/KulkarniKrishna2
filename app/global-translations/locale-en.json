@@ -8537,6 +8537,8 @@
      "error.msg.loan.id.with.status.invalid" : "Loan with id `{{params[0].value}}` and status `{{params[1].value}}` does not exist",
      "label.heading.transfer.village.along.with.center.group.client":"Village along with center,group & client will be transfered to the destination office",
      
+     "error.msg.deposit.account.interest.rate.chart.with.date.invalid":"Deposit Account Interest rate chart with Date:`{{params[0].value}}` does not exist",
+     
      "------ end of translation file ------": "----------"
 
 }

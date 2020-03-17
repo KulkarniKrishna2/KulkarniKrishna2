@@ -28,10 +28,10 @@
 				"inArrearsTolerance": false,
 				"graceOnInterestCharged": false,
 				"transactionProcessingStrategyId": false,
-				"graceOnInterestPayment": false,
+				"graceOnInterestPayment": true,
 				"graceOnArrearsAgeing": false,
 				"syncDisbursementDateWithMeeting": false,
-				"recurringMoratoriumOnPrincipalPeriods": false,
+				"recurringMoratoriumOnPrincipalPeriods": true,
 				"brokenPeriodMethodType": false,
 				"creditApprisalReportButton": true,
 				"netDisbursalAmount": true,
@@ -40,7 +40,8 @@
 				"canAddCharge": true,
 				"writeOff": false,				
 				"previewSchedule": false,
-				"collateral" : false
+				"collateral" : false,
+				"graceOnPrincipalPayment" : true
 			},
 			"isMandatory": {
 				"externalId": false,
@@ -49,7 +50,10 @@
 				"undoTransactionReason": false,
 				"isPreclosureReasonEnabled": false,
 				"transactionPaymentMode": false,
-				"transactionPaymentType": false
+				"transactionPaymentType": false,
+				"graceOnPrincipalPayment": false,
+				"graceOnInterestPayment": false,
+				"recurringMoratoriumOnPrincipalPeriods": false
 			},
 			"isHiddenSection": {
 				"interestRecalculationSection": false,
