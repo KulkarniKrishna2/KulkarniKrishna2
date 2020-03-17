@@ -220,7 +220,11 @@
     "label.heading.campute.income": "Compute Income",
     "label.heading.cbreport.order.number": "Report Order Number",
     "label.heading.loanpurposegroup": "Loan Purpose group",
-
+    "label.heading.external.service.name":"External Service Name",
+    "label.heading.external.service.status":"Status",
+    "label.heading.external.service.config":"Config",
+    "label.heading.external.service.trapdoor":"Trapdoor",
+    "label.heading.external.service.trapdoor.status":"Trapdoor Status",
 
     "#Menu Links": "..",
     "label.menu.selectloanofficer": "Select Staff",
@@ -3368,6 +3372,9 @@
     "label.anchor.viewAccountNumberPreferences": "View Account Number Preferences",
     "label.anchor.editAccountNumberPreferences": "Edit Account Number Preferences",
     "label.anchor.viewEntityMapping": "Entity Mapping",
+    "label.anchor.awsexternalServices":"AWS Configuration for Document Storage",
+    "label.anchor.smtpexternalServices":"Email Configuration",
+    "label.anchor.smsexternalServices":"SMS Configuration",
     "label.anchor.externalServices": "External Services",
     "label.anchor.aadhaarservice": "Aadhaar Service",
     "label.anchor.externalauthenticationservices": "External Authentication Services",

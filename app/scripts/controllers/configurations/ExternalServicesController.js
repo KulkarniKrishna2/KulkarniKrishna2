@@ -8,34 +8,19 @@
             scope.SMTPConfigs = [];
             scope.otherExternalServiceList= [];
             scope.externalServiceList= [];
-            resourceFactory.externalServicesS3Resource.get(function (data) {
-                for (var i in data) {
-                    if(data[i] != null && data[i].name != null) {
-                        data[i].name.replace(/ /g, '');
-                        if (!angular.equals(data[i].name, "")) {
-                            data[i].showEditvalue = true;
-                            scope.S3Configs.push(data[i])
-                        }
-                    }
-                }
-            });
-            resourceFactory.externalServicesSMTPResource.get(function (data) {
-                for (var i in data) {
-                    if(data[i].name && data[i].name.trim() != "") {
-                        data[i].showEditvalue = true;
-                        scope.SMTPConfigs.push(data[i])
-                    }
-                }
-            });
-
             resourceFactory.otherExternalServicesResource.getAll(function (data) {
                 scope.otherExternalServiceList = data;
             });
             resourceFactory.externalServicesResource.get(function (data) {
                 scope.externalServiceList = data;
             });
+            scope.isStatusEnabled = function(externalService){
+                if(externalService.status===true){
+                    return true;
+                }
+                return false;
+            }
         }
-
     });
     mifosX.ng.application.controller('ExternalServicesController', ['$scope', 'ResourceFactory', '$location', '$route',
         mifosX.controllers.ExternalServicesController]).run(function ($log){
