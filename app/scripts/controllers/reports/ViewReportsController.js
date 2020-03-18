@@ -25,7 +25,7 @@
 
             scope.addLocaleReportName = function (){
                 if(document.getElementsByName("locale_name") != undefined && scope.reports){
-                    if(scope.reports[0].report_locale_name == undefined){
+                    if(scope.reports[0] && scope.reports[0].report_locale_name == undefined){
                         var result = document.getElementsByName("locale_name");
                         for(var i=0; i<result.length; i++) {
                             scope.reports[i].report_locale_name = result[i].value;

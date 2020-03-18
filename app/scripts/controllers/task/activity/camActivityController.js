@@ -540,7 +540,7 @@
                     scope.totalIncomeOcc = scope.calculateOccupationTotal();
                     scope.totalIncomeAsset = scope.calculateTotalAsset();
                     scope.totalHouseholdExpense = scope.calculateTotalExpense();
-                    scope.showSummaryView();
+                    //scope.showSummaryView();
                 });
             };
 
