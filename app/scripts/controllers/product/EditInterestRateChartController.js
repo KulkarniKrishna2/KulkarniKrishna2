@@ -33,7 +33,7 @@
                         incentive.attributeValue = parseInt(incentive.attributeValue);
                     })
                 })
-                if(scope.chart.chartSlabs.length > 0){
+                if(scope.chart.chartSlabs && scope.chart.chartSlabs.length > 0){
                    scope.last = scope.chart.chartSlabs.length-1; 
                 }
 
@@ -106,6 +106,9 @@
                     chartSlab.amountRangeTo = amountRangeTo;
                 }
                 scope.chart.chartSlabs.push(chartSlab);
+                if(scope.chart.chartSlabs.length == 1){
+                    scope.last = 0;
+                }
             }
 
             /**
@@ -119,6 +122,12 @@
                         scope.last = i;
                     }else if(_.isUndefined(scope.chart.chartSlabs[i].id)){
                         scope.chart.chartSlabs.splice(index, 1);
+                        if(scope.chart.chartSlabs.length > 0){
+                           scope.last = scope.chart.chartSlabs.length -1;
+                       }else{
+                            scope.last = scope.chart.chartSlabs.length;
+                       }
+                        
                     }
                 }
             }
@@ -323,6 +332,20 @@
                     return true;
                 }
                 return false;
+            }
+            scope.addFirstRow = function(){
+                if(!_.isUndefined(scope.chart)){
+                    if(_.isUndefined(scope.chart.chartSlabs)){
+                        return true;
+                    }else{
+                        for(var i in scope.chart.chartSlabs){
+                            if(_.isUndefined(scope.chart.chartSlabs[i].delete)){
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+                }                                
             }
 
         }
