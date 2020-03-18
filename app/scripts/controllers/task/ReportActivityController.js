@@ -22,8 +22,10 @@
                 var pm = reportData.param.split(",");
                 if(pm.length>0){
                     for(var i in pm){
-                        var val = scope.$parent.reportParams[pm[i]];
-                        url =url+"&" + encodeURIComponent('R_'+pm[i]) + "=" + encodeURIComponent(val);//scope.$parent.reportParams[pm[i]]
+                        if(pm[i]!=""){
+                            var val = scope.$parent.reportParams[pm[i]];
+                            url =url+"&" + encodeURIComponent('R_'+pm[i]) + "=" + encodeURIComponent(val);
+                        }                        
                     }                    
                 }              
                 // allow untrusted urls for iframe http://docs.angularjs.org/error/$sce/insecurl
