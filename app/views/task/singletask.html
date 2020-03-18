@@ -22,7 +22,10 @@
                 </div>
             </div>
         </div>
-
+        <div ng-if="isReportAvailable==true">
+            <div  ng-include="'views/task/report_activity.html'"></div>
+        </div>
+        
         <div ng-if="canView"  class="col-md-12">
             <div class="row well" ng-if="canComplete" ng-include="getActivityView()"></div>
 
@@ -33,7 +36,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="row" ng-if="taskData.criteriaResult !== undefined">
                 <div class=" col-md-12 form-inline">
                     <div>
