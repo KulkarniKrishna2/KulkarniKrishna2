@@ -1,45 +1,35 @@
 <div>
     <table class="table">
     <tr>
-        <th>{{'label.input.last.used.by' |translate}}</th>
-        <th>{{'label.device.id' | translate}}</th>
-        <th>{{'label.imei.number' | translate }}</th>
-        <th>{{'label.heading.roles' | translate}}</th>
+        <th>{{'label.heading.user' |translate}}</th>
         <th>{{'label.heading.branch' | translate}}</th>
+        <th>{{'label.device.id' | translate}}</th>
         <th>{{'label.imei.number' | translate }}</th>
         <th>{{'label.device.model' | translate}}</th>
         <th>{{'label.heading.action' | translate}}</th>
     </tr>
-    <tr class="pointer-main" ng-if="registeredDevices.currentPageItems.length > 0" ng-repeat="device in registeredDevices.currentPageItems">
+    <tr ng-if="registeredUserDevices.currentPageItems.length > 0" ng-repeat="userDevice in registeredUserDevices.currentPageItems">
 
-        <td class="pointer" ng-click="routeTo(device)">{{device.lastLoggedInUserData.username}}</td>
-        <td class="pointer" ng-click="routeTo(device)">{{device.deviceId}}</td>
-        <td class="pointer" ng-click="routeTo(device)">{{device.imeiNumber}}</td>
-        <td class="pointer col-md-2" ng-click="routeTo(device)">{{device.userRoles}}</td>
-        <td class="pointer col-md-2" ng-click="routeTo(device)">{{device.branchName}}</td>
-        <td class="pointer" ng-click="routeTo(device)">{{device.imeiNumber}}</td>
-        <td class="pointer" ng-click="routeTo(device)">{{device.deviceModel}}</td>
-        <td ng-if="uiData.status == 'pending'">
-            <a has-permission='ACTIVATE_REGISTERED_DEVICE' ng-click="deviceAction($index,device,'activate')">{{'label.button.activate' | translate}}</a> |
-            <a has-permission='DEACTIVATE_REGISTERED_DEVICE' ng-click="deviceAction($index,device,'deactivate')">{{'label.button.deactivate' | translate}}</a>
-        </td>
-        <td ng-if="uiData.status == 'activated'">
-            <a has-permission='DEACTIVATE_REGISTERED_DEVICE' ng-click="deviceAction($index,device,'deactivate')">{{'label.button.deactivate' | translate}}</a>
-        </td>
-        <td ng-if="uiData.status == 'deactivated'">
-            <a has-permission='ACTIVATE_REGISTERED_DEVICE' ng-click="deviceAction($index,device,'activate')">{{'label.button.activate' | translate}}</a>
+        <td ng-click="routeToUser(userDevice.appUserData.id)"><a>{{userDevice.appUserData.username}}</a></td>
+        <td class=" col-md-2" >{{userDevice.appUserData.officeName}}</td>
+        <td ng-click="routeTo(userDevice.registeredDeviceData.id)"><a>{{userDevice.registeredDeviceData.deviceId}}</a></td>
+        <td ng-click="routeTo(userDevice.registeredDeviceData.id)"><a>{{userDevice.registeredDeviceData.imeiNumber}}</a></td>
+        <td ng-click="routeTo(userDevice.registeredDeviceData.id)"><a>{{userDevice.registeredDeviceData.deviceModel}}</a></td>
+        <td>
+            <a has-permission='ACTIVATE_REGISTERED_DEVICE' ng-click="userActionOnDevice(userDevice,'activate')">{{'label.button.activate' | translate}}</a> |
+            <a has-permission='DEACTIVATE_REGISTERED_DEVICE' ng-click="userActionOnDevice(userDevice,'deactivate')">{{'label.button.deactivate' | translate}}</a>
         </td>
     </tr>
     </table>
     <ul class="pager">
         <li class="previous">
-            <a id="prev" ng-click="registeredDevices.previous()" href=""
-                ng-hide="!registeredDevices.hasPrevious()">&larr; {{'label.button.previous' | translate}}
+            <a id="prev" ng-click="registeredUserDevices.previous()" href=""
+                ng-hide="!registeredUserDevices.hasPrevious()">&larr; {{'label.button.previous' | translate}}
             </a>
         </li>
         <li class="next">
-            <a id="next" ng-click="registeredDevices.next()" href=""
-                ng-hide="!registeredDevices.hasNext()">{{'label.button.next' | translate}} &rarr;
+            <a id="next" ng-click="registeredUserDevices.next()" href=""
+                ng-hide="!registeredUserDevices.hasNext()">{{'label.button.next' | translate}} &rarr;
             </a>
         </li>
     </ul>
