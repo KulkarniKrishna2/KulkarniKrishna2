@@ -2,6 +2,7 @@
       rc-submit="submit()">
     <div>
         <ul class="breadcrumb">
+            <li><a href="#/accounting">{{'label.anchor.accounting'|translate}}</a></li>
             <li><a href="#/bankstatements">{{'label.view.viewbankstatement' | translate}}</a></li>
              <li class="active">{{'label.anchor.uploadbankstatement' | translate}}</li>
         </ul>
@@ -69,6 +70,9 @@
         </div>
 
         <div class="col-md-offset-3">
+            <a id="cancel" href="#/bankstatements">
+                <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
+            </a>
             <button id="save" type="submit" has-permission='CREATE_BANKSTATEMENT' class="btn btn-primary">{{'label.button.save' | translate}}</button>
         </div>
     </fieldset>

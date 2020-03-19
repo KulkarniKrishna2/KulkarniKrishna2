@@ -21,7 +21,9 @@
                 <div class="col-sm-3">
                     <input type="checkbox" name="name1" ng-model="formData.createjournalentries"/> {{'label.checkbox.createjournalentries' | translate}}
                 </div>
-
+                <a id="cancel" href="#/viewprovisioningentries">
+                    <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
+                </a>
                 <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_PROVISIONING_ENTRIES'>
                     {{'label.button.save' | translate}}
                 </button>

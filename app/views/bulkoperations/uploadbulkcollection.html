@@ -2,7 +2,8 @@
       rc-submit="submit()">
     <div>
         <ul class="breadcrumb">
-            <li><a href="#/bulkcollection">{{'label.view.viewtransaction' | translate}}</a></li>
+            <li><a href="#/bulkoperations">{{'label.anchor.bulkoperations' | translate}}</a></li>
+            <li><a href="#/bulkcollection">{{'label.anchor.bulkportfoliotransactions' | translate}}</a></li>
              <li class="active">{{'label.anchor.uploadbulkcollection' | translate}}</li>
         </ul>
     </div>
@@ -49,6 +50,9 @@
         </div>
        
         <div class="col-md-offset-3">
+            <a id="cancel" href="#/bulkcollection">
+                <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
+            </a>
             <button id="save" type="submit" has-permission='CREATE_BANKSTATEMENT' class="btn btn-primary">{{'label.button.save' | translate}}</button>
         </div>
     </fieldset>
