@@ -46,6 +46,35 @@
         </div>
             
         </tab>
+        <tab heading="{{'label.heading.favourite' | translate}}" select="getFavouriteReports()">
+            <div>
+                <br>
+                <table class="table">
+                    <thead>
+                        <tr class="graybg">
+                            <th></th>
+                            <th>{{ 'label.heading.name' | translate }}</th>
+                            <th>{{ 'label.heading.type' | translate }}</th>
+                            <th>{{ 'label.heading.category' | translate }}</th>
+        
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="pointer-main"
+                            ng-repeat="report in favourites| orderBy:'report_name':reverse | filter:filterText"
+                            has-permission='READ_{{report.reportName}}'>
+                            <td>
+                                <a ng-click="unMarkFavourite(report)"><i class="icon-star"></i></a>
+                            </td>
+                            <td class="pointer" data-ng-click="routeTo(report)">{{''+report.reportName+'' | translate}}</td>
+                            <td class="pointer" data-ng-click="routeTo(report)">{{report.reportType}}</td>
+                            <td class="pointer" data-ng-click="routeTo(report)">{{report.reportCategory}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+        
+            </div>
+        </tab>
         <tab ng-repeat="tab in reportCagegories" heading="{{tab.name}}" select="loanReports(tab)">
             <div>
                 <br>
@@ -53,6 +82,7 @@
                 <table class="table">
                     <thead>
                     <tr class="graybg">
+                        <th>{{ 'label.heading.favourites' | translate }}</th>
                         <th>{{ 'label.heading.name' | translate }}</th>
                         <th>{{ 'label.heading.type' | translate }}</th>
                         <th>{{ 'label.heading.category' | translate }}</th>
@@ -60,6 +90,9 @@
                     </thead>
                     <tbody>
                     <tr class="pointer-main" ng-repeat="report in reports| orderBy:'report_name':reverse | filter:filterText" has-permission='READ_{{report.reportName}}'>
+                        <td class="">
+                            <a ng-click="toggleFavorite(report)"><i ng-class="(report.isFavourite )?'icon-star':'icon-star-empty'"></i></a>
+                        </td>
                         <td class="pointer" data-ng-click="routeTo(report)">{{''+report.reportName+'' | translate}}</td>
                         <td class="pointer" data-ng-click="routeTo(report)">{{report.reportType}}</td>
                         <td class="pointer" data-ng-click="routeTo(report)">{{report.reportCategory}}</td>

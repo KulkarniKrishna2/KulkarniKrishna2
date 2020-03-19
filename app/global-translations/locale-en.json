@@ -31,6 +31,7 @@
     "label.heading.loanaccount": "Loan Account",
     "label.heading.type": "Type",
     "label.heading.category": "Category",
+    "label.heading.favourites": "Favourite",
     "label.heading.balance": "Balance",
     "label.heading.viewreceipts": "View Receipt",
     "label.heading.savingaccount": "Saving Account",
@@ -5921,6 +5922,7 @@
     "label.heading.inputparams": "Filters",
     "label.heading.requesttime": "Requested Time",
     "label.heading.reportrequest": "Report requests",
+    "label.heading.favourite": "My Favourite",
     "label.heading.running": "Running",
     "label.heading.failed": "Failed",
 

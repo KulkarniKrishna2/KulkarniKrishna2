@@ -197,6 +197,13 @@
                     reportsByCategoryResource: defineResource(apiVer + "/reports/category/:id", {id: '@id'}, {
                         get: {method: 'GET', params: {}, isArray: true}
                     }),
+                    favouriteReportsResource: defineResource(apiVer + "/reports", {favourite: '@favourite'}, {
+                        get: {method: 'GET', params: {favourite: '@favourite'}, isArray: true}   
+                    }),
+                    favouriteReportsResourceByReportId: defineResource(apiVer + "/reports/:id/favourite", {id: '@id'}, {
+                        delete: {method: 'DELETE', params: {}},
+                        save: {method: 'POST',params: {}}
+                    }),
                     reportsByEntityResource: defineResource(apiVer + "/reports/entityreport/:id", {id: '@id'}, {
                         get: {method: 'GET', params: {}, isArray: true},
                     }),

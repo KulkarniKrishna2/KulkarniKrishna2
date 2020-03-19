@@ -10,6 +10,7 @@
             scope.routeTo = function (report) {
                 location.path('/run_report/' + report.reportName).search({reportId: report.id, type: report.reportType});
             };
+            scope.favourites = [];
 
             resourceFactory.codeValueByCodeNameResources.get({codeName: "Report Classification"}, function (codeValueData) {
                 scope.reportCagegories = codeValueData;
@@ -47,7 +48,32 @@
                     scope.reports = data ;
                 });
             } ;
- 
+
+            scope.getFavouriteReports = function () {
+                resourceFactory.favouriteReportsResource.get({favourite  : true}, function (data) {
+                    scope.favourites = data;
+                });
+            };
+
+            scope.toggleFavorite = function (report) {
+                if (!report.isFavourite) {
+                    resourceFactory.favouriteReportsResourceByReportId.save({ id: report.id }, function (data) {
+                        report.isFavourite = true;
+                    });
+                }
+                else {
+                    resourceFactory.favouriteReportsResourceByReportId.delete({ id: report.id }, function (data) {
+                        report.isFavourite = false;
+                    });
+                }
+            };
+
+            scope.unMarkFavourite = function (report) {
+                resourceFactory.favouriteReportsResourceByReportId.delete({ id: report.id }, function (data) {
+                    scope.getFavouriteReports();
+                });
+            };
+
             scope.reportrequests = function(){
                 resourceFactory.advancedReportsResource.get({offset: scope.requestoffset,limit:scope.limit}, function (data) {
                 scope.reportrequestsData = data;
