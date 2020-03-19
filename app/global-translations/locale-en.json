@@ -5901,6 +5901,8 @@
     "label.heading.trackusage": "Track Usage",
     "label.anchor.audittrailsforreport": "Audit Trails For Report",
     "label.auditlogsforgeneratedreports": "Audit Logs For Generated Reports",
+    "label.anchor.reportusagestatistics": "Report Usage Statistics",
+    "label.showreportusagestatistics": "Show Report Usage Statistics",
     "label.anchor.auditreports": "Audit Reports",
     "label.input.report": "Report",
     "label.input.user": "User",
