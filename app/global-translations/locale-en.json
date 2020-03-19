@@ -8535,6 +8535,7 @@
      "label.heading.transfer.village.along.with.center.group.client":"Village along with center,group & client will be transfered to the destination office",
      
      "error.msg.deposit.account.interest.rate.chart.with.date.invalid":"Deposit Account Interest rate chart with Date:`{{params[0].value}}` does not exist",
+     "label.heading.user.device.link.status" : "User-Device-Link Status",
      
      "------ end of translation file ------": "----------"
 
