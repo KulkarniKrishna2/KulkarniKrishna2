@@ -1,5 +1,7 @@
 <div class="col-md-12 " ng-controller="TrackSmsController">
     <ul class="breadcrumb">
+        <li><a href="#/organization">{{'label.anchor.organization' | translate}}</a></li>
+        <li><a href="#/smsconfiguration">{{'label.anchor.managesms' | translate}}</a></li>
         <li class="active" ng-show="tabSelected=='send'">{{'label.anchor.sendsms' | translate}}</li>
         <li class="active" ng-show="tabSelected=='pending'">{{'label.anchor.pendingsms' | translate}}</li>
         <li class="active" ng-show="tabSelected=='failed'">{{'label.anchor.failedsms' | translate}}</li>

@@ -3,6 +3,7 @@
         <ul class="breadcrumb">
             <li>
                 <a href="#/organization">{{'label.anchor.organization' | translate}}</a>
+                <li><a href="#/smsconfiguration">{{'label.anchor.managesms' | translate}}</a></li>
             </li>
             <li class="active">{{'label.anchor.smsproviders' | translate}}</li>
         </ul>
@@ -30,7 +31,7 @@
             </table>
         </div>
         <div class="col-md-offset-5">
-            <a id="cancel" href="#/organization" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+            <a id="cancel" href="#/smsconfiguration" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
             <button id="save"  class="btn btn-primary" ng-click="updateProvider()"  has-permission='UPDATE_SMS_PROVIDER'>{{'label.button.update' | translate}}</button>
         </div>
     </div>
