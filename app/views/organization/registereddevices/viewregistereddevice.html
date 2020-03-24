@@ -3,14 +3,56 @@
         <li>
             <a href="#/organization">{{'label.anchor.organization' | translate}}</a>
         </li>
+        <li>
+            <a ng-click="routeToSearch()">{{'label.anchor.manage.usertodevices' | translate}}</a>
+         </li>
+         <li ng-show="isSearch==false">
+                <a  ng-click="routeToUser(fromUserId)">{{'label.anchor.users' | translate}}</a>
+         </li>
         <li class="active">{{'label.anchor.manage.devices' | translate}}</li>
     </ul>
-    <div class="container">
-        <h3>{{'label.device.id' | translate}}:&nbsp;{{registeredDeviceUsers.deviceId}}</h3>
-        <h3>{{'label.device.model' | translate}}:&nbsp;{{registeredDeviceUsers.deviceModel}}</h3>
-        <h3>{{'label.heading.associated.users' | translate}}</h3>
-        <table class="table">
+    <api-validate></api-validate>
+    <table class="table well">
+        <tbody>
             <tr>
+                <td colspan="2">
+                    <b class="col-sm-offset-1">{{'label.device.information' | translate}}</b>
+                </td>
+    
+            </tr>
+            <tr>
+                <td style="width:20%;">
+                    <b>{{'label.device.id' | translate}}:</b>
+                </td>
+                <td>{{registeredDeviceUsers.deviceId}}</td>
+    
+            </tr>
+            <tr>
+                <td style="width:20%;">
+                    <b>{{'label.device.model' | translate}}:</b>
+                </td>
+                <td>{{registeredDeviceUsers.deviceModel}}</td>
+            </tr>
+            <tr>
+                <td style="width:20%;">
+                    <b>{{'label.imei.number' | translate}}:</b>
+                </td>
+                <td>{{registeredDeviceUsers.imeiNumber}}</td>
+            </tr>
+            <tr>
+                <td style="width:20%;">
+                    <b>{{'label.heading.status' | translate}}:</b>
+                    </td>
+                    <td>{{registeredDeviceUsers.status.value}}</td>
+                </tr>
+        </tbody>
+    
+    </table>
+    <div>
+                
+        <h3>{{'label.heading.associated.users' | translate}}</h3>
+        <table class="table well">
+            <tr class="graybg">
                 <th>{{'label.heading.name' | translate}}</th>
                 <th>{{'label.last.login.date.time' | translate}}</th>
                 <th>{{'label.last.login.location' | translate}}</th>
@@ -18,7 +60,7 @@
                 <th>{{'label.heading.action' | translate}}</th>
             </tr>
             <tr ng-repeat="user in registeredDeviceUsers.registeredDeviceToUserDatas">
-                <td>{{user.appUserData.username}}</td>
+                <td><a  ng-click="routeToUser(user.appUserData.id)">{{user.appUserData.username}}</a></td>
                 <td>{{user.lastLoggedInDate | DateTimeFormat}}</td>
                 <td>
                     <a href="http://maps.google.com/?q={{user.latitude}},{{user.longitude}}" target=" ">{{'label.heading.location' | translate}}</a>
@@ -34,7 +76,6 @@
                 <td ng-if="user.status.systemCode == 'deactivated'">
                     <a ng-click="userActionOnDevice(user,'activate')">{{'label.button.activate' | translate}}</a>
                 </td>
-                <td>
             </tr>
         </table>
     </div>
