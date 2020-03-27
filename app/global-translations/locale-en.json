@@ -8537,6 +8537,8 @@
      
      "error.msg.deposit.account.interest.rate.chart.with.date.invalid":"Deposit Account Interest rate chart with Date:`{{params[0].value}}` does not exist",
      "label.heading.user.device.link.status" : "User-Device-Link Status",
+     "label.button.add.details": "Add Details",
+     "label.anchor.add.details":"Add Details",
      
      "------ end of translation file ------": "----------"
 
