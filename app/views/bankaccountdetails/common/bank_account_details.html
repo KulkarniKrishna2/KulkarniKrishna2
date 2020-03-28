@@ -1,40 +1,41 @@
 <div class="col-md-12" ng-controller="AddBankAccountDetailsToLoanController">
-        <div>
-            <ul class="breadcrumb">
-                 <li><a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a></li>
-                <li>{{'label.anchor.bankaccountdetails'|translate}}</li>
-            </ul>
-        </div>
-        <api-validate></api-validate>
-        <span style="color:Red">{{validateMessage}}</span>
-        <div class="span grey-head">
-            <h3>
-                <strong>{{'label.heading.bank.account.details' | translate}}</strong>
-            </h3>
-        </div>
-        <div ng-if="bankAccountDetails.length > 0" class="pull-right">
-            <a ng-hide="loanBankAccountDetailAssociation" class="btn btn-primary" ng-click="submit(formData.bankAccountDetailId)">{{'label.button.add.bankaccount' | translate}} </a>
-        </div>
-        <div ng-if="bankAccountDetails.length > 0">
-            <table class="table">
-                <thead>
-                    <tr class="graybg">
-                           <th></th>
-                            <th>{{'label.heading.holdername' | translate}}</th>
-                            <th>{{'label.heading.accountnumber' | translate}}</th>
-                            <th>{{'label.heading.ifsc' | translate}}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="record in bankAccountDetails">
-                            <td class="col-md-1">
-                                <input type="radio" ng-model="formData.bankAccountDetailId" value="{{record.id}}"/>
-                            </td>
-                            <td class="col-md-1">{{record.name}}</td>
-                            <td class="col-md-1">{{record.accountNumber}}</td>
-                            <td class="col-md-1">{{record.ifscCode}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a></li>
+            <li>{{'label.anchor.bankaccountdetails'|translate}}</li>
+        </ul>
+    </div>
+    <api-validate></api-validate>
+    <span style="color:Red">{{validateMessage}}</span>
+    <div class="span grey-head">
+        <h3>
+            <strong>{{'label.heading.bank.account.details' | translate}}</strong>
+        </h3>
+    </div>
+    <div ng-if="bankAccountDetails.length > 0" class="pull-right">
+        <a ng-hide="loanBankAccountDetailAssociation" class="btn btn-primary"
+            ng-click="submit(formData.bankAccountDetailId)">{{'label.button.add.bankaccount' | translate}} </a>
+    </div>
+    <div ng-if="bankAccountDetails.length > 0">
+        <table class="table">
+            <thead>
+                <tr class="graybg">
+                    <th></th>
+                    <th>{{'label.heading.holdername' | translate}}</th>
+                    <th>{{'label.heading.accountnumber' | translate}}</th>
+                    <th>{{'label.heading.ifsc' | translate}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="record in bankAccountDetails">
+                    <td class="col-md-1">
+                        <input type="radio" ng-model="formData.bankAccountDetailId" value="{{record.id}}" />
+                    </td>
+                    <td class="col-md-1">{{record.name}}</td>
+                    <td class="col-md-1">{{record.accountNumber}}</td>
+                    <td class="col-md-1">{{record.ifscCode}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

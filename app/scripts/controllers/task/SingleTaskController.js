@@ -459,9 +459,9 @@
                 getTaskDocuments();
             };
             
-            scope.getBankAccountAuditLogs = function(param){
-                resourceFactory.bankAccountAuditResource.get(param, function (data) {
-                    scope.auditLogs = data;                    
+            function getBankAccountDetailsAuditLogs (param){
+                resourceFactory.bankAccountDetailsAuditResource.get(param, function (data) {
+                    scope.auditLogs = data.result;                
                 });
             };
             
@@ -472,12 +472,12 @@
                 if(scope.path.indexOf("addbankaccountdetail") != -1 || scope.path.indexOf("bankaccountdetails") != -1){
                     if(scope.path.indexOf("clients") != -1){
                         param.entityType = 'clients';
-                        param.bankAssociationId = routeParams.clientBankAccountDetailAssociationId ;
+                        param.bankAccountDetailsId = routeParams.bankAccountDetailsId ;
                         param.entityId = routeParams.entityId;
-                        if(param.bankAssociationId==undefined){
-                            param.bankAssociationId = -1;
+                        if(param.bankAccountDetailsId==undefined){
+                            param.bankAccountDetailsId = -1;
                         }
-                        scope.getBankAccountAuditLogs(param);
+                        getBankAccountDetailsAuditLogs(param);
                     }
                     
                 }

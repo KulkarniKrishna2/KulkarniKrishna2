@@ -2,9 +2,10 @@
     mifosX.controllers = _.extend(module, {
         GroupBankAccountDetailsController: function(scope, routeParams, resourceFactory, location, route) {
             scope.formData = {};
+            scope.viewUIConfig = {};
             scope.bankAccountDetails = [];
             scope.groupData = {};
-            scope.allowBankAccountForGroups = scope.isSystemGlobalConfigurationEnabled('allow-bank-account-for-groups');
+            scope.viewUIConfig.allowBankAccountForGroups = scope.isSystemGlobalConfigurationEnabled('allow-bank-account-for-groups');
             scope.showAddBankAccountsButton = false;
 
             function populateDetails() {
@@ -21,7 +22,7 @@
                 location.path('/groups/'+scope.groupId+'/bankaccountdetails/' + groupBankAccountDetailAssociationId);
             };
             scope.showAddButton = function (data) {
-                if(scope.allowBankAccountForGroups) {
+                if(scope.viewUIConfig.allowBankAccountForGroups) {
                     scope.showAddBankAccountsButton = true;
                 } else {
                     if(data && data.length < 1){

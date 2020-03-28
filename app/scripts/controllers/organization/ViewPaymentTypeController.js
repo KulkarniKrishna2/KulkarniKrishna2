@@ -8,7 +8,7 @@
             });
 
             scope.showEdit = function(id){
-                location.path('/editPaymentType/' + id);
+                location.path('/editpaymenttype/' + id);
             }
 
            var PaymentTypeDeleteCtrl = function ($scope, $modalInstance,paymentTypeId) {

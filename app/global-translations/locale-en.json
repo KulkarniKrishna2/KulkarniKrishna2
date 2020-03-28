@@ -8557,6 +8557,7 @@
      "label.button.workflow.template":"Workflow Template",
      "label.tooltip.upload.file.for.workflow" : "Upload file for workflowsteps",
      "label.heading.upload.file.for.workflow":"Upload File For Workflow",
+     "bank.account.document.can.not.be.deleted" : "Bank Account document cannot be deleted, as bank account is in active state",
      
      "------ end of translation file ------": "----------"
 

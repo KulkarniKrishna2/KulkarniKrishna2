@@ -1,9 +1,9 @@
 <div class="col-md-12" ng-controller="GroupBankAccountDetailsController">
-    <div ng-if="allowBankAccountForGroups">
+    <div ng-if="viewUIConfig.allowBankAccountForGroups">
         <div>
             <ul class="breadcrumb">
                 <li>
-                    <a ng-href="#/viewoffice/{{groupData.officeId}}">{{groupData.officeName}}</a>                    <a ng-href="#/viewgroup/{{groupId}}">{{'label.heading.group' | translate}}</a>
+                    <a ng-href="#/viewoffice/{{groupData.officeId}}">{{groupData.officeName}}</a> <a ng-href="#/viewgroup/{{groupId}}">{{'label.heading.group' | translate}}</a>
                 </li>   
                 <li ng-if="groupData.centerName">   
                     <a ng-href="#/viewcenter/{{groupData.centerId}}">{{groupData.centerName}}</a>   

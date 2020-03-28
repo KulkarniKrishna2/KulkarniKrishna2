@@ -3,47 +3,43 @@
         ClientBankAccountDetailsController: function(scope, routeParams, resourceFactory, location, route) {
             scope.entityType = "clients";
             scope.entityId = routeParams.clientId;
+            scope.clientId = routeParams.clientId;
             scope.formData = {};
             scope.bankAccountDetails = [];
             scope.groupData = {};
-            scope.showAddBankAccountsButton = false;
+            scope.isActiveBankAccountDetails = true;
+            scope.showAddBankAccountsButton = true;
             scope.allowMultipleBankAccountsForClient = scope.isSystemGlobalConfigurationEnabled('allow-multiple-bank-accounts-to-clients');
-            scope.showInactiveBankAccountDetails = scope.response.uiDisplayConfigurations.bankAccountDetails.showInactiveBankAccountDetails;
 
-            function populateDetails() {
-               resourceFactory.bankAccountDetailResources.getAll({entityType: scope.entityType,entityId: scope.entityId}, function (data) {
-                    scope.bankAccountDetails = data;
-                    scope.showAddButton(data);
+            scope.populateDetails = function(status) {
+               resourceFactory.bankAccountDetailsResource.getAll({entityType: scope.entityType,entityId: scope.entityId,status:status}, function (data) {
+                    scope.bankAccountDetails = data.result;
+                    scope.showAddButton(scope.bankAccountDetails);
+                    if(status === 'active'){
+                        scope.isActiveBankAccountDetails = true;
+                    }else{
+                        scope.isActiveBankAccountDetails = false;
+                    }
                 });
-               if(scope.showInactiveBankAccountDetails){
-                    scope.status="inactive";
-                    resourceFactory.bankAccountDetailResources.getAll({entityType: scope.entityType,entityId: scope.entityId,status:scope.status}, function (data) {
-                    scope.inActivebankAccountDetails = data;
-                });
-               }
-            }
-            populateDetails();
-
-            scope.routeTo = function (clientBankAccountDetailAssociationId) {
-                location.path('/'+scope.entityType+'/'+scope.entityId+'/bankaccountdetails/'+clientBankAccountDetailAssociationId);
-            };
-            scope.routeTowithQueryParam = function (clientBankAccountDetailAssociationId) {
-                scope.statusParam = "inactive";
-                location.path('/'+scope.entityType+'/'+scope.entityId+'/bankaccountdetails/'+clientBankAccountDetailAssociationId).search({'associationStatus':scope.statusParam});
             };
 
+            scope.populateDetails(null);
+
+            scope.routeTo = function (bankAccountRecord) {
+                location.path('/'+scope.entityType+'/'+scope.entityId+'/bankaccountdetails/'+bankAccountRecord.id);
+            };
+            
             scope.showAddButton = function (data) {
                 if(scope.allowMultipleBankAccountsForClient) {
                     scope.showAddBankAccountsButton = true;
                 } else {
-                    if(data && data.length < 1){
-                        scope.showAddBankAccountsButton =  true
+                    for(var i in data){
+                        if(data[i] && (data[i].status.id == 100 || data[i].status.id == 200)){
+                            scope.showAddBankAccountsButton =  false;
+                            break;
+                        }
                     }
                 }
-
-            }
-            scope.showInActiveBankDetails = function(){
-                return (scope.showInactiveBankAccountDetails && scope.inActivebankAccountDetails && scope.inActivebankAccountDetails.length > 0)
             }
         }
     });

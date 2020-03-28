@@ -585,10 +585,10 @@
             .when('/viewpaymenttype/', {
                 templateUrl: 'views/organization/viewpaymenttype.html'
             })
-            .when('/createPaymentType/', {
+            .when('/createpaymenttype/', {
                 templateUrl: 'views/organization/createpaymenttype.html'
             })
-            .when('/editPaymentType/:id', {
+            .when('/editpaymenttype/:id', {
                 templateUrl: 'views/organization/editpaymenttype.html'
             })
             .when('/reports/', {
@@ -1494,7 +1494,7 @@
             .when('/groups/:groupId/bankaccountdetails/:groupBankAccountDetailAssociationId', {
                 templateUrl: 'views/groups/bankaccountdetails/viewgroupbankaccountdetails.html'
              })
-            .when('/:entityType/:entityId/bankaccountdetails/:clientBankAccountDetailAssociationId', {
+            .when('/:entityType/:entityId/bankaccountdetails/:bankAccountDetailsId', {
                 templateUrl: 'views/bankaccountdetails/bank_account_details.html'
             })
             .when('/groups/:groupId/addbankaccountdetail', {

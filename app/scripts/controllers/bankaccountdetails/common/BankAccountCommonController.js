@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        BankAccountCommonController: function ($controller, scope, routeParams, resourceFactory, location, $modal, dateFilter, $upload, $rootScope, API_VERSION, $http) {
+        BankAccountCommonController: function ($controller, scope, routeParams, resourceFactory, location, $modal, dateFilter, $upload, $rootScope, API_VERSION, API_VERSION_V2, $http) {
             angular.extend(this, $controller('defaultUIConfigController', {
                 $scope: scope,
                 $key: "bankAccountDetails"
@@ -8,166 +8,108 @@
             angular.extend(this, $controller('defaultActivityController', {
                 $scope: scope
             }));
-
-            scope.viewConfig = {
-                showSummary: false,
-                hasData: false,
-                approved: false
-            };
-
-            scope.isCommonInitiated = false;
+            scope.viewConfig = {};
             scope.formData = {};
-            scope.docData = {};
             scope.repeatFormData = {};
-            scope.bankAccountTypeOptions = [];
-            scope.deFaultBankName = null;
-            scope.fileError = false;
-            scope.addPicture = true;
-            scope.bankAccountDocuments = [];
-            if (routeParams.clientBankAccountDetailAssociationId != undefined) {
-                scope.clientBankAccountDetailAssociationId = routeParams.clientBankAccountDetailAssociationId;
-            } else {
-                scope.clientBankAccountDetailAssociationId = scope.commonConfig.bankAccount.clientBankAccountDetailAssociationId;
-            }
-            scope.showReactivateButton = false;
-            if(!_.isUndefined(routeParams.associationStatus)){
-                scope.fetchInactiveAssociation = "fetchInactiveAssociation";
-                scope.showReactivateButton = true;
-            }
 
-            function getEntityType() {
-                return scope.entityType || scope.commonConfig.bankAccount.entityType;
+            function init() {
+                scope.viewConfig.isCreate = false;
+                scope.viewConfig.isUpdate = false;
+                scope.viewConfig.showSummary = false;
+                scope.viewConfig.viewDocument = false;
+                if (scope.commonConfig.bankAccountData.templateData) {
+                    scope.bankAccountTypeOptions = scope.commonConfig.bankAccountData.templateData.bankAccountTypeOptions;
+                }
+                if (scope.commonConfig && scope.commonConfig.bankAccountData.bankAccountDetailsData) {
+                    populateBankAccountDetails();
+                    getBankAccountDocuments();
+                } else {
+                    scope.viewConfig.isCreate = scope.commonConfig.bankAccountData.eventType == 'create';
+                    if (scope.viewConfig.isCreate) {
+                        scope.formData.accountTypeId = scope.bankAccountTypeOptions[0].id;
+                    }
+                }
             }
+            init();
 
-            function getEntityId() {
-                return scope.entityId || scope.commonConfig.bankAccount.entityId;
-            }
-
-            function getClientBankAccountDetailAssociationId() {
-                return scope.clientBankAccountDetailAssociationId || scope.commonConfig.bankAccount.clientBankAccountDetailAssociationId;
-            }
-
-            function underTask() {
-                return scope.isTask;
-            }
-
-            if (scope.responseDefaultGisData && scope.response && scope.response.uiDisplayConfigurations &&
-                scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig &&
-                scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.bankAccountDetails &&
-                scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.bankAccountDetails.bankName &&
-                scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.bankAccountDetails.bankName != "") {
-                scope.deFaultBankName = scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.bankAccountDetails.bankName;
-            }
-            if(scope.response && scope.response.uiDisplayConfigurations &&
-                scope.response.uiDisplayConfigurations.bankAccountDetails){
-                scope.showDeleteButton = scope.response.uiDisplayConfigurations.bankAccountDetails.showDeleteButton;
+            function populateBankAccountDetails() {
+                scope.allowOnlyPennyDropTransaction = false;
+                if (scope.commonConfig.bankAccountData.allowOnlyPennyDropTransaction) {
+                    scope.allowOnlyPennyDropTransaction = scope.commonConfig.bankAccountData.allowOnlyPennyDropTransaction;
+                }
+                scope.bankAccountDetailsData = scope.commonConfig.bankAccountData.bankAccountDetailsData;
+                scope.viewConfig.showSummary = true;
+                scope.viewConfig.update = false;
+                scope.viewConfig.create = false;
+                constructBankAccountDetails();
             }
 
             function constructBankAccountDetails() {
                 scope.formData = {
-                    name: scope.bankData.name,
-                    accountNumber: scope.bankData.accountNumber,
-                    ifscCode: scope.bankData.ifscCode,
-                    micrCode: scope.bankData.micrCode,
-                    mobileNumber: scope.bankData.mobileNumber,
-                    email: scope.bankData.email,
-                    bankName: scope.bankData.bankName,
-                    bankCity: scope.bankData.bankCity,
-                    branchName: scope.bankData.branchName
+                    name: scope.bankAccountDetailsData.name,
+                    accountNumber: scope.bankAccountDetailsData.accountNumber,
+                    ifscCode: scope.bankAccountDetailsData.ifscCode,
+                    micrCode: scope.bankAccountDetailsData.micrCode,
+                    mobileNumber: scope.bankAccountDetailsData.mobileNumber,
+                    email: scope.bankAccountDetailsData.email,
+                    bankName: scope.bankAccountDetailsData.bankName,
+                    bankCity: scope.bankAccountDetailsData.bankCity,
+                    branchName: scope.bankAccountDetailsData.branchName
                 };
                 scope.repeatFormData = {
-                    accountNumberRepeat: scope.bankData.accountNumber,
-                    ifscCodeRepeat: scope.bankData.ifscCode
+                    accountNumberRepeat: scope.bankAccountDetailsData.accountNumber,
+                    ifscCodeRepeat: scope.bankAccountDetailsData.ifscCode
                 };
-                if (!_.isUndefined(scope.bankData.lastTransactionDate)) {
-                    scope.formData.lastTransactionDate = new Date(dateFilter(scope.bankData.lastTransactionDate, scope.df));
+                if (!_.isUndefined(scope.bankAccountDetailsData.lastTransactionDate)) {
+                    scope.formData.lastTransactionDate = new Date(dateFilter(scope.bankAccountDetailsData.lastTransactionDate, scope.df));
                 }
-
-                if (!scope.formData.bankName) {
-                    scope.formData.bankName = scope.deFaultBankName;
-                }
-                if (scope.bankData.accountType) {
-                    scope.formData.accountTypeId = scope.bankData.accountType.id;
-                } else {
-                    scope.formData.accountTypeId = scope.bankAccountTypeOptions[0].id;
-                }
-                if (scope.bankData.status) {
-                    if (scope.bankData.status.id == 200 || scope.bankData.status.id == 400) {
-                        scope.viewConfig.approved = true;
-                    }
-                }
-
-                scope.viewConfig.isVerified = scope.bankData.isVerified;
-
-                scope.bankAccountData = scope.bankData;
-                if(scope.bankData.accountNumber != undefined) {
-                    scope.viewConfig.hasData = true;
-                    enableShowSummary();
-                }else{
-                    disableShowSummary();
-                }
-            
-
-                scope.bankAccountDocuments = scope.bankData.bankAccountDocuments || [];
-                for (var i = 0; i < scope.bankAccountDocuments.length; i++) {
-                    var docs = {};
-                    if(scope.bankAccountDocuments[i].storage && scope.bankAccountDocuments[i].storage.toLowerCase()=='s3'){
-                        docs = $rootScope.hostUrl + API_VERSION + '/' + getEntityType() + '/' + getEntityId() + '/documents/' + scope.bankAccountDocuments[i].id + '/downloadableURL';
-                    }else {
-                        docs = $rootScope.hostUrl + API_VERSION + '/' + getEntityType() + '/' + getEntityId() + '/documents/' + scope.bankAccountDocuments[i].id + '/download';
-                    }
-                    scope.bankAccountDocuments[i].docUrl = docs;
-                }
-
-                scope.isCommonInitiated = true;
+                scope.formData.accountTypeId = scope.bankAccountDetailsData.accountType.id;
             }
 
-            function populateDetails() {
-                resourceFactory.bankAccountDetailResource.get({
+            function getEntityType() {
+                return scope.entityType || scope.commonConfig.bankAccountData.entityType;
+            }
+
+            function getEntityId() {
+                return scope.entityId || scope.commonConfig.bankAccountData.entityId;
+            }
+
+            function getBankAccountDetailsId() {
+                return scope.bankAccountDetailsId || scope.commonConfig.bankAccountData.bankAccountDetailsId;
+            }
+
+            function getBankAccountDocuments() {
+                resourceFactory.bankAccountDetailsDocumentsResource.getAllDocuments({
                     entityType: getEntityType(),
                     entityId: getEntityId(),
-                    clientBankAccountDetailAssociationId: getClientBankAccountDetailAssociationId(),
-                    'command':scope.fetchInactiveAssociation
+                    bankAccountDetailsId: getBankAccountDetailsId()
                 }, function (data) {
-                    scope.bankData = data;
-                    scope.externalservices = scope.bankData.externalServiceOptions;
-                    scope.bankAccountTypeOptions = scope.bankData.bankAccountTypeOptions;
-                    constructBankAccountDetails();
+                    scope.bankAccountDocuments = data.result.bankAccountDocuments || [];
+                    for (var i = 0; i < scope.bankAccountDocuments.length; i++) {
+                        var docs = {};
+                        if (scope.bankAccountDocuments[i].storage && scope.bankAccountDocuments[i].storage.toLowerCase() == 's3') {
+                            docs = $rootScope.hostUrl + API_VERSION + '/' + scope.bankAccountDocuments[i].parentEntityType + '/' + scope.bankAccountDocuments[i].parentEntityId + '/documents/' + scope.bankAccountDocuments[i].id + '/downloadableURL';
+                        } else {
+                            docs = $rootScope.hostUrl + API_VERSION + '/' + scope.bankAccountDocuments[i].parentEntityType + '/' + scope.bankAccountDocuments[i].parentEntityId + '/documents/' + scope.bankAccountDocuments[i].id + '/download';
+                        }
+                        scope.bankAccountDocuments[i].docUrl = docs;
+                    }
                 });
             }
 
             scope.submit = function () {
-                if (underTask()) {
-                    scope.setTaskActionExecutionError(null);
-                }
                 if (!isFormValid()) {
                     return false;
-                }
-                if (scope.viewConfig.hasData) {
-                    scope.update();
-                    return;
                 }
                 scope.formData.locale = scope.optlang.code;
                 scope.formData.dateFormat = scope.df;
                 scope.formData.lastTransactionDate = dateFilter(scope.formData.lastTransactionDate, scope.df);
-                submitData();
-            };
-
-            function submitData() {
-                resourceFactory.bankAccountDetailResources.create({
-                        entityType: getEntityType(),
-                        entityId: getEntityId()
-                    }, scope.formData,
-                    function (data) {
-                        scope.commonConfig.bankAccount.clientBankAccountDetailAssociationId = data.resourceId;
-                        scope.clientBankAccountDetailAssociationId = data.resourceId;
-                        if (scope.isTask) {
-                            populateDetails();
-                        } else {
-                            scope.routeToViewBankAccountdetails();
-                            //scope.routeToBankAccountdetails();
-                        }
-
+                resourceFactory.bankAccountDetailsResource.create({
+                    entityType: getEntityType(),
+                    entityId: getEntityId()
+                }, scope.formData, function (data) {
+                    scope.bankAccountDetailsId = data.result.resourceId;
+                    scope.routeToViewBankAccountdetails();
                 });
             };
 
@@ -195,42 +137,50 @@
                 scope.addPicture = true;
             }
 
+            function enableShowSummary() {
+                scope.viewConfig.isCreate = false;
+                scope.viewConfig.isUpdate = false;
+                scope.viewConfig.showSummary = true;
+            }
+
+            function disableShowSummary() {
+                scope.viewConfig.isCreate = false;
+                scope.viewConfig.showSummary = false;
+            };
+
             scope.edit = function () {
-                if (_.isUndefined(scope.bankAccountData.documentImg)) {
-                    scope.addPicture = true;
-                }
+                scope.viewConfig.isUpdate = true;
                 disableShowSummary();
             };
 
             scope.update = function () {
-                if (underTask()) {
-                    scope.setTaskActionExecutionError(null);
-                }
                 if (!isFormValid()) {
                     return false;
                 }
                 scope.formData.locale = scope.optlang.code;
                 scope.formData.dateFormat = scope.df;
                 scope.formData.lastTransactionDate = dateFilter(scope.formData.lastTransactionDate, scope.df);
-                updateData();
-            };
-
-            function updateData() {
-                resourceFactory.bankAccountDetailResource.update({
+                resourceFactory.bankAccountDetailsResource.update({
                     entityType: getEntityType(),
                     entityId: getEntityId(),
-                    clientBankAccountDetailAssociationId: getClientBankAccountDetailAssociationId()
+                    bankAccountDetailsId: getBankAccountDetailsId()
                 }, scope.formData, function (data) {
-                    if (data.changes && 'bankAccountDetailId' in data.changes) {
-                        populateDetails();
-                    } else {
-                        scope.routeToBankAccountdetails();
-                    }
+                    fetchBankAccountDetails();
                 });
-            }
+            };
+
+            function fetchBankAccountDetails() {
+                scope.viewConfig.isCreate = false;
+                scope.viewConfig.isUpdate = false;
+                scope.viewConfig.showSummary = false;
+                resourceFactory.bankAccountDetailsResource.get({ entityType: scope.entityType, entityId: scope.entityId, bankAccountDetailsId: scope.bankAccountDetailsId }, function (data) {
+                    scope.commonConfig.bankAccountData.bankAccountDetailsData = data.result;
+                    init();
+                });
+            };
 
             scope.routeToViewBankAccountdetails = function () {
-                location.path('/' + getEntityType() + '/' + getEntityId() + '/bankaccountdetails/' + getClientBankAccountDetailAssociationId()).search({});
+                location.path('/' + getEntityType() + '/' + getEntityId() + '/bankaccountdetails/' + getBankAccountDetailsId()).search({});
             };
 
             scope.routeToBankAccountdetails = function () {
@@ -239,7 +189,7 @@
 
             var submitAccountDocuments = function (postComplete) {
                 $upload.upload({
-                    url: $rootScope.hostUrl + API_VERSION + '/' + getEntityType() + '/' + getEntityId() + '/documents',
+                    url: $rootScope.hostUrl + API_VERSION_V2 + '/' + getEntityType() + '/' + getEntityId() + '/bankaccountdetails/' + getBankAccountDetailsId() + '/documents',
                     data: scope.docData,
                     file: scope.docFile
                 }).then(function (data) {
@@ -259,7 +209,6 @@
                     controller: DeleteCtrl,
                     windowClass: 'modalwidth700'
                 });
-
             };
 
             var DeleteCtrl = function ($scope, $modalInstance) {
@@ -267,13 +216,13 @@
                     $modalInstance.dismiss('cancel');
                 };
                 $scope.submitDelete = function () {
-                    resourceFactory.bankAccountDetailResource.delete({
+                    resourceFactory.bankAccountDetailsDeleteResource.delete({
                         entityType: getEntityType(),
                         entityId: getEntityId(),
-                        clientBankAccountDetailAssociationId: getClientBankAccountDetailAssociationId()
+                        bankAccountDetailsId: getBankAccountDetailsId()
                     }, function (data) {
+                        getBankAccountDocuments();
                         $modalInstance.close('delete');
-                        scope.routeToBankAccountdetails();
                     });
                 };
             };
@@ -286,147 +235,107 @@
             };
 
             scope.cancel = function () {
-                if (scope.viewConfig.hasData) {
-                    enableShowSummary();
-                }
+                enableShowSummary();
             };
 
-            scope.uploadimage = function () {
-                if (scope.isTask) {
-                    return !scope.isTaskCompleted();
-                } else {
-                    return !scope.viewConfig.approved;
-                }
-            };
+            scope.isBankAccountActivated = function () {
+                return (scope.bankAccountDetailsData.status.value == 'active');
+            }
 
-            scope.editable = function () {
-                if (scope.isTask) {
-                    return !scope.isTaskCompleted();
-                } else {
-                    return !scope.viewConfig.approved;
-                }
-            };
+            scope.isBankAccountDeActivated = function () {
+                return (scope.bankAccountDetailsData.status.value == 'inactive');
+            }
 
-            scope.detailseditable = function () {
-                if(scope.bankData.verificationStatus.id == 3){
-                   return false;
-                }else if (scope.isTask) {
-                    return !scope.isTaskCompleted();
-                } else {
-                    return !scope.viewConfig.approved;
+            scope.isBankAccountAllowToActivate = function () {
+                if (scope.isDefaultPennyDropTransactionPaymentTypeId) {
+                    return false;
                 }
-            };
+                if (scope.viewUIConfig.isTask) {
+                    return !scope.isTaskCompleted() && scope.isBankAccountAllowToModifyable();
+                }
+                return scope.isBankAccountAllowToModifyable();
+            }
 
-            scope.approvable = function () {
-                if (scope.isTask) {
-                    return false;
-                } else {
-                    return !scope.viewConfig.approved;
+            scope.isBankAccountAllowToDeActivate = function () {
+                if (scope.viewUIConfig.isTask) {
+                    return !scope.isTaskCompleted() && scope.isBankAccountActivated();
                 }
-            };
+                return scope.isBankAccountActivated();
+            }
 
-            scope.isDefaultPennyDropTransactionPaymentTypeId = scope.isSystemGlobalConfigurationEnabled(scope.globalConstants.DEFAULT_PENNY_DROP_TRANSACTION_PAYMENT_TYPE_ID);
-            scope.verifyable = function () {
-                if(!scope.isDefaultPennyDropTransactionPaymentTypeId){
+            scope.isBankAccountAllowToReactivate = function () {
+                if (scope.viewUIConfig.isTask) {
+                    return !scope.isTaskCompleted() && scope.isBankAccountDeActivated();
+                }
+                return scope.isBankAccountDeActivated();
+            }
+
+            scope.isBankAccountAllowToModifyable = function () {
+                if (scope.allowOnlyPennyDropTransaction) {
                     return false;
                 }
-                if(scope.viewConfig.isVerified){
+                if (scope.bankAccountDetailsData && scope.bankAccountDetailsData.verificationStatus.id == 3) {
                     return false;
                 }
-                if(scope.bankData.verificationStatus.id > 0){
+                if (scope.viewUIConfig.isTask) {
+                    return !scope.isTaskCompleted() && ['active', 'inactive', 'deleted'].indexOf(scope.bankAccountDetailsData.status.value) < 0;
+                }
+                return ['active', 'inactive', 'deleted'].indexOf(scope.bankAccountDetailsData.status.value) < 0;
+
+            }
+
+            scope.isBankAccountAllowToVerifyable = function () {
+                if (!scope.allowOnlyPennyDropTransaction) {
                     return false;
                 }
-                return false;
-            };
-            
-            scope.reVerifyable = function () {
-                if(!scope.isDefaultPennyDropTransactionPaymentTypeId){
+                if (!scope.isDefaultPennyDropTransactionPaymentTypeId) {
                     return false;
                 }
-                if(scope.bankData.verificationStatus.value=='Failed' || scope.bankData.verificationStatus.value=='Error' || scope.bankData.verificationStatus.value=='Partial'){
+                if (scope.viewConfig.isVerified) {
+                    return false;
+                }
+                if (scope.bankAccountDetailsData.verificationStatus.id > 0) {
+                    return false;
+                }
+                return ['active', 'inactive', 'deleted'].indexOf(scope.bankAccountDetailsData.status.value) < 0;
+            }
+
+            scope.isBankAccountAllowToReVerifyable = function () {
+                if (!scope.allowOnlyPennyDropTransaction) {
+                    return false;
+                }
+                if (!scope.isDefaultPennyDropTransactionPaymentTypeId) {
+                    return false;
+                }
+                if (scope.viewConfig.isVerified) {
+                    return false;
+                }
+                if (['Failed', 'Error', 'Partial'].indexOf(scope.bankAccountDetailsData.verificationStatus.value) > -1) {
                     return true;
                 }
                 return false;
             };
 
-            scope.deletable = function () {
-                if (scope.isTask) {
-                    return false;
-                } else {
-                    return (scope.viewConfig.approved && scope.showDeleteButton);
-                }
-            };
-
-            scope.undoApprovable = function () {
-                if (scope.isTask) {
-                    return false;
-                } else {
-                    return (scope.viewConfig.approved && !scope.showDeleteButton && !scope.showReactivateButton);
-                }
-            };
-
-
             scope.activate = function () {
-                resourceFactory.bankAccountDetailActionResource.doAction({
-                        entityType: getEntityType(),
-                        entityId: getEntityId(),
-                        clientBankAccountDetailAssociationId: getClientBankAccountDetailAssociationId(),
-                        command: 'activate'
-                    }, scope.formData,
-                    function (data) {
-                        populateDetails();
-                        enableShowSummary();
-                        scope.routeToBankAccountdetails();
-
-                    }
-                );
+                resourceFactory.bankAccountDetailsActivateResource.activate({
+                    entityType: getEntityType(),
+                    entityId: getEntityId(),
+                    bankAccountDetailsId: getBankAccountDetailsId()
+                }, {}, function (data) {
+                    fetchBankAccountDetails();
+                });
             };
 
-            function init() {
-                if (scope.commonConfig.bankAccount.eventType && scope.commonConfig.bankAccount.eventType === "create") {
-                    if (scope.commonConfig.bankAccount.clientBankAccountDetailAssociationId) {
-                        populateDetails();
-                    } else {
-                        populateTemplate();
-                    }
-                } else {
-                    populateDetails();
-                }
-                scope.isCommonInitiated = true;
-            }
-
-            function processTemplateData(data){
-                scope.bankAccountTypeOptions = data.bankAccountTypeOptions;
-                scope.formData.accountTypeId = data.bankAccountTypeOptions[0].id;      
-                scope.isCommonInitiated = true;
-          }
-
-          function populateTemplate() {
-              if(scope.commonConfig!=undefined && scope.commonConfig.bankAccount!=undefined && scope.commonConfig.bankAccount.templateData!=undefined){
-                 processTemplateData(scope.commonConfig.bankAccount.templateData) ;
-              }else{
-                  resourceFactory.bankAccountDetailsTemplateResource.get({
-                      entityType: scope.entityType,
-                      entityId: scope.entityId
-                  }, function (data) {
-                      var bankData = {bankAccount:{
-                          templateData: data
-                      }};
-                      angular.extend(scope.commonConfig, bankData);
-                      processTemplateData(data);
-                  });
-        
-              }
-             
-          }
-
-            function enableShowSummary() {
-                scope.viewConfig.showSummary = true;
-            }
-
-            function disableShowSummary() {
-                scope.viewConfig.showSummary = false;
+            scope.deActivate = function () {
+                resourceFactory.bankAccountDetailsDeActivateResource.deActivate({
+                    entityType: getEntityType(),
+                    entityId: getEntityId(),
+                    bankAccountDetailsId: getBankAccountDetailsId()
+                }, {}, function (data) {
+                    fetchBankAccountDetails();
+                });
             };
+
 
             scope.doPreTaskActionStep = function (actionName) {
                 if (actionName === 'activitycomplete') {
@@ -437,25 +346,18 @@
                         scope.doActionAndRefresh(actionName);
                     }
                 } else if (actionName === 'approve') {
-                    resourceFactory.bankAccountDetailActionResource.doAction({
-                            entityType: getEntityType(),
-                            entityId: getEntityId(),
-                            clientBankAccountDetailAssociationId: getClientBankAccountDetailAssociationId(),
-                            command: 'activate'
-                        }, scope.formData,
-                        function (data) {
-                            scope.doActionAndRefresh(actionName);
-                            populateDetails();
-
-                        }
-                    );
+                    resourceFactory.bankAccountDetailsActivateResource.activate({
+                        entityType: getEntityType(),
+                        entityId: getEntityId(),
+                        bankAccountDetailsId: getBankAccountDetailsId()
+                    }, {}, function (data) {
+                        scope.doActionAndRefresh(actionName);
+                        fetchBankAccountDetails();
+                    });
                 } else {
                     scope.doActionAndRefresh(actionName);
                 }
-
             };
-
-            init();
 
             scope.uploadDocument = function () {
                 $modal.open({
@@ -479,7 +381,6 @@
                     if (!$scope.data.documentName) {
                         return false;
                     }
-
                     scope.docData = {
                         name: $scope.data.documentName
                     };
@@ -489,17 +390,7 @@
                             $scope.docformatErrMsg = "label.error.only.files.of.type.image.are.allowed";
                         } else {
                             submitAccountDocuments(function (documentId) {
-                                if (documentId != undefined) {
-                                    scope.formData.documents = [];
-                                    for (var j in scope.bankAccountDocuments) {
-                                        scope.formData.documents.push(scope.bankAccountDocuments[j].id);
-                                    }
-                                    scope.formData.documents.push(documentId);
-                                }
-                                scope.formData.locale = scope.optlang.code;
-                                scope.formData.dateFormat = scope.df;
-                                scope.formData.lastTransactionDate = dateFilter(scope.formData.lastTransactionDate, scope.df);
-                                updateData();
+                                getBankAccountDocuments();
                             });
                             $modalInstance.close('upload');
                         }
@@ -518,136 +409,94 @@
                     url: url
                 }).then(function (documentImage) {
                     scope.documentImg = documentImage.data;
+                    scope.viewConfig.viewDocument = true;
                 });
             }
 
-            scope.deleteDocument = function (documentId) {
-                scope.formData.locale = scope.optlang.code;
-                scope.formData.dateFormat = scope.df;
-                scope.formData.lastTransactionDate = dateFilter(scope.formData.lastTransactionDate, scope.df);
-                scope.formData.documents = [];
-                for (var i in scope.bankAccountDocuments) {
-                    scope.formData.documents.push(scope.bankAccountDocuments[i].id);
-                }
-                if (documentId) {
-                    scope.formData.documents.splice(scope.formData.documents.indexOf(documentId), 1);
-                }
-                updateData();
-            };
-
-            /*scope.getBankDetails = function (isvalidIfsc) {
-                resourceFactory.bankIFSCResource.get({
-                    ifscCode: scope.formData.ifscCode
-                }, function (data) {
-                    scope.bankData = data;
-                    scope.formData.bankName = scope.bankData.bankName;
-                    scope.formData.branchName = scope.bankData.branchName;
-                    scope.formData.bankCity = scope.bankData.bankCity;
+            scope.deleteDocument = function (document) {
+                resourceFactory.bankAccountDetailsDocumentsResource.delete({
+                    entityType: getEntityType(),
+                    entityId: getEntityId(),
+                    bankAccountDetailsId: getBankAccountDetailsId()
+                }, { 'documentId': document.id }, function (data) {
+                    getBankAccountDocuments();
                 });
-            }*/
-            
-            scope.inActivateAssociation = function () {
-                resourceFactory.bankAccountDetailActionResource.doAction({
-                        entityType: getEntityType(),
-                        entityId: getEntityId(),
-                        clientBankAccountDetailAssociationId: getClientBankAccountDetailAssociationId(),
-                        command: 'inactivateAssociation'
-                    }, scope.formData,
-                    function (data) {
-                        enableShowSummary();
-                        scope.routeToBankAccountdetails();
-
-                    }
-                );
             };
-            scope.activateAssociation = function () {
-                resourceFactory.bankAccountDetailActionResource.doAction({
-                        entityType: getEntityType(),
-                        entityId: getEntityId(),
-                        clientBankAccountDetailAssociationId: getClientBankAccountDetailAssociationId(),
-                        command: 'activateAssociation'
-                    }, scope.formData,
-                    function (data) {
-                        enableShowSummary();
-                        scope.routeToBankAccountdetails();
 
-                    }
-                );
-            };
-            
-            scope.getBankDetails = function(isvalidIfsc){
-                if(scope.formData.ifscCode != undefined && scope.formData.ifscCode === scope.repeatFormData.ifscCodeRepeat && isvalidIfsc){
+            scope.getBankDetails = function (isvalidIfsc) {
+                if (scope.formData.ifscCode != undefined && scope.formData.ifscCode === scope.repeatFormData.ifscCodeRepeat && isvalidIfsc) {
                     resourceFactory.bankIFSCResource.get({
                         ifscCode: scope.formData.ifscCode
                     }, function (data) {
-                        scope.bankData = data;
-                        scope.formData.bankName = scope.bankData.bankName;
-                        scope.formData.branchName = scope.bankData.branchName;
-                        scope.formData.bankCity = scope.bankData.bankCity;
+                        scope.bankAccountDetailsData = data;
+                        scope.formData.bankName = scope.bankAccountDetailsData.bankName;
+                        scope.formData.branchName = scope.bankAccountDetailsData.branchName;
+                        scope.formData.bankCity = scope.bankAccountDetailsData.bankCity;
                     });
                 }
             }
+
             scope.path = location.$$path;
             scope.auditLogs = [];
-            if(scope.path.indexOf("addbankaccountdetail") != -1 || scope.path.indexOf("bankaccountdetails") != -1){
+            if (scope.path.indexOf("addbankaccountdetail") != -1 || scope.path.indexOf("bankaccountdetails") != -1) {
                 scope.isDisplayAuditLogs = true;
                 scope.showAuditLog = true;
             }
-            scope.getBankAccountAuditLogs = function(param){
-                resourceFactory.bankAccountAuditResource.get(param, function (data) {
-                    scope.auditLogs = data;                    
+
+            function getBankAccountDetailsAuditLogs(param) {
+                resourceFactory.bankAccountDetailsAuditResource.get(param, function (data) {
+                    scope.auditLogs = data.result;
                 });
             };
-            
+
             scope.displayAuditLogs = function () {
-                scope.isDisplayAuditLogs=true;     
+                scope.isDisplayAuditLogs = true;
                 var param = {};
-                if(scope.path.indexOf("addbankaccountdetail") != -1 || scope.path.indexOf("bankaccountdetails") != -1){
-                    if(scope.path.indexOf("clients") != -1){
+                if (scope.path.indexOf("addbankaccountdetail") != -1 || scope.path.indexOf("bankaccountdetails") != -1) {
+                    if (scope.path.indexOf("clients") != -1) {
                         param.entityType = 'clients';
-                        param.bankAssociationId = routeParams.clientBankAccountDetailAssociationId ;
+                        param.bankAssociationId = routeParams.bankAccountDetailsId;
                         param.entityId = routeParams.entityId;
-                        if(param.bankAssociationId==undefined){
+                        if (param.bankAssociationId == undefined) {
                             param.bankAssociationId = -1;
                         }
-                        scope.getBankAccountAuditLogs(param);
+                        getBankAccountDetailsAuditLogs(param);
                     }
-                    
                 }
             };
 
-            scope.initBankAccountVerification = function(reRerify){
-                if(scope.bankData.isVerified == true && !reRerify){
-                    populateDetails();
-                }else{
+            scope.initBankAccountVerification = function (reRerify) {
+                if (scope.bankAccountDetailsData.isVerified == true && !reRerify) {
+                    populateBankAccountDetails();
+                } else {
                     var timeDealy = 5;
-                    if(scope.bankData.verificationStatus && scope.bankData.verificationStatus.id == 2){
-                        resourceFactory.bankAccountDetailCheckVerificationStatusVerifyResource.checkVerificationStatus({ bankAccountDetailId: scope.bankData.id }, {}, function (data) {
+                    if (scope.bankAccountDetailsData.verificationStatus && scope.bankAccountDetailsData.verificationStatus.id == 2) {
+                        resourceFactory.bankAccountDetailCheckVerificationStatusVerifyResource.checkVerificationStatus({ bankAccountDetailId: scope.bankAccountDetailsData.id }, {}, function (data) {
                             setTimeout(function () {
-                                populateDetails();
+                                fetchBankAccountDetails();
                             }, timeDealy);
                         });
 
-                    }else{
-                        if(reRerify){
-                            resourceFactory.bankAccountDetailReVerifyResource.doReVerify({ bankAccountDetailId: scope.bankData.id }, {}, function (data) {
+                    } else {
+                        if (reRerify) {
+                            resourceFactory.bankAccountDetailReVerifyResource.doReVerify({ bankAccountDetailId: scope.bankAccountDetailsData.id }, {}, function (data) {
                                 setTimeout(function () {
-                                    populateDetails();
+                                    fetchBankAccountDetails();
                                 }, timeDealy);
                             });
-                        }else{
-                            resourceFactory.bankAccountDetailVerifyResource.doVerify({ bankAccountDetailId: scope.bankData.id }, {}, function (data) {
+                        } else {
+                            resourceFactory.bankAccountDetailVerifyResource.doVerify({ bankAccountDetailId: scope.bankAccountDetailsData.id }, {}, function (data) {
                                 setTimeout(function () {
-                                    populateDetails();
+                                    fetchBankAccountDetails();
                                 }, timeDealy);
                             });
                         }
                     }
                 }
-            }
+            };
         }
     });
-    mifosX.ng.application.controller('BankAccountCommonController', ['$controller', '$scope', '$routeParams', 'ResourceFactory', '$location', '$modal', 'dateFilter', '$upload', '$rootScope', 'API_VERSION', '$http', mifosX.controllers.BankAccountCommonController]).run(function ($log) {
+    mifosX.ng.application.controller('BankAccountCommonController', ['$controller', '$scope', '$routeParams', 'ResourceFactory', '$location', '$modal', 'dateFilter', '$upload', '$rootScope', 'API_VERSION', 'API_VERSION_V2', '$http', mifosX.controllers.BankAccountCommonController]).run(function ($log) {
         $log.info("BankAccountCommonController initialized");
     });
 }(mifosX.controllers || {}));

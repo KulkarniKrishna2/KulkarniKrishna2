@@ -1,5 +1,5 @@
 <div class="col-md-12">
-    <form name="bankaccountdetail" novalidate="" rc-submit="update()" class="form-horizontal" autocomplete="off">
+    <form name="bankaccountdetail" novalidate="" rc-submit="submit()" class="form-horizontal" autocomplete="off">
         <api-validate></api-validate>
         <fieldset>
             <legend>{{'label.anchor.bankaccountdetails' | translate}}</legend>
@@ -201,7 +201,7 @@
             </div>
             <div class="col-md-offset-2 paddedleft">
                 <a id="cancel" ng-click="cancel()" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
-                <button id="save" ng-if="isBankAccountAllowToModifyable()" type="submit" class="btn btn-primary" has-permission='UPDATE_BANKACCOUNTDETAIL'>{{'label.button.update' | translate}}</button>
+                <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_BANKACCOUNTDETAIL'>{{'label.button.create' | translate}}</button>
             </div>
         </fieldset>
     </form>

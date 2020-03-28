@@ -1,15 +1,25 @@
 <div class="col-md-12" ng-controller="ClientBankAccountDetailsController">
         <div>
             <ul class="breadcrumb">
-                <li>
-                    <a ng-href="#/viewclient/{{entityId}}">{{'label.heading.client' | translate}}</a>
-                </li>
-                <li>{{'label.anchor.bankaccountdetails'|translate}}</li>
+                <li><a href="#/clients">{{'label.anchor.clients' | translate}}</a></li>
+                <li><a href="#/viewclient/{{clientId}}">{{'label.anchor.viewclient' | translate}}</a></li>
+                <li class="active">{{'label.anchor.bankaccountdetails'|translate}}</li>
             </ul>
         </div>
-        <a href="#/clients/{{entityId}}/addbankaccountdetail" class="btn btn-primary pull-right" has-permission='READ_BANKACCOUNTDETAIL' ng-show="showAddBankAccountsButton">
-            <i class="icon-plus icon-white"></i>{{'label.button.add.bankaccountdetails' | translate}}
-        </a>
+        <div class="pull-right">
+            <button type="button" id="buttonEnabled" ng-show="false" data-ng-click="populateDetails('all')" class="btn btn-ex-lg btn-toggle active" data-toggle="button" aria-pressed="false" autocomplete="off">
+                <div class="handle"></div>
+            </button>
+
+            <button type="button" id="buttonDisabled" ng-show="false" data-ng-click="populateDetails('active')" class="btn btn-ex-lg btn-toggle" data-toggle="button" aria-pressed="false" autocomplete="off">
+                <div class="handle"></div>
+            </button>
+
+            <a href="#/clients/{{entityId}}/addbankaccountdetail" class="btn btn-primary" has-permission='CREATE_BANKACCOUNTDETAIL' ng-show="showAddBankAccountsButton">
+                <i class="icon-plus icon-white"></i>{{'label.button.add.bankaccountdetails' | translate}}
+            </a>
+        </div>
+        
         <div class="span grey-head">
             <h3>
                 <strong>{{'label.heading.bank.account.details' | translate}}</strong>
@@ -23,22 +33,22 @@
                         <th>{{'label.heading.bank.account.holder.name' | translate}}</th>
                         <th>{{'label.heading.bank.account.number' | translate}}</th>
                         <th>{{'label.heading.ifsc' | translate}}</th>
+                        <th>{{'label.heading.status' | translate}}</th>
                         <th>{{'label.heading.verified' | translate}}</th>
                         <th>{{'label.heading.verified.status' | translate}}</th>
-                        <th>{{'label.createdon' | translate}}</th>
                         <th>{{'label.heading.lastupdatedon' | translate}}</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr class="pointer-main"  ng-repeat="record in bankAccountDetails">
-                        <td class="pointer" data-ng-click="routeTo(record.bankAccountAssociationId)">{{$index+1}}</td>
-                        <td class="pointer" data-ng-click="routeTo(record.bankAccountAssociationId)">{{record.name}}</td>
-                        <td class="pointer" data-ng-click="routeTo(record.bankAccountAssociationId)">{{record.accountNumber}}</td>
-                        <td class="pointer" data-ng-click="routeTo(record.bankAccountAssociationId)">{{record.ifscCode}}</td>
-                        <td class="pointer" data-ng-click="routeTo(record.bankAccountAssociationId)">{{record.isVerified ? 'Yes' : 'No'}}</td>
-                        <td class="pointer" data-ng-click="routeTo(record.bankAccountAssociationId)">{{record.verificationStatus.value == 'Invalid' ? 'Not Verified' : record.verificationStatus.value}}</td>
-                        <td class="pointer" data-ng-click="routeTo(record.bankAccountAssociationId)">{{record.createdDate | DateTimeFormat}}</td>
-                        <td class="pointer" data-ng-click="routeTo(record.bankAccountAssociationId)">{{record.lastModifiedDate | DateTimeFormat}}</td>
+                        <td class="pointer" data-ng-click="routeTo(record)">{{$index+1}}</td>
+                        <td class="pointer" data-ng-click="routeTo(record)">{{record.name}}</td>
+                        <td class="pointer" data-ng-click="routeTo(record)">{{record.accountNumber}}</td>
+                        <td class="pointer" data-ng-click="routeTo(record)">{{record.ifscCode}}</td>
+                        <td class="pointer" data-ng-click="routeTo(record)">{{record.status.value | translate}}</td>
+                        <td class="pointer" data-ng-click="routeTo(record)">{{record.isVerified ? 'Yes' : 'No'}}</td>
+                        <td class="pointer" data-ng-click="routeTo(record)">{{record.verificationStatus.value == 'Invalid' ? 'Not Verified' : record.verificationStatus.value}}</td>
+                        <td class="pointer" data-ng-click="routeTo(record)">{{record.lastModifiedDate | DateTimeFormat}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -65,14 +75,14 @@
                 </thead>
                 <tbody>
                     <tr class="pointer-main"  ng-repeat="record in inActivebankAccountDetails">
-                        <td class="pointer" data-ng-click="routeTowithQueryParam(record.bankAccountAssociationId)">{{$index+1}}</td>
-                        <td class="pointer" data-ng-click="routeTowithQueryParam(record.bankAccountAssociationId)">{{record.name}}</td>
-                        <td class="pointer" data-ng-click="routeTowithQueryParam(record.bankAccountAssociationId)">{{record.accountNumber}}</td>
-                        <td class="pointer" data-ng-click="routeTowithQueryParam(record.bankAccountAssociationId)">{{record.ifscCode}}</td>
-                        <td class="pointer" data-ng-click="routeTowithQueryParam(record.bankAccountAssociationId)">{{record.isVerified ? 'Yes' : 'No'}}</td>
-                        <td class="pointer" data-ng-click="routeTowithQueryParam(record.bankAccountAssociationId)">{{record.verificationStatus.value == 'Invalid' ? 'Not Verified' : record.verificationStatus.value}}</td>
-                        <td class="pointer" data-ng-click="routeTowithQueryParam(record.bankAccountAssociationId)">{{record.createdDate | DateTimeFormat}}</td>
-                        <td class="pointer" data-ng-click="routeTowithQueryParam(record.bankAccountAssociationId)">{{record.lastModifiedDate | DateTimeFormat}}</td>
+                        <td class="pointer" data-ng-click="routeTowithQueryParam(record)">{{$index+1}}</td>
+                        <td class="pointer" data-ng-click="routeTowithQueryParam(record)">{{record.name}}</td>
+                        <td class="pointer" data-ng-click="routeTowithQueryParam(record)">{{record.accountNumber}}</td>
+                        <td class="pointer" data-ng-click="routeTowithQueryParam(record)">{{record.ifscCode}}</td>
+                        <td class="pointer" data-ng-click="routeTowithQueryParam(record)">{{record.isVerified ? 'Yes' : 'No'}}</td>
+                        <td class="pointer" data-ng-click="routeTowithQueryParam(record)">{{record.verificationStatus.value == 'Invalid' ? 'Not Verified' : record.verificationStatus.value}}</td>
+                        <td class="pointer" data-ng-click="routeTowithQueryParam(record)">{{record.createdDate | DateTimeFormat}}</td>
+                        <td class="pointer" data-ng-click="routeTowithQueryParam(record)">{{record.lastModifiedDate | DateTimeFormat}}</td>
                     </tr>
                 </tbody>
             </table>

@@ -1,7 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        viewbankaccountActivityController: function (scope, resourceFactory) {
-
+        bankaccountpennydropverificationActivityController: function (scope, resourceFactory) {
             function getBankAccountDetails() {
                 resourceFactory.bankAccountDetailsResource.get({ entityType: scope.entityType, entityId: scope.entityId, bankAccountDetailsId: scope.bankAccountDetailsId }, function (data) {
                     var bankAccountData = {
@@ -9,11 +8,11 @@
                             entityType: scope.entityType,
                             entityId: scope.entityId, bankAccountDetailsId: scope.bankAccountDetailsId,
                             eventType: scope.eventType,
-                            bankAccountDetailsData: data.result
+                            bankAccountDetailsData: data.result,
+                            allowOnlyPennyDropTransaction: true
                         }
                     };
                     angular.extend(scope.commonConfig, bankAccountData);
-                    scope.bankhtml = 'views/bankaccountdetails/common/view_bank_account_common.html';
                 });
             }
 
@@ -48,7 +47,7 @@
             initTask();
         }
     });
-    mifosX.ng.application.controller('viewbankaccountActivityController', ['$scope','ResourceFactory',mifosX.controllers.viewbankaccountActivityController]).run(function ($log) {
-        $log.info("viewbankaccountActivityController initialized");
+    mifosX.ng.application.controller('bankaccountpennydropverificationActivityController', ['$scope', 'ResourceFactory', mifosX.controllers.bankaccountpennydropverificationActivityController]).run(function ($log) {
+        $log.info("bankaccountpennydropverificationActivityController initialized");
     });
 }(mifosX.controllers || {}));

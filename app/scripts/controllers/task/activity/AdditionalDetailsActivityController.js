@@ -76,8 +76,8 @@
 
                     }
                 });
-
             };
+            
             initTask();
 
             scope.releaseClient = function (clientId) {
@@ -1260,9 +1260,10 @@
                 $scope.bankAccountDocuments = [];
 
                 function init() {
-                    resourceFactory.bankAccountDetailResource.getAll({ entityType: $scope.entityType, entityId: $scope.entityId }, function (data) {
+                    resourceFactory.bankAccountDetailsResource.getAll({ entityType: $scope.entityType, entityId: $scope.entityId }, function (data) {
+                        data = data.result;
                         if (!_.isUndefined(data[0])) {
-                            $scope.clientBankAccountDetailAssociationId = data[0].bankAccountAssociationId;
+                            $scope.bankAccountDetailsId = data[0].id;
                             populateDetails();
                         } else {
                             populateTemplate();
@@ -1277,18 +1278,18 @@
                         entityType: $scope.entityType,
                         entityId: $scope.entityId
                     }, function (data) {
-                        $scope.bankAccountTypeOptions = data.bankAccountTypeOptions;
+                        $scope.bankAccountTypeOptions = data.result.bankAccountTypeOptions;
                         $scope.bankAccFormData.accountTypeId = data.bankAccountTypeOptions[0].id;
                     });
                 }
 
                 function populateDetails() {
-                    resourceFactory.bankAccountDetailResource.get({
+                    resourceFactory.bankAccountDetailsResource.get({
                         entityType: $scope.entityType,
                         entityId: $scope.entityId,
-                        clientBankAccountDetailAssociationId: getClientBankAccountDetailAssociationId()
+                        bankAccountDetailsId: getBankAccountDetails()
                     }, function (data) {
-                        $scope.bankData = data;
+                        $scope.bankData = data.result;
                         $scope.bankAccountTypeOptions = $scope.bankData.bankAccountTypeOptions;
                         constructBankAccountDetails();
                     });
@@ -1341,8 +1342,8 @@
                     }
                 }
 
-                function getClientBankAccountDetailAssociationId() {
-                    return $scope.clientBankAccountDetailAssociationId;
+                function getBankAccountDetails() {
+                    return $scope.bankAccountDetailsId;
                 }
 
                 $scope.createBankAccount = function () {
@@ -1359,12 +1360,12 @@
                 };
 
                 function submitData() {
-                    resourceFactory.bankAccountDetailResources.create({
+                    resourceFactory.bankAccountDetailsResource.create({
                         entityType: $scope.entityType,
                         entityId: $scope.entityId
                     }, $scope.bankAccFormData,
                         function (data) {
-                            $scope.clientBankAccountDetailAssociationId = data.resourceId;
+                            $scope.bankAccountDetailsId = data.result.resourceId;
                             populateDetails();
                             reComputeProfileRating($scope.clientId);
                         });
@@ -1405,10 +1406,10 @@
                 };
 
                 function updateData() {
-                    resourceFactory.bankAccountDetailResource.update({
+                    resourceFactory.bankAccountDetailsResource.update({
                         entityType: $scope.entityType,
                         entityId: $scope.entityId,
-                        clientBankAccountDetailAssociationId: getClientBankAccountDetailAssociationId()
+                        bankAccountDetailsId: getBankAccountDetails()
                     }, $scope.bankAccFormData, function (data) {
                         reComputeProfileRating($scope.clientId);
                         populateDetails();
@@ -1484,10 +1485,10 @@
                                             bankAccountDetails.bankAccFormData.documents.push(documentId);
                                         }
                                         bankAccountDetails.bankAccFormData.locale = scope.optlang.code;
-                                        resourceFactory.bankAccountDetailResource.update({
+                                        resourceFactory.bankAccountDetailsResource.update({
                                             entityType: bankAccountDetails.entityType,
                                             entityId: bankAccountDetails.entityId,
-                                            clientBankAccountDetailAssociationId: getClientBankAccountDetailAssociationId()
+                                            bankAccountDetailsId: getBankAccountDetails()
                                         }, bankAccountDetails.bankAccFormData, function (data) {
                                             populateDetails();
                                             reComputeProfileRating($scope.clientId);

@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ClaimDocumentsUpload: function ($controller, scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope,CommonUtilService, $modal) {
+        ClaimDocumentsUpload: function ($controller, scope, resourceFactory, location, dateFilter, http, routeParams, API_VERSION, $upload, $rootScope, CommonUtilService, $modal) {
             angular.extend(this, $controller('defaultUIConfigController', {
                 $scope: scope,
                 $key: "bankAccountDetails"
@@ -10,7 +10,7 @@
             scope.deceasedId = routeParams.id;
             scope.formData = {};
             scope.formData.locale = scope.optlang.code;
-            scope.claimStatus = 'documentsupload';            
+            scope.claimStatus = 'documentsupload';
             scope.showIfsc = false;
             scope.showAccNo = false;
             scope.isEditAllowed = true;
@@ -22,7 +22,7 @@
             }
 
             function fetchInsuranceData() {
-                resourceFactory.getInsuranceClaimStatusDetailsResource.getClaimIntimationApproval({ claimStatus: 'documentsupload', deceasedId : scope.deceasedId }, {},
+                resourceFactory.getInsuranceClaimStatusDetailsResource.getClaimIntimationApproval({ claimStatus: 'documentsupload', deceasedId: scope.deceasedId }, {},
                     function (data) {
                         scope.insuranceCliamDetials = data;
                         calculateClientAge(scope.insuranceCliamDetials.dateOfBirth);
@@ -31,10 +31,10 @@
             };
 
             function getNomineeDetails(deceasedId) {
-                resourceFactory.getInsuranceNomineeDetailsResource.getNomineeDetails({ deceasedId : scope.deceasedId }, {},
+                resourceFactory.getInsuranceNomineeDetailsResource.getNomineeDetails({ deceasedId: scope.deceasedId }, {},
                     function (data) {
                         scope.insuranceNomineeDetials = data;
-                        if((scope.insuranceNomineeDetials != undefined && scope.insuranceNomineeDetials.id != undefined && scope.insuranceNomineeDetials.id != null) || scope.isEditMode) {
+                        if ((scope.insuranceNomineeDetials != undefined && scope.insuranceNomineeDetials.id != undefined && scope.insuranceNomineeDetials.id != null) || scope.isEditMode) {
                             scope.showSummary = true;
                             getDocumentsTeplate();
                         } else {
@@ -43,15 +43,15 @@
                     });
             };
 
-            resourceFactory.codeValueByCodeNameResources.get({codeName: "Relationship"}, function (codeValueData) {
+            resourceFactory.codeValueByCodeNameResources.get({ codeName: "Relationship" }, function (codeValueData) {
                 scope.relationships = codeValueData;
             });
 
             scope.toggleIfsc = function () {
-                scope.showIfsc = !scope.showIfsc; 
+                scope.showIfsc = !scope.showIfsc;
             };
 
-            scope.toggleAccNo = function(){
+            scope.toggleAccNo = function () {
                 scope.showAccNo = !scope.showAccNo;
             };
 
@@ -72,10 +72,10 @@
                 });
             };
 
-            scope.submitClientDeceased = function() {
-                scope.clientDeceased.deathDate =  dateFilter(new Date(scope.clientDeceased.deathDate), scope.df);
-                scope.clientDeceased.deathIntimationDate =  dateFilter(new Date(scope.clientDeceased.deathIntimationDate), scope.df);
-                resourceFactory.updateDeceasedDetailsResource.save({ deceasedId : scope.deceasedId }, scope.clientDeceased, function (data) {
+            scope.submitClientDeceased = function () {
+                scope.clientDeceased.deathDate = dateFilter(new Date(scope.clientDeceased.deathDate), scope.df);
+                scope.clientDeceased.deathIntimationDate = dateFilter(new Date(scope.clientDeceased.deathIntimationDate), scope.df);
+                resourceFactory.updateDeceasedDetailsResource.save({ deceasedId: scope.deceasedId }, scope.clientDeceased, function (data) {
                     fetchInsuranceData();
                     scope.showEditScreen = false;
                 });
@@ -87,7 +87,7 @@
 
             function getDocumentsTeplate() {
                 scope.showEditScreen = false;
-                resourceFactory.codeValueByCodeNameResources.get({codeName: "Insurance Document Tags"}, function (codeValueData) {
+                resourceFactory.codeValueByCodeNameResources.get({ codeName: "Insurance Document Tags" }, function (codeValueData) {
                     scope.insuranceDocumentTagOptions = codeValueData;
                     getDeceasedDocuments(codeValueData);
                 });
@@ -95,7 +95,7 @@
 
             fetchInsuranceData();
 
-            function calculateClientAge(dateOfBirth){
+            function calculateClientAge(dateOfBirth) {
                 dateOfBirth = new Date(dateFilter(dateOfBirth, scope.df));
                 var ageDifMs = Date.now() - dateOfBirth.getTime();
                 var ageDifMs = Date.now() - dateOfBirth.getTime();
@@ -105,31 +105,31 @@
 
             scope.submit = function () {
 
-                if((scope.repeatFormData.accountNumberRepeat != scope.formData.accountNumber ) ||
-                 (scope.repeatFormData.ifscCodeRepeat != scope.formData.ifscCode )) {
-                        return;
+                if ((scope.repeatFormData.accountNumberRepeat != scope.formData.accountNumber) ||
+                    (scope.repeatFormData.ifscCodeRepeat != scope.formData.ifscCode)) {
+                    return;
                 }
 
-                if(scope.isEditMode) {
+                if (scope.isEditMode) {
                     scope.update();
-                    return;  
+                    return;
                 }
 
                 scope.formData.deceasedId = scope.deceasedId;
-                resourceFactory.insuranceClaimStatusDetailsResource.submitNomineeDetails({ claimStatus: 'documentsupload', command : 'create' }, scope.formData,
+                resourceFactory.insuranceClaimStatusDetailsResource.submitNomineeDetails({ claimStatus: 'documentsupload', command: 'create' }, scope.formData,
                     function (data) {
                         scope.insuranceCliamDetials = data;
                         fetchInsuranceData();
                     });
             }
 
-            scope.update = function() {
-                resourceFactory.insuranceNomineeDetailsResource.updateNomineeDetails({ nomineeId: scope.insuranceNomineeDetials.id, command : 'update' }, scope.formData,
-                function (data) {
-                    scope.insuranceCliamDetials = data;
-                    scope.isEditMode = false;
-                    fetchInsuranceData();
-                });
+            scope.update = function () {
+                resourceFactory.insuranceNomineeDetailsResource.updateNomineeDetails({ nomineeId: scope.insuranceNomineeDetials.id, command: 'update' }, scope.formData,
+                    function (data) {
+                        scope.insuranceCliamDetials = data;
+                        scope.isEditMode = false;
+                        fetchInsuranceData();
+                    });
             }
 
             scope.edit = function () {
@@ -154,18 +154,18 @@
             }
 
             scope.approve = function () {
-                resourceFactory.insuranceClaimStatusDetailsResource.submitClaimDocumentUpload({ claimStatus: 'documentsupload', command : 'submit' }, {deceasedId : scope.deceasedId},
+                resourceFactory.insuranceClaimStatusDetailsResource.submitClaimDocumentUpload({ claimStatus: 'documentsupload', command: 'submit' }, { deceasedId: scope.deceasedId },
                     function (data) {
                         scope.insuranceCliamDetials = data;
                         location.path('/insurancedetails/documentsupload');
                     });
             }
 
-            scope.getBankDetails = function(isvalidIfsc){
-                if(scope.formData.ifscCode != undefined && scope.formData.ifscCode === scope.repeatFormData.ifscCodeRepeat && isvalidIfsc){
+            scope.getBankDetails = function (isvalidIfsc) {
+                if (scope.formData.ifscCode != undefined && scope.formData.ifscCode === scope.repeatFormData.ifscCodeRepeat && isvalidIfsc) {
                     resourceFactory.bankIFSCResource.get({
                         ifscCode: scope.formData.ifscCode
-                    },function (data) {
+                    }, function (data) {
                         scope.bankData = data;
                         scope.formData.bankName = scope.bankData.bankName;
                         scope.formData.branchName = scope.bankData.branchName;
@@ -188,20 +188,20 @@
 
             var DocumentDeleteCtrl = function ($scope, $modalInstance, document) {
                 $scope.delete = function () {
-                    resourceFactory.InsuranceDeleteDocumentsResource.deleteDocument({deceasedId: scope.deceasedId, documentId: document.documentId }, '', function (data) {
-                        for(var j = 0 ; j<scope.insuranceDocumentTagOptions.length; j++) {
-                                    if (document.documentId == scope.insuranceDocumentTagOptions[j].documentId) {
-                                        delete scope.insuranceDocumentTagOptions[j].url;
-                                        scope.insuranceDocumentTagOptions[j].isDocumentAttached = false;
-                                        delete scope.insuranceDocumentTagOptions[j].parentEntityType;
-                                        delete scope.insuranceDocumentTagOptions[j].parentEntityId;
-                                        delete scope.insuranceDocumentTagOptions[j].documentId;
-                                        break;
-                                    }
+                    resourceFactory.InsuranceDeleteDocumentsResource.deleteDocument({ deceasedId: scope.deceasedId, documentId: document.documentId }, '', function (data) {
+                        for (var j = 0; j < scope.insuranceDocumentTagOptions.length; j++) {
+                            if (document.documentId == scope.insuranceDocumentTagOptions[j].documentId) {
+                                delete scope.insuranceDocumentTagOptions[j].url;
+                                scope.insuranceDocumentTagOptions[j].isDocumentAttached = false;
+                                delete scope.insuranceDocumentTagOptions[j].parentEntityType;
+                                delete scope.insuranceDocumentTagOptions[j].parentEntityId;
+                                delete scope.insuranceDocumentTagOptions[j].documentId;
+                                break;
+                            }
                         }
-                        
+
                         getDeceasedDocuments(scope.insuranceDocumentTagOptions);
-                            $modalInstance.close('close');
+                        $modalInstance.close('close');
                     });
                 };
                 $scope.cancel = function () {
@@ -209,12 +209,12 @@
                 };
             };
 
-            var viewDocumentCtrl= function ($scope, $modalInstance, documentDetail) {
+            var viewDocumentCtrl = function ($scope, $modalInstance, documentDetail) {
                 $scope.data = documentDetail;
                 $scope.close = function () {
                     $modalInstance.close('close');
                 };
-               
+
             };
             scope.openViewDocument = function (documentDetail) {
                 $modal.open({
@@ -229,27 +229,26 @@
             };
 
             function getDeceasedDocuments(codeValueData) {
-                resourceFactory.insuranceDocumentsResource.getAllDeceasedDocuments({deceasedId: scope.deceasedId}, function (data) {
-                        for(var j = 0 ; j<codeValueData.length; j++) {
-                            for (var l = 0; l < data.length; l++) {
-                                if (data[l].id) {
-                                    if (data[l].tagIdentifier == codeValueData[j].id) {
-                                        var url = {};
-                                        url = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment';
-                                        data[l].docUrl = url;
-                                        codeValueData[j].url = url;
-                                        codeValueData[j].isDocumentAttached = true;
-                                        codeValueData[j].parentEntityType = data[l].parentEntityType;
-                                        codeValueData[j].parentEntityId = data[l].parentEntityId;
-                                        codeValueData[j].documentId = data[l].id;
-                                        codeValueData[j].allowDeleteDocument = true;
-                                        break;
-                                    }
+                resourceFactory.insuranceDocumentsResource.getAllDeceasedDocuments({ deceasedId: scope.deceasedId }, function (data) {
+                    for (var j = 0; j < codeValueData.length; j++) {
+                        for (var l = 0; l < data.length; l++) {
+                            if (data[l].id) {
+                                if (data[l].tagIdentifier == codeValueData[j].id) {
+                                    var url = {};
+                                    url = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment';
+                                    data[l].docUrl = url;
+                                    codeValueData[j].url = url;
+                                    codeValueData[j].isDocumentAttached = true;
+                                    codeValueData[j].parentEntityType = data[l].parentEntityType;
+                                    codeValueData[j].parentEntityId = data[l].parentEntityId;
+                                    codeValueData[j].documentId = data[l].id;
+                                    codeValueData[j].allowDeleteDocument = true;
+                                    break;
                                 }
                             }
                         }
-                    });
-                
+                    }
+                });
             };
 
 
@@ -262,35 +261,35 @@
             }
 
             var InsuranceLogCtrl = function ($scope, $modalInstance) {
-                
-                resourceFactory.insuranceDeceasedLogResource.getDeacesdLogs({}, {deceasedId : scope.deceasedId},
+
+                resourceFactory.insuranceDeceasedLogResource.getDeacesdLogs({}, { deceasedId: scope.deceasedId },
                     function (data) {
                         $scope.insuranceDeceasedLogs = data;
                     });
-               $scope.close = function () {
-                   $modalInstance.close('close');
-               };
+                $scope.close = function () {
+                    $modalInstance.close('close');
+                };
 
-           };
+            };
 
             scope.uploadDoument = function (documentDetail) {
                 $modal.open({
                     templateUrl: 'createsubgroup.html',
                     controller: uploadDoumentCtrl,
-                     resolve: {
-                         documentDetail: function () {
-                             return documentDetail;
-                         }
-                     }
+                    resolve: {
+                        documentDetail: function () {
+                            return documentDetail;
+                        }
+                    }
                 });
             };
 
             var uploadDoumentCtrl = function ($scope, $modalInstance, documentDetail) {
-                 $scope.df = scope.df;
-                 $scope.codeValue = documentDetail;
-                 $scope.formData = {} ;
-                 $scope.formData.tagIdentifier = documentDetail.id;
-                 $scope.formData.name = documentDetail.name;
+                $scope.df = scope.df;
+                $scope.codeValue = documentDetail;
+                $scope.formData = {};
+                $scope.formData.tagIdentifier = documentDetail.id;
+                $scope.formData.name = documentDetail.name;
                 $scope.close = function () {
                     $modalInstance.close('close');
                 };
@@ -305,23 +304,23 @@
                         data: $scope.formData,
                         file: $scope.file
                     }).then(function (data) {
-                            // to fix IE not refreshing the model
-                            if (!scope.$$phase) {
-                                scope.$apply();
-                            }
-                            getDeceasedDocuments(scope.insuranceDocumentTagOptions);
-                            $modalInstance.close('close');
-                        });
+                        // to fix IE not refreshing the model
+                        if (!scope.$$phase) {
+                            scope.$apply();
+                        }
+                        getDeceasedDocuments(scope.insuranceDocumentTagOptions);
+                        $modalInstance.close('close');
+                    });
                 };
             };
 
 
 
             scope.fetchBankDetails = function () {
-                scope.status="active";
-                resourceFactory.bankAccountDetailResources.getAll({entityType: 'clients',entityId:scope.insuranceCliamDetials.clientId,status:scope.status}, function (data) {
-                    scope.bankAccountDetails = data;
-                    if(!scope.bankAccountDetails.length > 0) {
+                scope.status = "active";
+                resourceFactory.bankAccountDetailsResource.getAll({ entityType: 'clients', entityId: scope.insuranceCliamDetials.clientId, status: scope.status }, function (data) {
+                    scope.bankAccountDetails = data.result;
+                    if (scope.bankAccountDetails || scope.bankAccountDetails.length == 0) {
                         scope.bankAccountDetailsNotAvailbale = true;
                     } else {
                         scope.bankAccountDetailsNotAvailbale = false;
@@ -329,7 +328,7 @@
                 });
             }
 
-            scope.constructNomineeBankdetails = function(account) {
+            scope.constructNomineeBankdetails = function (account) {
                 scope.formData.nomineeName = account.name;
                 scope.repeatFormData.accountNumberRepeat = account.accountNumber;
                 scope.formData.accountNumber = account.accountNumber;
@@ -339,7 +338,7 @@
                 scope.formData.branchName = account.branchName;
                 scope.formData.bankCity = account.bankCity;
             }
- 
+
         }
     });
     mifosX.ng.application.controller('ClaimDocumentsUpload', ['$controller', '$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', 'CommonUtilService', '$modal', mifosX.controllers.ClaimDocumentsUpload]).run(function ($log) {
