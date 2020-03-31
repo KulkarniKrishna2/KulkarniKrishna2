@@ -295,6 +295,9 @@
                             </span>
                         </div>
                         <div class="col-md-12 well">
+                            <div ng-if="chargeFetchingError" class="error">
+                                {{chargeFetchingErrMsg| translate}}
+                            </div>
                             <api-validate></api-validate>
                             <table class="width100" ng-hide="loanaccountinfo.loanEMIPacks">
                                 <tr>
@@ -1012,10 +1015,10 @@
                                     {{'label.button.cancel' |
                                     translate}}
                                 </button>
-                                <button id="save" type="submit" class="btn btn-primary">
+                                <button id="save" type="submit" ng-hide="chargeFetchingError" class="btn btn-primary">
                                     {{'label.button.save' | translate}}
                                 </button>
-                                 <a class="btn btn-primary" href="javascript:void(0);" data-ng-click="previewRepayments(true)">
+                                 <a class="btn btn-primary" href="javascript:void(0);" ng-hide="chargeFetchingError" data-ng-click="previewRepayments(true)">
                                     {{'label.button.schedulepreview' | translate}}</a>
                                 <button id="fetchReport" ng-click="printSchedule()" type="submit"
                                         ng-show="hidePrintReportButton"

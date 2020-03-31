@@ -26,6 +26,7 @@
             scope.isTrancheAmountReadOnlyField = true;
             scope.showUpfrontAmount = true;
             scope.upfrontAmount = false;
+            scope.chargeFetchingError = false;
 
             if (scope.response && scope.response.uiDisplayConfigurations) {
                 scope.isHiddenInterestRatePerPeriod = scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.interestRatePerPeriod;
@@ -62,6 +63,9 @@
                             curIndex++;
                         }
                     }
+                }, function(errObj){
+                    scope.chargeFetchingErrMsg = errObj.data.userMessageGlobalisationCode;
+                    scope.chargeFetchingError = true;
                 });
             });
 
