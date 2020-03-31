@@ -41,6 +41,9 @@
     <div class="col-md-12" ng-if="approveForm">
         <form class="form-inline" name="approveloanapplicationform" novalidate="" rc-submit="submit()">
             <api-validate></api-validate>
+            <div ng-if="chargeFetchingError" class="error">
+                {{chargeFetchingErrMsg| translate}}
+            </div>
             <div class="span gray-head">
                 <span class="boldlabel">
                           <strong>{{ 'label.heading.requested.loanapplication.details' | translate }}</strong>
@@ -639,10 +642,10 @@
                     <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">
                         {{'label.button.cancel' | translate}}
                     </button>
-                    <button id="save" ng-click="issubmitted=true" ng-show="formData.status.id === 200" type="submit" has-permission='APPROVE_LOANAPPLICATIONREFERENCE' class="btn btn-primary">
+                    <button id="save" ng-click="issubmitted=true" ng-show="formData.status.id === 200 && !chargeFetchingError" type="submit" has-permission='APPROVE_LOANAPPLICATIONREFERENCE' class="btn btn-primary">
                         {{'label.button.approve' | translate}}
                     </button>
-                    <a class="btn btn-primary" href="javascript:void(0);" data-ng-click="previewRepayments(true)">
+                    <a class="btn btn-primary" href="javascript:void(0);" ng-hide="chargeFetchingError" data-ng-click="previewRepayments(true)">
                         {{'label.button.schedulepreview' | translate}}</a>
                 </div>
             </div>

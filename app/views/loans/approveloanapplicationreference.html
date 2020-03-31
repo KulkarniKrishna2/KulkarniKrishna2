@@ -8,6 +8,9 @@
         </ul>
     </div>
     <api-validate></api-validate>
+    <div ng-if="chargeFetchingError" class="error">
+        {{chargeFetchingErrMsg| translate}}
+    </div>
     <div class="col-md-12 col-sm-12">
         <div class="row primarydiv">
             <div class="pull-right">
@@ -947,13 +950,13 @@
                                     {{'label.button.cancel' |
                                     translate}}
                                 </button>
-                                <button id="save" ng-show="formData.status.id === 200"
+                                <button id="save" ng-show="formData.status.id === 200 && !chargeFetchingError"
                                         type="submit" has-permission='APPROVE_LOANAPPLICATIONREFERENCE'
                                         class="btn btn-primary">
                                     {{'label.button.approve' |
                                     translate}}
                                 </button>
-                                <a class="btn btn-primary" href="javascript:void(0);" data-ng-click="previewRepayments(true)">
+                                <a class="btn btn-primary" href="javascript:void(0);" ng-hide="chargeFetchingError" data-ng-click="previewRepayments(true)">
                                     {{'label.button.schedulepreview' | translate}}</a>
                             </div>
                         </div>

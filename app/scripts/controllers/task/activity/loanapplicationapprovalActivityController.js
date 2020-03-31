@@ -12,6 +12,7 @@
             scope.isTrancheAmountReadOnlyField = true;
             scope.showUpfrontAmount = true;
             scope.upfrontAmount = false;
+            scope.chargeFetchingError = false;
 
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createLoanApplication &&
                 scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField && scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.upfrontAmount) {
@@ -218,6 +219,9 @@
                                 curIndex++;
                             }
                         }
+                    }, function(errObj){
+                        scope.chargeFetchingErrMsg = errObj.data.userMessageGlobalisationCode;
+                        scope.chargeFetchingError = true;
                     });
 
                     resourceFactory.configurationResource.get({configName:'enable-pending-for-approval-stage'}, function (data) {
