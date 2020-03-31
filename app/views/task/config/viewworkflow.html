@@ -38,10 +38,10 @@
             </tbody>
         </table>
     </div>
-    <div >
-         <a  class="btn btn-primary pull-right" 
+    <div  class="pull-right" >
+         <a class="btn btn-primary"
             data-ng-click="addWorkflowSteps()" has-permission='ADD_TASK_CONFIG'>
-            {{'label.button.addsteps'| translate}} </a>
+            {{'label.button.addsteps'| translate}} </a> &nbsp;<a><i class="paddedleft icon-upload-alt icon-dark" style="font-size:15px" tooltip-placement="right" tooltip="{{ 'label.tooltip.upload.file.for.workflow' | translate}}" ng-click="upload()"></i></a>
     </div>
     <h3>{{'label.heading.manageworkflow' | translate}}</h3>
         <div class="table-response">
@@ -84,3 +84,19 @@
         </div>
     </form>
 </script>
+<script type="text/ng-template" id="uploadfile.html">
+    <form name="popupform" novalidate="">
+    <div class="modal-header silver">
+        <h3 class="bolder">{{'label.heading.uploadfile' | translate}}</h3>
+    </div>
+    <div class="modal-body">
+        <api-validate></api-validate>
+        <br>
+        <input type="file" ng-file-select="onFileSelect($files)">
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+        <button class="btn btn-primary" ng-click="upload()">{{'label.button.upload' | translate}}</button>
+    </div>
+    </form>
+    </script>

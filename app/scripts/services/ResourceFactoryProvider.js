@@ -2051,7 +2051,10 @@
                    }),
                     loanOfficerDropdownResource: defineResource(apiVer + "/staff/template/:officeId", {officeId: '@officeId'}, {
                         getAll: {method: 'GET', params: {}, isArray: true},
-                   })
+                   }),
+                    fileProcessIdentifierTemplateResource:defineResource(apiVer+"/fileprocess/template/:fileProcessIdentifier",{fileProcessIdentifier:'@fileProcessIdentifier'},{
+                        get: {method: 'GET', params: {}}
+                    })
                 };
             }];
         }

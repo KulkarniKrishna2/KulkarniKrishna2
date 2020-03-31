@@ -36,7 +36,9 @@
                         scope.accounting.push(data[i]);
 
                     } else if (data[i].fileProcessCategory == "ORGANISATION") {
-                        scope.organisation.push(data[i]);
+                        if(data[i].fileProcessIdentifier != 'workflow'){
+                            scope.organisation.push(data[i]);
+                        }                    
 
                     } else if (data[i].fileProcessCategory == "INSURANCE") {
                         scope.insurance.push(data[i]);
