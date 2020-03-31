@@ -6,6 +6,8 @@
         <th>{{'label.device.id' | translate}}</th>
         <th>{{'label.imei.number' | translate }}</th>
         <th>{{'label.device.model' | translate}}</th>
+        <th>{{'label.heading.apk.version' | translate}}</th>
+        <th>{{'label.heading.sdk.version' | translate}}</th>
         <th>{{'label.heading.action' | translate}}</th>
     </tr>
     <tr ng-if="registeredUserDevices.currentPageItems.length > 0" ng-repeat="userDevice in registeredUserDevices.currentPageItems">
@@ -15,6 +17,8 @@
         <td ng-click="routeTo(userDevice.registeredDeviceData.id)"><a>{{userDevice.registeredDeviceData.deviceId}}</a></td>
         <td ng-click="routeTo(userDevice.registeredDeviceData.id)"><a>{{userDevice.registeredDeviceData.imeiNumber}}</a></td>
         <td ng-click="routeTo(userDevice.registeredDeviceData.id)"><a>{{userDevice.registeredDeviceData.deviceModel}}</a></td>
+        <td ng-click="routeTo(userDevice.registeredDeviceData.id)"><a>{{userDevice.registeredDeviceData.apkVersion}}</a></td>
+        <td ng-click="routeTo(userDevice.registeredDeviceData.id)"><a>{{userDevice.registeredDeviceData.sdkVersion}}</a></td>
         <td>
             <a has-permission='ACTIVATE_REGISTERED_DEVICE' ng-click="userActionOnDevice(userDevice,'activate')">{{'label.button.activate' | translate}}</a> |
             <a has-permission='DEACTIVATE_REGISTERED_DEVICE' ng-click="userActionOnDevice(userDevice,'deactivate')">{{'label.button.deactivate' | translate}}</a>
