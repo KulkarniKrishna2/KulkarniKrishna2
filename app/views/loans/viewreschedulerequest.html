@@ -93,6 +93,14 @@
                     </td>
                 </tr>
                 <tr>
+                    <td class="width14" ng-show="introduceGracePeriods">
+                        <label class="control-label" style="padding-left: 20px;">{{ 'label.input.interestfreeperiod' | translate
+                            }}&nbsp;</label></td>
+                    <td ng-show="introduceGracePeriods">
+                        {{loanRescheduleDetails.interestFreePeriod}}
+                    </td>
+                </tr>
+                <tr>
                     <td class = "paddedtop">
                         <input type="checkbox" ng-disabled="true" ng-model="extendRepaymentPeriod"> &nbsp;<span
                             class="control-label">{{ 'label.input.extendRepaymentPeriod' | translate }}&nbsp;</span>
