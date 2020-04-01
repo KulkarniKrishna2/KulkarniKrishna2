@@ -1,0 +1,11 @@
+<div class=""  ng-controller="ReportActivityController">
+    <div class="row" ng-show="reportAvailble==true">
+        <div>
+            <div class="pull-right  col-sm-offset-1" ng-repeat="report in reports">
+                <button type="button" class="btn btn-primary" ng-click="generateReport(report);" has-permission='READ_REPORT'>{{report.name}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

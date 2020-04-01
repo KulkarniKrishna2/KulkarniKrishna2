@@ -22,6 +22,9 @@
             scope.showAuditLog = false;
             scope.param = {};
             scope.auditLogs = [];
+            scope.reportParams = {};
+            scope.isReportAvailable = false;
+
             if(scope.path.indexOf("addbankaccountdetail") != -1 || scope.path.indexOf("bankaccountdetails") != -1){
                 scope.isDisplayAuditLogs = true;
                 scope.showAuditLog = true;
@@ -62,6 +65,12 @@
             
             function initTask(){
                 if(scope.taskData != undefined){
+                    if(scope.taskData.taskActivity.configValues && scope.taskData.taskActivity.configValues.reports && scope.taskData.taskActivity.configValues.reports.length>0){
+                        scope.isReportAvailable = true;
+                    }
+                    if(scope.isReportAvailable == true){
+                        scope.updateReportsParams(scope.taskData);
+                    }                    
                     if(scope.taskData.eventType){
                         scope.eventType = scope.taskData.eventType.systemCode;
                     }
@@ -118,6 +127,32 @@
                         //scope.displayNotes();
                     }
                 }
+            }
+
+            scope.updateReportsParams = function(data){
+                    scope.reportParams.currentTaskId = data.id;
+                    if(data.entityType.code=='taskEntityType.loanapplication'){
+                        scope.reportParams.loanApplicationId = data.entityId;
+                    }else if(data.entityType.code=='taskEntityType.center'){
+                        scope.reportParams.centerId = data.entityId;
+                    }else if(data.entityType.code=='taskEntityType.client'){
+                        scope.reportParams.clientId = data.entityId;
+                    }else if(data.entityType.code=='taskEntityType.office'){
+                        scope.reportParams.officeId = data.entityId;
+                    }else if(data.entityType.code=='taskEntityType.village'){
+                        scope.reportParams.villageId = data.entityId;
+                    }else if(data.entityType.code=='taskEntityType.banktransaction'){
+                        scope.reportParams.banktransactionId = data.entityId;
+                    }else{
+                        scope.reportParams[data.entityType.value] = data.entityId;
+                    }
+                    if(data.clientId){
+                        scope.reportParams.clientId = data.clientId;
+                    }
+                    if(data.officeId){
+                        scope.reportParams.officeId = data.officeId;
+                    }
+                    
             }
 
             scope.getTaskId = function(){
@@ -332,7 +367,6 @@
                     resourceFactory.entitySingleTasksResource.getAll({entityId: scope.taskData.parentId, entityType:"task"}, function (data) {
                         scope.adhocTaskData={};
                         scope.adhocTaskList = data;
-                        // console.log(scope.adhocTaskList);
                     });
                 }
             }
