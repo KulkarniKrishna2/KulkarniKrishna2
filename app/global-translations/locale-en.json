@@ -1017,7 +1017,7 @@
     "validation.msg.clientIdentifier.documentKey.cannot.be.blank": "Identification # is mandatory.",
     "validation.msg.clientIdentifier.documentTypeId.cannot.be.blank": "Identity document type is mandatory.",
     "error.msg.clientIdentifier.type.duplicate": "Active client identity document of type `{{params[0].value}}` already exists for this client.",
-    "error.msg.clientIdentifier.identityKey.duplicate": "Client `{{params[0].value}}` under {{params[1].value}} office already has a {{params[2].value}} with unique key {{params[3].value}}.",
+    "error.msg.clientIdentifier.identityKey.duplicate": "Client `{{params[0].value}}`({{params[1].value}}) under {{params[2].value}} already has a {{params[3].value}} with unique key {{params[4].value}}.",
     "error.msg.image.type.upload": "Only files of type GIF,PNG or JPG are allowed.",
     "validation.msg.clientImage.cannot.be.blank": "Please select an image to upload.",
     "validation.msg.note.note.cannot.be.blank": "Note is mandatory.",
