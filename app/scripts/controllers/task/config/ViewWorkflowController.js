@@ -1,7 +1,7 @@
 
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewWorkflowController: function (scope, resourceFactory, location, routeParams, dateFilter, $modal, $route) {
+        ViewWorkflowController: function (scope, resourceFactory, location, routeParams, dateFilter, $modal, $route,$upload, $rootScope,API_VERSION) {
             
             scope.taskConfigData = {};
             scope.taskConfigStepsData = [];
@@ -139,10 +139,38 @@
                     });
                 }
             }
+
+            scope.upload = function () {
+                $modal.open({
+                    templateUrl: 'uploadfile.html',
+                    controller: UploadFileCrl
+                });
+            };
+            var UploadFileCrl = function ($scope, $modalInstance) {
+                
+                $scope.onFileSelect = function ($files) {
+                    $scope.file = $files[0];
+                };
+                $scope.upload = function () {
+                   if ($scope.file) {
+                        $upload.upload({
+                            url:  $rootScope.hostUrl + API_VERSION + '/taskconfigs/'+routeParams.taskConfigId+'/taskconfigsteps/upload',
+                            file: $scope.file
+                        }).then(function (data) {
+                        // to fix IE not refreshing the model
+                            $modalInstance.dismiss('cancel');
+                            location.path('/viewworkflow/'+routeParams.taskConfigId);
+                        });
+                    }
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            };
             
         }
     });
-    mifosX.ng.application.controller('ViewWorkflowController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', '$modal', '$route', mifosX.controllers.ViewWorkflowController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewWorkflowController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', '$modal', '$route','$upload', '$rootScope','API_VERSION', mifosX.controllers.ViewWorkflowController]).run(function ($log) {
         $log.info("ViewWorkflowController initialized");
     });
 }(mifosX.controllers || {}));

@@ -4,13 +4,16 @@
             <li><a href="#/workflowmanagement">{{'label.anchor.workflowmanagement'| translate}}</a></li>
             <li class="active">{{'label.anchor.workflow' | translate}}</li>
         </ul>
-    <api-validate></api-validate>
-    <h3>{{'label.heading.workflow' | translate}}</h3>
-    <hr>
-    <div >
-         <a href="#/addworkflow" class="btn btn-primary pull-right" 
+        <api-validate></api-validate>
+        <h3>{{'label.heading.workflow' | translate}}</h3>
+        <div class="clearfix">
+            <a ng-click= "downloadTemplate()" class="btn btn-primary pull-right" has-permission='CREATE_TASK_CONFIG' ><i class="icon-file ng-scope">{{'label.button.workflow.template'| translate}}</i></a>
+        </div>        
+        <hr>
+        <div >
+            <a href="#/addworkflow" class="btn btn-primary pull-right" 
             has-permission='CREATE_TASK_CONFIG' >{{'label.button.addworkflow'| translate}} </a>
-    </div>
+        </div>
     <div class="table-response">
         <table class="table table-striped">
             <thead>
@@ -25,10 +28,29 @@
                        ng-click= "routeToView(workflowConfig.id)">
                     <td class="pointer">{{workflowConfig.name}}</td>
                     <td class="pointer">{{workflowConfig.isActive}}</td>
-                    <td class="pointer"><a type="button" class="btn btn-primary" 
-                        has-permission='ADD_TASK_CONFIG' ng-click= "addWorkflowSteps(workflowConfig.id)">{{"label.button.addsteps" | translate}}</a></td>
+                    <td class="pointer ng-binding"><a type="button" class="btn btn-primary" 
+                        has-permission='ADD_TASK_CONFIG' ng-click= "addWorkflowSteps(workflowConfig.id)">{{"label.button.addsteps" | translate}}</a>&nbsp;<a><i class="paddedleft icon-upload-alt icon-dark" style="font-size:15px"
+                                tooltip-placement="right"
+                                tooltip="{{ 'label.tooltip.upload.file.for.workflow' | translate}}"
+                                ng-click="upload(workflowConfig.id)"></i></a></td>
                 </tr>
             </tbody>
         </table>
     </div>
  </div>
+ <script type="text/ng-template" id="uploadfile.html">
+    <form name="popupform" novalidate="">
+    <div class="modal-header silver">
+        <h3 class="bolder">{{'label.heading.upload.file.for.workflow' | translate}}</h3>
+    </div>
+    <div class="modal-body">
+        <api-validate></api-validate>
+        <br>
+        <input type="file" ng-file-select="onFileSelect($files)">
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+        <button class="btn btn-primary" ng-click="upload()">{{'label.button.upload' | translate}}</button>
+    </div>
+    </form>
+    </script>

@@ -8554,6 +8554,9 @@
      "label.heading.user.device.link.status" : "User-Device-Link Status",
      "label.heading.apk.version" : "APK Version",
      "label.heading.sdk.version" : "SDK Version",
+     "label.button.workflow.template":"Workflow Template",
+     "label.tooltip.upload.file.for.workflow" : "Upload file for workflowsteps",
+     "label.heading.upload.file.for.workflow":"Upload File For Workflow",
      
      "------ end of translation file ------": "----------"
 
