@@ -249,7 +249,7 @@
     "label.anchor.savingsaccountlimits": "Savings Account Limits",
     "label.anchor.loanaccountlimits": "Loan Account Limits",
     "label.anchor.pendingvaluedatetransactions": "Pending value date transactions",
-    "label.anchor.registered.devices": "Registered Devices",
+    "label.anchor.registered.user.devices": "Registered User Devices",
     "label.anchor.task.adhoc.create": "Create Task",
 
     "#Inputs": "..",
@@ -7555,8 +7555,8 @@
     "label.heading.enquiryreason": "Enquiry  Reason",
     "label.button.enquire.cbapproval": "Enquire Bank CB Approval",
 
-    "label.view.registered.devices": "View all devices",
-    "label.anchor.manage.devices": "Manage Devices",
+    "label.view.registered.user.devices": "View all user devices",
+    "label.anchor.manage.user.devices": "Manage User Devices",
     "label.input.requred.user": "Requested User",
     "label.input.last.used.by": "Last Used By",
     "label.registered.user": "Registered User",
@@ -7564,10 +7564,7 @@
     "label.device.status": " Device Status",
     "label.device.model": "Device Model",
     "label.device.list": "Device List",
-    "label.pending.devices": "Pending Devices",
-    "label.activated.devices": "Activated Devices",
-    "label.deactivated.devices": "Deactivated Devices",
-
+    "label.pending.user.devices": "Pending User Devices",
     "label.anchor.linked.devices": "Linked Devices",
     "label.last.login.date.time": "Last Login",
     "label.last.login.location": "Last Login Location",
@@ -8526,7 +8523,7 @@
      "warning.msg.group.changes.in.the.staff.will.also.change.staff.assigned.to.associated.entities" : "Changes in the staff of group will also change staff assigned to associated clients, loans, savings *",
      "warning.msg.client.changes.in.the.staff.will.also.change.staff.assigned.to.associated.entities" : "Changes in the staff of client will also change staff assigned to associated loans and savings *",
   
-     "label.anchor.manage.usertodevices" : "Manage user Devices",
+     "label.anchor.manage.usertodevices" : "Manage User Devices",
      "label.registered.user.device.list" : "Registered Users Device List",
      "label.device.information" : "Device Information",
      "error.msg.max.active.user.on.device" : "Max active user on device limit reached.",

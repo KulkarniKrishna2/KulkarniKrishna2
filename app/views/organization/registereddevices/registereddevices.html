@@ -46,7 +46,7 @@
         <h2>{{'label.registered.user.device.list' |translate}}</h2>
     
         <tabset has-permission='READ_REGISTERED_DEVICE'>
-            <tab heading="{{'label.pending.devices' | translate}}" select="searchData('pending')">
+            <tab heading="{{'label.pending.user.devices' | translate}}" select="searchData('pending')">
                 <div ng-if="uiData.status == 'pending'" ng-include="'views/organization/registereddevices/listdevices.html'"></div>
             </tab>
         </tabset>
