@@ -348,18 +348,12 @@
                 }
             }
 
-            scope.fetchBankDetailsData = function(){
-                resourceFactory.bankAccountDetailResources.getAll({entityType: "clients",entityId: scope.clientId, status: "active"}, function (data) {
-                    scope.bankAccountDetails = data;
-                    scope.populateAttachedBankAccount(data);
-                });
-            };
-
-            scope.populateAttachedBankAccount = function(data) {
-                resourceFactory.bankAccountDetailResources.getAll({entityType: "loans",entityId: scope.accountId}, function (data) {
-                    if(scope.bankAccountDetails && scope.bankAccountDetails.length >0 && data ) {
+            function populateAttachedBankAccount() {
+                resourceFactory.bankAccountDetailsResource.getAll({ entityType: "loans", entityId: scope.accountId }, function (data) {
+                    data = data.result;
+                    if (scope.bankAccountDetails && scope.bankAccountDetails.length > 0 && data && data.length > 0) {
                         for (var i = 0; i < scope.bankAccountDetails.length; i++) {
-                            if(data[0] && data[0].id === scope.bankAccountDetails[i].id){
+                            if (data[0] && data[0].id === scope.bankAccountDetails[i].id) {
                                 scope.bankAccountDetails[i].checked = true;
                                 break;
                             }
@@ -367,6 +361,14 @@
                     }
                 });
             }
+
+            scope.fetchBankDetailsData = function () {
+                resourceFactory.bankAccountDetailsResource.getAll({ entityType: "clients", entityId: scope.clientId, status: "active" }, function (data) {
+                    scope.bankAccountDetails = data.result;
+
+                    populateAttachedBankAccount();
+                });
+            };
 
             scope.formDisbursementData = function(){
                  scope.modelName = 'actualDisbursementDate';

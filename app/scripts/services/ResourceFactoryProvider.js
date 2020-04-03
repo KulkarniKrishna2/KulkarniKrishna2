@@ -1,8 +1,7 @@
 (function (module) {
     mifosX.services = _.extend(module, {
         ResourceFactoryProvider: function () {
-            var baseUrl = "" , apiVer = "/fineract-provider/api/v1", tenantIdentifier = "";
-            var apiVer2 = "/fineract-provider/api/v2";
+            var baseUrl = "" , apiVer = "/fineract-provider/api/v1", tenantIdentifier = "", apiVer2 = "/fineract-provider/api/v2";
             this.setBaseUrl = function (url) {
                 baseUrl = url;
                 console.log(baseUrl);
@@ -1204,49 +1203,50 @@
                     taskListSearchResource: defineResource(apiVer + "/tasks/search",{command:'@command'}, {
                         get: {method: 'GET', params: {filterby: '@filterby', offset: '@offset', limit: '@limit'}, isArray: true}
                     }),
-                    bankAccountDetailResource: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetail/:clientBankAccountDetailAssociationId", {entityType: "@entityType",entityId: '@entityId',clientBankAccountDetailAssociationId: '@clientBankAccountDetailAssociationId'}, {
-                        getAll: {method: 'GET', params: {}, isArray: true},
+                    bankAccountDetailsResource: defineResource(apiVer2 + "/:entityType/:entityId/bankaccountdetails/:bankAccountDetailsId", {entityType: "@entityType",entityId: '@entityId',bankAccountDetailsId: '@bankAccountDetailsId'}, {
+                        getAll: {method: 'GET', params: {}},
                         create: {method: 'POST'},
                         get: {method: 'GET'},
                         update: {method: 'PUT'},
                         delete: {method: 'DELETE'}
                     }),
-                    bankAccountDetailVerifyResource: defineResource(apiVer + "/bankaccountdetails/:bankAccountDetailId/verify", {bankAccountDetailId: "@bankAccountDetailId"}, {
+                    bankAccountDetailsCheckerResource: defineResource(apiVer2 + "/:entityType/:entityId/bankaccountdetails/:bankAccountDetailsId/checkerdetails", {entityType: "@entityType",entityId: '@entityId',bankAccountDetailsId: '@bankAccountDetailsId'}, {
+                        checkerDetails: {method: 'PUT'}
+                    }),
+                    bankAccountDetailVerifyResource: defineResource(apiVer2 + "/bankaccountdetails/:bankAccountDetailId/verify", {bankAccountDetailId: "@bankAccountDetailId"}, {
                         doVerify: {method: 'POST'}
                     }),
-                    bankAccountDetailReVerifyResource: defineResource(apiVer + "/bankaccountdetails/:bankAccountDetailId/reverify", {bankAccountDetailId: "@bankAccountDetailId"}, {
+                    bankAccountDetailReVerifyResource: defineResource(apiVer2 + "/bankaccountdetails/:bankAccountDetailId/reverify", {bankAccountDetailId: "@bankAccountDetailId"}, {
                         doReVerify: {method: 'POST'}
                     }),
-                    bankAccountDetailCheckVerificationStatusVerifyResource: defineResource(apiVer + "/bankaccountdetails/:bankAccountDetailId/verificationstatus", {bankAccountDetailId: "@bankAccountDetailId"}, {
+                    bankAccountDetailCheckVerificationStatusVerifyResource: defineResource(apiVer2 + "/bankaccountdetails/:bankAccountDetailId/verificationstatus", {bankAccountDetailId: "@bankAccountDetailId"}, {
                         checkVerificationStatus: {method: 'POST'}
                     }),
-                    bankAccountDetailResourcesLatest: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetail/latest", {entityType: "@entityType",entityId: '@entityId',clientBankAccountDetailAssociationId: '@clientBankAccountDetailAssociationId'}, {
-                        getLatest: {method: 'GET'},
-                        createOrUpdate: {method: 'POST'}
+                    bankAccountDetailsDocumentsResource: defineResource(apiVer2 + "/:entityType/:entityId/bankaccountdetails/:bankAccountDetailsId/documents", {entityType: '@entityType', entityId: '@entityId', bankAccountDetailsId: '@bankAccountDetailsId'}, {
+                        getAllDocuments: {method: 'GET', params: {}},
+                        delete:{method: 'PUT', params: {}}
                     }),
-                    bankAccountDetailResources: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetail", {entityType: "@entityType",entityId: '@entityId'}, {
-                        getAll: {method: 'GET', params: {}, isArray: true},
-                        create: {method: 'POST'},
-                        get: {method: 'GET'},
-                        update: {method: 'PUT'},
-                        delete: {method: 'DELETE'}
-                    }),
-                    loanBankAccountAssociationResources: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetail/loans/:bankAccountId", {entityType: "@entityType",entityId: '@entityId',bankAccountId: '@bankAccountId'}, {
+                    loanBankAccountAssociationResources: defineResource(apiVer2 + "/:entityType/:entityId/bankaccountdetails/loans/:bankAccountDetailsId", {entityType: "@entityType",entityId: '@entityId',bankAccountDetailsId: '@bankAccountDetailsId'}, {
                         create: {method: 'POST'},
                         delete: {method: 'DELETE'}
                     }),
-                    bankAccountDetailsTemplateResource: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetail/template", {entityType: "@entityType",entityId: '@entityId'}, {
+                    bankAccountDetailsTemplateResource: defineResource(apiVer2 + "/:entityType/:entityId/bankaccountdetails/template", {entityType: "@entityType",entityId: '@entityId'}, {
                         get: {method: 'GET'},
                     }),
-                    bankAccountDetailActionResource: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetail/:clientBankAccountDetailAssociationId/action", {entityType: "@entityType",entityId: '@entityId',clientBankAccountDetailAssociationId: '@clientBankAccountDetailAssociationId', command:'@command'}, {
-                        doAction: {method: 'POST',params:{command:'@command'}}
+                    bankAccountDetailsActivateResource: defineResource(apiVer2 + "/:entityType/:entityId/bankaccountdetails/:bankAccountDetailsId/activate", {entityType: "@entityType",entityId: '@entityId',bankAccountDetailsId: '@bankAccountDetailsId'}, {
+                        activate: {method: 'PUT',params:{}}
+                    }),
+                    bankAccountDetailsDeActivateResource: defineResource(apiVer2 + "/:entityType/:entityId/bankaccountdetails/:bankAccountDetailsId/deactivate", {entityType: "@entityType",entityId: '@entityId',bankAccountDetailsId: '@bankAccountDetailsId'}, {
+                        deActivate: {method: 'PUT',params:{}}
+                    }),
+                    bankAccountDetailsDeleteResource: defineResource(apiVer2 + "/:entityType/:entityId/bankaccountdetails/:bankAccountDetailsId/delete", {entityType: "@entityType",entityId: '@entityId',bankAccountDetailsId: '@bankAccountDetailsId'}, {
+                        delete: {method: 'PUT',params:{}}
                     }),
                     bankIFSCResource: defineResource(apiVer + "/ifsc/:ifscCode", {ifscCode: "@ifscCode"}, {
                         get: {method: 'GET'}
                     }),
-                    bankAccountDetailWorkflowResource: defineResource(apiVer2 + "/:entityType/:entityId/bankaccountdetail/workflow", {entityType: "@entityType",entityId: '@entityId'}, {
-                        get: {method: 'GET', params: {}},
-                        create: {method: 'POST'}
+                    bankAccountDetailsWorkflowResource: defineResource(apiVer2 + "/:entityType/:entityId/bankaccountdetails/:bankAccountDetailsId/workflow", {entityType: "@entityType",entityId: '@entityId',bankAccountDetailsId: '@bankAccountDetailsId'}, {
+                        get: {method: 'GET', params: {}}
                     }),
                     cgtTemplateResource:defineResource(apiVer+"/cgt/template", {entityType: '@entityType', entityId: '@entityId'}, {
                         getAll: {method: 'GET', parms: {entityId : '@entityId'}, isArray: false },
@@ -1551,7 +1551,7 @@
                     groupBankAccountDetailActivateResource: defineResource(apiVer + "/groups/:groupId/bankaccountdetails/:bankAccountDetailAssociationId/activate",  {groupId: '@groupId', bankAccountDetailAssociationId:'@bankAccountDetailAssociationId'}, {
                         activate: {method: 'POST'}
                     }),
-                    loanTrxnsTemplateWithBankDetailsResource: defineResource(apiVer + "/loans/:loanId/transactions/template/bankaccountdetails", {loanId: '@loanId'}, {
+                    loanTrxnsTemplateWithBankDetailsResource: defineResource(apiVer + "/loans/:loanId/transactions/template/bankaccounts", {loanId: '@loanId'}, {
                         get: {method: 'GET', params: {}}
                     }),
                     loanTrxnForUtrNumberResource: defineResource(apiVer + "/loans/:loanId/transactions/:transactionId/utrnumber", {loanId: '@loanId', transactionId: '@transactionId'}, {
@@ -1969,8 +1969,8 @@
                     smsProviderResource: defineResource(apiVer + "/smsprovider", {}, {
                         update: {method: 'PUT'}
                     }),
-                    bankAccountAuditResource: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetail/:bankAssociationId/audit", {entityType: "@entityType", entityId: "@entityId", bankAssociationId: "@bankAssociationId"}, {
-                        get: {method:'GET', params: {}, isArray: true}
+                    bankAccountDetailsAuditResource: defineResource(apiVer2 + "/:entityType/:entityId/bankaccountdetails/:bankAssociationId/audit", {entityType: "@entityType", entityId: "@entityId", bankAssociationId: "@bankAssociationId"}, {
+                        get: {method:'GET', params: {}}
                     }),
                     postDeceasedDetailsResource: defineResource(apiVer + "/insurance/markasdeceased", {},  {
                          save: {method:'POST', params: {} }

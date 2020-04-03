@@ -1,90 +1,101 @@
 <div class="col-md-12">
     <api-validate></api-validate>
-    <legend>{{'label.anchor.bankaccountdetails' | translate}}</legend>
+    <legend>
+        {{'label.anchor.bankaccountdetails' | translate}}
+    </legend>
     <div class="row">
         <div class="col-md-8">
             <div class="form-group paddedtop">
                 <span><b>{{'label.input.holdername' | translate}}:&nbsp;</b></span>
-                <span>{{bankAccountData.name}}</span>
+                <span>{{bankAccountDetailsData.name}}</span>
             </div>
             <div class="form-group paddedtop">
                 <span><b>{{'label.input.accountnumber' | translate}}:&nbsp;</b></span>
-                <span>{{bankAccountData.accountNumber}}</span>
+                <span>{{bankAccountDetailsData.accountNumber}}</span>
             </div>
             <div class="form-group paddedtop">
                 <span><b>{{'label.input.accounttype' | translate}}:&nbsp;</b></span>
-                <span>{{bankAccountData.accountType.code | translate}}</span>
+                <span>{{bankAccountDetailsData.accountType.code | translate}}</span>
             </div>
             <div class="form-group paddedtop">
                 <span><b>{{'label.heading.status' | translate}}:&nbsp;</b></span>
-                <span>{{bankAccountData.status.value | translate}}</span>
+                <span>{{bankAccountDetailsData.status.value | translate}}</span>
             </div>
             <div class="form-group paddedtop">
                 <span><b>{{'label.input.ifsccode' | translate}}:&nbsp;</b></span>
-                <span>{{bankAccountData.ifscCode}}</span>
+                <span>{{bankAccountDetailsData.ifscCode}}</span>
             </div>
             <div class="form-group paddedtop">
                 <span><b>{{'label.input.bankname' | translate}}:&nbsp;</b></span>
-                <span>{{bankAccountData.bankName}}</span>
+                <span>{{bankAccountDetailsData.bankName}}</span>
             </div>
             <div class="form-group paddedtop">
                 <span><b>{{'label.input.branchName' | translate}}:&nbsp;</b></span>
-                <span>{{bankAccountData.branchName}}</span>
+                <span>{{bankAccountDetailsData.branchName}}</span>
             </div>
             <div class="form-group paddedtop">
                 <span><b>{{'label.input.bankcity' | translate}}:&nbsp;</b></span>
-                <span>{{bankAccountData.bankCity}}</span>
+                <span>{{bankAccountDetailsData.bankCity}}</span>
             </div>
             <div class="form-group paddedtop">
                 <span><b>{{'label.input.mobilenumber' | translate}}:&nbsp;</b></span>
-                <span>{{bankAccountData.mobileNumber}}</span>
+                <span>{{bankAccountDetailsData.mobileNumber}}</span>
             </div>
-            <div class="form-group paddedtop" ng-if="bankAccountData.email">
+            <div class="form-group paddedtop" ng-if="bankAccountDetailsData.email">
                 <span><b>{{'label.input.email' | translate}}:&nbsp;</b></span>
-                <span>{{bankAccountData.email}}</span>
+                <span>{{bankAccountDetailsData.email}}</span>
             </div>
-            <div class="form-group paddedtop" ng-if="bankAccountData.verificationStatus.id > 0">
+            <div class="form-group paddedtop" ng-if="bankAccountDetailsData.verificationStatus.id > 0">
                 <span><b>{{'label.heading.verified' | translate}}:&nbsp;</b></span>
-                <span>{{bankAccountData.isVerified ? 'Yes' : 'No'}}</span>
+                <span>{{bankAccountDetailsData.isVerified ? 'Yes' : 'No'}}</span>
             </div>
-            <div class="form-group paddedtop" ng-if="bankAccountData.verificationStatus.id > 0">
+            <div class="form-group paddedtop" ng-if="bankAccountDetailsData.verificationStatus.id > 0">
                 <span><b>{{'label.heading.verified.status' | translate}}:&nbsp;</b></span>
-                <span>{{bankAccountData.verificationStatus.value == 'Invalid' ? 'Not Verified' : bankAccountData.verificationStatus.value}}</span>
+                <span>{{bankAccountDetailsData.verificationStatus.value == 'Invalid' ? 'Not Verified' : bankAccountDetailsData.verificationStatus.value}}</span>
             </div>
-            <div class="form-group paddedtop" ng-if="bankAccountData.verificationStatus.id > 2 && bankAccountData.verifiedOn">
+            <div class="form-group paddedtop"
+                ng-if="bankAccountDetailsData.verificationStatus.id > 2 && bankAccountDetailsData.verifiedOn">
                 <span><b>{{'label.button.verified.on' | translate}}:&nbsp;</b></span>
-                <span>{{bankAccountData.verifiedOn | DateTimeFormat}}</span>
+                <span>{{bankAccountDetailsData.verifiedOn | DateTimeFormat}}</span>
             </div>
-            <div class="form-group paddedtop" ng-if="bankAccountData.verifiedComment">
+            <div class="form-group paddedtop" ng-if="bankAccountDetailsData.verifiedComment">
                 <span><b>{{'label.button.verified.comment' | translate}}:&nbsp;</b></span>
-                <span>{{bankAccountData.verifiedComment}}</span>
+                <span>{{bankAccountDetailsData.verifiedComment}}</span>
             </div>
             <div class="form-group paddedtop" ng-hide="isElemHidden('lastTransactionDate')">
                 <span><b>{{'label.input.last.transaction.date' | translate}}:&nbsp;</b></span>
-                <span>{{bankAccountData.lastTransactionDate | DateFormat}}</span>
+                <span>{{bankAccountDetailsData.lastTransactionDate | DateFormat}}</span>
             </div>
         </div>
 
-        <div class="col-md-4" ng-if="bankData.verificationStatus.id > 2 && bankData.verificationStatus.id < 6">
+        <div class="col-md-4"
+            ng-if="bankAccountDetailsData.verificationStatus.id > 2 && bankAccountDetailsData.verificationStatus.id < 6">
             <h3><b>Account Verification Name Match</b></h3>
             <div class="col-sm-4 multiselectmin">
-                <button ng-if="bankAccountData.verificationStatus.id == 3" type="button" class="btn btn-success btn-circle width100 fullscreen default-pointer">
+                <button ng-if="bankAccountDetailsData.verificationStatus.id == 3" type="button"
+                    class="btn btn-success btn-circle width100 fullscreen default-pointer">
                     <i class="icon-ok icon-white font-size-14pt"></i>
                 </button>
 
-                <button ng-if="bankAccountData.verificationStatus.id == 4" type="button" class="btn btn-danger btn-circle width100 fullscreen default-pointer">
+                <button ng-if="bankAccountDetailsData.verificationStatus.id == 4" type="button"
+                    class="btn btn-danger btn-circle width100 fullscreen default-pointer">
                     <i class="icon-remove icon-white font-size-14pt"></i>
+                </button>
+
+                <button ng-if="bankAccountDetailsData.verificationStatus.id == 5" type="button"
+                    class="btn btn-warning btn-circle width100 fullscreen default-pointer">
+                    <i class="icon-eye-open icon-white font-size-14pt"></i>
                 </button>
             </div>
 
             <div class="col-sm-8">
                 <label class="gray-head">As per customer declaration</label>
                 <br>
-                <label class="paddedbottom"><b>{{bankData.name}}</b></label>
+                <label class="paddedbottom"><b>{{bankAccountDetailsData.name}}</b></label>
                 <br>
                 <label class="gray-head">As per bank records</label>
                 <br>
-                <label class="paddedbottom"><b>{{bankData.verifiedBeneficiaryName}}</b></label>
+                <label class="paddedbottom"><b>{{bankAccountDetailsData.verifiedBeneficiaryName}}</b></label>
             </div>
         </div>
 
@@ -95,60 +106,62 @@
                     <tr class="graybg">
                         <th>{{'label.heading.name' | translate}}</th>
                         <th>{{'label.heading.filename' | translate}}</th>
-                        <th ng-if="editable()">{{'label.heading.actions' | translate}}</th>
+                        <th ng-if="isBankAccountAllowToModifyable()">{{'label.heading.actions' | translate}}</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="document in bankAccountDocuments">
                         <td>{{document.name}}</td>
-                        <td><span>{{document.fileName}}&nbsp;
+                        <td>
+                            <span>
+                                {{document.fileName}}&nbsp;
                                 <a target="_blank" data-ng-click="viewDocument(document)"><i
-                                        class="icon-eye-open text-success"></i></a></span>
+                                        class="icon-eye-open text-success"></i></a>
+                            </span>
                         </td>
-                        <td ng-if="editable()">
-                            <a ng-show="document.id" ng-click="deleteDocument(document.id)"
-                                has-permission='UPDATE_BANKACCOUNTDETAIL'><i class="icon-remove"></i></a>
+                        <td ng-if="isBankAccountAllowToModifyable()">
+                            <a ng-if="document.id" ng-click="deleteDocument(document)"
+                                has-permission='DELETE_BANKACCOUNTDETAILDOCUMENT'><i class="icon-remove"></i></a>
                         </td>
                     </tr>
                 </tbody>
             </table>
-            <image-viewer image="documentImg"></image-viewer>
+            <span ng-if="viewConfig.viewDocument==true">
+                <image-viewer image="documentImg"></image-viewer>
+            </span>
         </div>
     </div>
 </div>
 
 <div class="col-md-offset-0 paddedleft paddedtop paddedbottom">
-    <a id="attachDocument" ng-if="uploadimage()" ng-click="uploadDocument()" class="btn btn-primary"
+    <a id="attachDocument" ng-if="isBankAccountAllowToModifyable()" ng-click="uploadDocument()" class="btn btn-primary"
         has-permission='UPDATE_BANKACCOUNTDETAIL'>{{'label.button.upload.image' | translate}}</a>
 
-    <a ng-if="detailseditable()" id="edit" ng-click="edit()" class="btn btn-primary"
+    <a ng-if="isBankAccountAllowToModifyable()" id="edit" ng-click="edit()" class="btn btn-primary"
         has-permission='UPDATE_BANKACCOUNTDETAIL'>{{'label.button.edit' | translate}}</a>
 
-    <button ng-if="deletable()" id="delete" class="btn btn-primary" ng-click="delete()"
-        has-permission='DELETE_BANKACCOUNTDETAIL'>{{'label.button.delete' | translate}}</button>
-    
-    <button ng-if="verifyable()" id="verifyable" class="btn btn-warning" ng-click="initBankAccountVerification(false)"
+    <button ng-if="isBankAccountAllowToVerifyable()" id="bankAccountDetailsVerifyable" class="btn btn-warning"
+        ng-click="initBankAccountVerification(false)"
         has-permission='VERIFY_BANKACCOUNTDETAIL'>{{'label.button.verify' | translate}}</button>
-    
-    <button ng-if="bankData.verificationStatus.value=='Pending'" id="refresh" class="btn btn-success" ng-click="initBankAccountVerification(false)"
-        has-permission='VERIFY_BANKACCOUNTDETAIL'>
+
+    <button ng-if="bankAccountDetailsData.verificationStatus.value=='Pending'" id="refresh" class="btn btn-success"
+        ng-click="initBankAccountVerification(false)" has-permission='VERIFY_BANKACCOUNTDETAIL'>
         {{'label.button.refresh.verification.status' | translate}}
     </button>
 
-    <button ng-if="reVerifyable()" id="reVerifyable" class="btn btn-danger"
-        ng-click="initBankAccountVerification(true)"
-        has-permission='REVERIFY_BANKACCOUNTDETAIL'>
+    <button ng-if="isBankAccountAllowToReVerifyable()" id="bankAccountDetailsReVerifyable" class="btn btn-danger"
+        ng-click="initBankAccountVerification(true)" has-permission='REVERIFY_BANKACCOUNTDETAIL'>
         {{'label.button.re.verify' | translate}}
     </button>
 
-    <button ng-if="approvable()" id="activate" class="btn btn-primary" ng-click="activate()"
+    <button ng-if="isBankAccountAllowToActivate()" id="activate" class="btn btn-primary" ng-click="activate()"
         has-permission='ACTIVATE_BANKACCOUNTDETAIL'>{{'label.button.activate' | translate}}</button>
 
-    <button ng-if="undoApprovable()" id="activate" class="btn btn-primary" ng-click="inActivateAssociation()"
-        has-permission='INACTIVATE_BANKACCOUNTASSOCIATION'>{{'label.button.inactivate' | translate}}</button>
+    <button ng-if="isBankAccountAllowToDeActivate()" id="deactivate" class="btn btn-primary" ng-click="deActivate()"
+        has-permission='DEACTIVATE_BANKACCOUNTDETAIL'>{{'label.button.deactivate' | translate}}</button>
 
-    <button ng-if="showReactivateButton" id="activateAssotiation" class="btn btn-primary"
-        ng-click="activateAssociation()" has-permission='ACTIVATE_BANKACCOUNTASSOCIATION'>{{'label.button.reactivate' | translate}}</button>
+    <button ng-if="isBankAccountAllowToReactivate()" id="reactivate" class="btn btn-primary" ng-click="activate()"
+        has-permission='ACTIVATE_BANKACCOUNTDETAIL'>{{'label.button.reactivate' | translate}}</button>
 </div>
 
 <div>

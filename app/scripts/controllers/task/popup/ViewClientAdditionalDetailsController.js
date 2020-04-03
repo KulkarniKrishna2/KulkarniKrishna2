@@ -77,9 +77,10 @@
             // Bank Account Details Part
 
             function getClientBankAccountDetails() {
-                resourceFactory.bankAccountDetailResource.getAll({ entityType: scope.entityType, entityId: scope.clientId }, function (data) {
+                resourceFactory.bankAccountDetailsResource.getAll({ entityType: scope.entityType, entityId: scope.clientId }, function (data) {
+                    data = data.result;
                     if (!_.isUndefined(data[0])) {
-                        scope.clientBankAccountDetailAssociationId = data[0].bankAccountAssociationId;
+                        scope.bankAccountDetailsId = data[0].id;
                         populateDetails();
                     }
                 });
@@ -88,10 +89,10 @@
             getClientBankAccountDetails();
 
             function populateDetails() {
-                resourceFactory.bankAccountDetailResource.get({
+                resourceFactory.bankAccountDetailsResource.get({
                     entityType: scope.entityType,
                     entityId: scope.clientId,
-                    clientBankAccountDetailAssociationId: getClientBankAccountDetailAssociationId()
+                    bankAccountDetailsId: getBankAccountDetailsId()
                 }, function (data) {
                     scope.bankAccountData = data;
                     scope.bankAccountDocuments = data.bankAccountDocuments || [];
@@ -107,8 +108,8 @@
             }
 
 
-            function getClientBankAccountDetailAssociationId() {
-                return scope.clientBankAccountDetailAssociationId;
+            function getBankAccountDetailsId() {
+                return scope.bankAccountDetailsId;
             }
 
             scope.viewDocument = function (document) {

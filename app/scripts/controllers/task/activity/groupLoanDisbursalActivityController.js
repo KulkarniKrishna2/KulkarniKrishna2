@@ -244,12 +244,12 @@
             };
 
             scope.fetchBankAccountDetails = function () {
-                resourceFactory.bankAccountDetailResources.getAll({
+                resourceFactory.bankAccountDetailsResource.getAll({
                     entityType: "clients",
                     entityId: scope.formData.clientId,
                     status: "active"
                 }, function (data) {
-                    scope.bankAccountDetails = data;
+                    scope.bankAccountDetails = data.result;
                 });
             }
             

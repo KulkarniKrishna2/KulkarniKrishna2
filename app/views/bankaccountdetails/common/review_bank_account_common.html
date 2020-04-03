@@ -1,185 +1,190 @@
 <div ng-controller="ReviewBankAccountCommonController">
-    <div><api-validate></api-validate></div>
+    <div>
+        <api-validate></api-validate>
+    </div>
     <div class="row">
         <div ng-if="bankAccountDocuments.length>0" class="form-group paddedtop col-md-6">
-            <span><b>{{'label.input.attachments' | translate}}:&nbsp;</b></span> 
-            <table class="table" >
+            <span><b>{{'label.input.attachments' | translate}}:&nbsp;</b></span>
+            <table class="table">
                 <thead>
                     <tr class="graybg">
                         <th>{{'label.heading.name' | translate}}</th>
-                        <th>{{'label.heading.filename' | translate}}</th>                 
+                        <th>{{'label.heading.filename' | translate}}</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="document in bankAccountDocuments">
                         <td>{{document.name}}</td>
                         <td><span>{{document.fileName}}&nbsp;
-                            <a target="_blank" data-ng-click="viewDocument(document)"><i
+                                <a target="_blank" data-ng-click="viewDocument(document)"><i
                                         class="icon-eye-open text-success"></i></a></span>
                         </td>
                     </tr>
                 </tbody>
             </table>
-            <image-viewer image="documentImg" ></image-viewer>    
+            <image-viewer image="documentImg"></image-viewer>
         </div>
 
         <div class="col-md-6">
-            <form name="reviewbankaccountdetail" novalidate="" class="form-horizontal" >
-                <table class="table" >
+            <form name="reviewbankaccountdetail" novalidate="" class="form-horizontal">
+                <table class="table">
                     <thead>
-                    <tr class="graybg">
-                        <th>{{'label.heading.info' | translate}}</th>
-                        <th>{{'label.heading.makerdata' | translate}}</th>
-                        <th ng-if="isMakerTwoStepPresent">{{'label.heading.checkerdata' | translate}}</th>
-                        <th ng-if="!viewConfig.showSummary && isMakerTwoStepPresent">{{'label.heading.review' | translate}}</th>
-                    </tr>
+                        <tr class="graybg">
+                            <th>{{'label.heading.info' | translate}}</th>
+                            <th>{{'label.heading.makerdata' | translate}}</th>
+                            <th ng-if="isMakerTwoStepPresent">{{'label.heading.checkerdata' | translate}}</th>
+                            <th ng-if="!viewConfig.showSummary && isMakerTwoStepPresent">
+                                {{'label.heading.review' | translate}}</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <tr ng-if="!isElemHidden('bankAccountHolderName')">
-                        <td>
-                            {{'label.input.holdername' | translate}}
-                        </td>
-                        <td>
-                            {{bankAccountData.name}}
-                        </td>
-                        <td>
-                            {{checkerBankAccountData.name}}
-                        </td>
-                        <td ng-if="!viewConfig.showSummary">
-                            <input ng-show="checkerBankAccountData.name" name="bankAccountHolderName" id="bankAccountHolderName"
-                                type="checkbox" ng-disabled="true"
-                                ng-checked="bankAccountData.name.toLowerCase().trim()==checkerBankAccountData.name.toLowerCase().trim()"/>
-                        </td>
-                    </tr>
-                    <tr ng-if="!isElemHidden('bankAccountNumber')" >
-                        <td>
-                            {{'label.input.accountnumber' | translate}}
-                        </td>
-                        <td>
-                            {{bankAccountData.accountNumber}}
-                        </td>
-                        <td>
-                            {{checkerBankAccountData.accountNumber}}
-                        </td>
-                        <td ng-if="!viewConfig.showSummary">
-                            <input ng-show="checkerBankAccountData.accountNumber" name="bankAccountNumber" id="bankAccountNumber"
-                                type="checkbox"
-                                ng-disabled="true"
-                                ng-checked="bankAccountData.accountNumber.toLowerCase().trim()==checkerBankAccountData.accountNumber.toLowerCase().trim()"/>
-                        </td>
-                    </tr>
-                    <tr ng-if="!isElemHidden('accountType')">
-                        <td>
-                            {{'label.input.accounttype' | translate}}
-                        </td>
-                        <td>
-                            {{bankAccountData.accountType.code | translate}}
-                        </td>
-                        <td>
-                            {{checkerBankAccountData.accountType.code | translate}}
-                        </td>
-                        <td ng-if="!viewConfig.showSummary">
-                                <input ng-show="checkerBankAccountData.accountType" name="accountType" id="accountType"
-                                        type="checkbox" ng-disabled="true"
-                                    ng-checked="bankAccountData.accountType.code.toLowerCase().trim()==checkerBankAccountData.accountType.code.toLowerCase().trim()"/>
-                        </td>
-                    </tr>
-                    <tr ng-if="!isElemHidden('bankIFSCCode')" >
-                        <td>
-                            {{'label.input.ifsccode' | translate}}
-                        </td>
-                        <td>
-                            {{bankAccountData.ifscCode}}
-                        </td>
-                        <td>
-                            {{checkerBankAccountData.ifscCode}}
-                        </td>
-                        <td ng-if="!viewConfig.showSummary">
-                                <input ng-show="checkerBankAccountData.ifscCode" name="bankIFSCCode" id="bankIFSCCode"
-                                        type="checkbox" ng-disabled="true"
-                                    ng-checked="bankAccountData.ifscCode.toLowerCase().trim()==checkerBankAccountData.ifscCode.toLowerCase().trim()"/>
-                        </td>
-                    </tr>
-                    <tr ng-if="!isElemHidden('bankName')">
-                        <td>
-                            {{'label.input.bankname' | translate}}
-                        </td>
-                        <td>
-                            {{bankAccountData.bankName}}
-                        </td>
-                        <td>
-                            {{checkerBankAccountData.bankName}}
-                        </td>
-                        <td ng-if="!viewConfig.showSummary">
-                                <input ng-show="checkerBankAccountData.bankName" name="bankName" id="bankName"
-                                        type="checkbox" ng-disabled="true"
-                                    ng-checked="bankAccountData.bankName.toLowerCase().trim()==checkerBankAccountData.bankName.toLowerCase().trim()"/>
-                        </td>
-                    </tr>
-                    <tr ng-if="!isElemHidden('branchName')">
-                        <td>
-                            {{'label.input.branchName' | translate}}
-                        </td>
-                        <td>
-                            {{bankAccountData.branchName}}
-                        </td>
-                        <td>
-                            {{checkerBankAccountData.branchName}}
-                        </td>
-                        <td ng-if="!viewConfig.showSummary">
-                                <input ng-show="checkerBankAccountData.branchName" name="branchName" id="branchName"
+                        <tr ng-if="!isElemHidden('bankAccountHolderName')">
+                            <td>
+                                {{'label.input.holdername' | translate}}
+                            </td>
+                            <td>
+                                {{bankAccountDetailsData.name}}
+                            </td>
+                            <td>
+                                {{checkerBankAccountDetailsData.name}}
+                            </td>
+                            <td ng-if="!viewConfig.showSummary">
+                                <input ng-show="checkerBankAccountDetailsData.name" name="bankAccountHolderName"
+                                    id="bankAccountHolderName" type="checkbox" ng-disabled="true"
+                                    ng-checked="bankAccountDetailsData.name.toLowerCase().trim()==checkerBankAccountDetailsData.name.toLowerCase().trim()" />
+                            </td>
+                        </tr>
+                        <tr ng-if="!isElemHidden('bankAccountNumber')">
+                            <td>
+                                {{'label.input.accountnumber' | translate}}
+                            </td>
+                            <td>
+                                {{bankAccountDetailsData.accountNumber}}
+                            </td>
+                            <td>
+                                {{checkerBankAccountDetailsData.accountNumber}}
+                            </td>
+                            <td ng-if="!viewConfig.showSummary">
+                                <input ng-show="checkerBankAccountDetailsData.accountNumber" name="bankAccountNumber"
+                                    id="bankAccountNumber" type="checkbox" ng-disabled="true"
+                                    ng-checked="bankAccountDetailsData.accountNumber.toLowerCase().trim()==checkerBankAccountDetailsData.accountNumber.toLowerCase().trim()" />
+                            </td>
+                        </tr>
+                        <tr ng-if="!isElemHidden('accountType')">
+                            <td>
+                                {{'label.input.accounttype' | translate}}
+                            </td>
+                            <td>
+                                {{bankAccountDetailsData.accountType.code | translate}}
+                            </td>
+                            <td>
+                                {{checkerBankAccountDetailsData.accountType.code | translate}}
+                            </td>
+                            <td ng-if="!viewConfig.showSummary">
+                                <input ng-show="checkerBankAccountDetailsData.accountType" name="accountType"
+                                    id="accountType" type="checkbox" ng-disabled="true"
+                                    ng-checked="bankAccountDetailsData.accountType.code.toLowerCase().trim()==checkerBankAccountDetailsData.accountType.code.toLowerCase().trim()" />
+                            </td>
+                        </tr>
+                        <tr ng-if="!isElemHidden('bankIFSCCode')">
+                            <td>
+                                {{'label.input.ifsccode' | translate}}
+                            </td>
+                            <td>
+                                {{bankAccountDetailsData.ifscCode}}
+                            </td>
+                            <td>
+                                {{checkerBankAccountDetailsData.ifscCode}}
+                            </td>
+                            <td ng-if="!viewConfig.showSummary">
+                                <input ng-show="checkerBankAccountDetailsData.ifscCode" name="bankIFSCCode"
+                                    id="bankIFSCCode" type="checkbox" ng-disabled="true"
+                                    ng-checked="bankAccountDetailsData.ifscCode.toLowerCase().trim()==checkerBankAccountDetailsData.ifscCode.toLowerCase().trim()" />
+                            </td>
+                        </tr>
+                        <tr ng-if="!isElemHidden('bankName')">
+                            <td>
+                                {{'label.input.bankname' | translate}}
+                            </td>
+                            <td>
+                                {{bankAccountDetailsData.bankName}}
+                            </td>
+                            <td>
+                                {{checkerBankAccountDetailsData.bankName}}
+                            </td>
+                            <td ng-if="!viewConfig.showSummary">
+                                <input ng-show="checkerBankAccountDetailsData.bankName" name="bankName" id="bankName"
                                     type="checkbox" ng-disabled="true"
-                                    ng-checked="bankAccountData.branchName.toLowerCase().trim()==checkerBankAccountData.branchName.toLowerCase().trim()"/>
-                        </td>
-                    </tr>
-                    <tr ng-if="!isElemHidden('bankCity') && isMakerTwoStepPresent">
-                        <td>
-                            {{'label.input.bankcity' | translate}}
-                        </td>
-                        <td>
-                            {{bankAccountData.bankCity}}
-                        </td>
-                        <td>
-                            {{checkerBankAccountData.bankCity}}
-                        </td>
-                        <td ng-if="!viewConfig.showSummary">
-                            <input ng-show="checkerBankAccountData.bankCity" name="bankCity" id="bankCity"
+                                    ng-checked="bankAccountDetailsData.bankName.toLowerCase().trim()==checkerBankAccountDetailsData.bankName.toLowerCase().trim()" />
+                            </td>
+                        </tr>
+                        <tr ng-if="!isElemHidden('branchName')">
+                            <td>
+                                {{'label.input.branchName' | translate}}
+                            </td>
+                            <td>
+                                {{bankAccountDetailsData.branchName}}
+                            </td>
+                            <td>
+                                {{checkerBankAccountDetailsData.branchName}}
+                            </td>
+                            <td ng-if="!viewConfig.showSummary">
+                                <input ng-show="checkerBankAccountDetailsData.branchName" name="branchName"
+                                    id="branchName" type="checkbox" ng-disabled="true"
+                                    ng-checked="bankAccountDetailsData.branchName.toLowerCase().trim()==checkerBankAccountDetailsData.branchName.toLowerCase().trim()" />
+                            </td>
+                        </tr>
+                        <tr ng-if="!isElemHidden('bankCity') && isMakerTwoStepPresent">
+                            <td>
+                                {{'label.input.bankcity' | translate}}
+                            </td>
+                            <td>
+                                {{bankAccountDetailsData.bankCity}}
+                            </td>
+                            <td>
+                                {{checkerBankAccountDetailsData.bankCity}}
+                            </td>
+                            <td ng-if="!viewConfig.showSummary">
+                                <input ng-show="checkerBankAccountDetailsData.bankCity" name="bankCity" id="bankCity"
                                     type="checkbox" ng-disabled="true"
-                                ng-checked="bankAccountData.bankCity.toLowerCase().trim()==checkerBankAccountData.bankCity.toLowerCase().trim()"/>
-                        </td>
-                    </tr>
-                    <tr ng-if="!isElemHidden('mobileNumber') && isMakerTwoStepPresent">
-                        <td>
-                            {{'label.input.mobileNo' | translate}}
-                        </td>
-                        <td>
-                            {{bankAccountData.mobileNumber}}
-                        </td>
-                        <td>
-                            {{checkerBankAccountData.mobileNumber}}
-                        </td>
-                        <td ng-if="!viewConfig.showSummary">
-                            <input ng-show="checkerBankAccountData.mobileNumber" name="mobileNumber" id="mobileNumber"
-                                type="checkbox" ng-disabled="true"
-                                ng-checked="bankAccountData.mobileNumber.toLowerCase().trim()==checkerBankAccountData.mobileNumber.toLowerCase().trim()"/>
-                        </td>
-                    </tr>
+                                    ng-checked="bankAccountDetailsData.bankCity.toLowerCase().trim()==checkerBankAccountDetailsData.bankCity.toLowerCase().trim()" />
+                            </td>
+                        </tr>
+                        <tr ng-if="!isElemHidden('mobileNumber') && isMakerTwoStepPresent">
+                            <td>
+                                {{'label.input.mobileNo' | translate}}
+                            </td>
+                            <td>
+                                {{bankAccountDetailsData.mobileNumber}}
+                            </td>
+                            <td>
+                                {{checkerBankAccountDetailsData.mobileNumber}}
+                            </td>
+                            <td ng-if="!viewConfig.showSummary">
+                                <input ng-show="checkerBankAccountDetailsData.mobileNumber" name="mobileNumber"
+                                    id="mobileNumber" type="checkbox" ng-disabled="true"
+                                    ng-checked="bankAccountDetailsData.mobileNumber.toLowerCase().trim()==checkerBankAccountDetailsData.mobileNumber.toLowerCase().trim()" />
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
                 <div class="col-md-offset-2 paddedleft paddedtop" ng-if="!viewConfig.showSummary">
-                    <a id="edit" ng-click="submit()" class="btn btn-primary" has-permission="ACTIVATE_BANKACCOUNTDETAIL">{{'label.button.approve' | translate}}</a>
+                    <a id="edit" ng-click="submit()" class="btn btn-primary"
+                        has-permission="ACTIVATE_BANKACCOUNTDETAIL">{{'label.button.approve' | translate}}</a>
                 </div>
             </form>
         </div>
 
-        <div class="col-md-6" ng-if="bankAccountData.verificationStatus.id > 2">
+        <div class="col-md-6" ng-if="bankAccountDetailsData.verificationStatus.id > 2">
             <h3><b>Account Verification Name Match</b></h3>
             <div class="col-sm-4 multiselectmin">
-                <button ng-if="bankAccountData.verificationStatus.id == 3" type="button" class="btn btn-success btn-circle width100 fullscreen default-pointer">
+                <button ng-if="bankAccountDetailsData.verificationStatus.id == 3" type="button"
+                    class="btn btn-success btn-circle width100 fullscreen default-pointer">
                     <i class="icon-ok icon-white font-size-14pt"></i>
                 </button>
 
-                <button ng-if="bankAccountData.verificationStatus.id == 4" type="button" class="btn btn-danger btn-circle width100 fullscreen default-pointer">
+                <button ng-if="bankAccountDetailsData.verificationStatus.id == 4" type="button"
+                    class="btn btn-danger btn-circle width100 fullscreen default-pointer">
                     <i class="icon-remove icon-white font-size-14pt"></i>
                 </button>
             </div>
@@ -187,11 +192,11 @@
             <div class="col-sm-8">
                 <label class="gray-head">As per customer declaration</label>
                 <br>
-                <label class="paddedbottom"><b>{{bankAccountData.name}}</b></label>
+                <label class="paddedbottom"><b>{{bankAccountDetailsData.name}}</b></label>
                 <br>
                 <label class="gray-head">As per bank records</label>
                 <br>
-                <label class="paddedbottom"><b>{{bankAccountData.verifiedBeneficiaryName}}</b></label>
+                <label class="paddedbottom"><b>{{bankAccountDetailsData.verifiedBeneficiaryName}}</b></label>
             </div>
         </div>
     </div>

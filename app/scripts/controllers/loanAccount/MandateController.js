@@ -52,11 +52,11 @@
                 scope.formData.accountType = scope.mandate.bankAccountDetails.accountType.id;
             }
 
-            scope.fetchBankDetails = function() {
-                    resourceFactory.bankAccountDetailResources.getAll({entityType: "clients",entityId: scope.clientId, status: "active"}, function (data) {
-                    if(data && data.length>0) {
-                        scope.showBankDetails = true ;
-                        scope.bankAccountDetails = data;
+            scope.fetchBankDetails = function () {
+                resourceFactory.bankAccountDetailsResource.getAll({ entityType: "clients", entityId: scope.clientId, status: "active" }, function (data) {
+                    if (data && data.result.length > 0) {
+                        scope.showBankDetails = true;
+                        scope.bankAccountDetails = data.result;
                     }
                 });
             }

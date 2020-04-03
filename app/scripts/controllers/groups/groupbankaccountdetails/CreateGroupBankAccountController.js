@@ -39,10 +39,11 @@
                     return false;
                 }
                 scope.formData.locale=scope.optlang.code;
-                resourceFactory.groupBankAccountResource.create({groupId: scope.groupId}, scope.formData,
-                    function (data) {
-                        location.path('/groups/'+scope.groupId+'/bankaccountdetails/' + data.resourceId);
-                    });
+                resourceFactory.groupBankAccountResource.create({
+                    groupId: scope.groupId
+                }, scope.formData,function (data) {
+                    location.path('/groups/'+scope.groupId+'/bankaccountdetails/' + data.resourceId);
+                });
             };
 
             scope.cancel = function(){
