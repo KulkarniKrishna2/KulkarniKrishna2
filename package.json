@@ -33,7 +33,9 @@
     "load-grunt-tasks": "~0.4.0",
     "jshint-stylish": "~0.1.5",
     "karma-coverage": "~0.2.1",
-    "karma-junit-reporter": "~0.2.1"
+    "karma-junit-reporter": "~0.2.1",
+    "grunt-git-describe": "~2.4.4",
+    "grunt-merge-json": "~0.9.7"
   },
   "scripts": {
     "test": "grunt test --verbose"

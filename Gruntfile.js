@@ -124,7 +124,7 @@ module.exports = function(grunt) {
           ]
         }]
       },
-      server: '.tmp'
+      server: ['.tmp','app/version.json']
     },
 
     // Copies remaining files to places other tasks can use
@@ -160,7 +160,8 @@ module.exports = function(grunt) {
             '*.html',
             'release.json',
             'views/**',
-            'angular/**'
+            'angular/**',
+            'version.json'
           ]
         },
         {
@@ -332,19 +333,39 @@ module.exports = function(grunt) {
             env: 'production'
         }
       }
-    }
+    },
+    "merge-json": {
+        "json": {
+            src: [ "app/release.json","app/version.json" ],
+            dest: "app/release.json"
+        },
+    },
+   'git-describe': {
+	version: {}
+     }
   });
 
+  //versioning
+  grunt.registerTask('saveRevision', function() {
+  grunt.event.once('git-describe', function (rev) {
+     grunt.file.write('app/version.json', JSON.stringify({
+	    tag: rev.tag,
+            commit: rev.object
+     }));
+     grunt.task.run('merge-json');
+  });
+  grunt.task.run('git-describe');
+  });
 
   // Run development server using grunt serve
-  grunt.registerTask('serve', ['clean:server', 'copy:server', 'connect:livereload', 'watch']);
+  grunt.registerTask('serve', ['saveRevision','clean:server', 'copy:server', 'connect:livereload', 'watch']);
   
   // Validate JavaScript and HTML files
   grunt.registerTask('validate', ['jshint:all', 'validation']);
   
   // Default task(s).
   grunt.registerTask('default', ['clean', 'jshint', 'copy:dev']);
-  grunt.registerTask('prod', ['clean', 'copy:prod', 'concat', 'uglify:prod', 'devcode:dist', 'hashres','replace']);
+  grunt.registerTask('prod', ['saveRevision','clean', 'copy:prod', 'concat', 'uglify:prod', 'devcode:dist', 'hashres','replace']);
   grunt.registerTask('dev', ['clean', 'copy:dev']);
   grunt.registerTask('test', ['karma']);
 

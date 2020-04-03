@@ -18,7 +18,7 @@
             }
 
             $http.get('release.json').success(function(data) {
-                scope.version = data.version;
+                scope.version = data.tag;
                 scope.releasedate = data.releasedate;
                 scope.releaseyear = data.releaseyear;
             });
