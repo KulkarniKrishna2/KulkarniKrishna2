@@ -13,7 +13,6 @@
             function init() {
                 scope.commonConfig = {};
                 var isWorkFlowEnabled = scope.isSystemGlobalConfigurationEnabled(scope.globalConstants.WORK_FLOW);
-                scope.isDefaultPennyDropTransactionPaymentTypeId = scope.isSystemGlobalConfigurationEnabled(scope.globalConstants.DEFAULT_PENNY_DROP_TRANSACTION_PAYMENT_TYPE_ID);
                 if (isWorkFlowEnabled) {
                     getWorkflow();
                 } else {
@@ -40,7 +39,9 @@
                                 entityType: scope.entityType,
                                 bankAccountDetailsId: scope.bankAccountDetailsId,
                                 templateData: templateData,
-                                bankAccountDetailsData: data
+                                bankAccountDetailsData: data,
+                                isAllowPennyDropTransaction: true,
+                                isAllowOnlyPennyDropAction: false
                             }
                         }
                         angular.extend(scope.commonConfig, bankAccountData);

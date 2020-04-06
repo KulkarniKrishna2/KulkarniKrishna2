@@ -13,6 +13,7 @@
             scope.repeatFormData = {};
 
             function init() {
+                scope.isDefaultPennyDropTransactionPaymentTypeId = scope.isSystemGlobalConfigurationEnabled(scope.globalConstants.DEFAULT_PENNY_DROP_TRANSACTION_PAYMENT_TYPE_ID);
                 scope.viewConfig.isCreate = false;
                 scope.viewConfig.isUpdate = false;
                 scope.viewConfig.showSummary = false;
@@ -33,9 +34,13 @@
             init();
 
             function populateBankAccountDetails() {
-                scope.allowOnlyPennyDropTransaction = false;
-                if (scope.commonConfig.bankAccountData.allowOnlyPennyDropTransaction) {
-                    scope.allowOnlyPennyDropTransaction = scope.commonConfig.bankAccountData.allowOnlyPennyDropTransaction;
+                scope.isAllowPennyDropTransaction = false;
+                if (scope.commonConfig.bankAccountData.isAllowPennyDropTransaction) {
+                    scope.isAllowPennyDropTransaction = scope.commonConfig.bankAccountData.isAllowPennyDropTransaction;
+                }
+                scope.isAllowOnlyPennyDropAction = false;
+                if (scope.commonConfig.bankAccountData.isAllowOnlyPennyDropAction) {
+                    scope.isAllowOnlyPennyDropAction = scope.commonConfig.bankAccountData.isAllowOnlyPennyDropAction;
                 }
                 scope.bankAccountDetailsData = scope.commonConfig.bankAccountData.bankAccountDetailsData;
                 scope.viewConfig.showSummary = true;
@@ -247,6 +252,9 @@
             }
 
             scope.isBankAccountAllowToActivate = function () {
+                if (scope.isAllowOnlyPennyDropAction) {
+                    return false;
+                }
                 if (scope.isDefaultPennyDropTransactionPaymentTypeId) {
                     return false;
                 }
@@ -257,6 +265,9 @@
             }
 
             scope.isBankAccountAllowToDeActivate = function () {
+                if (scope.isAllowOnlyPennyDropAction) {
+                    return false;
+                }
                 if (scope.viewUIConfig.isTask) {
                     return !scope.isTaskCompleted() && scope.isBankAccountActivated();
                 }
@@ -264,6 +275,9 @@
             }
 
             scope.isBankAccountAllowToReactivate = function () {
+                if (scope.isAllowOnlyPennyDropAction) {
+                    return false;
+                }
                 if (scope.viewUIConfig.isTask) {
                     return !scope.isTaskCompleted() && scope.isBankAccountDeActivated();
                 }
@@ -271,21 +285,20 @@
             }
 
             scope.isBankAccountAllowToModifyable = function () {
-                if (scope.allowOnlyPennyDropTransaction) {
+                if (scope.isAllowOnlyPennyDropAction) {
                     return false;
                 }
-                if (scope.bankAccountDetailsData && scope.bankAccountDetailsData.verificationStatus.id == 3) {
+                if ([1, 2, 3, 4, 5].indexOf(scope.bankAccountDetailsData.verificationStatus.id) > -1) {
                     return false;
                 }
                 if (scope.viewUIConfig.isTask) {
                     return !scope.isTaskCompleted() && ['active', 'inactive', 'deleted'].indexOf(scope.bankAccountDetailsData.status.value) < 0;
                 }
                 return ['active', 'inactive', 'deleted'].indexOf(scope.bankAccountDetailsData.status.value) < 0;
-
             }
 
             scope.isBankAccountAllowToVerifyable = function () {
-                if (!scope.allowOnlyPennyDropTransaction) {
+                if (!scope.isAllowPennyDropTransaction) {
                     return false;
                 }
                 if (!scope.isDefaultPennyDropTransactionPaymentTypeId) {
@@ -301,7 +314,7 @@
             }
 
             scope.isBankAccountAllowToReVerifyable = function () {
-                if (!scope.allowOnlyPennyDropTransaction) {
+                if (!scope.isAllowPennyDropTransaction) {
                     return false;
                 }
                 if (!scope.isDefaultPennyDropTransactionPaymentTypeId) {
@@ -310,7 +323,7 @@
                 if (scope.viewConfig.isVerified) {
                     return false;
                 }
-                if (['Failed', 'Error', 'Partial'].indexOf(scope.bankAccountDetailsData.verificationStatus.value) > -1) {
+                if (['Error'].indexOf(scope.bankAccountDetailsData.verificationStatus.value) > -1) {
                     return true;
                 }
                 return false;
@@ -471,7 +484,11 @@
                 } else {
                     var timeDealy = 5;
                     if (scope.bankAccountDetailsData.verificationStatus && scope.bankAccountDetailsData.verificationStatus.id == 2) {
-                        resourceFactory.bankAccountDetailCheckVerificationStatusVerifyResource.checkVerificationStatus({ bankAccountDetailId: scope.bankAccountDetailsData.id }, {}, function (data) {
+                        resourceFactory.bankAccountDetailsVerificationStatusResource.verificationStatus({
+                            entityType: getEntityType(),
+                            entityId: getEntityId(),
+                            bankAccountDetailsId: getBankAccountDetailsId()
+                        }, {}, function (data) {
                             setTimeout(function () {
                                 fetchBankAccountDetails();
                             }, timeDealy);
@@ -479,13 +496,21 @@
 
                     } else {
                         if (reRerify) {
-                            resourceFactory.bankAccountDetailReVerifyResource.doReVerify({ bankAccountDetailId: scope.bankAccountDetailsData.id }, {}, function (data) {
+                            resourceFactory.bankAccountDetailsReVerifyResource.reVerify({
+                                entityType: getEntityType(),
+                                entityId: getEntityId(),
+                                bankAccountDetailsId: getBankAccountDetailsId()
+                            }, {}, function (data) {
                                 setTimeout(function () {
                                     fetchBankAccountDetails();
                                 }, timeDealy);
                             });
                         } else {
-                            resourceFactory.bankAccountDetailVerifyResource.doVerify({ bankAccountDetailId: scope.bankAccountDetailsData.id }, {}, function (data) {
+                            resourceFactory.bankAccountDetailsVerifyResource.verify({
+                                entityType: getEntityType(),
+                                entityId: getEntityId(),
+                                bankAccountDetailsId: getBankAccountDetailsId()
+                            }, {}, function (data) {
                                 setTimeout(function () {
                                     fetchBankAccountDetails();
                                 }, timeDealy);

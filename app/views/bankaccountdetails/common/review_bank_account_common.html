@@ -175,7 +175,7 @@
             </form>
         </div>
 
-        <div class="col-md-6" ng-if="bankAccountDetailsData.verificationStatus.id > 2">
+        <div class="col-md-6" ng-if="bankAccountDetailsData.verificationStatus.id > 2 && bankAccountDetailsData.verificationStatus.id < 6">
             <h3><b>Account Verification Name Match</b></h3>
             <div class="col-sm-4 multiselectmin">
                 <button ng-if="bankAccountDetailsData.verificationStatus.id == 3" type="button"

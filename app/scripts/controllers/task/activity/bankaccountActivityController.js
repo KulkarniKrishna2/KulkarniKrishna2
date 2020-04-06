@@ -8,7 +8,9 @@
                             entityType: scope.entityType,
                             entityId: scope.entityId, bankAccountDetailsId: scope.bankAccountDetailsId,
                             eventType: scope.eventType,
-                            bankAccountDetailsData: data.result
+                            bankAccountDetailsData: data.result,
+                            isAllowPennyDropTransaction: true,
+                            isAllowOnlyPennyDropAction: false
                         }
                     };
                     resourceFactory.bankAccountDetailsTemplateResource.get({ entityType: scope.entityType, entityId: scope.entityId }, function (data) {
@@ -20,6 +22,12 @@
             }
 
             function initTask() {
+                if(_.isUndefined(scope.viewUIConfig)){
+                    scope.viewUIConfig = {};
+                }
+                if(_.isUndefined(scope.commonConfig)){
+                    scope.commonConfig = {};
+                }
                 scope.viewUIConfig.isTask = true;
                 if (scope.taskconfig.hasOwnProperty('entityType')) {
                     scope.entityType = scope.taskconfig['entityType'];

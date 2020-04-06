@@ -17,6 +17,12 @@
             }
 
             function initTask() {
+                if(_.isUndefined(scope.viewUIConfig)){
+                    scope.viewUIConfig = {};
+                }
+                if(_.isUndefined(scope.commonConfig)){
+                    scope.commonConfig = {};
+                }
                 scope.viewUIConfig.isTask = true;
                 if (scope.taskconfig.hasOwnProperty('entityType')) {
                     scope.entityType = scope.taskconfig['entityType'];

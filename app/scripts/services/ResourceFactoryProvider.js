@@ -1213,14 +1213,14 @@
                     bankAccountDetailsCheckerResource: defineResource(apiVer2 + "/:entityType/:entityId/bankaccountdetails/:bankAccountDetailsId/checkerdetails", {entityType: "@entityType",entityId: '@entityId',bankAccountDetailsId: '@bankAccountDetailsId'}, {
                         checkerDetails: {method: 'PUT'}
                     }),
-                    bankAccountDetailVerifyResource: defineResource(apiVer2 + "/bankaccountdetails/:bankAccountDetailId/verify", {bankAccountDetailId: "@bankAccountDetailId"}, {
-                        doVerify: {method: 'POST'}
+                    bankAccountDetailsVerifyResource: defineResource(apiVer2 + "/:entityType/:entityId/bankaccountdetails/:bankAccountDetailsId/verify", {entityType: '@entityType', entityId: '@entityId', bankAccountDetailsId: '@bankAccountDetailsId'}, {
+                        verify: {method: 'POST'}
                     }),
-                    bankAccountDetailReVerifyResource: defineResource(apiVer2 + "/bankaccountdetails/:bankAccountDetailId/reverify", {bankAccountDetailId: "@bankAccountDetailId"}, {
-                        doReVerify: {method: 'POST'}
+                    bankAccountDetailsReVerifyResource: defineResource(apiVer2 + "/:entityType/:entityId/bankaccountdetails/:bankAccountDetailsId/reverify", {entityType: '@entityType', entityId: '@entityId', bankAccountDetailsId: '@bankAccountDetailsId'}, {
+                        reVerify: {method: 'POST'}
                     }),
-                    bankAccountDetailCheckVerificationStatusVerifyResource: defineResource(apiVer2 + "/bankaccountdetails/:bankAccountDetailId/verificationstatus", {bankAccountDetailId: "@bankAccountDetailId"}, {
-                        checkVerificationStatus: {method: 'POST'}
+                    bankAccountDetailsVerificationStatusResource: defineResource(apiVer2 + "/:entityType/:entityId/bankaccountdetails/:bankAccountDetailsId/verificationstatus", {entityType: '@entityType', entityId: '@entityId', bankAccountDetailsId: '@bankAccountDetailsId'}, {
+                        verificationStatus: {method: 'POST'}
                     }),
                     bankAccountDetailsDocumentsResource: defineResource(apiVer2 + "/:entityType/:entityId/bankaccountdetails/:bankAccountDetailsId/documents", {entityType: '@entityType', entityId: '@entityId', bankAccountDetailsId: '@bankAccountDetailsId'}, {
                         getAllDocuments: {method: 'GET', params: {}},
