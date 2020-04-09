@@ -136,7 +136,6 @@
             scope.loanProductChange = function (loanProductId, isNewCall) {
                 scope.inparams = {resourceType: 'template', activeOnly: 'true'};
                 scope.inparams.templateType = scope.accountType;
-               
                 if (scope.formData.clientId) {
                     scope.inparams.clientId = scope.formData.clientId;
                 }
@@ -157,6 +156,7 @@
 
                 resourceFactory.loanResource.get(scope.inparams, function (data) {
                     scope.loanaccountinfo = data;
+                    scope.loanPurposeOptions = scope.loanaccountinfo.loanPurposeOptions;
                     scope.product = data.product;
                     scope.getDisbursementTypeOtions();
                     scope.getRepaymentTypeOptions();
@@ -262,6 +262,7 @@
                         scope.formData.loanOfficerId = scope.applicationData.loanOfficerId;
                         scope.formData.loanProductId = scope.applicationData.loanProductId;
                         scope.formData.loanPurposeId = scope.applicationData.loanPurposeId;
+                        scope.handleLoanPurpose(scope.formData.loanPurposeId);
                         scope.formData.termPeriodFrequencyEnum = scope.applicationData.termPeriodFrequency.id;
                         scope.formData.termFrequency = scope.applicationData.termFrequency;
                         scope.formData.noOfTranche = scope.applicationData.noOfTranche;
@@ -736,6 +737,13 @@
                 scope.loanaccountinfo.loanEMIPacks.push(loanEMIPack);
                 scope.loanaccountinfo.loanEMIPacks[0].combinedRepayEvery = scope.loanaccountinfo.loanEMIPacks[0].repaymentEvery
                     + ' - ' + $filter('translate')(scope.loanaccountinfo.loanEMIPacks[0].repaymentFrequencyType.value);
+            }
+
+            scope.handleLoanPurpose = function (loanPurposeId) {
+                var selectedLoanPurpose = scope.loanPurposeOptions.find(function (loanPurpose) {
+                    return loanPurpose.id === loanPurposeId;
+                })
+                scope.showLoanPurposeCustomField = selectedLoanPurpose.isCustom;
             }
         }
     });

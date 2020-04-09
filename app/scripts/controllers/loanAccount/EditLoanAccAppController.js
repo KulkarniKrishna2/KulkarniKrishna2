@@ -459,7 +459,9 @@
 
                 scope.formData.loanOfficerId = data.loanOfficerId;
                 scope.formData.loanPurposeId = data.loanPurposeId;
-                
+                if (scope.formData.loanPurposeId) {
+                    scope.handleLoanPurpose(scope.formData.loanPurposeId);
+                }
                 if(data.loanPurposeId && scope.showLoanPurposeGroup){
                     resourceFactory.loanPurposeGroupResource.getAll({isFetchLoanPurposeDatas : 'true'}, function (loanPurposeGroupsdata) {
                         scope.formData.loanPurposeId = data.loanPurposeId;
@@ -577,6 +579,7 @@
                 inparams.staffInSelectedOfficeOnly = true;
                 resourceFactory.loanResource.get(inparams, function (data) {
                     scope.loanaccountinfo = data;
+                    scope.loanPurposeOptions = scope.loanaccountinfo.loanPurposeOptions;
                     scope.isOverrideMoratorium = scope.loanaccountinfo.product.allowAttributeOverrides.graceOnPrincipalAndInterestPayment;
                     scope.showLoanTerms =!(scope.loanaccountinfo.loanEMIPacks && scope.isLoanEmiPackEnabled)?true:false;
                     scope.collaterals = [];
@@ -1107,6 +1110,13 @@
                 delete scope.loanAccountDpDetailData.frequencyDayOfWeekType;
                 delete scope.loanAccountDpDetailData.frequencyOnDay;
             };
+
+            scope.handleLoanPurpose = function (loanPurposeId) {
+                var selectedLoanPurpose = scope.loanPurposeOptions.find(function (loanPurpose) {
+                    return loanPurpose.id === loanPurposeId;
+                })
+                scope.showLoanPurposeCustomField = selectedLoanPurpose.isCustom;
+            }
         }
     });
     mifosX.ng.application.controller('EditLoanAccAppController', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', 'CommonUtilService', mifosX.controllers.EditLoanAccAppController]).run(function ($log) {

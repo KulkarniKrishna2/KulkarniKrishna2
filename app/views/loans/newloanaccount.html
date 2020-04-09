@@ -36,7 +36,6 @@
         </td>
     </tr>
     <tr ng-show="formData.productId && showLoanPurpose">
-        
         <td ng-show = "loanPurposeGroups" ><label>{{ 'label.input.loanpurposegroup' | translate }}<span class="required" ng-show="isLoanPurposeMandatory">*</span>:&nbsp;</label></td>
         <td class="paddedbottom10" ng-if = "loanPurposeGroups" >
             <select chosen="loanPurposeGroups" id="loanPurposeGroup" name="loanPurposeGroup" ng-model="loanPurposeGroupId"
@@ -53,10 +52,20 @@
         <td class="paddedbottom10">
             <select chosen="loanPurposeOptions" id="loanPurposeId" name="loanpurpose" ng-model="formData.loanPurposeId"
                     ng-options="loanPurpose.id as loanPurpose.name for loanPurpose in loanPurposeOptions  | filter:{isActive:true} | orderBy:'name':reverse"
-                    class="form-control width170px" value="{{loanPurpose.id}}" ng-required="isLoanPurposeMandatory">
+                    class="form-control width170px" value="{{loanPurpose.id}}" ng-required="isLoanPurposeMandatory" ng-change="handleLoanPurpose(formData.loanPurposeId)">
                 <option value="">{{'label.selectpurpose' | translate}}</option>
             </select>
             <form-validate valattributeform="newloanaccountform" valattribute="loanpurpose"/>
+        </td>
+    </tr>
+    <tr ng-if="showLoanPurposeCustomField">
+        <td><label>{{ 'label.input.custom.purpose' | translate }}<span class="required">*</span>:&nbsp;</label>
+            <i class="icon-question-sign" tooltip="{{'label.tooltip.loanpurpose.others.purpose' | translate}}"></i>
+        </td>
+        <td class="paddedbottom10">
+            <input name="customLoanPurposeName" ng-model="formData.customLoanPurposeName" type="text" autocomplete="off"
+                class="form-control width100" placeholder="{{'label.input.enterpurpose' | translate}}" required />
+            <form-validate valattributeform="newloanaccountform" valattribute="customLoanPurposeName" />
         </td>
     </tr>
     <tr ng-show="formData.productId">

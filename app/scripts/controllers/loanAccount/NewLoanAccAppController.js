@@ -186,6 +186,7 @@
                 scope.inparams.fetchRDAccountOnly = scope.response.uiDisplayConfigurations.loanAccount.savingsAccountLinkage.reStrictLinkingToRDAccount;
                 resourceFactory.loanResource.get(scope.inparams, function (data) {
                     scope.loanaccountinfo = data;
+                    scope.loanPurposeOptions = scope.loanaccountinfo.loanPurposeOptions;
                     scope.isOverrideMoratorium = scope.loanaccountinfo.product.allowAttributeOverrides.graceOnPrincipalAndInterestPayment;
                     scope.showLoanTerms =!(scope.loanaccountinfo.loanEMIPacks && scope.isLoanEmiPackEnabled)?true:false;
                     scope.getProductPledges(scope.loanaccountinfo);
@@ -994,6 +995,12 @@
                 delete scope.loanAccountDpDetailData.frequencyOnDay;
             };
             
+            scope.handleLoanPurpose = function (loanPurposeId) {
+                var selectedLoanPurpose = scope.loanPurposeOptions.find(function (loanPurpose) {
+                    return loanPurpose.id === loanPurposeId;
+                })
+                scope.showLoanPurposeCustomField = selectedLoanPurpose.isCustom;
+            }
         }
     });
     mifosX.ng.application.controller('NewLoanAccAppController', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', 'CommonUtilService', mifosX.controllers.NewLoanAccAppController]).run(function ($log) {

@@ -69,7 +69,7 @@
                 <td class="paddedbottom10">
                     <select id="loanPurposeId" name="loanPurposeId" ng-model="formData.loanPurposeId"
                             ng-options="loanPurpose.id as loanPurpose.name for loanPurpose in loanaccountinfo.loanPurposeOptions | orderBy:'name':reverse"
-                            class="form-control width75" value="{{loanPurpose.id}}" ng-required="isLoanPurposeRequired">
+                            class="form-control width75" value="{{loanPurpose.id}}" ng-required="isLoanPurposeRequired" ng-change="handleLoanPurpose(formData.loanPurposeId)">
                         <option value="">{{'label.selectpurpose' | translate}}</option>
                     </select>
                     <form-validate ng-if="isLoanPurposeRequired" valattributeform="newloanapplicationform" valattribute="loanPurposeId"/>
@@ -86,6 +86,19 @@
             </tr>
             <tr>
                 <td colspan="4">&nbsp;</td>
+            </tr>
+
+            <tr ng-if="showLoanPurposeCustomField">
+                <td>
+                    <label>{{ 'label.input.custom.purpose' | translate }}<span class="required">*</span>:&nbsp;</label>
+                    <i class="icon-question-sign" tooltip="{{'label.tooltip.loanpurpose.others.purpose' | translate}}"></i>
+                </td>
+                <td>
+                    <input name="customLoanPurposeName" ng-autofocus="true" ng-model="formData.customLoanPurposeName" type="text"
+                        autocomplete="off" class="form-control width100" placeholder="{{'label.input.enterpurpose' | translate}}"
+                        required />
+                    <form-validate valattributeform="newloanapplicationform" valattribute="customLoanPurposeName" />
+                </td>
             </tr>
             <tr ng-show="!loanaccountinfo.loanEMIPacks">
                 <td class="width14"><label>{{ 'label.input.numofrepayments' | translate }}&nbsp;<span

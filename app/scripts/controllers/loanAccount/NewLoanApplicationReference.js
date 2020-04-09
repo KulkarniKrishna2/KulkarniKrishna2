@@ -120,6 +120,7 @@
                 scope.formPreviewRepaymentData = {};
                 resourceFactory.loanResource.get(scope.inparams, function (data) {
                     scope.loanaccountinfo = data;
+                    scope.loanPurposeOptions = scope.loanaccountinfo.loanPurposeOptions;
                     scope.product = scope.loanaccountinfo.product;
                     if(scope.loanaccountinfo.loanEMIPacks){
                         var len = scope.loanaccountinfo.loanEMIPacks.length;
@@ -231,6 +232,13 @@
                     }
                 }
             };
+
+            scope.handleLoanPurpose = function (loanPurposeId) {
+                var selectedLoanPurpose = scope.loanPurposeOptions.find(function (loanPurpose) {
+                    return loanPurpose.id === loanPurposeId;
+                })
+                scope.showLoanPurposeCustomField = selectedLoanPurpose.isCustom;
+            }
 
             scope.calculateTermFrequency = function (){
                 scope.formData.termFrequency = (scope.formData.repayEvery * scope.formData.numberOfRepayments);
