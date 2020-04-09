@@ -39,8 +39,8 @@
                         scope.introduceGracePeriods = true;
                     }
 
-                    if(scope.loanTermVariationsData[i].termType.value == "graceOnInterestWithinEmiAndCompound") {
-                        scope.loanRescheduleDetails.graceOnInterestWithinEmiAndCompound = scope.loanTermVariationsData[i].decimalValue;
+                    if(scope.loanTermVariationsData[i].termType.value == "graceOnInterestDueOnLastEmi") {
+                        scope.loanRescheduleDetails.graceOnInterestDueOnLastEmi = scope.loanTermVariationsData[i].decimalValue;
                         scope.introduceGracePeriods = true;
                     }
 
