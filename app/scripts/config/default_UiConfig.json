@@ -710,7 +710,10 @@
 			"hidesharesmodule": true
 		},
 		"centers": {
-			"showRefNo": false
+			"showRefNo": false,
+			"isHiddenField": {
+				"createCenter": false
+			}
 		},
 		"groups": {
 			"showRefNo": false

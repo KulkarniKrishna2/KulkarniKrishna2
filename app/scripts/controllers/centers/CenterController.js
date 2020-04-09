@@ -3,6 +3,7 @@
         CenterController: function (scope, resourceFactory, location, paginatorUsingOffsetService) {
             scope.itemsPerPage = 15;
             scope.showSearch = true;
+            scope.hideCreateCenter = false;
             /**
              * Get the record based on the offset limit
              */
@@ -16,10 +17,17 @@
                 }, callback);
             };
 
-            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.centers && 
-                scope.response.uiDisplayConfigurations.centers.showRefNo){
-                scope.showRefNo =  scope.response.uiDisplayConfigurations.centers.showRefNo;
+            if (scope.response && scope.response.uiDisplayConfigurations) {
+                if (scope.response.uiDisplayConfigurations.centers) {
+                    if (scope.response.uiDisplayConfigurations.centers.showRefNo) {
+                        scope.showRefNo = scope.response.uiDisplayConfigurations.centers.showRefNo;
+                    }
+                    if (scope.response.uiDisplayConfigurations.centers.isHiddenField && scope.response.uiDisplayConfigurations.centers.isHiddenField.createCenter) {
+                        scope.hideCreateCenter = scope.response.uiDisplayConfigurations.centers.isHiddenField.createCenter;
+                    }
+                }
             }
+
             scope.searchConditions = {};
             scope.searchData = function () {
                 scope.showSearch = false;

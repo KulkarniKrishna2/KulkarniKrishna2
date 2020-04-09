@@ -141,6 +141,11 @@
       "isHiddenField": {
         "chargeCategoryType": false
       }
+    },
+    "centers": {
+      "isHiddenField": {
+        "createCenter": true
+      }
     }
   }
 }
