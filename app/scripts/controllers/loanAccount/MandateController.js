@@ -54,9 +54,9 @@
 
             scope.fetchBankDetails = function () {
                 resourceFactory.bankAccountDetailsResource.getAll({ entityType: "clients", entityId: scope.clientId, status: "active" }, function (data) {
-                    if (data && data.result.length > 0) {
+                    if (data && data.length > 0) {
                         scope.showBankDetails = true;
-                        scope.bankAccountDetails = data.result;
+                        scope.bankAccountDetails = data;
                     }
                 });
             }

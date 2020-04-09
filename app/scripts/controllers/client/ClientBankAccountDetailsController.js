@@ -13,7 +13,7 @@
 
             scope.populateDetails = function(status) {
                resourceFactory.bankAccountDetailsResource.getAll({entityType: scope.entityType,entityId: scope.entityId,status:status}, function (data) {
-                    scope.bankAccountDetails = data.result;
+                    scope.bankAccountDetails = data;
                     scope.showAddButton(scope.bankAccountDetails);
                     if(status === 'active'){
                         scope.isActiveBankAccountDetails = true;

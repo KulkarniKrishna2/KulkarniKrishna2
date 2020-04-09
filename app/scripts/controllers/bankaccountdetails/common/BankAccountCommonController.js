@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        BankAccountCommonController: function ($controller, scope, routeParams, resourceFactory, location, $modal, dateFilter, $upload, $rootScope, API_VERSION, API_VERSION_V2, $http) {
+        BankAccountCommonController: function ($controller, scope, routeParams, resourceFactory, location, $modal, dateFilter, $upload, $rootScope, API_VERSION, $http) {
             angular.extend(this, $controller('defaultUIConfigController', {
                 $scope: scope,
                 $key: "bankAccountDetails"
@@ -89,7 +89,7 @@
                     entityId: getEntityId(),
                     bankAccountDetailsId: getBankAccountDetailsId()
                 }, function (data) {
-                    scope.bankAccountDocuments = data.result.bankAccountDocuments || [];
+                    scope.bankAccountDocuments = data.bankAccountDocuments || [];
                     for (var i = 0; i < scope.bankAccountDocuments.length; i++) {
                         var docs = {};
                         if (scope.bankAccountDocuments[i].storage && scope.bankAccountDocuments[i].storage.toLowerCase() == 's3') {
@@ -113,7 +113,7 @@
                     entityType: getEntityType(),
                     entityId: getEntityId()
                 }, scope.formData, function (data) {
-                    scope.bankAccountDetailsId = data.result.resourceId;
+                    scope.bankAccountDetailsId = data.resourceId;
                     scope.routeToViewBankAccountdetails();
                 });
             };
@@ -179,7 +179,7 @@
                 scope.viewConfig.isUpdate = false;
                 scope.viewConfig.showSummary = false;
                 resourceFactory.bankAccountDetailsResource.get({ entityType: scope.entityType, entityId: scope.entityId, bankAccountDetailsId: scope.bankAccountDetailsId }, function (data) {
-                    scope.commonConfig.bankAccountData.bankAccountDetailsData = data.result;
+                    scope.commonConfig.bankAccountData.bankAccountDetailsData = data;
                     init();
                 });
             };
@@ -194,7 +194,7 @@
 
             var submitAccountDocuments = function (postComplete) {
                 $upload.upload({
-                    url: $rootScope.hostUrl + API_VERSION_V2 + '/' + getEntityType() + '/' + getEntityId() + '/bankaccountdetails/' + getBankAccountDetailsId() + '/documents',
+                    url: $rootScope.hostUrl + API_VERSION + '/' + getEntityType() + '/' + getEntityId() + '/bankaccountdetails/' + getBankAccountDetailsId() + '/documents',
                     data: scope.docData,
                     file: scope.docFile
                 }).then(function (data) {
@@ -458,7 +458,7 @@
 
             function getBankAccountDetailsAuditLogs(param) {
                 resourceFactory.bankAccountDetailsAuditResource.get(param, function (data) {
-                    scope.auditLogs = data.result;
+                    scope.auditLogs = data;
                 });
             };
 
@@ -521,7 +521,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('BankAccountCommonController', ['$controller', '$scope', '$routeParams', 'ResourceFactory', '$location', '$modal', 'dateFilter', '$upload', '$rootScope', 'API_VERSION', 'API_VERSION_V2', '$http', mifosX.controllers.BankAccountCommonController]).run(function ($log) {
+    mifosX.ng.application.controller('BankAccountCommonController', ['$controller', '$scope', '$routeParams', 'ResourceFactory', '$location', '$modal', 'dateFilter', '$upload', '$rootScope', 'API_VERSION', '$http', mifosX.controllers.BankAccountCommonController]).run(function ($log) {
         $log.info("BankAccountCommonController initialized");
     });
 }(mifosX.controllers || {}));

@@ -319,7 +319,7 @@
             scope.fetchBankDetails = function () {
                 scope.status = "active";
                 resourceFactory.bankAccountDetailsResource.getAll({ entityType: 'clients', entityId: scope.insuranceCliamDetials.clientId, status: scope.status }, function (data) {
-                    scope.bankAccountDetails = data.result;
+                    scope.bankAccountDetails = data;
                     if (scope.bankAccountDetails || scope.bankAccountDetails.length == 0) {
                         scope.bankAccountDetailsNotAvailbale = true;
                     } else {

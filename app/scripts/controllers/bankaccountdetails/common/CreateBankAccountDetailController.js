@@ -10,13 +10,13 @@
             if (scope.commonConfig === undefined) {
                 scope.commonConfig = {};
             }
-            resourceFactory.bankAccountDetailsTemplateResource.get({ entityType: scope.entityType, entityId: scope.entityId }, function (data) {
+            resourceFactory.bankAccountDetailsTemplateResource.get({ entityType: scope.entityType, entityId: scope.entityId }, function (templateData) {
                 var bankAccountData = {
                     bankAccountData: {
                         entityType: scope.entityType,
                         entityId: scope.entityId,
                         eventType: scope.eventType,
-                        templateData: data.result
+                        templateData: templateData
                     }
                 };
                 angular.extend(scope.commonConfig, bankAccountData);

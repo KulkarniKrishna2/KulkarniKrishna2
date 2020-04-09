@@ -461,7 +461,7 @@
             
             function getBankAccountDetailsAuditLogs (param){
                 resourceFactory.bankAccountDetailsAuditResource.get(param, function (data) {
-                    scope.auditLogs = data.result;                
+                    scope.auditLogs = data;                
                 });
             };
             

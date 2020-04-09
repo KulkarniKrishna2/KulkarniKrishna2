@@ -8,7 +8,7 @@
                             entityType: scope.entityType,
                             entityId: scope.entityId, bankAccountDetailsId: scope.bankAccountDetailsId,
                             eventType: scope.eventType,
-                            bankAccountDetailsData: data.result
+                            bankAccountDetailsData: data
                         }
                     };
                     angular.extend(scope.commonConfig, bankAccountData);

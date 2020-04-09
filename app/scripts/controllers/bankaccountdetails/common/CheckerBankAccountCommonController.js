@@ -79,7 +79,7 @@
                     entityId: getEntityId(),
                     bankAccountDetailsId: getBankAccountDetailsId()
                 }, function (data) {
-                    scope.bankAccountDocuments = data.result.bankAccountDocuments || [];
+                    scope.bankAccountDocuments = data.bankAccountDocuments || [];
                     for (var i = 0; i < scope.bankAccountDocuments.length; i++) {
                         var docs = {};
                         if (scope.bankAccountDocuments[i].storage && scope.bankAccountDocuments[i].storage.toLowerCase() == 's3') {
@@ -114,7 +114,7 @@
                     entityId: getEntityId(),
                     bankAccountDetailsId: getBankAccountDetailsId()
                 }, function (data) {
-                    scope.commonConfig.bankAccountData.bankAccountDetailsData = data.result;
+                    scope.commonConfig.bankAccountData.bankAccountDetailsData = data;
                     populateBankAccountDetails();
                 });
             };

@@ -8,13 +8,13 @@
                             entityType: scope.entityType,
                             entityId: scope.entityId, bankAccountDetailsId: scope.bankAccountDetailsId,
                             eventType: scope.eventType,
-                            bankAccountDetailsData: data.result,
+                            bankAccountDetailsData: data,
                             isAllowPennyDropTransaction: true,
                             isAllowOnlyPennyDropAction: false
                         }
                     };
                     resourceFactory.bankAccountDetailsTemplateResource.get({ entityType: scope.entityType, entityId: scope.entityId }, function (data) {
-                        bankAccountData.bankAccountData.templateData = data.result;
+                        bankAccountData.bankAccountData.templateData = data;
                         angular.extend(scope.commonConfig, bankAccountData);
                         scope.bankhtml = 'views/bankaccountdetails/common/checker_bank_account_common.html';
                     });

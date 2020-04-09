@@ -78,7 +78,6 @@
 
             function getClientBankAccountDetails() {
                 resourceFactory.bankAccountDetailsResource.getAll({ entityType: scope.entityType, entityId: scope.clientId }, function (data) {
-                    data = data.result;
                     if (!_.isUndefined(data[0])) {
                         scope.bankAccountDetailsId = data[0].id;
                         populateDetails();

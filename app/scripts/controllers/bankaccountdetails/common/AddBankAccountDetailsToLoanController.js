@@ -10,7 +10,7 @@
 
             function populateDetails() {
                 resourceFactory.bankAccountDetailsResource.getAll({ entityType: scope.entityType, entityId: scope.clientId, status: "active" }, function (data) {
-                    scope.bankAccountDetails = data.result;
+                    scope.bankAccountDetails = data;
                 });
             }
             populateDetails();

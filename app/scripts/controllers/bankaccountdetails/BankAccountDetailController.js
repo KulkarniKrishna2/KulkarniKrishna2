@@ -26,13 +26,11 @@
                     entityType: scope.entityType,
                     entityId: scope.entityId
                 }, function (templateData) {
-                    var templateData = templateData.result;
                     resourceFactory.bankAccountDetailsResource.get({
                         entityType: scope.entityType,
                         entityId: scope.entityId,
                         bankAccountDetailsId: scope.bankAccountDetailsId
                     }, function (data) {
-                        data = data.result;
                         var bankAccountData = {
                             bankAccountData: {
                                 entityId: scope.entityId,
@@ -56,7 +54,7 @@
                     entityId: scope.entityId,
                     bankAccountDetailsId: scope.bankAccountDetailsId
                 }, function (data) {
-                    var bankWorkflowData = data.result;
+                    var bankWorkflowData = data;
                     if (bankWorkflowData != undefined && bankWorkflowData.id != undefined) {
                         if (bankWorkflowData.status.id != 7) {
                             scope.viewUIConfig.isTask = true;

@@ -953,7 +953,7 @@
             scope.fetchBankDetailAssociation = function () {
                 if (angular.isUndefined(scope.loanBankAccountDetailAssociation)) {
                     resourceFactory.bankAccountDetailsResource.getAll({ entityType: "loans", entityId: routeParams.id }, function (data) {
-                        scope.loanBankAccountDetailAssociation = data.result;
+                        scope.loanBankAccountDetailAssociation = data;
                     });
                 }
             };

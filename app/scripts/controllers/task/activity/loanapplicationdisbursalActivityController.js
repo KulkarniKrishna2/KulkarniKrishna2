@@ -279,7 +279,7 @@
                     entityId: scope.formData.clientId,
                     status: "active"
                 }, function (data) {
-                    scope.bankAccountDetails = data.result;
+                    scope.bankAccountDetails = data;
                 });
             }
 

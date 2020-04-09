@@ -564,7 +564,6 @@
 
                 function init() {
                     resourceFactory.bankAccountDetailsResource.getAll({ entityType: $scope.entityType, entityId: $scope.entityId }, function (data) {
-                        data = data.result;
                         if (!_.isUndefined(data[0])) {
                             $scope.bankAccountDetailsId = data[0].id;
                             populateDetails();
@@ -592,7 +591,7 @@
                         entityId: $scope.entityId,
                         bankAccountDetailsId: getBankAccountDetailsId()
                     }, function (data) {
-                        $scope.bankData = data.result;
+                        $scope.bankData = data;
                         $scope.bankAccountTypeOptions = $scope.bankData.bankAccountTypeOptions;
                         constructBankAccountDetails();
                     });
@@ -676,7 +675,7 @@
                         entityId: $scope.entityId
                     }, $scope.formData,
                         function (data) {
-                            $scope.bankAccountDetailsId = data.result.resourceId;
+                            $scope.bankAccountDetailsId = data.resourceId;
                             populateDetails();
                             reComputeProfileRating($scope.clientId);
                         });

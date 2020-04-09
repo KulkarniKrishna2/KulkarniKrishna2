@@ -350,7 +350,6 @@
 
             function populateAttachedBankAccount() {
                 resourceFactory.bankAccountDetailsResource.getAll({ entityType: "loans", entityId: scope.accountId }, function (data) {
-                    data = data.result;
                     if (scope.bankAccountDetails && scope.bankAccountDetails.length > 0 && data && data.length > 0) {
                         for (var i = 0; i < scope.bankAccountDetails.length; i++) {
                             if (data[0] && data[0].id === scope.bankAccountDetails[i].id) {
@@ -364,8 +363,7 @@
 
             scope.fetchBankDetailsData = function () {
                 resourceFactory.bankAccountDetailsResource.getAll({ entityType: "clients", entityId: scope.clientId, status: "active" }, function (data) {
-                    scope.bankAccountDetails = data.result;
-
+                    scope.bankAccountDetails = data;
                     populateAttachedBankAccount();
                 });
             };
