@@ -249,7 +249,10 @@
     "label.anchor.savingsaccountlimits": "Savings Account Limits",
     "label.anchor.loanaccountlimits": "Loan Account Limits",
     "label.anchor.pendingvaluedatetransactions": "Pending value date transactions",
+    "label.anchor.registered.devices": "Registered Devices",
+    "label.anchor.pending.user.device.links": "Pending User Device Links",
     "label.anchor.registered.user.devices": "Pending User-Device-Links",
+
     "label.anchor.task.adhoc.create": "Create Task",
 
     "#Inputs": "..",
@@ -360,6 +363,8 @@
     "label.button.unlink": "Unlink",
     "label.button.activate": "Activate",
     "label.button.deactivate": "Deactivate",
+    "label.button.link": "Link",
+    "label.button.unlink": "Unlink",
     "label.button.newloanapplicationreferences": "New Loan Application",
     "label.button.newloan": "New Loan",
     "label.button.newshareaccount": "New Share Account",
@@ -7557,8 +7562,15 @@
     "label.heading.enquiryreason": "Enquiry  Reason",
     "label.button.enquire.cbapproval": "Enquire Bank CB Approval",
 
+
+    "label.view.registered.devices": "View all devices",
+    "label.view.pending.user.device.links": "View All Pending User Device Links",
+    "label.anchor.manage.devices": "Manage Devices",
+
+
     "label.view.registered.user.devices": "View All Pending User-Device-Links",
     "label.anchor.manage.user.devices": "Manage User Devices",
+
     "label.input.requred.user": "Requested User",
     "label.input.last.used.by": "Last Used By",
     "label.registered.user": "Registered User",
@@ -7566,7 +7578,15 @@
     "label.device.status": " Device Status",
     "label.device.model": "Device Model",
     "label.device.list": "Device List",
+
+    "label.pending.devices": "Pending Devices",
+    "label.pending.user.device.links": "Pending User Device Links",
+    "label.activated.devices": "Activated Devices",
+    "label.deactivated.devices": "Deactivated Devices",
+
+
     "label.pending.user.devices": "Pending User-Device-Links",
+
     "label.anchor.linked.devices": "Linked Devices",
     "label.last.login.date.time": "Last Login",
     "label.last.login.location": "Last Login Location",
