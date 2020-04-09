@@ -16,8 +16,8 @@
         <td ng-click="routeTo(userDevice.registeredDeviceData.id)"><a>{{userDevice.registeredDeviceData.imeiNumber}}</a></td>
         <td ng-click="routeTo(userDevice.registeredDeviceData.id)"><a>{{userDevice.registeredDeviceData.deviceModel}}</a></td>
         <td>
-            <a has-permission='ACTIVATE_REGISTERED_DEVICE' ng-click="userActionOnDevice(userDevice,'activate')">{{'label.button.activate' | translate}}</a> |
-            <a has-permission='DEACTIVATE_REGISTERED_DEVICE' ng-click="userActionOnDevice(userDevice,'deactivate')">{{'label.button.deactivate' | translate}}</a>
+            <a has-permission='ACTIVATE_REGISTERED_DEVICE' ng-click="userActionOnDevice(userDevice,'activate')">{{'label.button.link' | translate}}</a> |
+            <a has-permission='DEACTIVATE_REGISTERED_DEVICE' ng-click="userActionOnDevice(userDevice,'deactivate')">{{'label.button.unlink' | translate}}</a>
         </td>
     </tr>
     </table>
