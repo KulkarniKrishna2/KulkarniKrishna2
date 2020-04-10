@@ -37,7 +37,7 @@
                 </tr>
             </tbody>
         </table>
-        <image-viewer image="documentImg"></image-viewer>
+        <image-viewer image="documentImg" ng-if="showPreview"></image-viewer>
     </div>
     <div class="col-md-12 section">
         <br> </br>
@@ -52,46 +52,62 @@
         <h4><strong><a href="" >{{'label.button.insurance.history'
             | translate}}</a></strong></div>
     <script type="text/ng-template" id="rejectClaim.html">
-                <div class="modal-header silver">
-                    <h3 class="bolder">
-                        {{'label.heading.insurance.status.reject' | translate}}
-                        <i class="icon-remove pointer pull-right" ng-click="close()"></i>
-                    </h3>
-                </div>
-                <div class="modal-body well">
-            <form name="rejectform" novalidate="" class="row form-horizontal" 
-                rc-submit="submitReject()">
-                <api-validate></api-validate>
-                <fieldset>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3" >{{'label.input.specific.reason' | translate}}<span class="required">*</span></label>
-                        <div class="col-sm-4">
-                            <select id = "reason" name="reason" ng-model="rejectFormData.reasonCode" 
-                            ng-options="codeValue.id as codeValue.description for codeValue in rejectReasons" value="{{codeValue.id}}" class="input-sm form-control" required>
-                            <option value="">{{'label.selectone' | translate}}</option></select>
+                        <div class="modal-header silver">
+                            <h3 class="bolder">
+                                {{'label.heading.insurance.status.reject' | translate}}
+                                <i class="icon-remove pointer pull-right" ng-click="cancelReject()"></i>
+                            </h3>
                         </div>
-                        <div class="col-sm-3">
-                            <form-validate valattributeform="rejectform" valattribute="reason"/>
-                        </div>
-                        <br/>
+                        <div class="modal-body well">
+                    <form name="rejectform" novalidate="" class="row form-horizontal" 
+                        rc-submit="submitReject()">
+                        <api-validate></api-validate>
+                        <fieldset>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" >{{'label.input.specific.reason' | translate}}<span class="required">*</span></label>
+                                <div class="col-sm-4">
+                                    <select id = "reason" name="reason" ng-model="rejectFormData.reasonCode" 
+                                    ng-options="codeValue.id as codeValue.name for codeValue in rejectReasons" value="{{codeValue.id}}" class="input-sm form-control" required>
+                                    <option value="">{{'label.selectone' | translate}}</option></select>
+                                </div>
+                                <div class="col-sm-3">
+                                    <form-validate valattributeform="rejectform" valattribute="reason"/>
+                                </div>
+                                <br/>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" >{{'label.heading.reject.description' | translate}}<span class="required">*</span></label>
+                                <div class="col-sm-4">
+                                    <textarea  class="input-sm form-control"  id="description" name="description" ng-model="rejectFormData.reason" required />
+                                </div>
+                                <div class="col-sm-3">
+                                    <form-validate valattributeform="rejectform" valattribute="description"/>
+                                </div>
+                            </div>
+                            <div >
+                                <button class="btn btn-warning" ng-click="cancelReject()">{{'label.button.cancel' | translate}}</button>
+                                <button class="btn btn-primary" type="submit" >{{'label.button.reject' | translate}}</button>
+                            </div>
+                        </fieldset>
+                    </form>
                     </div>
-                    
-                    <div class="form-group">
-                        <label class="control-label col-sm-3" >{{'label.heading.reject.description' | translate}}<span class="required">*</span></label>
-                        <div class="col-sm-4">
-                            <textarea  class="input-sm form-control"  id="description" name="description" ng-model="rejectFormData.reason" required />
+                    </script>
+    <script type="text/ng-template" id="approveClaim.html">
+                            <div class="modal-header silver">
+                                <h3 class="bolder">
+                                    {{'label.heading.insurance.status.approve' | translate}}
+                                    <i class="icon-remove pointer pull-right" ng-click="cancelApprove()"></i>
+                                </h3>
+                            </div>
+                            <div class="modal-body well">
+                            <api-validate></api-validate>
+        
+                                <div >
+                                    <button class="btn btn-warning" ng-click="cancelApprove()">{{'label.button.cancel' | translate}}</button>
+                                    <button class="btn btn-primary" ng-click="submitApprove()" >{{'label.button.confirm' | translate}}</button>
+                                </div>
+        
                         </div>
-                        <div class="col-sm-3">
-                            <form-validate valattributeform="rejectform" valattribute="description"/>
-                        </div>
-                    </div>
-                    <div >
-                        <button class="btn btn-warning" ng-click="cancelReject()">{{'label.button.cancel' | translate}}</button>
-                        <button class="btn btn-primary" type="submit" >{{'label.button.reject' | translate}}</button>
-                    </div>
-                </fieldset>
-            </form>
-            </div>
-            </script>
-    
+        </script>
 </div>
