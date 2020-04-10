@@ -1742,7 +1742,7 @@
             };
 
             scope.removeLoanBankAccountAssociation = function (bankAccountDetailId) {
-                resourceFactory.loanBankAccountAssociationResources.delete({ entityType: "loans", entityId: scope.loandetails.id, bankAccountDetailsId: bankAccountDetailId }, function (data) {
+                resourceFactory.bankAccountDetailsAssociationsResources.delete({ entityType: "loans", entityId: scope.loandetails.id, bankAccountDetailsId: bankAccountDetailId }, function (data) {
                     route.reload();
                 });
             }

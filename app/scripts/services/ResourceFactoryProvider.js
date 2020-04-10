@@ -1226,7 +1226,7 @@
                         getAllDocuments: {method: 'GET', params: {}},
                         delete:{method: 'PUT', params: {}}
                     }),
-                    loanBankAccountAssociationResources: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetails/loans/:bankAccountDetailsId", {entityType: "@entityType",entityId: '@entityId',bankAccountDetailsId: '@bankAccountDetailsId'}, {
+                    bankAccountDetailsAssociationsResources: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetails/:bankAccountDetailsId/associations", {entityType: "@entityType",entityId: '@entityId',bankAccountDetailsId: '@bankAccountDetailsId'}, {
                         create: {method: 'POST'},
                         delete: {method: 'DELETE'}
                     }),

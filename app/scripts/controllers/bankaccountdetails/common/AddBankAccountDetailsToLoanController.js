@@ -18,7 +18,7 @@
             scope.submit = function (bankAccountDetailId) {
                 if (bankAccountDetailId != undefined) {
                     scope.validateMessage = '';
-                    resourceFactory.loanBankAccountAssociationResources.create({ entityType: "loans", entityId: scope.loanId, bankAccountDetailsId: bankAccountDetailId }, function (data) {
+                    resourceFactory.bankAccountDetailsAssociationsResources.create({ entityType: "loans", entityId: scope.loanId, bankAccountDetailsId: bankAccountDetailId }, function (data) {
                         scope.routeTo();
                     });
                 } else {
