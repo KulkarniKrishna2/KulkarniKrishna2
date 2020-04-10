@@ -36,8 +36,7 @@
 			"isMandatory": {
 			  "loanPurposeId": true,
 			  "graceOnInterestPayment": true,
-			  "graceOnPrincipalPayment": true,
-			  "recurringMoratoriumOnPrincipalPeriods": true
+			  "graceOnPrincipalPayment": true
 			  },
 			"loanPurposeGroup":{
 			  "showLoanPurposeWithoutGroup": true,
