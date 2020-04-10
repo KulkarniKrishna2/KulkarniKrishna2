@@ -3,6 +3,7 @@
         ViewClaimIntimationApproval: function ($controller, scope, resourceFactory, location, dateFilter, $http, routeParams, API_VERSION, $upload, $rootScope,CommonUtilService, $modal) {
             
             scope.deceasedId = routeParams.id;
+            scope.showPreview = false;
 
             function fetchInsuranceData() {
                 resourceFactory.getInsuranceClaimStatusDetailsResource.getClaimIntimationApproval({ claimStatus: 'intimationapprovalpending', deceasedId: scope.deceasedId }, {},
@@ -54,6 +55,7 @@
             };
 
             scope.viewDocument = function (document) {
+                scope.showPreview = true;
                 var url = document.url;
                 $http({
                     method: 'GET',
@@ -72,12 +74,11 @@
             }
 
             scope.approve = function () {
-                resourceFactory.insuranceClaimStatusDetailsResource.approveClaimIntimationApproval({ claimStatus: 'intimationapprovalpending', command : 'approve' }, {deceasedId : scope.deceasedId},
-                    function (data) {
-                        scope.insuranceCliamDetials = data;
-                        location.path('/insurancedetails');
-                    });
-            }
+                $modal.open({
+                    templateUrl: 'approveClaim.html',
+                    controller: ApproveCtrl
+                });
+            };
             
             scope.getHistory = function () {
                 $modal.open({
@@ -122,6 +123,21 @@
                         });
                 };
                 $scope.cancelReject = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            };
+
+            var ApproveCtrl = function ($scope, $modalInstance) {
+
+                $scope.submitApprove = function () {
+                    resourceFactory.insuranceClaimStatusDetailsResource.approveClaimIntimationApproval({ claimStatus: 'intimationapprovalpending', command : 'approve' }, {deceasedId : scope.deceasedId},
+                    function (data) {
+                        $modalInstance.dismiss('cancel');
+                        scope.insuranceCliamDetials = data;
+                        location.path('/insurancedetails');
+                    });
+                };
+                $scope.cancelApprove = function () {
                     $modalInstance.dismiss('cancel');
                 };
             };
