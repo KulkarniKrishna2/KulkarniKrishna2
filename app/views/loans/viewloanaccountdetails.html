@@ -326,6 +326,10 @@
                             <th class="table-bold-loan">{{'label.heading.disburseamount' | translate}}</th>
                             <td><span class="padded-td">{{loandetails.principal | number}}</span></td>
                         </tr>
+                        <tr ng-show="loandetails.multiDisburseLoan">
+                            <th class="table-bold-loan">{{'label.heading.availableBalance' | translate}}</th>
+                            <td><span class="padded-td">{{loandetails.summary.availableBalance | number}}</span></td>
+                        </tr>
                         <tr ng-show="showDisbursedAmountBasedOnStatus() && loandetails.summary && loandetails.summary.principalNetDisbursed < loandetails.principal && !hideNetDisbursedAmount">
                             <th class="table-bold-loan">{{'label.heading.netdisburseamount' | translate}}</th>
                             <td><span class="padded-td">{{loandetails.summary.principalNetDisbursed | number}}</span></td>
