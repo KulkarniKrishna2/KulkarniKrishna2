@@ -8561,6 +8561,7 @@
      "label.input.enterpurpose": "Enter the purpose",
      "label.input.custom.purpose":"Custom Purpose",
      "label.tooltip.loanpurpose.others.purpose": "To know more about the purpose for others loan",
+     "label.heading.availableBalance":"Available Balance",
      
      "------ end of translation file ------": "----------"
 
