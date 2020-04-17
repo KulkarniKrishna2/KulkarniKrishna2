@@ -8561,6 +8561,7 @@
      "label.heading.user.device.link.status" : "User-Device-Link Status",
      "label.button.add.details": "Add Details",
      "label.anchor.add.details":"Add Details",
+     "error.msg.credit.bureau.not.success":"Cannot Disburse the loan as the CB report status is not success",
      
      "------ end of translation file ------": "----------"
 
