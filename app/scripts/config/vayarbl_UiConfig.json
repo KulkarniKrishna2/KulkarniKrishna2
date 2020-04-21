@@ -119,7 +119,7 @@
 			}
 		},
     "meeting": {
-			"showAllRepeatsOptions": false
+			"repeatsOptions" : ["weekly", "monthly"]
 		},
     "viewClient": {
       "isHiddenField": {

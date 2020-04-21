@@ -813,15 +813,20 @@
                 $scope.displayCashFlow = true;
                 $scope.displaySurveyInfo = true;
                 $scope.surveyName = scope.response.uiDisplayConfigurations.viewClient.takeSurveyName;
+                $scope.isDetailEditable = true;
+                $scope.showBankAccountActivate = false;
                 //loan account
                 if (memberParams.activeClientMember.loanAccountBasicData) {
                     $scope.loanAccountData = memberParams.activeClientMember.loanAccountBasicData;
                     $scope.isLoanAccountExist = true;
                 }
 
-                if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.bankAccountDetails) {
-                    if (scope.response.uiDisplayConfigurations.bankAccountDetails.isMandatory) {
+                if (scope.response && scope.response.uiDisplayConfigurations){
+                    if (scope.response.uiDisplayConfigurations.bankAccountDetails) {
                         $scope.isMandatoryFields = scope.response.uiDisplayConfigurations.bankAccountDetails.isMandatory;
+                    }
+                    if(scope.response.uiDisplayConfigurations.workflow && scope.response.uiDisplayConfigurations.workflow.hiddenFields){
+                        $scope.showBankAccountActivate = !scope.response.uiDisplayConfigurations.workflow.hiddenFields.bankAccountActivate;
                     }
                 }
 
@@ -1323,6 +1328,9 @@
                         $scope.bankAccFormData.accountTypeId = $scope.bankAccountTypeOptions[0].id;
                     }
                     $scope.bankAccountData = $scope.bankData;
+                    if($scope.bankData.status.value == 'active'){
+                        $scope.isDetailEditable = false;
+                    }
                     if ($scope.bankData.accountNumber != undefined) {
                         $scope.viewConfig.hasData = true;
                         enableShowSummary();
@@ -1525,6 +1533,19 @@
                         $scope.bankAccFormData.documents.splice($scope.bankAccFormData.documents.indexOf(documentId), 1);
                     }
                     updateData();
+                };
+
+                $scope.activateBankAccountDetail = function () {
+                    resourceFactory.bankAccountDetailActionResource.doAction({
+                        'entityId': $scope.entityId,
+                        'entityType': $scope.entityType,
+                        clientBankAccountDetailAssociationId: getClientBankAccountDetailAssociationId(),
+                            command: 'activate'
+                        }, $scope.bankAccFormData, function (data) {
+                            populateDetails();
+                            enableShowSummary();
+                        }
+                    );
                 };
             };
         }

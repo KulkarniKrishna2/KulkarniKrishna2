@@ -4,13 +4,11 @@
             scope.repeatsOnDayOfMonthOptions = [];
             scope.selectedOnDayOfMonthOptions = [];
             scope.showAsTextBox = true;
-            var hideRepeatsOptionsList = ['daily','yearly'];
-            scope.showAllMeetingReccurenceOptions = true;
             for (var i = 1; i <= 28; i++) {
                 scope.repeatsOnDayOfMonthOptions.push(i);
             }
             if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.meeting) {
-                scope.showAllMeetingReccurenceOptions = scope.response.uiDisplayConfigurations.meeting.showAllRepeatsOptions;
+                scope.meetingReccurenceOptions = scope.response.uiDisplayConfigurations.meeting.repeatsOptions;
             }
 
             resourceFactory.attachMeetingResource.get({groupOrCenter: routeParams.entityType, groupOrCenterId: routeParams.id,
@@ -27,10 +25,9 @@
                     {id: 3, value: "monthly"},
                     {id: 4, value: "yearly"}
                 ];
-                if (!scope.showAllMeetingReccurenceOptions) {
-                    var temp = scope.repeatsOptions;
-                    for (var i in temp) {
-                        if (hideRepeatsOptionsList.indexOf(temp[i].value) >= 0) {
+                if (scope.meetingReccurenceOptions && scope.meetingReccurenceOptions.length > 0) {
+                    for(var i in scope.repeatsOptions){
+                        if(!scope.meetingReccurenceOptions.includes(scope.repeatsOptions[i].value)){
                             scope.repeatsOptions.splice(i, 1);
                         }
                     }
