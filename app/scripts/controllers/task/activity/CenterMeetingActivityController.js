@@ -37,6 +37,10 @@
                 scope.repeatsEveryOptions = scope.response.uiDisplayConfigurations.workflow.centerMeeting.repeatsEveryOptions;
             }
 
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.meeting) {
+                scope.meetingReccurenceOptions = scope.response.uiDisplayConfigurations.meeting.repeatsOptions;
+            }
+
            function initTask() {
                resourceFactory.centerWorkflowResource.get({
                    centerId: scope.groupOrCenterId,
@@ -99,6 +103,13 @@
                     { id: 3, value: "monthly" },
                     { id: 4, value: "yearly" }
                 ];
+                if (scope.meetingReccurenceOptions && scope.meetingReccurenceOptions.length > 0) {
+                    for(var i in scope.repeatsOptions){
+                        if(!scope.meetingReccurenceOptions.includes(scope.repeatsOptions[i].value)){
+                            scope.repeatsOptions.splice(i, 1);
+                        }
+                    }
+                }
                 //scope.repeatsEveryOptions = ["1", "2", "3", "4", "5"];
                 //to display default in select boxes
                 scope.formData = {

@@ -506,7 +506,8 @@
 				"activateBankAccount": false,
 				"editCenterMeeting": true,
 				"expectedDisbursementDate": false,
-				"insuranceCharge": true
+				"insuranceCharge": true,
+				"bankAccountActivate": true
 			},
 			"showMembersStepsInfo": false,
 			"disableSelectAllClients": false,
@@ -728,7 +729,7 @@
 			}
 		},
 		"meeting": {
-			"showAllRepeatsOptions": true
+			"repeatsOptions" : ["daily", "weekly", "monthly", "yearly"]
 		},
 		"navBar": {
 			"isHiddenField":{
