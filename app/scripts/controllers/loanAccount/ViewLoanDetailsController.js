@@ -1408,11 +1408,7 @@
             };
 
             scope.refreshPaymentGatewayTransaction = function() {
-                var request = {"loanId" : routeParams.id};
-                resourceFactory.paymentGatewayPaymentResource.refreshPayment({loanId: routeParams.id}, request, function(data){
-                    scope.loanAccountDpDetailData = data;
-                    scope.loanAccountDpDetailData.startDate = dateFilter(new Date(scope.loanAccountDpDetailData.startDate), scope.df);
-
+                resourceFactory.paymentGatewayPaymentResource.refreshPayment({loanId: routeParams.id}, function(data){
                 });
             }
 
