@@ -1407,6 +1407,15 @@
                 location.path("/searchtransaction/").search({loanId: scope.loandetails.id});
             };
 
+            scope.refreshPaymentGatewayTransaction = function() {
+                var request = {"loanId" : routeParams.id};
+                resourceFactory.paymentGatewayPaymentResource.refreshPayment({loanId: routeParams.id}, request, function(data){
+                    scope.loanAccountDpDetailData = data;
+                    scope.loanAccountDpDetailData.startDate = dateFilter(new Date(scope.loanAccountDpDetailData.startDate), scope.df);
+
+                });
+            }
+
             scope.viewLoanDetails = function () {
                 scope.report = false;
                 scope.hidePentahoReport = true;

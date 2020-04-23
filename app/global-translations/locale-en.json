@@ -8563,6 +8563,7 @@
      "label.anchor.add.details":"Add Details",
      "error.msg.credit.bureau.not.success":"Cannot Disburse the loan as the CB report status is not success",
      
+     "label.heading.refresh.transaction" : "Refresh Transactions",
      "------ end of translation file ------": "----------"
 
 }
