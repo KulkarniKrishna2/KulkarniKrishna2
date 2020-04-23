@@ -179,9 +179,12 @@
                                     <form autocomplete="off" class="form col-md-10" role="form">
                                         <api-validate></api-validate>
                                         <div class="form col-md-12">
-                                            <label>
+                                            <label ng-if="!isUpdatedPassword">
                                                 <strong>{{ 'label.message.password.expired' | translate }}</strong>
                                             </label>
+                                        </div>
+                                        <div class="alert alert-success" role="alert" ng-if="isUpdatedPassword">
+                                            {{'label.message.password.reset' | translate}}
                                         </div>
                                         <div class="form col-md-12">
                                             <div class="col-md-1"></div>

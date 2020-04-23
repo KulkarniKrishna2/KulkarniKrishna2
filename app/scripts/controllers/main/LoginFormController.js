@@ -185,7 +185,19 @@
                     scope.enableCaptchaOnFailedLogInAttempts = true;
                 }
                 init();
+                if (scope.isUpdatedPassword) {
+                    $timeout(function () {
+                        logoutAfterUpdatePassword();
+                    }, 2000);
+                }
             });
+
+            var logoutAfterUpdatePassword = function () {
+                scope.otpPanel = false;
+                scope.resetPassword = false;
+                scope.loginCredentials.password = "";
+                scope.isUpdatedPassword = false;
+            }
 
             scope.$on("UnauthorizedRequest", function (event, data) {
                 scope.authenticationFailed = true;
@@ -232,6 +244,10 @@
                     }else{
                         scope.loginCredentials.password = scope.passwordDetails.password;
                         authenticationService.authenticateWithUsernamePassword(scope.loginCredentials);
+                        scope.isUpdatedPassword = true;
+                        scope.passwordDetails.oldPassword = "";
+                        scope.passwordDetails.password = "";
+                        scope.passwordDetails.repeatPassword = "";
                     }
                     
                 });
