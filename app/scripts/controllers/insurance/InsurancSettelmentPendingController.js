@@ -60,12 +60,14 @@
                 scope.organisationSettlementData = [];
                 scope.nomineeSettlementData = [];
                 for (var i = 0; i < scope.tempOrganisationSettlementData.length; i++) {
-                    if (typeof (scope.tempOrganisationSettlementData[i]) != 'undefined' && scope.tempOrganisationSettlementData[i].loanId != 'undefined') {
+                    if (typeof (scope.tempOrganisationSettlementData[i]) != 'undefined' && scope.tempOrganisationSettlementData[i].loanId != 'undefined'
+                    && scope.tempOrganisationSettlementData[i].loanId > 0) {
                         scope.organisationSettlementData.push(scope.tempOrganisationSettlementData[i]);
                     }
                 }
                 for (var i = 0; i < scope.tempNomineeSettlementData.length; i++) {
-                    if (typeof (scope.tempNomineeSettlementData[i]) != 'undefined' && scope.tempNomineeSettlementData[i].loanId != 'undefined') {
+                    if (typeof (scope.tempNomineeSettlementData[i]) != 'undefined' && scope.tempNomineeSettlementData[i].loanId != 'undefined'
+                    && scope.tempNomineeSettlementData[i].loanId > 0) {
                         scope.nomineeSettlementData.push(scope.tempNomineeSettlementData[i]);
                     }
                 }
