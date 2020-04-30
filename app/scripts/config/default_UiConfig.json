@@ -506,7 +506,8 @@
 				"activateBankAccount": false,
 				"editCenterMeeting": true,
 				"expectedDisbursementDate": false,
-				"insuranceCharge": true
+				"insuranceCharge": true,
+				"bankAccountActivate": true
 			},
 			"showMembersStepsInfo": false,
 			"disableSelectAllClients": false,
@@ -521,7 +522,8 @@
 			"centerMeeting":{
 				"maxDaysLimit":"",
 				"repeatsEveryOptions" :["1", "2", "3", "4", "5"]
-			}
+			},
+			"isEditTaskEnableAfterCompleted":false
 		},
 		"globalSearchScope": {
 			"name": "label.search.scope.clients.and.clientIdentifiers",
@@ -730,7 +732,7 @@
 			}
 		},
 		"meeting": {
-			"showAllRepeatsOptions": true
+			"repeatsOptions" : ["daily", "weekly", "monthly", "yearly"]
 		},
 		"navBar": {
 			"isHiddenField":{

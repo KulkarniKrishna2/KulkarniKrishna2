@@ -29,6 +29,21 @@
                         scope.introduceGracePeriods = true;
                     }
 
+                    if(scope.loanTermVariationsData[i].termType.value == "interestFreePeriod") {
+                        scope.loanRescheduleDetails.interestFreePeriod = scope.loanTermVariationsData[i].decimalValue;
+                        scope.introduceGracePeriods = true;
+                    }
+
+                    if(scope.loanTermVariationsData[i].termType.value == "graceOnInterestWithinEmi") {
+                        scope.loanRescheduleDetails.graceOnInterestWithinEmi = scope.loanTermVariationsData[i].decimalValue;
+                        scope.introduceGracePeriods = true;
+                    }
+
+                    if(scope.loanTermVariationsData[i].termType.value == "graceOnInterestDueOnLastEmi") {
+                        scope.loanRescheduleDetails.graceOnInterestDueOnLastEmi = scope.loanTermVariationsData[i].decimalValue;
+                        scope.introduceGracePeriods = true;
+                    }
+
                     if(scope.loanTermVariationsData[i].termType.value == "extendRepaymentPeriod") {
                         scope.loanRescheduleDetails.extraTerms = scope.loanTermVariationsData[i].decimalValue;
                         scope.extendRepaymentPeriod = true;

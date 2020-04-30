@@ -113,14 +113,14 @@
                     </td>
                     <td>{{device.registeredDeviceToUserDatas[0].status.value}}</td>
                     <td ng-if="device.registeredDeviceToUserDatas[0].status.systemCode == 'pending'">
-                        <a has-permission='ACTIVATE_REGISTERED_DEVICE' ng-click="deviceAction(device,'activate')">{{'label.button.activate' | translate}}</a> |
-                        <a has-permission='DEACTIVATE_REGISTERED_DEVICE' ng-click="deviceAction(device,'deactivate')">{{'label.button.deactivate' | translate}}</a>
+                        <a has-permission='ACTIVATE_REGISTERED_DEVICE' ng-click="deviceAction(device,'activate')">{{'label.button.link' | translate}}</a> |
+                        <a has-permission='DEACTIVATE_REGISTERED_DEVICE' ng-click="deviceAction(device,'deactivate')">{{'label.button.unlink' | translate}}</a>
                     </td>
                     <td ng-if="device.registeredDeviceToUserDatas[0].status.systemCode == 'activated'">
-                        <a has-permission='DEACTIVATE_REGISTERED_DEVICE' ng-click="deviceAction(device,'deactivate')">{{'label.button.deactivate' | translate}}</a>
+                        <a has-permission='DEACTIVATE_REGISTERED_DEVICE' ng-click="deviceAction(device,'deactivate')">{{'label.button.unlink' | translate}}</a>
                     </td>
                     <td ng-if="device.registeredDeviceToUserDatas[0].status.systemCode == 'deactivated'">
-                        <a has-permission='ACTIVATE_REGISTERED_DEVICE' ng-click="deviceAction(device,'activate')">{{'label.button.activate' | translate}}</a>
+                        <a has-permission='ACTIVATE_REGISTERED_DEVICE' ng-click="deviceAction(device,'activate')">{{'label.button.link' | translate}}</a>
                     </td>
                 </tr>
 

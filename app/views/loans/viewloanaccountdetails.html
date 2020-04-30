@@ -219,6 +219,9 @@
                     <button class="btn btn-warning" ng-if="loandetails.isLocked" has-permission="UNLOCK_LOAN" ng-click="lockOrUnLockLoan()">
                         <i class="icon-lock"></i>
                     </button>
+                    <button class="btn btn-warning pull-right" tooltip="{{'label.heading.refresh.transaction' | translate }}"  ng-click="refreshPaymentGatewayTransaction()" style="margin-left: 8px;">
+                        <i class="icon-repeat"></i>
+                    </button>
                 </span>
                 <span ng-show="bankLoanStatus && showBankApprovalStatus" style="font-size:18px" class="pull-right"><strong>[{{bankLoanStatus}}]&nbsp;</strong></span>       
             </div>

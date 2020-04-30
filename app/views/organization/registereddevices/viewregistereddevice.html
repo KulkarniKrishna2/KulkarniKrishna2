@@ -9,7 +9,7 @@
          <li ng-show="isSearch==false">
                 <a  ng-click="routeToUser(fromUserId)">{{'label.anchor.users' | translate}}</a>
          </li>
-        <li class="active">{{'label.anchor.manage.devices' | translate}}</li>
+        <li class="active">{{'label.anchor.manage.user.devices' | translate}}</li>
     </ul>
     <api-validate></api-validate>
     <table class="table well">
@@ -79,14 +79,14 @@
                 </td>
                 <td>{{user.status.value}}</td>
                 <td ng-if="user.status.systemCode == 'pending'">
-                    <a ng-click="userActionOnDevice(user,'activate')">{{'label.button.activate' | translate}}</a> |
-                    <a ng-click="userActionOnDevice(user,'deactivate')">{{'label.button.deactivate' | translate}}</a>
+                    <a ng-click="userActionOnDevice(user,'activate')">{{'label.button.link' | translate}}</a> |
+                    <a ng-click="userActionOnDevice(user,'deactivate')">{{'label.button.unlink' | translate}}</a>
                 </td>
                 <td ng-if="user.status.systemCode == 'activated'">
-                    <a ng-click="userActionOnDevice(user,'deactivate')">{{'label.button.deactivate' | translate}}</a>
+                    <a ng-click="userActionOnDevice(user,'deactivate')">{{'label.button.unlink' | translate}}</a>
                 </td>
                 <td ng-if="user.status.systemCode == 'deactivated'">
-                    <a ng-click="userActionOnDevice(user,'activate')">{{'label.button.activate' | translate}}</a>
+                    <a ng-click="userActionOnDevice(user,'activate')">{{'label.button.link' | translate}}</a>
                 </td>
             </tr>
         </table>

@@ -13,6 +13,7 @@
             var currentIndex = 0;
             scope.taskStatus = scope.taskconfig.status.value;  
             scope.chargeFormData = {}; 
+            scope.chargeFetchingError = false;
             if (scope.response && scope.response.uiDisplayConfigurations.loanAccount.isAutoPopulate.interestChargedFromDate) {
                 scope.isAutoUpdateInterestStartDate = scope.response.uiDisplayConfigurations.loanAccount.isAutoPopulate.interestChargedFromDate;
 
@@ -80,6 +81,9 @@
                                 currentIndex++;
                             }
                         }
+                    }, function(errObj){
+                        scope.chargeFetchingErrMsg = errObj.data.userMessageGlobalisationCode;
+                        scope.chargeFetchingError = true;
                     });
                 });
                 currentIndex = 0;

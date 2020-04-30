@@ -60,12 +60,14 @@
                 scope.organisationSettlementData = [];
                 scope.nomineeSettlementData = [];
                 for (var i = 0; i < scope.tempOrganisationSettlementData.length; i++) {
-                    if (typeof (scope.tempOrganisationSettlementData[i]) != 'undefined' && scope.tempOrganisationSettlementData[i].loanId != 'undefined') {
+                    if (typeof (scope.tempOrganisationSettlementData[i]) != 'undefined' && scope.tempOrganisationSettlementData[i].loanId != 'undefined'
+                    && scope.tempOrganisationSettlementData[i].loanId > 0) {
                         scope.organisationSettlementData.push(scope.tempOrganisationSettlementData[i]);
                     }
                 }
                 for (var i = 0; i < scope.tempNomineeSettlementData.length; i++) {
-                    if (typeof (scope.tempNomineeSettlementData[i]) != 'undefined' && scope.tempNomineeSettlementData[i].loanId != 'undefined') {
+                    if (typeof (scope.tempNomineeSettlementData[i]) != 'undefined' && scope.tempNomineeSettlementData[i].loanId != 'undefined'
+                    && scope.tempNomineeSettlementData[i].loanId > 0) {
                         scope.nomineeSettlementData.push(scope.tempNomineeSettlementData[i]);
                     }
                 }
@@ -86,23 +88,23 @@
 
                     switch (data.type) {
                         case 'organisationSettlement':
-                            scope.organisationFormData = {};
-                            scope.organisationFormData.locale = scope.optlang.code;
-                            scope.organisationFormData.dateFormat = scope.df;
-                            scope.organisationFormData.deceasedId = scope.deceasedId;
-                            scope.organisationFormData.loanId = data.loanId;
-                            scope.organisationFormData.policyId = data.policyId;
-                            scope.organisationFormData.settlementDate = dateFilter(new Date(data.setteledDate), scope.df);
-                            scope.organisationFormData.chequeNumber = data.chequeNumber;
-                            scope.organisationFormData.claimNumber = data.claimNumber;
+                            $scope.organisationFormData = {};
+                            $scope.organisationFormData.locale = scope.optlang.code;
+                            $scope.organisationFormData.dateFormat = scope.df;
+                            $scope.organisationFormData.deceasedId = scope.deceasedId;
+                            $scope.organisationFormData.loanId = data.loanId;
+                            $scope.organisationFormData.policyId = data.policyId;
+                            $scope.organisationFormData.settlementDate = dateFilter(new Date(data.setteledDate), scope.df);
+                            $scope.organisationFormData.chequeNumber = data.chequeNumber;
+                            $scope.organisationFormData.claimNumber = data.claimNumber;
 
-                            scope.organisationFormData.settlementDetails = [];
-                            scope.organisationSettlementData = {};
-                            scope.organisationSettlementData.settlementType = 1;
-                            scope.organisationSettlementData.settlementAmount = data.amountRecieved;
-                            scope.organisationFormData.settlementDetails.push( scope.organisationSettlementData);
+                            $scope.organisationFormData.settlementDetails = [];
+                            $scope.organisationSettlementData = {};
+                            $scope.organisationSettlementData.settlementType = 1;
+                            $scope.organisationSettlementData.settlementAmount = data.amountRecieved;
+                            $scope.organisationFormData.settlementDetails.push( $scope.organisationSettlementData);
 
-                            resourceFactory.insuranceClaimStatusDetailsResource.submitOrganisationSettlement({ claimStatus: 'settlementpending', command: 'submit' }, scope.organisationFormData,
+                            resourceFactory.insuranceClaimStatusDetailsResource.submitOrganisationSettlement({ claimStatus: 'settlementpending', command: 'submit' }, $scope.organisationFormData,
                                 function (data) {
                                     $modalInstance.dismiss('cancel');
                                     if (data != null && (data.changes.statusId != undefined || data.changes.statusId != null)) {
@@ -114,23 +116,23 @@
                             break;
 
                         case 'nomineeSettlement':
-                            scope.nomineeFormData = {};
-                            scope.nomineeFormData.locale = scope.optlang.code;
-                            scope.nomineeFormData.dateFormat = scope.df;
-                            scope.nomineeFormData.deceasedId = scope.deceasedId;
-                            scope.nomineeFormData.loanId = data.loanId;
-                            scope.nomineeFormData.policyId = data.policyId;
-                            scope.nomineeFormData.settlementDate = dateFilter(new Date(data.setteledDate), scope.df);
-                            scope.nomineeFormData.chequeNumber = data.chequeNumber;
-                            scope.nomineeFormData.claimNumber = data.claimNumber;
+                            $scope.nomineeFormData = {};
+                            $scope.nomineeFormData.locale = scope.optlang.code;
+                            $scope.nomineeFormData.dateFormat = scope.df;
+                            $scope.nomineeFormData.deceasedId = scope.deceasedId;
+                            $scope.nomineeFormData.loanId = data.loanId;
+                            $scope.nomineeFormData.policyId = data.policyId;
+                            $scope.nomineeFormData.settlementDate = dateFilter(new Date(data.setteledDate), scope.df);
+                            $scope.nomineeFormData.chequeNumber = data.chequeNumber;
+                            $scope.nomineeFormData.claimNumber = data.claimNumber;
 
-                            scope.nomineeFormData.settlementDetails = [];
-                            scope.nomineeSettlementData = {};
-                            scope.nomineeSettlementData.settlementType = 2;
-                            scope.nomineeSettlementData.settlementAmount = data.amountRecieved;
-                            scope.nomineeFormData.settlementDetails.push( scope.nomineeSettlementData);
+                            $scope.nomineeFormData.settlementDetails = [];
+                            $scope.nomineeSettlementData = {};
+                            $scope.nomineeSettlementData.settlementType = 2;
+                            $scope.nomineeSettlementData.settlementAmount = data.amountRecieved;
+                            $scope.nomineeFormData.settlementDetails.push( $scope.nomineeSettlementData);
 
-                            resourceFactory.insuranceClaimStatusDetailsResource.submitNomineeSettlement({ claimStatus: 'settlementpending', command: 'submit' }, scope.nomineeFormData,
+                            resourceFactory.insuranceClaimStatusDetailsResource.submitNomineeSettlement({ claimStatus: 'settlementpending', command: 'submit' }, $scope.nomineeFormData,
                                 function (data) {
                                     $modalInstance.dismiss('cancel');
                                     if (data != null && (data.changes.statusId != undefined || data.changes.statusId != null)) {
@@ -142,19 +144,19 @@
                             break;
 
                         case 'reject':
-                            scope.organisationFormData = {};
-                            scope.organisationFormData.locale = scope.optlang.code;
-                            scope.organisationFormData.dateFormat = scope.df;
-                            scope.organisationFormData.deceasedId = scope.deceasedId;
-                            scope.organisationFormData.loanId = data.loanId;
-                            scope.organisationFormData.policyId = data.policyId;
-                            scope.organisationFormData.settlementType = 1;
-                            scope.organisationFormData.settlementDate = dateFilter(new Date(data.setteledDate), scope.df);
-                            scope.organisationFormData.settlementAmount = data.amountRecieved;
-                            scope.organisationFormData.chequeNumber = data.chequeNumber;
-                            scope.nomineeFormData.claimNumber = data.claimNumber;
+                            $scope.organisationFormData = {};
+                            $scope.organisationFormData.locale = scope.optlang.code;
+                            $scope.organisationFormData.dateFormat = scope.df;
+                            $scope.organisationFormData.deceasedId = scope.deceasedId;
+                            $scope.organisationFormData.loanId = data.loanId;
+                            $scope.organisationFormData.policyId = data.policyId;
+                            $scope.organisationFormData.settlementType = 1;
+                            $scope.organisationFormData.settlementDate = dateFilter(new Date(data.setteledDate), scope.df);
+                            $scope.organisationFormData.settlementAmount = data.amountRecieved;
+                            $scope.organisationFormData.chequeNumber = data.chequeNumber;
+                            $scope.nomineeFormData.claimNumber = data.claimNumber;
 
-                            resourceFactory.insuranceClaimStatusDetailsResource.approveClaimIntimationApproval({ claimStatus: 'settlementpending', command: 'reject' }, scope.organisationFormData,
+                            resourceFactory.insuranceClaimStatusDetailsResource.approveClaimIntimationApproval({ claimStatus: 'settlementpending', command: 'reject' }, $scope.organisationFormData,
                                 function (data) {
                                     $modalInstance.dismiss('cancel');
                                     if (data != null && (data.changes.statusId != undefined || data.changes.statusId != null)) {

@@ -2048,12 +2048,15 @@
                     }),
                     getCenterGeoDetailsResource: defineResource(apiVer + "/centers/:centerId/geo", {centerId: '@centerId'},  {
                         getGeoDetails: {method:'GET', params: {centerId: '@centerId'}, isArray: true }
-                   }),
+                    }),
                     loanOfficerDropdownResource: defineResource(apiVer + "/staff/template/:officeId", {officeId: '@officeId'}, {
                         getAll: {method: 'GET', params: {}, isArray: true},
-                   }),
-                    fileProcessIdentifierTemplateResource:defineResource(apiVer+"/fileprocess/template/:fileProcessIdentifier",{fileProcessIdentifier:'@fileProcessIdentifier'},{
-                        get: {method: 'GET', params: {}}
+                    }),
+                    fileProcessIdentifierTemplateResource: defineResource(apiVer + "/fileprocess/template/:fileProcessIdentifier", { fileProcessIdentifier: '@fileProcessIdentifier' }, {
+                        get: { method: 'GET', params: {} }
+                    }),
+                    paymentGatewayPaymentResource: defineResource(apiVer + "/paymentgateway/loans/:loanId/repayment-refresh", { loanId: '@loanId' }, {
+                        refreshPayment: { method: 'POST', params: { loanId: '@loanId' } }
                     })
                 };
             }];

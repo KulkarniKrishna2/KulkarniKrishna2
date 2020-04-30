@@ -105,7 +105,15 @@
 			"disableMeetingFrequency": false,
 			"centerMeeting":{
 				"maxDaysLimit": 28
+			},
+			"isEditTaskEnableAfterCompleted":true,
+			"hiddenFields": {
+				"bankAccountActivate": false,
+				"expectedDisbursementDate": true
 			}
+		},
+		"meeting": {
+			"repeatsOptions" : ["monthly"]
 		}
 	}
 }

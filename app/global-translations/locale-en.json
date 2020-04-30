@@ -255,6 +255,9 @@
     "label.anchor.loanaccountlimits": "Loan Account Limits",
     "label.anchor.pendingvaluedatetransactions": "Pending value date transactions",
     "label.anchor.registered.devices": "Registered Devices",
+    "label.anchor.pending.user.device.links": "Pending User Device Links",
+    "label.anchor.registered.user.devices": "Pending User-Device-Links",
+
     "label.anchor.task.adhoc.create": "Create Task",
 
     "#Inputs": "..",
@@ -361,8 +364,12 @@
     "label.button.assignstaff": "Assign Staff",
     "label.button.close": "Close",
     "label.button.staffassignmenthistory": "Staff Assignment History ",
+    "label.button.link": "Link",
+    "label.button.unlink": "Unlink",
     "label.button.activate": "Activate",
     "label.button.deactivate": "Deactivate",
+    "label.button.link": "Link",
+    "label.button.unlink": "Unlink",
     "label.button.newloanapplicationreferences": "New Loan Application",
     "label.button.newloan": "New Loan",
     "label.button.newshareaccount": "New Share Account",
@@ -2019,6 +2026,9 @@
     "label.input.introduceGracePeriods": "Introduce Mid-term grace periods",
     "label.input.graceOnPrincipal": "Principal Grace Periods",
     "label.input.graceOnInterest": "Interest Grace Periods",
+    "label.input.gracewithinemi": "Within EMI",
+    "label.input.grace.due.in.last.emi": "Due in last EMI",
+    "label.input.graceoveremi": "EMI + Grace period Interest",
     "label.input.extendRepaymentPeriod": "Extend Repayment Period",
     "label.input.extendRepaymentSchedule": "Extend Repayment Schedule",
     "rescheduletype.rescheduletospecificdate": "Reschedule to specified date",
@@ -4961,6 +4971,7 @@
     "externalServiceType.ldapserver": "LDAP Server",
     "externalServiceType.bcifserver": "BCIF Server",
     "externalServiceType.ncifserver": "NCIF Server",
+    "externalServiceType.payment.gateway": "Payment Gateway",
 
     "bankTransferType.ft": "Fund Transfer",
     "bankTransferType.imps": "IMPS Transfer",
@@ -7569,8 +7580,15 @@
     "label.heading.enquiryreason": "Enquiry  Reason",
     "label.button.enquire.cbapproval": "Enquire Bank CB Approval",
 
+
     "label.view.registered.devices": "View all devices",
+    "label.view.pending.user.device.links": "View All Pending User Device Links",
     "label.anchor.manage.devices": "Manage Devices",
+
+
+    "label.view.registered.user.devices": "View All Pending User-Device-Links",
+    "label.anchor.manage.user.devices": "Manage User Devices",
+
     "label.input.requred.user": "Requested User",
     "label.input.last.used.by": "Last Used By",
     "label.registered.user": "Registered User",
@@ -7578,9 +7596,14 @@
     "label.device.status": " Device Status",
     "label.device.model": "Device Model",
     "label.device.list": "Device List",
+
     "label.pending.devices": "Pending Devices",
+    "label.pending.user.device.links": "Pending User Device Links",
     "label.activated.devices": "Activated Devices",
     "label.deactivated.devices": "Deactivated Devices",
+
+
+    "label.pending.user.devices": "Pending User-Device-Links",
 
     "label.anchor.linked.devices": "Linked Devices",
     "label.last.login.date.time": "Last Login",
@@ -8541,7 +8564,7 @@
      "warning.msg.group.changes.in.the.staff.will.also.change.staff.assigned.to.associated.entities" : "Changes in the staff of group will also change staff assigned to associated clients, loans, savings *",
      "warning.msg.client.changes.in.the.staff.will.also.change.staff.assigned.to.associated.entities" : "Changes in the staff of client will also change staff assigned to associated loans and savings *",
   
-     "label.anchor.manage.usertodevices" : "Manage user Devices",
+     "label.anchor.manage.usertodevices" : "Manage User Devices",
      "label.registered.user.device.list" : "Registered Users Device List",
      "label.device.information" : "Device Information",
      "error.msg.max.active.user.on.device" : "Max active user on device limit reached.",
@@ -8562,7 +8585,12 @@
      "label.input.custom.purpose":"Custom Purpose",
      "label.tooltip.loanpurpose.others.purpose": "To know more about the purpose for others loan",
      "label.heading.availableBalance":"Available Balance",
+     "label.button.add.details": "Add Details",
+     "label.anchor.add.details":"Add Details",
+     "error.msg.credit.bureau.not.success":"Cannot Disburse the loan as the CB report status is not success",
+     "label.message.password.reset":"Your password been reset successfully. You will be redirected",
      
+     "label.heading.refresh.transaction" : "Refresh Transactions",
      "------ end of translation file ------": "----------"
 
 }

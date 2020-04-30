@@ -134,6 +134,9 @@
                 var entityType = scope.taskconfig['entityType'];
                 entityType = entityType+"Id";
                 scope.entityId = scope.taskconfig[entityType];
+                if(_.isUndefined(scope.entityId)){
+                  scope.entityId = scope.$parent.memberId;  
+                }
                 scope.getDetails();
             };
 
@@ -154,13 +157,8 @@
                 scope.loanproduct = false;
                 scope.showSelect = true;
                 scope.clientName = 'chan';
-                resourceFactory.DataTablesResource.getTableDetails({
-                    datatablename: scope.tableName,
-                    entityId: scope.entityId,
-                    genericResultSet: 'true'
-                }, function (data) {
-
-                    var colName = data.columnHeaders[0].columnName;
+                var data = scope.datatabledetails;  
+                var colName = data.columnHeaders[0].columnName;
                     if (colName == 'id') {
                         data.columnHeaders.splice(0, 1);
                     }
@@ -212,8 +210,6 @@
                         scope.sectionedColumnHeaders = data.sectionedColumnList;
                     }
                     scope.evaluateFormulas();
-
-                });
             };
 
             scope.evaluateFormulas = function() {
@@ -339,6 +335,7 @@
                 resourceFactory.DataTablesResource.save(params, this.formData, function (data) {
                     scope.activityDone();
                     scope.getDetails();
+                    scope.$emit('addDatatableDetails', scope.entityId);
                 });
             };
 
