@@ -6,7 +6,7 @@
         var host = "";
         var portNumber = "";
         //accessing from finflux server
-        if (mainLink.hostname.indexOf('confluxcloud.com') >= 0 || mainLink.hostname.indexOf('finflux.io') >= 0) {
+        if (mainLink.hostname.indexOf('confluxcloud.com') >= 0 || mainLink.hostname.indexOf('finflux.io') >= 0 || mainLink.hostname.indexOf('finflux.local') >= 0) {
             var hostname = window.location.hostname;
             domains = hostname.split('.');
             // For multi tenant hosting
@@ -17,19 +17,19 @@
                 $httpProvider.defaults.headers.common['Fineract-Platform-TenantId'] = domains[0];
                 ResourceFactoryProvider.setTenantIdenetifier(domains[0]);
             }
-            host = "https://" + mainLink.hostname;
+            host = mainLink.protocol+"//" + mainLink.hostname;
         }
         //accessing from a file system or other servers
         else {
             if (mainLink.hostname != "") {
-                baseApiUrl = "https://" + mainLink.hostname + (mainLink.port ? ':' + mainLink.port : '');
+                baseApiUrl = mainLink.protocol+"//" + mainLink.hostname + (mainLink.port ? ':' + mainLink.port : '');
             }
 
             if (QueryParameters["baseApiUrl"]) {
                 baseApiUrl = QueryParameters["baseApiUrl"];
             }
             var queryLink = getLocation(baseApiUrl);
-            host = "https://" + queryLink.hostname + (queryLink.port ? ':' + queryLink.port : '');
+            host = queryLink.protocol+"//" + queryLink.hostname + (queryLink.port ? ':' + queryLink.port : '');
             portNumber = queryLink.port;
 
             $httpProvider.defaults.headers.common['Fineract-Platform-TenantId'] = 'default';

@@ -27,6 +27,7 @@ define(['underscore'], function () {
 
     var styles = {
         css: [
+            'dots.css',
             'bootstrap.min.css',
             'bootstrap-ext.css',
             'bootswatch.css',

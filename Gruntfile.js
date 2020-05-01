@@ -45,7 +45,7 @@ module.exports = function(grunt) {
             port:  9000,
             hostname: 'localhost',
             livereload: 35729,
-            open:'http://<%= connect.options.hostname %>:<%= connect.options.port %>?baseApiUrl=https://localhost:8443'
+            open:'http://<%= connect.options.hostname %>:<%= connect.options.port %>?baseApiUrl=http://localhost:8080'
         },
         livereload: {
             options: {

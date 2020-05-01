@@ -30,6 +30,7 @@ define(['underscore'], function () {
             'bootstrap-ext',
             'bootswatch',
             'font-awesome.min',
+            'dots',
             'app',
             'nv.d3',
             'style',
