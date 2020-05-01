@@ -1,4 +1,4 @@
-# Using Docker for Conflux-Platform
+# Using Docker for conflux-web
 
 - Install Docker
   [get Docker](https://docs.docker.com/get-docker/)
