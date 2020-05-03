@@ -33,3 +33,5 @@ This is the web application and it is a Single-Page App (SPA) written in web sta
   ```
    grunt prod
   ```
+### Deploy using Docker :
+* To read detailed documentation [click-here](docker-readme.md)  
