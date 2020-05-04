@@ -90,7 +90,8 @@
         "dateOfBirth": true,
         "clientClassificationId":true,
         "mobileNumber":true,
-        "staff":true
+        "staff":true,
+	"gender":true
       },
        "isValidMobileNumber": {
         "mobileNumberPattern":"/^[1-9]{1}\\d{9}$/"
