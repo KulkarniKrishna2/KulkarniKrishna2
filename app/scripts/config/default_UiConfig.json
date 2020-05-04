@@ -475,7 +475,9 @@
 			"isMandatory": {
 				"rejectReason": false,
 				"rejectDescription": false,
-				"rejectCodes": false
+				"rejectCodes": false,
+				"CGTPhoto": true,
+				"GRTPhoto": true
 			},
 			"PGFValidation": {
 				"profileRatingPercentage": ""
