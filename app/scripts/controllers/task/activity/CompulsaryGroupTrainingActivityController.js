@@ -5,11 +5,15 @@
                 $scope: scope
             }));
             scope.loanIds = [];
-            scope.disableSelectAllClients = false
+            scope.disableSelectAllClients = false;
+            scope.isCGTPhotoMandatory = true;
 
             if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow) {
                 if (scope.response.uiDisplayConfigurations.workflow.disableSelectAllClients) {
-                    scope.disableSelectAllClients = scope.response.uiDisplayConfigurations.workflow.disableSelectAllClients
+                    scope.disableSelectAllClients = scope.response.uiDisplayConfigurations.workflow.disableSelectAllClients;
+                }
+                if (scope.response.uiDisplayConfigurations.workflow.isMandatory) {
+                    scope.isCGTPhotoMandatory = scope.response.uiDisplayConfigurations.workflow.isMandatory.CGTPhoto;
                 }
             }
 
@@ -137,7 +141,7 @@
                     return scope.errorDetails.push([{ code: 'error.msg.select.atleast.one.member' }])
                 }
                 if (scope.isSingleGroupInCenter) {
-                    if (!scope.isCGTPhotoUploaded) {
+                    if (scope.isCGTPhotoMandatory && !scope.isCGTPhotoUploaded) {
                         return scope.errorDetails.push([{ code: 'error.msg.cgt.photo.not.uploaded' }])
                     }
                     this.formData.cgtCompletedDate = dateFilter(scope.formData.cgtCompletedDate, scope.df);

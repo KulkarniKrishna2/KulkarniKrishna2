@@ -110,6 +110,10 @@
 			"hiddenFields": {
 				"bankAccountActivate": false,
 				"expectedDisbursementDate": true
+			},
+			"isMandatory": {
+				"CGTPhoto": false,
+				"GRTPhoto": false
 			}
 		},
 		"meeting": {

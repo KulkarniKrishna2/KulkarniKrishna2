@@ -7,10 +7,14 @@
             scope.loanIds = [];
             scope.isGRTPhotoUploaded = false;
             scope.disableSelectAllClients = false;
+            scope.isGRTPhotoMandatory = true;
 
             if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow) {
                 if (scope.response.uiDisplayConfigurations.workflow.disableSelectAllClients) {
                     scope.disableSelectAllClients = scope.response.uiDisplayConfigurations.workflow.disableSelectAllClients
+                }
+                if (scope.response.uiDisplayConfigurations.workflow.isMandatory) {
+                    scope.isGRTPhotoMandatory = scope.response.uiDisplayConfigurations.workflow.isMandatory.GRTPhoto;
                 }
             }
 
@@ -117,7 +121,7 @@
                     return scope.errorDetails.push([{ code: 'error.msg.select.atleast.one.member' }])
                 }
                 if (scope.isSingleGroupInCenter) {
-                    if (!scope.isGRTPhotoUploaded) {
+                    if (scope.isGRTPhotoMandatory && !scope.isGRTPhotoUploaded) {
                         return scope.errorDetails.push([{ code: 'error.msg.grt.photo.not.uploaded' }])
                     }
                     this.formData.grtDate = dateFilter(scope.formData.grtDate, scope.df);
