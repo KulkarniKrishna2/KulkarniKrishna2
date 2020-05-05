@@ -2020,6 +2020,8 @@
     "label.input.graceOnPrincipal": "Principal Grace Periods",
     "label.input.graceOnInterest": "Interest Grace Periods",
     "label.input.gracewithinemi": "Within EMI",
+    "label.input.gracewithinemiandcompoundaftergrace": "Within EMI And Compound After grace",
+    "label.input.compound.grace.interest": "Enable compounding on grace interest",
     "label.input.grace.due.in.last.emi": "Due in last EMI",
     "label.input.graceoveremi": "EMI + Grace period Interest",
     "label.input.extendRepaymentPeriod": "Extend Repayment Period",
