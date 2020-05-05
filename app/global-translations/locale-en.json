@@ -8591,6 +8591,7 @@
      "label.message.password.reset":"Your password been reset successfully. You will be redirected",
      
      "label.heading.refresh.transaction" : "Refresh Transactions",
+     "error.msg.credit.bureau.invalid" : "The customer does not have a valid CB report",
      "------ end of translation file ------": "----------"
 
 }
