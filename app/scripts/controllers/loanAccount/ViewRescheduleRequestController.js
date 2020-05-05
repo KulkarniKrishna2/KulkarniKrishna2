@@ -44,6 +44,15 @@
                         scope.introduceGracePeriods = true;
                     }
 
+                    if(scope.loanTermVariationsData[i].termType.value == "graceOnInterestWithinEmiAndCompoundAfterGrace") {
+                        scope.loanRescheduleDetails.graceOnInterestWithinEmiAndCompoundAfterGrace = scope.loanTermVariationsData[i].decimalValue;
+                        scope.introduceGracePeriods = true;
+                    }
+
+                    if(scope.loanTermVariationsData[i].termType.value == "compoundGraceInterest") {
+                        scope.loanRescheduleDetails.compoundGraceInterest = true;
+                    }
+
                     if(scope.loanTermVariationsData[i].termType.value == "extendRepaymentPeriod") {
                         scope.loanRescheduleDetails.extraTerms = scope.loanTermVariationsData[i].decimalValue;
                         scope.extendRepaymentPeriod = true;

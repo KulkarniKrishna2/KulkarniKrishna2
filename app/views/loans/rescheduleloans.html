@@ -131,6 +131,19 @@
 
                         <div class="form-group" ng-show="introduceGracePeriods"  ng-hide="isGLIM==true || specificToInstallment">
                             <label class="control-label col-sm-2 width20"  style="padding-left: 32px;text-align: left;">{{ 'label.input.graceOnInterest' | translate
+                                }}&nbsp;({{ 'label.input.gracewithinemiandcompoundaftergrace' | translate }})</label>
+            
+                            <div class="col-sm-3 paddedbottom10">
+                                <input id="interestgrace" class="form-control" ng-show="introduceGracePeriods" type="text" autocomplete="off" ng-model="formData.graceOnInterestWithinEmiAndCompoundAfterGrace">
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-show="introduceGracePeriods"  ng-hide="isGLIM==true || specificToInstallment">
+                            <label class="control-label col-sm-2 width20"  style="padding-left: 32px;text-align: left;"> or </label>
+                        </div>
+
+                        <div class="form-group" ng-show="introduceGracePeriods"  ng-hide="isGLIM==true || specificToInstallment">
+                            <label class="control-label col-sm-2 width20"  style="padding-left: 32px;text-align: left;">{{ 'label.input.graceOnInterest' | translate
                                 }}&nbsp;({{ 'label.input.graceoveremi' | translate }})</label>
             
                             <div class="col-sm-3 paddedbottom10">
@@ -138,6 +151,16 @@
                             </div>
                         </div>
                         
+                         <div class="form-group" ng-show="introduceGracePeriods"  ng-hide="isGLIM==true || specificToInstallment">
+                            <label class="control-label col-sm-2 width20"  style="padding-left: 32px;text-align: left;">{{ 'label.input.compound.grace.interest' | translate
+                                }}</label>
+            
+                            <div class="col-sm-3 paddedbottom10">
+                                <input  type="checkbox"  class="control-label" ng-show="introduceGracePeriods"   ng-model="formData.compoundGraceInterest">
+                            </div>
+                        </div>
+
+                        <div class="form-group" data-ng-hide="introduceGracePeriods || specificToInstallment"></div>
             
                         <input type="checkbox" ng-model="extendRepaymentPeriod"   ng-hide="isGLIM==true || specificToInstallment"> &nbsp;<span
                             class="control-label"  ng-hide="isGLIM==true || specificToInstallment">{{ 'label.input.extendRepaymentPeriod' | translate }}&nbsp;</span>
