@@ -114,7 +114,7 @@
             scope.getCbEnquiryData = function (enquiryId) {
                 resourceFactory.creditBureauReportSummaryByEnquiryIdResource.get({ 'enquiryId': enquiryId }, function (summary) {
                     scope.checkCBData = summary;
-                    if(scope.checkCBData != null && scope.checkCBData.errors == null){
+                    if(scope.checkCBData != null && scope.checkCBData.cbStatus.code == 'SUCCESS'){
                         initTask();
                     }else{
                         if(scope.checkCBData != null && scope.checkCBData.errors != null){

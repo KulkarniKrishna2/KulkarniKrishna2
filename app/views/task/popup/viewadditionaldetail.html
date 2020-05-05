@@ -154,7 +154,7 @@
                                             </td>
                                             <td>
                                                 <a target="_blank" data-ng-click="viewDocument(document)"><i class="icon-eye-open text-success"></i></a></span>
-                                                <a ng-show="document.id" ng-click="deleteDocument(document.id)"
+                                                <a ng-show="document.id && isDetailEditable" ng-click="deleteDocument(document.id)"
                                                     has-permission='UPDATE_BANKACCOUNTDETAIL'><i class="icon-remove"></i></a>
                                             </td>
                                         </tr>
@@ -163,12 +163,14 @@
                                 <image-viewer image="documentImg"></image-viewer>
                             </div>
                         </div>
-                        <div class="col-md-offset-2 paddedleft paddedtop">
+                        <div class="col-md-offset-2 paddedleft paddedtop" ng-show="isDetailEditable">
                             <a id="attachDocument" ng-click="uploadBankAccountDocument()" class="btn btn-primary"
                                 has-permission='UPDATE_BANKACCOUNTDETAIL'>{{'label.button.attach.document'
                                 | translate}}</a>
                             <a id="edit" ng-click="edit()" class="btn btn-primary" has-permission='UPDATE_BANKACCOUNTDETAIL'>{{'label.button.edit'
                                 | translate}}</a>
+                            <a  ng-show="showBankAccountActivate" id="activate" class="btn btn-primary" ng-click="activateBankAccountDetail()"
+                                has-permission='ACTIVATE_BANKACCOUNTDETAIL'>{{'label.button.activate' | translate}}</a>
                         </div>
                         <div>
                         </div>

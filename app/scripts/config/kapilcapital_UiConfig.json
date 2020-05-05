@@ -106,7 +106,18 @@
 			"centerMeeting":{
 				"maxDaysLimit": 28
 			},
-			"isEditTaskEnableAfterCompleted":true
+			"isEditTaskEnableAfterCompleted":true,
+			"hiddenFields": {
+				"bankAccountActivate": false,
+				"expectedDisbursementDate": true
+			},
+			"isMandatory": {
+				"CGTPhoto": false,
+				"GRTPhoto": false
+			}
+		},
+		"meeting": {
+			"repeatsOptions" : ["monthly"]
 		}
 	}
 }

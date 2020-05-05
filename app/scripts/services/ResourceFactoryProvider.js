@@ -2044,7 +2044,10 @@
                    }),
                     loanOfficerDropdownResource: defineResource(apiVer + "/staff/template/:officeId", {officeId: '@officeId'}, {
                         getAll: {method: 'GET', params: {}, isArray: true},
-                   })
+                   }),
+                   paymentGatewayPaymentResource: defineResource(apiVer + "/paymentgateway/loans/:loanId/repayment-refresh", {loanId: '@loanId'}, {
+                       refreshPayment: {method: 'POST', params: {loanId: '@loanId'}}
+                  })
                 };
             }];
         }

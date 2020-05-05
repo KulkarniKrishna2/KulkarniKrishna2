@@ -4961,6 +4961,7 @@
     "externalServiceType.ldapserver": "LDAP Server",
     "externalServiceType.bcifserver": "BCIF Server",
     "externalServiceType.ncifserver": "NCIF Server",
+    "externalServiceType.payment.gateway": "Payment Gateway",
 
     "bankTransferType.ft": "Fund Transfer",
     "bankTransferType.imps": "IMPS Transfer",
@@ -8561,7 +8562,11 @@
      "label.heading.user.device.link.status" : "User-Device-Link Status",
      "label.button.add.details": "Add Details",
      "label.anchor.add.details":"Add Details",
+     "error.msg.credit.bureau.not.success":"Cannot Disburse the loan as the CB report status is not success",
+     "label.message.password.reset":"Your password been reset successfully. You will be redirected",
      
+     "label.heading.refresh.transaction" : "Refresh Transactions",
+     "error.msg.credit.bureau.invalid" : "The customer does not have a valid CB report",
      "------ end of translation file ------": "----------"
 
 }

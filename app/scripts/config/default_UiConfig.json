@@ -475,7 +475,9 @@
 			"isMandatory": {
 				"rejectReason": false,
 				"rejectDescription": false,
-				"rejectCodes": false
+				"rejectCodes": false,
+				"CGTPhoto": true,
+				"GRTPhoto": true
 			},
 			"PGFValidation": {
 				"profileRatingPercentage": ""
@@ -506,7 +508,8 @@
 				"activateBankAccount": false,
 				"editCenterMeeting": true,
 				"expectedDisbursementDate": false,
-				"insuranceCharge": true
+				"insuranceCharge": true,
+				"bankAccountActivate": true
 			},
 			"showMembersStepsInfo": false,
 			"disableSelectAllClients": false,
@@ -728,7 +731,7 @@
 			}
 		},
 		"meeting": {
-			"showAllRepeatsOptions": true
+			"repeatsOptions" : ["daily", "weekly", "monthly", "yearly"]
 		},
 		"navBar": {
 			"isHiddenField":{
