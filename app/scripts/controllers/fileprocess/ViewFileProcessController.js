@@ -6,6 +6,7 @@
 
             scope.getResultsPage = function (pageNumber) {
                 var items = resourceFactory.fileProcessResource.getAllFiles({
+                    fileProcessType : routeParams.fileProcessIdentifier,
                     offset: ((pageNumber - 1) * scope.recordsPerPage),
                     limit: scope.recordsPerPage
                 }, function (data) {

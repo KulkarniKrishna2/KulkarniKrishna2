@@ -6041,7 +6041,7 @@
     "label.heading.reconciled": "Reconciled",
     "label.heading.unreconciled": "Unreconciled",
     "error.msg.invalid.cif.format.excel.file.": "CPIF File format is not valid.",
-    "error.msg.not.excel.file.": "CPIF File is not Excel file.",
+    "error.msg.not.excel.file.": "File is not Excel file.",
     "label.input.disbursementchannel": "Disbursement Channel",
     "label.heading.disbursementchannel": "Disbursement Channel",
     "error.msg.loan.transaction.repayment.before.last.transaction.is.not.allowed.for.glim.loan": "Loan transaction before last transaction is not allowed for glim loan",
@@ -8592,6 +8592,13 @@
      
      "label.heading.refresh.transaction" : "Refresh Transactions",
      "error.msg.credit.bureau.invalid" : "The customer does not have a valid CB report",
+     "error.msg.glJournalEntry.invalid.as.gl.account.cannot.be.same.for.both.credit.and.debit" : "GL account cannot be same for both credit / debit",
+     "validation.msge.BulkJournalEntry.gl.acount.cannot.be.blank" : "GL account cannot be blank",
+     "validation.msge.BulkJournalEntry.amount.cannot.be.blank" : "Amount cannot be blank",
+     "validation.msg.BulkJournalEntry.Unique Transaction.cannot.be.blank" : "Unique transaction cannot be blank",
+     "validation.msge.BulkJournalEntry.transaction.type.cannot.be.blank" :"Credit/debit cannot be blank ",
+     "error.msg.fileprocess.unable.to.read.uploaded.file" : "Unable to read uploaded file",
+
      "------ end of translation file ------": "----------"
 
 }
