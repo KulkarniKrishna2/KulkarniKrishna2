@@ -1,5 +1,6 @@
 #!/bin/sh
-tag=$(git name-rev --name-only HEAD)
+gittag=$(git name-rev --name-only HEAD)
+tag=$(basename "$gittag")
 echo $tag
 grunt clean prod
 docker build --no-cache -f ./Dockerfile-with-backend -t 963084729315.dkr.ecr.ap-south-1.amazonaws.com/conflux-web:$tag .
