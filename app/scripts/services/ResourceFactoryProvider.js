@@ -2047,7 +2047,13 @@
                    }),
                    paymentGatewayPaymentResource: defineResource(apiVer + "/paymentgateway/loans/:loanId/repayment-refresh", {loanId: '@loanId'}, {
                        refreshPayment: {method: 'POST', params: {loanId: '@loanId'}}
-                  })
+                  }),
+                    submitLoanRestructureResource: defineResource(apiVer + "/loanrestructure", {}, {
+                       save: {method: 'POST'},
+                    }),
+                    getLoanRestructureResource: defineResource(apiVer + "/loanrestructure/loan/:loanId", {}, {
+                        get: {method: 'GET', params: {loanId: '@loanId'}}
+                    }),
                 };
             }];
         }
