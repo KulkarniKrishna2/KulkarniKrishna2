@@ -108,12 +108,27 @@
                         {{loanRescheduleDetails.graceOnInterestDueOnLastEmi}}
                     </td>
                 </tr>
+                 <tr>
+                    <td class="width14" ng-show="introduceGracePeriods">
+                        <label class="control-label" style="padding-left: 20px;text-align: left;">{{ 'label.input.graceOnInterest' | translate
+                            }}&nbsp;({{ 'label.input.gracewithinemiandcompoundaftergrace' | translate }})</label></td>
+                    <td ng-show="introduceGracePeriods">
+                        {{loanRescheduleDetails.graceOnInterestWithinEmiAndCompoundAfterGrace}}
+                    </td>
+                </tr>
                 <tr>
                     <td class="width14" ng-show="introduceGracePeriods">
                         <label class="control-label" style="padding-left: 20px;text-align: left;">{{ 'label.input.graceOnInterest' | translate
                             }}&nbsp;({{ 'label.input.graceoveremi' | translate }})</label></td>
                     <td ng-show="introduceGracePeriods">
                         {{loanRescheduleDetails.graceOnInterest}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="width14" ng-show="introduceGracePeriods">
+                        <label class="control-label" style="padding-left: 20px;text-align: left;">{{ 'label.input.compound.grace.interest' | translate }}</label></td>
+                    <td ng-show="introduceGracePeriods">
+                        {{loanRescheduleDetails.compoundGraceInterest}}
                     </td>
                 </tr>
                 <tr>
