@@ -3,8 +3,28 @@
 
         UIConfigService: function ($q,$http) {
 
+            var configUIArray = ["agronomica","almajmoua","bss","chaitanya","crediangolar","digamber","eastlanka",
+            "flexidemo","felxiloans","grayquest","habitat","hana","kapilcapital","light","mobilityfinance","neev",
+            "phakamani","secdep","sef","shivakarifin","sunvest","vayarbl","vayabc","vaya","default"];
+
+            var getUIConfigKey = function(tenantName){
+                var arrayLength = configUIArray.length;
+                if(!!tenantName){
+                    for (var i = 0; i < arrayLength; i++) {
+                        
+                        if(tenantName.includes(configUIArray[i])){
+                            return configUIArray[i];
+                        }
+                        //Do something
+                    }
+                    return tenantName;
+                }else{
+                    return "default";
+                }
+            };
             this.init = function (scope, tenantIdentifier) {
-                $http.get('scripts/config/' + tenantIdentifier + '_UiConfig.json').success(function (tenantSpecificData) {
+                let configKey = getUIConfigKey(tenantIdentifier);
+                $http.get('scripts/config/' + configKey + '_UiConfig.json').success(function (tenantSpecificData) {
                     checkAndSetData(tenantSpecificData);
                 }).error(function (tenantSpecificData) {
                     assignDefaultData();
@@ -12,7 +32,7 @@
                     assignDefaultData();
                 });
 
-                assignDefaultData = function () {
+                var assignDefaultData = function () {
                     $http.get('scripts/config/default_UiConfig.json').success(function (data) {
                         if (data != 'undefined' && data != null && data != '') {
                             if (data.enableUIDisplayConfiguration != null && data.enableUIDisplayConfiguration == true) {
@@ -28,7 +48,7 @@
                     });
                 };
 
-                checkAndSetData = function (tenantSpecificData) {
+                var checkAndSetData = function (tenantSpecificData) {
                     $http.get('scripts/config/default_UiConfig.json').success(function (defaultData) {
                         var result = {};
                         result = diff(defaultData, tenantSpecificData);
@@ -44,7 +64,7 @@
                     });
                 };
 
-                isObjectData = function(tenantSpecificData){
+                var isObjectData = function(tenantSpecificData){
                     if(!_.isUndefined(tenantSpecificData) && tenantSpecificData != null){
                         if(!_.isUndefined(tenantSpecificData.length)){
                             return false;
