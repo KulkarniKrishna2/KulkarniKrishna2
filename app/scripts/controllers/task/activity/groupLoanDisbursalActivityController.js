@@ -456,7 +456,7 @@
                 }
 
                 if (scope.formData.expectedRepaymentPaymentType && scope.formData.expectedRepaymentPaymentType.name) {
-                    this.formRequestData.expectedRepaymentPaymentType = scope.formData.expectedDisbursalPaymentType.id;
+                    this.formRequestData.expectedRepaymentPaymentType = scope.formData.expectedRepaymentPaymentType.id;
                 }
                 if (!_.isUndefined(this.formRequestData.disburse.disbursementData) && this.formRequestData.disburse.disbursementData.length > 0) {
                     for (var i in  this.formRequestData.disburse.disbursementData) {
