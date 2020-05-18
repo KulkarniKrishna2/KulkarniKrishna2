@@ -8602,6 +8602,7 @@
      "error.msg.fileprocess.unable.to.read.uploaded.file" : "Unable to read uploaded file",
 
      "validation.msg.invalid.date.pattern" : "Date Passed is not a valid pattern",
+     "error.msg.no.fy.is.in.active.state" : "No financial year records are in active state",
      "------ end of translation file ------": "----------"
 
 }
