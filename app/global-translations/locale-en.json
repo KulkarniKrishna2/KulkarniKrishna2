@@ -8601,6 +8601,7 @@
      "validation.msge.BulkJournalEntry.transaction.type.cannot.be.blank" :"Credit/debit cannot be blank ",
      "error.msg.fileprocess.unable.to.read.uploaded.file" : "Unable to read uploaded file",
 
+     "validation.msg.invalid.date.pattern" : "Date Passed is not a valid pattern",
      "------ end of translation file ------": "----------"
 
 }
