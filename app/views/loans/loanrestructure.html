@@ -1,0 +1,67 @@
+<div class="col-md-12" ng-controller="LoanRestructureController">
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="#/viewloanaccount/{{loanId}}">{{'label.anchor.viewloanaccount' | translate}}</a></li>
+            <li class="active">{{ 'label.anchor.restructure' | translate}}</li>
+        </ul>
+    </div>
+    <h3>
+        {{'label.heading.restructure' | translate}}
+    </h3>
+    <form class="form-horizontal well" novalidate="" name="restructureform" rc-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>{{ 'label.input.loanproduct' | translate }}<span class="required">*</span></td>
+                        <td>
+                            <select id="productId" ng-model="productId" class="col-sm-4"
+                                ng-options="loanProduct.id as loanProduct.name for loanProduct in restructureData.productOptions"
+                                value="{{loanProduct.id}}" name="productId" required late-Validate>
+                                <option value="" style="display:none;">{{'label.menu.loan.products' | translate}}
+                                </option>
+                            </select>
+                            <form-validate valattributeform="restructureform" valattribute="productId" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.input.tenure.type' | translate }}<span class="required">*</span></td>
+                        <td>
+                            <select id="tenureType" class="col-sm-4" ng-model="tenureType" name="tenureType"
+                                ng-options="tenure.code as tenure.value for tenure in restructureData.tenureOptions"
+                                value="{{tenure.code}}" required late-Validate>
+                                <option value="" style="display:none;">{{'label.menu.tenure.type' | translate}}</option>
+                            </select>
+                            <form-validate valattributeform="restructureform" valattribute="tenureType" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.loanAmount' | translate}}</td>
+                        <td>{{restructureData.loanAmount}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.interestrate' | translate}}</td>
+                        <td>{{'label.heading.same.as.existing.loan' | translate}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.repayevery' | translate}}</td>
+                        <td>{{restructureData.repaymentEvery}}&nbsp;{{'label.frequency.type.per.years' | translate}}</td>
+                    </tr>
+                    <tr ng-show="tenureType=='EMI_AMOUNT'">
+                        <td>{{'label.heading.emiamount' | translate}}</td>
+                        <td>{{restructureData.fixedEmiAmount}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'label.heading.disbursementdate' | translate}}</td>
+                        <td>{{restructureData.expectedDisbursementDate | DateFormat}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="col-md-offset-3">
+                <a id="cancel" ng-click="cancel()" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                <button id="save" class="btn btn-primary">{{'label.button.save' | translate}}</button>
+            </div>
+        </fieldset>
+    </form>
+</div>
