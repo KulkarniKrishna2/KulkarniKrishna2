@@ -30,10 +30,6 @@
                     dateFormat: scope.df
                 };
 
-                if (scope.tenureType == 'EMI_AMOUNT') {
-                    scope.formData.fixedEmiAmount = scope.restructureData.fixedEmiAmount;
-                }
-
                 resourceFactory.submitLoanRestructureResource.save({}, this.formData, function (data) {
                     location.path('/viewloanaccount/' + data.resourceId);
                 });
