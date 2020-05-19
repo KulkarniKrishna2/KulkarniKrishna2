@@ -26,17 +26,6 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>{{'label.input.tenure.type' | translate }}<span class="required">*</span></td>
-                        <td>
-                            <select id="tenureType" class="col-sm-4" ng-model="tenureType" name="tenureType"
-                                ng-options="tenure.code as tenure.value for tenure in restructureData.tenureOptions"
-                                value="{{tenure.code}}" required late-Validate>
-                                <option value="" style="display:none;">{{'label.menu.tenure.type' | translate}}</option>
-                            </select>
-                            <form-validate valattributeform="restructureform" valattribute="tenureType" />
-                        </td>
-                    </tr>
-                    <tr>
                         <td>{{'label.heading.loanAmount' | translate}}</td>
                         <td>{{restructureData.loanAmount}}</td>
                     </tr>
@@ -46,11 +35,11 @@
                     </tr>
                     <tr>
                         <td>{{'label.heading.repayevery' | translate}}</td>
-                        <td>{{restructureData.repaymentEvery}}&nbsp;{{'label.frequency.type.per.years' | translate}}</td>
+                        <td>{{restructureData.repaymentEvery}}&nbsp;{{restructureData.repaymentFrequency.value}}</td>
                     </tr>
-                    <tr ng-show="tenureType=='EMI_AMOUNT'">
-                        <td>{{'label.heading.emiamount' | translate}}</td>
-                        <td>{{restructureData.fixedEmiAmount}}</td>
+                    <tr>
+                        <td>{{'label.heading.numofrepayments' | translate}}</td>
+                        <td>{{restructureData.numberOfRepayments}}</td>
                     </tr>
                     <tr>
                         <td>{{'label.heading.disbursementdate' | translate}}</td>
