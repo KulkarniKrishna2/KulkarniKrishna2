@@ -18,7 +18,7 @@
             }
 
             $http.get('release.json').success(function(data) {
-                scope.version = data.tag;
+                scope.version = data.version;
                 scope.releasedate = data.releasedate;
                 scope.releaseyear = data.releaseyear;
                 scope.commit = data.commit;

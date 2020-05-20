@@ -379,7 +379,9 @@ module.exports = function(grunt) {
 	    version: !!tag?tag:branch,
             commit: localShortSha,
             releasedate: lastCommitDateStr,
-            releaseyear: lastCommitYear
+            releaseyear: lastCommitYear,
+            branch:branch,
+            tag:tag
      }));
     grunt.task.run('merge-json');
   
