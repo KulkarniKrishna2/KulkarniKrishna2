@@ -21,6 +21,7 @@
                 scope.version = data.tag;
                 scope.releasedate = data.releasedate;
                 scope.releaseyear = data.releaseyear;
+                scope.commit = data.commit;
             });
 
             scope.islogofoldernamefetched = false;

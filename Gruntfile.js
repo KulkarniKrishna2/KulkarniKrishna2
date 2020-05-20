@@ -3,8 +3,16 @@
 module.exports = function(grunt) {
   // Load grunt tasks automatically
   require('load-grunt-tasks')(grunt);
+  grunt.loadNpmTasks('grunt-gitinfo');
   // Project configuration.
   grunt.initConfig({
+    
+    gitinfo: {
+      commands: {
+        'status': ['status', '--porcelain'],
+        'origin-SHA': ['rev-parse', '--verify', 'origin']
+      }
+    },
     pkg: grunt.file.readJSON('package.json'),
     // Project settings
     mifosx: {
@@ -339,34 +347,56 @@ module.exports = function(grunt) {
             src: [ "app/release.json","app/version.json" ],
             dest: "app/release.json"
         },
-    },
-   'git-describe': {
-	version: {}
-     }
+    }
   });
 
   //versioning
   grunt.registerTask('saveRevision', function() {
-  grunt.event.once('git-describe', function (rev) {
-     grunt.file.write('app/version.json', JSON.stringify({
-	    tag: rev.tag,
-            commit: rev.object
+
+    grunt.task.requires('gitinfo');
+
+    var status = grunt.config('gitinfo.status');
+    var branch = grunt.config('gitinfo.local.branch.current.name');
+    var localSha = grunt.config('gitinfo.local.branch.current.SHA');
+    var localShortSha = grunt.config('gitinfo.local.branch.current.shortSHA');
+    var lastCommitTime = grunt.config('gitinfo.local.branch.current.lastCommitTime');
+    var lastCommitDate = new Date(Date.parse(lastCommitTime));
+    var lastCommitDateStr = lastCommitDate.toLocaleDateString();
+    var lastCommitYear = lastCommitDate.getFullYear();
+    var tag = grunt.config('gitinfo.local.branch.current.tag');
+
+    
+    grunt.log.writeln("branch: " + branch);
+    grunt.log.writeln("localSha: " + localSha);
+    grunt.log.writeln("localShortSha: " + localShortSha);
+    grunt.log.writeln("lastCommitDate: " + lastCommitDate);
+    grunt.log.writeln("tag: " + tag);
+    grunt.file.write('app/version.json', JSON.stringify({
+	    version: !!tag?tag:branch,
+            commit: localShortSha,
+            releasedate: lastCommitDateStr,
+            releaseyear: lastCommitYear
      }));
-     grunt.task.run('merge-json');
-  });
-  grunt.task.run('git-describe');
+    grunt.task.run('merge-json');
+  
+    // grunt.event.once('gitinfo', function (rev) {
+    //   grunt.file.write('app/version.json', rev);
+    //   grunt.task.run('merge-json');
+    // });
+    
   });
 
   // Run development server using grunt serve
-  grunt.registerTask('serve', ['saveRevision','clean:server', 'copy:server', 'connect:livereload', 'watch']);
+  grunt.registerTask('serve', ['gitinfo','saveRevision','clean:server', 'copy:server', 'connect:livereload', 'watch']);
   
   // Validate JavaScript and HTML files
   grunt.registerTask('validate', ['jshint:all', 'validation']);
   
   // Default task(s).
   grunt.registerTask('default', ['clean', 'jshint', 'copy:dev']);
-  grunt.registerTask('prod', ['saveRevision','clean', 'copy:prod', 'concat', 'uglify:prod', 'devcode:dist', 'hashres','replace']);
+  grunt.registerTask('prod', ['gitinfo','saveRevision', 'clean','copy:prod', 'concat', 'uglify:prod', 'devcode:dist', 'hashres','replace']);
   grunt.registerTask('dev', ['clean', 'copy:dev']);
   grunt.registerTask('test', ['karma']);
+  grunt.registerTask('git-version', ['gitinfo','saveRevision']);
 
 };
