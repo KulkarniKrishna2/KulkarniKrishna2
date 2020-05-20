@@ -8569,6 +8569,13 @@
      
      "label.heading.refresh.transaction" : "Refresh Transactions",
      "error.msg.credit.bureau.invalid" : "The customer does not have a valid CB report",
+     "label.button.restructure" : "Restructure",
+     "label.heading.restructure" : "Restructure",
+     "label.anchor.restructure" : "Restructure",
+     "label.input.tenure.type": "Tenure Type",
+     "label.menu.tenure.type": "Tenure Type",
+     "label.heading.same.as.existing.loan" : "Same as Existing Loan",
+     
      "------ end of translation file ------": "----------"
 
 }
