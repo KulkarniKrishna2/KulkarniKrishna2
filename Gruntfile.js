@@ -10,7 +10,8 @@ module.exports = function(grunt) {
     gitinfo: {
       commands: {
         'status': ['status', '--porcelain'],
-        'origin-SHA': ['rev-parse', '--verify', 'origin']
+        'origin-SHA': ['rev-parse', '--verify', 'origin'],
+        'fullBranch': ['name-rev', '--name-only' ,'HEAD']
       }
     },
     pkg: grunt.file.readJSON('package.json'),
@@ -356,21 +357,24 @@ module.exports = function(grunt) {
     grunt.task.requires('gitinfo');
 
     var status = grunt.config('gitinfo.status');
-    var branch = grunt.config('gitinfo.local.branch.current.name');
+    //var branch = grunt.config('gitinfo.local.branch.current.name');
     var localSha = grunt.config('gitinfo.local.branch.current.SHA');
     var localShortSha = grunt.config('gitinfo.local.branch.current.shortSHA');
     var lastCommitTime = grunt.config('gitinfo.local.branch.current.lastCommitTime');
     var lastCommitDate = new Date(Date.parse(lastCommitTime));
     var lastCommitDateStr = lastCommitDate.toLocaleDateString();
     var lastCommitYear = lastCommitDate.getFullYear();
+    var fullBranch= grunt.config('gitinfo.fullBranch');
     var tag = grunt.config('gitinfo.local.branch.current.tag');
 
+    var branch =  !!fullBranch ? fullBranch.split(/[//]+/).pop():grunt.config('gitinfo.local.branch.current.name');
     
-    grunt.log.writeln("branch: " + branch);
+    grunt.log.writeln("fullBranch: " + fullBranch);
     grunt.log.writeln("localSha: " + localSha);
     grunt.log.writeln("localShortSha: " + localShortSha);
     grunt.log.writeln("lastCommitDate: " + lastCommitDate);
     grunt.log.writeln("tag: " + tag);
+    grunt.log.writeln("branch: " + branch)
     grunt.file.write('app/version.json', JSON.stringify({
 	    version: !!tag?tag:branch,
             commit: localShortSha,
