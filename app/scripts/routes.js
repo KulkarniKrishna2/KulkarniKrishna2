@@ -2130,6 +2130,9 @@
             .when('/transfer/village', {
                 templateUrl: 'views/transfer/villagetransfer.html'
             })
+            .when('/loan/:id/restructure', {
+                templateUrl: 'views/loans/loanrestructure.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

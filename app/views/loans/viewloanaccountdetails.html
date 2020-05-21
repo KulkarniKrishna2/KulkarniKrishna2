@@ -272,6 +272,9 @@
                               <li class="{{button.icon}}" ng-show="showEditActiveLoan && loandetails.status.active==true">
                                 <a href="#/loan/{{loandetails.id}}/editactiveloan" has-permission="READ_ACTIVE_LOAN">{{'label.button.edit.loan' | translate}}</a> 
                               </li>
+                              <li class="{{button.icon}}" ng-show="loandetails.status.active==true">
+                                <a href="#/loan/{{loandetails.id}}/restructure" has-permission="RESTRUCTURE_LOAN">{{'label.button.restructure' | translate}}</a> 
+                              </li>
                           </ul>
                       </span>
                 </div>

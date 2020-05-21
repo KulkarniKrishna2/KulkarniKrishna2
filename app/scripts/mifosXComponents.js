@@ -745,7 +745,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'transfer/VillageTransferController',
             'centers/CenterGeoLocationController',
             'task/ReportActivityController',
-            'task/activity/bankaccountpennydropverificationActivityController'
+            'task/activity/bankaccountpennydropverificationActivityController',
+            'loanAccount/LoanRestructureController'
         ],
         filters: [
             'StatusLookup',

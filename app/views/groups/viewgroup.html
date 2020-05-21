@@ -175,7 +175,7 @@
 				        	{{ 'error.msg.exceed.max.clients.limit' | translate }}{{maxClientLimit}}
 				        </div>
 		                <div id="center" class="row">
-		                	<div class="col-md-7">
+		                	<div class="col-md-9">
 		                		<div class="panel panel-default">
 									<div class="panel-heading">
 										<h3 class="panel-title ng-binding">{{ 'label.heading.clients' | translate }}</h3>
@@ -214,14 +214,14 @@
 										                </td>
 										                <td ng-hide="isHideJlgLoan" colspan="3">
 															<a has-permission='CREATE_LOAN' class="btn btn-primary btn-sm" ng-href="#/newindividualjlgloanaccount/{{group.id}}/{{member.id}}" data-ng-show="isActiveMember(member.status.code)"><i
-																	class="icon-plus icon-white"></i>{{ 'label.button.jlgloanapplication' | translate }}</a>
+																	class="icon-plus icon-white"></i> {{ 'label.button.jlgloan' | translate }}</a>
 
 														</td>
 														<td colspan="3" style='white-space: nowrap'>
 															<a has-permission='CREATE_JLG_LOAN' class="btn btn-primary btn-sm" ng-href="#/newindividualjlgloanaccount/{{group.id}}/{{member.id}}" ng-if="isHideJlgLoan && isActiveMember(member.status.code)"><i
 																	class="icon-plus icon-white"></i>{{ 'label.button.jlgloanapplication' | translate }}</a>&nbsp;
 															<a has-permission='CREATE_LOANAPPLICATIONREFERENCE' ng-show="isLoanApplication === true && !createjlgLoanApplication" class="btn btn-primary btn-sm" ng-href="#/newindividualjlgloanapplicationreference/{{group.id}}/{{member.id}}" data-ng-if="isActiveMember(member.status.code)"><i
-																	class="icon-plus icon-white"></i></a>
+																	class="icon-plus icon-white"></i> {{ 'label.button.jlgloanapplication' | translate }}</a>
 														</td>
 										            </tr>
 									            </tbody>
@@ -229,28 +229,6 @@
 										</div>
 									</div>
 							    </div>
-		                	</div>
-		                	<div class="col-md-5 meeting" ng-if="isShowMeetingDetails">
-		                		<div class="alert alert-warning" role="alert">
-					                <table>
-					                    <tr>
-							                <th>{{ 'label.heading.nextmeetingon' | translate }}</th>
-							                <td><span class="padded-td">{{group.collectionMeetingCalendar.nextTenRecurringDates[0] | DateFormat}}&nbsp;
-					                            <a href="#/editcalendar/{{entityType | lowercase}}/{{entityId}}/{{group.collectionMeetingCalendar.id}}"
-					                               ng-show="group.collectionMeetingCalendar && editMeeting"><i class="icon-edit icon-white"></i></a>
-					                            <span class="marginleftn7px" data-ng-hide="group.collectionMeetingCalendar.nextTenRecurringDates[0]">{{ 'label.unassigned' | translate }}</span></span>
-							                </td>
-							            </tr>
-							            <tr data-ng-show="group.collectionMeetingCalendar.humanReadable">
-							                <th>{{ 'label.heading.meetingfrequency' | translate }}</th>
-							                <td><span class="padded-td">{{group.collectionMeetingCalendar.humanReadable}}</span></td>
-							            </tr>
-					                    <tr data-ng-show="group.status.value=='Closed'">
-							                <th>{{ 'label.heading.closedate' | translate }}</th>
-							                <td><span class="padded-td">{{group.timeline.closedOnDate | DateFormat}}</span></td>
-							            </tr>
-					                </table>
-				                </div>
 		                	</div>
 		                </div>
 					    <div data-ng-show="groupAccounts.loanAccounts">
@@ -511,9 +489,36 @@
 						            </tr>
 								</table>
 								</div>
-					        </div>
-				    	</div>
-				    </div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12" ng-if="isShowMeetingDetails">
+								<div class="alert alert-warning" role="alert">
+									<table>
+										<tr>
+											<th>{{ 'label.heading.nextmeetingon' | translate }}</th>
+											<td><span
+													class="padded-td">{{group.collectionMeetingCalendar.nextTenRecurringDates[0] | DateFormat}}&nbsp;
+													<a href="#/editcalendar/{{entityType | lowercase}}/{{entityId}}/{{group.collectionMeetingCalendar.id}}"
+														ng-show="group.collectionMeetingCalendar && editMeeting"><i
+															class="icon-edit icon-white"></i></a>
+													<span class="marginleftn7px"
+														data-ng-hide="group.collectionMeetingCalendar.nextTenRecurringDates[0]">{{ 'label.unassigned' | translate }}</span></span>
+											</td>
+										</tr>
+										<tr data-ng-show="group.collectionMeetingCalendar.humanReadable">
+											<th>{{ 'label.heading.meetingfrequency' | translate }}</th>
+											<td><span class="padded-td"></span>{{group.collectionMeetingCalendar.humanReadable}}</span></td>
+										</tr>
+										<tr data-ng-show="group.status.value=='Closed'">
+											<th>{{ 'label.heading.closedate' | translate }}</th>
+											<td><span class="padded-td">{{group.timeline.closedOnDate | DateFormat}}</span></td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</div>
+	                </div>
 		        </div>
 			</div>
 			</div>

@@ -8603,6 +8603,13 @@
 
      "validation.msg.invalid.date.pattern" : "Date Passed is not a valid pattern",
      "error.msg.no.fy.is.in.active.state" : "No financial year records are in active state",
+     "label.button.restructure" : "Restructure",
+     "label.heading.restructure" : "Restructure",
+     "label.anchor.restructure" : "Restructure",
+     "label.input.tenure.type": "Tenure Type",
+     "label.menu.tenure.type": "Tenure Type",
+     "label.heading.same.as.existing.loan" : "Same as Existing Loan",
+     
      "------ end of translation file ------": "----------"
 
 }
