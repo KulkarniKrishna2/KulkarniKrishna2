@@ -18,7 +18,7 @@
                 scope.formData = {
                     clientId: scope.restructureData.clientId,
                     groupId: scope.restructureData.groupId,
-                    calenderId: scope.restructureData.calenderId,
+                    calendarId: scope.restructureData.calendarId,
                     productId: scope.productId,
                     interestRate: scope.restructureData.interestRate,
                     repaymentEvery: scope.restructureData.repaymentEvery,
