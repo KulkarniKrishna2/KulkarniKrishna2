@@ -9,7 +9,7 @@
                             entityId: scope.entityId, bankAccountDetailsId: scope.bankAccountDetailsId,
                             eventType: scope.eventType,
                             bankAccountDetailsData: data,
-                            isAllowPennyDropTransaction: true,
+                            isAllowPennyDropTransaction: false,
                             isAllowOnlyPennyDropAction: false
                         }
                     };
