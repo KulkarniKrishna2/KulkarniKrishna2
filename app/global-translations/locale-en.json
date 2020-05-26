@@ -8609,6 +8609,10 @@
      "label.input.tenure.type": "Tenure Type",
      "label.menu.tenure.type": "Tenure Type",
      "label.heading.same.as.existing.loan" : "Same as Existing Loan",
+     "validation.msg.glaccount.account.usage.is.not.equal.to.detail" : "GL account `{{params[0].value}}` usage is not equal to detail",
+     "validation.msg.glaccount.is.not.mapped.to.the.provided.companycode" : "GL account `{{params[0].value}}` is not mapped to the provided company code",
+     "validation.msg.glaccount.is.mapped.to.companycode" : "GL account `{{params[0].value}}` is  mapped to company code `{{params[1].value}}`",
+
      
      "------ end of translation file ------": "----------"
 
