@@ -47,7 +47,8 @@
             scope.recoveryTransactionTypeId = 8;
             scope.refundTransactionTypeId = 16;
             scope.showEditActiveLoan = true;
-
+            scope.isNPA = false;
+            
             scope.showBankApprovalStatus = false;
             scope.displayInterestRateFromProduct = false;
             if(scope.response && scope.response.uiDisplayConfigurations){
@@ -385,6 +386,7 @@
 
             resourceFactory.LoanAccountResource.getLoanAccountDetails({loanId: routeParams.id,  associations:multiTranchDataRequest+",loanApplicationReferenceId,hierarchyLookup,meeting", exclude: 'guarantors'}, function (data) {
                 scope.loandetails = data;
+                scope.isNPA = data.isNPA;
                 if (scope.displayInterestRateFromProduct && scope.loandetails.loanEMIPackData && scope.loandetails.loanEMIPackData.interestRatePerPeriod) {
                     scope.loandetails.interestRatePerPeriod = scope.loandetails.productInterestRatePerPeriod;
                     scope.loandetails.interestRateFrequencyType = scope.loandetails.productInterestRateFrequencyType;
