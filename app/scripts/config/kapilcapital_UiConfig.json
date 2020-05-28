@@ -114,6 +114,9 @@
 			"isMandatory": {
 				"CGTPhoto": false,
 				"GRTPhoto": false
+			},
+			"isReadOnlyField": {
+				"loanProduct": false
 			}
 		},
 		"meeting": {

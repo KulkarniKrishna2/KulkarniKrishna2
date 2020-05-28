@@ -54,6 +54,7 @@
             scope.inparams.entityId = scope.clientId;
             scope.formData = {};
             scope.isEmiAmountEditable = true;
+            scope.isLoanProductReadOnly = true;
 
             if (scope.response && scope.response.uiDisplayConfigurations.loanAccount) {
 
@@ -62,6 +63,10 @@
                 scope.showRepaymentFrequencyNthDayType = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentFrequencyNthDayType;
                 scope.showRepaymentFrequencyDayOfWeekType = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentFrequencyDayOfWeekType;
                 scope.showBrokenPeriodType = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.brokenPeriodMethodType;
+            }
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow &&
+                scope.response.uiDisplayConfigurations.workflow.isReadOnlyField) {
+                scope.isLoanProductReadOnly = scope.response.uiDisplayConfigurations.workflow.isReadOnlyField.loanProduct;
             }
 
             resourceFactory.loanResource.get(scope.inparams, function (data) {
@@ -307,7 +312,7 @@
             }
 
             scope.updateChargesForEdit = function () {
-                if (scope.charges.length > 0) {
+                if (scope.charges && scope.charges.length > 0) {
                     scope.editLoanAccountdata.charges = [];
                     for (var i in scope.charges) {
                         if (scope.charges[i].amountOrPercentage > 0 || scope.charges[i].isSlabBased) {
@@ -367,12 +372,12 @@
                 scope.constructSubmitData();
                 resourceFactory.loanResource.put({ loanId: scope.loanAccountBasicData.id }, scope.editLoanAccountdata, function (data) {
                     scope.closeLoanAccountForm();
+                    scope.refreshTask();
                 });
             };
 
             scope.closeLoanAccountForm = function () {
                 scope.showLoanAccountForm = false;
-                scope.refreshTask();
                 scope.close();
             }
 
