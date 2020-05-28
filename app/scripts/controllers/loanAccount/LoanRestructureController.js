@@ -42,6 +42,15 @@
                     locale: scope.optlang.code,
                     dateFormat: scope.df
                 };
+                if(scope.restructureData.fundId){
+                    scope.formData.fundId = scope.restructureData.clientId;
+                }
+                if(scope.restructureData.loanOfficerId){
+                    scope.formData.loanOfficerId = scope.restructureData.loanOfficerId;
+                }
+                if(scope.restructureData.loanPurposeId){
+                    scope.formData.loanPurposeId = scope.restructureData.loanPurposeId;
+                }
                 if(scope.isTopup){
                     $modal.open({
                         templateUrl: 'loanrestructure.html',
