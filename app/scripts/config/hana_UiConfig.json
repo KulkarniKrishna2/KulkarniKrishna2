@@ -14,12 +14,14 @@
 				"amortizationType": true,
 				"interestCalculationPeriodType": true,
 				"inArrearsTolerance": true,
-				"graceOnInterestCharged": true,
+				"graceOnInterestCharged": false,
 				"transactionProcessingStrategyId": true,
-				"graceOnInterestPayment": true,
+				"graceOnInterestPayment": false,
 				"graceOnArrearsAgeing": true,
 				"syncDisbursementDateWithMeeting": true,
-				"loanPurpose": false
+				"loanPurpose": false,
+				"graceOnPrincipalPayment" : false,
+				"recurringMoratoriumOnPrincipalPeriods": false
 			},
 			"isHiddenSection": {
 				"interestRecalculationSection": true,
@@ -32,7 +34,9 @@
 				"loanPurposeId": false
 			},
 			"isMandatory": {
-			  "loanPurposeId": false
+			  "loanPurposeId": true,
+			  "graceOnInterestPayment": true,
+			  "graceOnPrincipalPayment": true
 			  },
 			"loanPurposeGroup":{
 			  "showLoanPurposeWithoutGroup": true,
@@ -140,7 +144,7 @@
 		},
 		"createLoanApplication": {
 			"isMandatory": {
-				"loanPurposeId": false
+				"loanPurposeId": true
 			}
 		}
 	}

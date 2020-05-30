@@ -15,6 +15,7 @@
             scope.productsLink = '';
             scope.viewProductLink = '';
             scope.productType = routeParams.productType;
+            scope.last = 0;
             //alert(scope.productType);
             if (routeParams.productType === 'fixeddepositproduct') {
                 scope.productsLink = 'fixeddepositproducts';
@@ -32,6 +33,9 @@
                         incentive.attributeValue = parseInt(incentive.attributeValue);
                     })
                 })
+                if(scope.chart.chartSlabs && scope.chart.chartSlabs.length > 0){
+                   scope.last = scope.chart.chartSlabs.length-1; 
+                }
 
                 //format date values
                 if (scope.chart.fromDate) {
@@ -54,6 +58,7 @@
                 var periodType = '';
                 var toPeriod = '';
                 var amountRangeTo = '';
+                scope.last = parseInt(scope.last) + 1;
                 if (_.isNull(scope.chart.chartSlabs) || _.isUndefined(scope.chart.chartSlabs)) {
                     scope.chart.chartSlabs = [];
                 } else {
@@ -101,13 +106,30 @@
                     chartSlab.amountRangeTo = amountRangeTo;
                 }
                 scope.chart.chartSlabs.push(chartSlab);
+                if(scope.chart.chartSlabs.length == 1){
+                    scope.last = 0;
+                }
             }
 
             /**
              * Remove chart details row
              */
             scope.removeRow = function (index) {
-                scope.chart.chartSlabs.splice(index, 1);
+                
+                scope.chart.chartSlabs[index].delete = true;
+                for(var i in scope.chart.chartSlabs){
+                    if(_.isUndefined(scope.chart.chartSlabs[i].delete)){
+                        scope.last = i;
+                    }else if(_.isUndefined(scope.chart.chartSlabs[i].id)){
+                        scope.chart.chartSlabs.splice(index, 1);
+                        if(scope.chart.chartSlabs.length > 0){
+                           scope.last = scope.chart.chartSlabs.length -1;
+                       }else{
+                            scope.last = scope.chart.chartSlabs.length;
+                       }
+                        
+                    }
+                }
             }
 
             //back to deposit product view
@@ -189,6 +211,7 @@
                     amountRangeFrom: chartSlab.amountRangeFrom,
                     amountRangeTo: chartSlab.amountRangeTo,
                     annualInterestRate: chartSlab.annualInterestRate,
+                    delete:chartSlab.delete,
                     locale: scope.optlang.code,
                     incentives:angular.copy(copyIncentives(chartSlab.incentives,chartSlab.id))
                 }
@@ -303,6 +326,27 @@
                     $scope.chartSlab.incentives.splice(index, 1);
                 }
             };
+
+            scope.isLastRow = function(index){
+                if(scope.last == index){
+                    return true;
+                }
+                return false;
+            }
+            scope.addFirstRow = function(){
+                if(!_.isUndefined(scope.chart)){
+                    if(_.isUndefined(scope.chart.chartSlabs)){
+                        return true;
+                    }else{
+                        for(var i in scope.chart.chartSlabs){
+                            if(_.isUndefined(scope.chart.chartSlabs[i].delete)){
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+                }                                
+            }
 
         }
 
