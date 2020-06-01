@@ -731,6 +731,11 @@
                 }
             }
             this.formData.submittedOnDate = dateFilter(this.formData.submittedOnDate, scope.df);
+            if (!_.isUndefined(this.formData.submittedOnDate) && _.isUndefined(this.formData.expectedDisbursementDate)) {
+                this.formData.expectedDisbursementDate = this.formData.submittedOnDate;
+            } else {
+                this.formData.expectedDisbursementDate = dateFilter(new Date(), scope.df);
+            }
             this.formData.accountType = scope.inparams.templateType;
             this.formData.locale = scope.optlang.code;
             this.formData.dateFormat = scope.df;
