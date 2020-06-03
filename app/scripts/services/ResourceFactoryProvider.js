@@ -1982,7 +1982,7 @@
                         update: { method: 'PUT' }
                     }),
                     bankAccountDetailsAuditResource: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetails/:bankAssociationId/audit", { entityType: "@entityType", entityId: "@entityId", bankAssociationId: "@bankAssociationId" }, {
-                        get: { method: 'GET', params: {} }
+                        get: { method: 'GET', params: {}, isArray: true }
                     }),
                     postDeceasedDetailsResource: defineResource(apiVer + "/insurance/markasdeceased", {}, {
                         save: { method: 'POST', params: {} }
