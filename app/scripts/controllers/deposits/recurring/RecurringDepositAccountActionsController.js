@@ -107,7 +107,7 @@
                 case "close":
                     resourceFactory.recurringDepositAccountResource.get({accountId: routeParams.id, resourceType: 'template', command: 'close'},
                         function (data) {
-                            scope.maturityAmount = data.maturityAmount;
+                            scope.maturityAmount = data.summary.accountBalance;
                             scope.onAccountClosureOptions = data.onAccountClosureOptions;
                             scope.savingsAccounts = data.savingsAccounts;
                             scope.paymentTypes = data.paymentTypeOptions;
