@@ -1,7 +1,8 @@
 {
-	"version": "NA",
-	"releasedate": "NA",
-	"releaseyear": "NA",
+	"version": "develop",
+	"releasedate": "03/06/2020",
+	"releaseyear": 2020,
 	"tag": "NA",
-	"commit": "NA"
+	"commit": "c1b3a47fb",
+	"branch": "develop"
 }

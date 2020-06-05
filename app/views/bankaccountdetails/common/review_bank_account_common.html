@@ -25,7 +25,7 @@
             <image-viewer image="documentImg"></image-viewer>
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-7">
             <form name="reviewbankaccountdetail" novalidate="" class="form-horizontal">
                 <table class="table">
                     <thead>
@@ -175,17 +175,22 @@
             </form>
         </div>
 
-        <div class="col-md-6" ng-if="bankAccountDetailsData.verificationStatus.id > 2 && bankAccountDetailsData.verificationStatus.id < 6">
-            <h3><b>Account Verification Name Match</b></h3>
+        <div class="col-md-5" ng-if="bankAccountDetailsData.verificationStatus.id > 2 && bankAccountDetailsData.verificationStatus.id < 6">
+            <h3><b>Account Holder Name Verification Status</b></h3>
             <div class="col-sm-4 multiselectmin">
                 <button ng-if="bankAccountDetailsData.verificationStatus.id == 3" type="button"
                     class="btn btn-success btn-circle width100 fullscreen default-pointer">
-                    <i class="icon-ok icon-white font-size-14pt"></i>
+                    <i class="icon-ok icon-white icon-4x"></i>
                 </button>
 
                 <button ng-if="bankAccountDetailsData.verificationStatus.id == 4" type="button"
                     class="btn btn-danger btn-circle width100 fullscreen default-pointer">
-                    <i class="icon-remove icon-white font-size-14pt"></i>
+                    <i class="icon-remove icon-white icon-4x"></i>
+                </button>
+
+                <button ng-if="bankAccountDetailsData.verificationStatus.id == 5" type="button"
+                    class="btn btn-warning btn-circle width100 fullscreen default-pointer">
+                    <i class="icon-eye-open icon-white icon-4x"></i>
                 </button>
             </div>
 
@@ -196,7 +201,7 @@
                 <br>
                 <label class="gray-head">As per bank records</label>
                 <br>
-                <label class="paddedbottom"><b>{{bankAccountDetailsData.verifiedBeneficiaryName}}</b></label>
+                <label class="paddedbottom"><b>{{bankAccountDetailsData.verificationStatus.id == 3 ? 'Matched' : bankAccountDetailsData.verificationStatus.id == 5 ? 'Partially Matched' : 'Not Matched'}}</b></label>
             </div>
         </div>
     </div>
