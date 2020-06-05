@@ -63,6 +63,9 @@
                    scope.isRejectReasonMandatory = scope.response.uiDisplayConfigurations.workflow.isMandatory.rejectReason; 
                 }
             }
+            if(scope.response && scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.paymentTypeId) {
+                scope.paymentTypeId = scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.paymentTypeId;
+            }
             resourceFactory.officeResource.getAllOffices(function (data) {
                 scope.offices = data;
                 if (scope.currentSession.user.officeId) {
@@ -271,18 +274,19 @@
             scope.showPaymentDetailsFn = function () {
                 scope.paymentDetail = {};
                 scope.showPaymentDetails = true;
-                if(scope.response && scope.response.uiDisplayConfigurations.collectionSheet.isAutoPopulate.paymentTypeOption){
+                if(scope.response && scope.response.uiDisplayConfigurations.collectionSheet.isAutoPopulate.paymentTypeOption && scope.response.uiDisplayConfigurations.collectionSheet.isAutoPopulate.cashPaymentType){
                     for(var i in scope.paymentTypeOptions){
-                        if(scope.response.uiDisplayConfigurations.collectionSheet.isAutoPopulate.cashPaymentType && scope.paymentTypeOptions[i].isCashPayment){
+                        if(scope.paymentTypeOptions[i].isCashPayment){
                             scope.paymentDetail.paymentTypeId = scope.paymentTypeOptions[i].id;
                             break;
                         }
                     }
                 }else{
-                    scope.paymentDetail.paymentTypeId = "";
-                }
-                if(scope.response && scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.paymentTypeId) {
-                    scope.formData.paymentTypeId = scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.paymentTypeId;
+                    if(!_.isUndefined(scope.paymentTypeId)){
+                        scope.paymentDetail.paymentTypeId = scope.paymentTypeId;
+                    }else{
+                        scope.paymentDetail.paymentTypeId = "";
+                    }
                 }
 
                 scope.paymentDetail.accountNumber = "";
@@ -311,6 +315,9 @@
                             scope.deceasedPrincipalInterestDue = 0;
                             scope.originalCollectionsheetData = scope.parseClientCharge(data);
                             scope.paymentTypeOptions = data.paymentTypeOptions;
+                            if(!_.isUndefined(scope.paymentTypeId)){
+                                scope.formData.paymentTypeId = scope.paymentTypeId;
+                            }
                             if(scope.collectionsheetdata != ""){
                                 scope.showPaymentDetails = true;
                                 scope.showPaymentDetailsFn();
@@ -345,6 +352,9 @@
                             scope.deceasedPrincipalInterestDue = 0;
                             scope.originalCollectionsheetData = scope.parseClientCharge(data);
                             scope.paymentTypeOptions = data.paymentTypeOptions;
+                            if(!_.isUndefined(scope.paymentTypeId)){
+                                scope.formData.paymentTypeId = scope.paymentTypeId;
+                            }
                             if(scope.collectionsheetdata != ""){
                                 scope.showPaymentDetails = true;
                                 scope.showPaymentDetailsFn();
