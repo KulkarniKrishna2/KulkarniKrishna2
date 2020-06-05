@@ -10,16 +10,39 @@
             </div>
             <br>
             <div class="modal-body">
-                <label class="control-label col-sm-3" >{{'label.input.paymenttype' | translate}}<span class="required">*</span></label>
-                <div class="col-sm-4">
-                    <select  id="paymentTypeId" name="paymentTypeId" ng-model="paymentDetail.paymentTypeId" ng-options="paymenttype.id as paymenttype.name for paymenttype in paymentTypeOptions" value="{{paymenttype.id}}" 
-                    class="input-sm form-control"   required late-Validate>
-                    <option value="">{{'label.selectone' | translate}}</option></select>
-                </div>                
-                
-                <div class="col-sm-5" ng-show="isRequired">
-                    <span class="error">{{'label.requiredfield' | translate}}</span>
-                </div>
+            <div class="col-sm-5" ng-show="isRequired">
+                <span class="error">{{'label.requiredfield' | translate}}</span>
+            </div>
+            <table class="table table-bordered">
+            <thead>
+            <tr>
+                <td>{{ 'label.input.paymenttype' | translate}}</td>
+                <td ng-show="paymentDetail.paymentTypeId">{{ 'label.input.accnum' | translate}}</td>
+                <td ng-show="paymentDetail.paymentTypeId">{{ 'label.input.checknumber' | translate}}</td>
+                <td ng-show="paymentDetail.paymentTypeId">{{ 'label.input.routingcode' | translate}}</td>
+                <td ng-show="paymentDetail.paymentTypeId">{{ 'label.input.receiptnumber' | translate}}</td>
+                <td ng-show="paymentDetail.paymentTypeId">{{ 'label.input.banknumber' | translate}}</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><select ng-model="paymentDetail.paymentTypeId"
+                            class="form-control"
+                            ng-options="paymentType.id as paymentType.name for paymentType in paymentTypeOptions"
+                            value="{{paymentType.id}}"></select></td>
+                <td ng-show="paymentDetail.paymentTypeId"><input type="text" autocomplete="off" class="form-control"
+                           ng-model="paymentDetail.accountNumber"></td>
+                <td ng-show="paymentDetail.paymentTypeId"><input class="form-control" type="text" autocomplete="off"
+                           ng-model="paymentDetail.checkNumber"></td>
+                <td ng-show="paymentDetail.paymentTypeId"><input class="form-control" type="text" autocomplete="off"
+                           ng-model="paymentDetail.routingCode"></td>
+                <td ng-show="paymentDetail.paymentTypeId"><input class="form-control" type="text" autocomplete="off"
+                           ng-model="paymentDetail.receiptNumber"></td>
+                <td ng-show="paymentDetail.paymentTypeId"><input class="form-control" type="text" autocomplete="off"
+                           ng-model="paymentDetail.bankNumber"></td>
+            </tr>
+            </tbody>
+        </table>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
