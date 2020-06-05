@@ -1,11 +1,13 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        LoanRestructureController: function (scope, resourceFactory, location, routeParams, dateFilter) {
+        LoanRestructureController: function (scope, resourceFactory, location, routeParams, dateFilter, $modal) {
 
             scope.loanId = routeParams.id;
+            scope.isTopup = false;
 
             resourceFactory.getLoanRestructureResource.get({ loanId: scope.loanId }, function (data) {
                 scope.restructureData = data;
+                scope.isTopup = data.isTopup;
                 scope.restructureData.expectedDisbursementDate = dateFilter(new Date(), scope.df);
             });
 
@@ -13,6 +15,17 @@
                 location.path('/viewloanaccount/' + scope.loanId);
             };
 
+            var LoanRestructureCtrl = function ($scope, $modalInstance, formData) {
+                $scope.confirm = function () {
+                    resourceFactory.submitLoanRestructureResource.save({}, formData, function (data) {
+                        $modalInstance.close('delete');
+                        location.path('/viewloanaccount/' + data.resourceId);
+                    });
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            };
 
             scope.submit = function () {
                 scope.formData = {
@@ -29,15 +42,38 @@
                     locale: scope.optlang.code,
                     dateFormat: scope.df
                 };
+                if(scope.restructureData.fundId){
+                    scope.formData.fundId = scope.restructureData.clientId;
+                }
+                if(scope.restructureData.loanOfficerId){
+                    scope.formData.loanOfficerId = scope.restructureData.loanOfficerId;
+                }
+                if(scope.restructureData.loanPurposeId){
+                    scope.formData.loanPurposeId = scope.restructureData.loanPurposeId;
+                }
+                if(scope.isTopup){
+                    $modal.open({
+                        templateUrl: 'loanrestructure.html',
+                        controller: LoanRestructureCtrl,
+                        resolve: {
+                            formData: function () {
+                                return scope.formData;
+                            }
+                        }
+                    });
+                }else{
+                    resourceFactory.submitLoanRestructureResource.save({}, this.formData, function (data) {
+                        location.path('/viewloanaccount/' + data.resourceId);
+                    });
+                }
+                
 
-                resourceFactory.submitLoanRestructureResource.save({}, this.formData, function (data) {
-                    location.path('/viewloanaccount/' + data.resourceId);
-                });
+                
             }
 
         }
     });
-    mifosX.ng.application.controller('LoanRestructureController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', mifosX.controllers.LoanRestructureController]).run(function ($log) {
+    mifosX.ng.application.controller('LoanRestructureController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', '$modal', mifosX.controllers.LoanRestructureController]).run(function ($log) {
         $log.info("LoanRestructureController initialized");
     });
 }(mifosX.controllers || {}));

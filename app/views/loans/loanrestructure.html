@@ -45,12 +45,36 @@
                         <td>{{'label.heading.disbursementdate' | translate}}</td>
                         <td>{{restructureData.expectedDisbursementDate | DateFormat}}</td>
                     </tr>
+                    <tr ng-show="restructureData.loanOfficerName.length>0">
+                        <td>{{'label.heading.loanofficer' | translate}}</td>
+                        <td>{{restructureData.loanOfficerName}}</td>
+                    </tr>
+                    <tr ng-show="restructureData.loanPurposeName.length>0">
+                        <td>{{'label.heading.loanpurpose' | translate}}</td>
+                        <td>{{restructureData.loanPurposeName}}</td>
+                    </tr>
+                    <tr ng-show="restructureData.fundName.length>0">
+                        <td>{{'label.heading.fundsource' | translate}}</td>
+                        <td>{{restructureData.fundName}}</td>
+                    </tr>
                 </tbody>
             </table>
             <div class="col-md-offset-3">
                 <a id="cancel" ng-click="cancel()" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
                 <button id="save" class="btn btn-primary">{{'label.button.save' | translate}}</button>
             </div>
+            <script type="text/ng-template" id="loanrestructure.html">
+				<div class="modal-header silver">
+					<h3 class="bolder">{{'label.heading.restructure' | translate}}</h3>
+				</div>
+				<div class="modal-body">
+					<api-validate></api-validate>
+					<h4 >{{'label.message.loan.already.restructred' | translate}}</h4>
+					<br>
+					<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+					<button class="btn btn-primary" ng-click="confirm()">{{'label.button.confirm' | translate}}</button>
+				</div>
+			</script>
         </fieldset>
     </form>
 </div>

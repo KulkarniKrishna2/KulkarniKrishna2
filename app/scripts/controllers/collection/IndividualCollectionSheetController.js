@@ -21,6 +21,9 @@
             if(scope.response){
                     scope.paymentDetails = !scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild.paymentDetails;
             }
+            if(scope.response && scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.paymentTypeId) {
+                scope.paymentTypeId = scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.paymentTypeId;
+            }
             resourceFactory.officeResource.getAllOffices(function (data) {
                 scope.offices = data;
             });
@@ -39,7 +42,11 @@
                 var client = scope.collectionsheetdata.clients[parentindex];
                 var loandetail = client.loans[index];
                 loandetail.showPaymentDetails = true;
-                loandetail.paymentTypeId = "";
+                if(!_.isUndefined(scope.paymentTypeId)){
+                    loandetail.paymentTypeId = scope.paymentTypeId;
+                }else{
+                    loandetail.paymentTypeId = "";
+                }
                 loandetail.accountNumber = "";
                 loandetail.checkNumber = "";
                 loandetail.routingCode = "";
@@ -164,6 +171,10 @@
                                 loanTransaction.routingCode = loan.routingCode;
                                 loanTransaction.receiptNumber = loan.receiptNumber;
                                 loanTransaction.bankNumber = loan.bankNumber;
+                            }else{
+                               if(!_.isUndefined(scope.paymentTypeId)){
+                                    loanTransaction.paymentTypeId = scope.paymentTypeId;
+                                }    
                             }
                             if (loanTransaction != null) {
                             scope.bulkRepaymentTransactions.push(loanTransaction);

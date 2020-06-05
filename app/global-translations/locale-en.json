@@ -8613,6 +8613,9 @@
      "validation.msg.glaccount.is.not.mapped.to.the.provided.companycode" : "GL account `{{params[0].value}}` is not mapped to the provided company code",
      "validation.msg.glaccount.is.mapped.to.companycode" : "GL account `{{params[0].value}}` is  mapped to company code `{{params[1].value}}`",
 
+     "error.msg.npa.loan.can.not.be.restructured" : "Npa Loans can not be restrcutured.",
+     "label.message.loan.already.restructred" : "This loan is already restructured, do you want to restructure it again ?",
+     "label.account.actual.balance" : "Account Balance",
      
      "------ end of translation file ------": "----------"
 

@@ -510,6 +510,10 @@
                 var controller = 'ViewClientAdditionalDetailsController';
                 popUpUtilService.openFullScreenPopUp(templateUrl, controller, scope);
             };
+
+            scope.refreshTask = function () {
+                initTask();
+            }
         }
     });
     mifosX.ng.application.controller('GRTActivityController', ['$controller', '$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', '$route', '$http', '$rootScope', '$route', '$upload', 'API_VERSION', 'PopUpUtilService', mifosX.controllers.GRTActivityController]).run(function ($log) {
