@@ -8616,6 +8616,7 @@
      "error.msg.npa.loan.can.not.be.restructured" : "Npa Loans can not be restrcutured.",
      "label.message.loan.already.restructred" : "This loan is already restructured, do you want to restructure it again ?",
      "label.account.actual.balance" : "Account Balance",
+     "error.msg.glJournalEntry.gl.account.tag.and.accounting.rule.tag.must.be.same" : "GL Account tag and accounting rule tag must be same",
      
      "------ end of translation file ------": "----------"
 
