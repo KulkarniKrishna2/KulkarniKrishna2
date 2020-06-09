@@ -167,13 +167,6 @@
                     case "withdrawnbyclient":
                         location.path('/loanaccount/' + accountId + '/withdrawnByApplicant');
                         break;
-                    case "delete":
-                        resourceFactory.LoanAccountResource.delete({loanId: accountId}, {}, function (data) {
-                            var destination = '/viewgroup/' + data.groupId;
-                            if (data.clientId) destination = '/viewclient/' + data.clientId;
-                            location.path(destination);
-                        });
-                        break;
                     case "undoapproval":
                         location.path('/loanaccount/' + accountId + '/undoapproval');
                         break;
@@ -507,10 +500,6 @@
                             {
                                 name: "button.withdrawnbyclient",
                                 taskPermissionName: 'WITHDRAW_LOAN'
-                            },
-                            {
-                                name: "button.delete",
-                                taskPermissionName: 'DELETE_LOAN'
                             },
                             {
                                 name: "button.addcollateral",
