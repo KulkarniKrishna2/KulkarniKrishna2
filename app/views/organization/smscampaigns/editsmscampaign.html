@@ -93,7 +93,7 @@
                                 class="required">*</span></label>
                         <div class="col-sm-3">
                             <input id="scheduleDate" name="scheduleDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="campaignData.recurrenceStartDate"
-                                   is-open="opened" min="'2000-01-01'" max="'2050-01-01'" class="form-control" ng-disabled="true"/>
+                                   is-open="opened" min="'2000-01-01'" max="globalMaxDate" class="form-control" ng-disabled="true"/>
                         </div>
                         <div class="col-sm-3">
                             <form-validate valattributeform="editsmsform" valattribute="scheduleDate"/>
