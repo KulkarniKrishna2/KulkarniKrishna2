@@ -135,6 +135,7 @@
                 $scope.inparams.entityId = $scope.clientId;
                 $scope.formData = {};
                 $scope.isEmiAmountEditable= true;
+                $scope.isLoanProductReadOnly = true;
 
                 if (scope.response && scope.response.uiDisplayConfigurations.loanAccount) {
 
@@ -144,6 +145,10 @@
                     $scope.showRepaymentFrequencyDayOfWeekType = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentFrequencyDayOfWeekType;
                     $scope.showBrokenPeriodType = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.brokenPeriodMethodType;
                     $scope.isLoanPurposeRequired = scope.response.uiDisplayConfigurations.loanAccount.isMandatory.loanPurposeId;
+                }
+                if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow &&
+                    scope.response.uiDisplayConfigurations.workflow.isReadOnlyField) {
+                    $scope.isLoanProductReadOnly = scope.response.uiDisplayConfigurations.workflow.isReadOnlyField.loanProduct;
                 }
 
                 resourceFactory.loanResource.get($scope.inparams, function (data) {

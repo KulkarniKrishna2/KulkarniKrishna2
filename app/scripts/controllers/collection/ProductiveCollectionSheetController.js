@@ -44,6 +44,9 @@
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild){
                scope.showEmiAmountTotalDueButton = !scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild.toggleButton; 
             }
+            if(scope.response && scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.paymentTypeId) {
+                scope.paymentTypeId = scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.paymentTypeId;
+            }
             resourceFactory.configurationResource.get({configName:'reason-code-allowed'}, function (data) {
                 scope.showRejectReason = data.enabled;
             });
@@ -779,7 +782,7 @@
             };
 
             scope.submitCollection = function () {
-                if(!scope.response.uiDisplayConfigurations.collectionSheet.isAutoPopulate.cashPaymentType){
+                if(scope.forcedSubmit || scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild.paymentDetails){
                     scope.submit();
                 }else{
                     var templateUrl = 'submitCollectionSheet.html';               
@@ -803,21 +806,29 @@
             var submitCollectionSheetCtrl = function ($scope, $modalInstance, collectionParams) {
                 $scope.paymentTypeOptions = collectionParams.paymentTypeOption;
                 $scope.showPaymentDetailsFn = function () {
-                $scope.paymentDetail = {};
-                if(scope.response && scope.response.uiDisplayConfigurations.collectionSheet.isAutoPopulate.paymentTypeOption){
-                    for(var i in $scope.paymentTypeOptions){
-                        if(scope.response.uiDisplayConfigurations.collectionSheet.isAutoPopulate.cashPaymentType && $scope.paymentTypeOptions[i].isCashPayment){
-                            $scope.paymentDetail.paymentTypeId = $scope.paymentTypeOptions[i].id;
-                            break;
+                    $scope.paymentDetail = {};
+                    if(scope.response && scope.response.uiDisplayConfigurations.collectionSheet.isAutoPopulate.paymentTypeOption && scope.response.uiDisplayConfigurations.collectionSheet.isAutoPopulate.cashPaymentType){
+                        for(var i in $scope.paymentTypeOptions){
+                            if($scope.paymentTypeOptions[i].isCashPayment){
+                                $scope.paymentDetail.paymentTypeId = $scope.paymentTypeOptions[i].id;
+                                break;
+                            }
+                        }
+                    }else{
+                        if(!_.isUndefined(scope.paymentTypeId)){
+                            $scope.paymentDetail.paymentTypeId = scope.paymentTypeId;
+                        }else{
+                            $scope.paymentDetail.paymentTypeId = "";
                         }
                     }
-                }else{
-                    $scope.paymentDetail.paymentTypeId = "";
-                }
-                if(scope.response && scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.paymentTypeId) {
-                    scope.formData.paymentTypeId = scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.paymentTypeId;
-                }
-            };
+
+                    $scope.paymentDetail.accountNumber = "";
+                    $scope.paymentDetail.checkNumber = "";
+                    $scope.paymentDetail.routingCode = "";
+                    $scope.paymentDetail.receiptNumber = "";
+                    $scope.paymentDetail.bankNumber = "";
+                };
+
                 $scope.showPaymentDetailsFn();
                 $scope.isRequired = false;
                 $scope.submitCollectionSheet = function () {
@@ -826,6 +837,11 @@
                         return false;
                     }
                     scope.formData.paymentTypeId = $scope.paymentDetail.paymentTypeId;
+                    scope.formData.accountNumber = $scope.paymentDetail.accountNumber;
+                    scope.formData.checkNumber = $scope.paymentDetail.checkNumber;
+                    scope.formData.routingCode = $scope.paymentDetail.routingCode;
+                    scope.formData.receiptNumber = $scope.paymentDetail.receiptNumber;
+                    scope.formData.bankNumber = $scope.paymentDetail.bankNumber;
                     scope.submit();
                     $modalInstance.dismiss('cancel');
                 };

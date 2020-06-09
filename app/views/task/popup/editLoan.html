@@ -17,7 +17,7 @@
 							</label>
 							<div class="col-sm-4">
 								<select id="productId" ng-model="editLoanAccountdata.productId" name="productId" class="form-control" ng-options="product.id as product.name for product in products"
-								    value="{{product.id}}" ng-change="loanProductChange(editLoanAccountdata.productId)" required="required" ng-disabled="true">
+								    value="{{product.id}}" ng-change="loanProductChange(editLoanAccountdata.productId)" required="required" ng-disabled="isLoanProductReadOnly">
 									<option style="display:none" value="">
 										{{'label.selectloanproduct' | translate}}</option>
 								</select>

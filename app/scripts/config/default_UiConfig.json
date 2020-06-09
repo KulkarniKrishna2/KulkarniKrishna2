@@ -493,7 +493,8 @@
 			"disableVillageDropDown": false,
 			"hideReject": false,
 			"isReadOnlyField": {
-				"createSubGroupDate": false
+				"createSubGroupDate": false,
+				"loanProduct": true
 			},
 			"initiateWorkflow": {
 				"showInitiateOnCompletion": false

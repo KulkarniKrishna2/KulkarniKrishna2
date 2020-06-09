@@ -8575,6 +8575,9 @@
      "label.input.tenure.type": "Tenure Type",
      "label.menu.tenure.type": "Tenure Type",
      "label.heading.same.as.existing.loan" : "Same as Existing Loan",
+     "error.msg.npa.loan.can.not.be.restructured" : "Npa Loans can not be restrcutured.",
+     "label.message.loan.already.restructred" : "This loan is already restructured, do you want to restructure it again ?",
+     "label.account.actual.balance" : "Account Balance",
      
      "------ end of translation file ------": "----------"
 
