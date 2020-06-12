@@ -143,9 +143,13 @@
             }
 
             function enableShowSummary() {
-                scope.viewConfig.isCreate = false;
-                scope.viewConfig.isUpdate = false;
-                scope.viewConfig.showSummary = true;
+                if(!_.isUndefined(scope.bankAccountDetailsData) && !_.isUndefined(scope.bankAccountDetailsData.name)) {
+                    scope.viewConfig.isCreate = false;
+                    scope.viewConfig.isUpdate = false;
+                    scope.viewConfig.showSummary = true;
+                } else{
+                    location.path('/' + getEntityType() + '/' + getEntityId() + '/bankaccountdetails');
+                }
             }
 
             function disableShowSummary() {
