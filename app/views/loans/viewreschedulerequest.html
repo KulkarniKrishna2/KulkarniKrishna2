@@ -119,6 +119,22 @@
                 <tr>
                     <td class="width14" ng-show="introduceGracePeriods">
                         <label class="control-label" style="padding-left: 20px;text-align: left;">{{ 'label.input.graceOnInterest' | translate
+                            }}&nbsp;({{ 'label.input.postGraceOnInterest' | translate }})</label></td>
+                    <td ng-show="introduceGracePeriods">
+                        {{loanRescheduleDetails.postGraceOnInterest}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="width14" ng-show="introduceGracePeriods">
+                        <label class="control-label" style="padding-left: 20px;text-align: left;">{{ 'label.input.graceOnInterest' | translate
+                            }}&nbsp;({{ 'label.input.postGraceOnInterestUpdateEmi' | translate }})</label></td>
+                    <td ng-show="introduceGracePeriods">
+                        {{loanRescheduleDetails.postGraceOnInterestUpdateEmi}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="width14" ng-show="introduceGracePeriods">
+                        <label class="control-label" style="padding-left: 20px;text-align: left;">{{ 'label.input.graceOnInterest' | translate
                             }}&nbsp;({{ 'label.input.graceoveremi' | translate }})</label></td>
                     <td ng-show="introduceGracePeriods">
                         {{loanRescheduleDetails.graceOnInterest}}

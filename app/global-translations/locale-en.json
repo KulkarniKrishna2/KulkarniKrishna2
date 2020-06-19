@@ -2031,6 +2031,8 @@
     "label.input.compound.grace.interest": "Enable compounding on grace interest",
     "label.input.grace.due.in.last.emi": "Due in last EMI",
     "label.input.graceoveremi": "EMI + Grace period Interest",
+    "label.input.postGraceOnInterest": "Post Interest to principal",
+    "label.input.postGraceOnInterestUpdateEmi": "Post Interest to principal and  update EMI Amount",
     "label.input.extendRepaymentPeriod": "Extend Repayment Period",
     "label.input.extendRepaymentSchedule": "Extend Repayment Schedule",
     "rescheduletype.rescheduletospecificdate": "Reschedule to specified date",
@@ -8618,6 +8620,7 @@
      "label.account.actual.balance" : "Account Balance",
      "error.msg.glJournalEntry.gl.account.tag.and.accounting.rule.tag.must.be.same" : "GL Account tag and accounting rule tag must be same",
      
+     "label.heading.posted.income":"Income Posted",
      "------ end of translation file ------": "----------"
 
 }
