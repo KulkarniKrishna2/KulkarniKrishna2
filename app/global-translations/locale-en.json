@@ -8584,6 +8584,7 @@
      "lable.msg.task.can.perfomed.in.mobile.app" : "This task can be performed only from mobile application",
      "label.heading.summary.penalties": "Penalties",
 
+     "label.heading.posted.income":"Income Posted",
      "------ end of translation file ------": "----------"
 
 }

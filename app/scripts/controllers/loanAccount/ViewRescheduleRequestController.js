@@ -49,6 +49,16 @@
                         scope.introduceGracePeriods = true;
                     }
 
+                    if(scope.loanTermVariationsData[i].termType.value == "postGraceOnInterest") {
+                        scope.loanRescheduleDetails.postGraceOnInterest = scope.loanTermVariationsData[i].decimalValue;
+                        scope.introduceGracePeriods = true;
+                    }
+
+                    if(scope.loanTermVariationsData[i].termType.value == "postGraceOnInterestUpdateEmi") {
+                        scope.loanRescheduleDetails.postGraceOnInterestUpdateEmi = scope.loanTermVariationsData[i].decimalValue;
+                        scope.introduceGracePeriods = true;
+                    }
+
                     if(scope.loanTermVariationsData[i].termType.value == "compoundGraceInterest") {
                         scope.loanRescheduleDetails.compoundGraceInterest = true;
                     }
