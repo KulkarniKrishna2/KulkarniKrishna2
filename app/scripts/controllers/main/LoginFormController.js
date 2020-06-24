@@ -224,15 +224,43 @@
             scope.updatePassword = function (){
                 var credentialsData = {};
                 angular.copy(scope.passwordDetails,credentialsData);
+                encryptOldPassword(credentialsData);
+            };
+
+            var encryptOldPassword = function(credentialsData){
                 if(credentialsData.oldPassword){
-                    credentialsData.oldPassword = commonUtilService.encrypt(credentialsData.oldPassword);
+                    commonUtilService.encrypt(credentialsData.oldPassword).then(function(encriptedText) {
+                        credentialsData.oldPassword = commonUtilService.convertEncriptedArrayToText(encriptedText);
+                        encryptNewpassword(credentialsData);
+                    });
+                }else{
+                    encryptNewpassword(credentialsData);
                 }
+            }
+
+            var encryptNewpassword = function(credentialsData){
                 if(credentialsData.password){
-                    credentialsData.password = commonUtilService.encrypt(credentialsData.password);
+                    commonUtilService.encrypt(credentialsData.password).then(function(encriptedText) {
+                        credentialsData.password = commonUtilService.convertEncriptedArrayToText(encriptedText);
+                        encryptRepeatPassword(credentialsData);
+                    });
+                }else{
+                    encryptRepeatPassword(credentialsData);
                 }
+            }
+
+            var encryptRepeatPassword = function(credentialsData){
                 if(credentialsData.repeatPassword){
-                    credentialsData.repeatPassword = commonUtilService.encrypt(credentialsData.repeatPassword);
+                    commonUtilService.encrypt(credentialsData.repeatPassword).then(function(encriptedText) {
+                        credentialsData.repeatPassword = commonUtilService.convertEncriptedArrayToText(encriptedText);
+                        sendUpdatePasswordRequest(credentialsData);
+                    });
+                }else{
+                    sendUpdatePasswordRequest(credentialsData);
                 }
+            }
+
+            var sendUpdatePasswordRequest = function(credentialsData){
                 resourceFactory.myAccountResource.changePassword(credentialsData, function (data) {
                     //clear the old authorization token
                     httpService.cancelAuthorization();
@@ -251,7 +279,7 @@
                     }
                     
                 });
-            };
+            }
 
             $timeout(function () {
                 init();

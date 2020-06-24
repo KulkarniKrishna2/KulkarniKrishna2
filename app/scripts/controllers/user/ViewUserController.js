@@ -41,25 +41,46 @@
                     this.formData['userId'] = routeParams.id;
                     var credentialsData = {};
                     angular.copy(this.formData, credentialsData);
-                    if (credentialsData.password) {
-                        credentialsData.password = commonUtilService.encrypt(credentialsData.password);
-                    }
-                    if (credentialsData.repeatPassword) {
-                        credentialsData.repeatPassword = commonUtilService.encrypt(credentialsData.repeatPassword);
-                    }
-                    resourceFactory.userPasswordResource.resetpassword(credentialsData, function (data) {
-                        $modalInstance.close('activate');
-                        if (data.resourceId == scope.currentSession.user.userId) {
-                            scope.logout();
-                        } else {
-                            route.reload();
-                        };
-                    });
+                    encryptNewpassword($modalInstance,credentialsData);
+                    
                 };
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
                 };
             };
+
+            var encryptNewpassword = function($modalInstance,credentialsData){
+                if(credentialsData.password){
+                    commonUtilService.encrypt(credentialsData.password).then(function(encriptedText) {
+                        credentialsData.password = commonUtilService.convertEncriptedArrayToText(encriptedText);
+                        encryptRepeatPassword($modalInstance,credentialsData);
+                    });
+                }else{
+                    encryptRepeatPassword($modalInstance,credentialsData);
+                }
+            };
+
+            var encryptRepeatPassword = function($modalInstance,credentialsData){
+                if(credentialsData.repeatPassword){
+                    commonUtilService.encrypt(credentialsData.repeatPassword).then(function(encriptedText) {
+                        credentialsData.repeatPassword = commonUtilService.convertEncriptedArrayToText(encriptedText);
+                        sendUpdatePasswordRequest($modalInstance,credentialsData);
+                    });
+                }else{
+                    sendUpdatePasswordRequest($modalInstance,credentialsData);
+                }
+            };
+
+            var sendUpdatePasswordRequest = function($modalInstance,credentialsData){
+                resourceFactory.userPasswordResource.resetpassword(credentialsData, function (data) {
+                    $modalInstance.close('activate');
+                    if (data.resourceId == scope.currentSession.user.userId) {
+                        scope.logout();
+                    } else {
+                        route.reload();
+                    };
+                });
+            }
 
             var UserDeleteCtrl = function ($scope, $modalInstance) {
                 $scope.delete = function () {

@@ -103,17 +103,22 @@
             var onOauthSuccessPublicKeyData = function (publicKeyData) {
                 publicKey = undefined;
                 if (!_.isUndefined(publicKeyData.keyValue)) {
-                
-                    publicKey = publicKeyData.keyValue;
-                    var encryptedPassword = commonUtilService.encrypt(credentialsData.password);
-                    if (encryptedPassword == false) {
-                        onFailure(null);
-                    } else {
-                        credentialsData.password = encryptedPassword;
-                        oauthAuthenticateProcesses(credentialsData);
-                    }
+                    commonUtilService.importRsaKey(publicKeyData.keyValue,onOauthImportRsaKeySuccess,onFailure);
                 } else {
                     
+                    oauthAuthenticateProcesses(credentialsData);
+                }
+            };
+
+            var onOauthImportRsaKeySuccess = function(){
+                commonUtilService.encryptWithRsaOaep(credentialsData.password,onOauthEncryptionSuccess,onFailure);
+            }
+
+            var onOauthEncryptionSuccess = function(encryptedPassword){
+                if (encryptedPassword == false) {
+                    onFailure(null);
+                } else {
+                    credentialsData.password = encryptedPassword;
                     oauthAuthenticateProcesses(credentialsData);
                 }
             };
@@ -141,20 +146,26 @@
                 }
             };
 
+
             var onSuccessPublicKeyData = function (publicKeyData) {
-                
+                publicKey = undefined;
                 if (!_.isUndefined(publicKeyData.keyValue)) {
-                    
-                    publicKey = publicKeyData.keyValue;
-                    var encryptedPassword = commonUtilService.encrypt(credentialsData.password);
-                    if (encryptedPassword == false) {
-                        onFailure(null);
-                    } else {
-                        credentialsData.password = encryptedPassword;
-                        authenticateProcesses(credentialsData);
-                    }
+                    commonUtilService.importRsaKey(publicKeyData.keyValue,onImportRsaKeySuccess,onFailure);
                 } else {
                     
+                    authenticateProcesses(credentialsData);
+                }
+            };
+
+            var onImportRsaKeySuccess = function(){
+                commonUtilService.encryptWithRsaOaep(credentialsData.password,onEncryptionSuccess,onFailure);
+            }
+
+            var onEncryptionSuccess = function(encryptedPassword){
+                if (encryptedPassword == false) {
+                    onFailure(null);
+                } else {
+                    credentialsData.password = encryptedPassword;
                     authenticateProcesses(credentialsData);
                 }
             };
