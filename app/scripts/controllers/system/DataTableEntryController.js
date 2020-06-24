@@ -512,8 +512,14 @@
                     if (scope.columnHeaders[i].columnDisplayType == 'DATE') {
                         this.formData[scope.columnHeaders[i].columnName] = dateFilter(this.formDat[scope.columnHeaders[i].columnName], this.formData.dateFormat);
                     } else if(scope.columnHeaders[i].columnDisplayType == 'DATETIME') {
-                        this.formData[scope.columnHeaders[i].columnName] = dateFilter(this.formDat[scope.columnHeaders[i].columnName].date, scope.df) + " " +
+                        if(this.formDat[scope.columnHeaders[i].columnName].date == undefined || this.formDat[scope.columnHeaders[i].columnName].time == undefined){
+                            this.formData[scope.columnHeaders[i].columnName] = null;
+                        }
+                        else{
+                            this.formData[scope.columnHeaders[i].columnName] = dateFilter(this.formDat[scope.columnHeaders[i].columnName].date, scope.df) + " " +
                         dateFilter(this.formDat[scope.columnHeaders[i].columnName].time, scope.tf);
+                        }
+                        
                     }
                 }
                 if(scope.fromEntity == 'loan'){
