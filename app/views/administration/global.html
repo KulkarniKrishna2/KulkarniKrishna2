@@ -7,7 +7,7 @@
     <table class="table span12">
         <thead>
         <tr class="graybg">
-            <th class="width35">{{'label.heading.name' | translate}}</th>
+            <th class="width38">{{'label.heading.name' | translate}}</th>
             <th class="text-center width10">{{'label.heading.enabled' | translate}}</th>
             <th class="text-center width10"></th>
             <th class="text-center width30">{{'label.heading.value' | translate}}</th>
@@ -17,7 +17,7 @@
         </thead>
         <tbody>
         <tr ng-repeat="config in configs | orderBy:'name':reverse | filter:filterText">
-            <td class="width35">
+            <td class="width38">
 			{{config.name | translate}}
 			&nbsp; &nbsp; &nbsp;<i class="icon-question-sign icon-white" tooltip="{{'label.tooltip.global.' + config.name | translate}}"></i>
 			</td>
