@@ -48,6 +48,7 @@
             scope.refundTransactionTypeId = 16;
             scope.showEditActiveLoan = true;
             scope.isNPA = false;
+            scope.loanSchedule = [];
             
             scope.showBankApprovalStatus = false;
             scope.displayInterestRateFromProduct = false;
@@ -361,6 +362,7 @@
             };
             scope.tabs = [
                 { active: true },
+                { active: false },
                 { active: false },
                 { active: false },
                 { active: false },
@@ -1140,6 +1142,12 @@
                     });
                 }
             };
+
+            scope.getLoanScheduleData = function () {
+                resourceFactory.LoanScheduleResource.getLoanScheduleDetails({ loanId: routeParams.id }, function (data) {
+                  scope.loanSchedule = data;     
+                });
+            } 
 
             scope.fetchNotes = function () {
                 if (!scope.noteLoaded) {
