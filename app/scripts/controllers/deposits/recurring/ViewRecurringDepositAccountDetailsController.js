@@ -27,13 +27,6 @@
                     case "withdrawnbyclient":
                         location.path('/recurringdepositaccount/' + accountId + '/withdrawnByApplicant');
                         break;
-                    case "delete":
-                        resourceFactory.recurringDepositAccountResource.delete({accountId: accountId}, {}, function (data) {
-                            var destination = '/viewgroup/' + data.groupId;
-                            if (data.clientId) destination = '/viewclient/' + data.clientId;
-                            location.path(destination);
-                        });
-                        break;
                     case "undoapproval":
                         location.path('/recurringdepositaccount/' + accountId + '/undoapproval');
                         break;
@@ -144,9 +137,6 @@
                             },
                             {
                                 name: "button.addcharge"
-                            },
-                            {
-                                name: "button.delete"
                             }
                         ]
                     };

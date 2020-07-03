@@ -45,6 +45,10 @@
                         <td>{{'label.heading.disbursementdate' | translate}}</td>
                         <td>{{restructureData.expectedDisbursementDate | DateFormat}}</td>
                     </tr>
+                    <tr>
+                        <td>{{'label.heading.maturitydate' | translate}}</td>
+                        <td>{{restructureData.maturityDate | DateFormat}}</td>
+                    </tr>
                     <tr ng-show="restructureData.loanOfficerName.length>0">
                         <td>{{'label.heading.loanofficer' | translate}}</td>
                         <td>{{restructureData.loanOfficerName}}</td>
