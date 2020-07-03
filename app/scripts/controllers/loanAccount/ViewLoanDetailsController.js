@@ -512,10 +512,6 @@
                                 taskPermissionName: 'WITHDRAW_LOAN'
                             },
                             {
-                                name: "button.delete",
-                                taskPermissionName: 'DELETE_LOAN'
-                            },
-                            {
                                 name: "button.addcollateral",
                                 taskPermissionName: 'CREATE_COLLATERAL'
                             },

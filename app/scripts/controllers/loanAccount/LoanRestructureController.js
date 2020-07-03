@@ -43,7 +43,7 @@
                     dateFormat: scope.df
                 };
                 if(scope.restructureData.fundId){
-                    scope.formData.fundId = scope.restructureData.clientId;
+                    scope.formData.fundId = scope.restructureData.fundId;
                 }
                 if(scope.restructureData.loanOfficerId){
                     scope.formData.loanOfficerId = scope.restructureData.loanOfficerId;

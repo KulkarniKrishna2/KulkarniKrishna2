@@ -88,13 +88,6 @@
                     case "withdrawnbyclient":
                         location.path('/savingaccount/' + accountId + '/withdrawnByApplicant');
                         break;
-                    case "delete":
-                        resourceFactory.savingsResource.delete({accountId: accountId}, {}, function (data) {
-                            var destination = '/viewgroup/' + data.groupId;
-                            if (data.clientId) destination = '/viewclient/' + data.clientId;
-                            location.path(destination);
-                        });
-                        break;
                     case "undoapproval":
                         location.path('/savingaccount/' + accountId + '/undoapproval');
                         break;
@@ -277,10 +270,6 @@
                             {
                                 name: "button.addcharge",
                                 taskPermissionName:"CREATE_SAVINGSACCOUNTCHARGE"
-                            },
-                            {
-                                name: "button.delete",
-                                taskPermissionName:"DELETE_SAVINGSACCOUNT"
                             }
                         ]
                     };

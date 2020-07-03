@@ -190,7 +190,7 @@
                             class="required">*</span></label>
                     <div class="col-sm-4">
                         <input id="activationDate" name="activationDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="$parent.activationDate"
-                               is-open="opened" min="'2000-01-01'" max="'2050-01-01'" class="form-control" required/>
+                               is-open="opened" min="'2000-01-01'" max="globalMaxDate" class="form-control" required/>
                     </div>
                     <div class="col-sm-4">
                         <form-validate valattributeform="activatesmsform" valattribute="activationDate"/>
@@ -220,7 +220,7 @@
                             class="required">*</span></label>
                     <div class="col-sm-4">
                         <input id="closureDate" name="closureDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="$parent.closureDate"
-                               is-open="opened" min="'2000-01-01'" max="'2050-01-01'" class="form-control" required/>
+                               is-open="opened" min="'2000-01-01'" max="globalMaxDate" class="form-control" required/>
                     </div>
                     <div class="col-sm-4">
                         <form-validate valattributeform="closesmsform" valattribute="closureDate"/>
@@ -250,7 +250,7 @@
                             class="required">*</span></label>
                     <div class="col-sm-4">
                         <input id="reActivationDate" name="reActivationDate" type="text" datepicker-pop="dd MMMM yyyy" ng-model="$parent.activationDate"
-                               is-open="opened" min="'2000-01-01'" max="'2050-01-01'" class="form-control" required/>
+                               is-open="opened" min="'2000-01-01'" max="globalMaxDate" class="form-control" required/>
                     </div>
                     <div class="col-sm-4">
                         <form-validate valattributeform="reactivatesmsform" valattribute="reActivationDate"/>
