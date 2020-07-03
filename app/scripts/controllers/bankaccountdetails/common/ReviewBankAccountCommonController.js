@@ -5,7 +5,6 @@
             angular.extend(this, $controller('defaultActivityController', { $scope: scope }));
 
             scope.viewConfig = {};
-            scope.checkerBankAccountDetailsData = {};
             scope.bankAccountDocuments = [];
 
             function getEntityType() {
@@ -98,48 +97,52 @@
                 var errorArray = new Array();
                 var arrayIndex = 0;
                 var isBankDetailsNotMatched = false;
-                var isBankAcountHolderNameNotMatched = true;
-                if (scope.bankAccountDetailsData.name && scope.checkerBankAccountDetailsData.name) {
-                    if (scope.bankAccountDetailsData.name.toString().toLowerCase().trim() === scope.checkerBankAccountDetailsData.name.toString().toLowerCase().trim()) {
-                        isBankAcountHolderNameNotMatched = false;
+
+                if(!_.isUndefined(scope.bankAccountDetailsData) && !_.isUndefined(scope.checkerBankAccountDetailsData)){
+                    
+                    var isBankAcountHolderNameNotMatched = true;
+                    if (scope.bankAccountDetailsData.name && scope.checkerBankAccountDetailsData.name) {
+                        if (scope.bankAccountDetailsData.name.toString().toLowerCase().trim() === scope.checkerBankAccountDetailsData.name.toString().toLowerCase().trim()) {
+                            isBankAcountHolderNameNotMatched = false;
+                        }
+                    }
+                    if (isBankAcountHolderNameNotMatched) {
+                        isBankDetailsNotMatched = true;
+                        var errorObj = new Object();
+                        errorObj.code = 'error.msg.maker.checker.bank.account.holder.name.not.matched';
+                        errorArray[arrayIndex] = errorObj;
+                        arrayIndex++;
+                    }
+
+                    var isAccountNumberNotMatched = true;
+                    if (scope.bankAccountDetailsData.accountNumber && scope.checkerBankAccountDetailsData.accountNumber) {
+                        if (scope.bankAccountDetailsData.accountNumber.toString().toLowerCase().trim() === scope.checkerBankAccountDetailsData.accountNumber.toString().toLowerCase().trim()) {
+                            isAccountNumberNotMatched = false;
+                        }
+                    }
+                    if (isAccountNumberNotMatched) {
+                        isBankDetailsNotMatched = true;
+                        var errorObj = new Object();
+                        errorObj.code = 'error.msg.maker.checker.bank.account.number.not.matched';
+                        errorArray[arrayIndex] = errorObj;
+                        arrayIndex++;
+                    }
+
+                    var isIfscCodeNotMatched = true;
+                    if (scope.bankAccountDetailsData.ifscCode && scope.checkerBankAccountDetailsData.ifscCode) {
+                        if (scope.bankAccountDetailsData.ifscCode.toString().toLowerCase().trim() === scope.checkerBankAccountDetailsData.ifscCode.toString().toLowerCase().trim()) {
+                            isIfscCodeNotMatched = false;
+                        }
+                    }
+                    if (isIfscCodeNotMatched) {
+                        isBankDetailsNotMatched = true;
+                        var errorObj = new Object();
+                        errorObj.code = 'error.msg.maker.checker.bank.account.ifsc.code.not.matched';
+                        errorArray[arrayIndex] = errorObj;
+                        arrayIndex++;
                     }
                 }
-                if (isBankAcountHolderNameNotMatched) {
-                    isBankDetailsNotMatched = true;
-                    var errorObj = new Object();
-                    errorObj.code = 'error.msg.maker.checker.bank.account.holder.name.not.matched';
-                    errorArray[arrayIndex] = errorObj;
-                    arrayIndex++;
-                }
-
-                var isAccountNumberNotMatched = true;
-                if (scope.bankAccountDetailsData.accountNumber && scope.checkerBankAccountDetailsData.accountNumber) {
-                    if (scope.bankAccountDetailsData.accountNumber.toString().toLowerCase().trim() === scope.checkerBankAccountDetailsData.accountNumber.toString().toLowerCase().trim()) {
-                        isAccountNumberNotMatched = false;
-                    }
-                }
-                if (isAccountNumberNotMatched) {
-                    isBankDetailsNotMatched = true;
-                    var errorObj = new Object();
-                    errorObj.code = 'error.msg.maker.checker.bank.account.number.not.matched';
-                    errorArray[arrayIndex] = errorObj;
-                    arrayIndex++;
-                }
-
-                var isIfscCodeNotMatched = true;
-                if (scope.bankAccountDetailsData.ifscCode && scope.checkerBankAccountDetailsData.ifscCode) {
-                    if (scope.bankAccountDetailsData.ifscCode.toString().toLowerCase().trim() === scope.checkerBankAccountDetailsData.ifscCode.toString().toLowerCase().trim()) {
-                        isIfscCodeNotMatched = false;
-                    }
-                }
-                if (isIfscCodeNotMatched) {
-                    isBankDetailsNotMatched = true;
-                    var errorObj = new Object();
-                    errorObj.code = 'error.msg.maker.checker.bank.account.ifsc.code.not.matched';
-                    errorArray[arrayIndex] = errorObj;
-                    arrayIndex++;
-                }
-
+                
                 if (isBankDetailsNotMatched) {
                     scope.errorDetails = [];
                     scope.errorDetails.push(errorArray);

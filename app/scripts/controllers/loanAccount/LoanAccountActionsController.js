@@ -26,7 +26,7 @@
             scope.showRepaymentsStartingFromDateField = false;
             scope.isRecieptNumbermandatory = false;
             scope.bankAccountTemplate = {};
-            scope.showPaymentTypeForChargeDisbursement = false;
+            scope.showPaymentTypeForRepaymentAtDisbursement = false;
 
             //glim
             scope.isGLIM = false;
@@ -412,9 +412,9 @@
                             scope.formData.repaymentsStartingFromDate = new Date(data.expectedFirstRepaymentOnDate);
                             scope.showRepaymentsStartingFromDateField = true;
                         }
-                        scope.showPaymentTypeForChargeDisbursement = data.splitDisbursementForCharges;
-                        if(data.splitDisbursementForCharges){
-                            scope.formData.paymentTypeIdForChargeDisbursement = data.paymentTypeIdForChargeDisbursement;
+                        scope.showPaymentTypeForRepaymentAtDisbursement = data.isRepaymentAtDisbursement;
+                        if(data.isRepaymentAtDisbursement){
+                            scope.formData.paymentTypeIdForRepaymentAtDisbursement = data.paymentTypeIdForRepaymentAtDisbursement;
                         }
                     });
                     if(routeParams.type && routeParams.type == 'flatinterest'){

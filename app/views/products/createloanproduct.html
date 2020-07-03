@@ -1184,26 +1184,44 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="control-label col-sm-4">{{'label.input.splitdisbursementforcharges'  | translate }}</label>
+        <label class="control-label col-sm-4">{{'label.input.is.repayment.at.disbursement'  | translate }}</label>
 
         <div class="col-sm-2">
             <label class="checkbox control-label">
-                <input id="splitDisbursementForCharges" type="checkbox"
-                       ng-model="formData.splitDisbursementForCharges">
+                <input id="isRepaymentAtDisbursement" type="checkbox"
+                       ng-model="formData.isRepaymentAtDisbursement">
             </label>
         </div>
     </div>
 
-    <div class="form-group" ng-if="formData.splitDisbursementForCharges">
-        <label class="control-label col-sm-4">{{'label.input.paymenttypeforchargeDisbursement'  | translate }}</label>
+    <div class="form-group" ng-if="formData.isRepaymentAtDisbursement">
+        <label class="control-label col-sm-4">{{'label.input.payment.type.for.repayment.at.disbursement'  | translate }}</label>
         <div class="col-sm-2">
-            <select id="paymentTypeIdForChargeDisbursement" ng-model="formData.paymentTypeIdForChargeDisbursement" class="form-control"
+            <select id="paymentTypeIdForRepaymentAtDisbursement" ng-model="formData.paymentTypeIdForRepaymentAtDisbursement" class="form-control"
                     ng-options="paymentType.id as paymentType.name for paymentType in product.paymentTypeOptions"
                     value="{{paymentType.id}}">
                 <option value="">{{'label.menu.selectone' | translate}}</option>
             </select>
         </div>
     </div>
+
+    <div class="form-group" ng-if="formData.isRepaymentAtDisbursement && formData.brokenPeriodMethodType === 3">
+        <label class="control-label col-sm-4">{{'label.input.broken.period.interest.collect.at.disbursement'  | translate }}</label>
+        <div class="col-sm-2">
+            <label class="checkbox control-label">
+                <input id="brokenPeriodInterestCollectAtDisbursement" type="checkbox" ng-model="formData.brokenPeriodInterestCollectAtDisbursement">
+            </label>
+        </div>
+    </div>
+
+    <div class="form-group" ng-if="formData.isRepaymentAtDisbursement">
+        <label class="control-label col-sm-4">{{'label.input.no.of.adv.emi.collection'  | translate }}</label>
+        <div class="col-sm-2">
+            <input id="noOfAdvEmiCollection" placeholder="{{'label.input.no.of.adv.emi.collection' | translate}}" type="text" autocomplete="off"
+	               class="form-control" ng-model="formData.noOfAdvEmiCollection">
+        </div>
+    </div>
+
     <div class="form-group">
         <label class="control-label col-sm-4">{{'label.input.disable.excess.amount.adjustment'  | translate }}</label>
 

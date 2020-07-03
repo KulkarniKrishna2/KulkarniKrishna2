@@ -348,6 +348,9 @@
                         getLoanAccountDetails: { method: 'GET', params: {} },
                         update: { method: 'PUT' }
                     }),
+                    LoanScheduleResource: defineResource(apiVer + "/loans/:loanId/schedule-overview", { loanId: '@loanId' }, {
+                        getLoanScheduleDetails: { method: 'GET', params: {},isArray: true }
+                    }),
                     LoanEditDisburseResource: defineResource(apiVer + "/loans/:loanId/disbursements/:disbursementId", { loanId: '@loanId', disbursementId: '@disbursementId' }, {
                         getLoanAccountDetails: { method: 'GET', params: {} },
                         update: { method: 'PUT' }

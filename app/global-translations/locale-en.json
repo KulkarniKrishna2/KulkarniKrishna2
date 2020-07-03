@@ -82,6 +82,8 @@
     "label.heading.loan": "Loan",
     "label.heading.loanid": "Loan ID",
     "label.heading.principal": "Principal",
+    "label.heading.total.period.due": "Total Period Due(EMI+F+P)",
+    "label.heading.fully.paid.date": "Fully Paid Date",
     "label.heading.loanProductName": "ProductName",
     "label.heading.amount": "Amount",
     "label.heading.date": "Date",
@@ -89,6 +91,7 @@
     "label.heading.due": "Due",
     "label.heading.duetax": "Due (Tax)",
     "label.heading.paid": "Paid",
+    "label.heading.paid.amount": "Paid Amount",
     "label.heading.waived": "Waived",
     "label.heading.outstanding": "Outstanding",
     "label.heading.installmentamount": "Installment Amount",
@@ -1765,6 +1768,7 @@
     "label.heading.collaterals": "Collateral",
     "label.heading.value": "Value",
     "label.heading.loanamountandbalance": "Loan Amount and Balance",
+    "label.heading.overdue.details": "Overdue Details",
     "label.heading.totalcostofloan": "Total Cost of Loan",
     "label.heading.days": "Days",
     "label.repayment.heading.period": "Repayment Period",
@@ -1830,12 +1834,14 @@
     "label.heading.original": "Original",
     "label.heading.penalties": "Penalties",
     "label.heading.repaymentschedule": "Repayment Schedule",
+    "label.heading.smart.repaymentschedule": "Smart Repayment Schedule",
     "label.heading.repaymentscheduleing.rule": "Repayment Scheduling Rule",
     "label.heading.futureschedule": "Future Schedule",
     "label.heading.originalschedule": "Original Schedule",
     "label.heading.paiddate": "Paid Date",
     "label.heading.totaldue": "Total Due",
     "label.heading.balanceofloan": "Balance of Loan",
+    "label.heading.schedule.emi": "EMI(P+I)",
     "label.heading.breakdown": "Break Down",
     "label.heading.loancollaterals": "Loan Collateral",
     "label.heading.enterpaymentdate": "Enter Payment Date",
@@ -1848,7 +1854,9 @@
     "label.heading.penalities": "Penalties",
     "label.heading.loan.balance": "Loan Balance",
     "label.heading.inadvance": "In Advance",
+    "label.heading.paid.inadvance": "Paid in Advance",
     "label.heading.late": "Late",
+    "label.heading.paid.late": "Paid in Late",
     "label.heading.installmenttotals": "Installment Totals",
     "label.heading.onprincipalpayment": "On Principal Payment",
     "label.heading.oninterestpayment": "On Interest Payment",
@@ -3885,7 +3893,11 @@
     "label.input.canUseForTopup": "Is allowed to be used for providing Topup Loans?",
     "label.input.allowupfrontcollection": "Is Upfront Amount Collection Allowed",
     "label.input.splitdisbursementforcharges": "Is split required in disbursement for charges",
+    "label.input.is.repayment.at.disbursement": "Is repayment at disbursement",
     "label.input.paymenttypeforchargeDisbursement": "Payment type for split disbursement ",
+    "label.input.payment.type.for.repayment.at.disbursement": "Payment type for repayment at disbursement",
+    "label.input.broken.period.interest.collect.at.disbursement": "Initial broken-period interest collect at disbursement",
+    "label.input.no.of.adv.emi.collection": "No of advance EMI collection at disbursement",
     "label.input.amountforupfrontcollection": "Amount To Be Collected Upfront",
     "label.input.percentageffdisbursementtobetransfered": "Principal (%) To be transferred to savings account",
     "label.input.minimumgap": "Minimum gap between Installments",
@@ -8616,11 +8628,16 @@
      "validation.msg.glaccount.is.mapped.to.companycode" : "GL account `{{params[0].value}}` is  mapped to company code `{{params[1].value}}`",
 
      "error.msg.npa.loan.can.not.be.restructured" : "Npa Loans can not be restrcutured.",
+
      "label.message.loan.already.restructred" : "This loan is already restructured, do you want to restructure it again ?",
      "label.account.actual.balance" : "Account Balance",
      "error.msg.glJournalEntry.gl.account.tag.and.accounting.rule.tag.must.be.same" : "GL Account tag and accounting rule tag must be same",
      
      "label.heading.posted.income":"Income Posted",
+
+
+
+     
      "------ end of translation file ------": "----------"
 
 }

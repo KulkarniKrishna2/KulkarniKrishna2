@@ -558,17 +558,24 @@
                 </td>
             </tr>
             <tr ng-if="showLoanTerms" ng-hide="!showBrokenPeriodType"  ng-show="formData.interestType == 1 && (formData.interestCalculationPeriodType == 0 || formData.allowPartialPeriodInterestCalcualtion)">
-                <td>
+                <td class="width19">
                     <label>{{ 'label.input.brokenperiodmethodtype' | translate }}
                         <i class="icon-question-sign" tooltip="{{'label.tooltip.brokenperiodmethodtype' | translate}}"
                         tooltip-append-to-body="true"></i>
                      </label>
                 </td>
-                <td class="paddedbottom10">
+                <td class="width32 paddedbottom10">
                     <select id="brokenPeriodMethodType" ng-model="formData.brokenPeriodMethodType"
                             class="form-control"
                             ng-options="brokenPeriodMethodType.id as brokenPeriodMethodType.value for brokenPeriodMethodType in loanaccountinfo.brokenPeriodMethodTypeOptions"
                             value="{{brokenPeriodMethodType.id}}"></select>
+                </td>
+
+                <td class="width19">
+                    <label ng-if="loanaccountinfo.product.isRepaymentAtDisbursement && formData.brokenPeriodMethodType === 3">{{ 'label.input.broken.period.interest.collect.at.disbursement' | translate }}</label>
+                </td>
+                <td class="width32 paddedbottom10">
+                    <input ng-if="loanaccountinfo.product.isRepaymentAtDisbursement && formData.brokenPeriodMethodType === 3" id="brokenPeriodInterestCollectAtDisbursement" type="checkbox" ng-model="formData.brokenPeriodInterestCollectAtDisbursement">
                 </td>
             </tr>
             <tr ng-if="showLoanTerms" data-ng-show="loanaccountinfo.product.isFlatInterestRate && !loanaccountinfo.product.multiDisburseLoan">
@@ -577,13 +584,21 @@
                     <input id="discountOnDisbursalAmount" type="text" autocomplete="off" ng-model="formData.discountOnDisbursalAmount" class="form-control" number-format/>
                 </td>
             </tr>
-            <tr ng-if="showLoanTerms" data-ng-show="loanaccountinfo.allowUpfrontCollection">
-                <td>
+            <tr ng-if="showLoanTerms">
+                <td data-ng-show="loanaccountinfo.allowUpfrontCollection">
                     <label>{{ 'label.input.amountforupfrontcollection' | translate }}</label>
                 </td>
-                <td>
+                <td data-ng-show="loanaccountinfo.allowUpfrontCollection">
                     <input id="amountForUpfrontCollection" type="text" autocomplete="off" ng-model="formData.amountForUpfrontCollection"
                            class="form-control" number-format/>
+                </td>
+
+                <td class="width19" data-ng-show="loanaccountinfo.product.isRepaymentAtDisbursement">
+                    <label>{{ 'label.input.no.of.adv.emi.collection' | translate }}</label>
+                </td>
+                <td class="width32 paddedbottom10" data-ng-show="loanaccountinfo.product.isRepaymentAtDisbursement">
+                    <input ng-if="loanaccountinfo.product.isRepaymentAtDisbursement" id="noOfAdvEmiCollection" placeholder="{{'label.input.no.of.adv.emi.collection' | translate}}" type="text" autocomplete="off"
+	               class="form-control" ng-model="formData.noOfAdvEmiCollection">
                 </td>
             </tr>
             <tr ng-if="showLoanTerms" data-ng-show="loanaccountinfo.canDefineInstallmentAmount">
@@ -1093,8 +1108,8 @@
 
 <div ng-show="previewRepayment" ng-include="'views/loans/loanrepaymentpreview.html'" />
 
-
-<div class="col-md-offset-6 paddedtop10">
+<br>
+<div class="col-md-offset-5 paddedtop10">
     <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
     <button id="save" type="submit" has-permission='CREATE_LOAN' class="btn btn-primary" ng-show="loanaccountinfo" ng-click="isSubmitted = true">{{'label.button.save' | translate}}
     </button>
