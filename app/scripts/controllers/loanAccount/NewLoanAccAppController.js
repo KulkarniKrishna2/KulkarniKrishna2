@@ -439,6 +439,13 @@
                     scope.formData.brokenPeriodMethodType = "";
                 }
 
+                if (scope.loanaccountinfo.product.isRepaymentAtDisbursement == true) {
+                    scope.formData.noOfAdvEmiCollection = scope.loanaccountinfo.product.noOfAdvEmiCollection;
+                    if(scope.formData.brokenPeriodMethodType === 3){
+                        scope.formData.brokenPeriodInterestCollectAtDisbursement = scope.loanaccountinfo.product.brokenPeriodInterestCollectAtDisbursement;
+                    }
+                }
+
                 if (scope.loanaccountinfo.isInterestRecalculationEnabled && scope.loanaccountinfo.interestRecalculationData.recalculationRestFrequencyDate) {
                     scope.date.recalculationRestFrequencyDate = new Date(scope.loanaccountinfo.interestRecalculationData.recalculationRestFrequencyDate);
                 }

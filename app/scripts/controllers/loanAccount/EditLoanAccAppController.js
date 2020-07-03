@@ -290,6 +290,12 @@
                 if (scope.loanaccountinfo.brokenPeriodMethodType) {
                     scope.formData.brokenPeriodMethodType = scope.loanaccountinfo.brokenPeriodMethodType.id;
                 }
+                if (scope.loanaccountinfo.product.isRepaymentAtDisbursement == true) {
+                    if(scope.formData.brokenPeriodMethodType === 3){
+                        scope.formData.brokenPeriodInterestCollectAtDisbursement = scope.loanaccountinfo.brokenPeriodInterestCollectAtDisbursement;
+                    }
+                    scope.formData.noOfAdvEmiCollection = scope.loanaccountinfo.noOfAdvEmiCollection;
+                }
 
                 if (scope.loanaccountinfo.meeting && (scope.loanaccountinfo.meeting.title.startsWith("centers") || scope.loanaccountinfo.meeting.title.startsWith("groups"))) {
                     scope.temp.syncRepaymentsWithMeeting = true;

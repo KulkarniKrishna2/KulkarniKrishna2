@@ -815,9 +815,9 @@
                             $scope.formData.repaymentsStartingFromDate = new Date(data.expectedFirstRepaymentOnDate);
                             $scope.showRepaymentsStartingFromDateField = true;
                         }
-                        $scope.showPaymentTypeForChargeDisbursement = data.splitDisbursementForCharges;
-                        if(data.splitDisbursementForCharges){
-                            $scope.formData.paymentTypeIdForChargeDisbursement = data.paymentTypeIdForChargeDisbursement;
+                        $scope.showPaymentTypeForRepaymentAtDisbursement = data.isRepaymentAtDisbursement;
+                        if(data.isRepaymentAtDisbursement){
+                            $scope.formData.paymentTypeForRepaymentAtDisbursement = data.paymentTypeForRepaymentAtDisbursement;
                         }
                         $scope.checkBiometricRequired();
                     });

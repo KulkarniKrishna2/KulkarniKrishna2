@@ -200,16 +200,18 @@
                     considerTenureForIRRCalculation : scope.product.considerTenureForIRRCalculation,
                     percentageOfDisbursementToBeTransferred: scope.product.percentageOfDisbursementToBeTransferred,
                     calculateIrr:scope.product.calculateIrr,
-                    splitDisbursementForCharges:scope.product.splitDisbursementForCharges,
+                    isRepaymentAtDisbursement:scope.product.isRepaymentAtDisbursement,
                     borrowerCycleType : scope.product.borrowerCycleType.id,
                     isOverdueAccountingEnabled: scope.product.isOverdueAccountingEnabled,
                     isIRDEnabled: scope.product.isPostIRDEnabled,
                     loanProductGroupId:scope.product.loanProductGroupId,
                     isGlim: scope.product.isGlim,
-                    disableAdjustExcessAmount:scope.product.disableAdjustedExcessAmount
+                    disableAdjustExcessAmount:scope.product.disableAdjustedExcessAmount,
+                    brokenPeriodInterestCollectAtDisbursement:scope.product.brokenPeriodInterestCollectAtDisbursement,
+                    noOfAdvEmiCollection:scope.product.noOfAdvEmiCollection
                 };
-                if(scope.product.splitDisbursementForCharges && scope.product.paymentTypeForChargeDisbursement){
-                    scope.formData.paymentTypeIdForChargeDisbursement = scope.product.paymentTypeForChargeDisbursement.id;
+                if(scope.product.isRepaymentAtDisbursement && scope.product.paymentTypeForRepaymentAtDisbursement){
+                    scope.formData.paymentTypeIdForRepaymentAtDisbursement = scope.product.paymentTypeForRepaymentAtDisbursement.id;
                 }
                 if(scope.formData.applicableForLoanType == scope.INDIVIDUAL_CLIENT){
                     scope.formData.isEnableRestrictionForClientProfile = 'false';

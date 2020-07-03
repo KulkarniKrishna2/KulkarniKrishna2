@@ -457,6 +457,14 @@
                                 <td>{{'label.heading.brokenperiodmethodtype' | translate}}</td>
                                 <td><span class="padded-td">{{loandetails.brokenPeriodMethodType.value}}</span></td>
                             </tr>
+                            <tr data-ng-if="loandetails.brokenPeriodMethodType.id===3 && loandetails.brokenPeriodInterestCollectAtDisbursement">
+                                <td>{{'label.input.broken.period.interest.collect.at.disbursement' | translate}}</td>
+                                <td><span class="padded-td">{{loandetails.brokenPeriodInterestCollectAtDisbursement == true ? 'Yes': 'No'}}</span></td>
+                            </tr>
+                            <tr data-ng-if="loandetails.noOfAdvEmiCollection">
+                                <td>{{'label.input.no.of.adv.emi.collection' | translate}}</td>
+                                <td><span class="padded-td">{{loandetails.noOfAdvEmiCollection}}</span></td>
+                            </tr>
                             <tr>
                                 <td>{{'label.heading.interesttype' | translate}}</td>
                                 <td><span class="padded-td">{{loandetails.interestType.value}}</span></td>
