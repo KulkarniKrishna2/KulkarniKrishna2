@@ -101,6 +101,60 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="endValue">{{'label.input.sequence.pattern.type' | translate}}<span class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <select id="sequencePatternType" name="sequencePatternType" ng-model="formData.sequencePatternType"
+                                ng-options="type for type in sequenceType" class="form-control" required>
+                            <option value="">{{'label.select.sequence.pattern.type' | translate}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-show="formData.sequencePatternType === 'PATTERN'">
+                    <label class="control-label col-sm-2" for="endValue">{{'label.input.sequence.pattern' | translate}}<span class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <select id="sequencePatternId" name="sequencePatternId" ng-model="formData.sequencePatternId"
+                                ng-options="sequencePatternName.sequencePatternId as sequencePatternName.sequencePatternName for sequencePatternName in sequencePatternData"
+                                value="{{sequencePatternName.sequencePatternId}}" class="form-control" required>
+                            <option value="">{{'label.input.select.sequence.pattern.id' | translate}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-show="formData.sequencePatternType === 'CUSTOM'">
+                    <label class="control-label col-sm-2" for="prefix">{{'label.input.sequence.pattern' | translate}}</label>
+
+                    <div class="col-sm-3">
+                        <input name="sequencePatternId" ng-model="formData.sequencePatternId" type="text" autocomplete="off" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="name">{{'label.input.sequence.length' | translate}}<span class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input ng-autofocus="true" type="number" min="0" autocomplete="off" id="sequenceLength" name="sequenceLength" ng-model="formData.sequenceLength" class="form-control" required late-Validate/>
+                    </div>
+                    <div class="col-sm-3">
+                        <form-validate valattributeform="createsequenceform" valattribute="sequenceLength" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="endValue">{{'label.input.sequence.separator.type' | translate}}<span class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <select id="sequenceSeparatorType" name="sequenceSeparatorType" ng-model="formData.sequenceSeparatorType"
+                                ng-options="seperator.id as seperator.value for seperator in sequenceSeparatorType"
+                                value="{{seperator.id}}" class="form-control" required>
+                            <option value="">{{'label.input.select.separator.type' | translate}}</option>
+                        </select>
+                    </div>
+                </div>
+
                 <div class="col-md-offset-2 paddedleft">
                     <a id="cancel" href="#/customsequences" class="btn btn-warning">{{'label.button.cancel' | translate}}</a>
                     <button id="save" type="submit" ng-click="submit()" class="btn btn-primary" has-permission='CREATE_SEQUENCE'>{{'label.button.save' | translate}}</button>

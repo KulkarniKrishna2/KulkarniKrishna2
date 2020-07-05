@@ -29,6 +29,15 @@
                 if(entityType.id == 5){
                     scope.prefixTypeOptions = scope.data.sequencePatternPrefixTypeOptions["accountType.taxgroup"];
                 }
+                if(entityType.id == 6){
+                    scope.prefixTypeOptions = scope.data.sequencePatternPrefixTypeOptions["accountType.fund"];
+                }
+                if(entityType.id == 7){
+                    scope.prefixTypeOptions = scope.data.sequencePatternPrefixTypeOptions["accountType.loanproduct"];
+                }
+                if(entityType.id == 8){
+                    scope.prefixTypeOptions = scope.data.sequencePatternPrefixTypeOptions["accountType.calendar"];
+                }
             }
 
             scope.addPattern = function (pattern) {
