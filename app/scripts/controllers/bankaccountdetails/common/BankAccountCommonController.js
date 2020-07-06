@@ -328,7 +328,7 @@
                     return false;
                 }
                 if (['Error'].indexOf(scope.bankAccountDetailsData.verificationStatus.value) > -1) {
-                    return true;
+                    return false;
                 }
                 return false;
             };
