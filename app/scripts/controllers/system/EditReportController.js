@@ -6,8 +6,11 @@
             scope.selected = [];
             scope.selectedCategories = [] ;
             scope.availablCategories = [];
+            scope.isReplaceExistingPentaho = false;
 
+            var existingreportdetail = {};
             resourceFactory.reportsResource.getReportDetails({id: routeParams.id, template: 'true'}, function (data) {
+                angular.copy(data, existingreportdetail);
                 scope.reportdetail = data;
                 scope.reportdetail.reportParameters = data.reportParameters || [];
                 scope.formData.useReport = data.useReport;
@@ -102,7 +105,43 @@
                 scope.reportdetail.reportParameters.splice(index, 1);
             }
 
+            scope.onFileSelect = function ($files) {
+                scope.errorDetails = [];
+                var isValidFile = false;
+                var isValidFileName = false;
+                scope.file = $files[0];
+                if(scope.file.name && scope.file.name != ""){
+                    var fileName = scope.file.name;
+                    var ext = fileName.substr(fileName.lastIndexOf('.') + 1);
+                    if("prpt" === ext.toLowerCase()){
+                        isValidFile = true;
+                    }
+                    fileName = fileName.substr(0, fileName.lastIndexOf('.'));
+                    if(fileName === scope.reportdetail.reportName){
+                        isValidFileName = true;
+                    }
+                }
+                if (!isValidFile) {
+                    var errorObj = new Object();
+                    errorObj.args = {
+                        params: []
+                    };
+                    errorObj.args.params.push({ value: 'error.msg.invalid.prpt.file.extension' });
+                    scope.errorDetails.push(errorObj);
+                    scope.file = undefined;
+                }else if (!isValidFileName) {
+                    var errorObj = new Object();
+                    errorObj.args = {
+                        params: []
+                    };
+                    errorObj.args.params.push({ value: 'error.msg.invalid.prpt.file.name' });
+                    scope.errorDetails.push(errorObj);
+                    scope.file = undefined;
+                }
+            };
+
             scope.submit = function () {
+                scope.errorDetails = [];
                 scope.reportClassifications = [] ;
                 for (var i in scope.selectedCategories) {
                     scope.reportClassifications.push(scope.selectedCategories[i].id) ;
@@ -134,12 +173,44 @@
                         embeddedReportType:scope.reportdetail.embeddedReportType
                     }
                 }
-                if(!scope.reportdetail.isEmbeddedReport)
-                {
+                if(!scope.reportdetail.isEmbeddedReport){
                     delete this.formData.embeddedReportType;
                 }
                 this.formData.locale = "en";
-                resourceFactory.reportsResource.update({id: routeParams.id}, this.formData, function (data) {
+
+                if(_.isUndefined(scope.file) && this.formData.reportType==='Pentaho' && existingreportdetail.reportName !== this.formData.reportName){
+                    scope.errorDetails = [];
+                    var errorObj = new Object();
+                    errorObj.args = {
+                        params: []
+                    };
+                    errorObj.args.params.push({ value: 'error.msg.invalid.prpt.file.not.found' });
+                    scope.errorDetails.push(errorObj);
+                    return;
+                }
+                if(!_.isUndefined(scope.file) && this.formData.reportType==='Pentaho'){
+                    if(scope.file.name && scope.file.name != ""){
+                        var fileName = scope.file.name.substr(0, scope.file.name.lastIndexOf('.'));
+                        if(fileName !== this.formData.reportName){
+                            scope.errorDetails = [];
+                            var errorObj = new Object();
+                            errorObj.args = {
+                                params: []
+                            };
+                            errorObj.args.params.push({ value: 'error.msg.invalid.prpt.file.name' });
+                            scope.errorDetails.push(errorObj);
+                            return;
+                        }
+                    }
+                }
+
+                var formData = new FormData();
+                formData.append('formDataJson', JSON.stringify(this.formData));
+                if(!_.isUndefined(scope.file) && this.formData.reportType==='Pentaho'){
+                    formData.append('files', scope.file); 
+                }
+
+                resourceFactory.reportsResource.update({id: routeParams.id}, formData, function (data) {
                     location.path('/system/viewreport/' + data.resourceId);
                 });
             };

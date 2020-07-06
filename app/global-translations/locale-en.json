@@ -8642,6 +8642,10 @@
      
      "label.heading.posted.income":"Income Posted",
 
+     "error.msg.invalid.prpt.file.not.found" : "Please upload Pentaho(PRPT) report file",
+     "error.msg.invalid.prpt.file.name" : "Pentaho(PRPT) report file name should be same as report name.",
+     "error.msg.invalid.prpt.file.extension": "Pentaho(PRPT) report file name extension should be .prpt",
+
 
 
      

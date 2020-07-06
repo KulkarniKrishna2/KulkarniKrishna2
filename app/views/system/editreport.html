@@ -218,6 +218,22 @@
                     </table>
                 </td>
             </tr>
+
+            <tr class="col-md-1 minheight30px" ng-if="reportdetail.reportType==='Pentaho'"></tr>
+            <tr class="form-group" ng-if="reportdetail.reportType==='Pentaho'">
+                <td class="width11">
+                    <label class="control-label col-sm-2"><h4>Upload Report File</h4></label>
+                </td>
+                <td class="blockquoteresult width86">
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="file">Select Pentaho(PRPT) file.<span
+                                class="required">*</span></label>
+                        <div class="col-sm-3">
+                            <input type="file" id="pentahoReportFile" name="pentahoReportFile" ng-file-select="onFileSelect($files)">
+                        </div>
+                    </div>
+                </td>
+            </tr>
         </table>
     </div>
     <div class="col-md-offset-6">
