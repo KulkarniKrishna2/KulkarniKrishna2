@@ -451,7 +451,7 @@
     "label.nodatafound": "No data was found related to the search parameters entered ",
     "label.mustbenumeric": "Must be numeric",
     "label.must.be.ten.digits.numeric": "Must be Ten digits numeric and first digit can not be zero",
-    "inavalid.ifsc.format": "Special characters, space , uppercase alphabets and more than 11 characters are not allowed",
+    "inavalid.ifsc.format": "Special characters, space, lowercase alphabets and more than 11 characters are not allowed",
     "label.mustbe6digitnumber": "Pincode Must be a 6 digit number",
     "label.percentage": "Percentage",
     "label.outstanding.amount": "Loan outstanding amount",
@@ -2460,12 +2460,13 @@
     "validation.msg.recurringdepositaccount.no.applicable.interest.rate.is.found.based.on.amount.and.deposit.period": "Interest rate chart is not applicable for this amount and deposit period",
     "validation.msg.savingsproduct.effectiveFromDate.not.zero.or.greater": "Interest rate chart interest rate should be greater than zero ",
     "error.message.bank.account.details.activity.cannot.complete.before.approve": "Bank account  details activity cannot  be completed without approval",
-    "error.message.bank.account.details.activity.cannot.complete.before.form.submit": "Bank account  details activity cannot  be completed without submitting data",
+    "error.message.bank.account.details.activity.cannot.complete.before.form.submit": "Bank account details activity cannot  be completed without submitting data",
+    "error.message.activity.cannot.complete.without.bank.account.details.verification": "The step activity cannot be completed without verifying the bank account details.",
     "validation.msg.loan.apply.overdue.transactionDate.cannot.be.blank": "Penalties apply on date is mandatory",
     "error.msg.loan.application.add.insurance.charge.to.loan.application": "Insurance charge is required to create loan application",
     "error.msg.repayment.frequency.mismatch": "Loan Application repayment frequency not matching with center meeting repayment frequency",
     "error.msg.center.meeting.not.attached": "Please attach center meeting date to create loan application",
-    "#-------": "------------",
+    
 
     "#Savings and Deposit accounts": "....",
 

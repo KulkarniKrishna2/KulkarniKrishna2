@@ -34,7 +34,7 @@
                     scope.showAddBankAccountsButton = true;
                 } else {
                     for(var i in data){
-                        if(data[i] && (data[i].status.id == 100 || data[i].status.id == 200)){
+                        if(data[i] && data[i].status && (data[i].status.id == 100 || data[i].status.id == 200)){
                             scope.showAddBankAccountsButton =  false;
                             break;
                         }

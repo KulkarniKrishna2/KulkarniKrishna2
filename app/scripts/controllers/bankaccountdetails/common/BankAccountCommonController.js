@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        BankAccountCommonController: function ($controller, scope, routeParams, resourceFactory, location, $modal, dateFilter, $upload, $rootScope, API_VERSION, $http) {
+        BankAccountCommonController: function ($controller, scope, routeParams, resourceFactory, location, $modal, dateFilter, $upload, $rootScope, API_VERSION, $http, route) {
             angular.extend(this, $controller('defaultUIConfigController', {
                 $scope: scope,
                 $key: "bankAccountDetails"
@@ -188,6 +188,10 @@
                 });
             };
 
+            function relaunch() {
+                route.reload();
+            }
+
             scope.routeToViewBankAccountdetails = function () {
                 location.path('/' + getEntityType() + '/' + getEntityId() + '/bankaccountdetails/' + getBankAccountDetailsId()).search({});
             };
@@ -196,7 +200,7 @@
                 location.path('/' + getEntityType() + '/' + getEntityId() + '/bankaccountdetails').search({});
             };
 
-            var submitAccountDocuments = function (postComplete) {
+            function submitAccountDocuments() {
                 $upload.upload({
                     url: $rootScope.hostUrl + API_VERSION + '/' + getEntityType() + '/' + getEntityId() + '/bankaccountdetails/' + getBankAccountDetailsId() + '/documents',
                     data: scope.docData,
@@ -206,9 +210,7 @@
                     if (!scope.$$phase) {
                         scope.$apply();
                     }
-                    if (data != undefined) {
-                        postComplete(data.data.resourceId);
-                    }
+                    getBankAccountDocuments();
                 });
             };
 
@@ -296,9 +298,9 @@
                     return false;
                 }
                 if (scope.viewUIConfig.isTask) {
-                    return !scope.isTaskCompleted() && ['active', 'inactive', 'deleted'].indexOf(scope.bankAccountDetailsData.status.value) < 0;
+                    return !scope.isTaskCompleted() && ['active', 'inactive', 'deleted', 'rejected'].indexOf(scope.bankAccountDetailsData.status.value) < 0;
                 }
-                return ['active', 'inactive', 'deleted'].indexOf(scope.bankAccountDetailsData.status.value) < 0;
+                return ['active', 'inactive', 'deleted', 'rejected'].indexOf(scope.bankAccountDetailsData.status.value) < 0;
             }
 
             scope.isBankAccountAllowToVerifyable = function () {
@@ -333,6 +335,13 @@
                 return false;
             };
 
+            scope.isBankAccountAllowToReject = function () {
+                if (['Error'].indexOf(scope.bankAccountDetailsData.verificationStatus.value) > -1) {
+                    return scope.bankAccountDetailsData.status.value !== 'rejected';
+                }
+                return false;
+            };
+
             scope.activate = function () {
                 resourceFactory.bankAccountDetailsActivateResource.activate({
                     entityType: getEntityType(),
@@ -353,6 +362,16 @@
                 });
             };
 
+            scope.reject = function () {
+                resourceFactory.bankAccountDetailsRejectResource.reject({
+                    entityType: getEntityType(),
+                    entityId: getEntityId(),
+                    bankAccountDetailsId: getBankAccountDetailsId()
+                }, {}, function (data) {
+                    relaunch();
+                });
+            };
+
 
             scope.doPreTaskActionStep = function (actionName) {
                 if (actionName === 'activitycomplete') {
@@ -360,6 +379,10 @@
                         scope.setTaskActionExecutionError("error.message.bank.account.details.activity.cannot.complete.before.form.submit");
                         return;
                     } else {
+                        if(scope.isAllowPennyDropTransaction === true && scope.bankAccountDetailsData.isVerified === false){
+                            scope.setTaskActionExecutionError("error.message.activity.cannot.complete.without.bank.account.details.verification");
+                            return;
+                        }
                         scope.doActionAndRefresh(actionName);
                     }
                 } else if (actionName === 'approve') {
@@ -406,9 +429,7 @@
                             $scope.docformatErr = true;
                             $scope.docformatErrMsg = "label.error.only.files.of.type.image.are.allowed";
                         } else {
-                            submitAccountDocuments(function (documentId) {
-                                getBankAccountDocuments();
-                            });
+                            submitAccountDocuments();
                             $modalInstance.close('upload');
                         }
                     }
@@ -525,7 +546,7 @@
             };
         }
     });
-    mifosX.ng.application.controller('BankAccountCommonController', ['$controller', '$scope', '$routeParams', 'ResourceFactory', '$location', '$modal', 'dateFilter', '$upload', '$rootScope', 'API_VERSION', '$http', mifosX.controllers.BankAccountCommonController]).run(function ($log) {
+    mifosX.ng.application.controller('BankAccountCommonController', ['$controller', '$scope', '$routeParams', 'ResourceFactory', '$location', '$modal', 'dateFilter', '$upload', '$rootScope', 'API_VERSION', '$http', '$route', mifosX.controllers.BankAccountCommonController]).run(function ($log) {
         $log.info("BankAccountCommonController initialized");
     });
 }(mifosX.controllers || {}));

@@ -1254,6 +1254,9 @@
                     bankAccountDetailsDeActivateResource: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetails/:bankAccountDetailsId/deactivate", { entityType: "@entityType", entityId: '@entityId', bankAccountDetailsId: '@bankAccountDetailsId' }, {
                         deActivate: { method: 'PUT', params: {} }
                     }),
+                    bankAccountDetailsRejectResource: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetails/:bankAccountDetailsId/reject", { entityType: "@entityType", entityId: '@entityId', bankAccountDetailsId: '@bankAccountDetailsId' }, {
+                        reject: { method: 'PUT', params: {} }
+                    }),
                     bankAccountDetailsDeleteResource: defineResource(apiVer + "/:entityType/:entityId/bankaccountdetails/:bankAccountDetailsId/delete", { entityType: "@entityType", entityId: '@entityId', bankAccountDetailsId: '@bankAccountDetailsId' }, {
                         delete: { method: 'PUT', params: {} }
                     }),
