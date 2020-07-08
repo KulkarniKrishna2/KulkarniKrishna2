@@ -201,17 +201,23 @@
             };
 
             function submitAccountDocuments() {
-                $upload.upload({
-                    url: $rootScope.hostUrl + API_VERSION + '/' + getEntityType() + '/' + getEntityId() + '/bankaccountdetails/' + getBankAccountDetailsId() + '/documents',
-                    data: scope.docData,
-                    file: scope.docFile
-                }).then(function (data) {
-                    // to fix IE not refreshing the model
-                    if (!scope.$$phase) {
-                        scope.$apply();
-                    }
-                    getBankAccountDocuments();
-                });
+                if (!_.isUndefined(scope.docFile)) {
+                    $upload.upload({
+                        url: $rootScope.hostUrl + API_VERSION + '/' + getEntityType() + '/' + getEntityId() + '/bankaccountdetails/' + getBankAccountDetailsId() + '/documents',
+                        data: scope.docData,
+                        file: scope.docFile
+                    }).then(function (data) {
+                        // to fix IE not refreshing the model
+                        if (!scope.$$phase) {
+                            scope.$apply();
+                        }
+                        scope.docData = undefined;
+                        scope.docFile = undefined;
+                        getBankAccountDocuments();
+                    });
+                }else {
+                    scope.fileError = true;
+                }
             };
 
             scope.delete = function () {
