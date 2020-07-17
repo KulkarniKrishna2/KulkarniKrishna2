@@ -342,7 +342,10 @@
             };
 
             scope.isBankAccountAllowToReject = function () {
-                if (['Error'].indexOf(scope.bankAccountDetailsData.verificationStatus.value) > -1) {
+                if (['Error', 'Failed'].indexOf(scope.bankAccountDetailsData.verificationStatus.value) > -1) {
+                    if (scope.viewUIConfig.isTask) {
+                        return !scope.isTaskCompleted() && scope.bankAccountDetailsData.status.value !== 'rejected';
+                    }
                     return scope.bankAccountDetailsData.status.value !== 'rejected';
                 }
                 return false;
@@ -387,6 +390,9 @@
                     } else {
                         if(scope.isAllowPennyDropTransaction === true && scope.bankAccountDetailsData.isVerified === false){
                             scope.setTaskActionExecutionError("error.message.activity.cannot.complete.without.bank.account.details.verification");
+                            return;
+                        }else if (['Error'].indexOf(scope.bankAccountDetailsData.verificationStatus.value) > -1) {
+                            scope.setTaskActionExecutionError("error.message.activity.cannot.complete.because.bank.account.details.verification.error");
                             return;
                         }
                         scope.doActionAndRefresh(actionName);
