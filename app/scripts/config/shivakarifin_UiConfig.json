@@ -1,6 +1,12 @@
 {
 	"enableUIDisplayConfiguration": true,
 	"uiDisplayConfigurations": {
+		"createClient": {
+			"isMandatoryField": {
+				"dateOfBirth": true,
+				"mobileNumber": true
+			}
+		},
 		"createCenter": {
 			"isReadOnlyField": {
 				"active": true
