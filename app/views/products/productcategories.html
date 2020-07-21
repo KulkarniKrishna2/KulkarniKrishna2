@@ -1,0 +1,31 @@
+<div class="col-md-12" ng-controller="ProductCategoryController">
+    <ul class="breadcrumb">
+        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
+        <li class="active">{{'label.anchor.categories' | translate}}</li>
+    </ul>
+
+    <a href="#/createproductcategory" class="btn btn-primary pull-right" has-permission='CREATE_PRODUCTCATEGORY'><i
+            class="icon-plus icon-white"></i>{{'label.button.createproductcategory' | translate}}</a>
+
+    <div class="form-horizontal well">
+        <h2>{{'label.heading.productcategory' | translate}}</h2>
+        <br>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>{{ 'label.heading.categoryId' | translate }}</th>
+                    <th>{{ 'label.heading.displayname' | translate }}</th>
+                    <th>{{ 'label.heading.status' | translate }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="pointer-main" ng-repeat="category in productCategories">
+                    <td class="pointer">{{category.categoryId}}</td>
+                    <td class="pointer">{{category.displayName}}</td>
+                    <td class="pointer">{{(category.isEnabled)? 'Active':'Inactive'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>

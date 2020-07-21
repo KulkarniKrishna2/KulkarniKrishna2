@@ -231,6 +231,9 @@
                     DataTablesTemplateResource: defineResource(apiVer + "/datatables/template", {}, {
                         get: { method: 'GET', params: {}, isArray: false }
                     }),
+                    productCategoriesResource: defineResource(apiVer + "/productcategories", {}, {
+                        getProductCategories: { method: 'GET', params: {}, isArray: true }
+                    }),
                     loanProductResource: defineResource(apiVer + "/loanproducts/:loanProductId/:resourceType", { resourceType: '@resourceType', loanProductId: '@loanProductId' }, {
                         getAllLoanProducts: { method: 'GET', params: {}, isArray: true },
                         getAllCreditbureauLoanProducts: { method: 'GET', params: {}, isArray: true },

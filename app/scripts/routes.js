@@ -47,6 +47,9 @@
             .when('/edittemplate/:id', {
                 templateUrl: 'views/templates/edittemplate.html'
             })
+            .when('/createproductcategory', {
+                templateUrl: 'views/products/createproductcategory.html'
+            })
             .when('/createloanproduct', {
                 templateUrl: 'views/products/createloanproduct.html'
             })
@@ -322,6 +325,9 @@
             })  
             .when('/bulkoperations', {
                 templateUrl: 'views/bulkoperations/bulkoperations.html'
+            })
+            .when('/productcategories', {
+                templateUrl: 'views/products/productcategories.html'
             })
             .when('/loanproducts', {
                 templateUrl: 'views/products/loanproducts.html'
