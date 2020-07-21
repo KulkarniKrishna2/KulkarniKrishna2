@@ -1,6 +1,11 @@
 (function (module) {
     mifosX.services = _.extend(module, {
         AuthenticationService: function (scope, httpService, SECURITY, localStorageService,timeout, webStorage, commonUtilService) {
+            const encodeClientId = 'Y29tbXVuaXR5LWFwcA==';
+            var decodedClientId = function() {
+                return window.atob(encodeClientId);
+            }
+
             var onSuccess = function (data) {
                 scope.$broadcast("UserAuthenticationSuccessEvent", data);
                 localStorageService.addToLocalStorage('userData', data);
@@ -47,7 +52,7 @@
                 var refreshToken = localStorageService.getFromLocalStorage("tokendetails").refresh_token;
                 httpService.cancelAuthorization();
                 var accesPayload = {
-                    client_id: 'community-app',
+                    client_id: decodedClientId(),
                     grant_type: 'refresh_token',
                     refresh_token: refreshToken
                 };
@@ -85,7 +90,7 @@
 
             this.authenticateWithOTP = function(credentials) {
                 var formData = {};
-                formData.client_id = 'community-app';
+                formData.client_id = decodedClientId();
                 formData.grant_type = 'OTP';
                 formData.otp_token = credentials.otpTokenId;
                 formData.otp = credentials.otp;
@@ -127,7 +132,7 @@
                 var data = {};
                 data.username = credentials.username;
                 data.password = credentials.password;
-                data.client_id = 'community-app';
+                data.client_id = decodedClientId();
                 data.grant_type = 'password';
                 if(credentials.captchaDetails !=undefined){
                     data.captcha_reference_id= credentials.captchaDetails.captcha_reference_id;
