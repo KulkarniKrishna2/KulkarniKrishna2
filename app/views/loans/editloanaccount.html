@@ -97,9 +97,10 @@
         </td>
     </tr>
     <tr ng-show="formData.productId && showLoanPurpose">
-        <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.fundId == true"><label>{{ 'label.input.fund' | translate }}:&nbsp;</label></td>
+        <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.fundId == true"><label>{{ 'label.input.fund' | translate }}<span class="required" ng-show="response.uiDisplayConfigurations.loanAccount.isMandatory.fundId">*</span>:&nbsp;</label></td>
         <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.fundId == true">
             <select id="fundId" ng-model="formData.fundId" class="form-control width170px" ng-disabled="formData.fundId && response.uiDisplayConfigurations.loanAccount.isReadOnlyField.fundOption"
+                    ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.fundId"
                     ng-options="fund.id as fund.name for fund in loanaccountinfo.fundOptions" value="{{fund.id}}">
                 <option value="">{{'label.selectfund' | translate}}</option>
             </select>
