@@ -78,7 +78,13 @@
                     "districtStatus.active": "statusactive",
                     "districtStatus.pending": "statuspending",
                     "savingProduct.active": "statusactive",
-                    "depositProduct.active": "statusactive"
+                    "depositProduct.active": "statusactive",
+                    "bankAccountDetailsStatus.active": "statusactive",
+                    "bankAccountDetailsStatus.initiated": "statuspending",
+                    "bankAccountDetailsStatus.deleted": "statusclosed",
+                    "bankAccountDetailsStatus.inactive": "statusclosed",
+                    "bankAccountDetailsStatus.rejected": "statusrejected"
+                    
                 }
 
                 return cssClassNameLookup[input];

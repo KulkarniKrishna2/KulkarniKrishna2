@@ -25,6 +25,7 @@
                 <strong>{{'label.heading.bank.account.details' | translate}}</strong>
             </h3>
         </div>
+
         <div ng-if="bankAccountDetails.length > 0">
             <table class="table">
                 <thead>
@@ -33,7 +34,17 @@
                         <th>{{'label.heading.bank.account.holder.name' | translate}}</th>
                         <th>{{'label.heading.bank.account.number' | translate}}</th>
                         <th>{{'label.heading.ifsc' | translate}}</th>
-                        <th>{{'label.heading.status' | translate}}</th>
+                        <th>
+                            {{'label.heading.status' | translate}}
+                            <span class="btn-group dropdown" on-toggle="toggled(open)">
+                                <a class="btn btn-default dropdown-toggle"><span class="caret"></span></a>
+                                <ul class="dropdown dropdown-menu dropdown-menu-right">
+                                    <li ng-repeat="bankAccountDetailsStatus in bankAccountDetailsStatusList">
+                                        <a data-ng-click="populateDetails(bankAccountDetailsStatus)">{{bankAccountDetailsStatus.charAt(0).toUpperCase() + bankAccountDetailsStatus.slice(1) | translate}}</a>
+                                    </li>
+                                </ul>
+                            </span>
+                        </th>
                         <th>{{'label.heading.verified' | translate}}</th>
                         <th>{{'label.heading.verified.status' | translate}}</th>
                         <th>{{'label.heading.lastupdatedon' | translate}}</th>
@@ -45,7 +56,7 @@
                         <td class="pointer" data-ng-click="routeTo(record)">{{record.name}}</td>
                         <td class="pointer" data-ng-click="routeTo(record)">{{record.accountNumber}}</td>
                         <td class="pointer" data-ng-click="routeTo(record)">{{record.ifscCode}}</td>
-                        <td class="pointer" data-ng-click="routeTo(record)">{{record.status.value | translate}}</td>
+                        <td class="pointer" data-ng-click="routeTo(record)"><i class="icon-stop  {{record.status.code | StatusLookup}}"></i> {{record.status.value.charAt(0).toUpperCase() + record.status.value.slice(1) | translate}}</td>
                         <td class="pointer" data-ng-click="routeTo(record)">{{record.isVerified ? 'Yes' : 'No'}}</td>
                         <td class="pointer" data-ng-click="routeTo(record)">{{record.verificationStatus.value == 'Invalid' ? 'Not Verified' : record.verificationStatus.value}}</td>
                         <td class="pointer" data-ng-click="routeTo(record)">{{record.lastModifiedDate | DateTimeFormat}}</td>
