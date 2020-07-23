@@ -44,32 +44,32 @@
                                 }
                             }
                         }
+
+                        activeStatusBankAccountDetails.sort(function(a, b){
+                            var comparatorValue = new Date(a.lastModifiedDate) - new Date(b.lastModifiedDate);
+                            return (comparatorValue * -1);
+                        });
+                        _.each(activeStatusBankAccountDetails, function(obj){
+                            scope.bankAccountDetails.push(obj);
+                        });
+    
+                        initiatedStatusBankAccountDetails.sort(function(a, b){
+                            var comparatorValue = new Date(a.lastModifiedDate) - new Date(b.lastModifiedDate);
+                            return (comparatorValue * -1);
+                        });
+                        _.each(initiatedStatusBankAccountDetails, function(obj){
+                            scope.bankAccountDetails.push(obj);
+                        });
+    
+                        otherStatusBankAccountDetails.sort(function(a, b){
+                            var comparatorValue = new Date(a.lastModifiedDate) - new Date(b.lastModifiedDate);
+                            return (comparatorValue * -1);
+                        });
+                        _.each(otherStatusBankAccountDetails, function(obj){
+                            scope.bankAccountDetails.push(obj);
+                        });
                     }
-
-                    activeStatusBankAccountDetails.sort(function(a, b){
-                        var comparatorValue = new Date(a.lastModifiedDate) - new Date(b.lastModifiedDate);
-                        return (comparatorValue * -1);
-                    });
-                    _.each(activeStatusBankAccountDetails, function(obj){
-                        scope.bankAccountDetails.push(obj);
-                    });
-
-                    initiatedStatusBankAccountDetails.sort(function(a, b){
-                        var comparatorValue = new Date(a.lastModifiedDate) - new Date(b.lastModifiedDate);
-                        return (comparatorValue * -1);
-                    });
-                    _.each(initiatedStatusBankAccountDetails, function(obj){
-                        scope.bankAccountDetails.push(obj);
-                    });
-
-                    otherStatusBankAccountDetails.sort(function(a, b){
-                        var comparatorValue = new Date(a.lastModifiedDate) - new Date(b.lastModifiedDate);
-                        return (comparatorValue * -1);
-                    });
-                    _.each(otherStatusBankAccountDetails, function(obj){
-                        scope.bankAccountDetails.push(obj);
-                    });
-
+                    
                     scope.showAddButton(scope.bankAccountDetails);
                     /*if(status === 'active'){
                         scope.isActiveBankAccountDetails = true;
