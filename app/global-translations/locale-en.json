@@ -8579,6 +8579,7 @@
      "label.message.loan.already.restructred" : "This loan is already restructured, do you want to restructure it again ?",
      "label.account.actual.balance" : "Account Balance",
      
+     "lable.msg.task.can.perfomed.in.mobile.app" : "This task can be performed only from mobile application",
      "------ end of translation file ------": "----------"
 
 }
