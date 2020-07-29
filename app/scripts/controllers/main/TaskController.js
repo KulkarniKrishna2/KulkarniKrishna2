@@ -1116,9 +1116,10 @@
             }
 
             scope.bulkLoanRescheduleApproval = function () {
-                scope.formData.approvedOnDate = dateFilter(new Date(), scope.df);
-                scope.formData.dateFormat = scope.df;
-                scope.formData.locale = scope.optlang.code;
+                let loanRescheduleApprovalData = {};
+                loanRescheduleApprovalData.approvedOnDate = dateFilter(new Date(), scope.df);
+                loanRescheduleApprovalData.dateFormat = scope.df;
+                loanRescheduleApprovalData.locale = scope.optlang.code;
                 var selectedAccounts = 0;
                 var approvedAccounts = 0;
                 _.each(scope.checkForBulkLoanRescheduleApprovalData, function (value, key) {
@@ -1134,7 +1135,7 @@
                 _.each(scope.checkForBulkLoanRescheduleApprovalData, function (value, key) { 
                     if (value == true) {    
                         var url =  "rescheduleloans/"+key+"?command=approve";
-                        var bodyData = JSON.stringify(scope.formData);
+                        var bodyData = JSON.stringify(loanRescheduleApprovalData);
                         var batchData = {requestId: reqId++, relativeUrl: url, method: "POST", body: bodyData};
                         scope.batchRequests.push(batchData);                        
                     }
