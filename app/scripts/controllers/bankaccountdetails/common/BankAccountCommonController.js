@@ -342,7 +342,7 @@
             };
 
             scope.isBankAccountAllowToReject = function () {
-                if (['Error', 'Failed'].indexOf(scope.bankAccountDetailsData.verificationStatus.value) > -1) {
+                if (['Error'].indexOf(scope.bankAccountDetailsData.verificationStatus.value) > -1) {
                     if (scope.viewUIConfig.isTask) {
                         return !scope.isTaskCompleted() && scope.bankAccountDetailsData.status.value !== 'rejected';
                     }
