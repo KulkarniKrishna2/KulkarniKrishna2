@@ -111,6 +111,7 @@
     "label.heading.issueswithdrawls": "Issues Withdrawals",
     "label.heading.notprovided": "Not Provided",
     "label.heading.notavailable": "Not Available",
+    "label.heading.lastlogin" : "Your last login was",
     "label.heading.next": "Pagination: Next",
     "label.heading.prev": "Pagination: Previous",
     "label.heading.provisioningcategory": "Category",

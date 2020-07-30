@@ -1,7 +1,18 @@
 <div id="expertsearch" data-ng-controller="ExpertSearchController">
-    <h3 class="paddedleft"><strong>{{'label.heading.welcome' | translate}}, {{currentSession.user.name}}</strong>
-    </h3>
-    <hr/>
+	<div class="paddedleft">
+		<h2>
+			<strong>
+				{{'label.heading.welcome' | translate }}
+				{{currentSession.user.firstname}},
+			</strong>
+		</h2>
+		<h4>
+			{{'label.heading.lastlogin' | translate}}
+			{{currentSession.user.lastLoginDate}}
+		</h4>
+	</div>
+	<hr />
+	
     <input id="expert" type="text" autocomplete="off" data-ng-model="formData.search"
 	    placeholder="{{'label.input.searchactivities' | translate}}" class="col-md-4 form-control" typeahead-on-select="search()"
 	    ng-autofocus="true" typeahead="param as param for param in searchParams | filter:$viewValue | limitTo:8"/>
