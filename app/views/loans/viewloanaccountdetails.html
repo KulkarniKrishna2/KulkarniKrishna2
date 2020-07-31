@@ -829,7 +829,7 @@
                             <tr ng-repeat="schedule in loanSchedule">
                                 <td>{{schedule.days}}</td>
                                 <td>{{schedule.balance | number}}</td>
-                                <td>{{schedule.installementDueDate.dayOfMonth+'/'+schedule.installementDueDate.month+'/'+schedule.installementDueDate.year | DateFormat}}</td>
+                                <td>{{schedule.installementDueDate | DateFormat}}</td>
                                 <td>{{schedule.emi | number}}</td>
                                 <td>{{schedule.principal | number}}</td>
                                 <td>{{schedule.interest | number}}</td>
@@ -837,8 +837,7 @@
                                 <td>{{schedule.penalties | number}}</td>
 
                                 <td>{{schedule.totalPeriodDue | number}}</td>
-                                <td data-ng-if="schedule.fullyPaidDate!=null">{{schedule.fullyPaidDate.dayOfMonth+'/'+schedule.fullyPaidDate.monthValue+'/'+schedule.fullyPaidDate.year}}</td>
-                                <td data-ng-if="schedule.fullyPaidDate==null"></td>
+                                <td>{{schedule.fullyPaidDate | DateFormat}}</td>
                                 <td>{{schedule.paidAmount | number}}</td>
                                 <td>{{schedule.paidInAdvance | number}}</td>
                                 <td>{{schedule.paidLate | number}}</td>
