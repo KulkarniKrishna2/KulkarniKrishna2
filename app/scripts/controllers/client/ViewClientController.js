@@ -384,10 +384,10 @@
                     if(scope.client.lastname != undefined){
                         scope.client.displayNameInReverseOrder = scope.client.lastname.concat(" ");
                     }
-                    if(scope.client.middlename != undefined){
+                    if(scope.client.middlename != undefined && scope.client.displayNameInReverseOrder != undefined){
                         scope.client.displayNameInReverseOrder = scope.client.displayNameInReverseOrder.concat(scope.client.middlename).concat(" ");
                     }
-                    if(scope.client.firstname != undefined){
+                    if(scope.client.firstname != undefined && scope.client.displayNameInReverseOrder != undefined){
                         scope.client.displayNameInReverseOrder = scope.client.displayNameInReverseOrder.concat(scope.client.firstname);
                     }
                     $rootScope.clientname=data.displayName;
