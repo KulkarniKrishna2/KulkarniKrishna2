@@ -169,7 +169,7 @@
                     scope.isStaffMandotory = true;
                 }
                 if(scope.officeId &&  scope.meetingDate && scope.loanOfficerId){
-                location.path('/productivesheet/' + scope.officeId + '/' + scope.officeName + '/' + scope.meetingDate + '/' + scope.loanOfficerId);
+                location.path('/productivesheet/' + scope.officeId + '/' + scope.officeName + '/' + scope.meetingDate + '/' + scope.loanOfficerId +'/' + dateFilter(scope.date.newtransactionDate, scope.df));
             }
             };
 
