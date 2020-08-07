@@ -829,7 +829,13 @@
                 }
 
                 scope.formData.actualDisbursementDate = this.formData.transactionDate;
-                
+                var currentDate = new Date();
+
+                if(scope.date.transactionDate != currentDate){
+                    scope.formData.transactionDate = dateFilter(currentDate, scope.df);
+                    scope.formData.isTransactionDateOnNonMeetingDate = true;
+                }
+
                 _.each(scope.savingsgroups, function (group) {
                     _.each(group.clients, function (client) {
                         var clientAttendanceDetails = {
