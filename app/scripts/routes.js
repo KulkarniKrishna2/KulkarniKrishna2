@@ -2133,6 +2133,9 @@
             .when('/loan/:id/restructure', {
                 templateUrl: 'views/loans/loanrestructure.html'
             })
+            .when('/productivesheet/:officeId/:officeName/:meetingDate/:staffId/:newtransactionDate', {
+                templateUrl: 'views/collection/productivecollectionsheet.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {
