@@ -1952,6 +1952,10 @@
             scope.routeToCreditHistory = function() {
                 location.path('/clients/' + scope.clientId + '/credithistory').search({clientName: scope.client.displayName}); 
             }
+
+            scope.routeToClientLoansPaymentSettelment = function() {
+                location.path('/clients/' + scope.clientId + '/loans/payment/settlement'); 
+            }
         }
     });
 

@@ -2133,6 +2133,9 @@
             .when('/loan/:id/restructure', {
                 templateUrl: 'views/loans/loanrestructure.html'
             })
+            .when('/clients/:clientId/loans/payment/settlement', {
+                templateUrl: 'views/clients/clientsloanspaymentsettlement.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

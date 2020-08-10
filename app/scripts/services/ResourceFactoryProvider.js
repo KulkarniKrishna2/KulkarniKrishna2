@@ -2082,6 +2082,9 @@
                     }),
                     getLoanRestructureResource: defineResource(apiVer + "/loanrestructure/loan/:loanId", {}, {
                         get: { method: 'GET', params: { loanId: '@loanId' } }
+                    }),
+                    clientLoansPaymentSettlementResource: defineResource(apiVer + "/clients/:clientId/loans/payment/settlement", {clientId: '@clientId'}, {
+                        paymentSettlement: { method: 'POST', params: { clientId: '@clientId' } }
                     })
                 };
             }];

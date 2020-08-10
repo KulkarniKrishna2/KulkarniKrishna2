@@ -8648,7 +8648,9 @@
      "error.msg.invalid.prpt.file.name" : "Pentaho(PRPT) report file name should be same as report name.",
      "error.msg.invalid.prpt.file.extension": "Pentaho(PRPT) report file name extension should be .prpt",
 
-
+    "label.button.client.loans.payment.settlement": "Client Loans Payment Settlement",
+    "label.anchor.client.loans.payment.settlement": "Client Loans Payment Settlement",
+    "label.heading.client.loans.payment.settlement": "Client Loans Payment Settlement",
 
      
      "------ end of translation file ------": "----------"
