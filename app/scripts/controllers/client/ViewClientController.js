@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewClientController: function (scope, routeParams, route, location, resourceFactory, http, $modal, API_VERSION, $rootScope, $upload, dateFilter, commonUtilService, localStorageService,$sce,paginatorUsingOffsetService) {
+        ViewClientController: function (scope, routeParams, route, location, resourceFactory, http, $modal, API_VERSION, $rootScope, $upload, dateFilter, commonUtilService, localStorageService,$sce,paginatorUsingOffsetService, popUpUtilService) {
             
             if(!_.isUndefined($rootScope.isClientAdditionalDetailTabActive)){
                 delete $rootScope.isClientAdditionalDetailTabActive;
@@ -38,6 +38,8 @@
             scope.loancycledetail = [];
             scope.smartCardData = [];
             scope.smartformData = {};
+            scope.displayAddButton = true;
+            scope.isUpdate = false;
             scope.showNoteField = false;
             scope.showSmartcard = true;
             scope.clientId = routeParams.id;
@@ -1846,6 +1848,29 @@
               location.path('/viewclient/' + id);   
             };
 
+            scope.getClientLimits = function () {
+             resourceFactory.clientLimitsResource.get({clientId: routeParams.id}, function (data) {
+                        scope.clientLimits = data;
+                        if(!_.isUndefined(scope.clientLimits.superlimit) && scope.clientLimits.superlimit != 0){
+                           scope.displayAddButton = false;
+                           scope.isUpdate = true;
+                        }
+                    });
+            }
+
+            scope.createSuperLimit = function() {
+                var templateUrl = 'views/clients/addsuperlimit.html';
+                var controller = 'AddSuperLimitController';
+                popUpUtilService.openDefaultScreenPopUp(templateUrl, controller, scope);
+                scope.displayAddButton = false;
+            }
+
+            scope.editSuperLimit = function() {
+                var templateUrl = 'views/clients/editsuperlimit.html';
+                var controller = 'EditSuperLimitController';
+                popUpUtilService.openDefaultScreenPopUp(templateUrl, controller, scope);
+            }
+
             scope.lockOrUnLockClient = function () {
                 var action = 'lock';
                 if(scope.client.isLocked){
@@ -1933,7 +1958,7 @@
         }
     });
 
-    mifosX.ng.application.controller('ViewClientController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$http', '$modal', 'API_VERSION', '$rootScope', '$upload', 'dateFilter', 'CommonUtilService', 'localStorageService','$sce','PaginatorUsingOffsetService', mifosX.controllers.ViewClientController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewClientController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$http', '$modal', 'API_VERSION', '$rootScope', '$upload', 'dateFilter', 'CommonUtilService', 'localStorageService','$sce','PaginatorUsingOffsetService', 'PopUpUtilService', mifosX.controllers.ViewClientController]).run(function ($log) {
         $log.info("ViewClientController initialized");
     });
 }(mifosX.controllers || {}));

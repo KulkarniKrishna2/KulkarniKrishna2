@@ -1601,6 +1601,10 @@
 			</div>
 		</tab>
 
+		<tab heading="{{ 'label.heading.limit.management' | translate }}" select="getClientLimits()">
+			<div ng-include="'views/clients/limitmanagement.html'"></div>
+		</tab>
+
 		<tab heading="{{ 'label.heading.additional.details' | translate }}" select="getClientDatatables()">
 			<tabset tabset-name="clientADTabset">
 				<tab heading="{{datatable.registeredTableDisplayName == null ? datatable.registeredTableName : datatable.registeredTableDisplayName}}" ng-repeat="datatable in datatables"

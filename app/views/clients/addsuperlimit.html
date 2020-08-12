@@ -1,0 +1,33 @@
+<div class="row" ng-controller="AddSuperLimitController">
+    <div style="height:150px">
+        <api-validate></api-validate>
+        <div class="clearfix">
+            <form name="addSuperLimit" novalidate="" class="form-horizontal well" rc-submit="submit()">
+                <fieldset>
+                    <legend>{{'label.view.set.superlimit' | translate}}</legend>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="superlimit">{{ 'label.input.superlimit' | translate
+                        }}<span class="required">*</span></label>
+
+                        <div class="col-sm-3">
+                            <input type="text" autocomplete="off" id="superlimit" name="superlimit"
+                                ng-model="limitFormData.superlimit" class="form-control" required late-validate />
+                        </div>
+                        <div class="col-sm-3">
+                            <form-validate valattributeform="addSuperLimit" valattribute="superlimit" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-offset-3">
+                        <a id="cancel" ng-click="cancel()">
+                            <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
+                        </a>
+                        <button id="save" type="submit"
+                            class="btn btn-primary">{{'label.button.save' | translate}}</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+</div>

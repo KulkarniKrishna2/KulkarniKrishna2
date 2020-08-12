@@ -234,6 +234,16 @@
                     productCategoriesResource: defineResource(apiVer + "/productcategories", {}, {
                         getProductCategories: { method: 'GET', params: {}, isArray: true }
                     }),
+                    clientLimitsResource: defineResource(apiVer + "/clients/:clientId/limits", { clientId: '@clientId' }, {
+                        get: { method: 'GET', params: {} }
+                    }),
+                    clientSuperLimitResource: defineResource(apiVer + "/clients/:clientId/limits/superlimit", { clientId: '@clientId' }, {
+                        get: { method: 'GET', params: {}, isArray: true },
+                        save : { method: 'POST',params: {} }
+                    }),
+                    clientCategoryLimitsResource: defineResource(apiVer + "/clients/:clientId/limits/categorylimits", { clientId: '@clientId' }, {
+                        get: { method: 'GET', params: {}, isArray: true }
+                    }),
                     loanProductResource: defineResource(apiVer + "/loanproducts/:loanProductId/:resourceType", { resourceType: '@resourceType', loanProductId: '@loanProductId' }, {
                         getAllLoanProducts: { method: 'GET', params: {}, isArray: true },
                         getAllCreditbureauLoanProducts: { method: 'GET', params: {}, isArray: true },

@@ -1,0 +1,49 @@
+<div>
+    <div ng-show="displayAddButton" ng-if="!isUpdate" class="pull-right btn-group">
+        <a ng-click="createSuperLimit()" class="btn btn-primary" has-permission='CREATE_PRODUCTLIMIT'><i
+                class="icon-plus icon-white"></i>{{'label.button.add' | translate }}</a>
+    </div>
+
+    <br>
+    <div ng-if="isUpdate">
+        <legend><b>{{'label.view.limit.summary' | translate}}</b></legend>
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group paddedtop">
+                    <span>{{'label.heading.superlimit' | translate}}&nbsp;</span>
+                </div>
+                <div class="form-group">
+                    <span>{{'label.heading.allocated.limit' | translate}}&nbsp;</span>
+                </div>
+                <div class="form-group">
+                    <span>{{'label.heading.available.limit' | translate}}&nbsp;</span>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <span>{{clientLimits.superlimit}}&nbsp;&nbsp;</span>
+                    <i class="icon-edit icon-white pointer" ng-click="editSuperLimit()" data-toggle="tooltip"
+                        tooltip-placement="right" tooltip="{{ 'label.button.edit' | translate}}"></h3></i>
+                </div>
+                <div class="form-group">
+                    <span>{{clientLimits.totalUsed}}</span>
+                </div>
+                <div class="form-group">
+                    <span>{{clientLimits.totalAvailableBalance}}</span>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="pull-right btn-group">
+                <a class="btn btn-primary" has-permission='CREATE_PRODUCTLIMIT'>
+                    <i class="icon-plus icon-white"></i>{{'label.button.add.productcategory.limits' | translate }}</a>
+            </div>
+            <legend>
+                <h3><b>{{'label.view.productcategory.limits' | translate}}</b></h3>
+            </legend>
+        </div>
+    </div>
+</div>

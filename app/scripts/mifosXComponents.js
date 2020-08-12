@@ -89,6 +89,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'client/ClientAddressController',
             'client/EditClientAddressController',
             'client/ClientGuaranteeController',
+            'client/AddSuperLimitController',
+            'client/EditSuperLimitController',
             'product/ProductCategoryController',
             'product/CreateProductCategoryController',
             'product/LoanProductController',
