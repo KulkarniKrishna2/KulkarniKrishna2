@@ -19,7 +19,6 @@
 
             }
             function populateDetails() {
-                if(scope.taskStatus != undefined && scope.taskStatus != 'completed'){
                      resourceFactory.groupResource.get({groupId: scope.groupId, associations: 'clientMembers'}, function(data) {
                         scope.group = data;
                         scope.loanApplications = [];
@@ -29,18 +28,34 @@
                                 resourceFactory.loanApplicationReferencesForGroupResource.get({groupId: scope.groupId,clientId: client.id}, function(data1) {
                                     if (data1.length > 0) {
                                         angular.forEach(data1, function(loanApplication) {
-                                            if (!(loanApplication.status.id > 200 && loanApplication.status.id <= 700)){
                                                 loanApplication.clientName = client.displayName; 
+                                                loanApplication.statusInReadableFormat = getApplicationStatus(loanApplication.status.value);
                                                 scope.loanApplications.push(loanApplication);
-                                            }   
                                         });
                                     }
                                 });
                             });
                         }
                     });
-                }  
             };
+
+            function getApplicationStatus(value) {
+                if(value == 'APPLICATION_CREATED') {
+                    return 'Submitted';
+                } else if(value == 'APPLICATION_IN_APPROVE_STAGE') {
+                    return 'Approval pending';
+                }else if(value == 'CB_APPROVED') {
+                    return 'CB Approved';
+                }else if(value == 'APPLICATION_APPROVED') {
+                    return 'Approved';
+                }else if(value == 'APPLICATION_ACTIVE') {
+                    return 'Disbursed';
+                }else if(value == 'APPLICATION_REJECTED') {
+                    return 'Rejected';
+                }else if(value == 'CB_REJECTED') {
+                    return 'CB Rejected';
+                }
+            }
 
             populateDetails();
 

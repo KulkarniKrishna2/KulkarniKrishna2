@@ -33,7 +33,7 @@
                                 }, function(data1) {
                                     if (data1.length > 0) {
                                         angular.forEach(data1, function(loanApplication) {
-                                            if ((loanApplication.status.id == 300))
+                                                loanApplication.statusInReadableFormat = getApplicationStatus(loanApplication.status.value);
                                                 scope.loanApplications.push(loanApplication);
                                         });
                                     }
@@ -43,6 +43,25 @@
                     });
                 }
             };
+
+            function getApplicationStatus(value) {
+                if(value == 'APPLICATION_CREATED') {
+                    return 'Submitted';
+                } else if(value == 'APPLICATION_IN_APPROVE_STAGE') {
+                    return 'Approval pending';
+                }else if(value == 'CB_APPROVED') {
+                    return 'CB Approved';
+                }else if(value == 'APPLICATION_APPROVED') {
+                    return 'Approved';
+                }else if(value == 'APPLICATION_ACTIVE') {
+                    return 'Disbursed';
+                }else if(value == 'APPLICATION_REJECTED') {
+                    return 'Rejected';
+                }else if(value == 'CB_REJECTED') {
+                    return 'CB Rejected';
+                }
+            }
+
             populateDetails();
 
             scope.disburseLoan = function(loanApplicationReferenceId) {
