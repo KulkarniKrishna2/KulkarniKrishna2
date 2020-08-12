@@ -8647,9 +8647,9 @@
      "error.msg.invalid.prpt.file.not.found" : "Please upload Pentaho(PRPT) report file",
      "error.msg.invalid.prpt.file.name" : "Pentaho(PRPT) report file name should be same as report name.",
      "error.msg.invalid.prpt.file.extension": "Pentaho(PRPT) report file name extension should be .prpt",
-
-
-
+     "error.msg.file.cannot.be.empty" : "File cannot be empty",
+     "error.msg.uploaded.file.doesnot.contain.any.data.to.process" : "Uploaded File doesnot contain any data other than headers",
+     "error.msg.unsupported.headers.in.the.uploaded.file" :"`{{params[0].value}}` are not supported",
      
      "------ end of translation file ------": "----------"
 
