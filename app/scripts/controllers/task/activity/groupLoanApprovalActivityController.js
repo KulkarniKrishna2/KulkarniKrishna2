@@ -887,7 +887,7 @@
                 if (scope.loanApplications != undefined) {
                     scope.loanApplications.forEach(function(loanApplication) {
                         for (var i in loanApplication) {
-                            if (loanApplication.status.value != 'APPLICATION_APPROVED') {
+                            if (!loanApplication.status.id > 201 ) {
                                 loanApplicationsApproved = false;
                                 break;
                             }

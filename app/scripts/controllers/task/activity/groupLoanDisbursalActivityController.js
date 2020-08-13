@@ -545,7 +545,18 @@
             };
 
             function allLoansDisbursed() {
-                return !(scope.loanApplications && scope.loanApplications.length > 0);
+                var loanApplicationsDisbured = true;
+                if (scope.loanApplications != undefined) {
+                    scope.loanApplications.forEach(function(loanApplication) {
+                        for (var i in loanApplication) {
+                            if (!loanApplication.status.id > 300 ) {
+                                loanApplicationsDisbured = false;
+                                break;
+                            }
+                        }
+                    });
+                }
+                return loanApplicationsDisbured;
             };
 
             scope.allowDisburse = function(){
