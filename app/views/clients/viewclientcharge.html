@@ -46,8 +46,8 @@
                         <td>{{charge.dueDate|DateFormat}}</td>
                     </tr>
                     <tr>
-                        <td>{{'label.heading.due' | translate}}</td>
-                        <td>{{charge.amount|number}}</td>
+                        <td>{{'label.heading.duetax' | translate}}</td>
+                        <td>{{charge.amount|number}}{{" ( "}}{{(charge.taxAmount | number : 2) || "0"}}{{" )"}}</td>
                     </tr>
                     <tr>
                         <td>{{'label.heading.paid' | translate}}</td>

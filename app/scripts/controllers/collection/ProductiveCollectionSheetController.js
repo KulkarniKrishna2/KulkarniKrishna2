@@ -7,6 +7,7 @@
             params.meetingDate = routeParams.meetingDate;
             params.officeId = routeParams.officeId;
             params.staffId = routeParams.staffId;
+            scope.newtransactionDate = routeParams.newtransactionDate;
             if (params.staffId === "undefined") {
                 params.staffId = null;
             }
@@ -339,6 +340,7 @@
                 scope.formData.bulkRepaymentTransactions = scope.bulkRepaymentTransactions;
                 scope.formData.bulkSavingsTransactions = scope.bulkSavingsTransactions;
                 scope.formData.forcedSubmitOfCollectionSheet=false;
+                scope.formData.isTransactionDateOnNonMeetingDate = false;
                 if (scope.forcedSubmit == true) {
                     scope.formData.forcedSubmitOfCollectionSheet = true;
                 }
@@ -356,6 +358,10 @@
                 scope.productiveCollctionSheetSearchParams = searchParameters;
                 if (scope.productiveCollctionSheetSearchParams.transactionDate != undefined && scope.productiveCollctionSheetSearchParams.transactionDate != null) {
                     scope.formData.searchParams = scope.productiveCollctionSheetSearchParams;
+                }
+                if (scope.newtransactionDate) {
+                    scope.formData.transactionDate = scope.newtransactionDate;
+                    scope.formData.isTransactionDateOnNonMeetingDate = true;
                 }
                 if(scope.isRejectReasonMandatory==true){
                     if(scope.collectionReasonList.length>0){

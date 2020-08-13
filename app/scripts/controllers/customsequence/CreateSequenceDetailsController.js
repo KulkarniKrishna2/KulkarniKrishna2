@@ -8,6 +8,7 @@
 
             resourceFactory.customSequenceTemplateResource.get(this.formData, function(data) {
                     scope.sequencePatternData = data.sequencePatternData;
+                    scope.sequenceSeparatorType = data.sequenceSeparatorType;
                     scope.sequenceType = data.sequenceType;
                     scope.sequenceType.splice(0, 1);
                 });

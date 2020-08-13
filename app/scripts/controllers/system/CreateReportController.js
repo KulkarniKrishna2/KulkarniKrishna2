@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreateReportController: function (scope, resourceFactory, location) {
+        CreateReportController: function (scope, resourceFactory, location, $upload, $rootScope, API_VERSION, $modal) {
             scope.formData = {};
             scope.reportParameters = [];
             scope.flag = false;
@@ -11,12 +11,10 @@
 
             resourceFactory.codeValueByCodeNameResources.get({codeName: "Report Classification"}, function (codeValueData) {
                 scope.availablCategories = codeValueData;
-                console.log('codeValueData: ',codeValueData);
             });
 
             resourceFactory.reportsResource.getReportDetails({resourceType: 'template'}, function (data) {
                 scope.reportdetail = data;
-                console.log('template: ',data);
                 scope.formData.reportType = data.allowedReportTypes[0];
             });
 
@@ -96,7 +94,43 @@
                 scope.reportParameters.splice(index, 1);
             }
 
+            scope.onFileSelect = function ($files) {
+                scope.errorDetails = [];
+                var isValidFile = false;
+                var isValidFileName = false;
+                scope.file = $files[0];
+                if(scope.file.name && scope.file.name != ""){
+                    var fileName = scope.file.name;
+                    var ext = fileName.substr(fileName.lastIndexOf('.') + 1);
+                    if("prpt" === ext.toLowerCase()){
+                        isValidFile = true;
+                    }
+                    fileName = fileName.substr(0, fileName.lastIndexOf('.'));
+                    if(fileName === scope.formData.reportName){
+                        isValidFileName = true;
+                    }
+                }
+                if (!isValidFile) {
+                    var errorObj = new Object();
+                    errorObj.args = {
+                        params: []
+                    };
+                    errorObj.args.params.push({ value: 'error.msg.invalid.prpt.file.extension' });
+                    scope.errorDetails.push(errorObj);
+                    scope.file = undefined;
+                }else if (!isValidFileName) {
+                    var errorObj = new Object();
+                    errorObj.args = {
+                        params: []
+                    };
+                    errorObj.args.params.push({ value: 'error.msg.invalid.prpt.file.name' });
+                    scope.errorDetails.push(errorObj);
+                    scope.file = undefined;
+                }
+            };
+
             scope.submit = function () {
+                scope.errorDetails = [];
                 this.formData.locale = "en";
                 scope.formData.reportClassifications = [] ;
                 for (var i in scope.selectedCategories) {
@@ -111,13 +145,47 @@
                     delete this.formData.embeddedReportType;
                 }
                 this.formData.reportParameters = scope.temp;
-                resourceFactory.reportsResource.save(this.formData, function (data) {
+
+                if(_.isUndefined(scope.file) && this.formData.reportType==='Pentaho'){
+                    scope.errorDetails = [];
+                    var errorObj = new Object();
+                    errorObj.args = {
+                        params: []
+                    };
+                    errorObj.args.params.push({ value: 'error.msg.invalid.prpt.file.not.found' });
+                    scope.errorDetails.push(errorObj);
+                    return;
+                }
+
+                if(!_.isUndefined(scope.file) && this.formData.reportType==='Pentaho'){
+                    if(scope.file.name && scope.file.name != ""){
+                        var fileName = scope.file.name.substr(0, scope.file.name.lastIndexOf('.'));
+                        if(fileName !== this.formData.reportName){
+                            scope.errorDetails = [];
+                            var errorObj = new Object();
+                            errorObj.args = {
+                                params: []
+                            };
+                            errorObj.args.params.push({ value: 'error.msg.invalid.prpt.file.name' });
+                            scope.errorDetails.push(errorObj);
+                            return;
+                        }
+                    }
+                }
+
+                var formData = new FormData();
+                formData.append('formDataJson', JSON.stringify(this.formData));
+                if(!_.isUndefined(scope.file) && this.formData.reportType==='Pentaho'){
+                    formData.append('files', scope.file); 
+                }
+                
+                resourceFactory.reportsResource.save(formData, function (data) {
                     location.path('/system/viewreport/' + data.resourceId);
                 });
             };
         }
     });
-    mifosX.ng.application.controller('CreateReportController', ['$scope', 'ResourceFactory', '$location', mifosX.controllers.CreateReportController]).run(function ($log) {
+    mifosX.ng.application.controller('CreateReportController', ['$scope', 'ResourceFactory', '$location', '$upload', '$rootScope', 'API_VERSION', '$modal', mifosX.controllers.CreateReportController]).run(function ($log) {
         $log.info("CreateReportController initialized");
     });
 }(mifosX.controllers || {}));
