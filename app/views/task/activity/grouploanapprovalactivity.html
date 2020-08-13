@@ -15,6 +15,7 @@
                             <th>{{'label.heading.client' | translate}}</th>
                             <th>{{'label.heading.loan.amount.requested' | translate}}</th>
                             <th>{{'label.heading.loanproduct' | translate}}</th>
+                            <th>{{'label.input.adhoc.search.loanstatus' | translate}}</th>
                             <th>{{'label.heading.actions' | translate}}</th>
                         </tr>
                         <tr class="pointer-main" ng-repeat="loanApp in loanApplications | orderBy:'id':true| filter:isLoanAppIncompleted">
@@ -24,16 +25,14 @@
                             <td>{{loanApp.clientName}}</td>
                             <td>{{loanApp.loanAmountRequested|number}}</td>
                             <td>{{loanApp.loanProductName}}</td>
-                            <td>
+                            <td>{{loanApp.statusInReadableFormat}}</td>
+                            <td ng-if="loanApp.status.id == 100 || loanApp.status.id == 200">
                                 <a tooltip="{{'label.button.approve' | translate}}" has-permission='APPROVE_LOANAPPLICATIONREFERENCE' ng-click="approveLoan(loanApp)" class="btn btn-xs btn-primary ng-binding">
                                     <i class="icon-ok icon-white"></i>
                                 </a>
                             </td>
                         </tr>
                     </table>
-                </div>
-                <div ng-if="displayOnNoActiveLoanApplication()">
-                    {{'error.msg.loan.application.data.empty' | translate}}
                 </div>
             </fieldset>
         </form>

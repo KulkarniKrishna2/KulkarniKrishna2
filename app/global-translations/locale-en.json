@@ -8651,6 +8651,7 @@
      "error.msg.uploaded.file.doesnot.contain.any.data.to.process" : "Uploaded File doesnot contain any data other than headers",
      "error.msg.unsupported.headers.in.the.uploaded.file" :"`{{params[0].value}}` are not supported",
      
+     "lable.msg.task.can.perfomed.in.mobile.app" : "This task can be performed only from mobile application",
      "------ end of translation file ------": "----------"
 
 }
