@@ -3,6 +3,12 @@
         DisbursalActivityController: function ($controller, scope, routeParams, $modal, resourceFactory, location, dateFilter, ngXml2json, route, $http, $rootScope, $sce, CommonUtilService, $route, $upload, API_VERSION) {
             angular.extend(this, $controller('defaultActivityController', { $scope: scope }));
 
+            scope.hideExpectedDisbursementDate = false;
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow &&
+                scope.response.uiDisplayConfigurations.workflow.hiddenFields) {
+                scope.hideExpectedDisbursementDate = scope.response.uiDisplayConfigurations.workflow.hiddenFields.expectedDisbursementDate;
+            }
+
             function initTask() {
                 scope.$parent.clientsCount();
                 scope.centerId = scope.taskconfig.centerId;
@@ -700,7 +706,7 @@
                     $scope.formData.dateFormat = scope.df;
                     $scope.formData.actualDisbursementDate = new Date();
                     var reqDate = new Date();
-                    if(loanData.expectedDisbursementOnDate){
+                    if(loanData.expectedDisbursementOnDate && !scope.hideExpectedDisbursementDate){
                         var disburseDate = new Date(loanData.expectedDisbursementOnDate);
                         reqDate = dateFilter(disburseDate, scope.df);                        
                     }else{                        
@@ -746,7 +752,9 @@
                     $scope.loanAccountData = memberParams.activeClientMember.loanAccountBasicData;
                     $scope.loanId = $scope.loanAccountData.id;
                     $scope.isLoanAccountExist = true;
-                    $scope.formData.actualDisbursementDate = new Date($scope.loanAccountData.expectedDisbursementOnDate);
+                    if(!scope.hideExpectedDisbursementDate){
+                        $scope.formData.actualDisbursementDate = new Date($scope.loanAccountData.expectedDisbursementOnDate);
+                    }
                 }
                 $scope.close = function () {
                     $modalInstance.dismiss('close');
