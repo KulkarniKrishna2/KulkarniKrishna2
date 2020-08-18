@@ -8580,6 +8580,8 @@
      "label.account.actual.balance" : "Account Balance",
      
      "lable.msg.task.can.perfomed.in.mobile.app" : "This task can be performed only from mobile application",
+     "label.heading.summary.penalties": "Penalties",
+
      "------ end of translation file ------": "----------"
 
 }
