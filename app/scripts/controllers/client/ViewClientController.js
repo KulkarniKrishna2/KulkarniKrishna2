@@ -1862,12 +1862,25 @@
                 var templateUrl = 'views/clients/addsuperlimit.html';
                 var controller = 'AddSuperLimitController';
                 popUpUtilService.openDefaultScreenPopUp(templateUrl, controller, scope);
-                scope.displayAddButton = false;
+                scope.submit() ? scope.displayAddButton = false : scope.displayAddButton = true;
             }
 
             scope.editSuperLimit = function() {
                 var templateUrl = 'views/clients/editsuperlimit.html';
                 var controller = 'EditSuperLimitController';
+                popUpUtilService.openDefaultScreenPopUp(templateUrl, controller, scope);
+            }
+
+            scope.createProductCategoryLimit = function() {
+                var templateUrl = 'views/clients/addproductcategorylimit.html';
+                var controller = 'AddProductCategoryLimitController';
+                popUpUtilService.openDefaultScreenPopUp(templateUrl, controller, scope);
+            }
+
+            scope.editProductCategoryLimit = function(limitValue) {
+                var templateUrl = 'views/clients/editproductcategorylimit.html';
+                var controller = 'EditProductCategoryLimitController';
+                scope.limitValue = limitValue;
                 popUpUtilService.openDefaultScreenPopUp(templateUrl, controller, scope);
             }
 

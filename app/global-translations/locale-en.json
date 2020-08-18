@@ -1130,6 +1130,8 @@
     "error.msg.identifier.documentExpiryDate.in.the.backdate": "document expiry date cannot be before the current date",
     "error.msg.identifier.documentIssueDate.in.the.future": "document issue date cannot be in future date",
     "error.msg.activate.date.cannot.be. before.office.activation.date": "Village activation date cannot be before Office activation date",
+    "error.msg.client.super.limit.cannot.be.less.than.combined.client.product.category.limit": "Client Super limit cannot be less than Total max allowed limit of {{params[0].value}}",
+    "error.msg.cannot.total.max.allowed.limit.cannot.be.greater.than.client.super.limit": "Failed to assign limit as Total max allowed limit is exceeding client Super limit of {{params[1].value}}",
     "#--------": "------------",
 
     "#Groups": "....",
@@ -5578,7 +5580,9 @@
     "label.anchor.view.income.gen.asset": "View Income Generating Asset",
 
     "label.view.set.superlimit": "Set Super Limit",
+    "label.view.set.categorylimit": "Set Category Limit",
     "label.view.edit.superlimit": "Edit Super Limit",
+    "label.view.edit.categorylimit": "Edit Category Limit",
     "label.view.productcategory.limits": "Product Category Limits",
     "label.view.add.productcategory.limits": "Set Product Category Limit",
     "label.view.limit.summary": "Limit Summary",

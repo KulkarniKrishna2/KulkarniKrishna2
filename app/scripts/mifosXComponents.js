@@ -91,6 +91,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'client/ClientGuaranteeController',
             'client/AddSuperLimitController',
             'client/EditSuperLimitController',
+            'client/AddProductCategoryLimitController',
+            'client/EditProductCategoryLimitController',
             'product/ProductCategoryController',
             'product/CreateProductCategoryController',
             'product/LoanProductController',

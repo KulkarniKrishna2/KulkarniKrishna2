@@ -38,12 +38,42 @@
 
         <div>
             <div class="pull-right btn-group">
-                <a class="btn btn-primary" has-permission='CREATE_PRODUCTLIMIT'>
+                <a ng-click="createProductCategoryLimit()" class="btn btn-primary" has-permission='CREATE_PRODUCTLIMIT'>
                     <i class="icon-plus icon-white"></i>{{'label.button.add.productcategory.limits' | translate }}</a>
             </div>
             <legend>
                 <h3><b>{{'label.view.productcategory.limits' | translate}}</b></h3>
             </legend>
+            <br>
+            <div ng-if="clientLimits.productCategoryLimits.length > 0">
+                <table class="table">
+                    <thead>
+                        <tr class="graybg">
+                            <th>{{'label.heading.category' | translate}}</th>
+                            <th>{{'label.heading.allocated.limit' | translate}}</th>
+                            <th>{{'label.heading.available.limit' | translate}}</th>
+                            <th>{{'label.heading.category.limit' | translate}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="limit in clientLimits.productCategoryLimits">
+                            <td>{{limit.categoryId}}</td>
+                            <td>{{limit.totalUsed}}</td>
+                            <td>{{limit.totalAvailableBalance}}</td>
+                            <td>
+                                <div class="col-md-2">
+                                    {{limit.categoryLimit}}
+                                </div>
+                                <div class="col-md-2">
+                                    <i class="icon-edit icon-white pointer" ng-click="editProductCategoryLimit(limit)"
+                                        data-toggle="tooltip" tooltip-placement="right"
+                                        tooltip="{{ 'label.button.edit' | translate}}"></i>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
