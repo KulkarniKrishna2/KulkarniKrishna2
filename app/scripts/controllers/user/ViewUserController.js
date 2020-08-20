@@ -98,26 +98,22 @@
                 };
             };
 
-            scope.unlockuser = function () {
-                $modal.open({
-                    templateUrl: 'unlockuser.html',
-                    controller: UserUnlockCtrl
-                });
+            scope.lock = function(){
+                resourceFactory.userListResource.post({
+                    userId: routeParams.id,
+                    command: 'lock'
+                }, {}, function (data) {
+                    location.path('/users');
+                });           
             };
 
-            var UserUnlockCtrl = function ($scope, $modalInstance) {
-                $scope.unlock = function () {
-                    resourceFactory.userListResource.post({
-                        userId: routeParams.id,
-                        command: 'unlock'
-                    }, {}, function (data) {
-                        $modalInstance.close('unlock');
-                        location.path('/users');
-                    });
-                };
-                $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
-                };
+            scope.unlock = function () {
+                resourceFactory.userListResource.post({
+                    userId: routeParams.id,
+                    command: 'unlock'
+                }, {}, function (data) {
+                    location.path('/users');
+                });
             };
 
             scope.fetchDevicesToUser = function () {

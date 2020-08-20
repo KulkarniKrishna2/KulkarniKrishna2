@@ -3035,6 +3035,9 @@
     "label.heading.roletoloanproducts": "Role access to loan products",
     "label.heading.roletosavingsproducts": "Role access to savings products",
     "label.heading.unlockuser": "Unlock User",
+    "label.heading.lockuser": "Lock User",
+    "label.heading.lockuser.message": "Do you want to lock the User?",
+    "label.heading.unlockuser.message": "Do you want to un-lock the User?",
 
     "#Anchors": "..",
     "label.anchor.users": "Users",
@@ -3064,6 +3067,7 @@
     "label.button.createuser": "Create User",
     "label.button.changepassword": "Change Password",
     "label.button.unlock": "unlock",
+    "label.button.lock": "lock",
     "label.input.captcha": "Enter Captcha",
     "error.captcha.verification.failed": "Captcha Verification failed",
     "error.captcha.verification.required":"Captcha Verification Required",
