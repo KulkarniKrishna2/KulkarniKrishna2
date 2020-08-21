@@ -228,6 +228,7 @@
                 resourceFactory.documentsGenerateResource.generate({entityType: scope.entityType, entityId: scope.entityId, identifier: document.reportIdentifier}, function(data){
                     document.id = data.resourceId;
                     document.docUrl = documentsURL(document);
+                    getDocuments();
                 })
             };
 
@@ -235,6 +236,7 @@
                 resourceFactory.documentsGenerateResource.reGenerate({entityType: scope.entityType, entityId: scope.entityId, identifier: document.id}, function(data){
                     document.id = data.resourceId;
                     document.docUrl = documentsURL(document);
+                    getDocuments();
                 })
             };
 
