@@ -61,21 +61,21 @@
                         </label>
                         <div class="col-sm-3">
                             <input placeholder="FIRST NAME" type="text" autocomplete="off" id="firstname" name="firstname"
-							ng-pattern="{{regexFormats.namePattern}}" ng-model="formData.firstname" class="form-control" ng-required="isFirstnameRequired"/>
-							<span class="error" ng-show="submitted && createclientform.firstname.$error.required">{{'label.error.required'|translate}}</span>
-							<span class="error" ng-show="createclientform.firstname.$invalid">{{'label.only.text' | translate}}</span>
+							ng-pattern="{{regexFormats.namePattern}}" ng-model="formData.firstname" class="form-control" ng-required="isElemMandatoryField('firstName')"/>
+							<span class="error" ng-show="createclientform.firstname.$error.required && rc.createclientform.attempted">{{'label.error.required'|translate}}</span>
+							<span class="error" ng-show="!createclientform.firstname.$error.required && createclientform.firstname.$invalid">{{'label.only.text' | translate}}</span>
                         </div>
                         <div class="col-sm-3" ng-show="showMiddleName">
                             <input placeholder="MIDDLE NAME" type="text" autocomplete="off" id="middlename" name="middlename"
-							ng-pattern="{{regexFormats.namePattern}}" ng-model="formData.middlename" class="form-control" ng-required="isMiddlenameRequired"/>
-                            <span class="error" ng-show="submitted && createclientform.firstname.$error.required">{{'label.error.required'|translate}}</span>
-							<span class="error" ng-show="createclientform.middlename.$invalid">{{'label.only.text' | translate}}</span>
+							ng-pattern="{{regexFormats.namePattern}}" ng-model="formData.middlename" class="form-control" ng-required="isElemMandatoryField('middleName')"/>
+                            <span class="error" ng-show="createclientform.middlename.$error.required && rc.createclientform.attempted">{{'label.error.required'|translate}}</span>
+							<span class="error" ng-show="!createclientform.middlename.$error.required && createclientform.middlename.$invalid">{{'label.only.text' | translate}}</span>
 						</div>
                         <div class="col-sm-3">
                             <input placeholder="LAST NAME" type="text" autocomplete="off" id="lastname" name="lastname"
-							ng-pattern="{{regexFormats.namePattern}}" ng-model="formData.lastname" class="form-control" ng-required="isLastnameRequired"/>
-                            <span class="error" ng-show="submitted && createclientform.firstname.$error.required">{{'label.error.required'|translate}}</span>
-							<span class="error" ng-show="createclientform.lastname.$invalid">{{'label.only.text.lname' | translate}}</span>
+							ng-pattern="{{regexFormats.namePattern}}" ng-model="formData.lastname" class="form-control" ng-required="isElemMandatoryField('lastName')"/>
+                            <span class="error" ng-show="createclientform.lastname.$error.required && rc.createclientform.attempted">{{'label.error.required'|translate}}</span>
+							<span class="error" ng-show="!createclientform.lastname.$error.required && createclientform.lastname.$invalid">{{'label.only.text.lname' | translate}}</span>
 						</div>
                     </div>
                 </div>

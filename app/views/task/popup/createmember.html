@@ -57,21 +57,20 @@
 									</label>
 									<div class="col-sm-3">
 										<input placeholder="FIRST NAME" type="text" autocomplete="off" id="firstname" name="firstname" ng-model="formData.firstname" class="form-control"
-										ng-pattern="{{regexFormats.namePattern}}" ng-required="isFirstnameRequired" />
-										<span class="error" ng-show="submitted && creatememberform.firstname.$error.required">{{'label.error.required'|translate}}</span>
-									    <span class="error" ng-show="creatememberform.firstname.$invalid">{{'label.only.text' | translate}}</span>
+										ng-pattern="{{regexFormats.namePattern}}"  required late-validate/>
+										<span class="error" ng-show="creatememberform.firstname.$error.required && rc.creatememberform.attempted">{{'label.error.required'|translate}}</span>
+									    <span class="error" ng-show="!creatememberform.firstname.$error.required && creatememberform.firstname.$invalid">{{'label.only.text' | translate}}</span>
 									</div>
 									<div class="col-sm-3" ng-show="showMiddleName">
 										<input placeholder="MIDDLE NAME" type="text" autocomplete="off" id="middlename" name="middlename" ng-model="formData.middlename" class="form-control"
-										ng-pattern="{{regexFormats.namePattern}}" ng-required="isMiddlenameRequired" />
-										<span class="error" ng-show="submitted && creatememberform.firstname.$error.required">{{'label.error.required'|translate}}</span>
-									    <span class="error" ng-show="creatememberform.middlename.$invalid">{{'label.only.text' | translate}}</span>
+										ng-pattern="{{regexFormats.namePattern}}"/>
+									    <span class="error" ng-show="rc.creatememberform.attempted && creatememberform.middlename.$invalid">{{'label.only.text' | translate}}</span>
 									</div>
 									<div class="col-sm-3">
 										<input placeholder="LAST NAME" type="text" autocomplete="off" id="lastname" name="lastname" ng-model="formData.lastname" class="form-control"
-										ng-pattern="{{regexFormats.namePattern}}" ng-required="isLastnameRequired" />
-										<span class="error" ng-show="submitted && creatememberform.firstname.$error.required">{{'label.error.required'|translate}}</span>
-									    <span class="error" ng-show="creatememberform.lastname.$invalid">{{'label.only.text.lname' | translate}}</span>
+										ng-pattern="{{regexFormats.namePattern}}" required late-validate/>
+										<span class="error" ng-show="creatememberform.lastname.$error.required && rc.creatememberform.attempted">{{'label.error.required'|translate}}</span>
+									    <span class="error" ng-show="!creatememberform.lastname.$error.required && creatememberform.lastname.$invalid">{{'label.only.text.lname' | translate}}</span>
 									</div>
 								</div>
 							</div>

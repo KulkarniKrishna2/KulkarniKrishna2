@@ -150,16 +150,15 @@
                                 <span class="required">*</span>
                             </label>
                             <div class="col-sm-3">
-                                <input placeholder="FIRST NAME" type="text" autocomplete="off" id="firstname" name="firstname" ng-model="addClientformData.firstname" class="form-control" ng-required="isFirstnameRequired" />
-                                <span class="error" ng-show="submitted && createclientform.firstname.$error.required">{{'label.error.required'|translate}}</span>
+                                <input placeholder="FIRST NAME" type="text" autocomplete="off" id="firstname" name="firstname" ng-model="addClientformData.firstname" class="form-control" required late-Validate/>
+                                <form-validate valattributeform="createclientform" valattribute="firstname"/>
                             </div>
                             <div class="col-sm-3">
-                                <input placeholder="MIDDLE NAME" type="text" autocomplete="off" id="middlename" name="middlename" ng-model="addClientformData.middlename" class="form-control" ng-required="isMiddlenameRequired" />
-                                <span class="error" ng-show="submitted && createclientform.firstname.$error.required">{{'label.error.required'|translate}}</span>
+                                <input placeholder="MIDDLE NAME" type="text" autocomplete="off" id="middlename" name="middlename" ng-model="addClientformData.middlename" class="form-control"/>
                             </div>
                             <div class="col-sm-3">
-                                <input placeholder="LAST NAME" type="text" autocomplete="off" id="lastname" name="lastname" ng-model="addClientformData.lastname" class="form-control" ng-required="isLastnameRequired" />
-                                <span class="error" ng-show="submitted && createclientform.firstname.$error.required">{{'label.error.required'|translate}}</span>
+                                <input placeholder="LAST NAME" type="text" autocomplete="off" id="lastname" name="lastname" ng-model="addClientformData.lastname" class="form-control" required late-Validate/>
+                                <form-validate valattributeform="createclientform" valattribute="lastname"/>
                             </div>
                         </div>
                     </div>
