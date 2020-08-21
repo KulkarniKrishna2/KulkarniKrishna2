@@ -8652,6 +8652,9 @@
      "error.msg.unsupported.headers.in.the.uploaded.file" :"`{{params[0].value}}` are not supported",
      
      "lable.msg.task.can.perfomed.in.mobile.app" : "This task can be performed only from mobile application",
+     "error.msg.bank.account.details.already.exist" : "Bank account details already exist",
+
+
      "------ end of translation file ------": "----------"
 
 }

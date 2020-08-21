@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ReviewBankAccountCommonController: function ($controller, scope, routeParams, resourceFactory, location, $modal, route, $window, dateFilter, $upload, $rootScope, API_VERSION, $http, commonUtilService) {
+        ReviewBankAccountCommonController: function ($controller, scope, resourceFactory, route, $rootScope, API_VERSION, $http) {
             angular.extend(this, $controller('defaultUIConfigController', { $scope: scope, $key: "bankAccountDetails" }));
             angular.extend(this, $controller('defaultActivityController', { $scope: scope }));
 
@@ -93,6 +93,31 @@
                 });
             };
 
+            scope.isBankAccountAllowToReject = function () {
+                if (scope.viewUIConfig.isTask) {
+                    return !scope.isTaskCompleted() && scope.bankAccountDetailsData.status.value !== 'rejected';
+                }
+                return scope.bankAccountDetailsData.status.value !== 'rejected';
+            };
+
+            scope.isBankAccountAllowToActivate = function () {
+                return scope.isBankAccountAllowToReject();
+            };
+
+            scope.reject = function () {
+                resourceFactory.bankAccountDetailsRejectResource.reject({
+                    entityType: getEntityType(),
+                    entityId: getEntityId(),
+                    bankAccountDetailsId: getBankAccountDetailsId()
+                }, {}, function (data) {
+                    relaunch();
+                });
+            };
+
+            function relaunch() {
+                route.reload();
+            }
+
             function isFormValid() {
                 var errorArray = new Array();
                 var arrayIndex = 0;
@@ -180,7 +205,7 @@
 
         }
     });
-    mifosX.ng.application.controller('ReviewBankAccountCommonController', ['$controller', '$scope', '$routeParams', 'ResourceFactory', '$location', '$modal', '$route', '$window', 'dateFilter', '$upload', '$rootScope', 'API_VERSION', '$http', 'CommonUtilService', mifosX.controllers.ReviewBankAccountCommonController]).run(function ($log) {
+    mifosX.ng.application.controller('ReviewBankAccountCommonController', ['$controller', '$scope', 'ResourceFactory', '$route', '$rootScope', 'API_VERSION', '$http', mifosX.controllers.ReviewBankAccountCommonController]).run(function ($log) {
         $log.info("ReviewBankAccountCommonController initialized");
     });
 }(mifosX.controllers || {}));

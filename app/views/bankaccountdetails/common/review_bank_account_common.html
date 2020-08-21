@@ -169,7 +169,13 @@
                     </tbody>
                 </table>
                 <div class="col-md-offset-2 paddedleft paddedtop" ng-if="!viewConfig.showSummary">
-                    <a id="edit" ng-click="submit()" class="btn btn-primary"
+
+                    <button ng-if="isBankAccountAllowToReject()" id="bankAccountDetailsReject" class="btn btn-danger"
+                        ng-click="reject()" has-permission='REJECT_BANKACCOUNTDETAIL'>
+                        {{'label.button.reject' | translate}}
+                    </button>
+
+                    <a id="activate" ng-if="isBankAccountAllowToActivate()" ng-click="submit()" class="btn btn-primary"
                         has-permission="ACTIVATE_BANKACCOUNTDETAIL">{{'label.button.approve' | translate}}</a>
                 </div>
             </form>
