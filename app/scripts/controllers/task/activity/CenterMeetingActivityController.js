@@ -15,6 +15,7 @@
             scope.disbursementDateFound = false;
             scope.expectedDisbursementOnDate = null;
             scope.hideCenterMeetingEdit = true;
+            scope.hideExpectedDisbursementDate = false;
             for (var i = 1; i <= 28; i++) {
                 scope.repeatsOnDayOfMonthOptions.push(i);
             }

@@ -254,7 +254,10 @@
 				"streetName": false,
 				"houseNo": false,
 				"incorporationDate": false,
-				"incorporationNumber": false
+				"incorporationNumber": false,
+				"firstName": true,
+				"lastName": true,
+				"middleName": false
 			},
 			"isAutoPopulate": {
 				"genderOption": true

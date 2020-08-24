@@ -271,7 +271,7 @@
                     return false;
                 }
                 if (scope.viewUIConfig.isTask) {
-                    return !scope.isTaskCompleted() && scope.isBankAccountAllowToModifyable();
+                    return !scope.isTaskCompleted() && false;
                 }
                 return scope.isBankAccountAllowToModifyable();
             }
@@ -321,6 +321,9 @@
                 }
                 if (scope.bankAccountDetailsData.verificationStatus.id > 0) {
                     return false;
+                }
+                if (scope.viewUIConfig.isTask) {
+                    return !scope.isTaskCompleted() && ['active', 'inactive', 'deleted'].indexOf(scope.bankAccountDetailsData.status.value) < 0;
                 }
                 return ['active', 'inactive', 'deleted'].indexOf(scope.bankAccountDetailsData.status.value) < 0;
             }

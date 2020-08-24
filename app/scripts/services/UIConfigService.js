@@ -5,7 +5,7 @@
 
             var configUIArray = ["agronomica","almajmoua","bss","chaitanya","crediangolar","digamber","eastlanka",
             "flexidemo","felxiloans","grayquest","habitat","hana","kapilcapital","light","mobilityfinance","neev",
-            "phakamani","secdep","sef","shivakarifin","sunvest","vayarbl","vayabc","vaya","default"];
+            "phakamani","secdep","sef","shivakarifin","sunvest","tapstart","vayarbl","vayabc","vaya","default"];
 
             var getUIConfigKey = function(tenantName){
                 var arrayLength = configUIArray.length;

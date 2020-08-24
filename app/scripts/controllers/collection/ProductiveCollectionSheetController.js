@@ -332,7 +332,11 @@
                 }
                 scope.formData.dateFormat = scope.df;
                 scope.formData.locale = scope.optlang.code;
-                scope.formData.transactionDate = dateFilter(routeParams.meetingDate, scope.df);
+                if(!_.isUndefined(routeParams.newtransactionDate)) {
+                    scope.formData.transactionDate = dateFilter(routeParams.newtransactionDate, scope.df);
+                } else {
+                    scope.formData.transactionDate = dateFilter(routeParams.meetingDate, scope.df);
+                }
                 scope.updateAttendenceData();
                 scope.formData.bulkDisbursementTransactions = [];
                 scope.updatebulkRepaymentTransactionsWithReason();

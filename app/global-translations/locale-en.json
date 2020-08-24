@@ -507,6 +507,7 @@
     "error.msg.rule.not.found": "Rule is not configured for this task.Please check the configurations.",
     "error.msg.rate.of.interest.less.than.minimum.on.loan.product": "Rate of Interest entered is less than the minimum allowed for the loan product",
     "error.msg.rate.of.interest.more.than.maximum.on.loan.product": "Rate of Interest entered is more than the maximum allowed for the loan product",
+    "error.msg.client.reactivation.cannot.be.done.for.deceased.client": "Deceased client cannot be reactivated",
     "validation.msg.validation.errors.exist": "Validation errors exist.",
     "validation.msg.productivecollectionsheet.staffId.cannot.be.blank": "Staff is mandatory.",
     "validation.msg.domain.rule.violation": "Errors contain reason for domain rule violation.",
@@ -8437,7 +8438,7 @@
      "label.heading.insurance.document.upload" : "Documents upload",
      "label.heading.insurance.documents.name" : "Documents Name",
      "label.heading.insurance.documents.action" : "Action",
-     "label.heading.insurance.status.submit.all" : "Submit All",
+     "label.heading.insurance.status.submit.selected": "Submit Selected",
      "label.heading.insurance.status.delete" : "Delete",
      "lable.tab.heading.insurance.policy"  : "Insurance Policy",
      "label.input.insurance.provider" : "Insurance Provider", 
@@ -8657,9 +8658,9 @@
      "error.msg.unsupported.headers.in.the.uploaded.file" :"`{{params[0].value}}` are not supported",
      
      "lable.msg.task.can.perfomed.in.mobile.app" : "This task can be performed only from mobile application",
+     "error.msg.bank.account.details.already.exist" : "Bank account details already exist",
+     "label.heading.summary.penalties": "Penalties",
 
-
-     
      "------ end of translation file ------": "----------"
 
 }

@@ -5,6 +5,7 @@
 "label.tab.kotak.reject.loans" : "Rejected Loans",
 "KotakApproved": "Approved",
 "KotakRejected": "Rejected",
+"label.heading.summary.penalties": "Broken period interest",
 
 "------ end of translation file ------": "----------"
 }
