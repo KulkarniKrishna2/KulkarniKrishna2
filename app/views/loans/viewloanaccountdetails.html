@@ -1263,8 +1263,8 @@
                     <tab active="tabs[10].active" heading="{{'label.heading.charges' | translate}}" select="getSpecificData('charges')">
                         <div ng-show="chargeTableShow">
                         <table class="table width100">
-                            <tr class="graybg">
-                                <th ng-hide="isGlimEnabled()"><input type="checkbox" ng-change="selectAllCharges()" data-ng-model="charges.selectallcharges"</th>
+                            <tr class="graybg sticky1">
+                                <th ng-hide="isGlimEnabled()"><input type="checkbox" ng-change="selectAllCharges()" data-ng-model="charges.selectallcharges"></th>
                                 <th>{{'label.heading.name' | translate}}</th>
                                 <th>{{'label.heading.feeorpenalty' | translate}}</th>
                                 <th>{{'label.heading.paymentdueat' | translate}}</th>
