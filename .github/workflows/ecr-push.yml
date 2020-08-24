@@ -30,8 +30,8 @@ jobs:
     - name: Build web dist
       run: |
         bower install
-        npm config set unsafe-perm true
-        npm install
+        sudo npm config set unsafe-perm true
+        sudo npm install
         grunt clean prod
       
     - name: Extract Branch Name
