@@ -15,12 +15,21 @@
     var host = "";
     var portNumber = "";
     var basePath = "";
+    var hostNames = ["confluxcloud.com","finflux.io","finflux.local","tapstart.in"]
+    
+    var hostValidForAutoTenantPickup = function(mainLink){
+      var arrayLength = hostNames.length;
+      if(mainLink){
+        for (var i = 0; i < arrayLength; i++) {
+          if(mainLink.hostname.indexOf(hostNames[i])>= 0){
+            return true;
+          }
+        }
+      }
+        return false;
+    };
     //accessing from finflux server
-    if (
-      mainLink.hostname.indexOf("confluxcloud.com") >= 0 ||
-      mainLink.hostname.indexOf("finflux.io") >= 0 ||
-      mainLink.hostname.indexOf("finflux.local") >= 0
-    ) {
+    if (hostValidForAutoTenantPickup(mainLink)) {
       var hostname = window.location.hostname;
       domains = hostname.split(".");
       // For multi tenant hosting
