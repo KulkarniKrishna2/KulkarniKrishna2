@@ -6,47 +6,91 @@
         </ul>
     </div>
     <div class="row paddedleft paddedtop">
-        <div class="list-group">
-            <input ng-model="filterText" type="text" autocomplete="off" ng-keyup="onFilter()" class="form-control" placeholder="{{'label.input.filterbyname' | translate}}">
-            <table class="table span12">
-                <thead>
-                <tr class="graybg">
-                    <th class="width35">{{'label.heading.external.service.name' | translate}}</th>
-                    <th class="text-center width10">{{'label.heading.external.service.status' | translate}}</th>
-                    <th class="text-center width10">{{'label.heading.external.service.trapdoor' | translate}}</th>
-                    <th class="text-center width30">{{'label.heading.external.service.trapdoor.status' | translate}}</th>
-                    <th class="text-center width10">{{'label.heading.external.service.config' | translate}}</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="externalService in externalServiceList | orderBy:'displayOrderid':reverse | filter:filterText">
-                    <td class="width35">
-                    {{externalService.displayName | translate}}
-                    &nbsp; &nbsp; &nbsp;
-                    </td>
-                    <td class="text-center width10">
-                        <span ng-show= isStatusEnabled(externalService) class="label label-success">Enabled</span>
-                        <span ng-hide= isStatusEnabled(externalService) class="label label-warning">Disabled</span>
-                    </td>
-                    <td class="text-center width10">
-                        {{externalService.isTrapdoor | translate}}
-                        &nbsp; &nbsp; &nbsp;
-                    </td>  
-                    <td ng-if="externalService.isTrapdoor" class="text-center width30">
-                        {{externalService.trapdoorStatus | translate}}
-                        &nbsp; &nbsp; &nbsp;
-                    </td>
-                    <td ng-if="!externalService.isTrapdoor" class="text-center width30">
-                    </td>
-                    <td class="text-center width10">
-                        <a title="{{'label.edit' | translate}}" 
-                        href="#/externalservices/{{externalService.name}}">
-                         <i class="icon-cog"></i></a>
-                    </td>
+        <tabset class="marginbottom0" tabset-name="externalServiceTabset">
+            <tab heading="{{'label.heading.general' | translate}}">
+                <div class="list-group">
+                    <input ng-model="filterText" type="text" autocomplete="off" ng-keyup="onFilter()"
+                        class="form-control" placeholder="{{'label.input.filterbyname' | translate}}">
+                    <table class="table span12">
+                        <thead>
+                            <tr class="graybg">
+                                <th class="width35">{{'label.heading.external.service.name' | translate}}</th>
+                                <th class="text-center width10">{{'label.heading.external.service.status' | translate}}
+                                </th>
+                                <th class="text-center width10">
+                                    {{'label.heading.external.service.trapdoor' | translate}}</th>
+                                <th class="text-center width30">
+                                    {{'label.heading.external.service.trapdoor.status' | translate}}</th>
+                                <th class="text-center width10">{{'label.heading.external.service.config' | translate}}
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                ng-repeat="externalService in externalServiceList | orderBy:'displayOrderid':reverse | filter:filterText">
+                                <td class="width35">
+                                    {{externalService.displayName | translate}}
+                                    &nbsp; &nbsp; &nbsp;
+                                </td>
+                                <td class="text-center width10">
+                                    <span ng-show=isStatusEnabled(externalService)
+                                        class="label label-success">Enabled</span>
+                                    <span ng-hide=isStatusEnabled(externalService)
+                                        class="label label-warning">Disabled</span>
+                                </td>
+                                <td class="text-center width10">
+                                    {{externalService.isTrapdoor | translate}}
+                                    &nbsp; &nbsp; &nbsp;
+                                </td>
+                                <td ng-if="externalService.isTrapdoor" class="text-center width30">
+                                    {{externalService.trapdoorStatus | translate}}
+                                    &nbsp; &nbsp; &nbsp;
+                                </td>
+                                <td ng-if="!externalService.isTrapdoor" class="text-center width30">
+                                </td>
+                                <td class="text-center width10">
+                                    <a title="{{'label.edit' | translate}}"
+                                        href="#/externalservices/{{externalService.name}}">
+                                        <i class="icon-cog"></i></a>
+                                </td>
 
-                </tr>
-                </tbody>
-            </table>
-        </div>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </tab>
+
+            <tab heading="{{'label.heading.others.services' | translate}}">
+                <div class="list-group">
+                    <input ng-model="otherExternalFilterText" type="text" autocomplete="off" ng-keyup="onFilter()"
+                        class="form-control" placeholder="{{'label.input.filterbyname' | translate}}">
+                    <table class="table span12">
+                        <thead>
+                            <tr class="graybg">
+                                <th class="width35">{{'label.heading.external.service.name' | translate}}</th>
+                                <th class="text-center width10">{{'label.heading.external.service.status' | translate}}</th>
+                                <th class="text-center width10">{{'label.heading.external.service.config' | translate}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-if="otherExternalService.displayRequired" ng-repeat="otherExternalService in otherExternalServiceList | orderBy:'displayOrderId' | filter:otherExternalFilterText">
+                                <td class="width35">
+                                    {{otherExternalService.displayCode | translate}}
+                                    &nbsp; &nbsp; &nbsp;
+                                </td>
+                                <td class="text-center width10">
+                                    <span class="label {{otherExternalService.isActive ? 'label-success' : 'label-warning'}}">{{otherExternalService.isActive ? 'Enabled' : 'Disabled'}}</span>
+                                </td>
+                                <td class="text-center width10">
+                                    <a title="{{'label.edit' | translate}}"
+                                        href="#/otherexternalservices/{{otherExternalService.id}}">
+                                        <i class="icon-cog"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </tab>
+        </tabset>
     </div>
 </div>
