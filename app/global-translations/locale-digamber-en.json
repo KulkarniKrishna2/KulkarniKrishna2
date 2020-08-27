@@ -6,6 +6,8 @@
 "KotakApproved": "Approved",
 "KotakRejected": "Rejected",
 "label.heading.summary.penalties": "Broken period interest",
+"label.button.applypenalties": "Apply Broken Period Interest",
+"label.heading.penalties": "BP Interest",
 
 "------ end of translation file ------": "----------"
 }
