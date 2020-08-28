@@ -12,7 +12,7 @@
             $rootScope.activeGlimTab = true;
 
             resourceFactory.glimRepaymentScheduleResource.getRepaymentScheduleById({glimId: scope.glimId, 'disbursedAmount': scope.disbursedAmount,
-                'disbursedDate': scope.disbursedDate }, function (data) {
+                'disbursedDate': scope.disbursedDate, locale: scope.optlang.code, dateFormat : scope.df}, function (data) {
                 scope.glimrepaymentSchedule = data.periodsWithDisbursement;
             });
 
