@@ -569,7 +569,11 @@
                             <tbody>
                             <tr>
                                 <th>{{'label.heading.principal' | translate}}</th>
-                                <td>{{loandetails.summary.principalDisbursed | number}}</td>
+                                <td>{{loandetails.summary.principalDisbursed | number}}
+                                    <span data-ng-show="loandetails.summary.principalFromIncomePosting">
+                                        <br>+ <br>{{loandetails.summary.principalFromIncomePosting | number}}({{'label.heading.posted.income' | translate}}) 
+                                    </span>
+                                </td>
                                 <td>{{loandetails.summary.principalPaid | number}}</td>
                                 <td>&nbsp;</td>
                                 <td>{{loandetails.summary.principalWrittenOff | number}}</td>
