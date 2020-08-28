@@ -102,11 +102,12 @@
         
         <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.fundId == true"><label>{{ 'label.input.fund' | translate }}<span class="required" ng-show="response.uiDisplayConfigurations.loanAccount.isMandatory.fundId">*</span>:&nbsp;</label></td>
         <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.fundId == true">
-            <select id="fundId" ng-model="formData.fundId" class="form-control width170px"
+            <select id="fundId" name="fund" ng-model="formData.fundId" class="form-control width170px"
                     ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.fundId"
                     ng-options="fund.id as fund.name for fund in loanaccountinfo.fundOptions"  value="{{fund.id}}" ng-disabled="response.uiDisplayConfigurations.loanAccount.isReadOnlyField.fundOption">
                 <option value="">{{'label.selectfund' | translate}}</option>
             </select>
+            <form-validate valattributeform="newloanaccountform" valattribute="fund"/>
         </td>
     </tr>
 </table>
