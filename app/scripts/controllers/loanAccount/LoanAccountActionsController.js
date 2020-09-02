@@ -1328,7 +1328,7 @@
 
             scope.getRepaymentTemplate = function(date){
                 var transactionDate = dateFilter(date,  scope.df);
-                resourceFactory.glimTransactionTemplateResource.get({loanId: scope.accountId,  command: 'repayment', transactionDate: transactionDate}, function (data) {
+                resourceFactory.glimTransactionTemplateResource.get({loanId: scope.accountId,  command: 'repayment', transactionDate: transactionDate, locale: scope.optlang.code, dateFormat : scope.df}, function (data) {
                     if (data.clientMembers.length>0) {
                         scope.clientMembers = data.clientMembers;
                         var amount = 0;
