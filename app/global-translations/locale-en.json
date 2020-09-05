@@ -6717,7 +6717,7 @@
     "label.button.rerun": "ReRun",
     "label.input.view.closed.transactions": "View Closed Transactions",
     "error.msg.bank.account.detail.not.found": "BankAccountDetail for entity with '{{params[0].value}}' status with '{{params[1].value}}' does not exist",
-    "error.msg.bank.account.detail.already.exist": "BankAccountDetail for entity with '{{params[0].value}}' already exist",
+    "error.msg.bank.account.detail.already.exist": "Bank Account Details for entity types '{{params[1].value}}' with corresponding id's  '{{params[0].value}}' already exist.",
     "error.msg.unable.to.delete.bank.account.since.all.bank.transactions.are.not.in.closed.or.rejected.status": "To delete a bank account linked to loan all bank transactions must be closed or rejected.",
     "error.msg.unable.to.delete.bank.account.since.bank.is.linked.with.active.loan.account": "Unable to delete a bank account, bank account is linked with active loan account",
     "error.msg.unable.to.undo.disbursal.of.loan.as.all.transactions.are.not.in.rejected.or.closed.status": "One or more Bank Transaction/s is/are active.To undo disbursal, all bank transactions must be in Rejected or Closed status.",
@@ -6960,7 +6960,6 @@
     "label.anchor.inter.branch.client.transaction": "Inter Branch Client Transaction",
     "error.msg.saving.account.transfer.transaction.update.not.allowed": "Saving account transfer transaction update is not allowed",
     "label.heading.initiatedat": "Initiated At",
-    "error.msg.bank.account.detail.already.exist": "Bank account detail already exist for entity `{{params[0].value}}`",
     "file.process.type.not.supported": "File process type is not supported for the resource '{{params[0].value}}'",
 
     "label.heading.add.coapplicant": "Add Co-Applicant",
