@@ -12,12 +12,7 @@
 
             function init() {
                 scope.commonConfig = {};
-                var isWorkFlowEnabled = scope.isSystemGlobalConfigurationEnabled(scope.globalConstants.WORK_FLOW);
-                if (isWorkFlowEnabled) {
-                    getWorkflow();
-                } else {
-                    getBankAccountDetails();
-                }
+                getBankAccountDetails();
             }
             init();
 
@@ -38,14 +33,27 @@
                                 bankAccountDetailsId: scope.bankAccountDetailsId,
                                 templateData: templateData,
                                 bankAccountDetailsData: data,
-                                isAllowPennyDropTransaction: true,
+                                isAllowPennyDropTransaction: scope.isSystemGlobalConfigurationEnabled(scope.globalConstants.DEFAULT_PENNY_DROP_TRANSACTION_PAYMENT_TYPE_ID),
                                 isAllowOnlyPennyDropAction: false
                             }
-                        }
+                        };
                         angular.extend(scope.commonConfig, bankAccountData);
-                        scope.viewUIConfig.isInitiated = true;
+
+                        if (scope.isSystemGlobalConfigurationEnabled(scope.globalConstants.WORK_FLOW)) {
+                            if(data.status.value === 'initiated'){
+                                getWorkflow();
+                            }else{
+                                initiateUIDisplay();
+                            }
+                        }else{
+                            initiateUIDisplay();
+                        }
                     });
                 });
+            }
+
+            function initiateUIDisplay(){
+                scope.viewUIConfig.isInitiated = true;
             }
 
             function getWorkflow() {
@@ -66,11 +74,11 @@
                                 }
                             };
                             angular.extend(scope.commonConfig, taskConfig);
-                            scope.viewUIConfig.isInitiated = true;
+                            initiateUIDisplay();
                         }
                     }
                     if(!scope.viewUIConfig.isTask){
-                        getBankAccountDetails();
+                        initiateUIDisplay();
                     }
                 });
             }
