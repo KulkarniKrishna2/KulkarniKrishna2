@@ -53,10 +53,16 @@
             .when('/editloanproduct/:id', {
                 templateUrl: 'views/products/editloanproduct.html'
             })
+            .when('/loanproducts/:id/:action', {
+                templateUrl: 'views/products/editloanproduct.html'
+            })
             .when('/createsavingproduct', {
                 templateUrl: 'views/products/createsavingproduct.html'
             })
             .when('/editsavingproduct/:id', {
+                templateUrl: 'views/products/editsavingproduct.html'
+            })
+            .when('/savingproducts/:id/:action', {
                 templateUrl: 'views/products/editsavingproduct.html'
             })
             .when('/admin/viewrole/:id', {
@@ -333,6 +339,9 @@
             .when('/editfixeddepositproduct/:productId', {
                 templateUrl: 'views/products/editfixeddepositproduct.html'
             })
+            .when('/fixeddepositproducts/:productId/:action', {
+                templateUrl: 'views/products/editfixeddepositproduct.html'
+            })
             .when('/recurringdepositproducts', {
                 templateUrl: 'views/products/recurringdepositproducts.html'
             })
@@ -343,6 +352,9 @@
                 templateUrl: 'views/products/createrecurringdepositproduct.html'
             })
             .when('/editrecurringdepositproduct/:productId', {
+                templateUrl: 'views/products/editrecurringdepositproduct.html'
+            })
+            .when('/recurringdepositproducts/:productId/:action', {
                 templateUrl: 'views/products/editrecurringdepositproduct.html'
             })
             .when('/createinterestratechart/:productId/:productName/:productType', {
@@ -790,6 +802,9 @@
                 templateUrl: 'views/products/createcharge.html'
             })
             .when('/editcharge/:id', {
+                templateUrl: 'views/products/editcharge.html'
+            })
+            .when('/charges/:id/:action', {
                 templateUrl: 'views/products/editcharge.html'
             })
             .when('/productivesheet/:officeId/:officeName/:meetingDate/:staffId', {

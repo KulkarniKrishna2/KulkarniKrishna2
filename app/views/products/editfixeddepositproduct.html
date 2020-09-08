@@ -1,9 +1,12 @@
 <div class="col-md-12" ng-controller="EditFixedDepositProductController">
 <ul class="breadcrumb">
     <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
-    <li><a href="#/fixeddepositproducts">{{'label.anchor.fixeddepositproducts' | translate}}</a></li>
+    <li><a href="#/fixeddepositproducts">{{'label.anchor.fixeddepositproducts' | translate}}</a>
+    </li>
     <li><a href="#/viewfixeddepositproduct/{{product.id}}">{{product.name}}</a></li>
-    <li class="active">{{'label.anchor.editfixeddepositproduct' | translate}}</li>
+    <li class="active">
+        {{isCloneFixedDepositProduct == undefined ? 'label.anchor.editfixeddepositproduct' :'label.anchor.clone.fixeddepositproduct' | translate}}
+    </li>
 </ul>
 <form name="editfixeddepositproductform" novalidate="" class="form-horizontal well" rc-submit="submit()">
 <api-validate></api-validate>
@@ -660,7 +663,8 @@
     </div>
 </div>
 <div class="col-md-offset-5 paddedtop">
-    <button id="cancel" type="reset" class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+    <button id="cancel" type="reset" class="btn btn-warning"
+        ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
     <button id="save" type="submit" class="btn btn-primary">{{'label.button.save' | translate}}</button>
 </div>
 <script type="text/ng-template" id="incentive.html">

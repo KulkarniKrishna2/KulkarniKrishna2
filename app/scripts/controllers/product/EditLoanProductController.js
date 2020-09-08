@@ -1,6 +1,11 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         EditLoanProductController: function (scope, resourceFactory, location, routeParams, dateFilter, commonUtilService) {
+            scope.action = routeParams.action;
+            if (routeParams.action && routeParams.action === 'clone') {
+                scope.isCloneLoanProduct = true;
+             };
+
             scope.formData = {};
             scope.restrictDate = new Date();
             scope.charges = [];
@@ -1145,9 +1150,15 @@
                     delete scope.formData.interestReceivableAndDueAccountId;
                 }
 
-                resourceFactory.loanProductResource.put({loanProductId: routeParams.id}, this.formData, function (data) {
-                    location.path('/viewloanproduct/' + data.resourceId);
-                });
+                if(!_.isUndefined(scope.isCloneLoanProduct) && scope.isCloneLoanProduct) {
+                    resourceFactory.loanProductResource.save(this.formData, function (data) {
+                        location.path('/viewloanproduct/' + data.resourceId);
+                    });
+                }else{
+                    resourceFactory.loanProductResource.put({loanProductId: routeParams.id}, this.formData, function (data) {
+                        location.path('/viewloanproduct/' + data.resourceId);
+                    });
+                }
             }
         }
     });

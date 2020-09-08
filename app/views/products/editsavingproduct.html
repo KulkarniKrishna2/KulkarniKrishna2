@@ -4,7 +4,9 @@
 	        <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
 	        <li><a href="#/savingproducts">{{'label.anchor.savingproducts' | translate}}</a></li>
 	        <li><a href="#/viewsavingproduct/{{product.id}}">{{product.name}}</a></li>
-	        <li class="active">{{'label.anchor.editsavingproduct' | translate}}</li>
+			<li class="active">
+				{{isCloneSavingsProduct == undefined ? 'label.anchor.editsavingproduct' :'label.anchor.clone.savingproduct' | translate}}
+			</li>
 	    </ul>
 	</div>
 	<form name="createsavingproductform" novalidate="" class="form-horizontal well" rc-submit="submit()">
