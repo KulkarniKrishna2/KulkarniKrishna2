@@ -50,6 +50,7 @@
             scope.isNPA = false;
             scope.loanSchedule = [];
             scope.submitBankTransactionForTransferOnRetry = false;
+            scope.isWorkflowEnabled = scope.isSystemGlobalConfigurationEnabled('work-flow');
             
             scope.showBankApprovalStatus = false;
             scope.displayInterestRateFromProduct = false;
@@ -1721,6 +1722,10 @@
 
             scope.viewTransferDetails = function (transferData) {
                 location.path('/viewbankaccounttransfers/' + 'loans/' + transferData.entityId + '/' + transferData.transactionId);
+            };
+
+            scope.viewBasicTransferDetails = function (transferData) {
+                location.path('/viewbanktransfer/' + 'loans/' + transferData.entityId + '/' + transferData.transactionId);
             };
 
             scope.retryTransfer = function (transferData) {
