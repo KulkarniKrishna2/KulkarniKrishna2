@@ -49,6 +49,7 @@
             scope.showEditActiveLoan = true;
             scope.isNPA = false;
             scope.loanSchedule = [];
+            scope.submitBankTransactionForTransferOnRetry = false;
             
             scope.showBankApprovalStatus = false;
             scope.displayInterestRateFromProduct = false;
@@ -76,6 +77,9 @@
                         scope.showEditActiveLoan = !scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.editActiveLoan;
                     }
                 }
+                if (scope.response.uiDisplayConfigurations.bankTransaction) {
+                    scope.submitBankTransactionForTransferOnRetry = scope.response.uiDisplayConfigurations.bankTransaction.submitForTransferOnRetry;
+                }  
             }
             if (scope.showBankApprovalStatus) {
                 resourceFactory.bankApprovalStatusResource.get({ loanId: routeParams.id }, function (bankLoanStatusData) {
@@ -91,6 +95,7 @@
             scope.pendingTransaction = 4;
             scope.initiatedTransaction = 3;
             scope.errorTransaction = 8;
+            scope.rejectedTransaction = 10;
             scope.enableClientVerification = scope.isSystemGlobalConfigurationEnabled('client-verification');
             scope.canForceDisburse = false;
             scope.allowBankAccountsForGroups = scope.isSystemGlobalConfigurationEnabled('allow-bank-account-for-groups');
@@ -1719,8 +1724,9 @@
             };
 
             scope.retryTransfer = function (transferData) {
-                if (transferData.status.id == 6) {
-                    resourceFactory.bankAccountTransferResource.save({ bankTransferId: transferData.transactionId, command: 'retry' }, function (data) {
+                if (transferData.status.id == 6 || transferData.status.id == 10) {
+                    var request = { "submitForTransfer": scope.submitBankTransactionForTransferOnRetry };
+                    resourceFactory.bankAccountTransferResource.save({ bankTransferId: transferData.transactionId, command: 'retry' }, request, function (data) {
                         fetchBankTransferDetails();
                     });
                 }

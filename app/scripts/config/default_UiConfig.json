@@ -774,6 +774,9 @@
 				"toVillage": true,
 				"toStaff": true
 			}
-		}	
+		},
+		"bankTransaction": {
+			"submitForTransferOnRetry": false
+		}
 	}
 }

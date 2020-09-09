@@ -1020,7 +1020,7 @@
                                 <td class="pointer">{{transferData.status.value}}</td>
                                 <td>
                                     <div class="btn-group">
-                                        <button class="btn btn-info" type="button" ng-click="retryTransfer(transferData)" ng-if="(transferData.status.id == failedTransaction) && showRetryBankTransaction"
+                                        <button class="btn btn-info" type="button" ng-click="retryTransfer(transferData)" ng-if="(transferData.status.id == failedTransaction || transferData.status.id == rejectedTransaction) && showRetryBankTransaction"
                                             has-permission="RETRY_BANK_TRANSACTION">{{'label.button.retry' | translate}}</button>
                                         <button class="btn btn-danger" type="button" ng-click="reject(transferData)" ng-if="showRejectButton(transferData)"
                                             has-permission="REJECT_BANK_TRANSACTION">{{'label.button.reject' | translate}}</button>
