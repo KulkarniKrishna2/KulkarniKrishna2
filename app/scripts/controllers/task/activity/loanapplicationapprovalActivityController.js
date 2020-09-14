@@ -1517,7 +1517,7 @@
                         if(scope.loanaccountinfo.calendarOptions){
                             for(var i in scope.loanaccountinfo.calendarOptions[0].nextTenRecurringDates){
                                 var nextMeeting = new Date(dateFilter(scope.loanaccountinfo.calendarOptions[0].nextTenRecurringDates[i],scope.df));
-                                if(expectedFirstRepaymentOnDate <= nextMeeting){
+                                if(expectedFirstRepaymentOnDate < nextMeeting){
                                     expectedFirstRepaymentOnDate = nextMeeting;
                                     break;
                                 }
