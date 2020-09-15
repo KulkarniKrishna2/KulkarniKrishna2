@@ -120,7 +120,13 @@
 			}
 		},
 		"meeting": {
-			"repeatsOptions" : ["monthly"]
+			"repeatsOptions" : ["monthly"],
+			"create" : {
+				"selectMeetingDateType" : "allowOnlyCurrentDate"
+			},
+			"update" : {
+				"selectMeetingDateType" : "allowCurrentAndFutureDates"
+			}
 		}
 	}
 }
