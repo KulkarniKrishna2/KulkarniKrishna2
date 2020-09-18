@@ -1,8 +1,8 @@
 {
-	"version": "v20.09.03",
-	"releasedate": "05/09/2020",
+	"version": "develop",
+	"releasedate": "08/09/2020",
 	"releaseyear": 2020,
 	"tag": "NA",
-	"commit": "2679a48cc",
-	"branch": "master"
+	"commit": "fb49d747f",
+	"branch": "develop"
 }

@@ -1,6 +1,10 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         EditSavingProductController: function (scope, resourceFactory, location, routeParams, commonUtilService, dateFilter) {
+            scope.action = routeParams.action;
+            if (routeParams.action && routeParams.action === 'clone') {
+                scope.isCloneSavingsProduct = true;
+            };
             scope.formData = {};
             scope.charges = [];
             scope.showOrHideValue = "show";
@@ -372,9 +376,15 @@
                 if(scope.errorDetails){
                     delete scope.errorDetails;
                 }
-                resourceFactory.savingProductResource.update({savingProductId: routeParams.id}, this.formData, function (data) {
-                    location.path('/viewsavingproduct/' + data.resourceId);
-                });
+                if (!_.isUndefined(scope.isCloneSavingsProduct) && scope.isCloneSavingsProduct) {
+                    resourceFactory.savingProductResource.save(this.formData, function (data) {
+                        location.path('/viewsavingproduct/' + data.resourceId);
+                    });
+                } else {
+                    resourceFactory.savingProductResource.update({ savingProductId: routeParams.id }, this.formData, function (data) {
+                        location.path('/viewsavingproduct/' + data.resourceId);
+                    });
+                }
             }
 
             scope.isAccountingEnabled = function () {

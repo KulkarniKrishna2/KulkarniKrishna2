@@ -3,7 +3,7 @@
         <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
         <li><a href="#/loanproducts">{{'label.anchor.loanproducts' | translate}}</a></li>
         <li><a href="#/viewloanproduct/{{product.id}}">{{product.name}}</a></li>
-        <li class="active">{{'label.anchor.editloanproduct' | translate}}</li>
+        <li class="active">{{isCloneLoanProduct == undefined ? 'label.anchor.editloanproduct' : 'label.anchor.clone.loanproduct' | translate}}</li>
     </ul>
 	<form name="editloanproductform" novalidate="" class="form-horizontal well" rc-submit="submit()">
 	<api-validate></api-validate>
@@ -2153,7 +2153,7 @@
 	</div>
 	</div>
 	<div class="col-md-offset-5 paddedtop">
-	    <a id="cancel" href="#/viewloanproduct/{{product.id}}" type="reset" class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</a>
+		<a id="cancel" href="#/viewloanproduct/{{product.id}}" type="reset" class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</a>
 	    <button id="save" type="submit" ng-click="submitted = true" class="btn btn-primary" has-permission='UPDATE_LOANPRODUCT'>{{'label.button.save'
 	        | translate}}
 	    </button>

@@ -1,6 +1,10 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         EditFixedDepositProductController: function (scope, resourceFactory, location, routeParams, dateFilter,$modal) {
+            scope.action = routeParams.action;
+            if (routeParams.action && routeParams.action === 'clone') {
+                scope.isCloneFixedDepositProduct = true;
+            };
             scope.formData = {};
             scope.charges = [];
             scope.showOrHideValue = "show";
@@ -302,9 +306,16 @@
                 }
                 this.formData.deleteFeeAccountMappings = deleteFeeAccountMappings;
                 this.formData.deletePenaltyAccountMappings = deletePenaltyAccountMappings;
-                resourceFactory.fixedDepositProductResource.update({productId: routeParams.productId}, this.formData, function (data) {
-                    location.path('/viewfixeddepositproduct/' + data.resourceId);
-                });
+
+                if (!_.isUndefined(scope.isCloneFixedDepositProduct) && scope.isCloneFixedDepositProduct) {
+                    resourceFactory.fixedDepositProductResource.save(this.formData, function (data) {
+                        location.path('/viewfixeddepositproduct/' + data.resourceId);
+                    });
+                } else {
+                    resourceFactory.fixedDepositProductResource.update({ productId: routeParams.productId }, this.formData, function (data) {
+                        location.path('/viewfixeddepositproduct/' + data.resourceId);
+                    });
+                }                
             }
 
             /**

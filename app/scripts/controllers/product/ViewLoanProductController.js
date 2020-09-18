@@ -155,7 +155,6 @@
             scope.scrollto = function (link) {
                 location.hash(link);
                 anchorScroll();
-
             };
 
         }
