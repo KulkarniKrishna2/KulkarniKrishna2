@@ -8642,6 +8642,7 @@
      "lable.msg.task.can.perfomed.in.mobile.app" : "This task can be performed only from mobile application",
      "error.msg.bank.account.details.already.exist" : "Bank account details with the id `{{params[0].value}}` already exist",
      "label.heading.summary.penalties": "Penalties",
+     "label.view.bank.transaction.workflow" : "View Bank Transaction Workflow",
 
      "------ end of translation file ------": "----------"
 

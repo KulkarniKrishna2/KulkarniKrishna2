@@ -1539,6 +1539,9 @@
             .when('/viewbankaccounttransfers/:entityType/:entityId/:transferId', {
                 templateUrl: 'views/accounttransfers/view_bank_accounttransfer.html'
             })
+            .when('/viewbanktransfer/:entityType/:entityId/:transferId', {
+                templateUrl: 'views/accounttransfers/viewbanktransferdetail.html'
+            })
             .when('/organizations/profieratings/create', {
                 templateUrl: 'views/organization/profilerating/createprofileratingconfiguration.html'
             })

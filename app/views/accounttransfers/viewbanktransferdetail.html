@@ -1,0 +1,11 @@
+<div ng-controller="ViewBankTransferDetailController">
+    <div class="paddedbottom10">
+        <ul class="breadcrumb">
+            <li><a href="#/viewloanaccount/{{entityId}}">{{'label.heading.' +entityType | translate}}</a></li>
+            <li class="active">{{'label.anchor.bankaccounttransferdetails' | translate}}</li>
+        </ul>
+    </div>
+    <h3>{{ 'label.heading.viewaccounttransferdetails' | translate}}</h3>
+<br>
+<div ng-include="'views/accounttransfers/banktransferdetail.html'"></div>
+</div>

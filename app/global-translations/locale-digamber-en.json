@@ -6,6 +6,8 @@
 "KotakApproved": "Approved",
 "KotakRejected": "Rejected",
 "label.heading.summary.penalties": "Broken period interest",
+"label.input.talukname": "Tehsil",
+"label.menu.selectTaluka": "Select Tehsil",
 
 "------ end of translation file ------": "----------"
 }
