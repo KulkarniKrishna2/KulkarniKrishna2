@@ -1,0 +1,41 @@
+<div class="col-md-12" ng-controller="NotificationConfigurationController">
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
+            <li><a href="#/notification/management">{{'label.anchor.notification.management' | translate}}</a></li>
+            <li class="active">{{'label.anchor.notification.configuration' | translate}}
+            </li>
+        </ul>
+    </div>
+    <a href="#/notification/configuration/create" class="btn btn-primary pull-right" has-permission='CREATE_NOTIFICATIONCONFIG'>
+        <i class="icon-plus icon-white"></i>{{'label.button.add.notification.configuration' | translate}}
+    </a>
+    <div class="span grey-head">
+        <h3>
+                <strong>{{'label.heading.notification.configurations' | translate}}</strong>
+        </h3>
+    </div>
+    <div ng-if="notificationConfigurations.length > 0">
+        <table class="table">
+            <thead>
+                <tr class="graybg">
+                    <th>{{'label.heading.serial#' | translate}}</th>
+                    <th>{{'label.heading.name' | translate}}</th>
+                    <th>{{'label.heading.entity.key.id' | translate}}</th>
+                    <th>{{'label.heading.data.fetch.report' | translate}}</th>
+                    <th>{{'label.heading.status' | translate}}</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="pointer-main" ng-repeat="configuration in notificationConfigurations">
+                    <td class="pointer" data-ng-click="routeTo(configuration.id)">{{configuration.id}}</td>
+                    <td class="pointer" data-ng-click="routeTo(configuration.id)">{{configuration.uname}}</td>
+                    <td class="pointer" data-ng-click="routeTo(configuration.id)">{{configuration.entityIdKey}}</td>
+                    <td class="pointer" data-ng-click="routeTo(configuration.id)">{{configuration.dataFetchReport}}</td>
+                    <td class="pointer" data-ng-click="routeTo(configuration.id)">{{configuration.status}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

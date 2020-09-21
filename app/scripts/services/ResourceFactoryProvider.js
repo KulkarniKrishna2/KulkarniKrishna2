@@ -1598,6 +1598,71 @@
                         get: { method: 'GET', params: {}, isArray: true },
                         post: { method: 'POST' }
                     }),
+                    notificationConfigurationResource: defineResource(apiVer + "/notification", {}, {
+                        retrieveAll: { method: 'GET', params: {}, isArray: true },
+                        save: { method: 'POST'}
+                    }),
+                    notificationConfigurationDetailsResource: defineResource(apiVer + "/notification/:notificationConfigId", { notificationConfigId: '@notificationConfigId'}, {
+                        get: { method: 'GET', params: {} },
+                        update: { method: 'PUT', params: {} }
+                    }),
+                    notificationConfigurationDeactivateResource: defineResource(apiVer + "/notification/:notificationConfigId/deactivate", { notificationConfigId: '@notificationConfigId'}, {
+                        deactivate: { method: 'POST' }
+                    }),
+                    notificationConfigurationActivateResource: defineResource(apiVer + "/notification/:notificationConfigId/activate", { notificationConfigId: '@notificationConfigId'}, {
+                        activate: { method: 'POST' }
+                    }),
+                    notificationCampaignDeactivateResource: defineResource(apiVer + "/notification/:notificationConfigId/campaign/:campaignId/deactivate", { notificationConfigId: '@notificationConfigId',campaignId: '@campaignId'}, {
+                        deactivate: { method: 'POST' }
+                    }),
+                    notificationCampaignActivateResource: defineResource(apiVer + "/notification/:notificationConfigId/campaign/:campaignId/activate", { notificationConfigId: '@notificationConfigId',campaignId: '@campaignId'}, {
+                        activate: { method: 'POST' }
+                    }),
+                    notificationCampaignResource: defineResource(apiVer + "/notification/:notificationConfigId/campaign", { notificationConfigId: '@notificationConfigId' }, {
+                        retrieveAll: { method: 'GET', params: {}, isArray: true },
+                        save: { method: 'POST'}
+                    }),
+                    notificationCampaignTemplateResource: defineResource(apiVer + "/notification/:notificationConfigId/campaign/template", { notificationConfigId: '@notificationConfigId' }, {
+                        retrieveAll: { method: 'GET', params: {} }
+                    }),
+                    notificationConfigTemplateResource: defineResource(apiVer + "/notification/template", {}, {
+                        retrieve: { method: 'GET', params: {} }
+                    }),
+                    notificationCampaignDetailsResource: defineResource(apiVer + "/notification/:notificationConfigId/campaign/:campaignId", { notificationConfigId: '@notificationConfigId', campaignId:'@campaignId'}, {
+                        get: { method: 'GET', params: {} },
+                        update: { method: 'PUT', params: {} }
+                    }),
+                    notificationEventMappingTemplateResource: defineResource(apiVer + "/notification/:notificationConfigId/events/template", { notificationConfigId: '@notificationConfigId' }, {
+                        get: { method: 'GET', params: {} }
+                    }),
+                    notificationEventMappingResource: defineResource(apiVer + "/notification/:notificationConfigId/events", { notificationConfigId: '@notificationConfigId'}, {
+                        save:{method:'POST',params: {} },
+                        retrieveAll:{method: 'GET', params:{},isArray: true }
+                    }),
+                    notificationEventMappingUpdateResource: defineResource(apiVer + "/notification/:notificationConfigId/events/:eventId", { eventId: "@eventId",notificationConfigId: '@notificationConfigId'}, {
+                        update:{method:'PUT'},
+                        get: { method: 'GET', params: {} }
+                    }),
+                    notificationEventMappingActivateResource: defineResource(apiVer + "/notification/:notificationConfigId/events/:eventId/activate", { eventId: "@eventId",notificationConfigId: '@notificationConfigId' }, {
+                        activate: { method: 'POST', params: {} }
+                    }),
+                    notificationEventMappingDeActivateResource: defineResource(apiVer + "/notification/:notificationConfigId/events/:eventId/deactivate", { eventId: "@eventId",notificationConfigId: '@notificationConfigId' }, {
+                        deactivate: { method: 'POST', params: {} }
+                    }),
+                    notificationJobMappingResource: defineResource(apiVer + "/notification/:notificationConfigId/jobs", { notificationConfigId: '@notificationConfigId'}, {
+                        save:{method:'POST',params: {} },
+                        retrieveAll:{method: 'GET', params:{},isArray: true }
+                    }),
+                    notificationJobMappingUpdateResource: defineResource(apiVer + "/notification/:notificationConfigId/jobs/:jobId", { notificationConfigId: '@notificationConfigId',jobId: '@jobId' }, {
+                        update:{method:'PUT'},
+                        get: {method:'GET',params: {} }
+                    }),
+                    notificationJobMappingActivateResource: defineResource(apiVer + "/notification/:notificationConfigId/jobs/:jobId/activate",{ jobId: '@jobId',notificationConfigId: '@notificationConfigId'}, {
+                        activate: { method: 'POST', params: {} }
+                    }),
+                    notificationJobMappingDeActivateResource: defineResource(apiVer + "/notification/:notificationConfigId/jobs/:jobId/deactivate", { jobId: '@jobId',notificationConfigId: '@notificationConfigId'}, {
+                        deactivate: { method: 'POST', params: {} }
+                    }),
                     customSequenceTemplateResource: defineResource(apiVer + "/sequences/template", {}, {
                         get: { method: 'GET', params: {} }
                     }),

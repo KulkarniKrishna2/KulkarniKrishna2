@@ -131,6 +131,33 @@
                     return fileName;
                 }
             }
+
+            /* input : zoneddatetime object 
+             * output : string of a formmated datetime e.g: July 24 2020 ,9:00:00PM	
+            */
+           this.getProperDateTimeFormat = function(zoneddatetime){
+            datetimeString = this.titleCase(zoneddatetime.month)+" "+zoneddatetime.dayOfMonth+" "+zoneddatetime.year+" "+this.generateTimeString(zoneddatetime.hour,zoneddatetime.minute,zoneddatetime.second);
+            return datetimeString;
+           }
+
+            this.titleCase = function(str) { 
+            str = str.toLowerCase().split(' '); 
+            for (var i = 0; i < str.length; i++) { 
+            str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);  
+            } 
+            return str.join(' '); 
+            }
+
+            this.generateTimeString = function(hour, minute,second){
+            period = "AM";
+            if(hour > 12 ){
+                period = "PM";
+                hour = hour- 12;
+            }
+            if(minute < 10)  minute = '0'+minute;
+            if(second < 10) second = '0'+second;
+            return ","+hour + ":"+minute+":"+second+period;
+        }
         }
     });
     mifosX.ng.services.service('CommonUtilService', ['$rootScope','webStorage','$http',mifosX.services.CommonUtilService]).run(function ($log) {

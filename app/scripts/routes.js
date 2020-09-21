@@ -284,6 +284,42 @@
             .when('/system', {
                 templateUrl: 'views/administration/system.html'
             })
+            .when('/notification/management', {
+                templateUrl: 'views/notification/notificationmanagement.html'
+            })
+            .when('/notification/configuration', {
+                templateUrl: 'views/notification/notificationconfiguration.html'
+            })
+            .when('/notification/configuration/create', {
+                templateUrl: 'views/notification/createnotificationconfiguration.html'
+            })
+            .when('/notification/configuration/modify/:notificationConfigId', {
+                templateUrl: 'views/notification/updatenotificationconfiguration.html'
+            })
+            .when('/notification/configuration/:id',{
+                templateUrl: 'views/notification/viewnotificationconfigurationdetails.html'
+            })
+            .when('/notification/configuration/:notificationConfigId/campaign',{
+                templateUrl: 'views/notification/createnotificationcampaign.html'
+            })
+            .when('/notification/configuration/:notificationConfigId/campaign/:id',{
+                templateUrl: 'views/notification/viewnotificationcampaignndetails.html'
+            })
+            .when('/notification/configuration/:notificationConfigId/campaign/:id/modify',{
+                templateUrl: 'views/notification/updatenotificationcampaign.html'
+            })
+            .when('/notification/configuration/:notificationConfigId/eventmapping', {
+                templateUrl: 'views/notification/createnotificationeventmapping.html'
+            })
+            .when('/notification/configuration/:notificationConfigId/editeventmapping/:eventId', {
+                templateUrl: 'views/notification/editnotificationeventmapping.html'
+            })
+            .when('/notification/configuration/:notificationConfigId/jobmapping', {
+                templateUrl: 'views/notification/createnotificationjobmapping.html'
+            })
+            .when('/notification/configuration/:notificationConfigId/editjobmapping/:jobId', {
+                templateUrl: 'views/notification/editnotificationjobmapping.html'
+            })  
             .when('/bulkoperations', {
                 templateUrl: 'views/bulkoperations/bulkoperations.html'
             })

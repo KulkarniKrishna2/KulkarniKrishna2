@@ -749,6 +749,18 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'loanAccount/LoanRestructureController',
             'task/activity/RblEkycActivityController',
             'accounttransfers/ViewBankTransferDetailController',
+            'notification/NotificationConfigurationController',
+            'notification/CreateNotificationConfigController',
+            'notification/ViewNotificationConfigurationDetailsController',
+            'notification/ViewNotificationCampaignDetailsController',
+            'notification/CreateNotificationCampaignController',
+            'notification/UpdateNotificationConfigController',
+            'notification/UpdateNotificationCampaignController',
+            'notification/UpdateNotificationCampaignController',
+            'notification/CreateNotificationEventMappingController',
+            'notification/CreateNotificationJobMappingController',
+            'notification/EditNotificationEventMappingController',
+            'notification/EditNotificationJobMappingController'
         ],
         filters: [
             'StatusLookup',
