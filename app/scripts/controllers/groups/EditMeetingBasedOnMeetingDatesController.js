@@ -66,7 +66,7 @@
                 scope.mindate = null;
                 scope.maxdate = null;
                 var meetingStratDate = new Date();
-                meetingStratDate.setDate(meetingStratDate.getDate() + 1)
+                meetingStratDate.setDate(meetingStratDate.getDate())
                 if(!_.isUndefined(scope.formData.newMeetingDate)){
                     delete scope.formData.newMeetingDate;
                 }
