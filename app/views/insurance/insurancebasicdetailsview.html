@@ -71,6 +71,17 @@
                 <br>
                 <div class="row graybg ">
                     <div class="col-sm-6">
+                        <h4><strong>{{'label.input.insurance.contact.name' | translate}}</strong>
+                            <span> {{insuranceCliamDetials.contactPersonName}}</span></h4>
+                    </div>
+                    <div class="col-sm-6">
+                        <h4><strong>{{'label.input.insurance.contact.person.relation' | translate}}</strong>
+                            <span>: {{insuranceCliamDetials.contactPersonRelationType.name}}</span></h4>
+                    </div>
+                </div>
+                <br>
+                <div class="row graybg ">
+                    <div class="col-sm-6">
                         <h4><strong>{{'label.input.insurance.cause.of.death' | translate}}</strong>
                             <span>: {{insuranceCliamDetials.causeOfDeath.name}}</span></h4>
                     </div>
@@ -125,6 +136,29 @@
                                         </small>
                                     </span>
                                     <form-validate valattributeform="editDeceasedDetail" valattribute="contactNumber" />
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row graybg form-group">
+                            <div class="col-sm-6">
+                                <h4><strong>{{'label.input.insurance.contact.name' | translate}}</strong></h4>
+                                <input name="contactPersonName" ng-model="clientDeceased.contactPersonName" type="text" autocomplete="off"
+                                    class="form-control" required/>
+            
+                                <div class="col-sm-6">
+                                    <form-validate valattributeform="editDeceasedDetail" valattribute="contactPersonName" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <h4><strong>{{'label.input.insurance.contact.person.relation' | translate}}</strong><span class="required">*</span></h4>
+                                <select id="contactPersonRelationShipId" name="contactPersonRelationShipId" ng-model="clientDeceased.contactPersonRelationshipId"
+                                    ng-options="type.id as type.name for type in contactPersonRelationShip" class="form-control" required>
+                                    <option value="{{type.id}}">{{'label.insurance.nominee.select.cause.of.death' | translate}}
+                                    </option>
+                                </select>
+                                <div class="col-sm-6">
+                                    <form-validate valattributeform="editDeceasedDetail" valattribute="contactPersonRelationShipId" />
                                 </div>
                             </div>
                         </div>
