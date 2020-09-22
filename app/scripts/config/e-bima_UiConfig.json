@@ -1,10 +1,14 @@
 {
 	"enableUIDisplayConfiguration": true,
+	
 	"uiDisplayConfigurations": {
 		"createClient": {
 			"isValidMobileNumber": {
 				"mobileNumberPattern": "/^[0-9]{9}$/"
 			}
+		},
+		"regexFormats": {
+			"mobileNumberPattern" : "/^[0-9]{9}$/"
 		}
 	}
 }
