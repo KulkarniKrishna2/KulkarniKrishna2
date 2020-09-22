@@ -132,14 +132,6 @@
                 }
             }
 
-            /* input : zoneddatetime object 
-             * output : string of a formmated datetime e.g: July 24 2020 ,9:00:00PM	
-            */
-           this.getProperDateTimeFormat = function(zoneddatetime){
-            datetimeString = this.titleCase(zoneddatetime.month)+" "+zoneddatetime.dayOfMonth+" "+zoneddatetime.year+" "+this.generateTimeString(zoneddatetime.hour,zoneddatetime.minute,zoneddatetime.second);
-            return datetimeString;
-           }
-
             this.titleCase = function(str) { 
             str = str.toLowerCase().split(' '); 
             for (var i = 0; i < str.length; i++) { 

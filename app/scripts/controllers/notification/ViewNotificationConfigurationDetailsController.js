@@ -79,12 +79,6 @@
                 route.reload();
             };
 
-            scope.getProperDateTimeFormat = function (zoneddatetime) {
-                if(!zoneddatetime){
-                    return;
-                }
-                return CommonUtilService.getProperDateTimeFormat(zoneddatetime);
-            }
         }
     });
     mifosX.ng.application.controller('ViewNotificationConfigurationDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route','CommonUtilService', mifosX.controllers.ViewNotificationConfigurationDetailsController]).run(function($log) {

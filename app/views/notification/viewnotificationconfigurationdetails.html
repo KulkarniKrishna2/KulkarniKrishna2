@@ -40,7 +40,7 @@
                             </div>
                             <div class="form-group">
                                     <span><b>{{'label.heading.createddate' | translate}}:&nbsp;</b></span>
-                                    <span>{{notificationConfigurationDetails.createdDate.year}}-{{notificationConfigurationDetails.createdDate.monthValue}}-{{notificationConfigurationDetails.createdDate.dayOfMonth}}</span>
+                                    <span>{{notificationConfigurationDetails.createdDate | DateFormat}}</span>
                             </div>
                             <div class="form-group">
                                 <span><b>{{'label.heading.status' | translate}}:&nbsp;</b></span>
@@ -135,8 +135,8 @@
                     <tr ng-repeat="job in notificationJobMappingData">
                         <td>{{job.jobName}}</td>
                         <td>{{job.cronExpression}}</td>
-                        <td>{{getProperDateTimeFormat(job.nextRunTime)}}</td>
-                        <td>{{getProperDateTimeFormat(job.previousRunTime)}}</td>
+                        <td>{{job.nextRunTime | DateTimeFormat}}</td>
+                        <td>{{job.previousRunTime | DateTimeFormat}}</td>
                         <td>{{job.isActive === true ? "Active" : "Inactive"}}</td>
                         <td>
                             <a href="#/notification/configuration/{{notificationConfigId}}/editjobmapping/{{job.id}}">
