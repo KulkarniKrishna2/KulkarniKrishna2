@@ -205,7 +205,7 @@
                             scope.address = clientData.addressData[0];
                         });
                     }
-                    scope.loanProductChange(applicationData.loanProductId);
+                    scope.loanProductChange(scope.formData.loanProductId);
                     scope.charges = [];
                     resourceFactory.loanApplicationReferencesResource.getChargesByLoanAppId({
                         loanApplicationReferenceId: scope.loanApplicationReferenceId,
