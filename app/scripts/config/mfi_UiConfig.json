@@ -1,0 +1,138 @@
+{
+	"enableUIDisplayConfiguration": true,
+	"uiDisplayConfigurations": {
+		"bulkJLGLoanAccount": {
+			"isMandatory": {
+				"fundId": true
+			},
+			"hiddenField": {
+				"syncDisbursementWithMeeting": true
+			}
+		},
+		"bankAccountDetails": {
+			"isMandatory": {
+				"bankAccountHolderName": true,
+				"bankAccountNumber": true,
+				"accountType": false,
+				"bankIFSCCode": true,
+				"bankName": false,
+				"bankCity": false,
+				"mobileNumber": false,
+				"lastTransactionDate": false,
+				"docFile": false
+			},
+			"regexValidations": {
+				"mobileNumber": "^\\d{10}$",
+				"bankIFSCCode": "^[A-Za-z]{4}0[A-Z0-9a-z]{6}$",
+				"bankAccountNumber": "^[0-9]{1,50}$"
+			},
+			"showDeleteButton": false,
+			"showInactiveBankAccountDetails":true
+		},
+		"workflow": {
+			"AdditionalDetailsValidation": {
+				"profileRatingPercentage": 100
+			},
+			"PGFValidation": {
+				"profileRatingPercentage": 80
+			},
+			"hiddenFields": {
+				"reviewCB": true,
+				"sendToCBReview": false,
+				"activateBankAccount": true,
+				"expenseAmount" : false,
+				"expectedDisbursementDate": true
+			},
+			"disableSelectAllClients": true,
+			"disableMeetingFrequency": false,
+			"showDeleteClientIdentifierAction": true,
+			"centerMeeting":{
+				"maxDaysLimit": 28,
+				"repeatsEveryOptions" : ["2","4"]
+			}
+		},
+		"createCenter": {
+			"isReadOnlyField": {
+				"active": true
+			},
+			"isHiddenField": {
+				"areaCategory": false
+			}
+		},
+		"createClient": {
+			"isMandatoryField": {
+				"mobileNumber": true,
+				"clientClassificationId": true,
+				"houseNo": true
+			}
+		},
+		"documentConfiguration": {
+			"restrictTaggedDocuments": true
+		},
+		"creditBureau": {
+			"isHiddenField":{
+				"viewHistoryCBReportButton":false
+			},
+			"getlimit": 3,
+			"getEnquiryHistoryLimit":15
+		},
+		"viewCenter": {
+			"isHiddenField": {
+				"accountNo": true,
+				"referenceNo" : false
+			}
+		},
+		"clientIdentifier": {
+			"hiddenFields": {
+				"documentIssueDate": true,
+				"documentExpiryDate": true
+			}
+		},
+		"editCalendar": {
+			"editableFields": {
+				"repeat": false,
+				"repeatsevery": false,
+				"repeatson": false,
+				"meetingStartDate":true
+			}
+		},
+		"relationshipOptions": {
+			"AgeMandatoryFor": [
+				"Spouse"
+			]
+		},
+		"viewGroup": {
+			"isReadOnlyField": {
+				"groupName": true
+			},
+			"isHiddenField": {
+				"referenceNo": false,
+				"accountNo": true
+			}
+		},
+		"viewClient": {
+			"isHiddenField": {
+				"referenceNo": false
+			}
+		},
+		"viewLoanAccountDetails": {
+			"isHiddenFeild": {
+				"editActiveLoan": false
+			}
+		},
+		"createCharges": {
+			"isHiddenField": {
+				"chargeCategoryType": false
+			}
+		},
+		"editCenter": {
+			"isReadOnlyField": {
+				"name": false
+			},
+			"isHiddenField": {
+				"villageOptions": true,
+				"staffOptions": true
+			}
+		}
+	}
+}
