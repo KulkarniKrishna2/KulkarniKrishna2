@@ -69,19 +69,19 @@
             scope.refreshData = function(){
                 resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (applicationData) {
                  scope.formData = applicationData;
-                 scope.formData.submittedOnDate=dateFilter(new Date(applicationData.submittedOnDate), scope.df);
+                 scope.formData.submittedOnDate=dateFilter(new Date(scope.formData.submittedOnDate), scope.df);
                  scope.accountType = scope.formData.accountType.value.toLowerCase();
                  scope.loanProductChange(scope.formData.loanProductId);
                  if(scope.formData.allowUpfrontCollection && scope.showUpfrontAmount){
                     scope.upfrontAmount = true;
                     scope.formRequestData.amountForUpfrontCollection = scope.formData.amountForUpfrontCollection;
                 }
-                 scope.formRequestData.interestRatePerPeriod = applicationData.interestRatePerPeriod;
-                 if(applicationData.expectedDisbursementDate != undefined){
-                        scope.formRequestData.expectedDisbursementDate=dateFilter(new Date(applicationData.expectedDisbursementDate), scope.df);
+                 scope.formRequestData.interestRatePerPeriod = scope.formData.interestRatePerPeriod;
+                 if(scope.formData.expectedDisbursementDate != undefined){
+                        scope.formRequestData.expectedDisbursementDate=dateFilter(new Date(scope.formData.expectedDisbursementDate), scope.df);
                  }
-                 if(applicationData.expectedFirstRepaymentOnDate != undefined){
-                        scope.formRequestData.repaymentsStartingFromDate=dateFilter(new Date(applicationData.expectedFirstRepaymentOnDate), scope.df);
+                 if(scope.formData.expectedFirstRepaymentOnDate != undefined){
+                        scope.formRequestData.repaymentsStartingFromDate=dateFilter(new Date(scope.formData.expectedFirstRepaymentOnDate), scope.df);
                  }
                  resourceFactory.loanApplicationReferencesResource.getByLoanAppId({
                     loanApplicationReferenceId: scope.loanApplicationReferenceId
@@ -188,11 +188,11 @@
                 curIndex = 0;
                 resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (applicationData) {
                     scope.formData = applicationData;
-                    if (!scope.hideClientAdrresssBlock && applicationData.clientId != undefined && applicationData.clientId != null) {
-                        resourceFactory.clientKycAddressResource.get({clientId: applicationData.clientId}, function (kycData) {
+                    if (!scope.hideClientAdrresssBlock && scope.formData.clientId != undefined && scope.formData.clientId != null) {
+                        resourceFactory.clientKycAddressResource.get({clientId: scope.formData.clientId}, function (kycData) {
                             scope.clientKycdata = kycData.kyc;
                         });
-                        resourceFactory.clientResource.get({clientId: applicationData.clientId, isFetchAdressDetails : true}, function (clientData) {
+                        resourceFactory.clientResource.get({clientId: scope.formData.clientId, isFetchAdressDetails : true}, function (clientData) {
                             scope.client = clientData;
                             if(!scope.client.mobileNo){
                                 if(scope.response.uiDisplayConfigurations.createClient.defaultMobileNumber){
