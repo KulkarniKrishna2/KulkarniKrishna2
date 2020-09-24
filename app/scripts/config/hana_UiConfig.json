@@ -146,6 +146,11 @@
 			"isMandatory": {
 				"loanPurposeId": true
 			}
+		},
+		"loanrestructure": {
+			"isHiddenField": {
+				"editButton":false
+			}
 		}
 	}
 }

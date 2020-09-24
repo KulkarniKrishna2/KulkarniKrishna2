@@ -39,7 +39,11 @@
                     </tr>
                     <tr>
                         <td>{{'label.heading.numofrepayments' | translate}}</td>
-                        <td>{{restructureData.numberOfRepayments}}</td>
+                        <td ng-if="!isEditable">{{restructureData.numberOfRepayments}}&nbsp;
+                            <a ng-show="isShowEditButton" ng-click="isShowEditButton = !isShowEditButton;madeEditable()">
+                            <i class="icon-edit icon-white"></i>
+                            </a></td> 
+                        <td ng-if="isEditable"><input type="text" id="numberOfRepayments" name="restructureData.numberOfRepayments" ng-model="restructureData.numberOfRepayments"/></td>
                     </tr>
                     <tr>
                         <td>{{'label.heading.disbursementdate' | translate}}</td>
