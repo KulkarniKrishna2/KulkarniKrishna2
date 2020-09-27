@@ -154,7 +154,10 @@
                             $scope.organisationFormData.settlementDate = dateFilter(new Date(data.setteledDate), scope.df);
                             $scope.organisationFormData.settlementAmount = data.amountRecieved;
                             $scope.organisationFormData.chequeNumber = data.chequeNumber;
-                            $scope.nomineeFormData.claimNumber = data.claimNumber;
+                            $scope.organisationFormData.claimNumber = data.claimNumber;
+
+                            $scope.organisationFormData.settlementDetails = [];
+                            $scope.organisationFormData.settlementDetails.push( $scope.nomineeSettlementData);
 
                             resourceFactory.insuranceClaimStatusDetailsResource.approveClaimIntimationApproval({ claimStatus: 'settlementpending', command: 'reject' }, $scope.organisationFormData,
                                 function (data) {

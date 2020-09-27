@@ -24,6 +24,10 @@
                 });
             }
 
+            resourceFactory.codeValueByCodeNameResources.get({ codeName: "Relationship" }, function (codeValueData) {
+                scope.relationships = codeValueData;
+            });
+
             scope.getCoInsuredDocumentsTeplate = function ()  {
                 resourceFactory.codeValueByCodeNameResources.get({codeName: "CoInsured Deceased Document Tags"}, function (codeValueData) {
                     scope.coInsuredDocumentTagOptions = codeValueData;
@@ -118,6 +122,8 @@
                 scope.clientDeceased.locale = scope.formData.locale;
                 scope.clientDeceased.dateFormat = scope.formData.dateFormat;
                 scope.clientDeceased.contactNumber = scope.formData.mobileNo;
+                scope.clientDeceased.contactPersonName = scope.formData.contactPersonName;
+                scope.clientDeceased.contactPersonRelationshipId = scope.formData.contactPersonRelationshipId;
                 scope.clientDeceased.clientDeceasedData = [];
                 for(var i = 0 ; i < scope.deceasedDetailsData.length; i++) {
                     if(scope.deceasedDetailsData[i].selected == true) {

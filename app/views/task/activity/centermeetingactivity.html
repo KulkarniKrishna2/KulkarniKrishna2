@@ -27,7 +27,7 @@
                         </td>
                         <td class="col-sm-2">
                             <input id="startDate" type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="first.date" is-open="opened"  min="minMeetingDate"
-                                max="maxMeetingDate" class="form-control" ng-readonly="isDatePickerReadOnly" />
+                                max="maxMeetingDate" class="form-control" ng-readonly="isDatePickerReadOnly" ng-disabled="disableMeetingDate"/>
                         </td>
                         <td class="col-sm-2 text-right">
                             <label class="control-label">{{'label.input.meetingtime' | translate}}

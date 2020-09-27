@@ -8427,6 +8427,7 @@
      "error.msg.coi.no.duplicate" : "COI numbers cannot be same for a loan",
      "validation.msg.Insurance Policy.policyNo.exceeds.max.length": "Policy Number length exceeds max length of `{{params[0].value}}`",
      "validation.msg.Insurance Policy.coiNo.exceeds.max.length" : "COI Number length exceeds max length of `{{params[0].value}}`",
+     "label.input.insurance.select" : "Select", 
 
     "label.input.interest.payable" : "Interest Payable",
     "label.heading.interest.payable" : "Interest Payable",
@@ -8453,6 +8454,8 @@
      "label.heading.menu.insurance.settled.details" :  "Settled Claim Details",
      "label.heading.attention" : "Attention!",
      "label.input.insurance.contact.number" : "Contact No of Nominee/Family member",
+     "label.input.insurance.contact.name" : "Contact Person Name",
+     "label.input.insurance.contact.person.relation" : "Contact Person Relationship",
      "label.mustbenumeric.and.valid" : "Please enter valid number",
      "error.msg.deathIntimationDate.cannot.be.before.death.date" : "Death intimation date cannot be before death date",
      "label.heading.deceasedtotalduecollections" : "Deceased Total Amount",
@@ -8632,6 +8635,8 @@
      "error.msg.bank.account.details.already.exist" : "Bank account details with the id `{{params[0].value}}` already exist",
      "label.heading.summary.penalties": "Penalties",
      "label.view.bank.transaction.workflow" : "View Bank Transaction Workflow",
+
+     "error.msg.loan.repayment.cannot.bedone.as.loan.substatus.deceased" : "Loan repayment cannot be done as status is deceased",
 
      "------ end of translation file ------": "----------"
 

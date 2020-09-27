@@ -34,11 +34,17 @@
                     {id: 4, value: "yearly"}
                 ];
                 if (scope.meetingReccurenceOptions && scope.meetingReccurenceOptions.length > 0) {
+                    var repeatoptionsArray = [];
+                    var retainRepeatOptions = [];
                     for(var i in scope.repeatsOptions){
-                        if(!scope.meetingReccurenceOptions.includes(scope.repeatsOptions[i].value)){
-                            scope.repeatsOptions.splice(i, 1);
+                        repeatoptionsArray.push(scope.repeatsOptions[i].value);
+                    }
+                    for(var i in scope.repeatsOptions){
+                        if(scope.meetingReccurenceOptions.includes(repeatoptionsArray[i])){
+                            retainRepeatOptions.push(scope.repeatsOptions[i]);
                         }
                     }
+                    scope.repeatsOptions = retainRepeatOptions;
                 }
                 scope.locationOptions = data.meetingLocations;
                 var today  =  new Date();
