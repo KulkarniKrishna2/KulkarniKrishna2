@@ -1000,6 +1000,9 @@
                        </div>
                     </tab>
                     <tab ng-show="transferDetails"  has-permission='READ_BANK_TRANSACTION' heading="{{'label.heading.banktransfer' | translate}}">
+                        <div class="pull-right">
+                            {{'label.input.view.closed.transactions' | translate}}<input type="checkbox" ng-model="viewClosedTransactions" ng-change="selectClosedTransactions(viewClosedTransactions)" style="margin-left: 10px">
+                        </div>
                         <table class="table width100">
                             <tr class="graybg">
                                 <th >{{'label.heading.transferid' | translate}}</th>
@@ -1008,19 +1011,18 @@
                                 <th >{{'label.heading.amount' | translate}}</th>
                                 <th>{{'label.heading.status' | translate}}</th>
                                 <th >{{'label.input.actions' | translate}}</th>
-                                <th >{{'label.input.view.closed.transactions' | translate}}<input type="checkbox" ng-model="viewClosedTransactions" ng-change="selectClosedTransactions(viewClosedTransactions)" style="margin-left: 10px">
-                                </th>
+                                <th ng-if="isWorkflowEnabled">{{'label.view.bank.transaction.workflow' | translate}}</th>
                             </tr>
 
                             <tr ng-repeat="transferData in transferDetails">
-                                <td class="btn btn-link" data-ng-click="viewTransferDetails(transferData)">{{transferData.transactionId}}</td>
-                                <td class="pointer" data-ng-click="viewTransferDetails(transferData)">{{transferData.createdDate | DateFormat}} </td>
-                                <td class="pointer" data-ng-click="viewTransferDetails(transferData)">{{transferData.transferType.value}}</td>
-                                <td class="pointer" data-ng-click="viewTransferDetails(transferData)">{{transferData.amount}}</td>
+                                <td class="btn btn-link" data-ng-click="viewBasicTransferDetails(transferData)">{{transferData.transactionId}}</td>
+                                <td class="pointer" data-ng-click="viewBasicTransferDetails(transferData)">{{transferData.createdDate | DateFormat}} </td>
+                                <td class="pointer" data-ng-click="viewBasicTransferDetails(transferData)">{{transferData.transferType.value}}</td>
+                                <td class="pointer" data-ng-click="viewBasicTransferDetails(transferData)">{{transferData.amount}}</td>
                                 <td class="pointer">{{transferData.status.value}}</td>
                                 <td>
                                     <div class="btn-group">
-                                        <button class="btn btn-info" type="button" ng-click="retryTransfer(transferData)" ng-if="(transferData.status.id == failedTransaction) && showRetryBankTransaction"
+                                        <button class="btn btn-info" type="button" ng-click="retryTransfer(transferData)" ng-if="(transferData.status.id == failedTransaction || transferData.status.id == rejectedTransaction) && showRetryBankTransaction"
                                             has-permission="RETRY_BANK_TRANSACTION">{{'label.button.retry' | translate}}</button>
                                         <button class="btn btn-danger" type="button" ng-click="reject(transferData)" ng-if="showRejectButton(transferData)"
                                             has-permission="REJECT_BANK_TRANSACTION">{{'label.button.reject' | translate}}</button>
@@ -1030,7 +1032,7 @@
                                             has-permission="CLOSE_BANK_TRANSACTION">{{'label.button.close' | translate}}</button>
                                     </div>
                                 </td>
-                                <td class="pointer" data-ng-click="viewTransferDetails(transferData)"></td>
+                                <td class="pointer" ng-if="isWorkflowEnabled" data-ng-click="viewTransferDetails(transferData)"> <i class="icon-arrow-right ng-scope icon-primary" tooltip="{{'label.view.bank.transaction.workflow' | translate}}"></i></td>
                             </tr>
                         </table>
                     </tab>

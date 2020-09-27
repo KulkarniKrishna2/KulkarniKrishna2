@@ -260,6 +260,11 @@
         "companyCode":true
       }
     },
+		"createCharges": {
+			"isHiddenField": {
+				"chargeCategoryType": false
+			}
+    },
     "collectionSheet": {
       "isAutoPopulate": {
         "showEmiAmount": true

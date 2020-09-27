@@ -747,7 +747,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'task/ReportActivityController',
             'task/activity/bankaccountpennydropverificationActivityController',
             'loanAccount/LoanRestructureController',
-            'task/activity/RblEkycActivityController'
+            'task/activity/RblEkycActivityController',
+            'accounttransfers/ViewBankTransferDetailController',
         ],
         filters: [
             'StatusLookup',
