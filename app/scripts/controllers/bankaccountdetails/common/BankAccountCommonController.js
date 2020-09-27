@@ -323,9 +323,9 @@
                     return false;
                 }
                 if (scope.viewUIConfig.isTask) {
-                    return !scope.isTaskCompleted() && ['active', 'inactive', 'deleted'].indexOf(scope.bankAccountDetailsData.status.value) < 0;
+                    return !scope.isTaskCompleted() && ['active', 'inactive', 'deleted', 'rejected'].indexOf(scope.bankAccountDetailsData.status.value) < 0;
                 }
-                return ['active', 'inactive', 'deleted'].indexOf(scope.bankAccountDetailsData.status.value) < 0;
+                return ['active', 'inactive', 'deleted', 'rejected'].indexOf(scope.bankAccountDetailsData.status.value) < 0;
             }
 
             scope.isBankAccountAllowToReVerifyable = function () {

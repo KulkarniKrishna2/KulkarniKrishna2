@@ -29,9 +29,34 @@
 			"showDeleteButton": false,
 			"showInactiveBankAccountDetails":true
 		},
+		"workflow": {
+			"AdditionalDetailsValidation": {
+				"profileRatingPercentage": 100
+			},
+			"PGFValidation": {
+				"profileRatingPercentage": 80
+			},
+			"hiddenFields": {
+				"reviewCB": true,
+				"sendToCBReview": false,
+				"activateBankAccount": true,
+				"expenseAmount" : false,
+				"expectedDisbursementDate": true
+			},
+			"disableSelectAllClients": true,
+			"disableMeetingFrequency": false,
+			"showDeleteClientIdentifierAction": true,
+			"centerMeeting":{
+				"maxDaysLimit": 28,
+				"repeatsEveryOptions" : ["2","4"]
+			}
+		},
 		"createCenter": {
 			"isReadOnlyField": {
 				"active": true
+			},
+			"isHiddenField": {
+				"areaCategory": false
 			}
 		},
 		"createClient": {
@@ -61,6 +86,14 @@
 			"hiddenFields": {
 				"documentIssueDate": true,
 				"documentExpiryDate": true
+			}
+		},
+		"editCalendar": {
+			"editableFields": {
+				"repeat": false,
+				"repeatsevery": false,
+				"repeatson": false,
+				"meetingStartDate":true
 			}
 		},
 		"relationshipOptions": {
@@ -99,33 +132,6 @@
 			"isHiddenField": {
 				"villageOptions": true,
 				"staffOptions": true
-			}
-		},
-		"workflow": {
-			"disableMeetingFrequency": false,
-			"centerMeeting":{
-				"maxDaysLimit": 28
-			},
-			"isEditTaskEnableAfterCompleted":true,
-			"hiddenFields": {
-				"bankAccountActivate": false,
-				"expectedDisbursementDate": true
-			},
-			"isMandatory": {
-				"CGTPhoto": false,
-				"GRTPhoto": false
-			},
-			"isReadOnlyField": {
-				"loanProduct": false
-			}
-		},
-		"meeting": {
-			"repeatsOptions" : ["monthly"],
-			"create" : {
-				"selectMeetingDateType" : "allowOnlyCurrentDate"
-			},
-			"update" : {
-				"selectMeetingDateType" : "allowCurrentAndFutureDates"
 			}
 		}
 	}

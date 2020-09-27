@@ -777,6 +777,11 @@
 		},
 		"bankTransaction": {
 			"submitForTransferOnRetry": false
+		},
+		"loanrestructure": {
+			"isHiddenField": {
+				"editButton":true
+			}
 		}
 	}
 }

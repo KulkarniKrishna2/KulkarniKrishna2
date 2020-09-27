@@ -6,8 +6,7 @@
             scope.clientId = routeParams.entityId;
             scope.bankAccountDetailsId = routeParams.bankAccountDetailsId;
             scope.viewUIConfig = {
-                "isInitiated": false,
-                "isTask": false,
+                "isInitiated": false
             };
 
             function init() {
@@ -43,9 +42,11 @@
                             if(data.status.value === 'initiated'){
                                 getWorkflow();
                             }else{
+                                isTask(false);
                                 initiateUIDisplay();
                             }
                         }else{
+                            isTask(false);
                             initiateUIDisplay();
                         }
                     });
@@ -54,6 +55,10 @@
 
             function initiateUIDisplay(){
                 scope.viewUIConfig.isInitiated = true;
+            }
+
+            function isTask(isTask){
+                scope.viewUIConfig.isTask = isTask;
             }
 
             function getWorkflow() {
@@ -65,7 +70,6 @@
                     var bankWorkflowData = data;
                     if (bankWorkflowData != undefined && bankWorkflowData.id != undefined) {
                         if (bankWorkflowData.status.id != 7) {
-                            scope.viewUIConfig.isTask = true;
                             var taskConfig = {
                                 taskData: {
                                     id: bankWorkflowData.id,
@@ -74,10 +78,12 @@
                                 }
                             };
                             angular.extend(scope.commonConfig, taskConfig);
+                            isTask(true);
                             initiateUIDisplay();
                         }
                     }
-                    if(!scope.viewUIConfig.isTask){
+                    if(_.isUndefined(scope.viewUIConfig.isTask) || !scope.viewUIConfig.isTask){
+                        isTask(false);
                         initiateUIDisplay();
                     }
                 });

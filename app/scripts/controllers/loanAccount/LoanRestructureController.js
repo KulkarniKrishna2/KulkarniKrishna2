@@ -4,6 +4,11 @@
 
             scope.loanId = routeParams.id;
             scope.isTopup = false;
+            scope.isEditable = false;
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.loanrestructure &&
+                scope.response.uiDisplayConfigurations.loanrestructure.isHiddenField){
+                scope.isShowEditButton = !scope.response.uiDisplayConfigurations.loanrestructure.isHiddenField.editButton;
+            }
 
             resourceFactory.getLoanRestructureResource.get({ loanId: scope.loanId }, function (data) {
                 scope.restructureData = data;
@@ -26,6 +31,9 @@
                     $modalInstance.dismiss('cancel');
                 };
             };
+            scope.madeEditable = function(){
+               scope.isEditable = true; 
+            }
 
             scope.submit = function () {
                 scope.formData = {

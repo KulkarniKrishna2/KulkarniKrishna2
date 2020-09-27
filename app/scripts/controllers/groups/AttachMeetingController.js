@@ -26,12 +26,27 @@
                     {id: 4, value: "yearly"}
                 ];
                 if (scope.meetingReccurenceOptions && scope.meetingReccurenceOptions.length > 0) {
+                    var repeatoptionsArray = [];
+                    var retainRepeatOptions = [];
                     for(var i in scope.repeatsOptions){
-                        if(!scope.meetingReccurenceOptions.includes(scope.repeatsOptions[i].value)){
-                            scope.repeatsOptions.splice(i, 1);
+                        repeatoptionsArray.push(scope.repeatsOptions[i].value);
+                    }
+                    for(var i in scope.repeatsOptions){
+                        if(scope.meetingReccurenceOptions.includes(repeatoptionsArray[i])){
+                            retainRepeatOptions.push(scope.repeatsOptions[i]);
                         }
                     }
+                    scope.repeatsOptions = retainRepeatOptions;
                 }
+
+                if(isAllowOnlyCurrentMeetingdate()){
+                    scope.minMeetingDate = new Date();
+                    scope.maxMeetingDate = scope.minMeetingDate;
+                    scope.first.date = scope.minMeetingDate;
+                    scope.disableMeetingDate = true;
+                                 
+                }
+
                 scope.locationOptions = data.meetingLocations;
                 scope.repeatsEveryOptions = ["1", "2", "3"];
                 //to display default in select boxes
@@ -41,14 +56,26 @@
                     interval: '1'
                 }
             });
+
+            function isAllowOnlyCurrentMeetingdate() {
+                if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.meeting && scope.response.uiDisplayConfigurations.meeting.create) {
+                    var createMeetingUiConfig = scope.response.uiDisplayConfigurations.meeting.create;
+                    if (createMeetingUiConfig.selectMeetingDateType === 'allowOnlyCurrentDate') {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
             scope.meetingtime = new Date();
             scope.selectedPeriod = function (period) {
+                scope.disableMeetingDate = false;
                 if (period == 1) {
                     scope.repeatsEveryOptions = ["1", "2", "3"];
                     scope.periodValue = "day(s)"
                     scope.showAsTextBox = true;
                 }
-                if (period == 2) {
+                else if (period == 2) {
                     scope.repeatsEveryOptions = ["1", "2", "3","4","5"];
                     scope.formData.repeatsOnDay = '1';
                     scope.periodValue = "week(s)";
@@ -63,7 +90,7 @@
                     ]
                     scope.showAsTextBox = false;
                 }
-                if (period == 3) {
+                else if (period == 3) {
                     scope.periodValue = "month(s)";
                     scope.repeatsEveryOptions = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"];
                     scope.frequencyNthDayOptions = [
@@ -84,8 +111,9 @@
                         {name: "SUN", value: "7"}
                     ];
                     scope.showAsTextBox = false;
+                    scope.disableMeetingDate = true;
                 }
-                if (period == 4) {
+                else if (period == 4) {
                     scope.periodValue = "year(s)";
                     scope.repeatsEveryOptions = ["1", "2", "3"];
                     scope.showAsTextBox = true;

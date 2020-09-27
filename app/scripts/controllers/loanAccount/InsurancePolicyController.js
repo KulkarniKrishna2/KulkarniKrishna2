@@ -13,7 +13,13 @@
                     if (data && data.length > 0) {
                         scope.insurancePolicyDatas = data;
                         scope.insuranceProviderName = data[0].insuranceProvider.name;
-                        scope.showAdd = false;
+                        scope.insuranceProviderId = data[0].insuranceProvider.id;
+                        if(data.length < 2) {
+                            scope.showAdd = true;
+                        } else {
+                            scope.insuranceProviderId = undefined;
+                            scope.showAdd = false;
+                        }
                     }
                 });
             }
@@ -28,6 +34,18 @@
                         scope.formData.insurancePolicyDetails[i].effectiveDate = dateFilter(new Date(data.effectiveDate), scope.df);
                         scope.formData.insurancePolicyDetails[i].expiryDate = dateFilter(new Date(data.expiryDate), scope.df);
                     }
+                    if(scope.insurancePolicyDatas != null && scope.insurancePolicyDatas.length > 0) {
+                        for (var i in scope.insurancePolicyDatas) {
+                            if(scope.insurancePolicyDatas[i].insuranceClientType.value == 'INSURED') {
+                                var index = scope.formData.insurancePolicyDetails.map(function(item) { return item.insuranceClientType.value; }).indexOf('INSURED');
+                                scope.formData.insurancePolicyDetails.splice(index,1);
+                            }
+                            if(scope.insurancePolicyDatas[i].insuranceClientType.value == 'CO-INSURED') {
+                                var index = scope.formData.insurancePolicyDetails.map(function(item) { return item.insuranceClientType.value; }).indexOf('CO-INSURED');
+                                scope.formData.insurancePolicyDetails.splice(index,1);
+                            }
+                        }
+                    } 
                 });
                 scope.showAdd = false;
                 scope.isUpdate = false;
@@ -44,7 +62,6 @@
                 return insurancePolicyDetails;
             }
             scope.updateInsurancePolicy = function () {
-
                 resourceFactory.insurancePolicyTemplateResource.getTemplate({ loanId: scope.loanId, isUpdate: true }, function (data) {
                     scope.insuranceClientTypeOptions = data.insuranceClientTypeOptions;
                     scope.insuranceProviderOptions = data.insuranceProviderOptions;
@@ -59,6 +76,7 @@
                 });
                 scope.isUpdate = true;
                 scope.showform = true;
+                scope.insuranceProviderId = undefined;
             }
 
             scope.deleteInsurancePolicy = function (loanId) {
@@ -72,45 +90,69 @@
 
             scope.insurancePolicySubmit = function () {
                 var requestFormData = {};
-                angular.copy(this.formData, requestFormData);
                 var index = scope.insuranceProviderOptions.findIndex(x => x.id == this.formData.providerId);
                 if (index > -1) {
                     requestFormData.policyNoLength = scope.insuranceProviderOptions[index].policyNoLength;
                     requestFormData.coiNoLength = scope.insuranceProviderOptions[index].coiNoLength;
                 }
+                if(!_.isUndefined(scope.insuranceProviderId)){
+                    requestFormData.providerId = scope.insuranceProviderId;
+                } else {
+                    requestFormData.providerId = this.formData.providerId;
+                }
                 requestFormData.locale = scope.optlang.code;
-                for (var i in requestFormData.insurancePolicyDetails) {
-                    requestFormData.insurancePolicyDetails[i].insuranceClientTypeId = requestFormData.insurancePolicyDetails[i].insuranceClientType.id
-                    requestFormData.insurancePolicyDetails[i].locale = scope.optlang.code;
-                    requestFormData.insurancePolicyDetails[i].dateFormat = scope.df;
-                    delete requestFormData.insurancePolicyDetails[i].insuranceClientType;
-                    if (scope.isUpdate) {
-                        delete requestFormData.insurancePolicyDetails[i].insuranceProvider;
+                requestFormData.insurancePolicyDetails = [];
+                for (var i =0 ; i< this.formData.insurancePolicyDetails.length ; i++) {
+                    if(this.formData.insurancePolicyDetails[i].isMemberChecked || scope.isUpdate) {
+                        var insurancePolicyDetails = new Object();
+                        insurancePolicyDetails.insuranceClientTypeId = this.formData.insurancePolicyDetails[i].insuranceClientType.id
+                        insurancePolicyDetails.locale = scope.optlang.code;
+                        insurancePolicyDetails.dateFormat = scope.df;
+                        insurancePolicyDetails.policyNo = this.formData.insurancePolicyDetails[i].policyNo;
+                        insurancePolicyDetails.coiNo = this.formData.insurancePolicyDetails[i].coiNo;
+                        insurancePolicyDetails.insuredAmount = this.formData.insurancePolicyDetails[i].insuredAmount;
+                        insurancePolicyDetails.effectiveDate = this.formData.insurancePolicyDetails[i].effectiveDate;
+                        insurancePolicyDetails.expiryDate = this.formData.insurancePolicyDetails[i].expiryDate;
+                        if (scope.isUpdate) {
+                            insurancePolicyDetails.id = this.formData.insurancePolicyDetails[i].id;
+                        }
+                        requestFormData.insurancePolicyDetails .push(insurancePolicyDetails);
                     }
                 }
-                if (scope.isUpdate) {
-                    resourceFactory.insurancePolicyResource.update({
-                        'loanId': scope.loanId
-                    }, requestFormData, function (data) {
-                        if (data != null) {
-                            fetchAllInsurancePolicies();
-                            scope.resetFormSatus();
-                        }
-                    });
+                if(requestFormData.insurancePolicyDetails != undefined && requestFormData.insurancePolicyDetails.length > 0) {
+                    if (scope.isUpdate) {
+                        resourceFactory.insurancePolicyResource.update({
+                            'loanId': scope.loanId
+                        }, requestFormData, function (data) {
+                            if (data != null) {
+                                fetchAllInsurancePolicies();
+                                scope.resetFormSatus();
+                            }
+                        });
+                    } else {
+                        resourceFactory.insurancePolicyResource.create({
+                            'loanId': scope.loanId
+                        }, requestFormData, function (data) {
+                            if (data != null) {
+                                fetchAllInsurancePolicies();
+                                scope.resetFormSatus();
+                            }
+                        });
+                    }
                 } else {
-                    resourceFactory.insurancePolicyResource.create({
-                        'loanId': scope.loanId
-                    }, requestFormData, function (data) {
-                        if (data != null) {
-                            fetchAllInsurancePolicies();
-                            scope.resetFormSatus();
-                        }
-                    });
+                    scope.errorDetails = [];
+                    var errorObj = new Object();
+                    errorObj.field = '';
+                    errorObj.code = 'error.minimum.one.client.required';
+                    errorObj.args = {params: []};
+                    errorObj.args.params.push({value: 'error.minimum.one.client.required'});
+                    scope.errorDetails.push(errorObj);
+                    return;
                 }
             };
 
             scope.cancel = function () {
-                if(_.isUndefined(scope.insurancePolicyDatas)){
+                if(_.isUndefined(scope.insurancePolicyDatas) ||  scope.insurancePolicyDatas.length < 3){
                     scope.showAdd = true;
                 }
                 scope.resetFormSatus();
