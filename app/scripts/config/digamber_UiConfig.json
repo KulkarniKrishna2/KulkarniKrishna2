@@ -127,7 +127,8 @@
 		},
 		"editCenter": {
 			"isReadOnlyField": {
-				"name": false
+				"name": false,
+				"activationDate": true
 			},
 			"isHiddenField": {
 				"villageOptions": true,
