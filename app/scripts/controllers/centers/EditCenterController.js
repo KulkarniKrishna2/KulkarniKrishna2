@@ -8,6 +8,7 @@
             scope.restrictDate = new Date();
             scope.isHiddenVillageOption = true;
             scope.villages = [];
+            scope.isActivationDateReadOnly = false;
             if(scope.response != undefined){
                 scope.isHiddenVillageOption = scope.response.uiDisplayConfigurations.editCenter.isHiddenField.villageOptions;                
                 scope.isNameAutoPopulate = scope.response.uiDisplayConfigurations.createCenter.isAutoPopulate.name;
@@ -17,7 +18,7 @@
                 scope.namePattern = scope.response.uiDisplayConfigurations.createCenter.isValidateName.namePattern;
             }
             if(scope.response && scope.response.uiDisplayConfigurations.editCenter.isReadOnlyField.activationDate != undefined) {
-                scope.activationDate = scope.response.uiDisplayConfigurations.editCenter.isReadOnlyField.activationDate;
+                scope.isActivationDateReadOnly = scope.response.uiDisplayConfigurations.editCenter.isReadOnlyField.activationDate;
             }
             if(scope.response && scope.response.uiDisplayConfigurations){
                 scope.loanOfficersOnly = scope.response.uiDisplayConfigurations.createCenter.loanOfficersOnly;
