@@ -694,7 +694,12 @@
 		},
 		"editCenter": {
 			"isReadOnlyField": {
-				"activationDate": false
+				"activationDate": false,
+				"name": false
+			},
+			"isHiddenField": {
+				"villageOptions": false,
+				"staffOptions": false
 			}
 		},
 		"loanproduct": {
@@ -759,15 +764,6 @@
 		},
 		"documentConfiguration": {
 			"restrictTaggedDocuments": false
-		},
-		"editCenter": {
-			"isReadOnlyField": {
-				"name": false
-			},
-			"isHiddenField": {
-				"villageOptions": false,
-				"staffOptions": false
-			}
 		},
 		"centerTransfer": {
 			"isMandatory": {
