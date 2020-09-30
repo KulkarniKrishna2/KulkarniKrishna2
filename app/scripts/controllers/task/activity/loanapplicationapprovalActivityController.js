@@ -87,7 +87,7 @@
                     if(scope.formData.status.id === scope.loanapplicationSubmitted){
                         scope.loanApplicationSubmittedData();
                     }
-                    if(scope.formData.status.id === scope.loanapplicationInApproval || scope.formData.status.id === scope.loanapplicationCBApproved){
+                    if(scope.formData.status.id === scope.loanapplicationInApproval || scope.formData.status.id === scope.loanapplicationApproved){
                         resourceFactory.loanApplicationReferencesResource.getByLoanAppId({
                             loanApplicationReferenceId: scope.loanApplicationReferenceId,
                             command: 'approveddata'
