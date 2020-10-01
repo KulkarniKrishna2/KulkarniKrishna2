@@ -1,13 +1,19 @@
 {
-"label.heading.companyname":"Digamber Finance",
-"label.anchor.kotak.approval" : "Head Office Approval",
-"label.tab.kotak.approval.loans" : "Approved Loans",
-"label.tab.kotak.reject.loans" : "Rejected Loans",
-"KotakApproved": "Approved",
-"KotakRejected": "Rejected",
-"label.heading.summary.penalties": "Broken period interest",
-"label.input.talukname": "Tehsil",
-"label.menu.selectTaluka": "Select Tehsil",
+    "label.heading.companyname": "Digamber Finance",
+    "label.anchor.kotak.approval": "Head Office Approval",
+    "label.tab.kotak.approval.loans": "Approved Loans",
+    "label.tab.kotak.reject.loans": "Rejected Loans",
+    "KotakApproved": "Approved",
+    "KotakRejected": "Rejected",
+    "label.heading.summary.penalties": "Broken period interest",
+    "label.input.talukname": "Tehsil",
+    "label.menu.selectTaluka": "Select Tehsil",
+    "label.button.applypenalties": "Apply Broken Period Interest",
+    "label.heading.penalties": "BP Interest",
+    "label.heading.penalities": "BP Interest",
+    "label.heading.penalty.amount": "BP Interest amount",
 
-"------ end of translation file ------": "----------"
+
+    
+    "------ end of translation file ------": "----------"
 }
