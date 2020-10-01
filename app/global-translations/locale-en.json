@@ -8638,6 +8638,7 @@
 
      "error.msg.loan.repayment.cannot.bedone.as.loan.substatus.deceased" : "Loan repayment cannot be done as status is deceased",
 
+     "label.heading.posted.income":"Income Posted",
      "------ end of translation file ------": "----------"
 
 }
