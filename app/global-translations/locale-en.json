@@ -8639,6 +8639,7 @@
      "error.msg.loan.repayment.cannot.bedone.as.loan.substatus.deceased" : "Loan repayment cannot be done as status is deceased",
 
      "label.heading.posted.income":"Income Posted",
+     "error.msg.client.transfer.cannot.be.done":"Client transfer cannot be done, clients have active associations",
      "------ end of translation file ------": "----------"
 
 }
