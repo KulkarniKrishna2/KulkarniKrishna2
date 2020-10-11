@@ -27,6 +27,7 @@
                     scope.loanRescheduleData = data;
                 });
             };
+            scope.backDatedTemplate = {};
             scope.rescheduleData();
 
             resourceFactory.checkerInboxResource.get({templateResource: 'searchtemplate'}, function (data) {
@@ -586,7 +587,6 @@
                 location.path('viewclient/' + id);
             };
 
-
             scope.search = function () {
                 scope.isCollapsed = true;
                 var reqFromDate = dateFilter(scope.date.from, 'yyyy-MM-dd');
@@ -1144,6 +1144,71 @@
                         route.reload();
                 });
             };
+
+            scope.backDatedTransactions = function(){
+                var params = {};
+                params.actionName = 'REPAYMENT,ADJUST,RECTIFY,FORECLOSURE';
+                params.includeJson = true;
+                resourceFactory.checkerInboxResource.search(params, function (data) {
+                    scope.backDatedTransactionsList = data;
+                    for(var i in scope.backDatedTransactionsList ){
+                       var obj = JSON.parse(scope.backDatedTransactionsList[i].commandAsJson);
+                       scope.backDatedTransactionsList[i].transactionAmount = obj.transactionAmount;
+                       scope.backDatedTransactionsList[i].transactionDate = obj.transactionDate;
+                       scope.backDatedTransactionsList[i].note = obj.note;
+                       scope.backDatedTransactionsList[i].checked = false;
+                    }
+                });
+            }
+
+            scope.backdatemodel = function () {
+
+                $modal.open({
+                        templateUrl: 'backdated.html',
+                        controller: BackDatedCtrl,
+                        resolve: {
+                            items: function () {
+                                return scope.backDatedTemplate;
+                            }
+                        }
+                    });
+            };
+            
+            scope.backDated = {};
+            scope.backDated.masterCheckbox = false;
+            
+
+            scope.backDatedAllCheckBoxesMet = function() {
+                var newValue = !scope.backDated.masterCheckbox;
+                if(!angular.isUndefined(scope.backDatedTransactionsList)) {
+                    for (var i = scope.backDatedTransactionsList.length - 1; i >= 0; i--) {
+                        scope.backDatedTransactionsList[i].checked = newValue;
+                    };
+                }
+            }
+
+            var BackDatedCtrl = function ($scope, $modalInstance, items) {
+                $scope.backdatedTxn = function () {
+                    scope.batchRequests = [];
+                    var reqId = 1;
+                    var d = {};
+                    var bodyData = JSON.stringify(d);
+                    for(var i in scope.backDatedTransactionsList){                        
+                        if(scope.backDatedTransactionsList[i].checked==true){
+                            resourceFactory.checkerInboxResource.save({templateResource: scope.backDatedTransactionsList[i].id, command: "approve"}, {}, function (data) {
+                                
+                            }, function (data) {
+                                
+                            });
+                        }
+                    }
+                    $modalInstance.close('delete');
+                    scope.backDatedTransactions();
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            }
 
         }
     });

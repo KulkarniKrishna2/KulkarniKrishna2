@@ -8692,10 +8692,11 @@
      "error.msg.bank.account.details.already.exist" : "Bank account details with the id `{{params[0].value}}` already exist",
      "label.heading.summary.penalties": "Penalties",
      "label.view.bank.transaction.workflow" : "View Bank Transaction Workflow",
-
      "error.msg.loan.repayment.cannot.bedone.as.loan.substatus.deceased" : "Loan repayment cannot be done as status is deceased",
-
      "label.heading.posted.income":"Income Posted",
+     "label.heading.backdatedtransaction" :"Back Dated Transaction",
+     "label.heading.backdatedreason" : "Back Dated Reason",
+     "label.heading.backdatedtransaction.approval" : "Back Dated Transaction Approval",
      "------ end of translation file ------": "----------"
 
 }

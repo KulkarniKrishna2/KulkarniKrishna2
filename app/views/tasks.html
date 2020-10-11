@@ -855,6 +855,65 @@
 					</div>
 				</tab>
 
+				<tab heading="{{'label.heading.backdatedtransaction.approval' | translate}}" ng-click="backDatedTransactions()">
+
+
+
+
+				<div class="head-affix">
+				        <table class="table condensed-table">
+				            <thead>
+							<tr>
+								<th>
+									<button type="button" class="btn btn-success" data-ng-click="backdatemodel()" ><i
+											class="icon-ok"></i>{{'label.button.approve' | translate}}
+									</button>
+								</th>
+							</tr>
+				            </thead>
+				        </table>
+				    </div>
+				<script type="text/ng-template" id="backdated.html">
+						<div class="modal-header silver">
+							<h3 class="bolder">{{'label.heading.backdatedtransaction.approval' |
+								translate}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h3>
+						</div>
+						<div class="modal-footer">
+							<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+							<button class="btn btn-primary" ng-click="backdatedTxn()">{{'label.button.confirm' | translate}}
+							</button>
+						</div>
+					</script>					
+				    <div>
+				        <table class="table condensed-table" data-ng-show="backDatedTransactionsList">
+				            <thead>
+				            <tr class="graybg">
+				            	<th><input type="checkbox" ng-click="backDatedAllCheckBoxesMet()"  ng-model="backDated.masterCheckbox"/></th>
+				                <th>{{'label.heading.loanaccount' | translate}}</th>
+				                <th>{{'label.heading.office' | translate}}</th>
+								<th>{{'label.heading.user' | translate}}</th>
+								<th>{{'label.heading.transactiontype' | translate}}</th>
+								<th>{{'label.heading.transactiondate' | translate}}</th>
+								<th>{{'label.heading.backdatedreason' | translate}}</th>
+								<th>{{'label.heading.amount' | translate}}</th>
+				            </tr>
+				            </thead>
+				            <tbody>
+				            <tr data-ng-repeat="txn in backDatedTransactionsList | filter:filterText2">
+				            	<td><input type="checkbox" ng-model="backDatedTransactionsList[$index].checked" ng-clicked="checkBox($index)"></td> 
+				                <td class="pointer"><a href='#/viewloanaccount/{{txn.loanId}}'>{{txn.loanId}}</a></td>
+				                <td class="pointer">{{txn.officeName}}</td>
+				                <td class="pointer">{{txn.maker}}</td>
+				                <td class="pointer">{{txn.actionName}}</td>
+								<td class="pointer">{{txn.transactionDate | DateFormat}}</td>
+								<td class="pointer">{{txn.note}}</td>
+								<td class="pointer">{{txn.transactionAmount | number}}</td>
+				            </tr>
+				            </tbody>
+				        </table>
+				    </div>
+				</tab>
+
 			</tabset>
 		</fieldset>
 	</div>

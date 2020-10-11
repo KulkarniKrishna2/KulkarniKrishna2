@@ -29,7 +29,8 @@
         "loanPurposeId": true,
         "mobileNumber":true,
         "disbursementMode":true,
-        "expectedDisbursalPaymentType":true
+        "expectedDisbursalPaymentType":true,
+        "backDatedReason": true
       },
       "isHiddenSection": {
         "interestRecalculationSection": true,
