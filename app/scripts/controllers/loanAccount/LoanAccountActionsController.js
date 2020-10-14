@@ -124,6 +124,20 @@
                 scope.getTotalAmount(scope.clientMembers, 'transactionAmount');
             };
 
+            scope.checkNote = function(){
+                if(scope.action=="modifytransaction" || scope.action=="repayment" ){
+                    if(scope.backDatedTxn==true){
+                        if(scope.formData.note.length>0){
+                            scope.backDatedTxnError = false;
+                        }else{
+                            scope.backDatedTxnError = true;
+                        }
+                        
+                    }
+                }
+                
+            }
+
             scope.checkBiometricRequired = function() {
                 if( scope.transactionAuthenticationOptions &&  scope.transactionAuthenticationOptions.length > 0) {
                     for(var i in scope.transactionAuthenticationOptions) {
@@ -1332,12 +1346,11 @@
                     }
                 }
                 scope.backDatedTxn = false;
-                scope.backDatedTxnError = false;
                 var txndate = dateFilter(scope.formData.transactionDate, scope.df) ;
                 txndate = txndate+"";
                 var date = dateFilter(new Date(), scope.df) ;
                 date = date+"";
-                if(!(txndate==date)){
+                if(!(txndate==date) && scope.backDatedReasonMandatory==true){
                     scope.backDatedTxn = true;
                 }
             });
