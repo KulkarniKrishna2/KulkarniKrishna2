@@ -18,7 +18,8 @@
                     if(scope.transaction.type.code === "loanTransactionType.refund"){
                         scope.isRefundTransaction = true;
                     }
-                    if(data.isGlimLoan && scope.isWriteOff){
+                    
+                    if(data.isGlimLoan){
                         scope.glimTransactions = data.glimTransactions;
                         if(scope.isGlimPaymentAsGroupEnabled){
                             scope.isGlimWriteOffTransaction = true;
