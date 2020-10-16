@@ -22,6 +22,7 @@
             scope.hideResult = false;
             scope.rescheduleData = function(){                
             scope.loanRescheduleData = [];
+            scope.showBackDatedSearchParameters= false;
             scope.checkForBulkLoanRescheduleApprovalData = [];
                 resourceFactory.loanRescheduleResource.getAll({command:'pending'}, function (data) {
                     scope.loanRescheduleData = data;
@@ -1144,16 +1145,54 @@
                         route.reload();
                 });
             };
+            scope.backDatedTypeOption = [{'name':'REPAYMENT','val':'REPAYMENT'},{'name':'FORECLOSURE','val':'FORECLOSURE'},{'name':'CORRECTION/UNDO','val':'ADJUST'}];
 
-            scope.backDatedTransactions = function(){
+            scope.backDatedFormData = {};
+            scope.getBackDatedData = function(){
                 var params = {};
-                params.actionName = 'REPAYMENT,ADJUST,RECTIFY,FORECLOSURE';
+                scope.showBackDatedSearchParameters= true;
+                scope.backDatedTransactionsList = [];
+                params.actionName = 'REPAYMENT,ADJUST,FORECLOSURE';
                 params.includeJson = true;
+                if(scope.backDatedFormData.officeId){
+                   params.officeId = scope.backDatedFormData.officeId;
+                }
+                if(scope.backDatedFormData.fromDate){
+                    params.makerDateTimeFrom = dateFilter(scope.backDatedFormData.fromDate, 'yyyy-MM-dd');
+                }
+                if(scope.backDatedFormData.toDate){
+                    params.makerDateTimeTo = dateFilter(scope.backDatedFormData.toDate, 'yyyy-MM-dd');
+                }
+                if(scope.backDatedFormData.type){
+                    params.actionName = scope.backDatedFormData.type;
+                }
+                scope.backDatedTransactions(params);
+            }
+
+            scope.viewData = function(){
+                scope.showBackDatedSearchParameters= true;
+            }
+
+
+            scope.backDatedTransactions = function(params){
+                scope.showBackDatedSearchParameters= false;
                 resourceFactory.checkerInboxResource.search(params, function (data) {
                     scope.backDatedTransactionsList = data;
                     for(var i in scope.backDatedTransactionsList ){
                        var obj = JSON.parse(scope.backDatedTransactionsList[i].commandAsJson);
-                       scope.backDatedTransactionsList[i].transactionAmount = obj.transactionAmount;
+                       if(obj.transactionAmount==undefined){
+                            scope.backDatedTransactionsList[i].transactionAmount = 'N/A';
+                       }else if(scope.backDatedTransactionsList[i].actionName=='ADJUST'){
+                            if(obj.transactionAmount==0){
+                                scope.backDatedTransactionsList[i].transactionAmount = 'N/A';
+                                scope.backDatedTransactionsList[i].actionName='UNDO';
+                            }else{
+                                scope.backDatedTransactionsList[i].transactionAmount = obj.transactionAmount;
+                                scope.backDatedTransactionsList[i].actionName='CORRECTION';
+                            }
+                       }else{
+                           scope.backDatedTransactionsList[i].transactionAmount = obj.transactionAmount;
+                       }
                        scope.backDatedTransactionsList[i].transactionDate = obj.transactionDate;
                        scope.backDatedTransactionsList[i].note = obj.note;
                        scope.backDatedTransactionsList[i].checked = false;

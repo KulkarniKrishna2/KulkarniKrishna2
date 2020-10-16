@@ -855,24 +855,69 @@
 					</div>
 				</tab>
 
-				<tab heading="{{'label.heading.backdatedtransaction.approval' | translate}}" ng-click="backDatedTransactions()">
-
-
-
-
-				<div class="head-affix">
-				        <table class="table condensed-table">
+				<tab heading="{{'label.heading.backdatedtransaction.approval' | translate}}" ng-click="viewData();">
+				<div ng-show="showBackDatedSearchParameters==false">
+				    	<table class="table condensed-table" >
 				            <thead>
 							<tr>
-								<th>
+								<th ng-show="backDatedTransactionsList.length>0">
 									<button type="button" class="btn btn-success" data-ng-click="backdatemodel()" ><i
 											class="icon-ok"></i>{{'label.button.approve' | translate}}
 									</button>
+								</th>
+								<th>
+									<button type="button" class="btn btn-success" data-ng-click="viewData();">{{'label.button.viewsearchparameters' | translate}}
+				                    </button>
 								</th>
 							</tr>
 				            </thead>
 				        </table>
 				    </div>
+				<div class="head-affix" ng-show="showBackDatedSearchParameters==true">
+				        <table class="table condensed-table" >
+				            <thead>
+							<tr>
+								<th>
+									<label class="control-label col-sm-3">{{ 'label.input.office' | translate }}<span
+											class="required">*</span></label>
+									<select chosen="offices" id="officeId_backdated" ng-model="backDatedFormData.officeId"
+											ng-options="office.id as office.name for office in offices" value="{{office.id}}"
+											ng-change="officeSelected(officeId)" >
+										<option value="">{{'label.all' | translate}}</option>
+									</select>
+								</th>
+								<th>
+									<label class="control-label col-sm-3">{{ 'label.heading.transactiontype' | translate }}<span
+											class="required">*</span></label>
+									<select chosen="backDatedTypeOption" id="backDatedTypeOption" ng-model="backDatedFormData.type"
+											ng-options="type.val as type.name for type in backDatedTypeOption" value="{{type.val}}" >
+										<option value="">{{'label.all' | translate}}</option>
+									</select>
+								</th>
+							</tr>
+							<tr>
+								<th>
+									<label class="control-label col-sm-3">{{ 'label.input.fromdate' | translate }}</label>
+									<input type="text" datepicker-pop="dd MMMM yyyy" id = "fromDate" ng-model="backDatedFormData.fromDate" is-open="opened" max="restrictDate" class="col-sm-6" ng-readonly="isDatePickerReadOnly"  />
+								</th>
+								<th>
+									<label class="control-label col-sm-3">{{ 'label.input.todate' | translate }}</label>
+									<input type="text" autocomplete="off" datepicker-pop="{{df}}" id = "toDate" ng-model="backDatedFormData.toDate" is-open="opened" max="restrictDate" class="col-sm-5" ng-readonly="isDatePickerReadOnly" />
+								</th>
+							</tr>
+							<tr>
+								<th>
+									<div class="col-sm-5">
+										<button  class="btn btn-primary" data-ng-click="getBackDatedData()"><i class="icon-search"></i>{{'label.button.search' | translate}}
+										</button>
+									</div>
+								</th>
+								<th></th>
+							</tr>
+						</thead>
+						</table>				        
+				    </div>				    
+
 				<script type="text/ng-template" id="backdated.html">
 						<div class="modal-header silver">
 							<h3 class="bolder">{{'label.heading.backdatedtransaction.approval' |
@@ -884,7 +929,7 @@
 							</button>
 						</div>
 					</script>					
-				    <div>
+				    <div ng-show="showBackDatedSearchParameters==false">
 				        <table class="table condensed-table" data-ng-show="backDatedTransactionsList">
 				            <thead>
 				            <tr class="graybg">
@@ -907,7 +952,8 @@
 				                <td class="pointer">{{txn.actionName}}</td>
 								<td class="pointer">{{txn.transactionDate | DateFormat}}</td>
 								<td class="pointer">{{txn.note}}</td>
-								<td class="pointer">{{txn.transactionAmount | number}}</td>
+								<td class="pointer" ng-show="txn.transactionAmount=='N/A'">{{txn.transactionAmount}}</td>
+								<td class="pointer" ng-hide="txn.transactionAmount=='N/A'">{{txn.transactionAmount | number}}</td>
 				            </tr>
 				            </tbody>
 				        </table>
