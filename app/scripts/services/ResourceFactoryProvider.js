@@ -468,6 +468,9 @@
                         get: { method: 'GET', params: {}, isArray: true },
                         getView: { method: 'GET', params: {} }
                     }),
+                    outboundCallResource: defineResource(apiVer + "/clients/:clientId/call", {clientId: '@clientId'}, {
+                        save: { method: 'POST'}
+                    }),
                     accountingClosureByOfficeResource: defineResource(apiVer + "/glclosures/offices/:officeId", { officeId: "@officeId" }, {
                         get: { method: 'GET', params: {}, isArray: true },
                         getView: { method: 'GET', params: {} }
