@@ -946,9 +946,9 @@
 				            <tbody>
 				            <tr data-ng-repeat="txn in backDatedTransactionsList | filter:filterText2">
 				            	<td><input type="checkbox" ng-model="backDatedTransactionsList[$index].checked" ng-clicked="checkBox($index)"></td> 
-				                <td class="pointer"><a href='#/viewloanaccount/{{txn.loanId}}'>{{txn.loanId}}</a></td>
+				                <td><a href='#/viewloanaccount/{{txn.loanId}}'>{{txn.loanId}}</a></td>
 				                <td class="pointer">{{txn.officeName}}</td>
-				                <td class="pointer">{{txn.maker}}</td>
+				                <td><a href='#/viewuser/{{txn.makerId}}'>{{txn.maker}}</a></td>
 				                <td class="pointer">{{txn.actionName}}</td>
 								<td class="pointer">{{txn.transactionDate | DateFormat}}</td>
 								<td class="pointer">{{txn.note}}</td>

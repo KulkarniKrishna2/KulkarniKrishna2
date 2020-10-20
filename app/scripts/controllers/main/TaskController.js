@@ -1145,14 +1145,15 @@
                         route.reload();
                 });
             };
-            scope.backDatedTypeOption = [{'name':'REPAYMENT','val':'REPAYMENT'},{'name':'FORECLOSURE','val':'FORECLOSURE'},{'name':'CORRECTION/UNDO','val':'ADJUST'}];
+            scope.backDatedTypeOption = [{'name':'REPAYMENT','val':'REPAYMENT'},{'name':'FORECLOSURE','val':'FORECLOSURE'},{'name':'CORRECTION/UNDO','val':'ADJUST,RECTIFY'}];
 
             scope.backDatedFormData = {};
             scope.getBackDatedData = function(){
                 var params = {};
+                scope.backDated.masterCheckbox = false;
                 scope.showBackDatedSearchParameters= true;
                 scope.backDatedTransactionsList = [];
-                params.actionName = 'REPAYMENT,ADJUST,FORECLOSURE';
+                params.actionName = 'REPAYMENT,ADJUST,RECTIFY,FORECLOSURE';
                 params.includeJson = true;
                 if(scope.backDatedFormData.officeId){
                    params.officeId = scope.backDatedFormData.officeId;
@@ -1192,6 +1193,9 @@
                             }
                        }else{
                            scope.backDatedTransactionsList[i].transactionAmount = obj.transactionAmount;
+                       }
+                       if(scope.backDatedTransactionsList[i].actionName=='RECTIFY'){
+                            scope.backDatedTransactionsList[i].actionName='CORRECTION';
                        }
                        scope.backDatedTransactionsList[i].transactionDate = obj.transactionDate;
                        scope.backDatedTransactionsList[i].note = obj.note;
@@ -1237,7 +1241,7 @@
                             resourceFactory.checkerInboxResource.save({templateResource: scope.backDatedTransactionsList[i].id, command: "approve"}, {}, function (data) {
                                 
                             }, function (data) {
-                                
+                                scope.getBackDatedData();
                             });
                         }
                     }
