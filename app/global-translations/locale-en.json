@@ -6473,6 +6473,7 @@
     "validation.msg.riskFactorConfiguration.uname.cannot.be.blank": "risk factor short name can not be blank.",
     "validation.msg.riskFactorConfiguration.name.cannot.be.blank": "risk factor name can not be blank.",
     "validation.msg.computeprofilerating.entityType.cannot.be.blank": "compute profile rating entity type can not be blank.",
+    "validation.msg.riskFactorConfiguration.uname.format.is.invalid": "short name should not contain any special characters and spaces.",
     "validation.msg.cashflow.typeEnumId.cannot.be.blank": "cash flow type enum can not be blank.",
     "error.msg.cash.flow.category.name.already.exist": "cash flow category name already exist.",
     "error.msg.cash.flow.category.short.name.already.exist": "cash flow category short name already exist.",
