@@ -8711,6 +8711,19 @@
      "validation.msg.createNachMandateRequest.arg2.debitType.cannot.be.blank": "Debit type is mandatory",
      "validation.msg.createNachMandateRequest.arg2.amount.cannot.be.blank": "Amount is mandatory",
      "label.input.requested.on": "Requested On",
+     "label.heading.request.esign" : "Request eSign",
+     "label.heading.esign.request" : "eSign Request",
+     "label.heading.esign.requests" : "eSign Requests",
+     "label.heading.signing.type" : "Signing Type",
+     "label.heading.notifier.type" : "Notifier Type",
+     "label.heading.document.generation": "Document Generation",
+     "label.heading.view":"View",
+     "label.heading.raw":"Raw",
+     "label.heading.signed":"Signed",
+     "error.msg.duplicate.esign.request.on.document.for.the.entity": "Esign request on document for the entity already exists",
+     "error.msg.esign.request.id.invalid": "Esign Request doesn't exist for the provided id `{{params[0].value}}`", 
+     "error.msg.client.contact.info.not.found": "Client contact information not found",
+     
      "------ end of translation file ------": "----------"
 
 }
