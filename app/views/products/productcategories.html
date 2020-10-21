@@ -20,9 +20,9 @@
             </thead>
             <tbody>
                 <tr class="pointer-main" ng-repeat="category in productCategories">
-                    <td class="pointer">{{category.categoryId}}</td>
-                    <td class="pointer">{{category.displayName}}</td>
-                    <td class="pointer">{{(category.isEnabled)? 'Active':'Inactive'}}</td>
+                    <td class="pointer" data-ng-click="routeTo(category.categoryId)">{{category.categoryId}}</td>
+                    <td class="pointer" data-ng-click="routeTo(category.categoryId)">{{category.displayName}}</td>
+                    <td class="pointer" data-ng-click="routeTo(category.categoryId)">{{(category.isEnabled)? 'Active':'Inactive'}}</td>
                 </tr>
             </tbody>
         </table>

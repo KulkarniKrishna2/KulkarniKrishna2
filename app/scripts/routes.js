@@ -417,6 +417,9 @@
             .when('/viewoffice/:id', {
                 templateUrl: 'views/organization/viewoffice.html'
             })
+            .when('/viewproductcategory/:id', {
+                templateUrl: 'views/products/viewproductcategory.html'
+            })
             .when('/editoffice/:id', {
                 templateUrl: 'views/organization/editoffice.html'
             })

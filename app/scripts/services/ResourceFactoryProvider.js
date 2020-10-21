@@ -234,6 +234,9 @@
                     productCategoriesResource: defineResource(apiVer + "/productcategories", {}, {
                         getProductCategories: { method: 'GET', params: {}, isArray: true }
                     }),
+                    categoryResource: defineResource(apiVer + "/productcategories/:categoryId", { categoryId: '@categoryId' }, {
+                        getProductCategory: { method: 'GET', params: {} }
+                    }),
                     clientLimitsResource: defineResource(apiVer + "/clients/:clientId/limits", { clientId: '@clientId' }, {
                         get: { method: 'GET', params: {} }
                     }),
@@ -243,6 +246,10 @@
                     }),
                     clientCategoryLimitsResource: defineResource(apiVer + "/clients/:clientId/limits/categorylimits", { clientId: '@clientId' }, {
                         get: { method: 'GET', params: {}, isArray: true }
+                    }),
+                    mapCategorytoProductResource: defineResource(apiVer + "/categories/:categoryId/product-mappings", { categoryId: '@categoryId' }, {
+                        save: { method: 'POST', params: {} },
+                        getAllMappedProducts: { method: 'GET', params:{} }
                     }),
                     loanProductResource: defineResource(apiVer + "/loanproducts/:loanProductId/:resourceType", { resourceType: '@resourceType', loanProductId: '@loanProductId' }, {
                         getAllLoanProducts: { method: 'GET', params: {}, isArray: true },
