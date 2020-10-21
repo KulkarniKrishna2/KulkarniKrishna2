@@ -312,10 +312,14 @@
     <td>{{'label.input.daysinmonth' | translate}}</td>
     <td colspan="3">{{loanproduct.daysInMonthType.value}}</td>
 </tr>
-    <tr>
-        <td>{{'label.input.weeksinyears' | translate}}</td>
-        <td colspan="3">{{loanproduct.weeksInYearType.value}}</td>
-    </tr>
+<tr ng-if="loanproduct.daysInMonthType.id === 30">
+    <td>{{'label.input.partial.period.type' | translate}}</td>
+    <td colspan="3">{{loanproduct.partialPeriodType.value}}</td>
+</tr>
+<tr>
+    <td>{{'label.input.weeksinyears' | translate}}</td>
+    <td colspan="3">{{loanproduct.weeksInYearType.value}}</td>
+</tr>
 <tr>
     <td>{{'label.input.thresholdforlastinstallment' | translate}}</td>
     <td colspan="3">{{loanproduct.principalThresholdForLastInstallment}}</td>

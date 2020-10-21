@@ -91,6 +91,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'client/ClientGuaranteeController',
             'product/LoanProductController',
             'product/CreateLoanProductController',
+            'product/CommonLoanProductController',
             'product/CreateSavingProductController',
             'product/EditSavingProductController',
             'product/EditLoanProductController',

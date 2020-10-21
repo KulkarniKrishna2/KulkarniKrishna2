@@ -2244,6 +2244,7 @@
     "label.tooltip.arearstolerance": "With 'Arrears tolerance' you can specify a tolerance amount and if the loan is behind (in arrears), but within the tolerance, it won't be classified as 'in arrears' and part of the portfolio at risk.",
     "label.tooltip.daysinyear": "Number of days in year.",
     "label.tooltip.daysinmonth": "Number of days in month.",
+    "label.tooltip.partial.period.type": "Partial Period Type",
     "label.tooltip.calculateIrr": "Caculates effective interest rate based on principal, number of periods, frequency and installment amount",
 
 
@@ -2646,6 +2647,7 @@
     "label.input.interestcalculatedusing": "Interest calculated using",
     "label.input.daysinyears": "Days in year",
     "label.input.daysinmonth": "Days in month",
+    "label.input.partial.period.type": "Partial Period Type",
     "label.input.minimumopeningbalance": "Minimum opening balance",
     "label.input.lockinPeriodFrequency": "Lock-in period",
     "label.input.withdrawalfeefortransfers": "Apply Withdrawal fee for transfers",
