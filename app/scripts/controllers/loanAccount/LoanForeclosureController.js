@@ -178,10 +178,21 @@
                 txndate = txndate+"";
                 var date = dateFilter(new Date(), scope.df) ;
                 date = date+"";
-                if(!(txndate==date)){
+                if(!(txndate==date) && scope.backDatedReasonMandatory==true){
                     scope.backDatedTxn = true;
                 }
             });
+
+            scope.checkNote = function(){
+                if(scope.backDatedTxn==true){
+                    if(scope.formData.note.length>0){
+                        scope.backDatedTxnError = false;
+                    }else{
+                        scope.backDatedTxnError = true;
+                    }
+                            
+                }                
+            }
 
         }
     });

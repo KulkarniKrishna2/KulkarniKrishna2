@@ -719,7 +719,7 @@
     <label class="control-label col-sm-2" for="note">{{ 'label.input.note' | translate}}</label>
 
     <div class="col-sm-3">
-        <textarea id="note" rows="2" class="form-control" ng-model="formData.note"></textarea>
+        <textarea id="note" rows="2" class="form-control" ng-model="formData.note" ng-change="checkNote()"></textarea>
     </div>
     <div class="col-sm-3" ng-show="backDatedTxnError==true">
         <span class="error">{{'label.requiredfield' | translate}}</span>
