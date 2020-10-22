@@ -379,10 +379,12 @@
             }
 
             scope.fetchBankDetailsData = function () {
-                resourceFactory.bankAccountDetailsResource.getAll({ entityType: "clients", entityId: scope.clientId, status: "active" }, function (data) {
-                    scope.bankAccountDetails = data;
-                    populateAttachedBankAccount();
-                });
+                if(scope.clientId){
+                    resourceFactory.bankAccountDetailsResource.getAll({ entityType: "clients", entityId: scope.clientId, status: "active" }, function (data) {
+                        scope.bankAccountDetails = data;
+                        populateAttachedBankAccount();
+                    });
+                }                
             };
 
             scope.formDisbursementData = function(){
