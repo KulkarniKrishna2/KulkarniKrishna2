@@ -16,6 +16,10 @@
             scope.educationOptions = [];
             scope.occupationOptions = [];
             scope.subOccupations = [];
+            if(scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isValidateDOBField.active && scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isValidateDOBField.ageCriteria){
+                scope.familyMemberMinAge = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isValidateDOBField.ageCriteria.minAge;
+                scope.familyMemberMaxAge = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isValidateDOBField.ageCriteria.maxAge;
+            }
             if(scope.response && scope.response.uiDisplayConfigurations.createClient.isValidateFirstName) {
                 scope.firstNamePattern = scope.response.uiDisplayConfigurations.createClient.isValidateFirstName.firstNamePattern;
             }
@@ -34,17 +38,17 @@
             });
             scope.minAge = 0;
             scope.maxAge = 0;
-            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient && 
-                scope.response.uiDisplayConfigurations.createClient.isValidateDOBField && scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.active) {
-                if (scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isMandatoryField.dateOfBirth) {
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewClient && 
+                scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isValidateDOBField && scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isValidateDOBField.active) {
+                if(scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isMandatoryField.dateOfBirth){
                     scope.isDateOfBirthMandatory = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isMandatoryField.dateOfBirth;
                 }
-                if (scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.ageCriteria.minAge > 0) {
-                    scope.minAge = scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.ageCriteria.minAge;
+                if (scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isValidateDOBField.ageCriteria.minAge > 0) {
+                    scope.minAge = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isValidateDOBField.ageCriteria.minAge;
 
                 }
-                if (scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.ageCriteria.maxAge > 0) {
-                    scope.maxAge = scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.ageCriteria.maxAge;
+                if (scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isValidateDOBField.ageCriteria.maxAge > 0) {
+                    scope.maxAge = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isValidateDOBField.ageCriteria.maxAge;
                 }
             } else{
                 scope.minAge = 0;
@@ -270,11 +274,14 @@
                     }
                 }
             };
+                        
             scope.validateAge = function(){
-                scope.isValidAge = false;
-                if(scope.formData.age){
-                    if(scope.minAge <= scope.formData.age && scope.formData.age <= scope.maxAge){
-                        scope.isValidAge = true;
+                if(!_.isUndefined(scope.familyMemberMinAge) && !_.isUndefined(scope.familyMemberMaxAge)){
+                    scope.isValidAge = false;
+                    if(scope.formData.age){
+                        if(scope.familyMemberMinAge <= scope.formData.age && scope.formData.age <= scope.familyMemberMaxAge){
+                            scope.isValidAge = true;
+                        }
                     }
                 }
             };
