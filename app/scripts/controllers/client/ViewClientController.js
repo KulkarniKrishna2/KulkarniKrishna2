@@ -637,10 +637,10 @@
             };
 
             scope.clientAccountsLoaded = false;
-            scope.getClientAccounts = function(){
-                if(!scope.clientAccountsLoaded){
+            scope.getAllClientAccounts = function () {
+                if (!scope.clientAccountsLoaded) {
                     scope.clientAccountsLoaded = true;
-                    resourceFactory.clientAccountsOverviewsResource.get({clientId: routeParams.id}, function (data) {
+                    resourceFactory.clientAccountsOverviewResource.get({ clientId: routeParams.id }, function (data) {
                         scope.clientAccounts = data;
                         scope.pledges = scope.clientAccounts.pledges;
                         if (data.savingsAccounts) {
