@@ -8638,6 +8638,11 @@
 
      "error.msg.loan.repayment.cannot.bedone.as.loan.substatus.deceased" : "Loan repayment cannot be done as status is deceased",
 
+     "label.heading.posted.income":"Income Posted",
+     "error.msg.client.transfer.cannot.be.done":"Client transfer cannot be done, clients have active associations",
+     "validation.msg.loanapplication.glim.transactionAmount.cannot.be.blank" :"Glim amount must be greater than zero.",
+     "validation.msg.loan.glim.transactionAmount.not.greater.than.zero" : "Glim amount must be greater than zero.",
+     "validation.msg.loan.disbursement.glim.transactionAmount.cannot.be.blank" : "Glim amount must be greater than zero.",
      "------ end of translation file ------": "----------"
 
 }
