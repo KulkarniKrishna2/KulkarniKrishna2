@@ -71,7 +71,10 @@
       "searchForActivegroups": false
     },
     "createLoanApplication": {
-      "newLoanApplicationLimitAllowed" : true
+      "newLoanApplicationLimitAllowed" : true,
+      "isMandatoryField": {
+        "loanOfficer":true
+      }
     },
     "bankAccountDetails": {
       "isMandatory": {

@@ -100,7 +100,10 @@
       "searchForActivegroups": false
     },
     "createLoanApplication": {
-      "newLoanApplicationLimitAllowed" : true
+      "newLoanApplicationLimitAllowed" : true,
+      "isMandatoryField": {
+        "loanOfficer":true
+      }
     },
     "meeting": {
 			"repeatsOptions" : ["weekly", "monthly"]

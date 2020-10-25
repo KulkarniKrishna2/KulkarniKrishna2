@@ -556,7 +556,8 @@
 				"interestRatePerPeriod": false,
 				"disbursementPaymentMode": false,
 				"amountForUpfrontCollection": false,
-				"disbursementPaymentType":false
+				"disbursementPaymentType":false,
+				"loanOfficer": false
 			},
 			"isMandatory": {
 				"trancheData": false,
