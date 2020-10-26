@@ -91,6 +91,9 @@
                 if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.crnNumber){
                     scope.crnNumber = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.crnNumber;
                 }
+                if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.makeCall){
+                    scope.makeCall =  scope.response.uiDisplayConfigurations.viewClient.isHiddenField.makeCall;
+                }
                 
             }
             scope.isStalePeriodExceeded = false;
@@ -878,6 +881,14 @@
                     $modalInstance.dismiss('cancel');
                 };
             };
+
+            scope.outboundCallData = {"origin": "client","referenceId": null}
+            scope.call = function(){
+                resourceFactory.outboundCallResource.save({clientId : routeParams.id},scope.outboundCallData, function(data) {
+                    $scope.close();
+                });
+            }; 
+
             scope.uploadSig = function () {
                 $modal.open({
                     templateUrl: 'uploadsig.html',
