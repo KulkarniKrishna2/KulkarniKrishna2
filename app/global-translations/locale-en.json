@@ -8703,6 +8703,14 @@
      "label.heading.backdatedtransaction" :"Back Dated Transaction",
      "label.heading.backdatedreason" : "Back Dated Reason",
      "label.heading.backdatedtransaction.approval" : "Back Dated Transaction Approval",
+     "label.anchor.initiate.request" : "Initiate Request",
+     "label.anchor.initiate.nach.mandate.request" : "Initiate Nach Mandate Request",
+     "label.anchor.nach.mandate.request.details" : "Nach Request Details",
+     "validation.msg.createNachMandateRequest.arg2.bankAccountDetailId.cannot.be.blank": "Bank account details is mandatory",
+     "validation.msg.createNachMandateRequest.arg2.debitFrequency.cannot.be.blank": "Debit frequency is mandatory",
+     "validation.msg.createNachMandateRequest.arg2.debitType.cannot.be.blank": "Debit type is mandatory",
+     "validation.msg.createNachMandateRequest.arg2.amount.cannot.be.blank": "Amount is mandatory",
+     "label.input.requested.on": "Requested On",
      "------ end of translation file ------": "----------"
 
 }

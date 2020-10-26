@@ -2150,6 +2150,14 @@
                     }),
                     getLoanRestructureResource: defineResource(apiVer + "/loanrestructure/loan/:loanId", {}, {
                         get: { method: 'GET', params: { loanId: '@loanId' } }
+                    }),
+                    nachMandateRequestResource: defineResource(apiVer + "/:entityType/:entityId/nach-mandate-requests/:requestId/:action/:resource", { entityType: '@entityType', entityId: '@entityId', requestId: '@requestId' }, {
+                        getAll: { method: 'GET', params: {}, isArray: true },
+                        template: { method: 'GET', params: { resource: 'template' }, isArray: false },
+                        refresh: { method: 'POST', params: { action: 'refresh' } },
+                        cancel: { method: 'POST', params: { action: 'cancel' } },
+                        reject: { method: 'POST', params: { action: 'reject' } },
+                        initiateRequest: { method: 'POST', params: {} }
                     })
                 };
             }];
