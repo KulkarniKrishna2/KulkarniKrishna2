@@ -34,3 +34,4 @@ Gruntfile-custom.js
 .vscode/*
 .creds
 .creds/*
+release.json
