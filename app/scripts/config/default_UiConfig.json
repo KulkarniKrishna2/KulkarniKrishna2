@@ -143,7 +143,8 @@
 				"createLoanApplication": false,
 				"blackList": true,
 				"whiteList": true,
-				"crnNumber" : true
+				"crnNumber" : true,
+				"makeCall" : true
 			},
 			"familyDeatils": {
 				"isHiddenField": {

@@ -1,0 +1,42 @@
+<div>
+    <form name="createEsignRequestForm" novalidate="" class="form-horizontal well" rc-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset>
+            <legend>{{'label.heading.request.esign' | translate}}</legend>
+            <div class="form-group">
+                <label class="control-label col-sm-3">{{'label.heading.signing.type' | translate}}
+                    <span class="required">*</span>
+                </label>
+                <div class="col-sm-3">
+                    <select id="signingTypeId" name="signingType" ng-model="formData.signingTypeId" class="form-control"
+                        ng-options="signingType.id as signingType.code for signingType in template.signingTypeOptions"
+                        value="{{signingType.signingTypeId}}" required late-validate="">
+                        <option value="">{{'label.menu.select' | translate}}</option>
+                    </select>
+                </div>
+                <form-validate valattributeform="createEsignRequestForm" valattribute="signingType" />
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3" for="shortName">{{'label.heading.notifier.type' | translate}}
+                    <span class="required">*</span>
+                </label>
+                <div class="col-sm-3">
+                    <select id="notifierTypeId" name="notifierType" ng-model="formData.notifierTypeId"
+                        class="form-control"
+                        ng-options="notifierType.id as notifierType.code for notifierType in template.notifierTypeOptions"
+                        value="{{notifierType.notifierTypeId}}" required late-validate="">
+                        <option value="">{{'label.menu.select' | translate}}</option>
+                    </select>
+                </div>
+                <form-validate valattributeform="createEsignRequestForm" valattribute="notifierType" />
+            </div>
+            <div class="form-group center">
+                <a id="cancel" ng-click="cancel()" class="btn btn-default">{{'label.button.cancel'
+                        | translate}}</a>&nbsp;
+                <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_ESIGN_REQUEST'>
+                    {{'label.button.save' | translate}}
+                </button>
+            </div>
+        </fieldset>
+    </form>
+</div>
