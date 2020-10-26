@@ -762,6 +762,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'notification/EditNotificationEventMappingController',
             'notification/EditNotificationJobMappingController',
             'task/activity/NachMandateRequestActivityController',
+            'task/activity/EsignRequestActivityController',
         ],
         filters: [
             'StatusLookup',

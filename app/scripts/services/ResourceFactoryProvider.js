@@ -1722,7 +1722,7 @@
 
                     }),
                     reportGenerateResource: defineResource(apiVer + "/:entityType/:entityId/documents/generatereport", { entityType: '@entityType', entityId: '@entityId' }, {
-                        generate: { method: 'POST', params: { command: "generate" } }
+                        generate: { method: 'POST', params: { command: "generate", reportId : '@reportId' } }
                     }),
                     clientsTaskStepsTrackingResource: defineResource(apiVer + "/tasktracking/clientsstepsinfo/:centerId", { centerId: '@centerId' }, {
                         get: { method: 'GET', params: {}, isArray: true }
@@ -2158,7 +2158,24 @@
                         cancel: { method: 'POST', params: { action: 'cancel' } },
                         reject: { method: 'POST', params: { action: 'reject' } },
                         initiateRequest: { method: 'POST', params: {} }
-                    })
+                    }),
+                    requestEsignResource: defineResource(apiVer + "/esign-request/:esignRequestId", {}, {
+                        save: { method: 'POST'},
+                        getTemplate: { method: 'GET'},
+                        get: { method: 'GET', params: { esignRequestId: '@esignRequestId' } }
+                    }),
+                    refreshEsignRequestResource: defineResource(apiVer + "/esign-request/:esignRequestId/refresh", {}, {
+                        refresh: { method: 'POST', params: { esignRequestId: '@esignRequestId' } }
+                    }),
+                    cancelEsignRequestResource: defineResource(apiVer + "/esign-request/:esignRequestId/cancel", {}, {
+                        cancel: { method: 'POST', params: { esignRequestId: '@esignRequestId' } } 
+                    }),
+                    esignRequestByEntityResource: defineResource(apiVer + "/esign-request/:entityType/:entityId", {}, {
+                        getAll: { method: 'GET', params: { entityType: '@entityType',entityId: '@entityId'}, isArray: true }
+                    }),
+                    esignRequestTemplateResource: defineResource(apiVer + "/esign-request/template", {}, {
+                        get: { method: 'GET'},
+                    }),
                 };
             }];
         }

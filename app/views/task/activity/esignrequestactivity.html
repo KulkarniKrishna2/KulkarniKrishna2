@@ -1,0 +1,82 @@
+<div ng-controller="EsignRequestActivityController">
+    <div>
+        <api-validate></api-validate>
+    </div>
+    <form name="viewEsignRequestForm" novalidate="" class="form-horizontal well">
+        <legend>{{'label.heading.esign.requests' | translate}}</legend>
+        <table class="table">
+            <thead>
+                <th class="col-md-2">{{'label.heading.documents' | translate}}</th>
+                <th class="col-md-2">{{'label.heading.status' | translate}}</th>
+                <th class="center" colspan="2">{{'label.heading.view' | translate}}</th>
+                <th class="center" colspan="2">{{'label.heading.actions' | translate}}</th>
+            </thead>
+            <tr>
+                <th></th>
+                <th></th>
+                <th>{{'label.heading.raw' | translate}}</th>
+                <th>{{'label.heading.signed' | translate}}</th>
+                <th>{{'label.heading.document.generation' | translate}}</th>
+                <th>{{'label.heading.esign.request' | translate}}</th>
+            </tr>
+            <tbody>
+                <tr ng-repeat="esignRequest in esignRequestList" class="background-gold">
+                    <td class="col-md-2">{{esignRequest.reason}}</td>
+
+                    <td class="col-md-2">{{esignRequest.esignStatus}}</td>
+                    <td class="col-md-2">
+                        <div ng-show="esignRequest.unsignedDocumentId">
+                            <a target="_blank" data-ng-click="openViewDocument(esignRequest.unsignedDocumentId)"
+                                has-permission='READ_DOCUMENT'><i class="icon-eye-open text-success"></i></a>
+                            <a target="_blank" ng-click="download(esignRequest.unsignedDocumentId, esignRequest.reason)"
+                                has-permission='DOWNLOAD_DOCUMENT'><i class="icon-cloud-download"></i></a>
+                        </div>
+                    </td>
+                    <td class="col-md-2">
+                        <div ng-show="esignRequest.signedDocumentId">
+                            <a target="_blank" data-ng-click="openViewDocument(esignRequest.signedDocumentId)"
+                                has-permission='READ_DOCUMENT'><i class="icon-eye-open text-success"></i></a>
+                            <a target="_blank" ng-click="download(esignRequest.signedDocumentId, esignRequest.reason)"
+                                has-permission='DOWNLOAD_DOCUMENT'><i class="icon-cloud-download"></i></a>
+                        </div>
+                    </td>
+
+                    <!--document generation-->
+                    <td class="col-md-2">
+                        <a ng-show="esignRequest.esignStatus=='DOCUMENT_NOT_GENERATED'"
+                            ng-click="generateDocument(esignRequest.reportId)"
+                            tooltip="{{'label.tooltip.generate.document' | translate}}"><i class="icon-link"></i></a>
+                        <span ng-show="esignRequest.generatedDocId">
+                            <a target="_blank" data-ng-click="openViewDocument(esignRequest.generatedDocId)"
+                                has-permission='READ_DOCUMENT'><i class="icon-eye-open text-success"></i></a>
+                            <a target="_blank"
+                                ng-click="download(esignRequest.generatedDocId,esignRequest.generatedfileName)"
+                                has-permission='DOWNLOAD_DOCUMENT'><i class="icon-cloud-download"></i></a>
+                        </span>
+                    </td>
+
+                    <!--request actions-->
+                    <td class="col-md-2">
+                        <a ng-show="esignRequest.esignStatus=='DOCUMENT_GENERATED'"
+                            has-permission='CREATE_ESIGN_REQUEST'
+                            ng-click="requestEsign($index, esignRequest.generatedDocId)"
+                            tooltip="{{'label.heading.request.esign' | translate}}"><i class="icon-arrow-right"></i></a>
+                        <a ng-show="esignRequest.esignRequestId" style="color: blue"
+                            has-permission='UPDATE_ESIGN_REQUEST'
+                            ng-click="refreshEsignRequest($index, esignRequest.esignRequestId)"
+                            tooltip="{{'label.button.refresh' | translate}}"><i class="icon-refresh"></i></a>
+                        <a ng-show="esignRequest.esignRequestId" has-permission='CANCEL_ESIGN_REQUEST'
+                            ng-click="cancelEsignRequest(esignRequest.esignRequestId)"><i class="icon-remove"></i></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<script type="text/ng-template" id="viewDocument.html">
+    <div style="position: fixed; top:20%; right:10%; width:600px; height: 500px;">
+       <view-document-directive  ng-entity-type="{{data.parentEntityType}}"
+       ng-entity-id="{{data.parentEntityId}}"
+       ng-document-id="{{data.id}}"></view-document-directive>
+   </div>
+</script>
