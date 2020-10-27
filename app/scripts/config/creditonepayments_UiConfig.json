@@ -1,0 +1,10 @@
+{
+	"enableUIDisplayConfiguration": true,
+	"uiDisplayConfigurations": {
+		"viewClient": {
+			"isHiddenField": {
+				"makeCall" : false
+			}
+	}
+}
+}
