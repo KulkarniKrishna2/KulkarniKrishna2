@@ -70,9 +70,10 @@
 
             scope.refreshEsignRequest = function (index, esignRequestId) {
                 resourceFactory.refreshEsignRequestResource.refresh({ esignRequestId: esignRequestId }, function (data) {
-                    scope.fetchOne(esignRequestId);
-                    scope.esignRequestList[index].esignStatus = scope.esignRequestTemp.esignStatus;
-                    scope.esignRequestList[index].signedDocumentId = scope.esignRequestTemp.signedDocumentId;
+                    resourceFactory.requestEsignResource.get({ esignRequestId: esignRequestId }, function (temp) {
+                        scope.esignRequestList[index].esignStatus = temp.esignStatus;
+                        scope.esignRequestList[index].signedDocumentId = temp.signedDocumentId;
+                    });
                 });
             }
 
@@ -123,12 +124,6 @@
                     scope.fetchAll();
                 })
             };
-
-            scope.fetchOne = function (esignRequestId) {
-                resourceFactory.requestEsignResource.get({ esignRequestId: esignRequestId }, function (data) {
-                    scope.esignRequestTemp = data;
-                });
-            }
         }
     });
     mifosX.ng.application.controller('EsignRequestActivityController', ['$controller', '$scope', '$modal', 'ResourceFactory', '$rootScope', 'CommonUtilService', 'API_VERSION', mifosX.controllers.EsignRequestActivityController]).run(function ($log) {
