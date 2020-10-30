@@ -43,6 +43,7 @@
             scope.isMandatoryDisbursementPaymentType = false;
             scope.loanReferenceTrancheData = false;
             scope.isLoanPurposeRequired = false;
+            scope.isLoanOfficerRequired = false;
 
             if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createLoanApplication) {
                 if (scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField) {
@@ -50,6 +51,7 @@
                     scope.isHiddenFirstRepaymentDate = scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.firstRepaymentDate;
                     scope.isHiddenRateOfInterest = scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.interestRatePerPeriod;
                     scope.isHiddenTrancheData = scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.tranchedata;
+                    scope.newLoanApplicationLimitAllowed = scope.response.uiDisplayConfigurations.createLoanApplication.newLoanApplicationLimitAllowed;
                 }
                 if (scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField) {
                     scope.isMandatoryExpectedDisbursementDate = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.expectedDisbursementDate;
@@ -61,6 +63,7 @@
                 if (scope.response.uiDisplayConfigurations.createLoanApplication.isMandatory) {
                     scope.loanReferenceTrancheData = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatory.trancheData;
                     scope.isLoanPurposeRequired = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatory.loanPurposeId;
+                    scope.isLoanOfficerRequired = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.loanOfficer;
                 }
             }
             resourceFactory.clientResource.get({clientId: routeParams.clientId, associations:'hierarchyLookup'}, function (data) {
@@ -75,7 +78,7 @@
             });
 
             scope.inparams = {resourceType: 'template', activeOnly: 'true'};
-            scope.newLoanApplicationLimitAllowed = scope.response.uiDisplayConfigurations.createLoanApplication.newLoanApplicationLimitAllowed;
+            
             if (scope.clientId && scope.groupId && !scope.disbursementToGroupAllowed)  {
                 scope.inparams.templateType = 'jlg';
             } else if (scope.groupId && !scope.disbursementToGroupAllowed) {
