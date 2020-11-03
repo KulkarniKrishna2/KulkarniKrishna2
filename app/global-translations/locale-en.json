@@ -8731,6 +8731,23 @@
      "error.msg.esign.request.id.invalid": "Esign Request doesn't exist for the provided id `{{params[0].value}}`", 
      "error.msg.client.contact.info.not.found": "Client contact information not found",
      
+     "---financial office level mapping--" : "--financial-office-mapping--",
+     "label.heading.createofficemapping" : "Create Office Mapping",
+     "label.button.createofficemapping" : "Create Office Mapping",
+     "label.anchor.createofficemapping" : "Create Office Mapping",
+     "err.msg.financial.activitytype.can.not.update.as.office.mapping.exist.exception" : "Can not update activity type as office level mapping exist.",
+     "validation.msg.FinancialAccountOfficeMapping.toOfficeId.is.one.of.unwanted.enumerations" : "From office and To office can not be same.",
+     "err.msg.financial.activity.same.office.exception" : "From office and To office can not be same.",
+     "err.msg.financial.activity.office.mapping.exist.exception" : "Office level mapping for this offices already exist.",
+     "label.anchor.viewofficemappings" : "View Office Mappings",
+     "label.anchor.editofficemappings" : "Edit Office Mapping",
+     "label.button.viewofficempping" : "View Office Mapping",
+     "label.button.officemappings" : "Office Mappings",
+     "err.msg.financial.office.mapping.activity.type.invalid.exception" : "Office level mapping not applicable for `{{params[0].value}}`",
+     "label.anchor.updateofficemapping" : "Update Office Mappings",
+     "label.heading.updateofficemapping" : "Update Office Mapping",
+     "label.anchor.viewofficemapping" : "View Office Mapping",
+
      "------ end of translation file ------": "----------"
 
 }

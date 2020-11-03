@@ -2176,6 +2176,14 @@
                     esignRequestTemplateResource: defineResource(apiVer + "/esign-request/template", {}, {
                         get: { method: 'GET'},
                     }),
+                    financialOfficeMappingResource: defineResource(apiVer + "/financialactivityaccounts/:mappingId/officemapping/:id", {mappingId: '@mappingId',id: '@id'}, {
+                        get: { method: 'GET', params: {mappingId: '@mappingId',id: '@id' } },
+                        getAll: { method: 'GET', params: {mappingId: '@mappingId'}, isArray: true },
+                        update: { method: 'PUT', params: {mappingId: '@mappingId',id: '@id' } }
+                    }),
+                    financialOfficeMappingTemplateResource: defineResource(apiVer + "/financialactivityaccounts/:mappingId/officemapping/template", {mappingId: '@mappingId'}, {
+                        get: { method: 'GET', params: {mappingId: '@mappingId', isArray: true} }
+                    })
                 };
             }];
         }

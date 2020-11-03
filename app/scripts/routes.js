@@ -2190,6 +2190,18 @@
             .when('/productivesheet/:officeId/:officeName/:meetingDate/:staffId/:newtransactionDate', {
                 templateUrl: 'views/collection/productivecollectionsheet.html'
             })
+            .when('/createfinancialofficemapping/:mappingId', {
+                templateUrl: 'views/accounting/financialofficemapping/createfinanacialofficemapping.html'
+            })
+            .when('/updatefinancialofficemapping/:mappingId/officemapping/:id', {
+                templateUrl: 'views/accounting/financialofficemapping/updatefinanacialofficemapping.html'
+            })
+            .when('/viewfinancialofficemappings/:mappingId/officemappings', {
+                templateUrl: 'views/accounting/financialofficemapping/viewfinanacialofficemappings.html'
+            })
+            .when('/viewfinancialofficemapping/:mappingId/officemapping/:id', {
+                templateUrl: 'views/accounting/financialofficemapping/viewfinanacialofficemapping.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {
