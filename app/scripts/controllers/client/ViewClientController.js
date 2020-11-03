@@ -102,11 +102,7 @@
             if(scope.response && scope.response.uiDisplayConfigurations) {
                 scope.isSavingAccountEnable = scope.response.uiDisplayConfigurations.viewClient.createSavingAccount;
                 scope.activateOnReinitiate = scope.response.uiDisplayConfigurations.viewClient.activateOnReinitiate;
-                scope.hideVillage = scope.response.uiDisplayConfigurations.entityType.isHiddenMenu.village;
-                if (scope.response.uiDisplayConfigurations.workflow && scope.response.uiDisplayConfigurations.workflow.deceasedWorkflow){
-                    scope.showPolicy = scope.response.uiDisplayConfigurations.workflow.deceasedWorkflow.showPolicy;
-                    scope.showMarkAsDeceased = scope.response.uiDisplayConfigurations.workflow.deceasedWorkflow.showMarkAsDeceased;
-                }        
+                scope.hideVillage = scope.response.uiDisplayConfigurations.entityType.isHiddenMenu.village;     
             }
             scope.showViewCBHistoryReport = !scope.response.uiDisplayConfigurations.creditBureau.isHiddenField.viewHistoryCBReportButton;
             scope.limitForCBHistory = scope.response.uiDisplayConfigurations.creditBureau.getEnquiryHistoryLimit;
@@ -452,24 +448,6 @@
                                 href: "#/createshareaccount",
                                 icon: "icon-plus",
                                 taskPermissionName: "CREATE_SHAREACCOUNT"
-                            });
-                        }
-                        if(scope.showPolicy){
-                            scope.buttons.push({
-                                name: "label.button.viewpolicy",
-                                href: "#/clients",
-                                subhref: "viewpolicy",
-                                icon: "icon-eye-open",
-                                taskPermissionName: "READ_POLICY"
-                            });
-                        }
-                        if(scope.showMarkAsDeceased){
-                            scope.buttons.push({
-                                name: "label.button.markasdeceased",
-                                href: "#/clients",
-                                subhref: "viewdeceased",
-                                icon: "icon-plus",
-                                taskPermissionName: "CREATE_DECEASED_WORKFLOW"
                             });
                         }   
                     }
