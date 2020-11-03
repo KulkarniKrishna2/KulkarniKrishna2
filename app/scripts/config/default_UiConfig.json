@@ -65,7 +65,9 @@
 				"nextRepaymentDateDisburseScreen": false,
 				"adjustRepaymentDateDisburseScreen": false,
 				"retryBankTransaction": true,
-				"isDeferPaymentsForHalfTheLoanTerm": false
+				"isDeferPaymentsForHalfTheLoanTerm": false,
+				"interestRate" : true,
+				"flatInterestRate": true
 			},
 			"isReadOnlyField": {
 				"externalId": false,
