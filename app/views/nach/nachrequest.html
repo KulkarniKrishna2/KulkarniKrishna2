@@ -1,0 +1,236 @@
+<div>
+    <button ng-if="showInitiateRequestButton && !isTaskCompleted()" ng-click="initiateRequest()"
+        class="btn btn-primary pull-right">
+        {{'label.anchor.initiate.request' | translate}}
+    </button>
+</div>
+<div>
+    <div ng-if="showRequestsList && nachMandateRequests.length>0">
+        <table class="table">
+            <thead>
+                <th class="col-md-2">{{'label.input.requested.on' | translate}}</th>
+                <th class="col-md-1">{{'label.placeholder.amount' | translate}}</th>
+                <th class="col-md-1">{{'label.heading.mandate.umrn' | translate}}</th>
+                <th class="col-md-1">{{'label.heading.mandate.debitFrequency' | translate}}</th>
+                <th class="col-md-1">{{'label.heading.status' | translate}}</th>
+                <th class="col-md-1">{{'label.heading.actions' | translate}}</th>
+            </thead>
+            <tbody>
+                <tr ng-repeat="nachMandateRequest in nachMandateRequests">
+                    <td ng-click="showMandateRequestDetails(nachMandateRequest)">
+                        {{nachMandateRequest.createdOn | DateTimeFormat}}</td>
+                    <td ng-click="showMandateRequestDetails(nachMandateRequest)">
+                        {{nachMandateRequest.amount | number:2}}
+                    </td>
+                    <td ng-click="showMandateRequestDetails(nachMandateRequest)">{{nachMandateRequest.umrn}}</td>
+                    <td ng-click="showMandateRequestDetails(nachMandateRequest)">
+                        {{nachMandateRequest.debitFrequencyEnum.value}}</td>
+                    <td ng-click="showMandateRequestDetails(nachMandateRequest)">{{nachMandateRequest.status}}</td>
+                    <td>&nbsp;
+                        <a ng-if="canRefresh(nachMandateRequest) && !isTaskCompleted()"
+                            ng-click="refreshRequest(nachMandateRequest.requestId)"
+                            tooltip="{{'label.button.refresh' | translate}}"
+                            has-permission='REFRESH_NACH_MANDATE_REQUEST'><i class="icon-refresh"></i></a>&nbsp;
+                        <a ng-if="canReject(nachMandateRequest) && !isTaskCompleted()"
+                            ng-click="rejectRequest(nachMandateRequest.requestId)"
+                            tooltip="{{'label.tooltip.reject' | translate}}"
+                            has-permission='CANCEL_NACH_MANDATE_REQUEST'><i style="color: red"
+                                class="icon-remove-circle pointer"></i></a>&nbsp;
+                        <a ng-if="canCancel(nachMandateRequest) && !isTaskCompleted()"
+                            ng-click="cancelRequest(nachMandateRequest.requestId)"
+                            tooltip="{{'label.button.cancel' | translate}}"
+                            has-permission='REJECT_NACH_MANDATE_REQUEST'><i
+                                class="glyphicon glyphicon-remove"></i></a>&nbsp;
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div ng-if="showform && !isTaskCompleted()">
+    <form name="initiateNachRequestForm" novalidate="" class="form-horizontal" rc-submit="submitRequest()">
+        <api-validate></api-validate>
+        <fieldset>
+            <legend>{{'label.anchor.initiate.nach.mandate.request' | translate}}</legend>
+            <div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="fromDate">{{ 'label.heading.fromdate' | translate }}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input id="fromDate" type="text" autocomplete="off" name="fromDate" datepicker-pop="{{df}}"
+                            class="form-control" ng-model="formData.fromDate" is-open="opened1"
+                            ng-readonly="isDatePickerReadOnly" required />
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="initiateNachRequestForm" valattribute="fromDate" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="toDate">{{ 'label.heading.todate' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <input id="toDate" type="text" autocomplete="off" name="toDate" datepicker-pop="{{df}}"
+                            class="form-control" ng-model="formData.toDate" is-open="opened1"
+                            ng-readonly="isDatePickerReadOnly" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="amount">{{ 'label.heading.amount' | translate }}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input type="text" autocomplete="off" name="amount" ng-model="formData.amount"
+                            class="form-control" required />
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="initiateNachRequestForm" valattribute="amount" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.heading.mandate.debitType' | translate }}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <select id="debitType" name="debitType" ng-model="formData.debitType" class="form-control"
+                            ng-options="debitTypeOption.id as debitTypeOption.value for debitTypeOption in debitTypeOptions "
+                            value="debitTypeOption.id" required>
+                        </select>
+                    </div>
+                    <div>
+                        <form-validate valattributeform="initiateNachRequestForm" valattribute="debitType" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.heading.mandate.debitFrequency' | translate }}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <select id="debitFrequency" name="debitFrequency" ng-model="formData.debitFrequency"
+                            class="form-control"
+                            ng-options="debitFrequencyOption.id as debitFrequencyOption.value for debitFrequencyOption in debitFrequencyOptions"
+                            value="debitFrequencyOption.id" required>
+                        </select>
+                    </div>
+                    <div>
+                        <form-validate valattributeform="initiateNachRequestForm" valattribute="debitFrequency" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.anchor.group.bank.accounts' | translate }}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <select id="bankAccountDetailId" name="bankAccountDetailId"
+                            ng-model="formData.bankAccountDetailId" class="form-control"
+                            ng-options="bankAccountDetail.id as (bankAccountDetail.accountNumber + ' (' + bankAccountDetail.ifscCode + ')') for bankAccountDetail in bankAccountDetails"
+                            value="bankAccountDetail.id" required>
+                        </select>
+                    </div>
+
+                    <div>
+                        <form-validate valattributeform="initiateNachRequestForm" valattribute="bankAccountDetailId" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-offset-2 paddedleft">
+                <button id="cancel" ng-click="back()" class="btn btn-default">{{'label.button.back'
+                        |
+                        translate}}</button>
+                <button id="save" type="submit" class="btn btn-primary">{{'label.button.save' |
+                        translate}}</button>
+            </div>
+        </fieldset>
+
+    </form>
+</div>
+
+<div ng-if="showNachRequestDetails" class="col-md-8">
+    <legend>{{'label.anchor.nach.mandate.request.details' | translate}}</legend>
+    <table class="table-bordered table">
+        <tr>
+            <td>{{'label.input.requestdate' | translate}}:</td>
+            <td>{{nachRequestDetails.requestedOn | DateFormat}}</td>
+        </tr>
+        <tr>
+            <td>{{'label.placeholder.amount' | translate}}:</td>
+            <td>{{nachRequestDetails.amount | number:2}}</td>
+        </tr>
+        <tr>
+            <td>{{'label.heading.status' | translate}}:</td>
+            <td>{{nachRequestDetails.status}}</td>
+        </tr>
+        <tr ng-if="nachRequestDetails.umrn">
+            <td>{{'label.heading.mandate.umrn' | translate}}:</td>
+            <td>{{nachRequestDetails.umrn}}</td>
+        </tr>
+        <tr>
+            <td>{{'label.heading.mandate.debitFrequency' | translate}}:</td>
+            <td>{{nachRequestDetails.debitFrequencyEnum.value}}</td>
+        </tr>
+        <tr>
+            <td>{{'label.heading.mandate.debitType' | translate}}:</td>
+            <td>{{nachRequestDetails.debitTypeEnum.value}}</td>
+        </tr>
+        <tr>
+            <td>{{'label.heading.startdate' | translate}}:</td>
+            <td>{{nachRequestDetails.periodStartDate | DateFormat}}</td>
+        </tr>
+        <tr ng-if="nachRequestDetails.periodEndDate">
+            <td>{{'label.input.enddate' | translate}}:</td>
+            <td>{{nachRequestDetails.periodEndDate | DateFormat}}</td>
+        </tr>
+        <tr ng-if="nachRequestDetails.periodUntilCancelled">
+            <td>{{'label.heading.mandate.periodUntilCancelled' | translate}}:</td>
+            <td>{{nachRequestDetails.periodUntilCancelled | YesOrNo}}</td>
+        </tr>
+        <tr ng-if="nachRequestDetails.errorMsg">
+            <td>{{'label.heading.error.message' | translate}}:</td>
+            <td>{{nachRequestDetails.errorMsg}}</td>
+        </tr>
+        <tr ng-if="nachRequestDetails.errorCode">
+            <td>{{'label.err.code' | translate}}</td>
+            <td>{{nachRequestDetails.errorCode}}</td>
+        </tr>
+        <tr>
+            <td>{{'label.input.holdername' | translate}}:</td>
+            <td>{{nachRequestDetails.bankAccountHolderName}}</td>
+        </tr>
+        <tr>
+            <td>{{'label.input.accountnumber' | translate}}:</td>
+            <td>{{nachRequestDetails.bankAccountNumber}}</td>
+        </tr>
+        <tr>
+            <td>{{'label.input.accounttype' | translate}}:</td>
+            <td>{{nachRequestDetails.accountTypeEnum.value}}</td>
+        </tr>
+        <tr>
+            <td>{{'label.input.ifsccode' | translate}}:</td>
+            <td>{{nachRequestDetails.ifsc}}</td>
+        </tr>
+        <tr ng-if="nachRequestDetails.micr">
+            <td>{{'label.heading.mandate.micr' | translate}}:</td>
+            <td>{{nachRequestDetails.micr}}</td>
+        </tr>
+        <tr ng-if="nachRequestDetails.bankName">
+            <td>{{'label.input.bankname' | translate}}:</td>
+            <td>{{nachRequestDetails.bankName}}</td>
+        </tr>
+        <tr ng-if="nachRequestDetails.branchName">
+            <td>{{'label.input.branchName' | translate}}:</td>
+            <td>{{nachRequestDetails.branchName}}</td>
+        </tr>
+    </table>
+    <div class="col-md-offset-2 paddedleft">
+        <button id="cancel" ng-click="back()" class="btn btn-default">{{'label.button.back'
+                |
+                translate}}</button>
+    </div>
+</div>
+</div>

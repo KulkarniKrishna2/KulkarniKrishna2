@@ -3,7 +3,7 @@
 
         UIConfigService: function ($q, $http) {
 
-            var configUIArray = ["agronomica", "almajmoua", "bss", "chaitanya", "crediangolar", "digamber", "eastlanka", "flexi", "grayquest", "habitat", "hana", "kapilcapital", "light", "mobilityfinance", "neev",
+            var configUIArray = ["agronomica", "almajmoua", "bss", "chaitanya", "crediangolar", "creditonepayments", "digamber", "eastlanka", "flexi", "grayquest", "habitat", "hana", "kapilcapital", "light", "mobilityfinance", "neev",
                 "phakamani", "secdep", "sef", "shivakarifin", "sunvest", "tapstart", "vayarbl", "vayabc", "vaya", "mfi", "default"];
 
             var getUIConfigKey = function (tenantName) {

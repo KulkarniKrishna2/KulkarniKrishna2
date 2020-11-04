@@ -761,7 +761,13 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'notification/CreateNotificationEventMappingController',
             'notification/CreateNotificationJobMappingController',
             'notification/EditNotificationEventMappingController',
-            'notification/EditNotificationJobMappingController'
+            'notification/EditNotificationJobMappingController',
+            'task/activity/NachMandateRequestActivityController',
+            'task/activity/EsignRequestActivityController',
+            'accounting/financialofficemapping/CreateFinancialOfficeMappingController',
+            'accounting/financialofficemapping/UpdateFinancialOfficeMappingController',
+            'accounting/financialofficemapping/ViewFinancialOfficeMappingsController',
+            'accounting/financialofficemapping/ViewFinancialOfficeMappingController'
         ],
         filters: [
             'StatusLookup',
