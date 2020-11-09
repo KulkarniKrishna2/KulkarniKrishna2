@@ -94,7 +94,6 @@
                 } else {
                     delete scope.formData.advancedFinacialActivityMapping;
                 }
-                scope.formData.locale = scope.optlang.code;
                 resourceFactory.officeToGLAccountMappingResource.update({mappingId: routeParams.mappingId},this.formData, function (data) {
                     location.path('/viewfinancialactivitymapping/' + data.resourceId);
                 });
