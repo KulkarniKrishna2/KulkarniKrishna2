@@ -58,6 +58,7 @@ jobs:
       run: |
         docker build -f ./Dockerfile-with-backend -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        docker rmi $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
     - name: Logout of Amazon ECR
       if: always()
