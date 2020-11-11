@@ -8748,6 +8748,15 @@
      "label.heading.updateofficemapping" : "Update Office Mapping",
      "label.anchor.viewofficemapping" : "View Office Mapping",
 
+     "label.heading.denomination.entry" : "Denomination Entry",
+     "label.button.hidepreview": "Hide Preview",
+     "label.heading.system.cash.balance" : "System Cash Balance",
+     "label.heading.physical.cash.balance" : "Physical Cash Balance",
+     "label.heading.difference" : "Difference",
+     "label.heading.comment.by.branch" : "Comment By Branch",
+     "validation.msg.EOD_BALANCE_CHECK.note.cannot.be.blank" : "Amounts not matching , comment is manatory",
+     
+
      "------ end of translation file ------": "----------"
 
 }

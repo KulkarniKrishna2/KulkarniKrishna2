@@ -767,7 +767,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'accounting/financialofficemapping/CreateFinancialOfficeMappingController',
             'accounting/financialofficemapping/UpdateFinancialOfficeMappingController',
             'accounting/financialofficemapping/ViewFinancialOfficeMappingsController',
-            'accounting/financialofficemapping/ViewFinancialOfficeMappingController'
+            'accounting/financialofficemapping/ViewFinancialOfficeMappingController',
+            'accounting/eodprocess/EodCashBalanceCheckController'
         ],
         filters: [
             'StatusLookup',
