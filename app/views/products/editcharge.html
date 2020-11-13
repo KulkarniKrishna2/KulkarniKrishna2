@@ -8,7 +8,7 @@
     </ul>
     <form name="editchargeform" novalidate class="form-horizontal well" rc-submit="submit()">
         <fieldset>
-            <legend>{{'label.heading.editcharge' | translate}}</legend>
+            <legend> {{isCloneChargeProduct == undefined ? 'label.heading.editcharge' :'label.heading.clone.charge' | translate}}</legend>
             <div class="form-group">
                 <label class="control-label col-sm-2">{{'label.input.chargesappliesto' | translate}}<span
                         class="required">*</span></label>

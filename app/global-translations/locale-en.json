@@ -23,6 +23,7 @@
     "label.heading.accnum": "Account #",
     "label.heading.staff": "Staff",
     "label.heading.office": "Office",
+    "label.heading.clone.charge" : "Clone Charge",
     "label.heading.delete": "Delete",
     "label.heading.reject": "Reject",
     "label.heading.deleterole": "Delete Role",
@@ -280,7 +281,7 @@
     "label.anchor.registered.devices": "Registered Devices",
     "label.anchor.pending.user.device.links": "Pending User Device Links",
     "label.anchor.registered.user.devices": "Pending User-Device-Links",
-
+    "label.anchor.clone.charge": "Clone Charge",
     "label.anchor.task.adhoc.create": "Create Task",
 
     "#Inputs": "..",
