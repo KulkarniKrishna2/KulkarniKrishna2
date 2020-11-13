@@ -48,7 +48,7 @@
                 if(transaction.transactionType.accrual==false){
                     if (accountTransfer) {
                         var transferId = transaction.transfer.id;
-                        location.path('/viewaccounttransfers/' + transferId).search('redirectPath','viewsavingaccount').search('accoutId',savingsAccountId);
+                        location.path('/viewaccounttransfers/' + transferId).search('redirectPath','viewsavingaccount').search('accoutId',savingsAccountId).search('transactionId',transactionId);
                     } else {
                         location.path('/viewsavingtrxn/' + savingsAccountId + '/trxnId/' + transactionId);
                     }

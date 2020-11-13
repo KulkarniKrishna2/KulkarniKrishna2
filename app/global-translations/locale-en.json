@@ -8747,6 +8747,7 @@
      "label.anchor.updateofficemapping" : "Update Office Mappings",
      "label.heading.updateofficemapping" : "Update Office Mapping",
      "label.anchor.viewofficemapping" : "View Office Mapping",
+     "label.heading.undo.transaction.message" : "Do you want to undo the transaction?",
 
      "label.heading.denomination.entry" : "Denomination Entry",
      "label.button.hidepreview": "Hide Preview",
