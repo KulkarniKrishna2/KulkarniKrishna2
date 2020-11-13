@@ -425,6 +425,9 @@
                             isArray: true
                         }
                     }),
+                    staffResource: defineResource(apiVer + "/staff/:staffId/deactivate", { staffId: '@staffId' }, {
+                        deactivate: { method: 'POST', params: {} }
+                    }),
                     globalSearchTemplateResource: defineResource(apiVer + "/search/template", {}, {
                         get: { method: 'GET', params: {} }
                     }),
@@ -2136,7 +2139,7 @@
                     getCenterGeoDetailsResource: defineResource(apiVer + "/centers/:centerId/geo", { centerId: '@centerId' }, {
                         getGeoDetails: { method: 'GET', params: { centerId: '@centerId' }, isArray: true }
                     }),
-                    loanOfficerDropdownResource: defineResource(apiVer + "/staff/template/:officeId", { officeId: '@officeId' }, {
+                    loanOfficerDropdownResource: defineResource(apiVer + "/staff/template/:officeId", { officeId: '@officeId', includeInactive: '@includeInactive' }, {
                         getAll: { method: 'GET', params: {}, isArray: true },
                     }),
                     fileProcessIdentifierTemplateResource: defineResource(apiVer + "/fileprocess/template/:fileProcessIdentifier", { fileProcessIdentifier: '@fileProcessIdentifier' }, {

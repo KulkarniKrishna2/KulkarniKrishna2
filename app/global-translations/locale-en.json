@@ -677,6 +677,7 @@
     "error.msg.duplicate.accState.mapping.details": "Accounting State Mapping Details already exists",
     "error.msg.duplicate.accState.mappings": "Accounting State Mapping with name {{params[0].value}} already exists",
     "error.msg.no.notification.configuration": "Kindly select an existing notification configuration",
+    "error.msg.staff.associate.with.other.resource": "Employee associated with other resource : `{{params[0].value}}`",
     "error.message.settlement.amount.should.be.less.than.loan.disbursed.amount": "Settlement Amount {{params[0].value |number:2}} should be less than disbursed loan amount {{params[1].value |number:2}}",
     "#---------": "------------",
     "#Common loan/saving charges": "....",
@@ -3076,6 +3077,7 @@
     "label.heading.lockuser": "Lock User",
     "label.heading.lockuser.message": "Do you want to lock the User?",
     "label.heading.unlockuser.message": "Do you want to un-lock the User?",
+    "label.heading.deactivate.employee": "Are you sure, do you want to deactivate the Employee?",
 
     "#Anchors": "..",
     "label.anchor.users": "Users",

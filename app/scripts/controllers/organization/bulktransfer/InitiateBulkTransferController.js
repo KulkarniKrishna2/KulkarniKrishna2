@@ -29,15 +29,17 @@
                 scope.isOfficeSelected = true;
                 scope.fromStaffOptions = [];
                 scope.resetSelectedEntity();
-                resourceFactory.loanOfficerDropdownResource.getAll({ officeId: officeId}, function (data) {
+                resourceFactory.loanOfficerDropdownResource.getAll({ officeId: officeId,includeInactive:true}, function (data) {
                     scope.fromStaffOptions = data;
                  
                     if(!scope.isStaffReassignment){
                         scope.fromStaffOptions.push(scope.unassignedStaff);
                     }
                     if(scope.formData.toOfficeId==undefined){
-                      
-                        scope.toStaffOptions = data;
+                        resourceFactory.loanOfficerDropdownResource.getAll({ officeId: officeId,includeInactive:false}, function (activeData) {
+                            scope.toStaffOptions = activeData;
+                        });
+                        
                         if(!scope.isStaffReassignment){
                             scope.toStaffOptions.push(scope.unassignedStaff);
                         }
