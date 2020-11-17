@@ -4140,6 +4140,7 @@
     "chargeCalculationType.flat": "Flat",
     "LoanProductValueConditionType.equal": "=",
     "LoanProductValueConditionType.greaterThan": ">",
+    "LoanProductValueConditionType.lessThan": "<",
     "chargeTimeType.disbursement": "Disbursement",
     "chargeTimeType.specifiedDueDate": "Specified due date",
     "chargeTimeType.savingsActivation": "Savings Activation",
