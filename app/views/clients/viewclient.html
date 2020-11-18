@@ -589,12 +589,11 @@
 						</tr>
 						<tr class="pointer-main"
 							ng-repeat="loanaccount in clientAccounts.loanAccounts | orderBy:'id':true | filter:isLoanNotClosed">
-							<td width="100px" class="pointer" data-ng-click="routeToLoan(loanaccount.id)">
-								<i ng-hide="loanaccount.inArrears" tooltip-placement="right"
+							<td width="120px" class="pointer" data-ng-click="routeToLoan(loanaccount.id)">
+								<i data-ng-if="loanaccount.overdueAmount == 0" tooltip-placement="right"
 									tooltip="{{getLoanStatusValue(loanaccount, true)}}"
 									class="icon-stop {{getLoanStatusCode(loanaccount) | StatusLookup}}"></i>
-								<i ng-show="loanaccount.inArrears" tooltip-placement="right"
-									tooltip="{{getLoanStatusValue(loanaccount, true)}}"
+								<i data-ng-if="loanaccount.overdueAmount > 0" tooltip-placement="right" tooltip="{{'label.tooltip.overdue' | translate}}"
 									class="icon-stop {{getLoanStatusCode(loanaccount) | StatusLookup}}overdue"></i>
 								{{loanaccount.accountNumber}}
 							</td>
