@@ -247,6 +247,14 @@
                     scope.showAccountNumber=true;
                     scope.taskPermissionName = 'POSTACCRUALASON_SAVINGSACCOUNT';
                     break;    
+                case "reactivate":
+                    scope.title = 'label.heading.reactivatesavingaccount';
+                    scope.labelName = 'label.input.reactivatedon';
+                    scope.modelName = 'reactivatedOnDate';
+                    scope.showDateField = true;
+                    scope.showNoteField = false;
+                    scope.taskPermissionName = 'REACTIVATE_SAVINGSACCOUNT';
+                    break;
             }
 
             scope.cancel = function () {
@@ -354,6 +362,10 @@
                     } else if (scope.action == "activate") {
                         if (this.formData.activatedOnDate) {
                             this.formData.activatedOnDate = dateFilter(this.formData.activatedOnDate, scope.df);
+                        }
+                    } else if (scope.action == "reactivate") {
+                        if (this.formData.reactivatedOnDate) {
+                            this.formData.reactivatedOnDate = dateFilter(this.formData.reactivatedOnDate, scope.df);
                         }
                     } else if (scope.action == "applyAnnualFees" || scope.action == "paycharge" || scope.action == "waivecharge") {
                         params = {accountId: routeParams.id, resourceType: 'charges', chargeId: routeParams.chargeId, command: 'paycharge'};
