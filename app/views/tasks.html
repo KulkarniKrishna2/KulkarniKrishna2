@@ -908,7 +908,7 @@
 							<tr>
 								<th>
 									<div class="col-sm-5">
-										<button  class="btn btn-primary" data-ng-click="getBackDatedData()"><i class="icon-search"></i>{{'label.button.search' | translate}}
+										<button  class="btn btn-primary" data-ng-click="getBackDatedData(null)"><i class="icon-search"></i>{{'label.button.search' | translate}}
 										</button>
 									</div>
 								</th>
@@ -941,6 +941,7 @@
 								<th>{{'label.heading.transactiondate' | translate}}</th>
 								<th>{{'label.heading.backdatedreason' | translate}}</th>
 								<th>{{'label.heading.amount' | translate}}</th>
+								<th ng-show="errorExist">{{'label.heading.error' | translate}}</th>
 				            </tr>
 				            </thead>
 				            <tbody>
@@ -954,6 +955,7 @@
 								<td class="pointer">{{txn.note}}</td>
 								<td class="pointer" ng-show="txn.transactionAmount=='N/A'">{{txn.transactionAmount}}</td>
 								<td class="pointer" ng-hide="txn.transactionAmount=='N/A'">{{txn.transactionAmount | number}}</td>
+								<td class="pointer" ng-show="errorExist"><span style="color:red;">{{txn.errMsg | translate}}</span></td>
 				            </tr>
 				            </tbody>
 				        </table>
