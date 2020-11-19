@@ -1,0 +1,45 @@
+<div class="row" ng-controller="EditProductCategoryLimitController">
+    <div style="height:300px" class="modal-body">
+        <api-validate></api-validate>
+        <div class="clearfix">
+            <form name="addSuperLimit" novalidate="" class="form-horizontal well" rc-submit="submit()">
+                <fieldset>
+                    <legend>{{'label.view.edit.categorylimit' | translate}}</legend>
+                    <div class="form-group">
+                        <table>
+                            <br>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="col-sm-12">
+                                            <input type="text" autocomplete="off" id="categoryId" name="categoryId"
+                                                ng-model="formData.categoryId" placeholder="{{edit.categoryId}}"
+                                                class="form-control" disabled="disabled">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="col-sm-12">
+                                            <input type="text" autocomplete="off" id="categoryLimit"
+                                                name="categoryLimit" ng-model="formData.categoryLimit"
+                                                placeholder="{{edit.categoryLimit}}" class="form-control">
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br>
+                        <div class="col-md-offset-3">
+                            <a id="cancel">
+                                <button type="reset" ng-click="cancel()"
+                                    class="btn btn-default">{{'label.button.cancel' | translate}}</button>
+                            </a>
+                            <button id="save" type="submit"
+                                class="btn btn-primary">{{'label.button.save' | translate}}</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+</div>
