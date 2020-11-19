@@ -1173,7 +1173,14 @@
             scope.viewData = function(){
                 scope.showBackDatedSearchParameters= true;
             }
-
+            scope.showApproveButton = function(){
+                for(var i in scope.backDatedTransactionsList){
+                    if(scope.backDatedTransactionsList[i].checked && scope.backDatedTransactionsList[i].checked==true){
+                        return true;
+                    }
+                }
+                return false;
+            }
 
             scope.backDatedTransactions = function(params){
                 scope.showBackDatedSearchParameters= false;

@@ -8716,7 +8716,7 @@
      "validation.msg.loan.glim.transactionAmount.not.greater.than.zero" : "Glim amount must be greater than zero.",
      "validation.msg.loan.disbursement.glim.transactionAmount.cannot.be.blank" : "Glim amount must be greater than zero.",
      "validation.msg.rescheduleloan.adjustedDueDate.cannot.be.blank": "Installment Rescheduled to date does not exist.",
-     
+     "error.msg.loan.refund.failed" : "Refund date can not be before last repayment date",
      "------ end of translation file ------": "----------"
 
 }
