@@ -181,6 +181,9 @@
                     case "postAccrualAsOn":
                             location.path('/savingaccount/' + accountId + '/postAccrualAsOn');
                             break;
+                    case "reactivate":
+                        location.path('/savingaccount/' + accountId + '/reactivate');
+                        break;
 
                 }
             };
@@ -436,6 +439,18 @@
                         }
                     }
                 }
+
+                if(data.status.value == "Closed"){
+                    scope.buttons = { singlebuttons: [
+                        {
+                            name: "button.reactivate",
+                            icon: "icon-undo",
+                            taskPermissionName:"REACTIVATE_SAVINGSACCOUNT"
+                        },
+                    ]
+                }
+            }
+
                 if (data.annualFee) {
                     var annualdueDate = [];
                     annualdueDate = data.annualFee.feeOnMonthDay;
