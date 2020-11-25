@@ -625,11 +625,46 @@
 	                ng-model="formData.repaymentFrequencyType"
 	                ng-options="repaymentFrequencyType.id as repaymentFrequencyType.value for repaymentFrequencyType in product.repaymentFrequencyTypeOptions"
 	                value="{{repaymentFrequencyType.id}}"/>
-	    </div>
+		</div>
+		<div ng-if="formData.repaymentFrequencyType == 2" class="col-sm-2">
+			<select id="repaymentFrequencyNthDayType" class="form-control" ng-model="formData.repaymentFrequencyNthDayType"
+					ng-options="repaymentFrequencyNthDayType.id as repaymentFrequencyNthDayType.value for repaymentFrequencyNthDayType in product.repaymentFrequencyNthDayTypeOptions"
+					value="{{repaymentFrequencyNthDayType.id}}"/>&nbsp;
+		</div>
+		<div ng-if="formData.repaymentFrequencyType == 2 &&  formData.repaymentFrequencyNthDayType != -2" class="col-sm-2">
+			<select id="repaymentFrequencyDayOfWeekType" class="form-control" ng-model="formData.repaymentFrequencyDayOfWeekType"
+					ng-options="repaymentFrequencyDayOfWeekType.id as repaymentFrequencyDayOfWeekType.value for repaymentFrequencyDayOfWeekType in product.repaymentFrequencyDaysOfWeekTypeOptions"
+					value="{{repaymentFrequencyDayOfWeekType.id}}"/>&nbsp;
+		</div>
 	    <div class="col-sm-2">
 	        <form-validate valattributeform="editloanproductform" valattribute="repaymentEvery"/>
 	    </div>
 	</div>
+<div class="form-group" ng-if="formData.repaymentFrequencyType == 2 && formData.repaymentFrequencyNthDayType == -2">
+		<label class="control-label col-sm-2">{{ 'label.input.selectmonthday' | translate }}
+		</label>
+		<div class="col-sm-1">
+			<select id="avilabledays" ng-model="available" name="avilabledays" class="form-control multiselectmin" multiple>
+				<option ng-repeat="onday in repeatsOnDayOfMonthOptions" value="{{onday}}">
+					{{onday}}
+				</option>
+			</select>
+		</div>&nbsp;
+		<div class="col-sm-1">
+			<button type="button" class="btn btn-primary" data-ng-click="addMonthDay()"><i
+				class="icon-double-angle-right"></i></button>
+		<button type="button" class="btn btn-primary" data-ng-click="removeMonthDay()"><i
+				class="icon-double-angle-left"></i></button>
+			</select>
+		</div>
+		<div class="col-sm-1">
+			<select id="selecteddays" ng-model="selected" name="selecteddays" class="form-control multiselectmin" multiple>
+				<option ng-repeat="onday in selectedOnDayOfMonthOptions" value="{{onday}}">
+					{{onday}}
+				</option>
+			</select>
+		</div>
+</div>
 <div class="form-group">
 	<label class="control-label col-sm-2">{{ 'label.input.loanTerm' | translate }}
 		<i class="icon-question-sign" tooltip="{{'label.tooltip.loanproduct.tenure' | translate}}" tooltip-append-to-body="true"></i>

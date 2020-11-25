@@ -127,7 +127,8 @@
 </tr>
 <tr>
     <td>{{'label.heading.repayevery' | translate}}:</td>
-    <td colspan="3">{{loanproduct.repaymentEvery}}&nbsp;&nbsp;{{loanproduct.repaymentFrequencyType.value}}</td>
+    <td ng-if="!loanproduct.frequencyHumanReadable" colspan="3">{{loanproduct.repaymentEvery}}&nbsp;&nbsp;{{loanproduct.repaymentFrequencyType.value}}</td>
+    <td ng-if="loanproduct.frequencyHumanReadable" colspan="3">{{loanproduct.frequencyHumanReadable}}</td>
 </tr>
 <tr ng-show="(loanproduct.minLoanTerm != null)||(loanproduct.maxLoanTerm != null)">
     <td>{{'label.heading.loanTerm' | translate}}:</td>

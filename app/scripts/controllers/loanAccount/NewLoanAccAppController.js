@@ -385,6 +385,7 @@
                 scope.formData.disbursementData = scope.loanaccountinfo.disbursementDetails || [];
                 scope.collaterals = [];
 
+
                 if (scope.loanaccountinfo.calendarOptions) {
                     scope.temp.syncRepaymentsWithMeeting = true;
                     if (scope.response && !scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.syncDisbursementWithMeeting) {
@@ -437,6 +438,24 @@
                     scope.formData.brokenPeriodMethodType = scope.loanaccountinfo.brokenPeriodMethodType.id;
                 }else{
                     scope.formData.brokenPeriodMethodType = "";
+                }
+
+                if(scope.loanaccountinfo.product.repaymentFrequencyNthDayType){
+                    scope.formData.repaymentFrequencyNthDayType = scope.loanaccountinfo.product.repaymentFrequencyNthDayType.id;
+                } else {
+                    delete scope.formData.repaymentFrequencyNthDayType;
+                }
+                if(scope.loanaccountinfo.product.repaymentFrequencyDayOfWeekType){
+                    scope.formData.repaymentFrequencyDayOfWeekType = scope.loanaccountinfo.product.repaymentFrequencyDayOfWeekType.id;
+                } else {
+                    delete scope.formData.repaymentFrequencyDayOfWeekType;
+                }
+                if(scope.loanaccountinfo.product.repeatsOnDayOfMonth && scope.loanaccountinfo.product.repeatsOnDayOfMonth.length>0){
+                    scope.available = scope.loanaccountinfo.product.repeatsOnDayOfMonth;
+                    scope.addMonthDay();
+                } else {
+                    scope.available = [];
+                    scope.selectedOnDayOfMonthOptions = [];
                 }
 
                 if (scope.loanaccountinfo.product.isRepaymentAtDisbursement == true) {
