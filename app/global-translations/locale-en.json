@@ -679,6 +679,7 @@
     "error.msg.no.notification.configuration": "Kindly select an existing notification configuration",
     "error.msg.staff.associate.with.other.resource": "Employee associated with other resource : `{{params[0].value}}`",
     "error.message.settlement.amount.should.be.less.than.loan.disbursed.amount": "Settlement Amount {{params[0].value |number:2}} should be less than disbursed loan amount {{params[1].value |number:2}}",
+    "error.msg.roles.of.users.do.not.match": "Roles of Users do not match",
     "#---------": "------------",
     "#Common loan/saving charges": "....",
 
