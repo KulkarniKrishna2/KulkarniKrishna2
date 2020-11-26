@@ -8760,6 +8760,19 @@
      "validation.msg.loan.disbursement.glim.transactionAmount.cannot.be.blank" : "Glim amount must be greater than zero.",
      "validation.msg.rescheduleloan.adjustedDueDate.cannot.be.blank": "Installment Rescheduled to date does not exist.",
      "error.msg.loan.refund.failed" : "Refund date can not be before last repayment date",
+     
+     "label.heading.createloanproductroundingmodemapping" : "Create Loan Product Rounding Mode Mapping",
+     "label.button.createloanproductroundingmodemapping" : "Create Loan Product Rounding Mode Mapping",
+     "label.anchor.viewloanproductroundingmodemappings" : "View Loan Product Rounding Mode Mappings",
+     "label.anchor.viewloanproductroundingmodemapping" : "View Loan Product Rounding Mode Mapping",
+     "label.anchor.createloanproductroundingmodemapping" : "Create Loan Product Rounding Mode Mapping",
+     "label.anchor.updateproductroundingmodemapping" : "Update Loan Product Rounding Mode Mapping",
+     "label.button.updateproductroundingmodemapping" : "Update Loan Product Rounding Mode Mapping",
+     "label.heading.updateproductroundingmodemapping" : "Update Loan Product Rounding Mode Mapping",
+     "error.msg.loan.product.rounding.mode.mapping.already.exist" : "Rounding mode mapping already exist for this product",
+     "label.anchor.loan.product.rounding.mode.mappings" : "Loan Product Rounding Mode Mapping",
+     "label.loan.product.rounding.mode.mappings.description" :"Define loan product specific rounding mode mappings",
+
      "------ end of translation file ------": "----------"
 
 }

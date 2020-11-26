@@ -2170,6 +2170,14 @@
                     }),
                     getLoanRestructureResource: defineResource(apiVer + "/loanrestructure/loan/:loanId", {}, {
                         get: { method: 'GET', params: { loanId: '@loanId' } }
+                    }),
+                    loanProductRoundingModeMappingResource: defineResource(apiVer + "/loanProductRoundingModeMapping/:id", {id: '@id'}, {
+                        get: { method: 'GET', params: {id: '@id' } },
+                        getAll: { method: 'GET', params: {}, isArray: true },
+                        update: { method: 'PUT', params: {id: '@id' } }
+                    }),
+                    loanProductRoundingModeMappingTemplateResource: defineResource(apiVer + "/loanProductRoundingModeMapping/template", {}, {
+                        get: { method: 'GET', params: {} }
                     })
                 };
             }];
