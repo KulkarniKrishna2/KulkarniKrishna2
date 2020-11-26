@@ -30,25 +30,53 @@
                 $scope.save = function () {
                     var credentialsData = {};
                     angular.copy(this.formData,credentialsData);
-                    if(credentialsData.oldPassword){
-                        credentialsData.oldPassword = commonUtilService.encrypt(credentialsData.oldPassword);
-                    }
-                    if(credentialsData.password){
-                        credentialsData.password = commonUtilService.encrypt(credentialsData.password);
-                    }
-                    if(credentialsData.repeatPassword){
-                        credentialsData.repeatPassword = commonUtilService.encrypt(credentialsData.repeatPassword);
-                    }
-                    resourceFactory.myAccountResource.changePassword(credentialsData, function (data) {
-                        $modalInstance.close('modal');
-                        if (data.resourceId == userId) {
-                            scope.logoutFromUi();
-                        };
-                    });
+                    encryptOldPassword($modalInstance,credentialsData);
                 };
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
                 };
+            };
+
+            var encryptOldPassword = function($modalInstance,credentialsData){
+                if(credentialsData.oldPassword){
+                    commonUtilService.encrypt(credentialsData.oldPassword).then(function(encriptedText) {
+                        credentialsData.oldPassword = commonUtilService.convertEncriptedArrayToText(encriptedText);
+                        encryptNewpassword($modalInstance,credentialsData);
+                    });
+                }else{
+                    encryptNewpassword($modalInstance,credentialsData);
+                }
+            };
+
+            var encryptNewpassword = function($modalInstance,credentialsData){
+                if(credentialsData.password){
+                    commonUtilService.encrypt(credentialsData.password).then(function(encriptedText) {
+                        credentialsData.password = commonUtilService.convertEncriptedArrayToText(encriptedText);
+                        encryptRepeatPassword($modalInstance,credentialsData);
+                    });
+                }else{
+                    encryptRepeatPassword($modalInstance,credentialsData);
+                }
+            };
+
+            var encryptRepeatPassword = function($modalInstance,credentialsData){
+                if(credentialsData.repeatPassword){
+                    commonUtilService.encrypt(credentialsData.repeatPassword).then(function(encriptedText) {
+                        credentialsData.repeatPassword = commonUtilService.convertEncriptedArrayToText(encriptedText);
+                        sendUpdatePasswordRequest($modalInstance,credentialsData);
+                    });
+                }else{
+                    sendUpdatePasswordRequest($modalInstance,credentialsData);
+                }
+            };
+
+            var sendUpdatePasswordRequest = function($modalInstance,credentialsData){
+                resourceFactory.myAccountResource.changePassword(credentialsData, function (data) {
+                    $modalInstance.close('modal');
+                    if (data.resourceId == userId) {
+                        scope.logoutFromUi();
+                    };
+                });
             };
         }
     });

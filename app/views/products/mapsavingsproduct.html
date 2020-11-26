@@ -1,0 +1,33 @@
+<div ng-controller="MapSavingsProductController">
+    <div class="modal-header">
+        <h3>{{'label.view.map.savingsproduct' | translate}}{{categoryId}}</h3>
+    </div>
+    <br>
+    <div>
+        <api-validate></api-validate>
+        <form name="mapSavingsProduct" novalidate="" class="form-horizontal">
+            <fieldset>
+                <div class="form-group row">
+                    <label class="control-label col-sm-3">{{ 'label.input.product' | translate
+                    }}<span class="required">*</span></label>
+
+                    <div class="col-sm-6">
+                        <select chosen="savingproducts" id="productId" name="productId" ng-model="formData.productId"
+                            ng-options="product.id as product.name for product in savingproducts" value="{{product.id}}"
+                            class="form-control" required>
+                            <option value="">{{'label.menu.selectsavingsproducts' | translate}}</option><span
+                                class="required">*</span>
+                        </select>
+                    </div>
+                    <div class="col-sm-3">
+                        <form-validate valattributeform="mapSavingsProduct" valattribute="id" />
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+        <button class="btn btn-primary" ng-click="submit()" has-permission='CREATE_CATEGORYTOPRODUCTMAPPING'>{{'label.button.save' | translate}}</button>
+    </div>
+</div>

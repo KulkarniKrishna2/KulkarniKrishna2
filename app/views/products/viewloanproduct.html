@@ -8,9 +8,12 @@
 </div>
 <div>
 <div class="pull-right">
-    <div class="btn-group">
-        <a href="#/editloanproduct/{{loanproduct.id}}" class="btn btn-primary" has-permission='UPDATE_LOANPRODUCT'><i
-                class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
+    <div class="col pull-right">
+        <a href="#/loanproducts/{{loanproduct.id}}/edit" class="btn btn-primary" has-permission='UPDATE_LOANPRODUCT'><i
+                class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a> &nbsp;&nbsp;
+
+        <a href="#/loanproducts/{{loanproduct.id}}/clone"  class="btn btn-primary" has-permission='CREATE_LOANPRODUCT'><i
+                class="icon-copy icon-white"></i>{{'label.button.clone' | translate}}</a>
     </div>
 </div>
 <legend>{{loanproduct.name}}</legend>
@@ -309,10 +312,14 @@
     <td>{{'label.input.daysinmonth' | translate}}</td>
     <td colspan="3">{{loanproduct.daysInMonthType.value}}</td>
 </tr>
-    <tr>
-        <td>{{'label.input.weeksinyears' | translate}}</td>
-        <td colspan="3">{{loanproduct.weeksInYearType.value}}</td>
-    </tr>
+<tr ng-if="loanproduct.daysInMonthType.id === 30">
+    <td>{{'label.input.partial.period.type' | translate}}</td>
+    <td colspan="3">{{loanproduct.partialPeriodType.value}}</td>
+</tr>
+<tr>
+    <td>{{'label.input.weeksinyears' | translate}}</td>
+    <td colspan="3">{{loanproduct.weeksInYearType.value}}</td>
+</tr>
 <tr>
     <td>{{'label.input.thresholdforlastinstallment' | translate}}</td>
     <td colspan="3">{{loanproduct.principalThresholdForLastInstallment}}</td>

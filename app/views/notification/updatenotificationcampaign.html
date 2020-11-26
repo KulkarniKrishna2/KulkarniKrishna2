@@ -1,0 +1,45 @@
+<div class="col-md-12" ng-controller="UpdateNotificationCampaignController">
+        <div class="paddedbottom10">
+                <ul class="breadcrumb">
+                        <li><a href="#/system">{{'label.anchor.system' | translate}}</a> </li>
+                        <li><a href="#/notification/configuration">{{'label.anchor.notification.configuration'| translate}}</a></li>
+                        <li class="active">{{'label.anchor.update.notification.campaign' | translate}} </li>
+                </ul>
+                <form name="updatenotificationcampaignform" novalidate="" class="form-horizontal well">
+                        <api-validate></api-validate>
+                        <fieldset>
+                                <legend>{{'label.anchor.update.notification.campaign' | translate}}</legend>
+                                <div class="form-group">
+                                        <label class="control-label col-sm-2" for="name">{{'label.heading.recipient' | translate}}<span class="required">*</span></label>
+                                        <div class="col-sm-3">
+                                            <input ng-autofocus="true" type="text" id="name" name="name" ng-model="formData.recipient" class="form-control" required late-Validate/>
+                                        </div>
+
+                                        <label class="control-label col-sm-2" for="template">{{'label.heading.template' | translate}}<span class="required">*</span></label>
+                                            <div class="col-sm-3">
+                                                    <textarea rows="2" ng-model="formData.template" class="form-control"></textarea>                                                          
+                                            </div>
+                                </div>
+                                <div class="form-group">
+                                                                                    
+                                        <label class="control-label col-sm-2" for="name">{{'label.heading.type' | translate}}<span class="required">*</span></label>
+                                            <div class="col-sm-3">
+                                                <select id="notificationType" name="notificationType" ng-model="formData.notificationType"
+                                                    ng-options="type.code as type.value for type in notificationCampaignTemplateData.type"
+                                                    value="{{type.code}}" class="form-control" required>
+                                                    <option value="">{{'label.menu.select.notification.type' | translate}}</option>
+                                                </select>
+                                            </div>
+                                                                           
+                                </div>  
+                    
+                                <div class="col-md-offset-5">
+                                        <a id="cancel" href="#/notification/configuration/{{notificationConfigId}}/campaign/{{campaignId}}">
+                                            <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
+                                        </a>
+                                        <button id="save" type="submit" ng-click="submit()" class="btn btn-primary" >{{'label.button.save' | translate}}</button>
+                                </div>
+                        </fieldset>
+                </form>
+        </div>
+</div>

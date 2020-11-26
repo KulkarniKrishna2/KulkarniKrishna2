@@ -1,6 +1,10 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         EditChargeController: function (scope, resourceFactory, location, routeParams, dateFilter) {
+            scope.action = routeParams.action;
+            if (routeParams.action && routeParams.action === 'clone') {
+                scope.isCloneChargeProduct = true;
+            };
             scope.template = [];
             scope.showdatefield = false;
             scope.repeatEvery = false;
@@ -365,9 +369,22 @@
                 if(this.formData.emiRoundingGoalSeek != true){
                     this.formData.glimChargeCalculation = undefined;
                 }
-                resourceFactory.chargeResource.update({chargeId: routeParams.id}, this.formData, function (data) {
-                    location.path('/viewcharge/' + data.resourceId);
-                });
+
+                if (!_.isUndefined(scope.isCloneChargeProduct) && scope.isCloneChargeProduct) {
+                    if(_.isEmpty(this.formData.minCap)){
+                        delete  this.formData.minCap;
+                    }
+                    if(_.isEmpty(this.formData.maxCap)){
+                        delete  this.formData.maxCap;
+                    }
+                    resourceFactory.chargeResource.save(this.formData, function (data) {
+                        location.path('/viewcharge/' + data.resourceId);
+                    });
+                } else {
+                    resourceFactory.chargeResource.update({ chargeId: routeParams.id }, this.formData, function (data) {
+                        location.path('/viewcharge/' + data.resourceId);
+                    });
+                }
             };
         }
     });

@@ -209,6 +209,12 @@
                     scope.currentSession = sessionManager.get(data);
                     scope.start(scope.currentSession);
                     if (scope.currentSession.user && scope.currentSession.user.userPermissions) {
+                        if (data.firstname) {
+                            scope.currentSession.user.firstname = data.firstname;
+                        }
+                        if (data.lastLoginDate) {
+                            scope.currentSession.user.lastLoginDate = data.lastLoginDate;
+                        }
                         if (data.officeId) {
                             scope.currentSession.user.officeId = data.officeId;
                         }

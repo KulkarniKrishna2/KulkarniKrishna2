@@ -27,13 +27,20 @@
                     if (data.subCategoryType) {
                         scope.formData.subCategoryTypeId = data.subCategoryType.id;
                     }
-                    scope.documentCategories = scope.fetchDocumentCategories();
+                    scope.documentCategories = scope.fetchDocumentCategories();  
+
+                    /*--Sets default status to active or inactive based 
+                    on status data given while creating that identifier--
                     for (var index in scope.statusTypes) {
                         if (data.status == scope.statusTypes[index].code) {
                             scope.formData.status = scope.statusTypes[index].id;
                             break;
                         }
-                    }
+                    }*/
+
+                    /*Sets default status to Active */
+                    scope.formData.status = scope.statusTypes[1].id;
+
                     scope.formData.documentKey = data.documentKey;
                     if (data.description) {
                         scope.formData.description = data.description;

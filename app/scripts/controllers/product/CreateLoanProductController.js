@@ -1,6 +1,8 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        CreateLoanProductController: function (scope, resourceFactory, location, dateFilter, commonUtilService) {
+        CreateLoanProductController: function ($controller, scope, resourceFactory, location, dateFilter, commonUtilService) {
+            angular.extend(this, $controller('CommonLoanProductController', {$scope: scope}));
+
             scope.restrictDate = new Date();
             scope.formData = {};
             scope.charges = [];
@@ -439,266 +441,271 @@
                 scope.formData.isIRDEnabled = false;
                 scope.interestReceivableLabel = "label.input.receivableinterest";
             };
-        scope.submit = function () {
-            var reqFirstDate = dateFilter(scope.date.first, scope.df);
-            var reqSecondDate = dateFilter(scope.date.second, scope.df);
-            scope.paymentChannelToFundSourceMappings = [];
-            scope.feeToIncomeAccountMappings = [];
-            scope.penaltyToIncomeAccountMappings = [];
-            scope.chargesSelected = [];
-            scope.selectedConfigurableAttributes = [];
-            var temp = '';
 
-            //configure fund sources for payment channels
-            for (var i in scope.configureFundOptions) {
-                temp = {
-                    paymentTypeId: scope.configureFundOptions[i].paymentTypeId,
-                    fundSourceAccountId: scope.configureFundOptions[i].fundSourceAccountId
-                }
-                scope.paymentChannelToFundSourceMappings.push(temp);
-            }
+            scope.createChangeDaysInMonthType = function(){
+                scope.changeDaysInMonthType();
+            };
 
-            //map fees to specific income accounts
-            for (var i in scope.specificIncomeAccountMapping) {
-                temp = {
-                    chargeId: scope.specificIncomeAccountMapping[i].chargeId,
-                    incomeAccountId: scope.specificIncomeAccountMapping[i].incomeAccountId
-                }
-                if(scope.specificIncomeAccountMapping[i].fundSourceAccountId != null && scope.specificIncomeAccountMapping[i].fundSourceAccountId !=''){
-                    temp.fundSourceAccountId = scope.specificIncomeAccountMapping[i].fundSourceAccountId;
-                }                
-                
-                scope.feeToIncomeAccountMappings.push(temp);
-            }
+            scope.submit = function () {
+                var reqFirstDate = dateFilter(scope.date.first, scope.df);
+                var reqSecondDate = dateFilter(scope.date.second, scope.df);
+                scope.paymentChannelToFundSourceMappings = [];
+                scope.feeToIncomeAccountMappings = [];
+                scope.penaltyToIncomeAccountMappings = [];
+                scope.chargesSelected = [];
+                scope.selectedConfigurableAttributes = [];
+                var temp = '';
 
-            //map penalties to specific income accounts
-            for (var i in scope.penaltySpecificIncomeaccounts) {
-                temp = {
-                    chargeId: scope.penaltySpecificIncomeaccounts[i].chargeId,
-                    incomeAccountId: scope.penaltySpecificIncomeaccounts[i].incomeAccountId,
-                    fundSourceAccountId: scope.penaltySpecificIncomeaccounts[i].fundSourceAccountId
-                }
-                if(scope.penaltySpecificIncomeaccounts[i].fundSourceAccountId != null && scope.penaltySpecificIncomeaccounts[i].fundSourceAccountId !=''){
-                    temp.fundSourceAccountId = scope.specificIncomeAccountMapping[i].fundSourceAccountId;
-                }
-                scope.penaltyToIncomeAccountMappings.push(temp);
-            }
-
-            //map code value to specific expense accounts
-            scope.codeValueSpecificAccountMapping = []; 
-            for (var i in scope.codeValueSpecificAccountMappings) {
-                temp = {
-                    codeValueId: scope.codeValueSpecificAccountMappings[i].codeValueId,
-                    expenseAccountId: scope.codeValueSpecificAccountMappings[i].expenseAccountId
-                }
-                scope.codeValueSpecificAccountMapping.push(temp);
-            }
-            scope.transactionTypeToLoanPortfolioMappings = []; 
-            for (var i in scope.transactionTypeMappings) {
-                temp = {
-                    transactionTypeId: scope.transactionTypeMappings[i].transactionTypeId,
-                    loanPortfolioAccountId: scope.transactionTypeMappings[i].loanPortfolioAccountId
-                }
-                scope.transactionTypeToLoanPortfolioMappings.push(temp);
-            }
-
-            for (var i in scope.charges) {
-                var isMandatory = false;
-                var isChargeAmountNonEditable = false;
-                if (scope.charges[i].isMandatory) {
-                    isMandatory = scope.charges[i].isMandatory;
-                }
-                if (scope.charges[i].isChargeAmountNonEditable) {
-                    isChargeAmountNonEditable = scope.charges[i].isChargeAmountNonEditable;
-                }
-                temp = {
-                    id: scope.charges[i].id,
-                    isMandatory: isMandatory,
-                    isAmountNonEditable : isChargeAmountNonEditable
-                }
-                scope.chargesSelected.push(temp);
-            }
-
-            if (scope.allowAttributeConfiguration == false) {
-                scope.amortization = false;
-                scope.arrearsTolerance = false;
-                scope.graceOnArrearsAging = false;
-                scope.interestCalcPeriod = false;
-                scope.interestMethod = false;
-                scope.graceOnPrincipalAndInterest = false;
-                scope.repaymentFrequency = false;
-                scope.transactionProcessingStrategy = false;
-            }
-
-            scope.selectedConfigurableAttributes =
-                {
-                    amortizationType: scope.amortization,
-                    interestType: scope.interestMethod,
-                    transactionProcessingStrategyId: scope.transactionProcessingStrategy,
-                    interestCalculationPeriodType: scope.interestCalcPeriod,
-                    inArrearsTolerance: scope.arrearsTolerance,
-                    repaymentEvery: scope.repaymentFrequency,
-                    graceOnPrincipalAndInterestPayment: scope.graceOnPrincipalAndInterest,
-                    graceOnArrearsAgeing: scope.graceOnArrearsAging
-                };
-
-            this.formData.paymentChannelToFundSourceMappings = scope.paymentChannelToFundSourceMappings;
-            this.formData.feeToIncomeAccountMappings = scope.feeToIncomeAccountMappings;
-            this.formData.penaltyToIncomeAccountMappings = scope.penaltyToIncomeAccountMappings;
-            this.formData.codeValueSpecificAccountMapping = scope.codeValueSpecificAccountMapping;
-            this.formData.charges = scope.chargesSelected;
-            this.formData.allowAttributeOverrides = scope.selectedConfigurableAttributes;
-            this.formData.locale = scope.optlang.code;
-            this.formData.dateFormat = scope.df;
-            this.formData.startDate = reqFirstDate;
-            this.formData.closeDate = reqSecondDate;
-            this.formData.interestRatesListPerPeriod = scope.interestratesListPerPeriod;
-            this.formData.transactionTypeToLoanPortfolioMappings = scope.transactionTypeToLoanPortfolioMappings;
-
-            //Interest recalculation data
-            if (this.formData.isInterestRecalculationEnabled) {
-                var restFrequencyDate = dateFilter(scope.date.recalculationRestFrequencyDate, scope.df);
-                scope.formData.recalculationRestFrequencyDate = restFrequencyDate;
-                var compoundingFrequencyDate = dateFilter(scope.date.recalculationCompoundingFrequencyDate, scope.df);
-                scope.formData.recalculationCompoundingFrequencyDate = compoundingFrequencyDate;
-            } else {
-                delete scope.formData.interestRecalculationCompoundingMethod;
-                delete scope.formData.rescheduleStrategyMethod;
-                delete scope.formData.recalculationRestFrequencyType;
-                delete scope.formData.recalculationRestFrequencyInterval;
-            }
-
-            if (!scope.configureInterestRatesChart) {
-                delete this.formData.interestRatesListPerPeriod;
-                if(scope.irFlag == true){
-                        for(var i =0 ; i < this.formData.interestRateVariationsForBorrowerCycle.length ; i++) {
-                            this.formData.interestRateVariationsForBorrowerCycle[i].interestRatesListPerCycle = [];
-                        }
+                //configure fund sources for payment channels
+                for (var i in scope.configureFundOptions) {
+                    temp = {
+                        paymentTypeId: scope.configureFundOptions[i].paymentTypeId,
+                        fundSourceAccountId: scope.configureFundOptions[i].fundSourceAccountId
                     }
-            }
-            else{
-                this.formData.minInterestRatePerPeriod = null;
-                this.formData.maxInterestRatePerPeriod = null;
-                if(scope.irFlag == true){
-                        for(var i =0 ; i < this.formData.interestRateVariationsForBorrowerCycle.length ; i++) {
-                            this.formData.interestRateVariationsForBorrowerCycle[i].minValue = null;
-                            this.formData.interestRateVariationsForBorrowerCycle[i].maxValue = null;
-                        }
+                    scope.paymentChannelToFundSourceMappings.push(temp);
+                }
+
+                //map fees to specific income accounts
+                for (var i in scope.specificIncomeAccountMapping) {
+                    temp = {
+                        chargeId: scope.specificIncomeAccountMapping[i].chargeId,
+                        incomeAccountId: scope.specificIncomeAccountMapping[i].incomeAccountId
                     }
-            }
+                    if(scope.specificIncomeAccountMapping[i].fundSourceAccountId != null && scope.specificIncomeAccountMapping[i].fundSourceAccountId !=''){
+                        temp.fundSourceAccountId = scope.specificIncomeAccountMapping[i].fundSourceAccountId;
+                    }                
+                    
+                    scope.feeToIncomeAccountMappings.push(temp);
+                }
 
-            if (this.formData.isLinkedToFloatingInterestRates) {
-                delete scope.formData.interestRatePerPeriod;
-                delete scope.formData.minInterestRatePerPeriod;
-                delete scope.formData.maxInterestRatePerPeriod;
-                delete scope.formData.interestRateFrequencyType;
-                delete scope.formData.interestRatesListPerPeriod;
-            } else {
-                delete scope.formData.floatingRatesId;
-                delete scope.formData.interestRateDifferential;
-                delete scope.formData.isFloatingInterestRateCalculationAllowed;
-                delete scope.formData.minDifferentialLendingRate;
-                delete scope.formData.defaultDifferentialLendingRate;
-                delete scope.formData.maxDifferentialLendingRate;
+                //map penalties to specific income accounts
+                for (var i in scope.penaltySpecificIncomeaccounts) {
+                    temp = {
+                        chargeId: scope.penaltySpecificIncomeaccounts[i].chargeId,
+                        incomeAccountId: scope.penaltySpecificIncomeaccounts[i].incomeAccountId,
+                        fundSourceAccountId: scope.penaltySpecificIncomeaccounts[i].fundSourceAccountId
+                    }
+                    if(scope.penaltySpecificIncomeaccounts[i].fundSourceAccountId != null && scope.penaltySpecificIncomeaccounts[i].fundSourceAccountId !=''){
+                        temp.fundSourceAccountId = scope.specificIncomeAccountMapping[i].fundSourceAccountId;
+                    }
+                    scope.penaltyToIncomeAccountMappings.push(temp);
+                }
 
-            }
-            //If Variable Installments is not allowed for this product, remove the corresponding formData
-            if (!this.formData.allowVariableInstallments) {
-                delete scope.formData.minimumGap;
-                delete scope.formData.maximumGap;
-            }
+                //map code value to specific expense accounts
+                scope.codeValueSpecificAccountMapping = []; 
+                for (var i in scope.codeValueSpecificAccountMappings) {
+                    temp = {
+                        codeValueId: scope.codeValueSpecificAccountMappings[i].codeValueId,
+                        expenseAccountId: scope.codeValueSpecificAccountMappings[i].expenseAccountId
+                    }
+                    scope.codeValueSpecificAccountMapping.push(temp);
+                }
+                scope.transactionTypeToLoanPortfolioMappings = []; 
+                for (var i in scope.transactionTypeMappings) {
+                    temp = {
+                        transactionTypeId: scope.transactionTypeMappings[i].transactionTypeId,
+                        loanPortfolioAccountId: scope.transactionTypeMappings[i].loanPortfolioAccountId
+                    }
+                    scope.transactionTypeToLoanPortfolioMappings.push(temp);
+                }
 
-            if (this.formData.interestCalculationPeriodType == 0) {
-                this.formData.allowPartialPeriodInterestCalcualtion = false;
-            }
-            if (this.formData.recalculationCompoundingFrequencyType == 4) {
-                if (this.formData.recalculationCompoundingFrequencyNthDayType == -2) {
-                    delete this.formData.recalculationCompoundingFrequencyNthDayType;
-                    delete this.formData.recalculationCompoundingFrequencyDayOfWeekType;
+                for (var i in scope.charges) {
+                    var isMandatory = false;
+                    var isChargeAmountNonEditable = false;
+                    if (scope.charges[i].isMandatory) {
+                        isMandatory = scope.charges[i].isMandatory;
+                    }
+                    if (scope.charges[i].isChargeAmountNonEditable) {
+                        isChargeAmountNonEditable = scope.charges[i].isChargeAmountNonEditable;
+                    }
+                    temp = {
+                        id: scope.charges[i].id,
+                        isMandatory: isMandatory,
+                        isAmountNonEditable : isChargeAmountNonEditable
+                    }
+                    scope.chargesSelected.push(temp);
+                }
+
+                if (scope.allowAttributeConfiguration == false) {
+                    scope.amortization = false;
+                    scope.arrearsTolerance = false;
+                    scope.graceOnArrearsAging = false;
+                    scope.interestCalcPeriod = false;
+                    scope.interestMethod = false;
+                    scope.graceOnPrincipalAndInterest = false;
+                    scope.repaymentFrequency = false;
+                    scope.transactionProcessingStrategy = false;
+                }
+
+                scope.selectedConfigurableAttributes =
+                    {
+                        amortizationType: scope.amortization,
+                        interestType: scope.interestMethod,
+                        transactionProcessingStrategyId: scope.transactionProcessingStrategy,
+                        interestCalculationPeriodType: scope.interestCalcPeriod,
+                        inArrearsTolerance: scope.arrearsTolerance,
+                        repaymentEvery: scope.repaymentFrequency,
+                        graceOnPrincipalAndInterestPayment: scope.graceOnPrincipalAndInterest,
+                        graceOnArrearsAgeing: scope.graceOnArrearsAging
+                    };
+
+                this.formData.paymentChannelToFundSourceMappings = scope.paymentChannelToFundSourceMappings;
+                this.formData.feeToIncomeAccountMappings = scope.feeToIncomeAccountMappings;
+                this.formData.penaltyToIncomeAccountMappings = scope.penaltyToIncomeAccountMappings;
+                this.formData.codeValueSpecificAccountMapping = scope.codeValueSpecificAccountMapping;
+                this.formData.charges = scope.chargesSelected;
+                this.formData.allowAttributeOverrides = scope.selectedConfigurableAttributes;
+                this.formData.locale = scope.optlang.code;
+                this.formData.dateFormat = scope.df;
+                this.formData.startDate = reqFirstDate;
+                this.formData.closeDate = reqSecondDate;
+                this.formData.interestRatesListPerPeriod = scope.interestratesListPerPeriod;
+                this.formData.transactionTypeToLoanPortfolioMappings = scope.transactionTypeToLoanPortfolioMappings;
+
+                //Interest recalculation data
+                if (this.formData.isInterestRecalculationEnabled) {
+                    var restFrequencyDate = dateFilter(scope.date.recalculationRestFrequencyDate, scope.df);
+                    scope.formData.recalculationRestFrequencyDate = restFrequencyDate;
+                    var compoundingFrequencyDate = dateFilter(scope.date.recalculationCompoundingFrequencyDate, scope.df);
+                    scope.formData.recalculationCompoundingFrequencyDate = compoundingFrequencyDate;
                 } else {
+                    delete scope.formData.interestRecalculationCompoundingMethod;
+                    delete scope.formData.rescheduleStrategyMethod;
+                    delete scope.formData.recalculationRestFrequencyType;
+                    delete scope.formData.recalculationRestFrequencyInterval;
+                }
+
+                if (!scope.configureInterestRatesChart) {
+                    delete this.formData.interestRatesListPerPeriod;
+                    if(scope.irFlag == true){
+                            for(var i =0 ; i < this.formData.interestRateVariationsForBorrowerCycle.length ; i++) {
+                                this.formData.interestRateVariationsForBorrowerCycle[i].interestRatesListPerCycle = [];
+                            }
+                        }
+                }
+                else{
+                    this.formData.minInterestRatePerPeriod = null;
+                    this.formData.maxInterestRatePerPeriod = null;
+                    if(scope.irFlag == true){
+                            for(var i =0 ; i < this.formData.interestRateVariationsForBorrowerCycle.length ; i++) {
+                                this.formData.interestRateVariationsForBorrowerCycle[i].minValue = null;
+                                this.formData.interestRateVariationsForBorrowerCycle[i].maxValue = null;
+                            }
+                        }
+                }
+
+                if (this.formData.isLinkedToFloatingInterestRates) {
+                    delete scope.formData.interestRatePerPeriod;
+                    delete scope.formData.minInterestRatePerPeriod;
+                    delete scope.formData.maxInterestRatePerPeriod;
+                    delete scope.formData.interestRateFrequencyType;
+                    delete scope.formData.interestRatesListPerPeriod;
+                } else {
+                    delete scope.formData.floatingRatesId;
+                    delete scope.formData.interestRateDifferential;
+                    delete scope.formData.isFloatingInterestRateCalculationAllowed;
+                    delete scope.formData.minDifferentialLendingRate;
+                    delete scope.formData.defaultDifferentialLendingRate;
+                    delete scope.formData.maxDifferentialLendingRate;
+
+                }
+                //If Variable Installments is not allowed for this product, remove the corresponding formData
+                if (!this.formData.allowVariableInstallments) {
+                    delete scope.formData.minimumGap;
+                    delete scope.formData.maximumGap;
+                }
+
+                if (this.formData.interestCalculationPeriodType == 0) {
+                    this.formData.allowPartialPeriodInterestCalcualtion = false;
+                }
+                if (this.formData.recalculationCompoundingFrequencyType == 4) {
+                    if (this.formData.recalculationCompoundingFrequencyNthDayType == -2) {
+                        delete this.formData.recalculationCompoundingFrequencyNthDayType;
+                        delete this.formData.recalculationCompoundingFrequencyDayOfWeekType;
+                    } else {
+                        delete this.formData.recalculationCompoundingFrequencyOnDayType;
+                    }
+                } else if (this.formData.recalculationCompoundingFrequencyType == 3) {
                     delete this.formData.recalculationCompoundingFrequencyOnDayType;
+                    delete this.formData.recalculationCompoundingFrequencyNthDayType;
                 }
-            } else if (this.formData.recalculationCompoundingFrequencyType == 3) {
-                delete this.formData.recalculationCompoundingFrequencyOnDayType;
-                delete this.formData.recalculationCompoundingFrequencyNthDayType;
-            }
 
-            if (this.formData.recalculationRestFrequencyType == 4) {
-                if (this.formData.recalculationRestFrequencyNthDayType == -2) {
-                    delete this.formData.recalculationRestFrequencyNthDayType;
-                    delete this.formData.recalculationRestFrequencyDayOfWeekType;
-                } else {
+                if (this.formData.recalculationRestFrequencyType == 4) {
+                    if (this.formData.recalculationRestFrequencyNthDayType == -2) {
+                        delete this.formData.recalculationRestFrequencyNthDayType;
+                        delete this.formData.recalculationRestFrequencyDayOfWeekType;
+                    } else {
+                        delete this.formData.recalculationRestFrequencyOnDayType;
+                    }
+                } else if (this.formData.recalculationRestFrequencyType == 3) {
                     delete this.formData.recalculationRestFrequencyOnDayType;
+                    delete this.formData.recalculationRestFrequencyNthDayType;
                 }
-            } else if (this.formData.recalculationRestFrequencyType == 3) {
-                delete this.formData.recalculationRestFrequencyOnDayType;
-                delete this.formData.recalculationRestFrequencyNthDayType;
-            }
-            if (!this.formData.isSubsidyApplicable) {
-                delete this.formData.isSubsidyApplicable;
-                delete this.formData.subsidyFundSourceId;
-                delete this.formData.subsidyAccountId;
-            }
-            if (this.formData.adjustFirstEMIAmount) {
-                this.formData.adjustInterestForRounding = true;
-            }
+                if (!this.formData.isSubsidyApplicable) {
+                    delete this.formData.isSubsidyApplicable;
+                    delete this.formData.subsidyFundSourceId;
+                    delete this.formData.subsidyAccountId;
+                }
+                if (this.formData.adjustFirstEMIAmount) {
+                    this.formData.adjustInterestForRounding = true;
+                }
 
-            if (this.formData.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType) {
-                delete this.formData.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType;
-            }
+                if (this.formData.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType) {
+                    delete this.formData.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepaymentType;
+                }
 
-            if (this.formData.minimumDaysBetweenDisbursalAndFirstRepayment) {
-                delete this.formData.minimumPeriodsBetweenDisbursalAndFirstRepayment;
-            }
+                if (this.formData.minimumDaysBetweenDisbursalAndFirstRepayment) {
+                    delete this.formData.minimumPeriodsBetweenDisbursalAndFirstRepayment;
+                }
 
-            if (this.formData.minimumPeriodsBetweenDisbursalAndFirstRepayment) {
-                delete this.formData.minimumDaysBetweenDisbursalAndFirstRepayment;
-            }
-            if (this.formData.minLoanTerm == null && this.formData.maxLoanTerm == null &&
-                this.formData.loanTenureFrequencyType != null) {
-                this.formData.loanTenureFrequencyType = null;
-            }
+                if (this.formData.minimumPeriodsBetweenDisbursalAndFirstRepayment) {
+                    delete this.formData.minimumDaysBetweenDisbursalAndFirstRepayment;
+                }
+                if (this.formData.minLoanTerm == null && this.formData.maxLoanTerm == null &&
+                    this.formData.loanTenureFrequencyType != null) {
+                    this.formData.loanTenureFrequencyType = null;
+                }
 
-            if(this.formData.trancheLoanClosureType == undefined){
-                delete this.formData.trancheLoanClosureType;
-            }
+                if(this.formData.trancheLoanClosureType == undefined){
+                    delete this.formData.trancheLoanClosureType;
+                }
 
-            if(this.formData.trancheAmountLimitType == undefined){
-                delete this.formData.trancheAmountLimitType;
-            }
+                if(this.formData.trancheAmountLimitType == undefined){
+                    delete this.formData.trancheAmountLimitType;
+                }
 
-            if(this.formData.canDefineInstallmentAmount){
-                this.formData.canCrossMaturityDateOnFixingEMI = scope.canCrossMaturityDateOnFixingEMI;
-            }
+                if(this.formData.canDefineInstallmentAmount){
+                    this.formData.canCrossMaturityDateOnFixingEMI = scope.canCrossMaturityDateOnFixingEMI;
+                }
 
-            scope.formData.selectedProfileTypeValues = undefined;
-            if (scope.formData.isEnableRestrictionForClientProfile && scope.formData.isEnableRestrictionForClientProfile.toString() == 'true') {
-                if (scope.selectedProfileTypeValuesOptions && scope.selectedProfileTypeValuesOptions.length > 0) {
-                    scope.formData.selectedProfileTypeValues = [];
-                    for (var i in scope.selectedProfileTypeValuesOptions) {
-                        scope.formData.selectedProfileTypeValues.push(scope.selectedProfileTypeValuesOptions[i].id);
+                scope.formData.selectedProfileTypeValues = undefined;
+                if (scope.formData.isEnableRestrictionForClientProfile && scope.formData.isEnableRestrictionForClientProfile.toString() == 'true') {
+                    if (scope.selectedProfileTypeValuesOptions && scope.selectedProfileTypeValuesOptions.length > 0) {
+                        scope.formData.selectedProfileTypeValues = [];
+                        for (var i in scope.selectedProfileTypeValuesOptions) {
+                            scope.formData.selectedProfileTypeValues.push(scope.selectedProfileTypeValuesOptions[i].id);
+                        }
                     }
                 }
-            }
-            if (!scope.formData.isOverdueAccountingEnabled || _.isUndefined(scope.formData.isOverdueAccountingEnabled) || _.isNull(scope.formData.isOverdueAccountingEnabled)) {
-                delete scope.formData.isOverdueAccountingEnabled;
-                delete scope.formData.overdueLoanPortfolioAccountId;
-                delete scope.formData.overdueReceivableInterestAccountId;
-                delete scope.formData.overdueReceivableFeeAccountId;
-                delete scope.formData.overdueReceivablePenaltyAccountId;
-            }
-            if (!scope.formData.isIRDEnabled || _.isUndefined(scope.formData.isIRDEnabled) || _.isNull(scope.formData.isIRDEnabled)) {
-                delete scope.formData.isIRDEnabled;
-                delete scope.formData.interestReceivableAndDueAccountId;
-            }
+                if (!scope.formData.isOverdueAccountingEnabled || _.isUndefined(scope.formData.isOverdueAccountingEnabled) || _.isNull(scope.formData.isOverdueAccountingEnabled)) {
+                    delete scope.formData.isOverdueAccountingEnabled;
+                    delete scope.formData.overdueLoanPortfolioAccountId;
+                    delete scope.formData.overdueReceivableInterestAccountId;
+                    delete scope.formData.overdueReceivableFeeAccountId;
+                    delete scope.formData.overdueReceivablePenaltyAccountId;
+                }
+                if (!scope.formData.isIRDEnabled || _.isUndefined(scope.formData.isIRDEnabled) || _.isNull(scope.formData.isIRDEnabled)) {
+                    delete scope.formData.isIRDEnabled;
+                    delete scope.formData.interestReceivableAndDueAccountId;
+                }
 
-            resourceFactory.loanProductResource.save(this.formData, function (data) {
-                location.path('/viewloanproduct/' + data.resourceId);
-            });
-        };
+                resourceFactory.loanProductResource.save(this.formData, function (data) {
+                    location.path('/viewloanproduct/' + data.resourceId);
+                });
+            };
         }
     });
-    mifosX.ng.application.controller('CreateLoanProductController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', 'CommonUtilService', mifosX.controllers.CreateLoanProductController]).run(function ($log) {
+    mifosX.ng.application.controller('CreateLoanProductController', ['$controller', '$scope', 'ResourceFactory', '$location', 'dateFilter', 'CommonUtilService', mifosX.controllers.CreateLoanProductController]).run(function ($log) {
         $log.info("CreateLoanProductController initialized");
     });
 }(mifosX.controllers || {}));

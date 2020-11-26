@@ -1,0 +1,157 @@
+<div class="col-md-12" ng-controller="ViewNotificationConfigurationDetailsController">
+    <div>
+            <ul class="breadcrumb">
+                    <li><a href="#/system">{{'label.anchor.system' | translate}}</a> </li>
+                    <li><a href="#/notification/configuration">{{'label.anchor.notification.configuration'| translate}}</a></li>
+                    <li class="active">{{'label.anchor.notification.configuration.details' | translate}} </li>
+            </ul>
+    </div>
+    <button type="button" ng-click="changeStatus()" class="btn pull-right" ng-class="notificationConfigurationDetails.status === 'ACTIVE' ? 'btn-danger' : 'btn-warning'">
+            <i class=""></i>&nbsp;{{'label.button.'+labelStatus | translate}}
+    </button>
+    <a href="#/notification/configuration/modify/{{notificationConfigId}}" class="btn btn-primary pull-right" >
+        <i class="icon-edit icon-white"></i>
+        {{'label.button.edit' | translate}}
+    </a>
+    
+    <legend>{{'label.anchor.notification.configuration.details' | translate}}</legend>
+    <div>
+            <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group paddedtop">
+                            <span><b>{{'label.heading.name' | translate}}:&nbsp;</b></span>
+                            <span>{{notificationConfigurationDetails.uname}}</span>
+                        </div>
+                        <div class="form-group">
+                                <span><b>{{'label.heading.entity.key.id' | translate}}:&nbsp;</b></span>
+                                <span>{{notificationConfigurationDetails.entityIdKey}}</span>
+                        </div>
+                        <div class="form-group">
+                            <span><b>{{'label.heading.description' | translate}}:&nbsp;</b></span>
+                            <span>{{notificationConfigurationDetails.description}}</span>
+                        </div>
+                        
+                    </div> 
+                    
+                    <div class="col-md-6">
+                            <div class="form-group paddedtop">
+                                <span><b>{{'label.heading.data.fetch.report' | translate}}:&nbsp;</b></span>
+                                <span>{{notificationConfigurationDetails.dataFetchReport}}</span>
+                            </div>
+                            <div class="form-group">
+                                    <span><b>{{'label.heading.createddate' | translate}}:&nbsp;</b></span>
+                                    <span>{{notificationConfigurationDetails.createdDate | DateFormat}}</span>
+                            </div>
+                            <div class="form-group">
+                                <span><b>{{'label.heading.status' | translate}}:&nbsp;</b></span>
+                                <span>{{notificationConfigurationDetails.status}}</span>
+                            </div>
+                            
+                    </div> 
+            </div>            
+    </div>
+    </br>
+    <a href="#/notification/configuration/{{notificationConfigId}}/campaign" class="btn btn-primary pull-right">
+        <i class="icon-plus icon-white"></i>
+        {{'label.button.add.notification.campaign' | translate}}
+    </a>
+    <legend>{{'label.anchor.notification.campaign' | translate}}</legend> 
+    
+    <div ng-if="notificationCampaignData.length > 0">
+            <table class="table">
+                <thead>
+                    <tr class="graybg">
+                        <th>{{'label.heading.serial#' | translate}}</th>
+                        <th>{{'label.heading.type' | translate}}</th>
+                        <th>{{'label.heading.recipient' | translate}}</th>
+                        <th>{{'label.heading.status' | translate}}</th>
+    
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="pointer-main" ng-repeat="campaign in notificationCampaignData">
+                        <td class="pointer" data-ng-click="routeTo(campaign.id)">{{campaign.id}}</td>
+                        <td class="pointer" data-ng-click="routeTo(campaign.id)">{{campaign.notificationType}}</td>
+                        <td class="pointer" data-ng-click="routeTo(campaign.id)">{{campaign.recipient}}</td>
+                        <td class="pointer" data-ng-click="routeTo(campaign.id)">{{campaign.status}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <a href="#/notification/configuration/{{notificationConfigId}}/eventmapping" class="btn btn-primary pull-right">
+            <i class="icon-plus icon-white"></i>
+            {{'label.button.add.notification.event.mapping' | translate}}
+        </a>
+        <legend>{{'label.anchor.notification.event.mapping' | translate}}</legend> 
+        <div ng-if="notificationEventMappingData.length > 0">
+            <table class="table">
+                <thead>
+                    <tr class="graybg">
+                            <th>{{'label.heading.business.event' | translate}}</th>
+                            <th>{{'label.heading.business.entity' | translate}}</th>
+                            <th>{{'label.heading.status' | translate}}</th>
+                            <th colspan='2'>{{'label.heading.actions' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="event in notificationEventMappingData">
+                        <td>{{event.businessEvent.value}}</td>
+                        <td>{{event.businessEntity.value}}</td>
+                        <td>{{event.isActive === true ? "Active" : "Inactive"}}</td>
+                        <td>
+                            <a class="black" href="#/notification/configuration/{{notificationConfigId}}/editeventmapping/{{event.id}}">
+                                <i class="icon-edit icon-white pointer" data-toggle="tooltip" tooltip-placement="right" tooltip="{{ 'label.button.edit' | translate}}"></i>
+                            </a>
+                            <a ng-show="event.isActive" class="paddedleft120" ng-click="changeStatusOfEventMapping(event.id,event.isActive)">
+                                <i class="icon-ban-circle icon-white text-danger pointer" data-toggle="tooltip" tooltip-placement="right" tooltip="{{ 'label.button.deactivate' | translate}}"></i>
+                            </a>
+                            <a ng-hide="event.isActive" class="paddedleft120" ng-click="changeStatusOfEventMapping(event.id,event.isActive)">
+                                <i class="icon-ok-circle icon-white  text-primary pointer" data-toggle="tooltip" tooltip-placement="right" tooltip="{{ 'label.button.activate' | translate}}"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <a href="#/notification/configuration/{{notificationConfigId}}/jobmapping" class="btn btn-primary pull-right">
+            <i class="icon-plus icon-white"></i>
+            {{'label.button.add.notification.job.mapping' | translate}}
+        </a>
+        <legend>{{'label.anchor.notification.job.mapping' | translate}}</legend> 
+        <div ng-if="notificationJobMappingData.length > 0">
+            <table class="table">
+                <thead>
+                    <tr class="graybg">
+                        <th>{{'label.input.jobname' | translate}}</th>
+                        <th>{{'label.heading.cronexpression' | translate}}</th>
+                        <th>{{'label.heading.nextrun' | translate}}</th>
+                        <th>{{'label.heading.previousrun' | translate}}</th>
+                        <th>{{'label.heading.status' | translate}}</th>
+                        <th colspan='2'>{{'label.heading.actions' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="job in notificationJobMappingData">
+                        <td>{{job.jobName}}</td>
+                        <td>{{job.cronExpression}}</td>
+                        <td>{{job.nextRunTime | DateTimeFormat}}</td>
+                        <td>{{job.previousRunTime | DateTimeFormat}}</td>
+                        <td>{{job.isActive === true ? "Active" : "Inactive"}}</td>
+                        <td>
+                            <a href="#/notification/configuration/{{notificationConfigId}}/editjobmapping/{{job.id}}">
+                                <i class="icon-edit icon-white" data-toggle="tooltip" tooltip-placement="right" tooltip="{{ 'label.button.edit' | translate}}"></i>
+                            </a>
+                            <a ng-click="changeStatusOfJobMapping(job.id,job.isActive)" ng-show="job.isActive" class="paddedleft120" >
+                                <i class="icon-ban-circle icon-white text-danger pointer" data-toggle="tooltip" tooltip-placement="right" tooltip="{{ 'label.button.deactivate' | translate}}"></i> 
+                            </a>
+                            <a ng-click="changeStatusOfJobMapping(job.id,job.isActive)" ng-hide="job.isActive" class="paddedleft120" >
+                                <i class="icon-ok-circle icon-white text-primary pointer" data-toggle="tooltip" tooltip-placement="right" tooltip="{{ 'label.button.activate' | translate}}"></i> 
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+</div>

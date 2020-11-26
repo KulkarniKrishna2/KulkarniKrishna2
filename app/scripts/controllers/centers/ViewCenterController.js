@@ -16,7 +16,7 @@
             scope.isWorkflowEnabled = scope.isSystemGlobalConfigurationEnabled('work-flow');
             scope.isHideCreateEntity = false;
             scope.isClientCreationEnabled = false;
-            scope.createjlgLoanApplication = false;
+            scope.createjlgLoanApplication = true;
             scope.canCreateSubGroup = true;
             scope.showAPSCRepayment = false;
             scope.showOnlyStaff = true;
@@ -35,7 +35,7 @@
             if (scope.response && scope.response.uiDisplayConfigurations) {
                 if(scope.response.uiDisplayConfigurations.viewGroup.isHiddenField){
                     scope.isClientCreationEnabled = scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.canAddClients;
-                    scope.createjlgLoanApplication = scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.createjlgLoanApplication;
+                    scope.createjlgLoanApplication = !scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.createjlgLoanApplication;
                     scope.hideManageGroup = scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.createGroup;
                 }
                 if(scope.response.uiDisplayConfigurations.viewCenter.isHiddenField){
@@ -107,7 +107,18 @@
                     scope.meetingtime=   new Date(data.collectionMeetingCalendar.meetingTime.iLocalMillis + (today.getTimezoneOffset() * 60*1000) );
                 }
                 //scope.meetingtime=   new Date(data.collectionMeetingCalendar.meetingTime);
+                if(scope.groupMemberAccountList.length > 0){
+                    scope.createjlgLoanApplication = !scope.groupMemberAccountList[0].isWorkflowEnableForBranch && scope.createjlgLoanApplication;
+                }
             });
+
+            scope.allowCreationOfJLGLoanAndLoanApplication = function(clientStatusCode){
+                if(scope.isActiveMember(clientStatusCode) 
+                    && (scope.isHideJlgLoan || (scope.isLoanApplication && scope.createjlgLoanApplication))){
+                    return true;
+                }
+                return false; 
+            }
 
             function fetchAllConfiguredWorkFlows() {
                 scope.uiData.isNewLoanCycle = true;

@@ -27,6 +27,9 @@
             scope.isRecieptNumbermandatory = false;
             scope.bankAccountTemplate = {};
             scope.showPaymentTypeForRepaymentAtDisbursement = false;
+            scope.backDatedTxn = false;
+            scope.backDatedTxnError = false;
+            scope.backDatedReasonMandatory = false;
 
             //glim
             scope.isGLIM = false;
@@ -45,7 +48,7 @@
             scope.paymentTypeOptions = [];
             scope.applicableOnRepayment = 1;
             scope.applicableOnDisbursement = 2;
-            
+            scope.backDatedReasonMandatory = scope.response.uiDisplayConfigurations.loanAccount.isMandatory.backDatedReason;
             scope.allowBankAccountsForGroups = scope.isSystemGlobalConfigurationEnabled('allow-bank-account-for-groups');
             scope.allowDisbursalToGroupBankAccount = scope.isSystemGlobalConfigurationEnabled('allow-multiple-bank-disbursal');
             scope.isInvalid = false;
@@ -120,6 +123,20 @@
                 }
                 scope.getTotalAmount(scope.clientMembers, 'transactionAmount');
             };
+
+            scope.checkNote = function(){
+                if(scope.action=="modifytransaction" || scope.action=="repayment" ){
+                    if(scope.backDatedTxn==true){
+                        if(scope.formData.note.length>0){
+                            scope.backDatedTxnError = false;
+                        }else{
+                            scope.backDatedTxnError = true;
+                        }
+                        
+                    }
+                }
+                
+            }
 
             scope.checkBiometricRequired = function() {
                 if( scope.transactionAuthenticationOptions &&  scope.transactionAuthenticationOptions.length > 0) {
@@ -1181,6 +1198,12 @@
                         params.transactionId = routeParams.transactionId;
                     }
                     if(scope.action == "modifytransaction" || scope.action == "repayment"){
+                       if(scope.backDatedTxn==true && (this.formData.note==undefined || this.formData.note=="")){
+                            scope.backDatedTxnError = true;
+                            return false;
+                        }
+
+
                         if(scope.formData.accountNumber || scope.formData.checkNumber || scope.formData.routingCode || scope.formData.receiptNumber || scope.formData.bankNumber){
                             if(_.isUndefined(scope.formData.paymentTypeId) || scope.formData.paymentTypeId == null) {
                                 scope.errorDetails = [];
@@ -1323,6 +1346,14 @@
                     if (scope.isGLIM && scope.action == 'repayment' && !scope.isGlimPaymentAsGroup) {
                         scope.getRepaymentTemplate(scope.formData.transactionDate);
                     }
+                }
+                scope.backDatedTxn = false;
+                var txndate = dateFilter(scope.formData.transactionDate, scope.df) ;
+                txndate = txndate+"";
+                var date = dateFilter(new Date(), scope.df) ;
+                date = date+"";
+                if(!(txndate==date) && scope.backDatedReasonMandatory==true){
+                    scope.backDatedTxn = true;
                 }
             });
 
@@ -1482,6 +1513,7 @@
             scope.getStatusCode = function () {
                 return loanDetailsService.getStatusCode(scope.loandetails);
             };
+
 
         }
     });

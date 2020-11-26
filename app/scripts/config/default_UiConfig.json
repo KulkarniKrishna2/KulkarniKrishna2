@@ -54,7 +54,8 @@
 				"transactionPaymentType": false,
 				"graceOnPrincipalPayment": false,
 				"graceOnInterestPayment": false,
-				"recurringMoratoriumOnPrincipalPeriods": false
+				"recurringMoratoriumOnPrincipalPeriods": false,
+				"backDatedReason": false
 			},
 			"isHiddenSection": {
 				"interestRecalculationSection": false,

@@ -1,6 +1,13 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        EditLoanProductController: function (scope, resourceFactory, location, routeParams, dateFilter, commonUtilService) {
+        EditLoanProductController: function ($controller, scope, resourceFactory, location, routeParams, dateFilter, commonUtilService) {
+            angular.extend(this, $controller('CommonLoanProductController', {$scope: scope}));
+
+            scope.action = routeParams.action;
+            if (routeParams.action && routeParams.action === 'clone') {
+                scope.isCloneLoanProduct = true;
+            };
+
             scope.formData = {};
             scope.restrictDate = new Date();
             scope.charges = [];
@@ -210,6 +217,12 @@
                     brokenPeriodInterestCollectAtDisbursement:scope.product.brokenPeriodInterestCollectAtDisbursement,
                     noOfAdvEmiCollection:scope.product.noOfAdvEmiCollection
                 };
+
+                if(scope.product.partialPeriodType){
+                    scope.existingPartialPeriodType = angular.copy(scope.product.partialPeriodType.id);
+                    scope.formData.partialPeriodType = scope.product.partialPeriodType.id;
+                }
+
                 if(scope.product.isRepaymentAtDisbursement && scope.product.paymentTypeForRepaymentAtDisbursement){
                     scope.formData.paymentTypeIdForRepaymentAtDisbursement = scope.product.paymentTypeForRepaymentAtDisbursement.id;
                 }
@@ -831,6 +844,7 @@
                 };
 
             };
+
             scope.changeChargeOfPenaltySpecificIncomeAccount = function(oldChargeId) {
                 scope.existPenaltySpecificIncomeaccounts = [];
                 for (var i in scope.product.penaltyToIncomeAccountMappings) {
@@ -845,6 +859,13 @@
                             deletePenaltyAccountMappings.push(scope.existPenaltySpecificIncomeaccounts[0]);
                         }
                     }
+                }
+            };
+
+            scope.editChangeDaysInMonthType = function(){
+                scope.changeDaysInMonthType();
+                if(scope.formData.daysInMonthType === 30 && scope.existingPartialPeriodType){
+                    scope.formData.partialPeriodType = angular.copy(scope.existingPartialPeriodType);
                 }
             };
 
@@ -1145,13 +1166,28 @@
                     delete scope.formData.interestReceivableAndDueAccountId;
                 }
 
-                resourceFactory.loanProductResource.put({loanProductId: routeParams.id}, this.formData, function (data) {
-                    location.path('/viewloanproduct/' + data.resourceId);
-                });
+                if(!_.isUndefined(scope.isCloneLoanProduct) && scope.isCloneLoanProduct) {
+                    if(!_.isUndefined(this.formData.interestRatesListPerPeriod) && !this.formData.interestRatesListPerPeriod.length > 0){
+                        delete  this.formData.interestRatesListPerPeriod;
+                    }
+                    if(this.formData.minLoanTerm == null){
+                        delete  this.formData.minLoanTerm;
+                    }
+                    if(this.formData.maxLoanTerm == null){
+                        delete  this.formData.maxLoanTerm;
+                    }
+                    resourceFactory.loanProductResource.save(this.formData, function (data) {
+                        location.path('/viewloanproduct/' + data.resourceId);
+                    });
+                }else{
+                    resourceFactory.loanProductResource.put({loanProductId: routeParams.id}, this.formData, function (data) {
+                        location.path('/viewloanproduct/' + data.resourceId);
+                    });
+                }
             }
         }
     });
-    mifosX.ng.application.controller('EditLoanProductController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', 'CommonUtilService', mifosX.controllers.EditLoanProductController]).run(function ($log) {
+    mifosX.ng.application.controller('EditLoanProductController', ['$controller', '$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', 'CommonUtilService', mifosX.controllers.EditLoanProductController]).run(function ($log) {
         $log.info("EditLoanProductController initialized");
     });
 }(mifosX.controllers || {}));
