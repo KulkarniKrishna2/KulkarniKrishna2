@@ -2198,6 +2198,18 @@
             })
             .when('/productivesheet/:officeId/:officeName/:meetingDate/:staffId/:newtransactionDate', {
                 templateUrl: 'views/collection/productivecollectionsheet.html'
+            })            
+            .when('/viewloanproductroundingemappings', {
+                templateUrl: 'views/products/productroundingmodemapping/loanproductroundingmodemappings.html'
+            })            
+            .when('/viewloanproductroundingemapping/:id', {
+                templateUrl: 'views/products/productroundingmodemapping/viewloanproductroundingmodemapping.html'
+            })            
+            .when('/updateloanproductroundingemapping/:id', {
+                templateUrl: 'views/products/productroundingmodemapping/updateloanproductroundingmodemapping.html'
+            })            
+            .when('/createloanproductroundingemapping', {
+                templateUrl: 'views/products/productroundingmodemapping/createloanproductroundingmodemapping.html'
             })
         $locationProvider.html5Mode(false);
     };

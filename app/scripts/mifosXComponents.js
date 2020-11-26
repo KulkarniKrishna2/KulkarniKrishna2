@@ -770,7 +770,10 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'notification/CreateNotificationEventMappingController',
             'notification/CreateNotificationJobMappingController',
             'notification/EditNotificationEventMappingController',
-            'notification/EditNotificationJobMappingController'
+            'product/productroundingmodemapping/CreateLoanProductRoundingModeMappingController',
+            'product/productroundingmodemapping/UpdateLoanProductRoundingModeMappingController',
+            'product/productroundingmodemapping/ViewLoanProductRoundingModeMappingController',
+            'product/productroundingmodemapping/ViewLoanProductRoundingModeMappingsController'
         ],
         filters: [
             'StatusLookup',
