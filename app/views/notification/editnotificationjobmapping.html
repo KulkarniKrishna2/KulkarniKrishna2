@@ -1,0 +1,66 @@
+<div class="col-md-12" ng-controller="EditNotificationJobMappingController">
+    <div class="paddedbottom10">
+        <ul class="breadcrumb">
+            <li><a href="#/system">{{'label.anchor.system' | translate}}</a> </li>
+            <li><a href="#/notification/configuration">{{'label.anchor.notification.configuration'| translate}}</a></li>
+            <li class="active">{{'label.anchor.edit.notification.job.mapping' | translate}} </li>
+        </ul>
+        <form name="editnotificationjobmappingform" novalidate="" class="form-horizontal well" rc-submit="submit()">
+            <api-validate></api-validate>
+            <div class="error" ng-show="errorsExist">
+                <div ng-show="noSelectedNotificationConfiguration">
+                    {{'error.msg.no.notification.configuration' | translate}}</div>
+            </div>
+            <fieldset>
+                <legend>{{'label.anchor.edit.notification.job.mapping' | translate}}</legend>
+                <div class="form-group">
+                    <label class="control-label col-sm-2"
+                        for="notificationConfigurationName">{{'label.heading.notification.name' | translate}}<span
+                            class="required">*</span></label>
+                    <div class="col-sm-3">
+                        <input ng-autofocus="true" type="text" id="notificationConfigurationName"
+                            name="notificationConfigurationName" ng-model="notificationConfigurationName"
+                            class="form-control" required ng-disabled="true" />
+                    </div>
+
+                    <label class="control-label col-sm-2"
+                        for="cronexpression">{{'label.heading.cronexpression' | translate}}<span
+                            class="required">*</span></label>
+                    <div class="col-sm-3">
+                        <input ng-autofocus="true" type="text" id="cronexpression" name="cronexpression"
+                            ng-model="formData.cronExpression" class="form-control" required late-Validate />
+                    </div>
+                    <form-validate valattributeform="editnotificationjobmappingform" valattribute="cronexpression" />
+
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{'label.heading.reportname' | translate}}</label>
+                    <div class="col-sm-3">
+                        <select ng-model="formData.reportName"
+                            ng-options="report.reportName as report.reportName for report in reportOptions"
+                            class="form-control">
+                            <option value="">{{'label.menu.select.report.type' | translate}}</option>
+                        </select>
+                    </div>
+
+                    <label class="control-label col-sm-2" for="jobname">{{'label.heading.jobname' | translate}}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input type="text" id="jobname" name="jobname" ng-model="formData.jobName" class="form-control"
+                            required late-Validate />
+                    </div>
+                    <form-validate valattributeform="editnotificationjobmappingform" valattribute="jobname" />
+
+                </div>
+
+                <div class="col-md-offset-5">
+                    <a id="cancel" href="#/notification/configuration">
+                        <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
+                    </a>
+                    <button id="save" type="submit" class="btn btn-primary">{{'label.button.save' | translate}}</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div> 

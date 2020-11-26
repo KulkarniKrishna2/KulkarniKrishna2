@@ -47,16 +47,25 @@
             .when('/edittemplate/:id', {
                 templateUrl: 'views/templates/edittemplate.html'
             })
+            .when('/createproductcategory', {
+                templateUrl: 'views/products/createproductcategory.html'
+            })
             .when('/createloanproduct', {
                 templateUrl: 'views/products/createloanproduct.html'
             })
             .when('/editloanproduct/:id', {
                 templateUrl: 'views/products/editloanproduct.html'
             })
+            .when('/loanproducts/:id/:action', {
+                templateUrl: 'views/products/editloanproduct.html'
+            })
             .when('/createsavingproduct', {
                 templateUrl: 'views/products/createsavingproduct.html'
             })
             .when('/editsavingproduct/:id', {
+                templateUrl: 'views/products/editsavingproduct.html'
+            })
+            .when('/savingproducts/:id/:action', {
                 templateUrl: 'views/products/editsavingproduct.html'
             })
             .when('/admin/viewrole/:id', {
@@ -278,8 +287,47 @@
             .when('/system', {
                 templateUrl: 'views/administration/system.html'
             })
+            .when('/notification/management', {
+                templateUrl: 'views/notification/notificationmanagement.html'
+            })
+            .when('/notification/configuration', {
+                templateUrl: 'views/notification/notificationconfiguration.html'
+            })
+            .when('/notification/configuration/create', {
+                templateUrl: 'views/notification/createnotificationconfiguration.html'
+            })
+            .when('/notification/configuration/modify/:notificationConfigId', {
+                templateUrl: 'views/notification/updatenotificationconfiguration.html'
+            })
+            .when('/notification/configuration/:id',{
+                templateUrl: 'views/notification/viewnotificationconfigurationdetails.html'
+            })
+            .when('/notification/configuration/:notificationConfigId/campaign',{
+                templateUrl: 'views/notification/createnotificationcampaign.html'
+            })
+            .when('/notification/configuration/:notificationConfigId/campaign/:id',{
+                templateUrl: 'views/notification/viewnotificationcampaignndetails.html'
+            })
+            .when('/notification/configuration/:notificationConfigId/campaign/:id/modify',{
+                templateUrl: 'views/notification/updatenotificationcampaign.html'
+            })
+            .when('/notification/configuration/:notificationConfigId/eventmapping', {
+                templateUrl: 'views/notification/createnotificationeventmapping.html'
+            })
+            .when('/notification/configuration/:notificationConfigId/editeventmapping/:eventId', {
+                templateUrl: 'views/notification/editnotificationeventmapping.html'
+            })
+            .when('/notification/configuration/:notificationConfigId/jobmapping', {
+                templateUrl: 'views/notification/createnotificationjobmapping.html'
+            })
+            .when('/notification/configuration/:notificationConfigId/editjobmapping/:jobId', {
+                templateUrl: 'views/notification/editnotificationjobmapping.html'
+            })  
             .when('/bulkoperations', {
                 templateUrl: 'views/bulkoperations/bulkoperations.html'
+            })
+            .when('/productcategories', {
+                templateUrl: 'views/products/productcategories.html'
             })
             .when('/loanproducts', {
                 templateUrl: 'views/products/loanproducts.html'
@@ -333,6 +381,9 @@
             .when('/editfixeddepositproduct/:productId', {
                 templateUrl: 'views/products/editfixeddepositproduct.html'
             })
+            .when('/fixeddepositproducts/:productId/:action', {
+                templateUrl: 'views/products/editfixeddepositproduct.html'
+            })
             .when('/recurringdepositproducts', {
                 templateUrl: 'views/products/recurringdepositproducts.html'
             })
@@ -343,6 +394,9 @@
                 templateUrl: 'views/products/createrecurringdepositproduct.html'
             })
             .when('/editrecurringdepositproduct/:productId', {
+                templateUrl: 'views/products/editrecurringdepositproduct.html'
+            })
+            .when('/recurringdepositproducts/:productId/:action', {
                 templateUrl: 'views/products/editrecurringdepositproduct.html'
             })
             .when('/createinterestratechart/:productId/:productName/:productType', {
@@ -362,6 +416,9 @@
             })
             .when('/viewoffice/:id', {
                 templateUrl: 'views/organization/viewoffice.html'
+            })
+            .when('/viewproductcategory/:id', {
+                templateUrl: 'views/products/viewproductcategory.html'
             })
             .when('/editoffice/:id', {
                 templateUrl: 'views/organization/editoffice.html'
@@ -790,6 +847,9 @@
                 templateUrl: 'views/products/createcharge.html'
             })
             .when('/editcharge/:id', {
+                templateUrl: 'views/products/editcharge.html'
+            })
+            .when('/charges/:id/:action', {
                 templateUrl: 'views/products/editcharge.html'
             })
             .when('/productivesheet/:officeId/:officeName/:meetingDate/:staffId', {

@@ -22,11 +22,13 @@
             scope.hideResult = false;
             scope.rescheduleData = function(){                
             scope.loanRescheduleData = [];
+            scope.showBackDatedSearchParameters= false;
             scope.checkForBulkLoanRescheduleApprovalData = [];
                 resourceFactory.loanRescheduleResource.getAll({command:'pending'}, function (data) {
                     scope.loanRescheduleData = data;
                 });
             };
+            scope.backDatedTemplate = {};
             scope.rescheduleData();
 
             resourceFactory.checkerInboxResource.get({templateResource: 'searchtemplate'}, function (data) {
@@ -586,7 +588,6 @@
                 location.path('viewclient/' + id);
             };
 
-
             scope.search = function () {
                 scope.isCollapsed = true;
                 var reqFromDate = dateFilter(scope.date.from, 'yyyy-MM-dd');
@@ -1144,6 +1145,153 @@
                         route.reload();
                 });
             };
+            scope.backDatedTypeOption = [{'name':'REPAYMENT','val':'REPAYMENT'},{'name':'FORECLOSURE','val':'FORECLOSURE'},{'name':'CORRECTION/UNDO','val':'ADJUST,RECTIFY'}];
+
+            scope.backDatedFormData = {};
+            scope.getBackDatedData = function(errorData){
+                var params = {};
+                scope.backDated.masterCheckbox = false;
+                scope.showBackDatedSearchParameters= true;
+                scope.backDatedTransactionsList = [];
+                params.actionName = 'REPAYMENT,ADJUST,RECTIFY,FORECLOSURE';
+                params.includeJson = true;
+                if(scope.backDatedFormData.officeId){
+                   params.officeId = scope.backDatedFormData.officeId;
+                }
+                if(scope.backDatedFormData.fromDate){
+                    params.makerDateTimeFrom = dateFilter(scope.backDatedFormData.fromDate, 'yyyy-MM-dd');
+                }
+                if(scope.backDatedFormData.toDate){
+                    params.makerDateTimeTo = dateFilter(scope.backDatedFormData.toDate, 'yyyy-MM-dd');
+                }
+                if(scope.backDatedFormData.type){
+                    params.actionName = scope.backDatedFormData.type;
+                }
+                scope.backDatedTransactions(params,errorData);
+            }
+
+            scope.viewData = function(){
+                scope.showBackDatedSearchParameters= true;
+            }
+            scope.showApproveButton = function(){
+                for(var i in scope.backDatedTransactionsList){
+                    if(scope.backDatedTransactionsList[i].checked && scope.backDatedTransactionsList[i].checked==true){
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            scope.errorExist = false;
+
+            scope.backDatedTransactions = function(params, errorData){
+                scope.showBackDatedSearchParameters= false;
+                scope.errorExist = false;
+                resourceFactory.checkerInboxResource.search(params, function (data) {
+                    scope.backDatedTransactionsList = data;
+                    for(var i in scope.backDatedTransactionsList ){
+                       var obj = JSON.parse(scope.backDatedTransactionsList[i].commandAsJson);
+                       if(obj.transactionAmount==undefined){
+                            scope.backDatedTransactionsList[i].transactionAmount = 'N/A';
+                       }else if(scope.backDatedTransactionsList[i].actionName=='ADJUST'){
+                            if(obj.transactionAmount==0){
+                                scope.backDatedTransactionsList[i].transactionAmount = 'N/A';
+                                scope.backDatedTransactionsList[i].actionName='UNDO';
+                            }else{
+                                scope.backDatedTransactionsList[i].transactionAmount = obj.transactionAmount;
+                                scope.backDatedTransactionsList[i].actionName='CORRECTION';
+                            }
+                       }else{
+                           scope.backDatedTransactionsList[i].transactionAmount = obj.transactionAmount;
+                       }
+                       if(scope.backDatedTransactionsList[i].actionName=='RECTIFY'){
+                            scope.backDatedTransactionsList[i].actionName='CORRECTION';
+                       }
+                       scope.backDatedTransactionsList[i].transactionDate = obj.transactionDate;
+                       scope.backDatedTransactionsList[i].note = obj.note;
+                       scope.backDatedTransactionsList[i].checked = false;
+                       if(errorData!=null && errorData[scope.backDatedTransactionsList[i].id] && errorData[scope.backDatedTransactionsList[i].id].length>0){
+                            scope.backDatedTransactionsList[i].errMsg = errorData[scope.backDatedTransactionsList[i].id];
+                            scope.errorExist = true;                           
+                       }
+                    }
+                });
+            }
+
+            scope.backdatemodel = function () {
+
+                $modal.open({
+                        templateUrl: 'backdated.html',
+                        controller: BackDatedCtrl,
+                        resolve: {
+                            items: function () {
+                                return scope.backDatedTemplate;
+                            }
+                        }
+                    });
+            };
+            
+            scope.backDated = {};
+            scope.backDated.masterCheckbox = false;
+            
+
+            scope.backDatedAllCheckBoxesMet = function() {
+                var newValue = !scope.backDated.masterCheckbox;
+                if(!angular.isUndefined(scope.backDatedTransactionsList)) {
+                    for (var i = scope.backDatedTransactionsList.length - 1; i >= 0; i--) {
+                        scope.backDatedTransactionsList[i].checked = newValue;
+                    };
+                }
+            }
+            scope.getTotalCount = function(){
+                var totalCount = 0;
+                for(var i in scope.backDatedTransactionsList){                        
+                    if(scope.backDatedTransactionsList[i].checked==true){
+                        totalCount++;
+                    }
+                }
+                return totalCount;
+            }
+            var BackDatedCtrl = function ($scope, $modalInstance, items) {
+                $scope.backdatedTxn = function () {
+                    scope.batchRequests = [];
+                    var reqId = 1;
+                    var d = {};
+                    var bodyData = JSON.stringify(d);
+                    var processedCount = 0;
+                    var totalCount = scope.getTotalCount();
+                    var failedList = {};                    
+                    for(var i in scope.backDatedTransactionsList){                        
+                        if(scope.backDatedTransactionsList[i].checked==true){
+                            resourceFactory.checkerInboxResource.save({templateResource: scope.backDatedTransactionsList[i].id, command: "approve"}, {}, function (data) {
+                                processedCount++;
+                                if(totalCount==processedCount){
+                                    scope.getBackDatedData(failedList);
+                                }
+                            }, function (data) {
+                                processedCount++;
+                                var url = data.config.url;
+                                if(angular.isDefined(url)){
+                                    var n = url.lastIndexOf("/");
+                                    var res = url.substr(n+1);                                    
+                                    if(data.data.errors.length>0){
+                                       var errMsg =  data.data.errors[0].userMessageGlobalisationCode;
+                                        failedList[res]=errMsg;
+                                    }
+                                }
+                                if(totalCount==processedCount){
+                                    scope.getBackDatedData(failedList);
+                                }
+                            });
+
+                        }
+                    }
+                    $modalInstance.close('delete');
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            }
 
         }
     });

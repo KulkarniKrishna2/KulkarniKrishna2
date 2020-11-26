@@ -9,8 +9,13 @@
     </div>
 </div>
 <div class="pull-right">
-    <div class="btn-group">
-        <a href="#/editsavingproduct/{{savingproduct.id}}" class="btn btn-primary" has-permission='UPDATE_SAVINGSPRODUCT'><i class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
+    <div class="col pull-right">
+        <a href="#/savingproducts/{{savingproduct.id}}/clone" class="btn btn-primary"
+            has-permission='CREATE_SAVINGSPRODUCT'><i
+                class="icon-copy icon-white"></i>{{'label.button.clone' | translate}}</a>
+        <a href="#/savingproducts/{{savingproduct.id}}/edit" class="btn btn-primary"
+            has-permission='UPDATE_SAVINGSPRODUCT'><i
+                class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
     </div>
 </div>
 <div class="col-md-12">

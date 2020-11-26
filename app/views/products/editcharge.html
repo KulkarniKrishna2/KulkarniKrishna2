@@ -3,11 +3,12 @@
     <ul class="breadcrumb">
         <li><a href="#/products">{{'label.anchor.products' | translate}}</a></li>
         <li><a href="#/charges">{{'label.anchor.charges' | translate}}</a></li>
-        <li class="active">{{'label.anchor.editcharge' | translate}}</li>
+        <li class="active">
+            {{isCloneChargeProduct == undefined ? 'label.anchor.editcharge' :'label.anchor.clone.charge' | translate}}</li>
     </ul>
     <form name="editchargeform" novalidate class="form-horizontal well" rc-submit="submit()">
         <fieldset>
-            <legend>{{'label.heading.editcharge' | translate}}</legend>
+            <legend> {{isCloneChargeProduct == undefined ? 'label.heading.editcharge' :'label.heading.clone.charge' | translate}}</legend>
             <div class="form-group">
                 <label class="control-label col-sm-2">{{'label.input.chargesappliesto' | translate}}<span
                         class="required">*</span></label>
@@ -518,7 +519,8 @@
 
                 </div>
             <div class="col-md-offset-3">
-                <a id="cancel" href="#/viewcharge/{{template.id}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                <a id="cancel" href="#/viewcharge/{{template.id}}"
+                    class="btn btn-default">{{'label.button.cancel' | translate}}</a>
                 <button id="save" type="submit" class="btn btn-primary" has-permission='UPDATE_CHARGE'>{{'label.button.save' | translate}}</button>
             </div>
         </fieldset>

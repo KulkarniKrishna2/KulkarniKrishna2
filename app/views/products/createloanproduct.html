@@ -933,7 +933,7 @@
     <div class="col-sm-2">
         <select id="daysInMonthType" class="form-control" ng-model="formData.daysInMonthType"
                 ng-options="type.id as type.value for type in product.daysInMonthTypeOptions"
-                value="{{type.id}}"></select>
+                value="{{type.id}}" data-ng-change="createChangeDaysInMonthType()"></select>
     </div>
 </div>
 <div class="form-group">
@@ -942,6 +942,17 @@
        <select id="weeksInYearType" class="form-control" ng-model="formData.weeksInYearType"
                     ng-options="type.id as type.value for type in product.weeksInYearTypeOptions"
                     value="{{type.id}}"></select>
+    </div>
+
+    <label class="control-label col-sm-2 col-sm-offset-2" ng-if="formData.daysInMonthType === 30">{{ 'label.input.partial.period.type' |
+        translate }}<span class="required">*</span>
+        <i class="icon-question-sign" tooltip="{{'label.tooltip.partial.period.type' | translate}}"
+           tooltip-append-to-body="true"></i>
+    </label>
+    <div class="col-sm-2" ng-if="formData.daysInMonthType === 30">
+        <select id="daysInMonthType" class="form-control" ng-model="formData.partialPeriodType"
+                ng-options="type.id as type.value for type in product.partialPeriodTypeOptions"
+                value="{{type.id}}"></select>
     </div>
 </div>
 

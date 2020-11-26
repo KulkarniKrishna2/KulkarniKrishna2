@@ -11,7 +11,9 @@
             scope.toAccounts = [];
             scope.toOwnAccounts = [];
             scope.displayAccountType = params.fromAccountType;
-
+            scope.backDatedTxn = false;
+            scope.backDatedTxnError = false;
+            scope.backDatedReasonMandatory = scope.response.uiDisplayConfigurations.loanAccount.isMandatory.backDatedReason;
             scope.back = function () {
                 window.history.back();
             };
@@ -30,6 +32,29 @@
                 scope.uiData.maxRestrictDate = new Date();
                 scope.formData.valueDate = scope.uiData.maxRestrictDate;
             });
+
+            scope.$watch('formData.transactionDate', function() {
+                scope.backDatedTxn = false;
+                scope.backDatedTxnError = false;
+                var txndate = dateFilter(scope.formData.transactionDate, scope.df) ;
+                txndate = txndate+"";
+                var date = dateFilter(new Date(), scope.df) ;
+                date = date+"";
+                if(!(txndate==date) && scope.backDatedReasonMandatory==true){
+                    scope.backDatedTxn = true;
+                }
+            });
+
+            scope.checkNote = function(){
+                if(scope.backDatedTxn==true){
+                    if(scope.formData.note.length>0){
+                        scope.backDatedTxnError = false;
+                    }else{
+                        scope.backDatedTxnError = true;
+                    }
+                            
+                }                
+            }
 
             scope.changeClient = function (client) {
                 var fields = client.split(" ");
@@ -73,6 +98,11 @@
             scope.submit = function () {
                 if(_.isUndefined(routeParams.transactionId)){
                     return;
+                }
+                scope.backDatedTxnError = false;
+                if(scope.backDatedTxn==true && (this.formData.note==undefined || this.formData.note=="")){
+                    scope.backDatedTxnError = true;
+                    return false;
                 }
                 var requestFormData = {};
                 requestFormData.transactionDate = dateFilter(scope.formData.transactionDate, scope.df);
