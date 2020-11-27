@@ -24,12 +24,18 @@
             <tr class="graybg">
                 <th>{{'label.heading.loanproduct' | translate}}</th>
                 <th>{{'label.heading.roundingmode' | translate}}</th>
+                <th>{{'label.heading.installmentroundingmode' | translate}}</th>
+                <th>{{'label.heading.taxroundingmode' | translate}}</th>
+                <th>{{'label.heading.adjustedroundingmode' | translate}}</th>
                 <th>{{'label.heading.actions' | translate}}</th>
             </tr>
         </thead>
             <tr ng-repeat="mapping in productMappings">
                 <td>{{mapping.loanProductData.name}}</td>
                 <td>{{mapping.roundingMode.value}}</td>
+                <td>{{mapping.installmentRoundingMode.value}}</td>
+                <td>{{mapping.taxRoundingMode.value}}</td>
+                <td>{{mapping.adjustedRoundingMode.value}}</td>
                 <td>
                     <div class="btn-group">
                         <a type="button" has-permission="READ_LOAN_PRODUCT_ROUNDING_MODE_MAPPING" href="#/viewloanproductroundingemapping/{{mapping.id}}" class="btn btn-primary" >

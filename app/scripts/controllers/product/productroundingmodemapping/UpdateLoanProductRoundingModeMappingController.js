@@ -11,7 +11,19 @@
                     scope.roundingModeTypes = data.roundingModeTypes;
                     scope.productOptions = data.productOptions;
                     scope.formData.productId = data.loanProductData.id;
-                    scope.formData.roundingMode = data.roundingMode.id;
+                    if(data.roundingMode){
+                        scope.formData.roundingMode = data.roundingMode.id;
+                    }
+                    if(data.installmentRoundingMode){
+                        scope.formData.installmentRoundingMode = data.installmentRoundingMode.id;
+                    }
+                    if(data.taxRoundingMode){
+                        scope.formData.taxRoundingMode = data.taxRoundingMode.id;
+                    }
+                    if(data.adjustedRoundingMode){
+                        scope.formData.adjustedRoundingMode = data.adjustedRoundingMode.id;
+                    }                    
+                    
                 });
             };
 
