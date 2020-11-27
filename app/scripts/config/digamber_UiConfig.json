@@ -134,6 +134,12 @@
 				"villageOptions": true,
 				"staffOptions": true
 			}
+		},
+		"loanAccount": {
+			"isShowField": {
+				"interestRate": false,
+				"flatInterestRate": false
+			}
 		}
 	}
 }

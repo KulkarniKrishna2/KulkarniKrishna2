@@ -65,7 +65,9 @@
 				"nextRepaymentDateDisburseScreen": false,
 				"adjustRepaymentDateDisburseScreen": false,
 				"retryBankTransaction": true,
-				"isDeferPaymentsForHalfTheLoanTerm": false
+				"isDeferPaymentsForHalfTheLoanTerm": false,
+				"interestRate" : true,
+				"flatInterestRate": true
 			},
 			"isReadOnlyField": {
 				"externalId": false,
@@ -558,7 +560,8 @@
 				"interestRatePerPeriod": false,
 				"disbursementPaymentMode": false,
 				"amountForUpfrontCollection": false,
-				"disbursementPaymentType":false
+				"disbursementPaymentType":false,
+				"loanOfficer": false
 			},
 			"isMandatory": {
 				"trancheData": false,
