@@ -131,7 +131,7 @@
                     <span ng-show="isElemMandatory('bankName')" class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input name="bankName" id="bankName" ng-model="formData.bankName"
+                    <input name="bankName" id="bankName" ng-model="formData.bankName" ng-disabled="isElemReadOnly('bankName')"
                            type="text" autocomplete="off" ng-pattern="regexPattern('bankName')" class="form-control" ng-required="isElemMandatory('bankName')"/>
                 </div>
                 <div class="col-sm-2">
@@ -145,7 +145,7 @@
                 <label class="control-label col-sm-3" >{{'label.input.branchName' | translate}}
                     <span ng-show="isElemMandatory('branchName')" class="required">*</span></label>
                 <div class="col-sm-3">
-                    <input name="branchName" id="branchName" ng-model="formData.branchName"
+                    <input name="branchName" id="branchName" ng-model="formData.branchName" ng-disabled="isElemReadOnly('branchName')"
                            type="text" autocomplete="off" ng-pattern="regexPattern('bankCity')" ng-required="isElemMandatory('branchName')" class="form-control"/>
                 </div>
                 <div class="col-sm-2">
@@ -160,7 +160,7 @@
                     <span ng-show="isElemMandatory('bankCity')" class="required">*</span></label>
 
                 <div class="col-sm-3">
-                    <input name="bankCity" id="bankCity" ng-model="formData.bankCity"
+                    <input name="bankCity" id="bankCity" ng-model="formData.bankCity" ng-disabled="isElemReadOnly('bankCity')"
                            type="text" autocomplete="off" ng-pattern="regexPattern('bankCity')" class="form-control" ng-required="isElemMandatory('bankCity')"/>
                 </div>
                 <div class="col-sm-2">
