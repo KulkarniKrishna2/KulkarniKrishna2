@@ -13,11 +13,17 @@
             <tr class="graybg">
                 <th>{{'label.heading.loanproduct' | translate}}</th>
                 <th>{{'label.heading.roundingmode' | translate}}</th>
+                <th>{{'label.heading.installmentroundingmode' | translate}}</th>
+                <th>{{'label.heading.taxroundingmode' | translate}}</th>
+                <th>{{'label.heading.adjustedroundingmode' | translate}}</th>
             </tr>
         </thead>
             <tr class="pointer-main">
                 <td>{{productMapping.loanProductData.name}}</td>
                 <td>{{productMapping.roundingMode.value}}</td>
+                <td>{{productMapping.installmentRoundingMode.value}}</td>
+                <td>{{productMapping.taxRoundingMode.value}}</td>
+                <td>{{productMapping.adjustedRoundingMode.value}}</td>
             </tr>
     </table>
 </div>
