@@ -151,10 +151,10 @@
                                         <tr ng-repeat="document in bankAccountDocuments">
                                             <td>{{document.name}}</td>
                                             <td><span>{{document.fileName}}&nbsp;
-                                            </td>
+                                                <a target="_blank" data-ng-click="viewDocument(document)"><i
+                                                        class="icon-eye-open text-success"></i></a></span>
                                             <td>
-                                                <a target="_blank" data-ng-click="viewDocument(document)"><i class="icon-eye-open text-success"></i></a></span>
-                                                <a ng-show="document.id && isDetailEditable" ng-click="deleteDocument(document.id)"
+                                                <a ng-show="document.id" ng-click="deleteBankAccountDocument(document)"
                                                     has-permission='UPDATE_BANKACCOUNTDETAIL'><i class="icon-remove"></i></a>
                                             </td>
                                         </tr>
@@ -169,10 +169,17 @@
                                 | translate}}</a>
                             <a id="edit" ng-click="edit()" class="btn btn-primary" has-permission='UPDATE_BANKACCOUNTDETAIL'>{{'label.button.edit'
                                 | translate}}</a>
-                            <a  ng-show="showBankAccountActivate" id="activate" class="btn btn-primary" ng-click="activateBankAccountDetail()"
+                            <a  ng-show="showBankAccountActivate" id="activate" class="btn btn-primary" ng-click="activateBankAccountDetails()"
                                 has-permission='ACTIVATE_BANKACCOUNTDETAIL'>{{'label.button.activate' | translate}}</a>
                         </div>
-                        <div>
+                        <div class="col-md-offset-2 paddedleft paddedtop">
+                            <button ng-if="isBankAccountAllowToDeActivate()" id="deactivate" class="btn btn-primary"
+                            ng-click="deActivateBankAccountDetails()"
+                            has-permission='DEACTIVATE_BANKACCOUNTDETAIL'>{{'label.button.deactivate' | translate}}</button>
+
+                            <button ng-if="isBankAccountAllowToReActivate()" id="reactivate" class="btn btn-primary"
+                            ng-click="activateBankAccountDetails()"
+                            has-permission='ACTIVATE_BANKACCOUNTDETAIL'>{{'label.button.reactivate' | translate}}</button>
                         </div>
                     </div>
 
