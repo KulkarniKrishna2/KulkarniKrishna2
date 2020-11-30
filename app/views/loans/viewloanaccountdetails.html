@@ -397,12 +397,12 @@
                                 <td>{{'label.heading.amortization' | translate}}</td>
                                 <td><span class="padded-td">{{loandetails.amortizationType.value}}</span></td>
                             </tr>
-                            <tr ng-show="!loandetails.isLoanProductLinkedToFloatingRate">
+                            <tr ng-show="!loandetails.isLoanProductLinkedToFloatingRate && showInterestRate">
                                 <td>{{'label.heading.interestrate' | translate}}</td>
                                 <td><span class="padded-td">{{loandetails.annualInterestRate}} per annum ({{loandetails.interestRatePerPeriod}}%&nbsp; {{loandetails.interestRateFrequencyType.value}}) - {{loandetails.interestType.value}}({{'label.heading.apr' | translate}})</span>
                                 </td>
                             </tr>
-                            <tr ng-show="loandetails.flatInterestRate != null">
+                            <tr ng-show="loandetails.flatInterestRate != null && showFlatInterestRate">
                                 <td>{{'label.heading.flatinterestrate' | translate}}</td>
                                 <td><span class="padded-td">{{loandetails.flatInterestRate}}%&nbsp; {{loandetails.interestRateFrequencyType.value}}</span>
                                 </td>

@@ -80,6 +80,11 @@
 		"viewClient": {
 			"isHiddenField": {
 				"referenceNo": false
+			},
+			"familyDeatils": {
+				"isMandatoryField": {
+					"dateOfBirth": true
+				}
 			}
 		},
 		"viewLoanAccountDetails": {
@@ -126,6 +131,11 @@
 			},
 			"update" : {
 				"selectMeetingDateType" : "allowCurrentAndFutureDates"
+			}
+		},
+		"loanAccount": {
+			"isReadOnlyField": {
+				"syncRepaymentsWithMeeting": true
 			}
 		}
 	}

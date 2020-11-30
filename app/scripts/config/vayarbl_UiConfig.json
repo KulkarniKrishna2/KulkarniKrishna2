@@ -110,7 +110,8 @@
     },
     "createLoanApplication": {
       "isMandatoryField": {
-        "disbursementPaymentType":true
+        "disbursementPaymentType":true,
+        "loanOfficer":true
       },
       "newLoanApplicationLimitAllowed" : true
     },
