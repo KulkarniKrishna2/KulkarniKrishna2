@@ -32,6 +32,14 @@
                 }
                 return false;
             };
+
+            scope.isElemReadOnly = function(param){
+                if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations[key]
+                    && scope.response.uiDisplayConfigurations[key].isReadOnlyField && scope.response.uiDisplayConfigurations[key].isReadOnlyField[param]){
+                    return true;
+                }
+                return false;
+            };
         }
     });
     mifosX.ng.application.controller('defaultUIConfigController', ['$scope', '$key',mifosX.controllers.defaultUIConfigController]).run(function ($log) {

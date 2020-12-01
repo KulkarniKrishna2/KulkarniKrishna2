@@ -15,8 +15,9 @@
 				"bankAccountNumber": true,
 				"accountType": false,
 				"bankIFSCCode": true,
-				"bankName": false,
-				"bankCity": false,
+				"bankName": true,
+				"branchName": true,
+				"bankCity": true,
 				"mobileNumber": false,
 				"lastTransactionDate": false,
 				"docFile": false
@@ -27,7 +28,12 @@
 				"bankAccountNumber": "^[0-9]{1,50}$"
 			},
 			"showDeleteButton": false,
-			"showInactiveBankAccountDetails":true
+			"showInactiveBankAccountDetails":true,
+			"isReadOnlyField": {
+				"bankName": true,
+				"branchName": true,
+				"bankCity": true
+			}
 		},
 		"workflow": {
 			"AdditionalDetailsValidation": {
