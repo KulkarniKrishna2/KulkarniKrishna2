@@ -38,19 +38,19 @@
             });
             scope.minAge = 0;
             scope.maxAge = 0;
-            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewClient && scope.response.uiDisplayConfigurations.viewClient.familyDeatils) {
-                if (scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isMandatoryField.dateOfBirth) {
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewClient && 
+                scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isValidateDOBField && scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isValidateDOBField.active) {
+                if(scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isMandatoryField.dateOfBirth){
                     scope.isDateOfBirthMandatory = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isMandatoryField.dateOfBirth;
                 }
-                if (scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isValidateDOBField && scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isValidateDOBField.active) {
-                    if (scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isValidateDOBField.ageCriteria.minAge > 0) {
-                        scope.minAge = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isValidateDOBField.ageCriteria.minAge;
-                    }
-                    if (scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isValidateDOBField.ageCriteria.maxAge > 0) {
-                        scope.maxAge = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isValidateDOBField.ageCriteria.maxAge;
-                    }
+                if (scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isValidateDOBField.ageCriteria.minAge > 0) {
+                    scope.minAge = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isValidateDOBField.ageCriteria.minAge;
+
                 }
-            } else {
+                if (scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isValidateDOBField.ageCriteria.maxAge > 0) {
+                    scope.maxAge = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isValidateDOBField.ageCriteria.maxAge;
+                }
+            } else{
                 scope.minAge = 0;
                 scope.maxAge = scope.restrictDate;
 

@@ -306,12 +306,6 @@
                 this.formData.deletePenaltyAccountMappings = deletePenaltyAccountMappings;
 
                 if (!_.isUndefined(scope.isCloneRecurringDepositProduct) && scope.isCloneRecurringDepositProduct) {
-                    if(_.isEmpty(this.formData.minDepositAmount)){
-                        delete  this.formData.minDepositAmount;
-                    }
-                    if(_.isEmpty(this.formData.maxDepositAmount)){
-                        delete  this.formData.maxDepositAmount;
-                    }
                     resourceFactory.recurringDepositProductResource.save(this.formData, function (data) {
                         location.path('/viewrecurringdepositproduct/' + data.resourceId);
                     });

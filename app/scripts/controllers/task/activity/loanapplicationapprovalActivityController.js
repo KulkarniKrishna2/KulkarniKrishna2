@@ -548,8 +548,6 @@
 
                 if(scope.formRequestData.interestRatePerPeriod){
                     this.formValidationData.interestRatePerPeriod = scope.formRequestData.interestRatePerPeriod; 
-                }else{
-                    scope.formValidationData.interestRatePerPeriod = scope.loanaccountinfo.interestRatePerPeriod;
                 }
 
                 this.formValidationData.loanType = scope.inparams.templateType;
@@ -589,16 +587,6 @@
                 this.formValidationData.numberOfRepayments = this.formRequestData.numberOfRepayments;
                 this.formValidationData.repaymentEvery = this.formRequestData.repayEvery;
                 this.formValidationData.repaymentFrequencyType = this.formRequestData.repaymentPeriodFrequencyEnum;
-                scope.formValidationData.amortizationType = scope.loanaccountinfo.amortizationType.id;
-                scope.formValidationData.interestType = scope.loanaccountinfo.interestType.id;
-                scope.formValidationData.interestCalculationPeriodType = scope.loanaccountinfo.interestCalculationPeriodType.id;
-                scope.formValidationData.allowPartialPeriodInterestCalcualtion = scope.loanaccountinfo.allowPartialPeriodInterestCalcualtion;
-                scope.formValidationData.inArrearsTolerance = scope.loanaccountinfo.inArrearsTolerance;
-                scope.formValidationData.graceOnPrincipalPayment = scope.loanaccountinfo.graceOnPrincipalPayment;
-                scope.formValidationData.graceOnInterestPayment = scope.loanaccountinfo.graceOnInterestPayment;
-                scope.formValidationData.graceOnArrearsAgeing = scope.loanaccountinfo.graceOnArrearsAgeing;
-                scope.formValidationData.transactionProcessingStrategyId = scope.loanaccountinfo.transactionProcessingStrategyId;
-                scope.formValidationData.graceOnInterestCharged = scope.loanaccountinfo.graceOnInterestCharged;
 
                 this.formValidationData.locale = scope.optlang.code;
                 this.formValidationData.dateFormat = scope.df;

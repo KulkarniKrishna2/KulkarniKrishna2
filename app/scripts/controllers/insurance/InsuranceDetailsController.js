@@ -34,20 +34,9 @@
                 }
                 if(scope.claimStatusForNavigate == 'intimationapprovalpending') {
                     scope.rejectTabToBeshown = true;
-                    scope.approvalTabToBeshown = true;
                 } else {
                     scope.rejectTabToBeshown = false;
-                    scope.approvalTabToBeshown = false;
                 }
-                var searchConditions = {};
-                searchConditions.active = true;
-                resourceFactory.getInsuranceDetailsResource.getActiveInuranceData({ claimStatus: cliamStatus, searchConditions: searchConditions }, {},
-                    function (data) {
-                        scope.insuranceData = data;
-                    });
-            }
-
-            scope.fetchIntimationapprovalpendingInsuranceData = function (cliamStatus) {
                 var searchConditions = {};
                 searchConditions.active = true;
                 resourceFactory.getInsuranceDetailsResource.getActiveInuranceData({ claimStatus: cliamStatus, searchConditions: searchConditions }, {},

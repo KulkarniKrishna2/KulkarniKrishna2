@@ -278,52 +278,6 @@
                     scope.isEmailIdMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.emailId;
                 }
 
-                scope.minAge = 0;
-                scope.maxAge = 0;
-                scope.dateOfBirthNotInRange = false;
-                if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient && 
-                    scope.response.uiDisplayConfigurations.createClient.isValidateDOBField && scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.active) {
-                    if (scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.ageCriteria.minAge > 0) {
-                        scope.minAge = scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.ageCriteria.minAge;
-    
-                    }
-                    if (scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.ageCriteria.maxAge > 0) {
-                        scope.maxAge = scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.ageCriteria.maxAge;
-                    }
-                } else{
-                    scope.minAge = 0;
-                    scope.maxAge = scope.restrictDate;
-    
-                }
-                scope.minDateOfBirth = getMinimumRestrictedDate(new Date());
-                scope.maxDateOfBirth = getMaximumRestrictedDate(new Date());
-                scope.displayAge = false;
-                
-                scope.$watch('first.dateOfBirth', function(newValue, oldValue){
-                    if(scope.first.dateOfBirth != null)
-                    {
-                        var ageDifMs = Date.now() - scope.first.dateOfBirth.getTime();
-                        var ageDifMs = Date.now() - scope.first.dateOfBirth.getTime();
-                        var ageDate = new Date(ageDifMs); // miliseconds from epoch
-                        scope.displayAge = true;
-                        scope.age = Math.abs(ageDate.getUTCFullYear() - 1970);
-                    }else{
-                        scope.displayAge = false;
-                    }
-                });
-
-                function getMaximumRestrictedDate(restrictedDate) {
-    
-                    restrictedDate.setYear(restrictedDate.getFullYear() - scope.minAge);
-                    return restrictedDate;
-                };
-    
-                function getMinimumRestrictedDate(restrictedDate) {
-    
-                    restrictedDate.setYear(restrictedDate.getFullYear() - scope.maxAge);
-                    return restrictedDate;
-                };
-
                 resourceFactory.clientTemplateResource.get(requestParams, function(data) {
                      scope.offices = data.officeOptions;
                      scope.staffs = data.staffOptions;
@@ -855,26 +809,6 @@
                 delete this.addClientformData.firstname;
                 delete this.addClientformData.middlename;
                 delete this.addClientformData.lastname;
-            }
-
-            if(!scope.showNonPersonOptions && scope.first.dateOfBirth && scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.active) {
-                if(!(scope.first.dateOfBirth < scope.maxDateOfBirth && scope.first.dateOfBirth > scope.minDateOfBirth)){
-                    scope.dateOfBirthNotInRange = true;
-                } else{
-                    scope.dateOfBirthNotInRange = false;
-                }
-            } else if(scope.showNonPersonOptions && scope.first.dateOfBirth && scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.forNonPerson &&scope.response.uiDisplayConfigurations.createClient.forNonPerson.isValidateDOBField.active){
-                if(!(scope.first.dateOfBirth < scope.maxNonPersonDateOfIncorporation && scope.first.dateOfBirth > scope.minNonPersonDateOfIncorporation)){
-                    scope.dateOfBirthNotInRange = true;
-                } else{
-                    scope.dateOfBirthNotInRange = false;
-                }
-            } else {
-                scope.dateOfBirthNotInRange = false;
-            }
-
-            if(scope.dateOfBirthNotInRange){
-                return false;
             }
 
             if (scope.first.incorpValidityTillDate) {
