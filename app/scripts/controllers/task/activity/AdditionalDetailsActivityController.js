@@ -1274,7 +1274,6 @@
                         if (!_.isUndefined(data[0])) {
                             $scope.bankAccountDetailsId = data[0].id;
                             populateDetails();
-                            getBankAccountDocuments();
                         } else {
                             populateTemplate();
                         }
@@ -1301,6 +1300,7 @@
                         $scope.bankData = data;
                         $scope.bankAccountTypeOptions = $scope.bankData.bankAccountTypeOptions;
                         constructBankAccountDetails();
+                        getBankAccountDocuments();
                     });
                 }
 
@@ -1362,7 +1362,7 @@
                         entityId: $scope.entityId,
                         bankAccountDetailsId: getBankAccountDetails()
                     }, function (data) {
-                        $scope.bankAccountDocuments = data.bankAccountDocuments || [];
+                        $scope.bankAccountDocuments = data.bankAccountDocuments;
                         for (var i = 0; i < $scope.bankAccountDocuments.length; i++) {
                             var docs = {};
                             if ($scope.bankAccountDocuments[i].storage && $scope.bankAccountDocuments[i].storage.toLowerCase() == 's3') {
@@ -1550,13 +1550,11 @@
                                             bankAccountDetailsId: getBankAccountDetails()
                                         }, bankAccountDetails.bankAccFormData, function (data) {
                                             populateDetails();
-                                            getBankAccountDocuments();
                                             reComputeProfileRating($scope.clientId);
                                         });
                                     }
                                 });
                                 $modalInstance.close('upload');
-                                getBankAccountDocuments();
                             }
                         }
                     };
@@ -1606,7 +1604,6 @@
                         bankAccountDetailsId: getBankAccountDetails()
                     }, {}, function (data) {
                         populateDetails();
-                        getBankAccountDocuments();
                         enableShowSummary();
                     });
                 };
@@ -1618,7 +1615,6 @@
                         bankAccountDetailsId: getBankAccountDetails()
                     }, {}, function (data) {
                         populateDetails();
-                        getBankAccountDocuments();
                     });
                 };
 
