@@ -1148,7 +1148,7 @@
             scope.backDatedTypeOption = [{'name':'REPAYMENT','val':'REPAYMENT'},{'name':'FORECLOSURE','val':'FORECLOSURE'},{'name':'CORRECTION/UNDO','val':'ADJUST,RECTIFY'}];
 
             scope.backDatedFormData = {};
-            scope.getBackDatedData = function(errorData){
+            scope.getBackDatedData = function(){
                 var params = {};
                 scope.backDated.masterCheckbox = false;
                 scope.showBackDatedSearchParameters= true;
@@ -1167,26 +1167,16 @@
                 if(scope.backDatedFormData.type){
                     params.actionName = scope.backDatedFormData.type;
                 }
-                scope.backDatedTransactions(params,errorData);
+                scope.backDatedTransactions(params);
             }
 
             scope.viewData = function(){
                 scope.showBackDatedSearchParameters= true;
             }
-            scope.showApproveButton = function(){
-                for(var i in scope.backDatedTransactionsList){
-                    if(scope.backDatedTransactionsList[i].checked && scope.backDatedTransactionsList[i].checked==true){
-                        return true;
-                    }
-                }
-                return false;
-            }
 
-            scope.errorExist = false;
 
-            scope.backDatedTransactions = function(params, errorData){
+            scope.backDatedTransactions = function(params){
                 scope.showBackDatedSearchParameters= false;
-                scope.errorExist = false;
                 resourceFactory.checkerInboxResource.search(params, function (data) {
                     scope.backDatedTransactionsList = data;
                     for(var i in scope.backDatedTransactionsList ){
@@ -1210,10 +1200,6 @@
                        scope.backDatedTransactionsList[i].transactionDate = obj.transactionDate;
                        scope.backDatedTransactionsList[i].note = obj.note;
                        scope.backDatedTransactionsList[i].checked = false;
-                       if(errorData!=null && errorData[scope.backDatedTransactionsList[i].id] && errorData[scope.backDatedTransactionsList[i].id].length>0){
-                            scope.backDatedTransactionsList[i].errMsg = errorData[scope.backDatedTransactionsList[i].id];
-                            scope.errorExist = true;                           
-                       }
                     }
                 });
             }
@@ -1243,50 +1229,24 @@
                     };
                 }
             }
-            scope.getTotalCount = function(){
-                var totalCount = 0;
-                for(var i in scope.backDatedTransactionsList){                        
-                    if(scope.backDatedTransactionsList[i].checked==true){
-                        totalCount++;
-                    }
-                }
-                return totalCount;
-            }
+
             var BackDatedCtrl = function ($scope, $modalInstance, items) {
                 $scope.backdatedTxn = function () {
                     scope.batchRequests = [];
                     var reqId = 1;
                     var d = {};
                     var bodyData = JSON.stringify(d);
-                    var processedCount = 0;
-                    var totalCount = scope.getTotalCount();
-                    var failedList = {};                    
                     for(var i in scope.backDatedTransactionsList){                        
                         if(scope.backDatedTransactionsList[i].checked==true){
                             resourceFactory.checkerInboxResource.save({templateResource: scope.backDatedTransactionsList[i].id, command: "approve"}, {}, function (data) {
-                                processedCount++;
-                                if(totalCount==processedCount){
-                                    scope.getBackDatedData(failedList);
-                                }
+                                
                             }, function (data) {
-                                processedCount++;
-                                var url = data.config.url;
-                                if(angular.isDefined(url)){
-                                    var n = url.lastIndexOf("/");
-                                    var res = url.substr(n+1);                                    
-                                    if(data.data.errors.length>0){
-                                       var errMsg =  data.data.errors[0].userMessageGlobalisationCode;
-                                        failedList[res]=errMsg;
-                                    }
-                                }
-                                if(totalCount==processedCount){
-                                    scope.getBackDatedData(failedList);
-                                }
+                                scope.getBackDatedData();
                             });
-
                         }
                     }
                     $modalInstance.close('delete');
+                    scope.backDatedTransactions();
                 };
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');

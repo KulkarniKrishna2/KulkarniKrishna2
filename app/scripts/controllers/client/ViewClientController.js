@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewClientController: function (scope, routeParams, route, location, resourceFactory, http, $modal, API_VERSION, $rootScope, $upload, dateFilter, commonUtilService, localStorageService,$sce,paginatorUsingOffsetService, popUpUtilService) {
+        ViewClientController: function (scope, routeParams, route, location, resourceFactory, http, $modal, API_VERSION, $rootScope, $upload, dateFilter, commonUtilService, localStorageService,$sce,paginatorUsingOffsetService) {
             
             if(!_.isUndefined($rootScope.isClientAdditionalDetailTabActive)){
                 delete $rootScope.isClientAdditionalDetailTabActive;
@@ -38,8 +38,6 @@
             scope.loancycledetail = [];
             scope.smartCardData = [];
             scope.smartformData = {};
-            scope.displayAddButton = true;
-            scope.isUpdate = false;
             scope.showNoteField = false;
             scope.showSmartcard = true;
             scope.clientId = routeParams.id;
@@ -107,7 +105,11 @@
             if(scope.response && scope.response.uiDisplayConfigurations) {
                 scope.isSavingAccountEnable = scope.response.uiDisplayConfigurations.viewClient.createSavingAccount;
                 scope.activateOnReinitiate = scope.response.uiDisplayConfigurations.viewClient.activateOnReinitiate;
-                scope.hideVillage = scope.response.uiDisplayConfigurations.entityType.isHiddenMenu.village;     
+                scope.hideVillage = scope.response.uiDisplayConfigurations.entityType.isHiddenMenu.village;
+                if (scope.response.uiDisplayConfigurations.workflow && scope.response.uiDisplayConfigurations.workflow.deceasedWorkflow){
+                    scope.showPolicy = scope.response.uiDisplayConfigurations.workflow.deceasedWorkflow.showPolicy;
+                    scope.showMarkAsDeceased = scope.response.uiDisplayConfigurations.workflow.deceasedWorkflow.showMarkAsDeceased;
+                }        
             }
             scope.showViewCBHistoryReport = !scope.response.uiDisplayConfigurations.creditBureau.isHiddenField.viewHistoryCBReportButton;
             scope.limitForCBHistory = scope.response.uiDisplayConfigurations.creditBureau.getEnquiryHistoryLimit;
@@ -454,6 +456,24 @@
                                 icon: "icon-plus",
                                 taskPermissionName: "CREATE_SHAREACCOUNT"
                             });
+                        }
+                        if(scope.showPolicy){
+                            scope.buttons.push({
+                                name: "label.button.viewpolicy",
+                                href: "#/clients",
+                                subhref: "viewpolicy",
+                                icon: "icon-eye-open",
+                                taskPermissionName: "READ_POLICY"
+                            });
+                        }
+                        if(scope.showMarkAsDeceased){
+                            scope.buttons.push({
+                                name: "label.button.markasdeceased",
+                                href: "#/clients",
+                                subhref: "viewdeceased",
+                                icon: "icon-plus",
+                                taskPermissionName: "CREATE_DECEASED_WORKFLOW"
+                            });
                         }   
                     }
                     if (data.status.value == "Pending" || data.status.value == "Active") {
@@ -620,10 +640,10 @@
             };
 
             scope.clientAccountsLoaded = false;
-            scope.getAllClientAccounts = function () {
-                if (!scope.clientAccountsLoaded) {
+            scope.getClientAccounts = function(){
+                if(!scope.clientAccountsLoaded){
                     scope.clientAccountsLoaded = true;
-                    resourceFactory.clientAccountsOverviewResource.get({ clientId: routeParams.id }, function (data) {
+                    resourceFactory.clientAccountsOverviewsResource.get({clientId: routeParams.id}, function (data) {
                         scope.clientAccounts = data;
                         scope.pledges = scope.clientAccounts.pledges;
                         if (data.savingsAccounts) {
@@ -1859,42 +1879,6 @@
               location.path('/viewclient/' + id);   
             };
 
-            scope.getClientLimits = function () {
-             resourceFactory.clientLimitsResource.get({clientId: routeParams.id}, function (data) {
-                        scope.clientLimits = data;
-                        if(!_.isUndefined(scope.clientLimits.superlimit) && scope.clientLimits.superlimit != 0){
-                           scope.displayAddButton = false;
-                           scope.isUpdate = true;
-                        }
-                    });
-            }
-
-            scope.createSuperLimit = function() {
-                var templateUrl = 'views/clients/addsuperlimit.html';
-                var controller = 'AddSuperLimitController';
-                popUpUtilService.openDefaultScreenPopUp(templateUrl, controller, scope);
-                scope.submit() ? scope.displayAddButton = false : scope.displayAddButton = true;
-            }
-
-            scope.editSuperLimit = function() {
-                var templateUrl = 'views/clients/editsuperlimit.html';
-                var controller = 'EditSuperLimitController';
-                popUpUtilService.openDefaultScreenPopUp(templateUrl, controller, scope);
-            }
-
-            scope.createProductCategoryLimit = function() {
-                var templateUrl = 'views/clients/addproductcategorylimit.html';
-                var controller = 'AddProductCategoryLimitController';
-                popUpUtilService.openDefaultScreenPopUp(templateUrl, controller, scope);
-            }
-
-            scope.editProductCategoryLimit = function(limitValue) {
-                var templateUrl = 'views/clients/editproductcategorylimit.html';
-                var controller = 'EditProductCategoryLimitController';
-                scope.limitValue = limitValue;
-                popUpUtilService.openDefaultScreenPopUp(templateUrl, controller, scope);
-            }
-
             scope.lockOrUnLockClient = function () {
                 var action = 'lock';
                 if(scope.client.isLocked){
@@ -1982,7 +1966,7 @@
         }
     });
 
-    mifosX.ng.application.controller('ViewClientController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$http', '$modal', 'API_VERSION', '$rootScope', '$upload', 'dateFilter', 'CommonUtilService', 'localStorageService','$sce','PaginatorUsingOffsetService', 'PopUpUtilService', mifosX.controllers.ViewClientController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewClientController', ['$scope', '$routeParams', '$route', '$location', 'ResourceFactory', '$http', '$modal', 'API_VERSION', '$rootScope', '$upload', 'dateFilter', 'CommonUtilService', 'localStorageService','$sce','PaginatorUsingOffsetService', mifosX.controllers.ViewClientController]).run(function ($log) {
         $log.info("ViewClientController initialized");
     });
 }(mifosX.controllers || {}));

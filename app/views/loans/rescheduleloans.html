@@ -212,84 +212,85 @@
                         <label class="control-label col-sm-2 width20" style="padding-left: 32px;text-align: left;"> or
                         </label>
                     </div>
-                    <div class="form-group" ng-show="introduceGracePeriods" ng-hide="isGLIM==true || specificToInstallment">
-                        <label class="control-label col-sm-2 width20" style="padding-left: 32px;text-align: left;"> or
-                        </label>
-                    </div>
-                    
-                    <div class="form-group" ng-show="introduceGracePeriods" ng-hide="isGLIM==true || specificToInstallment">
-                        <label class="control-label col-sm-2 width20" style="padding-left: 32px;text-align: left;">{{ 'label.input.graceOnInterest' | translate
-                                                    }}&nbsp;({{ 'label.input.postGraceOnInterestUpdateEmi' | translate }})</label>
-                    
-                        <div class="col-sm-3 paddedbottom10">
-                            <input id="postGraceOnInterestUpdateEmi" class="form-control" ng-show="introduceGracePeriods" type="text"
-                                autocomplete="off" ng-model="formData.postGraceOnInterestUpdateEmi">
-                        </div>
-                    </div>
-                    
-                    <div class="form-group" ng-show="introduceGracePeriods" ng-hide="isGLIM==true || specificToInstallment">
-                        <label class="control-label col-sm-2 width20" style="padding-left: 32px;text-align: left;">{{ 'label.input.compound.grace.interest' | translate
-                                                    }}</label>
-                    
-                        <div class="col-sm-3 paddedbottom10">
-                            <input type="checkbox" class="control-label" ng-show="introduceGracePeriods"
-                                ng-model="formData.compoundGraceInterest">
-                        </div>
-                    </div>
-                    
-                    <div class="form-group" data-ng-hide="introduceGracePeriods || specificToInstallment"></div>
-                    
-                    <input type="checkbox" ng-model="extendRepaymentPeriod" ng-hide="isGLIM==true || specificToInstallment"> &nbsp;<span
-                        class="control-label"
-                        ng-hide="isGLIM==true || specificToInstallment">{{ 'label.input.extendRepaymentPeriod' | translate }}&nbsp;</span>
-                    
-                    <div class="form-group">
-                    
-                        <label class="control-label col-sm-2 width20" style="padding-left: 32px;text-align: left;"
-                            ng-show="extendRepaymentPeriod">{{ 'label.input.noofnewrepayments' | translate
-                                                    }}<span ng-show="extendRepaymentPeriod" class="required">*</span>&nbsp;</label>
-                        <div class="col-sm-3 paddedbottom10">
-                            <input id="newrepayments" type="text" autocomplete="off" name="newrepayments" ng-show="extendRepaymentPeriod"
-                                class="form-control" ng-model="formData.extraTerms" ng-required="extendRepaymentPeriod">
-                        </div>
-                        <div class="col-sm-1 paddinglr0px">
-                            <form-validate valattributeform="createloanrescheduleform" valattribute="newrepayments" />
-                        </div>
-                    </div>
-                    
-                    <input type="checkbox" ng-model="adjustinterestrates" ng-hide="isGLIM==true  || specificToInstallment"> &nbsp;<span
-                        class="control-label"
-                        ng-hide="isGLIM==true || specificToInstallment">{{ 'label.input.adjustinterestrates' | translate }}&nbsp;</span>
-                    <div class="form-group" ng-hide="isGLIM==true || specificToInstallment">
-                    
-                        <label class="control-label col-sm-2 width20" style="padding-left: 32px;text-align: left;"
-                            ng-show="adjustinterestrates">{{ 'label.input.newinterestrate' | translate
-                                                    }}<span ng-show="adjustinterestrates" class="required">*</span>&nbsp;</label>
-                        <div class="col-sm-3 paddedbottom10">
-                            <input id="newinterestrate" name="newinterestrate" type="text" autocomplete="off" ng-show="adjustinterestrates"
-                                class="form-control paddedbottom10" ng-model="formData.newInterestRate" ng-required="adjustinterestrates">
-                        </div>
-                        <div class="col-sm-1 paddinglr0px">
-                            <form-validate valattributeform="createloanrescheduleform" valattribute="newinterestrate" />
-                        </div>
-                    </div>
-                    
-                    <input type="checkbox" ng-model="adjustinstallmentamount" ng-hide="isGLIM==true || specificToInstallment"> &nbsp;<span
-                        class="control-label"
-                        ng-hide="isGLIM==true || specificToInstallment">{{ 'label.input.adjustinstallmentamount' | translate }}&nbsp;</span>
-                    <div class="form-group" ng-hide="isGLIM==true || specificToInstallment">
-                    
-                        <label class="control-label col-sm-2 width20" style="padding-left: 32px;text-align: left;"
-                            ng-show="adjustinstallmentamount">{{ 'label.input.newinstallmentamount' | translate
-                                                    }}<span ng-show="adjustinstallmentamount" class="required">*</span>&nbsp;</label>
-                        <div class="col-sm-3 paddedbottom10">
-                            <input id="newInstallmentAmount" name="newInstallmentAmount" type="text" autocomplete="off"
-                                ng-show="adjustinstallmentamount" class="form-control paddedbottom10"
-                                ng-model="formData.newInstallmentAmount" ng-required="adjustinstallmentamount"></div>
-                        <div class="col-sm-1 paddinglr0px">
-                            <form-validate valattributeform="createloanrescheduleform" valattribute="newInstallmentAmount" />
-                        </div>
-                    </div>
+</div>
+<div class="form-group" ng-show="introduceGracePeriods" ng-hide="isGLIM==true || specificToInstallment">
+    <label class="control-label col-sm-2 width20" style="padding-left: 32px;text-align: left;"> or
+    </label>
+</div>
+
+<div class="form-group" ng-show="introduceGracePeriods" ng-hide="isGLIM==true || specificToInstallment">
+    <label class="control-label col-sm-2 width20" style="padding-left: 32px;text-align: left;">{{ 'label.input.graceOnInterest' | translate
+                                }}&nbsp;({{ 'label.input.postGraceOnInterestUpdateEmi' | translate }})</label>
+
+    <div class="col-sm-3 paddedbottom10">
+        <input id="postGraceOnInterestUpdateEmi" class="form-control" ng-show="introduceGracePeriods" type="text"
+            autocomplete="off" ng-model="formData.postGraceOnInterestUpdateEmi">
+    </div>
+</div>
+
+<div class="form-group" ng-show="introduceGracePeriods" ng-hide="isGLIM==true || specificToInstallment">
+    <label class="control-label col-sm-2 width20" style="padding-left: 32px;text-align: left;">{{ 'label.input.compound.grace.interest' | translate
+                                }}</label>
+
+    <div class="col-sm-3 paddedbottom10">
+        <input type="checkbox" class="control-label" ng-show="introduceGracePeriods"
+            ng-model="formData.compoundGraceInterest">
+    </div>
+</div>
+
+<div class="form-group" data-ng-hide="introduceGracePeriods || specificToInstallment"></div>
+
+<input type="checkbox" ng-model="extendRepaymentPeriod" ng-hide="isGLIM==true || specificToInstallment"> &nbsp;<span
+    class="control-label"
+    ng-hide="isGLIM==true || specificToInstallment">{{ 'label.input.extendRepaymentPeriod' | translate }}&nbsp;</span>
+
+<div class="form-group">
+
+    <label class="control-label col-sm-2 width20" style="padding-left: 32px;text-align: left;"
+        ng-show="extendRepaymentPeriod">{{ 'label.input.noofnewrepayments' | translate
+                                }}<span ng-show="extendRepaymentPeriod" class="required">*</span>&nbsp;</label>
+    <div class="col-sm-3 paddedbottom10">
+        <input id="newrepayments" type="text" autocomplete="off" name="newrepayments" ng-show="extendRepaymentPeriod"
+            class="form-control" ng-model="formData.extraTerms" ng-required="extendRepaymentPeriod">
+    </div>
+    <div class="col-sm-1 paddinglr0px">
+        <form-validate valattributeform="createloanrescheduleform" valattribute="newrepayments" />
+    </div>
+</div>
+
+<input type="checkbox" ng-model="adjustinterestrates" ng-hide="isGLIM==true  || specificToInstallment"> &nbsp;<span
+    class="control-label"
+    ng-hide="isGLIM==true || specificToInstallment">{{ 'label.input.adjustinterestrates' | translate }}&nbsp;</span>
+<div class="form-group" ng-hide="isGLIM==true || specificToInstallment">
+
+    <label class="control-label col-sm-2 width20" style="padding-left: 32px;text-align: left;"
+        ng-show="adjustinterestrates">{{ 'label.input.newinterestrate' | translate
+                                }}<span ng-show="adjustinterestrates" class="required">*</span>&nbsp;</label>
+    <div class="col-sm-3 paddedbottom10">
+        <input id="newinterestrate" name="newinterestrate" type="text" autocomplete="off" ng-show="adjustinterestrates"
+            class="form-control paddedbottom10" ng-model="formData.newInterestRate" ng-required="adjustinterestrates">
+    </div>
+    <div class="col-sm-1 paddinglr0px">
+        <form-validate valattributeform="createloanrescheduleform" valattribute="newinterestrate" />
+    </div>
+</div>
+
+<input type="checkbox" ng-model="adjustinstallmentamount" ng-hide="isGLIM==true || specificToInstallment"> &nbsp;<span
+    class="control-label"
+    ng-hide="isGLIM==true || specificToInstallment">{{ 'label.input.adjustinstallmentamount' | translate }}&nbsp;</span>
+<div class="form-group" ng-hide="isGLIM==true || specificToInstallment">
+
+    <label class="control-label col-sm-2 width20" style="padding-left: 32px;text-align: left;"
+        ng-show="adjustinstallmentamount">{{ 'label.input.newinstallmentamount' | translate
+                                }}<span ng-show="adjustinstallmentamount" class="required">*</span>&nbsp;</label>
+    <div class="col-sm-3 paddedbottom10">
+        <input id="newInstallmentAmount" name="newInstallmentAmount" type="text" autocomplete="off"
+            ng-show="adjustinstallmentamount" class="form-control paddedbottom10"
+            ng-model="formData.newInstallmentAmount" ng-required="adjustinstallmentamount"></div>
+    <div class="col-sm-1 paddinglr0px">
+        <form-validate valattributeform="createloanrescheduleform" valattribute="newInstallmentAmount" />
+    </div>
+</div>
 
 <!--<input type="checkbox" ng-model="formData.recalculateInterest"> &nbsp;<span
                             class="control-label">{{ 'label.input.recalculateInterest' +

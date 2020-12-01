@@ -59,8 +59,6 @@
                 scope.hideWriteoff = scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.writeOff;
                 scope.hidePreviewSchedule = scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.previewSchedule;
                 scope.showSavingToDisburse = scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.linkAccountId;
-                scope.showInterestRate = scope.response.uiDisplayConfigurations.loanAccount.isShowField.interestRate;
-                scope.showFlatInterestRate = scope.response.uiDisplayConfigurations.loanAccount.isShowField.flatInterestRate;
                 if (scope.response.uiDisplayConfigurations.viewLoanAccountDetails) {
                     scope.showBankApprovalStatus = scope.response.uiDisplayConfigurations.viewLoanAccountDetails.displayBankApprovalStatus;
                     scope.displayInterestRateFromProduct = scope.response.uiDisplayConfigurations.viewLoanAccountDetails.displayInterestRateFromProduct;

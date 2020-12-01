@@ -308,15 +308,6 @@
                 this.formData.deletePenaltyAccountMappings = deletePenaltyAccountMappings;
 
                 if (!_.isUndefined(scope.isCloneFixedDepositProduct) && scope.isCloneFixedDepositProduct) {
-                    if(_.isEmpty(this.formData.minDepositAmount)){
-                        delete  this.formData.minDepositAmount;
-                    }
-                    if(_.isEmpty(this.formData.maxDepositAmount)){
-                        delete  this.formData.maxDepositAmount;
-                    }
-                    if(this.formData.inMultiplesOfDepositTerm == null){
-                        delete  this.formData.inMultiplesOfDepositTerm;
-                    }
                     resourceFactory.fixedDepositProductResource.save(this.formData, function (data) {
                         location.path('/viewfixeddepositproduct/' + data.resourceId);
                     });

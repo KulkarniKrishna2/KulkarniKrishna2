@@ -5,7 +5,7 @@
 			"isHiddenField": {
 				"fundId": true,
 				"externalId": true,
-				"linkAccountId":false,
+				"linkAccountId": true,
 				"createStandingInstruction": true,
 				"repaymentFrequencyType": true,
 				"repaymentFrequencyNthDayType": true,

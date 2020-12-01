@@ -39,17 +39,7 @@
                                                 </select>
                                         </div>
                                 </div>
-                                <div class="form-group">
-                                        <!--AttachReport-->
-                                        <label class="control-label col-sm-2" for="name">{{'label.heading.attach.report' | translate}}</label>
-                                        <div class="col-sm-3">
-                                                <select id="attachmentReport" name="attachmentReport" ng-model="formData.attachmentReport"
-                                                        ng-options="reportData.reportName as reportData.reportName for reportData in notificationConfigTemplateData.reportData"
-                                                        value="{{reportData.reportName}}" class="form-control" required>
-                                                        <option value="">{{'label.menu.select.attachment.report' | translate}}</option>
-                                                </select>
-                                        </div>
-                                </div>                                     
+                                                                     
                                 <div class="col-md-offset-5">
                                         <a id="cancel" href="#/notification/configuration/{{notificationConfigId}}">
                                             <button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>
