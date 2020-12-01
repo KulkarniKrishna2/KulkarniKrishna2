@@ -15,7 +15,7 @@
     var host = "";
     var portNumber = "";
     var basePath = "";
-    var hostNames = ["confluxcloud.com","finflux.io","finflux.local","tapstart.in"]
+    var hostNames = ["confluxcloud.com","finflux.io","finflux.local","tapstart.in","moneytap.com"]
     
     var hostValidForAutoTenantPickup = function(mainLink){
       var arrayLength = hostNames.length;

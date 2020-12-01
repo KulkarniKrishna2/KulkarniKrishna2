@@ -80,6 +80,11 @@
 		"viewClient": {
 			"isHiddenField": {
 				"referenceNo": false
+			},
+			"familyDeatils": {
+				"isMandatoryField": {
+					"dateOfBirth": true
+				}
 			}
 		},
 		"viewLoanAccountDetails": {
