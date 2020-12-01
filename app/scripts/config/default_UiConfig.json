@@ -787,6 +787,14 @@
 			"isHiddenField": {
 				"editButton":true
 			}
+		},
+		"user": {
+			"isMandatory": {
+				"externalId":true
+			},
+			"isReadOnlyField": {
+				"externalId": true
+			}
 		}
 	}
 }
