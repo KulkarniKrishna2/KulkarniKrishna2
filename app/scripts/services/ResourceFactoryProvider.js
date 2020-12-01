@@ -101,9 +101,6 @@
                     clientAccountsOverviewsResource: defineResource(apiVer + "/clients/:clientId/accounts/overviews", { clientId: '@clientId' }, {
                         getAllClientAccounts: { method: 'GET', params: {} }
                     }),
-                    clientAccountsOverviewResource: defineResource(apiVer + "/clients/:clientId/accounts-overview", { clientId: '@clientId' }, {
-                        getAllClientAccounts: { method: 'GET', params: {} }
-                    }),
                     clientNotesResource: defineResource(apiVer + "/clients/:clientId/notes", { clientId: '@clientId' }, {
                         getAllNotes: { method: 'GET', params: {}, isArray: true }
                     }),
@@ -230,26 +227,6 @@
                     }),
                     DataTablesTemplateResource: defineResource(apiVer + "/datatables/template", {}, {
                         get: { method: 'GET', params: {}, isArray: false }
-                    }),
-                    productCategoriesResource: defineResource(apiVer + "/productcategories", {}, {
-                        getProductCategories: { method: 'GET', params: {}, isArray: true }
-                    }),
-                    categoryResource: defineResource(apiVer + "/productcategories/:categoryId", { categoryId: '@categoryId' }, {
-                        getProductCategory: { method: 'GET', params: {} }
-                    }),
-                    clientLimitsResource: defineResource(apiVer + "/clients/:clientId/limits", { clientId: '@clientId' }, {
-                        get: { method: 'GET', params: {} }
-                    }),
-                    clientSuperLimitResource: defineResource(apiVer + "/clients/:clientId/limits/superlimit", { clientId: '@clientId' }, {
-                        get: { method: 'GET', params: {}, isArray: true },
-                        save : { method: 'POST',params: {} }
-                    }),
-                    clientCategoryLimitsResource: defineResource(apiVer + "/clients/:clientId/limits/categorylimits", { clientId: '@clientId' }, {
-                        get: { method: 'GET', params: {}, isArray: true }
-                    }),
-                    mapCategorytoProductResource: defineResource(apiVer + "/categories/:categoryId/product-mappings", { categoryId: '@categoryId' }, {
-                        save: { method: 'POST', params: {} },
-                        getAllMappedProducts: { method: 'GET', params:{} }
                     }),
                     loanProductResource: defineResource(apiVer + "/loanproducts/:loanProductId/:resourceType", { resourceType: '@resourceType', loanProductId: '@loanProductId' }, {
                         getAllLoanProducts: { method: 'GET', params: {}, isArray: true },

@@ -30,6 +30,16 @@
                                                 <option value="">{{'label.menu.select.notification.type' | translate}}</option>
                                             </select>
                                             </div>
+                                        <div ng-show="formData.notificationType === 'EMAIL'">
+                                        <label class="control-label col-sm-2" for="name">{{'label.heading.attach.report' | translate}}<span class="required">*</span></label>
+                                            <div class="col-sm-3">
+                                            <select id="attachmentReport" name="attachmentReport" ng-model="formData.attachmentReport"
+                                                    ng-options="reportData.reportName as reportData.reportName for reportData in notificationCampaignTemplateData.reportData"
+                                                    value="{{reportData.reportName}}" class="form-control" required>
+                                                <option value="">{{'label.menu.select.attachment.report' | translate}}</option>
+                                            </select>
+                                            </div>
+                                        </div>
                                                                            
                                 </div>  
                     

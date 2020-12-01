@@ -1233,15 +1233,6 @@
                 }
 
                 if(!_.isUndefined(scope.isCloneLoanProduct) && scope.isCloneLoanProduct) {
-                    if(!_.isUndefined(this.formData.interestRatesListPerPeriod) && !this.formData.interestRatesListPerPeriod.length > 0){
-                        delete  this.formData.interestRatesListPerPeriod;
-                    }
-                    if(this.formData.minLoanTerm == null){
-                        delete  this.formData.minLoanTerm;
-                    }
-                    if(this.formData.maxLoanTerm == null){
-                        delete  this.formData.maxLoanTerm;
-                    }
                     resourceFactory.loanProductResource.save(this.formData, function (data) {
                         location.path('/viewloanproduct/' + data.resourceId);
                     });
