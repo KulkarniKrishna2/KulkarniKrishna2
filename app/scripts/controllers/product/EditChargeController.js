@@ -371,6 +371,12 @@
                 }
 
                 if (!_.isUndefined(scope.isCloneChargeProduct) && scope.isCloneChargeProduct) {
+                    if(_.isEmpty(this.formData.minCap)){
+                        delete  this.formData.minCap;
+                    }
+                    if(_.isEmpty(this.formData.maxCap)){
+                        delete  this.formData.maxCap;
+                    }
                     resourceFactory.chargeResource.save(this.formData, function (data) {
                         location.path('/viewcharge/' + data.resourceId);
                     });

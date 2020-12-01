@@ -59,7 +59,8 @@
       },
       "isMandatoryField": {
         "dateOfBirth": true,
-        "mobileNumber":true
+        "mobileNumber":true,
+        "lastName": false
       },
     "defaultGender":"Female"
     },
@@ -71,7 +72,10 @@
       "searchForActivegroups": false
     },
     "createLoanApplication": {
-      "newLoanApplicationLimitAllowed" : true
+      "newLoanApplicationLimitAllowed" : true,
+      "isMandatoryField": {
+        "loanOfficer":true
+      }
     },
     "bankAccountDetails": {
       "isMandatory": {
