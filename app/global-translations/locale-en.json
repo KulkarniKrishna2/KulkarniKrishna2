@@ -8760,8 +8760,6 @@
      "label.heading.comment.by.branch" : "Comment By Branch",
      "validation.msg.EOD_BALANCE_CHECK.note.cannot.be.blank" : "Amounts not matching , comment is manatory",
      
-     "validation.msg.rescheduleloan.adjustedDueDate.cannot.be.blank": "Installment Rescheduled to date does not exist.",
-     "error.msg.loan.refund.failed" : "Refund date can not be before last repayment date",
 
      "------ end of translation file ------": "----------"
 
