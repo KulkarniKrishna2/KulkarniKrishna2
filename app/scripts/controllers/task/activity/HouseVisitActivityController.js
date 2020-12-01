@@ -369,6 +369,7 @@
                 if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.bankAccountDetails) {
                     if (scope.response.uiDisplayConfigurations.bankAccountDetails.isMandatory) {
                         $scope.isMandatoryFields = scope.response.uiDisplayConfigurations.bankAccountDetails.isMandatory;
+                        $scope.isReadOnlyFields = scope.response.uiDisplayConfigurations.bankAccountDetails.isReadOnlyField;
                     }
                 }
 

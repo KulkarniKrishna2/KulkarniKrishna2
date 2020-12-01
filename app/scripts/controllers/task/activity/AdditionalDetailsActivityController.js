@@ -828,6 +828,7 @@
                 if (scope.response && scope.response.uiDisplayConfigurations){
                     if (scope.response.uiDisplayConfigurations.bankAccountDetails) {
                         $scope.isMandatoryFields = scope.response.uiDisplayConfigurations.bankAccountDetails.isMandatory;
+                        $scope.isReadOnlyFields = scope.response.uiDisplayConfigurations.bankAccountDetails.isReadOnlyField;
                     }
                     if(scope.response.uiDisplayConfigurations.workflow && scope.response.uiDisplayConfigurations.workflow.hiddenFields){
                         $scope.showBankAccountActivate = !scope.response.uiDisplayConfigurations.workflow.hiddenFields.bankAccountActivate;
