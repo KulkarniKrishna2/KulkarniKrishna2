@@ -1,8 +1,8 @@
 {
-	"version": "develop",
-	"releasedate": "30/11/2020",
+	"version": "FE-4422",
+	"releasedate": "10/28/2020",
 	"releaseyear": 2020,
 	"tag": "NA",
-	"commit": "2679a48cc",
-	"branch": "develop"
+	"commit": "928598357",
+	"branch": "FE-4422"
 }

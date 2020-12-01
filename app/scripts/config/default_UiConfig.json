@@ -406,12 +406,7 @@
 			},
 			"isMakerTwoStepPresent": false,
 			"showDeleteButton": true,
-			"showInactiveBankAccountDetails":false,
-			"isReadOnlyField": {
-				"bankName": false,
-				"bankCity": false,
-				"branchName": false
-			}
+			"showInactiveBankAccountDetails":false
 		},
 		"paymentDetails": {
 			"isMandatory": {
