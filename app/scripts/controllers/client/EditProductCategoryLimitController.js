@@ -2,10 +2,8 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         EditProductCategoryLimitController: function (scope, routeParams, resourceFactory) {
-
             scope.limit = { locale: "en" };
             scope.formData = {};
-            scope.limit.productCategories = [];
             resourceFactory.productCategoriesResource.getProductCategories(function (data) {
                 scope.productCategories = data;
             });
@@ -13,6 +11,7 @@
             scope.formData.categoryId = scope.limitValue.categoryId;
             scope.formData.categoryLimit = scope.limitValue.categoryLimit;
             scope.submit = function () {
+                scope.limit.productCategories = [];
                 scope.formData.maxAllowedLimit = scope.formData.categoryLimit;
                 scope.limit.productCategories.push(scope.formData);
                 resourceFactory.clientCategoryLimitsResource.save({ clientId: scope.clientId }, scope.limit, function (data) {

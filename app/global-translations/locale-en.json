@@ -8817,6 +8817,8 @@
      "validation.msg.EOD_BALANCE_CHECK.note.cannot.be.blank" : "Amounts not matching , comment is manatory",
      "validation.msg.rescheduleloan.adjustedDueDate.cannot.be.blank": "Installment Rescheduled to date does not exist.",
      "error.msg.loan.refund.failed" : "Refund date can not be before last repayment date",
+     "error.msg.loan.amount.cannot.exceed.client.available.balance": "Loan Amount cannot exceed client's limit balance of `{{params[0].value}}`",
+     "error.msg.withrawal.amount.cannot.exceed.client.category.limit.balance": "Withdrawal Amount cannot exceed client's category limit balance of `{{params[0].value}}`",
      "------ end of translation file ------": "----------"
 
 }
