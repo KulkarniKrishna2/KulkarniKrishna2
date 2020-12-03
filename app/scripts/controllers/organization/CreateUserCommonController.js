@@ -12,6 +12,10 @@
                 roles: []
             };
             scope.isExternalIdRequired = false;
+            scope.isExternalIdMandatory = true; 
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.user) {
+                scope.isExternalIdMandatory = scope.response.uiDisplayConfigurations.user.isMandatory.externalId; 
+            }
             resourceFactory.userTemplateResource.get(function (data) {
                 scope.offices = data.allowedOffices;
                 scope.availableRoles = data.availableRoles;
@@ -77,9 +81,9 @@
                 if (scope.formData.joiningDate) {
                     scope.formData.joiningDate = dateFilter(scope.formData.joiningDate, scope.df);
                 }
-                if((scope.formData.externalId == undefined || scope.formData.externalId.length==0 ) && scope.formData.staffId == undefined){
-                    scope.isExternalIdRequired = true;
-                    return ;
+                scope.isExternalIdRequired = scope.isExternalIdMandatory ? ((scope.formData.externalId == undefined || scope.formData.externalId.length==0 ) && scope.formData.staffId == undefined) : false;
+                if(scope.isExternalIdRequired) {
+                    return;
                 }
                 resourceFactory.userListResource.save(this.formData, function (data) {
                     scope.$emit("submitPerformed", data);
