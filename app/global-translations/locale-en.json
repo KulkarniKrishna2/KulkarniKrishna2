@@ -45,6 +45,7 @@
     "label.heading.template": "Template",
     "label.heading.loanaccount": "Loan Account",
     "label.heading.accountopendate": "Account Opening Date",
+    "label.heading.accountclosedate": "Account Closing Date",
     "label.heading.type": "Type",
     "label.heading.recipient": "Recipient",
     "label.heading.category": "Category",
