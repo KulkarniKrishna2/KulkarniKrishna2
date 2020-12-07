@@ -8644,6 +8644,7 @@
      "validation.msg.loan.glim.transactionAmount.not.greater.than.zero" : "Glim amount must be greater than zero.",
      "validation.msg.loan.disbursement.glim.transactionAmount.cannot.be.blank" : "Glim amount must be greater than zero.",
      "validation.msg.rescheduleloan.adjustedDueDate.cannot.be.blank": "Installment Rescheduled to date does not exist.",
+     "label.message.loan.restructred.calculate.emi.amount":"calculated EMI Amount for Restructure loan:",
      
      "------ end of translation file ------": "----------"
 

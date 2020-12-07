@@ -77,7 +77,8 @@
 				</div>
 				<div class="modal-body">
 					<api-validate></api-validate>
-					<h4 >{{'label.message.loan.already.restructred' | translate}}</h4>
+					<h4 ng-show="isTopupLoan">{{'label.message.loan.already.restructred' | translate}}</h4>
+                    <h4 >{{'label.message.loan.restructred.calculate.emi.amount' | translate}}{{calculateEMIAmount}}</h4>
 					<br>
 					<button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
 					<button class="btn btn-primary" ng-click="confirm()">{{'label.button.confirm' | translate}}</button>

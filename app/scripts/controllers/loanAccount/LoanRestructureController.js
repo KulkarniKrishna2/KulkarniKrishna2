@@ -21,6 +21,10 @@
             };
 
             var LoanRestructureCtrl = function ($scope, $modalInstance, formData) {
+                $scope.isTopupLoan = scope.isTopup;
+                resourceFactory.getLoanRestructureEMI.calculateEMI({},formData, function (data) {
+                $scope.calculateEMIAmount = data.calculateEMIAmount;
+                });
                 $scope.confirm = function () {
                     resourceFactory.submitLoanRestructureResource.save({}, formData, function (data) {
                         $modalInstance.close('delete');
@@ -59,24 +63,15 @@
                 if(scope.restructureData.loanPurposeId){
                     scope.formData.loanPurposeId = scope.restructureData.loanPurposeId;
                 }
-                if(scope.isTopup){
-                    $modal.open({
-                        templateUrl: 'loanrestructure.html',
-                        controller: LoanRestructureCtrl,
-                        resolve: {
-                            formData: function () {
-                                return scope.formData;
-                            }
+                $modal.open({
+                    templateUrl: 'loanrestructure.html',
+                    controller: LoanRestructureCtrl,
+                    resolve: {
+                        formData: function () {
+                            return scope.formData;
                         }
-                    });
-                }else{
-                    resourceFactory.submitLoanRestructureResource.save({}, this.formData, function (data) {
-                        location.path('/viewloanaccount/' + data.resourceId);
-                    });
-                }
-                
-
-                
+                    }
+                });
             }
 
         }
