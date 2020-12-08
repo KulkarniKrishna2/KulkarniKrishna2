@@ -49,6 +49,7 @@
             scope.isLoanPurposeMandatory = false;
             scope.showMoratorium = false;
             scope.showGraceOnArrearsAgeing = true;
+            scope.showLoanPurposeCustomField = false;
 
             if(routeParams.clientId){
                 resourceFactory.clientResource.get({clientId: routeParams.clientId, associations:'hierarchyLookup'}, function (data) {
@@ -1025,7 +1026,9 @@
                 var selectedLoanPurpose = scope.loanPurposeOptions.find(function (loanPurpose) {
                     return loanPurpose.id === loanPurposeId;
                 })
-                scope.showLoanPurposeCustomField = selectedLoanPurpose.isCustom;
+                if(selectedLoanPurpose){
+                    scope.showLoanPurposeCustomField = selectedLoanPurpose.isCustom;
+                }
             }
         }
     });

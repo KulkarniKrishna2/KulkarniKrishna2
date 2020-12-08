@@ -38,6 +38,7 @@
             scope.showUpfrontAmount = true;
             scope.isMandatoryUpfrontAmountCollection = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.amountForUpfrontCollection;
             scope.isEmiPacksEditable = false;
+            scope.showLoanPurposeCustomField = false;
 
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createLoanApplication &&
                 scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField && scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.disbursementPaymentType) {
@@ -743,7 +744,9 @@
                 var selectedLoanPurpose = scope.loanPurposeOptions.find(function (loanPurpose) {
                     return loanPurpose.id === loanPurposeId;
                 })
-                scope.showLoanPurposeCustomField = selectedLoanPurpose.isCustom;
+                if(selectedLoanPurpose){
+                    scope.showLoanPurposeCustomField = selectedLoanPurpose.isCustom;
+                }
             }
         }
     });

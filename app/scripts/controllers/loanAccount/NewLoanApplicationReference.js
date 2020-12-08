@@ -44,6 +44,7 @@
             scope.loanReferenceTrancheData = false;
             scope.isLoanPurposeRequired = false;
             scope.isLoanOfficerRequired = false;
+            scope.showLoanPurposeCustomField = false;
 
             if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createLoanApplication) {
                 if (scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField) {
@@ -240,7 +241,9 @@
                 var selectedLoanPurpose = scope.loanPurposeOptions.find(function (loanPurpose) {
                     return loanPurpose.id === loanPurposeId;
                 })
-                scope.showLoanPurposeCustomField = selectedLoanPurpose.isCustom;
+                if(selectedLoanPurpose){
+                    scope.showLoanPurposeCustomField = selectedLoanPurpose.isCustom;
+                }
             }
 
             scope.calculateTermFrequency = function (){
