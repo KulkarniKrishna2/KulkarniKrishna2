@@ -967,6 +967,9 @@
                 }
                 scope.submitData.formRequestData = scope.formRequestData;
                 scope.submitData.formRequestData.charges = [];
+                if (!scope.submitData.formValidationData.overdueCharges) {
+                    scope.submitData.formValidationData.overdueCharges = []
+                }
                 if (scope.charges.length > 0) {
                     for (var i in scope.charges) {
                         var charge = {};
