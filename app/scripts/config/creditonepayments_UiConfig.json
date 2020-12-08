@@ -15,6 +15,7 @@
 			}
 		},
 		"isMandatoryField": {
+			"dateOfBirth": true,
 			"mobileNumber": true
 		},
 		"isValidMobileNumber": {

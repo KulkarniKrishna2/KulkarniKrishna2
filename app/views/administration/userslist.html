@@ -40,7 +40,7 @@
             <td class="pointer" data-ng-click="routeTo(user.id)">{{user.username}}</td>
             <td class="pointer" data-ng-click="routeTo(user.id)">{{user.firstname}} {{user.lastname}}</td>
             <td class="pointer" data-ng-click="routeTo(user.id)">{{user.email}}</td>
-            <td class="pointer" data-ng-click="routeTo(user.id)">{{user.lastLoginDate}}</td>
+            <td class="pointer" data-ng-click="routeTo(user.id)">{{user.lastLoginDate | date:'medium'}}</td>
             <td class="pointer" data-ng-click="routeTo(user.id)">{{user.officeName}}</td>
             <td class="pointer" ng-if="currentUserType=='deactivatedUser'"><button type="button" class="btn btn-primary"
                     data-ng-click="activateUser(user.id)" has-permission='REACTIVATE_USER'>
