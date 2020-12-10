@@ -817,7 +817,7 @@
                 $scope.displayCashFlow = true;
                 $scope.displaySurveyInfo = true;
                 $scope.surveyName = scope.response.uiDisplayConfigurations.viewClient.takeSurveyName;
-                $scope.isDetailEditable = true;
+                $scope.isDetailEditable = false;
                 $scope.showBankAccountActivate = false;
                 //loan account
                 if (memberParams.activeClientMember.loanAccountBasicData) {
@@ -828,6 +828,7 @@
                 if (scope.response && scope.response.uiDisplayConfigurations){
                     if (scope.response.uiDisplayConfigurations.bankAccountDetails) {
                         $scope.isMandatoryFields = scope.response.uiDisplayConfigurations.bankAccountDetails.isMandatory;
+                        $scope.isReadOnlyFields = scope.response.uiDisplayConfigurations.bankAccountDetails.isReadOnlyField;
                     }
                     if(scope.response.uiDisplayConfigurations.workflow && scope.response.uiDisplayConfigurations.workflow.hiddenFields){
                         $scope.showBankAccountActivate = !scope.response.uiDisplayConfigurations.workflow.hiddenFields.bankAccountActivate;
@@ -1278,7 +1279,6 @@
                         }
                     });
                 }
-
                 init();
 
                 function populateTemplate() {
@@ -1300,6 +1300,7 @@
                         $scope.bankData = data;
                         $scope.bankAccountTypeOptions = $scope.bankData.bankAccountTypeOptions;
                         constructBankAccountDetails();
+                        getBankAccountDocuments();
                     });
                 }
 
@@ -1332,7 +1333,9 @@
                         $scope.bankAccFormData.accountTypeId = $scope.bankAccountTypeOptions[0].id;
                     }
                     $scope.bankAccountData = $scope.bankData;
-                    if($scope.bankData.status.value == 'active'){
+                    if($scope.bankData.status.value == 'initiated'){
+                        $scope.isDetailEditable = true;
+                    }else{
                         $scope.isDetailEditable = false;
                     }
                     if ($scope.bankData.accountNumber != undefined) {
@@ -1351,6 +1354,25 @@
                     if (!_.isUndefined($scope.bankAccountDocuments) && $scope.bankAccountDocuments.length > 0) {
                         $scope.viewDocument($scope.bankAccountDocuments[0]);
                     }
+                }
+
+                function getBankAccountDocuments() {
+                    resourceFactory.bankAccountDetailsDocumentsResource.getAllDocuments({
+                        entityType: $scope.entityType,
+                        entityId: $scope.entityId,
+                        bankAccountDetailsId: getBankAccountDetails()
+                    }, function (data) {
+                        $scope.bankAccountDocuments = data.bankAccountDocuments;
+                        for (var i = 0; i < $scope.bankAccountDocuments.length; i++) {
+                            var docs = {};
+                            if ($scope.bankAccountDocuments[i].storage && $scope.bankAccountDocuments[i].storage.toLowerCase() == 's3') {
+                                docs = $rootScope.hostUrl + API_VERSION + '/' + $scope.bankAccountDocuments[i].parentEntityType + '/' + $scope.bankAccountDocuments[i].parentEntityId + '/documents/' + $scope.bankAccountDocuments[i].id + '/downloadableURL';
+                            } else {
+                                docs = $rootScope.hostUrl + API_VERSION + '/' + $scope.bankAccountDocuments[i].parentEntityType + '/' + $scope.bankAccountDocuments[i].parentEntityId + '/documents/' + $scope.bankAccountDocuments[i].id + '/download';
+                            }
+                            $scope.bankAccountDocuments[i].docUrl = docs;
+                        }
+                    });
                 }
 
                 function getBankAccountDetails() {
@@ -1433,6 +1455,22 @@
                     }
                 };
 
+                $scope.isBankAccountAllowToDeActivate = function () {
+                    return $scope.isBankAccountActivated();
+                }
+
+                $scope.isBankAccountAllowToReActivate = function () {
+                    return $scope.isBankAccountDeActivated();
+                }
+
+                $scope.isBankAccountActivated = function () {
+                    return ($scope.bankData.status.value == 'active');
+                }
+
+                $scope.isBankAccountDeActivated = function () {
+                    return ($scope.bankData.status.value == 'inactive');
+                }
+
                 function enableShowSummary() {
                     $scope.viewConfig.showSummary = true;
                 }
@@ -1440,6 +1478,14 @@
                 function disableShowSummary() {
                     $scope.viewConfig.showSummary = false;
                 };
+
+                function getEntityType() {
+                    return $scope.entityType;
+                }
+
+                function getEntityId() {
+                    return $scope.entityId;
+                }
 
                 $scope.uploadBankAccountDocument = function () {
                     $modal.open({
@@ -1456,6 +1502,7 @@
                             }
                         }
                     });
+                    getBankAccountDocuments();
                 };
 
                 var uploadBankAccountDocumentCtrl = function ($scope, $modalInstance, bankAccountDetails) {
@@ -1482,10 +1529,11 @@
                                 $scope.docformatErrMsg = 'label.error.only.files.of.type.image.are.allowed';
                             } else {
                                 $upload.upload({
-                                    url: $rootScope.hostUrl + API_VERSION + '/' + bankAccountDetails.entityType + '/' + bankAccountDetails.entityId + '/documents',
+                                    url: $rootScope.hostUrl + API_VERSION + '/' + getEntityType() + '/' + getEntityId() + '/bankaccountdetails/' + getBankAccountDetails() + '/documents',
                                     data: $scope.docData,
                                     file: $scope.docFile
                                 }).then(function (data) {
+                                    getBankAccountDocuments();
                                     if (data != undefined) {
                                         documentId = data.data.resourceId;
                                         if (documentId != undefined) {
@@ -1537,6 +1585,37 @@
                         $scope.bankAccFormData.documents.splice($scope.bankAccFormData.documents.indexOf(documentId), 1);
                     }
                     updateData();
+                };
+
+                $scope.deleteBankAccountDocument = function (document) {
+                    resourceFactory.bankAccountDetailsDocumentsResource.delete({
+                        entityType: getEntityType(),
+                        entityId: getEntityId(),
+                        bankAccountDetailsId: getBankAccountDetails()
+                    }, { 'documentId': document.id }, function (data) {
+                        getBankAccountDocuments();
+                    });
+                };
+
+                $scope.activateBankAccountDetails = function () {
+                    resourceFactory.bankAccountDetailsActivateResource.activate({
+                        entityType: $scope.entityType,
+                        entityId: $scope.entityId,
+                        bankAccountDetailsId: getBankAccountDetails()
+                    }, {}, function (data) {
+                        populateDetails();
+                        enableShowSummary();
+                    });
+                };
+
+                $scope.deActivateBankAccountDetails = function () {
+                    resourceFactory.bankAccountDetailsDeActivateResource.deActivate({
+                        entityType: $scope.entityType,
+                        entityId: $scope.entityId,
+                        bankAccountDetailsId: getBankAccountDetails()
+                    }, {}, function (data) {
+                        populateDetails();
+                    });
                 };
 
                 $scope.activateBankAccountDetail = function () {

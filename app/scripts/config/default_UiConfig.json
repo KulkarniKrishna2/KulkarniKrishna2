@@ -407,7 +407,12 @@
 			},
 			"isMakerTwoStepPresent": false,
 			"showDeleteButton": true,
-			"showInactiveBankAccountDetails":false
+			"showInactiveBankAccountDetails":false,
+			"isReadOnlyField": {
+				"bankName": false,
+				"bankCity": false,
+				"branchName": false
+			}
 		},
 		"paymentDetails": {
 			"isMandatory": {
@@ -781,6 +786,14 @@
 		"loanrestructure": {
 			"isHiddenField": {
 				"editButton":true
+			}
+		},
+		"user": {
+			"isMandatory": {
+				"externalId":true
+			},
+			"isReadOnlyField": {
+				"externalId": true
 			}
 		}
 	}
