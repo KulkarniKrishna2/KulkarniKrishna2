@@ -37,7 +37,7 @@
                 } 
             });
             scope.minAge = 0;
-            scope.maxAge = 0;
+            scope.maxAge = 130;
             if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewClient && scope.response.uiDisplayConfigurations.viewClient.familyDeatils) {
                 if (scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isMandatoryField.dateOfBirth) {
                     scope.isDateOfBirthMandatory = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isMandatoryField.dateOfBirth;
