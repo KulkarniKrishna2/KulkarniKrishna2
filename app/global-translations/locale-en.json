@@ -258,6 +258,9 @@
     "label.heading.business.event": "Business Event",
     "label.heading.business.entity": "Business Entity",
     "label.heading.category.details": "Category Details",
+    "label.heading.disable.permission.group": "Disable Permission Group",
+    "label.heading.delete.permission.group": "Delete Permission Group",
+    "label.heading.permission.groups": "Permission Groups",
 
     "#Menu Links": "..",
     "label.menu.selectloanofficer": "Select Staff",
@@ -3489,6 +3492,11 @@
     "label.heading.uploadbulkcollection": "Upload for Transactions",
     "label.anchor.viewportfoliotransactions": "View Portfolio Transactions",
     "label.button.completeportfoliotransactions": "Complete Portfolio Transactions",
+    "label.anchor.view.permission.groups": "View Permission Groups",
+    "label.anchor.view.permission.group": "View Permission Group",
+    "label.anchor.add.permission.group": "Add Permission Group",
+    "label.anchor.edit.permission.group": "Edit Permission Group",
+    "label.anchor.managepermissions": "Manage Permissions",
 
     "#Inputs": "..",
     "label.input.entity": "Entity",
@@ -3618,6 +3626,8 @@
     "label.button.pending.tasks": "Pending Tasks",
     "label.button.addpreferences": "Add Preferences",
     "label.button.addtransactionauthentication": "Add Transaction Authentication",
+    "label.button.add.permission.group": "Add Permission Group",
+    "label.button.edit.permission.group": "Edit Permission Group",
 
     "#Misc Labels": "..",
     "label.selectstatus": "Select status",
@@ -3674,6 +3684,7 @@
     "label.menu.select.data.fetch.report": "Select Data Fetch Report",
     "label.menu.select.notification.type": "Select Notification Type",
     "label.menu.select.attachment.report": "Select Attachment Report",
+    "label.defineormodifypermissiongroupsandassociatedpermissions": "Define or modify permission groups and associated permissions",
 
     "#Enumeration & Error Messages": "..",
     "No.Data.Found": "No data found.",
@@ -3895,6 +3906,8 @@
     "label.heading.authenticationtype": "Authentication Type",
     "label.heading.createtransactionauthentication": "Create Transaction Authentication",
     "label.heading.externalId": "External Id",
+    "label.heading.add.permission.group": "Add Permission Group",
+    "label.heading.edit.permission.group": "Edit Permission Group",
 
 
     "#Anchors": "..",
@@ -3951,6 +3964,7 @@
     "label.anchor.productType": "Product Type",
     "label.anchor.createtransactionauthentication": "Create Transaction Authentication",
     "label.anchor.vouchertype": "Voucher Type",
+    "label.anchor.showpermissiongroupbasedlimits": "Show Permission Group Based Limits",
 
     "#Inputs": "..",
     "label.input.selectproduct": "Select product",
@@ -4126,6 +4140,8 @@
     "label.input.product.name": "Product Name",
     "label.input.minDurationapplicableforalldisbursements": "Is Minimum duartion check applicable for all disbursements",
     "label.checkbox.ischargeamountnoneditable": "Is Amount Non Editable",
+    "label.input.available.permission.groups": "Available Permission Groups",
+    "label.input.selected.permission.groups": "Selected Permission Groups",
 
     "#Buttons": "..",
     "label.button.createcharge": "Create Charge",
