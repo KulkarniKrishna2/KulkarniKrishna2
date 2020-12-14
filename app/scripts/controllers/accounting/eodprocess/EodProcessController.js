@@ -16,7 +16,9 @@
                 resourceFactory.eodProcessResource.getAll({
                     searchConditions: scope.searchConditions,
                     offset: offset,
-                    limit: limit
+                    limit: limit,
+                    orderBy: 'eodDate',
+                    sortOrder : 'DESC'
                 }, callback);
             };
             
@@ -54,13 +56,19 @@
             scope.initiateEOD = function(){
                 location.path('/initiateeodprocess');
             }
-            scope.viewEOD = function(eodProcessId){
+            scope.viewEODWorkflow = function(eodProcessId){
                 location.path('/eodonboarding/create/'+ eodProcessId +'/workflow');
             }
             scope.rejectEOD = function(eodProcessId,index){
                 resourceFactory.eodProcessResource.delete({eodProcessId:eodProcessId},function (data) {
-                    scope.eodProcessDatas.currentPageItems.splice(index,1);
+                    if(data.resourceId){
+                        scope.eodProcessDatas.currentPageItems.splice(index,1);
+                    }
                 });
+            }
+
+            scope.viewEOD = function(eodProcessId){
+                location.path('/vieweodprocess/' + eodProcessId);
             }
         }
     });

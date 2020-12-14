@@ -2211,6 +2211,9 @@
             .when('/viewfinancialofficemapping/:mappingId/officemapping/:id', {
                 templateUrl: 'views/accounting/financialofficemapping/viewfinanacialofficemapping.html'
             })
+            .when('/vieweodprocess/:id', {
+                templateUrl: 'views/accounting/eodprocess/vieweodprocess.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {
