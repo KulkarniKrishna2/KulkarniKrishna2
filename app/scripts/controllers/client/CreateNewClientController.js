@@ -153,6 +153,10 @@
                     if (scope.response.uiDisplayConfigurations.createClient.forNonPerson) {
                         scope.incorporationNumberSize = scope.response.uiDisplayConfigurations.createClient.forNonPerson.incorporationNumberSize;
                     }
+                    if (scope.response.uiDisplayConfigurations.createClient.isDisabled) {
+                        scope.submittedOnDate = scope.response.uiDisplayConfigurations.createClient.isDisabled.submittedOnDate;
+                        scope.activationDate = scope.response.uiDisplayConfigurations.createClient.isDisabled.activationDate;
+                    }
                 }
             }
 
