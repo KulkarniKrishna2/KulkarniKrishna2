@@ -606,6 +606,9 @@
 					"showAllMeetingDates": true,
 					"count": null
 				}
+			},
+			"mandatory":{
+				"loanUtilization": true
 			}
 		},
 		"createOffice": {
