@@ -128,7 +128,7 @@
                             <div class="col-sm-6">
                                 <h4><strong>{{'label.input.insurance.contact.number' | translate}}</strong><span class="required">*</span></h4>
                                     <input name="contactNumber" ng-model="clientDeceased.contactNumber" type="text" autocomplete="off"
-                                    class="form-control" ng-pattern="{{regexFormats.mobileNumberPattern}}" ng-minlength="10" maxlength="10"required/>
+                                    class="form-control" ng-pattern="{{regexFormats.mobileNumberPattern}}" required/>
                                 <div class="col-sm-6">
                                     <span ng-show="editDeceasedDetail.contactNumber.$invalid && editDeceasedDetail.contactNumber.$dirty">
                                         <small class="required" ng-show="editDeceasedDetail.contactNumber.$error.pattern">
