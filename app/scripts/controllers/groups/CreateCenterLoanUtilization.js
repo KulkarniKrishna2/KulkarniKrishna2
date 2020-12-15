@@ -8,7 +8,9 @@
             scope.formData = {};
             scope.formData.loanUtilizationCheckDetails = [];
             scope.submitted = false;
-
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewCenter){
+                scope.loanUtilzationCheckMandatory = scope.response.uiDisplayConfigurations.viewCenter.mandatory.loanUtilization;
+            }
             if (scope.entityType === "center") {
                 resourceFactory.loanUtilizationCheckCenterTemplate.get({centerId: scope.entityId}, function (data) {
                     var data
@@ -179,19 +181,22 @@
                                 }
                             }
                         }
-                        if(!_.isUndefined(scope.formData.loanUtilizationCheckDetails[i].files) && scope.formData.loanUtilizationCheckDetails[i].files.length > 0){
-                            if(scope.formData.loanUtilizationCheckDetails[i].utilizationDetails.size === scope.formData.loanUtilizationCheckDetails[i].files.size){
-                                for(var n in scope.formData.loanUtilizationCheckDetails[i].files){
-                                   if(scope.formData.loanUtilizationCheckDetails[i].files[n]){
-                                      scope.fileFormData.push(scope.formData.loanUtilizationCheckDetails[i].files[n]);
-                                    }
-                                }         
+                        if(scope.loanUtilzationCheckMandatory){
+                            if(!_.isUndefined(scope.formData.loanUtilizationCheckDetails[i].files) && scope.formData.loanUtilizationCheckDetails[i].files.length > 0){
+                                if(scope.formData.loanUtilizationCheckDetails[i].utilizationDetails.size === scope.formData.loanUtilizationCheckDetails[i].files.size){
+                                    for(var n in scope.formData.loanUtilizationCheckDetails[i].files){
+                                       if(scope.formData.loanUtilizationCheckDetails[i].files[n]){
+                                          scope.fileFormData.push(scope.formData.loanUtilizationCheckDetails[i].files[n]);
+                                        }
+                                    }         
+                                }else{
+                                   errorDetails();       
+                                } 
                             }else{
-                               errorDetails();       
-                            } 
-                        }else{
-                            errorDetails();
+                                errorDetails();
+                            }
                         }
+                       
                     }
                 };
                 if(scope.isSubmitAllow){
