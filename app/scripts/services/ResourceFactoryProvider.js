@@ -1785,7 +1785,8 @@
                         initiate: { method: 'POST', params: {} },
                         getAll: { method: 'GET', params: {}, isArray: true },
                         getEodCollections: { method: 'GET', params: {} },
-                        delete: { method: 'DELETE', params: {} }
+                        delete: { method: 'DELETE', params: {} },
+                        get: { method: 'GET', params: {}}
                     }),
                     eodProcessTemplateResource: defineResource(apiVer + "/eodprocess/template", {}, {
                         get: { method: 'GET', params: {} }

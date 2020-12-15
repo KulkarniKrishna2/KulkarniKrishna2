@@ -8836,6 +8836,10 @@
      "error.msg.loan.amount.cannot.exceed.client.available.balance": "Loan Amount cannot exceed client's limit balance of `{{params[0].value}}`",
      "error.msg.withrawal.amount.cannot.exceed.client.category.limit.balance": "Withdrawal Amount cannot exceed client's category limit balance of `{{params[0].value}}`",
      "label.heading.lastlogin.on" : "Your last login was on",
+     "label.heading.view.eod.process": "View EOD process",
+     "label.heading.is.operational.closure.done": "Is Operational Closure done",
+     "label.heading.is.financial.closure.done": "Is Financial Closure done",
+     "error.msg.eod.process.invalid.delete": "EOD process for the office exits at a later date, please delete the same first.",
      
      "------ end of translation file ------": "----------"
 

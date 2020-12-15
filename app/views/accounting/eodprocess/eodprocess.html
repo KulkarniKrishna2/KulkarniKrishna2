@@ -10,6 +10,7 @@
         </div>
     </legend>
     <form ng-submit="search()" class="form-horizontal">
+        <api-validate></api-validate>
         <div class="form-group">
             <label class="control-label col-sm-2">{{'label.input.office' | translate}}</label>
             <div class="col-sm-3">
@@ -79,16 +80,16 @@
                 </thead>
                 <tbody>
                 <tr class="pointer-main" ng-repeat="eodProcess in eodProcessDatas.currentPageItems">
-                    <td class="pointer">{{getOfficeName(eodProcess.officeData.name,eodProcess.officeData.officeReferenceNumber)}}</td>
-                    <td class="pointer">{{eodProcess.eodDate | DateFormat}}</td>
-                    <td class="pointer">{{eodProcess.isOperationalClosureDone}}</td>
-                    <td class="pointer">{{eodProcess.isFinancialClosureDone}}</td>
-                    <td class="pointer" ></td>
-                    <td class="pointer"></td>
-                    <td class="pointer">{{eodProcess.createdBy.lastname}},{{eodProcess.createdBy.firstname}}</td>
+                    <td class="pointer" ng-click="viewEOD(eodProcess.id)">{{getOfficeName(eodProcess.officeData.name,eodProcess.officeData.officeReferenceNumber)}}</td>
+                    <td class="pointer" ng-click="viewEOD(eodProcess.id)">{{eodProcess.eodDate | DateFormat}}</td>
+                    <td class="pointer" ng-click="viewEOD(eodProcess.id)">{{eodProcess.isOperationalClosureDone}}</td>
+                    <td class="pointer" ng-click="viewEOD(eodProcess.id)">{{eodProcess.isFinancialClosureDone}}</td>
+                    <td class="pointer" ng-click="viewEOD(eodProcess.id)"></td>
+                    <td class="pointer" ng-click="viewEOD(eodProcess.id)"></td>
+                    <td class="pointer" ng-click="viewEOD(eodProcess.id)">{{eodProcess.createdBy.lastname}},{{eodProcess.createdBy.firstname}}</td>
                     <td class="pointer">
-                        <button class="btn btn-primary" ng-click="viewEOD(eodProcess.id)" tooltip="{{'label.button.view.eod' | translate}}" has-permission='READ_EOD_PROCESS'><i class="icon-eye-open "></i></button>
-                        <button class="btn btn-danger" ng-click="rejectEOD(eodProcess.id, $index)" tooltip="{{'label.button.reject.eod' | translate}}" has-permission='DELETE_EOD_PROCESS'><i class="icon-remove-circle pointer"></i></button>
+                        <button class="btn btn-primary" ng-click="viewEODWorkflow(eodProcess.id)" tooltip="{{'label.button.view.eod' | translate}}" has-permission='READ_EOD_PROCESS'><i class="icon-eye-open "></i></button>
+                        <button class="btn btn-danger"  data-text="{{'label.heading.confirm.to.reject'}}" data-confirm-popup ng-confirm-success="rejectEOD(eodProcess.id, $index)" tooltip="{{'label.button.reject.eod' | translate}}" has-permission='DELETE_EOD_PROCESS'><i class="icon-remove-circle pointer"></i></button>
                     </td>
                 </tr>
                 </tbody>
