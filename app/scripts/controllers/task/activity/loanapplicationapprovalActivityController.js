@@ -52,6 +52,8 @@
             scope.loanapplicationCBApproved = 201;
             scope.loanapplicationInApproval = 200;
             scope.loanapplicationApproved=300;
+            scope.loanApplicationActive = 400;
+            scope.loanApplicationRejected = 500;
             scope.isShowEditButton = true;
             scope.isMandatoryRepaymentsStartingFromDate = false;
             
@@ -87,7 +89,8 @@
                     if(scope.formData.status.id === scope.loanapplicationSubmitted){
                         scope.loanApplicationSubmittedData();
                     }
-                    if(scope.formData.status.id === scope.loanapplicationInApproval || scope.formData.status.id === scope.loanapplicationApproved){
+                    if (scope.formData.status.id === scope.loanapplicationInApproval || scope.formData.status.id === scope.loanapplicationApproved || scope.formData.status.id === scope.loanApplicationActive
+                        || scope.formData.status.id === scope.loanApplicationRejected){
                         resourceFactory.loanApplicationReferencesResource.getByLoanAppId({
                             loanApplicationReferenceId: scope.loanApplicationReferenceId,
                             command: 'approveddata'
@@ -964,6 +967,9 @@
                 }
                 scope.submitData.formRequestData = scope.formRequestData;
                 scope.submitData.formRequestData.charges = [];
+                if (!scope.submitData.formValidationData.overdueCharges) {
+                    scope.submitData.formValidationData.overdueCharges = []
+                }
                 if (scope.charges.length > 0) {
                     for (var i in scope.charges) {
                         var charge = {};

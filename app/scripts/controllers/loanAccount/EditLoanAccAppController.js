@@ -32,6 +32,7 @@
             scope.isLoanPurposeMandatory = false;
             scope.showGraceOnArrearsAgeing = true;
             scope.showMoratorium = false;
+            scope.showLoanPurposeCustomField = false;
             
             if (scope.response && scope.response.uiDisplayConfigurations) {
                 scope.isProductNameReadOnly = scope.response.uiDisplayConfigurations.editJlgLoan.isReadOnlyField.productName;
@@ -1121,7 +1122,9 @@
                 var selectedLoanPurpose = scope.loanPurposeOptions.find(function (loanPurpose) {
                     return loanPurpose.id === loanPurposeId;
                 })
-                scope.showLoanPurposeCustomField = selectedLoanPurpose.isCustom;
+                if(selectedLoanPurpose){
+                    scope.showLoanPurposeCustomField = selectedLoanPurpose.isCustom; 
+                }
             }
         }
     });
