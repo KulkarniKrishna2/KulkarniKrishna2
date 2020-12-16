@@ -165,8 +165,8 @@
 				"isValidateDOBField": {
 					"active": false,
 					"ageCriteria": {
-						"minAge": "",
-						"maxAge": ""
+						"minAge": "0",
+						"maxAge": "130"
 					}
 				},
 				"isValidateFirstName": {

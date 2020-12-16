@@ -633,7 +633,7 @@
 							<th>{{'label.heading.interestpaid' | translate}}</th>
 							<th>{{'label.heading.overdueamount' | translate}}</th>
 							<th>{{'label.heading.delinquentdays' | translate}}</th>
-							<th>{{'label.heading.isnpa' | translate}}</th>
+							<th>{{'label.heading.accountclosedate' | translate}}</th>
 					</tr>
 					<tr class="pointer-main"
 						ng-repeat="loanaccount in clientAccounts.loanAccounts | orderBy:'id':true | filter:isClosed">
@@ -654,7 +654,7 @@
 							<td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.interestPaid|number}}</td>
 							<td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.overdueAmount|number}}</td>
 							<td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.delinquentDays|number}}</td>
-							<td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{(loanaccount.isNpa)? 'Yes' : 'No'}}</td>
+							<td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.closedOnDate|DateFormat}}</td>
 					</tr>
 				</table>
 			</div>
