@@ -796,7 +796,7 @@
             });*/
             scope.$watch('formRequestData.loanEMIPackId', function () {
                 scope.initializeTrancheDetails(); 
-            }
+            });
             scope.$watch('isValidateFRD', function () {
                 scope.validateFRD();
             });
