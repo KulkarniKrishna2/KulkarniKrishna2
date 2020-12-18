@@ -286,26 +286,35 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-3">{{'label.input.bankname' | translate}}
-                                    </label>
+                                        <span ng-show="isMandatoryFields.bankName" class="required">*</span></label>
                                     <div class="col-sm-3">
                                         <input name="bankName" id="bankName" ng-model="bankAccFormData.bankName" type="text"
-                                            autocomplete="off" class="form-control" />
+                                        ng-required="isMandatoryFields.bankName" ng-disabled="isReadOnlyFields.bankName" autocomplete="off" class="form-control" />
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <form-validate valattributeform="bankaccountdetail" valattribute="bankName"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-3">{{'label.input.branchName' | translate}}
-                                    </label>
+                                        <span ng-show="isMandatoryFields.branchName" class="required">*</span></label>
                                     <div class="col-sm-3">
                                         <input name="branchName" id="branchName" ng-model="bankAccFormData.branchName" type="text"
-                                            autocomplete="off" class="form-control" />
+                                        ng-required="isMandatoryFields.branchName"  ng-disabled="isReadOnlyFields.branchName" autocomplete="off" class="form-control" />
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <form-validate valattributeform="bankaccountdetail" valattribute="branchName"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-3">{{'label.input.bankcity' | translate}}
-                                    </label>
+                                        <span ng-show="isMandatoryFields.bankCity" class="required">*</span></label>
                                     <div class="col-sm-3">
                                         <input name="bankCity" id="bankCity" ng-model="bankAccFormData.bankCity" type="text"
-                                            autocomplete="off" class="form-control" />
+                                        ng-required="isMandatoryFields.bankCity" ng-disabled="isReadOnlyFields.bankCity"  autocomplete="off" class="form-control" />
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <form-validate valattributeform="bankaccountdetail" valattribute="bankCity"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -313,8 +322,7 @@
                                     </label>
                                     <div class="col-sm-3">
                                         <input name="mobileNumber" id="mobileNumber" ng-model="bankAccFormData.mobileNumber"
-                                            type="text" autocomplete="off" class="form-control" ng-pattern="{{regexFormats.mobileNumberPattern}}"
-                                            ng-minlength="10" maxlength="10" />
+                                            type="text" autocomplete="off" class="form-control" ng-pattern="{{regexFormats.mobileNumberPattern}}"/>
                                     </div>
                                     <div class="col-sm-2">
                                         <span ng-show="bankaccountdetail.mobileNumber.$invalid && bankaccountdetail.mobileNumber.$dirty">

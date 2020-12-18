@@ -272,6 +272,10 @@
 			"isValidateFirstName": {
 				"firstNamePattern": "/^[a-zA-Z\\s]*$/"
 			},
+			"isDisabled":{
+				"submittedOnDate": false,
+				"activationDate": false
+			},
 			"defaultMobileNumber": ""
 		},
 		"defaultGISConfig": {
@@ -598,6 +602,9 @@
 					"showAllMeetingDates": true,
 					"count": null
 				}
+			},
+			"mandatory":{
+				"loanUtilization": true
 			}
 		},
 		"createOffice": {
@@ -782,6 +789,14 @@
 		"loanrestructure": {
 			"isHiddenField": {
 				"editButton":true
+			}
+		},
+		"user": {
+			"isMandatory": {
+				"externalId":true
+			},
+			"isReadOnlyField": {
+				"externalId": true
 			}
 		}
 	}

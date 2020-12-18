@@ -2210,6 +2210,9 @@
                     }),
                     financialOfficeMappingTemplateResource: defineResource(apiVer + "/financialactivityaccounts/:mappingId/officemapping/template", {mappingId: '@mappingId'}, {
                         get: { method: 'GET', params: {mappingId: '@mappingId', isArray: true} }
+                    }),
+                    getLoanRestructureEMI: defineResource(apiVer + "/loanrestructure/loan/calculateEMI", {}, {
+                        calculateEMI: { method: 'POST'}
                     })
                 };
             }];

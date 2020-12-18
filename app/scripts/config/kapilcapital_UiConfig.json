@@ -55,6 +55,9 @@
 			"isHiddenField": {
 				"accountNo": true,
 				"referenceNo" : false
+			},
+			"mandatory":{
+				"loanUtilization": false
 			}
 		},
 		"clientIdentifier": {
