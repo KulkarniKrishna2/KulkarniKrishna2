@@ -84,7 +84,8 @@
                     scope.formData.interval = '2';
                 }else {
                     scope.formData.frequency = scope.repeatsOptions[0].id;
-                }           
+                } 
+                scope.selectedPeriod(scope.formData.frequency);          
                 
                 scope.periodValue = "week(s)";
                 scope.showAsTextBox = false;

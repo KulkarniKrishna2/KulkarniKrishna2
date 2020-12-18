@@ -13,6 +13,7 @@
             scope.showUpfrontAmount = true;
             scope.upfrontAmount = false;
             scope.chargeFetchingError = false;
+            scope.isValidateFRD = false;
 
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createLoanApplication &&
                 scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField && scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.upfrontAmount) {
@@ -330,6 +331,7 @@
 
                 resourceFactory.loanResource.get(scope.inparams, function (data) {
                     scope.loanaccountinfo = data;
+                    scope.isValidateFRD = true;
                     scope.productLoanCharges = data.product.charges || [];
 
                     if (data.clientName) {
@@ -512,7 +514,7 @@
                     }
                 }
 
-                if (scope.formValidationData.disbursementData && scope.formValidationData.disbursementData > 0) {
+                if (!_.isUndefined(scope.formValidationData.disbursementData) && scope.formValidationData.disbursementData.length==0) {
                     for (var j = 0; j < scope.formRequestData.loanApplicationSanctionTrancheDatas.length; j++) {
                         var dateValue = scope.formRequestData.loanApplicationSanctionTrancheDatas[j].expectedTrancheDisbursementDate;
                         if (scope.formRequestData.loanApplicationSanctionTrancheDatas[j].expectedTrancheDisbursementDate && (new Date(dateValue)).toString() != 'Invalid Date' && scope.formRequestData.loanApplicationSanctionTrancheDatas[j].trancheAmount) {
@@ -792,9 +794,11 @@
                     }
                 }
             });*/
-
             scope.$watch('formRequestData.loanEMIPackId', function () {
-                scope.initializeTrancheDetails();
+                scope.initializeTrancheDetails(); 
+            });
+            scope.$watch('isValidateFRD', function () {
+                scope.validateFRD();
             });
 
             scope.submitForApproval = function () {
@@ -811,7 +815,6 @@
                 }
                 this.formRequestData.locale = scope.optlang.code;
                 this.formRequestData.dateFormat = scope.df;
-
                 if (scope.formRequestData.loanApplicationSanctionTrancheDatas && scope.formRequestData.loanApplicationSanctionTrancheDatas.length > 0) {
                     var length = scope.formRequestData.loanApplicationSanctionTrancheDatas.length;
                     for (var i = 0; i < length; i++) {
@@ -828,6 +831,7 @@
                 }else{
                     delete scope.formRequestData.loanApplicationSanctionTrancheDatas;
                 }
+                
                 if(scope.formRequestData.loanEMIPackData && _.isUndefined(scope.formRequestData.loanEMIPackId)){
                     scope.formRequestData.loanEMIPackId = scope.formRequestData.loanEMIPackData.id;
                 }
