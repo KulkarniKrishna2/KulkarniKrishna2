@@ -828,6 +828,7 @@
                 if (scope.response && scope.response.uiDisplayConfigurations){
                     if (scope.response.uiDisplayConfigurations.bankAccountDetails) {
                         $scope.isMandatoryFields = scope.response.uiDisplayConfigurations.bankAccountDetails.isMandatory;
+                        $scope.isReadOnlyFields = scope.response.uiDisplayConfigurations.bankAccountDetails.isReadOnlyField;
                     }
                     if(scope.response.uiDisplayConfigurations.workflow && scope.response.uiDisplayConfigurations.workflow.hiddenFields){
                         $scope.showBankAccountActivate = !scope.response.uiDisplayConfigurations.workflow.hiddenFields.bankAccountActivate;
@@ -1300,6 +1301,7 @@
                         $scope.bankData = data;
                         $scope.bankAccountTypeOptions = $scope.bankData.bankAccountTypeOptions;
                         constructBankAccountDetails();
+                        getBankAccountDocuments();
                     });
                 }
 
@@ -1351,6 +1353,25 @@
                     if (!_.isUndefined($scope.bankAccountDocuments) && $scope.bankAccountDocuments.length > 0) {
                         $scope.viewDocument($scope.bankAccountDocuments[0]);
                     }
+                }
+
+                function getBankAccountDocuments() {
+                    resourceFactory.bankAccountDetailsDocumentsResource.getAllDocuments({
+                        entityType: $scope.entityType,
+                        entityId: $scope.entityId,
+                        bankAccountDetailsId: getBankAccountDetails()
+                    }, function (data) {
+                        $scope.bankAccountDocuments = data.bankAccountDocuments;
+                        for (var i = 0; i < $scope.bankAccountDocuments.length; i++) {
+                            var docs = {};
+                            if ($scope.bankAccountDocuments[i].storage && $scope.bankAccountDocuments[i].storage.toLowerCase() == 's3') {
+                                docs = $rootScope.hostUrl + API_VERSION + '/' + $scope.bankAccountDocuments[i].parentEntityType + '/' + $scope.bankAccountDocuments[i].parentEntityId + '/documents/' + $scope.bankAccountDocuments[i].id + '/downloadableURL';
+                            } else {
+                                docs = $rootScope.hostUrl + API_VERSION + '/' + $scope.bankAccountDocuments[i].parentEntityType + '/' + $scope.bankAccountDocuments[i].parentEntityId + '/documents/' + $scope.bankAccountDocuments[i].id + '/download';
+                            }
+                            $scope.bankAccountDocuments[i].docUrl = docs;
+                        }
+                    });
                 }
 
                 function getBankAccountDetails() {
@@ -1539,6 +1560,36 @@
                     updateData();
                 };
 
+                $scope.deleteBankAccountDocument = function (document) {
+                    resourceFactory.bankAccountDetailsDocumentsResource.delete({
+                        entityType: getEntityType(),
+                        entityId: getEntityId(),
+                        bankAccountDetailsId: getBankAccountDetails()
+                    }, { 'documentId': document.id }, function (data) {
+                        getBankAccountDocuments();
+                    });
+                };
+
+                $scope.activateBankAccountDetails = function () {
+                    resourceFactory.bankAccountDetailsActivateResource.activate({
+                        entityType: $scope.entityType,
+                        entityId: $scope.entityId,
+                        bankAccountDetailsId: getBankAccountDetails()
+                    }, {}, function (data) {
+                        populateDetails();
+                        enableShowSummary();
+                    });
+                };
+
+                $scope.deActivateBankAccountDetails = function () {
+                    resourceFactory.bankAccountDetailsDeActivateResource.deActivate({
+                        entityType: $scope.entityType,
+                        entityId: $scope.entityId,
+                        bankAccountDetailsId: getBankAccountDetails()
+                    }, {}, function (data) {
+                        populateDetails();
+                    });
+                };
                 $scope.activateBankAccountDetail = function () {
                     resourceFactory.bankAccountDetailActionResource.doAction({
                         'entityId': $scope.entityId,

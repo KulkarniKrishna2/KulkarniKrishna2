@@ -67,7 +67,7 @@
                     <td class="col-sm-2">
                         <select ng-model="formData.frequency" class="form-control" ng-disabled="disableMeetingFrequency" ng-options="repeatsOption.id as repeatsOption.value for repeatsOption in repeatsOptions"
                             ng-change="selectedPeriod(formData.frequency)" value="{{repeatsOption.id}}">
-                            <option value=""></option>
+                            <option value="">{{'label.menu.selectone'| translate }}</option>
                         </select>
                     </td>
                     <td class="col-sm-2 text-right">
@@ -92,13 +92,13 @@
                     <td class="col-sm-2">
                         <select id="repeatsOnNthDayOfMonth" class="form-control" ng-model="formData.repeatsOnNthDayOfMonth" ng-options="repeatsOnNthDayOfMonth.id as repeatsOnNthDayOfMonth.value for repeatsOnNthDayOfMonth in frequencyNthDayOptions"
                             value="{{repeatsOnNthDayOfMonth.id}}">
-                            <option value=""></option>
+                            <option value="">{{'label.menu.selectone'| translate }}</option>
                         </select>&nbsp;
                     </td>
                     <td class="col-sm-2" data-ng-hide="formData.repeatsOnNthDayOfMonth == -2">
                         <select id="repeatsOnLastWeekdayOfMonth" class="form-control" ng-model="formData.repeatsOnLastWeekdayOfMonth" ng-options="repeatsOnLastWeekdayOfMonth.value as repeatsOnLastWeekdayOfMonth.name for repeatsOnLastWeekdayOfMonth in frequencyDayOfWeekOptions"
                             value="{{repeatsOnLastWeekdayOfMonth.value}}">
-                            <option value=""></option>
+                            <option value="">{{'label.menu.selectone'| translate }}</option>
                         </select>&nbsp;
                     </td>
                     <td class="col-sm-2" data-ng-show="formData.repeatsOnNthDayOfMonth == -2">&nbsp;
@@ -137,7 +137,7 @@
                         <td class="col-sm-2">
                             <select ng-show="formData.frequency=='2'" class="form-control" ng-model="formData.repeatsOnDay" ng-options="repeatsOnOption.value as repeatsOnOption.name for repeatsOnOption in repeatsOnOptions"
                                 value="{{repeatsOnOption.name}}" ng-disabled="disableMeetingFrequency">
-                                <option value=""></option>
+                                <option value="">{{'label.menu.selectone'| translate }}</option>
                             </select>
                         </td>
                         <td class="col-sm-2"></td>

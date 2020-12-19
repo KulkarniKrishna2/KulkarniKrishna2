@@ -729,7 +729,6 @@
             
             scope.transactionSort = {
                 column: 'date',
-                columnId: 'id',
                 descending: true
             };
 

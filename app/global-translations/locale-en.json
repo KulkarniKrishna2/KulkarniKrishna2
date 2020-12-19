@@ -8841,7 +8841,7 @@
      "label.heading.is.operational.closure.done": "Is Operational Closure done",
      "label.heading.is.financial.closure.done": "Is Financial Closure done",
      "error.msg.eod.process.invalid.delete": "EOD process for the office exits at a later date, please delete the same first.",
-     
+     "label.message.loan.restructred.calculate.emi.amount":"calculated EMI Amount for Restructure loan:",
      "------ end of translation file ------": "----------"
 
 }
