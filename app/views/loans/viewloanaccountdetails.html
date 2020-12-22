@@ -508,6 +508,14 @@
                                 <td>{{ 'label.input.daysinmonth' | translate }}</td>
                                 <td><span class="padded-td">{{ loandetails.daysInMonthType.value }}</span></td>
                             </tr>
+                            <tr ng-show="loandetails.brokenPeriodDaysInYearType">
+                                <td>{{ 'label.input.brokenperioddaysinyears' | translate }}</td>
+                                <td><span class="padded-td">{{ loandetails.brokenPeriodDaysInYearType.value}}</span></td>
+                            </tr>
+                            <tr ng-show="loandetails.brokenPeriodDaysInMonthType">
+                                <td>{{ 'label.input.brokenperioddaysinmonth' | translate }}</td>
+                                <td><span class="padded-td">{{ loandetails.brokenPeriodDaysInMonthType.value }}</span></td>
+                            </tr>
                             <tr>
                                 <td>{{'label.input.weeksinyears' | translate}}</td>
                                 <td><span class="padded-td">{{loandetails.weeksInYearType.value}}</span></td>

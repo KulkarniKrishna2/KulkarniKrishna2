@@ -8779,6 +8779,9 @@
      "label.heading.taxroundingmode" : "Tax Rounding Mode",
      "label.heading.adjustedroundingmode" : "Adjusted Rounding Mode",
      "error.msg.loan.product.rounding.mode.invalid.mapping" : "Select at least one rounding mode mapping.",
+     "label.message.loan.restructred.calculate.emi.amount":"calculated EMI Amount for Restructure loan:",
+     "label.input.brokenperioddaysinyears": "Broken Period Days in year",
+     "label.input.brokenperioddaysinmonth": "Broken Period Days in month",
 
      "------ end of translation file ------": "----------"
 
