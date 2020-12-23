@@ -87,18 +87,6 @@
                 } 
                 scope.selectedPeriod(scope.formData.frequency);          
                 
-                scope.periodValue = "week(s)";
-                scope.showAsTextBox = false;
-               
-                scope.repeatsOnOptions = [
-                    { name: "MON", value: "1" },
-                    { name: "TUE", value: "2" },
-                    { name: "WED", value: "3" },
-                    { name: "THU", value: "4" },
-                    { name: "FRI", value: "5" },
-                    { name: "SAT", value: "6" },
-                    { name: "SUN", value: "7" }
-                ]
                 scope.tempFormData.meetingTime = new Date();
                 scope.locationOptions = data.meetingLocations;
 
