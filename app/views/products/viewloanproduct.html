@@ -313,6 +313,14 @@
     <td>{{'label.input.daysinmonth' | translate}}</td>
     <td colspan="3">{{loanproduct.daysInMonthType.value}}</td>
 </tr>
+<tr ng-show="loanproduct.brokenPeriodDaysInYearType">
+    <td>{{'label.input.brokenperioddaysinyears' | translate}}</td>
+    <td colspan="3">{{loanproduct.brokenPeriodDaysInYearType.value}}</td>
+</tr>
+<tr ng-show="loanproduct.brokenPeriodDaysInMonthType">
+    <td>{{'label.input.brokenperioddaysinmonth' | translate}}</td>
+    <td colspan="3">{{loanproduct.brokenPeriodDaysInMonthType.value}}</td>
+</tr>
 <tr ng-if="loanproduct.daysInMonthType.id === 30">
     <td>{{'label.input.partial.period.type' | translate}}</td>
     <td colspan="3">{{loanproduct.partialPeriodType.value}}</td>

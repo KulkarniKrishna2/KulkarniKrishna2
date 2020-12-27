@@ -8841,6 +8841,28 @@
      "label.heading.is.financial.closure.done": "Is Financial Closure done",
      "error.msg.eod.process.invalid.delete": "EOD process for the office exits at a later date, please delete the same first.",
      "label.message.loan.restructred.calculate.emi.amount":"calculated EMI Amount for Restructure loan:",
+     
+     "label.heading.createloanproductroundingmodemapping" : "Create Loan Product Rounding Mode Mapping",
+     "label.button.createloanproductroundingmodemapping" : "Create Loan Product Rounding Mode Mapping",
+     "label.anchor.viewloanproductroundingmodemappings" : "View Loan Product Rounding Mode Mappings",
+     "label.anchor.viewloanproductroundingmodemapping" : "View Loan Product Rounding Mode Mapping",
+     "label.anchor.createloanproductroundingmodemapping" : "Create Loan Product Rounding Mode Mapping",
+     "label.anchor.updateproductroundingmodemapping" : "Update Loan Product Rounding Mode Mapping",
+     "label.button.updateproductroundingmodemapping" : "Update Loan Product Rounding Mode Mapping",
+     "label.heading.updateproductroundingmodemapping" : "Update Loan Product Rounding Mode Mapping",
+     "error.msg.loan.product.rounding.mode.mapping.already.exist" : "Rounding mode mapping already exist for this product",
+     "label.anchor.loan.product.rounding.mode.mappings" : "Loan Product Rounding Mode Mapping",
+     "label.loan.product.rounding.mode.mappings.description" :"Define loan product specific rounding mode mappings",
+     "label.input.installmentroundingmode" : "Installment Rounding Mode",
+     "label.input.taxroundingmode" : "Tax Rounding Mode",
+     "label.input.adjustedroundingmode" : "Adjusted Rounding Mode",
+     "label.heading.installmentroundingmode" : "Installment Rounding Mode",
+     "label.heading.taxroundingmode" : "Tax Rounding Mode",
+     "label.heading.adjustedroundingmode" : "Adjusted Rounding Mode",
+     "error.msg.loan.product.rounding.mode.invalid.mapping" : "Select at least one rounding mode mapping.",
+     "label.message.loan.restructred.calculate.emi.amount":"calculated EMI Amount for Restructure loan:",
+     "label.input.brokenperioddaysinyears": "Broken Period Days in year",
+     "label.input.brokenperioddaysinmonth": "Broken Period Days in month",
      "------ end of translation file ------": "----------"
 
 }

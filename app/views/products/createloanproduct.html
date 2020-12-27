@@ -972,6 +972,25 @@
     </div>
 </div>
 <div class="form-group">
+    <label class="control-label col-sm-2">{{'label.input.brokenperioddaysinyears' | translate }}
+        <i class="icon-question-sign" tooltip="{{'label.tooltip.daysinyear' | translate}}"
+           tooltip-append-to-body="true"></i>
+    </label>
+    <div class="col-sm-2">
+        <select id="brokenPeriodDaysInYearType" class="form-control" ng-model="formData.brokenPeriodDaysInYearType" ng-options="type.id as type.value for type in product.daysInYearTypeOptions" value="{{type.id}}">            
+        </select>
+    </div>
+    <label class="control-label col-sm-2 col-sm-offset-2">
+        {{ 'label.input.brokenperioddaysinmonth' | translate }}
+        <i class="icon-question-sign" tooltip="{{'label.tooltip.daysinmonth' | translate}}"
+           tooltip-append-to-body="true"></i>
+    </label>
+    <div class="col-sm-2">
+        <select id="brokenPeriodDaysInMonthType" class="form-control" ng-model="formData.brokenPeriodDaysInMonthType" ng-options="type.id as type.value for type in product.daysInMonthTypeOptions" value="{{type.id}}">                   
+        </select>
+    </div>
+</div>
+<div class="form-group">
     <label class="control-label col-sm-2">{{'label.input.weeksinyears' | translate }}</label>
     <div class="col-sm-2">
        <select id="weeksInYearType" class="form-control" ng-model="formData.weeksInYearType"
