@@ -2226,6 +2226,9 @@
             .when('/vieweodprocess/:id', {
                 templateUrl: 'views/accounting/eodprocess/vieweodprocess.html'
             })
+            .when('/clients/:clientId/loans/payment/settlement', {
+                templateUrl: 'views/clients/clientsloanspaymentsettlement.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

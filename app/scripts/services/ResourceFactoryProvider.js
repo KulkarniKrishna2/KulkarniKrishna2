@@ -2221,6 +2221,9 @@
                     }),
                     loanProductRoundingModeMappingTemplateResource: defineResource(apiVer + "/loanProductRoundingModeMapping/template", {}, {
                         get: { method: 'GET', params: {} }
+                    }),
+                    clientLoansPaymentSettlementResource: defineResource(apiVer + "/clients/:clientId/loans/payment/settlement", {clientId: '@clientId'}, {
+                        paymentSettlement: { method: 'POST', params: { clientId: '@clientId' } }
                     })
                 };
             }];
