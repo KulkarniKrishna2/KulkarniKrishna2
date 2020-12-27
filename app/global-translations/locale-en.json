@@ -8841,7 +8841,9 @@
      "label.heading.is.financial.closure.done": "Is Financial Closure done",
      "error.msg.eod.process.invalid.delete": "EOD process for the office exits at a later date, please delete the same first.",
      "label.message.loan.restructred.calculate.emi.amount":"calculated EMI Amount for Restructure loan:",
-     
+    "label.button.client.loans.payment.settlement": "Client Loans Payment Settlement",
+    "label.anchor.client.loans.payment.settlement": "Client Loans Payment Settlement",
+    "label.heading.client.loans.payment.settlement": "Client Loans Payment Settlement",    
      "label.heading.createloanproductroundingmodemapping" : "Create Loan Product Rounding Mode Mapping",
      "label.button.createloanproductroundingmodemapping" : "Create Loan Product Rounding Mode Mapping",
      "label.anchor.viewloanproductroundingmodemappings" : "View Loan Product Rounding Mode Mappings",
