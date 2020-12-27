@@ -220,6 +220,13 @@
                     noOfAdvEmiCollection:scope.product.noOfAdvEmiCollection
                 };
 
+                if(scope.product.brokenPeriodDaysInYearType){
+                   scope.formData.brokenPeriodDaysInYearType = scope.product.brokenPeriodDaysInYearType.id;
+                }
+                if(scope.product.brokenPeriodDaysInMonthType){
+                    scope.formData.brokenPeriodDaysInMonthType = scope.product.brokenPeriodDaysInMonthType.id;
+                }
+
                 if(scope.product.partialPeriodType){
                     scope.existingPartialPeriodType = angular.copy(scope.product.partialPeriodType.id);
                     scope.formData.partialPeriodType = scope.product.partialPeriodType.id;
