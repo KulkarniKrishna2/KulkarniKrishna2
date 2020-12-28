@@ -26,6 +26,7 @@
             scope.pvFlag = false;
             scope.rvFlag = false;
             scope.tlFlag = false;
+            scope.eventBasedFee = 51;
             scope.interestRecalculationOnDayTypeOptions = commonUtilService.onDayTypeOptions();
 
             scope.INDIVIDUAL_CLIENT = 2;

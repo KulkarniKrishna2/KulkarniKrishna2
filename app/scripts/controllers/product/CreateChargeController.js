@@ -24,12 +24,16 @@
             scope.chargeAppliesToLoan = 1;
             scope.showChargeCategoryType = false;
 
+            scope.showEventTypeOptions = false;
+            scope.chargeEventsTypeOptions = [];
+
             if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createCharges &&
                 scope.response.uiDisplayConfigurations.createCharges.isHiddenField) {
                 scope.showChargeCategoryType = !scope.response.uiDisplayConfigurations.createCharges.isHiddenField.chargeCategoryType;
             }
             resourceFactory.chargeTemplateResource.get(function (data) {
                 scope.template = data;
+                scope.chargeEventsTypeOptions = data.chargeEventsTypeOptions;
                 scope.showChargePaymentByField = true;
                 scope.chargeCalculationTypeOptions = data.chargeCalculationTypeOptions;
                 scope.chargeTimeTypeOptions = data.chargeTimeTypeOptions;
@@ -99,7 +103,13 @@
             //to display 'Due date' field, if chargeTimeType is
             //'annual fee' or 'monthly fee'
             scope.chargeTimeChange = function (chargeTimeType) {
-                scope.showOverdueOptions = false;
+                scope.showOverdueOptions = false;                ;
+                scope.showEventTypeOptions = (chargeTimeType==51);
+                if(scope.showEventTypeOptions==false){
+                    scope.formData.chargeEventType = undefined;
+                }else{
+                    scope.formData.chargeEventType = scope.chargeEventsTypeOptions[0].id;
+                }
                 if(chargeTimeType == 9){
                     scope.showOverdueOptions = true;
                     scope.formData.overdueChargeDetail = {};

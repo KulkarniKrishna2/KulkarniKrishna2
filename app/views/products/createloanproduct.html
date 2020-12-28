@@ -1732,7 +1732,8 @@
             <td></td>
             <td>{{charge.amount}}</td>
             <td></td>
-            <td>{{charge.chargeTimeType.value}}</td>
+            <td ng-show="charge.chargeTimeType.id==eventBasedFee">{{charge.chargeEventType.value}}</td>
+            <td ng-hide="charge.chargeTimeType.id==eventBasedFee">{{charge.chargeTimeType.value}}</td>
             <td></td>
             <td></td>
             <td><input type="checkbox" ng-model="charge.isMandatory" ng-true-value="true" ng-false-value="false"/></td>
