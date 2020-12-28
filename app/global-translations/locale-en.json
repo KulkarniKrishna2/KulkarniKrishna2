@@ -8865,6 +8865,9 @@
      "label.message.loan.restructred.calculate.emi.amount":"calculated EMI Amount for Restructure loan:",
      "label.input.brokenperioddaysinyears": "Broken Period Days in year",
      "label.input.brokenperioddaysinmonth": "Broken Period Days in month",
+     "--preclosure charges" : "---preclosure charges--",
+     "label.input.eventtype": "Event Type",
+
      "------ end of translation file ------": "----------"
 
 }

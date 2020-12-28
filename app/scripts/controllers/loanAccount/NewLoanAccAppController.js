@@ -50,6 +50,7 @@
             scope.showMoratorium = false;
             scope.showGraceOnArrearsAgeing = true;
             scope.showLoanPurposeCustomField = false;
+            scope.eventBasedFee = 51;
 
             if(routeParams.clientId){
                 resourceFactory.clientResource.get({clientId: routeParams.clientId, associations:'hierarchyLookup'}, function (data) {

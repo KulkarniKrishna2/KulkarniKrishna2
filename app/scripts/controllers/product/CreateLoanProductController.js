@@ -36,6 +36,7 @@
             scope.transactionProcessingStrategy = true;
             scope.allowAttributeConfiguration = true;
             scope.canCrossMaturityDateOnFixingEMI = true;
+            scope.eventBasedFee = 51;
             scope.interestRecalculationOnDayTypeOptions = commonUtilService.onDayTypeOptions();
             scope.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepayment = "minimumDaysBetweenDisbursalAndFirstRepayment";
             scope.interestReceivableLabel ="label.input.receivableinterest";

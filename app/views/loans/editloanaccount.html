@@ -927,11 +927,12 @@
                 <td>{{charge.chargeCalculationType.value}}</td>
                 <td><input id="{{charges[$index].amount}}" class="form-control" number-format type="text" autocomplete="off" ng-model="charge.amountOrPercentage"
                            placeholder="{{'label.input.amount' | translate}}" ng-readonly="!hasPermission('UPDATE_LOANCHARGE') || isChargeAmountNonEditable(charge)"></td>
-                <td>{{charge.chargeTimeType.value}}</td>
+                <td ng-show="charge.chargeTimeType.id==eventBasedFee">{{charge.chargeEventType.value}}</td>
+                <td ng-hide="charge.chargeTimeType.id==eventBasedFee">{{charge.chargeTimeType.value}}</td>
                 <td>
                     <input id="charges[{{$index}}].duedate" type="text" autocomplete="off" datepicker-pop="{{df}}" class="form-control"
                            placeholder="{{'label.input.duedate' | translate}}" ng-model="charge.dueDate"
-                           is-open="'openedch'+$index" ng-readonly="isDatePickerReadOnly || charge.chargeTimeType.value == upfrontFee" min="minDate" max="globalMaxDate"/>
+                           is-open="'openedch'+$index" ng-readonly="isDatePickerReadOnly || charge.chargeTimeType.value == upfrontFee || charge.chargeTimeType.id==eventBasedFee" min="minDate" max="globalMaxDate"/>
                 </td>
                 <td ng-hide="charge.isMandatory == true" has-permission='DELETE_LOANCHARGE'><a ng-click="deleteCharge($index)"><i class="icon-remove icon-white"></i></a></td>
             </tr>

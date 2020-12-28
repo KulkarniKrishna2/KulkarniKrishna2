@@ -33,6 +33,7 @@
             scope.showGraceOnArrearsAgeing = true;
             scope.showMoratorium = false;
             scope.showLoanPurposeCustomField = false;
+            scope.eventBasedFee = 51;
             
             if (scope.response && scope.response.uiDisplayConfigurations) {
                 scope.isProductNameReadOnly = scope.response.uiDisplayConfigurations.editJlgLoan.isReadOnlyField.productName;
