@@ -2224,6 +2224,9 @@
                     }),
                     clientLoansPaymentSettlementResource: defineResource(apiVer + "/clients/:clientId/loans/payment/settlement", {clientId: '@clientId'}, {
                         paymentSettlement: { method: 'POST', params: { clientId: '@clientId' } }
+                    }),
+                    getLoanRestructureEMI: defineResource(apiVer + "/loanrestructure/loan/calculateEMI", {}, {
+                        calculateEMI: { method: 'POST'}
                     })
                 };
             }];

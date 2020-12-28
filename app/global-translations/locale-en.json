@@ -8805,7 +8805,8 @@
      "error.msg.duplicate.esign.request.on.document.for.the.entity": "Esign request on document for the entity already exists",
      "error.msg.esign.request.id.invalid": "Esign Request doesn't exist for the provided id `{{params[0].value}}`", 
      "error.msg.client.contact.info.not.found": "Client contact information not found",
-     
+     "validation.msg.rescheduleloan.adjustedDueDate.cannot.be.blank": "Installment Rescheduled to date does not exist.",
+     "label.message.loan.restructred.calculate.emi.amount":"calculated EMI Amount for Restructure loan:",   
      "---financial office level mapping--" : "--financial-office-mapping--",
      "label.heading.createofficemapping" : "Create Office Mapping",
      "label.button.createofficemapping" : "Create Office Mapping",
