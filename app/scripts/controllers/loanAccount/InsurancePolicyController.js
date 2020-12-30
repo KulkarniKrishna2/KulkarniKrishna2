@@ -29,6 +29,8 @@
                 resourceFactory.insurancePolicyTemplateResource.getTemplate({ loanId: scope.loanId }, function (data) {
                     scope.formData.insurancePolicyDetails = scope.getInsurancePolicyDetails(data.insuranceClientTypeOptions);
                     scope.insuranceProviderOptions = data.insuranceProviderOptions;
+                    scope.clientData = data.clientData;
+                    scope.familyDetails = data.familyDetails;
                     for (var i in scope.formData.insurancePolicyDetails) {
                         scope.formData.insurancePolicyDetails[i].insuredAmount = data.insuredAmount;
                         scope.formData.insurancePolicyDetails[i].effectiveDate = dateFilter(new Date(data.effectiveDate), scope.df);
@@ -65,12 +67,17 @@
                 resourceFactory.insurancePolicyTemplateResource.getTemplate({ loanId: scope.loanId, isUpdate: true }, function (data) {
                     scope.insuranceClientTypeOptions = data.insuranceClientTypeOptions;
                     scope.insuranceProviderOptions = data.insuranceProviderOptions;
+                    scope.clientData = data.clientData;
+                    scope.familyDetails = data.familyDetails;
                 });
                 resourceFactory.insurancePolicyResource.getAll({ loanId: scope.loanId }, function (data) {
                     scope.formData.insurancePolicyDetails = data;
                     for (var i in scope.formData.insurancePolicyDetails) {
                         scope.formData.insurancePolicyDetails[i].effectiveDate = dateFilter(new Date(scope.formData.insurancePolicyDetails[i].effectiveDate), scope.df);
                         scope.formData.insurancePolicyDetails[i].expiryDate = dateFilter(new Date(scope.formData.insurancePolicyDetails[i].expiryDate), scope.df);
+                        if(scope.formData.insurancePolicyDetails[i].familyDetailData){
+                            scope.formData.insurancePolicyDetails[i].familyMemberId = scope.formData.insurancePolicyDetails[i].familyDetailData.id;
+                        }
                     }
                     scope.formData.providerId = scope.formData.insurancePolicyDetails[0].insuranceProvider.id;
                 });
@@ -103,7 +110,6 @@
                 requestFormData.locale = scope.optlang.code;
                 requestFormData.insurancePolicyDetails = [];
                 for (var i =0 ; i< this.formData.insurancePolicyDetails.length ; i++) {
-                    if(this.formData.insurancePolicyDetails[i].isMemberChecked || scope.isUpdate) {
                         var insurancePolicyDetails = new Object();
                         insurancePolicyDetails.insuranceClientTypeId = this.formData.insurancePolicyDetails[i].insuranceClientType.id
                         insurancePolicyDetails.locale = scope.optlang.code;
@@ -113,11 +119,13 @@
                         insurancePolicyDetails.insuredAmount = this.formData.insurancePolicyDetails[i].insuredAmount;
                         insurancePolicyDetails.effectiveDate = this.formData.insurancePolicyDetails[i].effectiveDate;
                         insurancePolicyDetails.expiryDate = this.formData.insurancePolicyDetails[i].expiryDate;
+                        if(this.formData.insurancePolicyDetails[i].familyMemberId){
+                            insurancePolicyDetails.familyMemberId = this.formData.insurancePolicyDetails[i].familyMemberId;
+                        }
                         if (scope.isUpdate) {
                             insurancePolicyDetails.id = this.formData.insurancePolicyDetails[i].id;
                         }
                         requestFormData.insurancePolicyDetails .push(insurancePolicyDetails);
-                    }
                 }
                 if(requestFormData.insurancePolicyDetails != undefined && requestFormData.insurancePolicyDetails.length > 0) {
                     if (scope.isUpdate) {

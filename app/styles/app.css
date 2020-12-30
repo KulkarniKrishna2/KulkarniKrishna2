@@ -251,6 +251,10 @@ color: #800080
     color: #00CE00;
 }
 
+.statusdeceased {
+    color: #808080;
+}
+
 .statusmatured {
     color: #FF4000;
 }

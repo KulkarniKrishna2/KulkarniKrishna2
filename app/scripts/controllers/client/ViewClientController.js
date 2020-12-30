@@ -1983,6 +1983,15 @@
             scope.routeToClientLoansPaymentSettelment = function() {
                 location.path('/clients/' + scope.clientId + '/loans/payment/settlement'); 
             }
+            scope.getStatusCode = function () {
+                if (scope.client.status) {
+                    if (scope.client.subStatus && scope.client.subStatus.id == 600) {
+                        return scope.client.status.code + "." + scope.client.subStatus.code;
+                    } else {
+                        return scope.client.status.code;
+                    }
+                }
+            };
         }
     });
 

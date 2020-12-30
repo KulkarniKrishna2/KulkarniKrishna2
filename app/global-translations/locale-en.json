@@ -8558,6 +8558,7 @@
      "label.input.COI.number" : "COI Number",
      "label.input.insured.amount" : "Insured Amount",
      "label.input.insurance.client.type" : "Insurance Client Type",
+     "label.input.insured.name" : "Insured Name",
      "label.input.insurance.effective.date" : "Effective Date", 
      "label.input.insurance.expiry.date" : "Expiry Date", 
      "error.msg.insurance.client.type.duplicate" : "Insurance Policy already exists for the provided insurance client type",
@@ -8568,6 +8569,7 @@
      "error.msg.coi.no.duplicate" : "COI numbers cannot be same for a loan",
      "validation.msg.Insurance Policy.policyNo.exceeds.max.length": "Policy Number length exceeds max length of `{{params[0].value}}`",
      "validation.msg.Insurance Policy.coiNo.exceeds.max.length" : "COI Number length exceeds max length of `{{params[0].value}}`",
+     "validation.msg.Insurance Policy.familyMemberId.cannot.be.blank":"select familiy member for co-insured detail",
      "label.input.insurance.select" : "Select", 
 
     "label.input.interest.payable" : "Interest Payable",

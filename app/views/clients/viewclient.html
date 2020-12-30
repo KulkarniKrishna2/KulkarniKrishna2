@@ -16,7 +16,7 @@
 	    <div class="col-md-8 col-sm-8">
 	        <h3 class="client-title">
 				<i ng-if="client.gender" tooltip="{{client.gender.name}}" ng-class="(client.gender.name=='Female')?'icon-female':'icon-male'"></i>
-	        	<i class="icon-circle {{client.status.code | StatusLookup}}"></i>
+	        	<i class="icon-circle {{getStatusCode() | StatusLookup}}"></i> 
 				<small ng-if="client.subStatus">
 					[{{client.subStatus.value}}]
 				</small>

@@ -124,7 +124,7 @@
                         <td class="pointer" data-ng-click="routeTo(client.id)" ng-show="!client.mobileNo">{{defaultMobileNumber}}</td>
                         <td class="pointer" data-ng-click="routeTo(client.id)">{{client.officeName}}</td>
                         <td class="pointer" data-ng-click="routeTo(client.id)">
-                            <i class="icon-stop {{client.status.code | StatusLookup}}"></i>&nbsp;{{client.status.value}}
+                            <i class="icon-stop {{getStatusCode(client) | StatusLookup}}"></i>&nbsp;{{client.status.value}}
                         </td>
                     </tr>
                     <tr ng-if="clients.isResponsePresent && clients.currentPageItems.length == 0">
