@@ -1149,6 +1149,7 @@
     "error.msg.cannot.total.max.allowed.limit.cannot.be.greater.than.client.super.limit": "Failed to assign limit as Total max allowed limit is exceeding client Super limit of {{params[1].value}}",
     "error.msg.loanproduct.is.already.mapped":"The loanproduct is already mapped",
     "error.msg.savingsproduct.is.already.mapped": "The savingsproduct is already mapped",
+    "proxy.user.cannot.be.switched.to.target.user.today.as.the.mapped.date.is.not.in.the.range": "Proxy User cannot be switched to target user today, as the mapped date is from {{params[0].value}} to {{params[2].value}}",
     "#--------": "------------",
 
     "#Groups": "....",
