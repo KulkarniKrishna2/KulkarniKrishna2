@@ -1150,6 +1150,8 @@
     "error.msg.loanproduct.is.already.mapped":"The loanproduct is already mapped",
     "error.msg.savingsproduct.is.already.mapped": "The savingsproduct is already mapped",
     "proxy.user.cannot.be.switched.to.target.user.today.as.the.mapped.date.is.not.in.the.range": "Proxy User cannot be switched to target user today, as the mapped date is from {{params[0].value}} to {{params[2].value}}",
+    "validation.msg.PROXYUSERMAPPING.toDate.is.less.than.date": "To Date is less than From Date",
+    "validation.msg.PROXYUSERMAPPING.fromDate.is.less.than.date": "From Date is less than Current Date",
     "#--------": "------------",
 
     "#Groups": "....",
