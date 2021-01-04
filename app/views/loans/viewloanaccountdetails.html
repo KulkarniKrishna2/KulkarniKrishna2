@@ -662,7 +662,12 @@
                     </tab>
 
                     <tab ng-if="showOriginalSchedule" active="tabs[2].active" heading="{{'label.heading.originalschedule' | translate}}"  select="getSpecificData('repaymentSchedule')">
-
+                        <div class="pull-right">
+                            <select class="form-control" ng-model="historyVersion" chosen="loandetails.scheduleHistoryDataList" 
+                                ng-options="scheduleHistoryData.historyVersion as 'Version '+scheduleHistoryData.historyVersion+'('+scheduleHistoryData.createdDate+')' for scheduleHistoryData in loandetails.scheduleHistoryDataList" ng-change="getScheduleHistoryData(historyVersion)">
+                                <option value="">{{'label.heading.originalschedule' | translate}}({{originalScheduleCreatedDate | DateFormat}})</option>
+                            </select>
+                        </div>
                         <table  class="table table-striped .width100">
                             <colgroup span="4"></colgroup>
                             <thead>
@@ -686,7 +691,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="period in loandetails.originalSchedule.periods" ng-hide="period.recalculatedInterestComponent">
+                            <tr ng-repeat="period in originalSchedule.periods" ng-hide="period.recalculatedInterestComponent">
                                 <td>{{period.dueDate | DateFormat}}</td>
 
                                 <td>{{period.principalDue | number}}</td>
@@ -700,12 +705,12 @@
                             <tfoot class="ui-widget-header">
                             <tr>
                                 <th >{{'label.heading.total' | translate}}</th>
-                                <th>{{loandetails.originalSchedule.totalPrincipalExpected | number}}</th>
+                                <th>{{originalSchedule.totalPrincipalExpected | number}}</th>
                                 <th>&nbsp;</th>
-                                <th>{{loandetails.originalSchedule.totalInterestCharged | number}}</th>
-                                <th>{{loandetails.originalSchedule.totalFeeChargesCharged | number}}</th>
-                                <th>{{loandetails.originalSchedule.totalPenaltyChargesCharged | number}}</th>
-                                <th>{{loandetails.originalSchedule.totalRepaymentExpected | number}}</th>
+                                <th>{{originalSchedule.totalInterestCharged | number}}</th>
+                                <th>{{originalSchedule.totalFeeChargesCharged | number}}</th>
+                                <th>{{originalSchedule.totalPenaltyChargesCharged | number}}</th>
+                                <th>{{originalSchedule.totalRepaymentExpected | number}}</th>
                             </tr>
                             </tfoot>
                         </table>
