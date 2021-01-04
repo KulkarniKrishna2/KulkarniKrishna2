@@ -2227,6 +2227,9 @@
                     }),
                     getLoanRestructureEMI: defineResource(apiVer + "/loanrestructure/loan/calculateEMI", {}, {
                         calculateEMI: { method: 'POST'}
+                    }),
+                    LoanHistoryScheduleResource: defineResource(apiVer + "/loans/:loanId/schedulehistory/:historyVersion", { loanId: '@loanId', historyVersion:'@historyVersion' }, {
+                        getLoanScheduleHistory: { method: 'GET', params: {}}
                     })
                 };
             }];
