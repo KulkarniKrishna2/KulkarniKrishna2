@@ -8195,6 +8195,7 @@
     "error.msg.cannot.be.processed.as.the.associated.village.is.blacklisted": "Cannot be processed as the associated village is blacklisted",
     "error.msg.village.status.audit.not.found": "Audit Status of Village with identifier `{{params[0].value}}` does not exist",
     "validation.msg.loanutilizationcheck.parameter.amount.loanUtilizationCVId.is.one.of.these.mandatory" : "Amount cannot be empty",
+    "validation.msg.riskFactorConfiguration.uname.does.not.match.regexp": "Short name field should not have space",
 
     "error.msg.staff.office.can.not.be.updated" : "Staff's office can not be updated , as it is attached to active {{params[0].value}} accounts {{params[1].value}} ",
     "label.self.service.user" : "Self Service Users",
