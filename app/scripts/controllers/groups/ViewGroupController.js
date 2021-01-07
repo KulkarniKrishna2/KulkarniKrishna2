@@ -59,9 +59,6 @@
                     }
                 }
 
-                scope.isWorkflowEnabled = scope.group.isWorkflowEnabled && scope.group.workflowId && scope.group.isWorkflowEnableForBranch;
-                scope.createjlgLoanApplication = scope.createjlgLoanApplication && !scope.isWorkflowEnabled;
-            
             });
             scope.showGroupSummaryOnClick = function(){
                 scope.showGroupSummary = true;

@@ -227,7 +227,7 @@
 												<a has-permission='CREATE_LOAN' class="btn btn-primary btn-sm" ng-href="#/newindividualjlgloanaccount/{{group.id}}/{{client.id}}" data-ng-show="isActiveMember(client.status.code)" ng-hide="isHideJlgLoan"><i
 														class="icon-plus icon-white"></i>{{ 'label.button.jlgloan' | translate }}</a>
 											</td>
-											<td align="center" colspan="4" ng-if = "allowCreationOfJLGLoanAndLoanApplication(client.status.code)">
+											<td align="center" colspan="4">
 												<a has-permission='CREATE_JLG_LOAN' class="btn btn-primary btn-sm" ng-href="#/newindividualjlgloanaccount/{{group.id}}/{{client.id}}" ng-if="isActiveMember(client.status.code) && isHideJlgLoan"><i
 													class="icon-plus icon-white"></i>{{ 'label.button.jlgloan' | translate }}</a>&nbsp;
 												<a has-permission='CREATE_LOANAPPLICATIONREFERENCE' class="btn btn-primary btn-sm" ng-href="#/newindividualjlgloanapplicationreference/{{group.id}}/{{client.id}}" ng-if="isActiveMember(client.status.code) && isLoanApplication && createjlgLoanApplication"><i
