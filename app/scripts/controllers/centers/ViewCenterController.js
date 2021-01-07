@@ -107,18 +107,7 @@
                     scope.meetingtime=   new Date(data.collectionMeetingCalendar.meetingTime.iLocalMillis + (today.getTimezoneOffset() * 60*1000) );
                 }
                 //scope.meetingtime=   new Date(data.collectionMeetingCalendar.meetingTime);
-                if(scope.groupMemberAccountList.length > 0){
-                    scope.createjlgLoanApplication = !scope.groupMemberAccountList[0].isWorkflowEnableForBranch && scope.createjlgLoanApplication;
-                }
             });
-
-            scope.allowCreationOfJLGLoanAndLoanApplication = function(clientStatusCode){
-                if(scope.isActiveMember(clientStatusCode) 
-                    && (scope.isHideJlgLoan || (scope.isLoanApplication && scope.createjlgLoanApplication))){
-                    return true;
-                }
-                return false; 
-            }
 
             function fetchAllConfiguredWorkFlows() {
                 scope.uiData.isNewLoanCycle = true;
