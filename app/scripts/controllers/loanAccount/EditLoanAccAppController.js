@@ -844,7 +844,10 @@
                     }
                 }
                 this.formData.isPrincipalGraceApplied = scope.isPrincipalGraceApplied;
-                //delete scope.formData.brokenPeriodInterestCollectAtDisbursement;
+                if (!(scope.loanaccountinfo.product.isRepaymentAtDisbursement == true && scope.formData.brokenPeriodMethodType === 3)) {
+                    delete scope.formData.brokenPeriodInterestCollectAtDisbursement;
+                }
+
                 resourceFactory.loanResource.save({command: 'calculateLoanSchedule'}, this.formData, function (data) {
                     scope.repaymentscheduleinfo = data;
                     scope.previewRepayment = true;
@@ -994,9 +997,11 @@
                     this.formData.loanAccountDpDetail = scope.loanAccountDpDetailData;
                 }
 
-                //delete scope.formData.brokenPeriodInterestCollectAtDisbursement;
                 if(scope.isFirstRepaymentApplied==true && this.formData.repaymentsStartingFromDate==undefined){
                     this.formData.repaymentsStartingFromDate = null;
+                }
+                if (!(scope.loanaccountinfo.product.isRepaymentAtDisbursement == true && scope.formData.brokenPeriodMethodType === 3)) {
+                    delete scope.formData.brokenPeriodInterestCollectAtDisbursement;
                 }
                 resourceFactory.loanResource.put({loanId: routeParams.id}, this.formData, function (data) {
                     location.path('/viewloanaccount/' + data.loanId);
