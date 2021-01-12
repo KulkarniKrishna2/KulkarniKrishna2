@@ -358,8 +358,6 @@
                 if(data.expectedFirstRepaymentOnDate && data.expectedFirstRepaymentOnDate.length>0){
                     scope.isFirstRepaymentApplied = true;
                 }
-                scope.isPrincipalGraceApplied = data.isPrincipalGraceApplied;
-                scope.loanaccountinfo.isPrincipalGraceApplied = undefined;
                 scope.isOverrideMoratorium = scope.loanaccountinfo.product.allowAttributeOverrides.graceOnPrincipalAndInterestPayment;
                 scope.showLoanTerms =!(scope.loanaccountinfo.loanEMIPacks && scope.isLoanEmiPackEnabled)?true:false;
                 if(data.loanEMIPackData){
@@ -836,14 +834,6 @@
                 }else{
                     scope.formData.repeatsOnDayOfMonth = [];
                 }
-                if(scope.formData.brokenPeriodMethodType && scope.formData.brokenPeriodMethodType==3 && scope.formData.graceOnPrincipalPayment && scope.formData.graceOnPrincipalPayment>0){
-                    if(scope.formData.graceOnPrincipalPayment==1){
-                        delete scope.formData.graceOnPrincipalPayment;
-                    }else{
-                        scope.formData.graceOnPrincipalPayment =scope.formData.graceOnPrincipalPayment-1;
-                    }
-                }
-                this.formData.isPrincipalGraceApplied = scope.isPrincipalGraceApplied;
                 if (!(scope.loanaccountinfo.product.isRepaymentAtDisbursement == true && scope.formData.brokenPeriodMethodType === 3)) {
                     delete scope.formData.brokenPeriodInterestCollectAtDisbursement;
                 }
@@ -860,7 +850,6 @@
                 delete scope.formData.overdueCharges;
                 delete scope.formData.collateral;
                 delete scope.formData.loanPurposeGroupId;
-                delete scope.formData.isPrincipalGraceApplied;
                 if (scope.formData.disbursementData.length > 0) {
                     for (var i in scope.formData.disbursementData) {
                         if(scope.formData.disbursementData[i].expectedDisbursementDate === ""){
