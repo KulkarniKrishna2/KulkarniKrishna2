@@ -22,6 +22,11 @@
             scope.applicableOnDisbursement = 2;
             scope.isClientActive = false;
 
+            if (scope.response.uiDisplayConfigurations.createClient.isDisabled) {
+                scope.submittedOnDate = scope.response.uiDisplayConfigurations.createClient.isDisabled.submittedOnDate;
+                scope.activationDate = scope.response.uiDisplayConfigurations.createClient.isDisabled.activationDate;
+            }
+
             scope.changeVillage = function (villageId) {
                 if(villageId != null){
 
