@@ -691,6 +691,9 @@
                         }
                     }
                 }
+                if (!(scope.loanaccountinfo.product.isRepaymentAtDisbursement == true && scope.formData.brokenPeriodMethodType === 3)) {
+                    delete scope.formData.brokenPeriodInterestCollectAtDisbursement;
+                }
                 resourceFactory.loanResource.save({command: 'calculateLoanSchedule'}, this.formData, function (data) {
                     scope.repaymentscheduleinfo = data;
                     if(data.periods.length > 0) {        
@@ -851,7 +854,9 @@
                     scope.loanAccountDpDetailData.dateFormat = scope.df;
                     this.formData.loanAccountDpDetail = scope.loanAccountDpDetailData;
                 }   
-
+                if (!(scope.loanaccountinfo.product.isRepaymentAtDisbursement == true && scope.formData.brokenPeriodMethodType === 3)) {
+                    delete scope.formData.brokenPeriodInterestCollectAtDisbursement;
+                }
                 resourceFactory.loanResource.save(this.formData, function (data) {
                     location.path('/viewloanaccount/' + data.loanId);
                 });
