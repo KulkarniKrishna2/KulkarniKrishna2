@@ -24,7 +24,7 @@
                 scope.formData.currencyCode = scope.currencyOptions[0].code;
             });
 
-            resourceFactory.officeResource.getAllOffices(function (data) {
+            resourceFactory.officeResource.getAllOffices({onlyActive:true},function (data) {
                 scope.offices = data;
                 scope.formData.officeId = scope.offices[0].id;
                 scope.getAccountingRules();
