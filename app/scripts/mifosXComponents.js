@@ -770,7 +770,20 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'notification/CreateNotificationEventMappingController',
             'notification/CreateNotificationJobMappingController',
             'notification/EditNotificationEventMappingController',
-            'notification/EditNotificationJobMappingController'
+            'notification/EditNotificationJobMappingController',
+            'task/activity/NachMandateRequestActivityController',
+            'task/activity/EsignRequestActivityController',
+            'accounting/financialofficemapping/CreateFinancialOfficeMappingController',
+            'accounting/financialofficemapping/UpdateFinancialOfficeMappingController',
+            'accounting/financialofficemapping/ViewFinancialOfficeMappingsController',
+            'accounting/financialofficemapping/ViewFinancialOfficeMappingController',
+            'accounting/eodprocess/EodCashBalanceCheckController',
+            'accounting/eodprocess/ViewEodProcessController',
+            'product/productroundingmodemapping/CreateLoanProductRoundingModeMappingController',
+            'product/productroundingmodemapping/UpdateLoanProductRoundingModeMappingController',
+            'product/productroundingmodemapping/ViewLoanProductRoundingModeMappingController',
+            'product/productroundingmodemapping/ViewLoanProductRoundingModeMappingsController',
+            'client/ClientLoansPaymentSettlementController'
         ],
         filters: [
             'StatusLookup',

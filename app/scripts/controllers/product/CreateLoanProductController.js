@@ -36,6 +36,7 @@
             scope.transactionProcessingStrategy = true;
             scope.allowAttributeConfiguration = true;
             scope.canCrossMaturityDateOnFixingEMI = true;
+            scope.eventBasedFee = 51;
             scope.interestRecalculationOnDayTypeOptions = commonUtilService.onDayTypeOptions();
             scope.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepayment = "minimumDaysBetweenDisbursalAndFirstRepayment";
             scope.interestReceivableLabel ="label.input.receivableinterest";
@@ -56,6 +57,9 @@
                 scope.isIRDEnabledConfig = !scope.response.uiDisplayConfigurations.loanproduct.isHiddenField.isIRDEnabledConfig;
             }
             scope.allowLoanProductForGroupBankAccount = (scope.allowBankAccountsForGroups && scope.allowDisbursalToGroupBankAccount);
+            scope.repeatsOnDayOfMonthOptions = [];
+            scope.selectedOnDayOfMonthOptions = [];
+            scope.repaymentFrequencyDayOfTheWeekType = {};
             resourceFactory.loanProductResource.get({resourceType: 'template'}, function (data) {
                 scope.product = data;
                 scope.assetAccountOptions = scope.product.accountingMappingOptions.assetAccountOptions || [];
@@ -129,6 +133,47 @@
                 scope.formData.borrowerCycleType = scope.product.borrowerCycleType.id;
                 scope.transactionTypeOptions = data.transactionTypeOptions;
             });
+
+            for (var i = 1; i <= 28; i++) {
+                scope.repeatsOnDayOfMonthOptions.push(i);
+            }
+
+            scope.addMonthDay = function () {
+                for (var i in this.available) {
+                    for (var j in scope.repeatsOnDayOfMonthOptions) {
+                        if (scope.repeatsOnDayOfMonthOptions[j] == this.available[i]) {
+                            scope.selectedOnDayOfMonthOptions.push(this.available[i]);
+                            scope.repeatsOnDayOfMonthOptions.splice(j, 1);
+                            break;
+                        }
+                    }
+                }
+                //We need to remove selected items outside of above loop. If we don't remove, we can see empty item appearing
+                //If we remove available items in above loop, all items will not be moved to selectedRoles
+                scope.available = [];
+                scope.selectedOnDayOfMonthOptions.sort(scope.sortNumber);
+            };
+
+            scope.removeMonthDay = function () {
+                for (var i in this.selected) {
+                    for (var j in scope.selectedOnDayOfMonthOptions) {
+                        if (scope.selectedOnDayOfMonthOptions[j] == this.selected[i]) {
+                            scope.repeatsOnDayOfMonthOptions.push(this.selected[i]);
+                            scope.selectedOnDayOfMonthOptions.splice(j, 1);
+                            break;
+                        }
+                    }
+                }
+                //We need to remove selected items outside of above loop. If we don't remove, we can see empty item appearing
+                //If we remove available items in above loop, all items will not be moved to selectedRoles
+                scope.selected = [];
+                scope.repeatsOnDayOfMonthOptions.sort(scope.sortNumber);
+            };
+
+            scope.sortNumber = function(a,b)
+            {
+                return a - b;
+            };
 
             scope.variableName = function(minDurationType){
                 if(minDurationType == 1){
@@ -697,6 +742,18 @@
                 if (!scope.formData.isIRDEnabled || _.isUndefined(scope.formData.isIRDEnabled) || _.isNull(scope.formData.isIRDEnabled)) {
                     delete scope.formData.isIRDEnabled;
                     delete scope.formData.interestReceivableAndDueAccountId;
+                }
+
+                if(scope.formData.repaymentFrequencyType == 2){
+                    if(scope.formData.repaymentFrequencyNthDayType == -2){
+                        scope.formData.repeatsOnDayOfMonth = scope.selectedOnDayOfMonthOptions;
+                        delete scope.formData.repaymentFrequencyDayOfWeekType;
+                    } else {
+                        scope.formData.repeatsOnDayOfMonth  = [];
+                    }
+                } else {
+                    delete scope.formData.repaymentFrequencyDayOfWeekType;
+                    scope.formData.repeatsOnDayOfMonth  = [];
                 }
 
                 resourceFactory.loanProductResource.save(this.formData, function (data) {

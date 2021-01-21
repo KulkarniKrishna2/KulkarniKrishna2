@@ -1,8 +1,10 @@
 {
-	"version": "v20.09.09",
-	"releasedate": "22/10/2020",
+
+	"version": "FE-4587-CRUD",
+	"releasedate": "11/26/2020",
 	"releaseyear": 2020,
 	"tag": "NA",
-	"commit": "2679a48cc",
-	"branch": "master"
+	"commit": "4878dc1ad",
+	"branch": "FE-4587-CRUD"
+
 }

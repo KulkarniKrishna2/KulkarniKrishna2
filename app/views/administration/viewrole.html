@@ -2,21 +2,21 @@
     <div ng-show="isDisabled">
         <ul class="breadcrumb">
             <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
-            <li><a href="#/admin/roles">{{'label.anchor.viewroles' | translate}}</a></li>
-            <li class="active">{{'label.anchor.viewrole' | translate}}</li>
+            <li><a href="#/admin/roles">{{'label.anchor.view.permission.groups' | translate}}</a></li>
+            <li class="active">{{'label.anchor.view.permission.group' | translate}}</li>
         </ul>
     </div>
     <div ng-hide="isDisabled">
         <ul class="breadcrumb">		
 			<li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
-            <li><a href="#/admin/roles">{{'label.anchor.viewrole' | translate}}</a></li>
+            <li><a href="#/admin/roles">{{'label.anchor.view.permission.group' | translate}}</a></li>
             <li class="active">{{ role.name}}</li>
-            <li class="active">{{'label.anchor.editrole' | translate}}</li>
+            <li class="active">{{'label.anchor.edit.permission.group' | translate}}</li>
         </ul>
     </div>
     <script type="text/ng-template" id="deleterole.html">
         <div class="modal-header silver">
-            <h3 class="bolder">{{'label.heading.deleterole' | translate}}</h3>
+            <h3 class="bolder">{{'label.heading.delete.permission.group' | translate}}</h3>
         </div>
         <div class="modal-body ">
             <api-validate></api-validate>
@@ -27,7 +27,7 @@
     </script>
     <script type="text/ng-template" id="disablerole.html">
         <div class="modal-header silver">
-            <h3 class="bolder">{{'label.heading.disablerole' | translate}}</h3>
+            <h3 class="bolder">{{'label.heading.disable.permission.group' | translate}}</h3>
         </div>
         <div class="modal-body ">
             <api-validate></api-validate>
@@ -57,7 +57,7 @@
                     <td>
                         <div class="btn-group">
                             <a href="#/admin/editrole/{{roleId}}" class="btn btn-primary" has-permission='ENABLE_ROLE'><i class="icon-edit icon-white"></i>{{
-                                'label.button.editrole' | translate }}</a>
+                                'label.button.edit.permission.group' | translate }}</a>
                         </div>
                     </td>
                     <td>

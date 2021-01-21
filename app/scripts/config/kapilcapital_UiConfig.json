@@ -135,11 +135,6 @@
 			"update" : {
 				"selectMeetingDateType" : "allowCurrentAndFutureDates"
 			}
-		},
-		"loanAccount": {
-			"isReadOnlyField": {
-				"syncRepaymentsWithMeeting": true
-			}
 		}
 	}
 }

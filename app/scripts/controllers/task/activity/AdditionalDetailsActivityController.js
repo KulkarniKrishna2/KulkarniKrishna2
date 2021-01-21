@@ -817,7 +817,7 @@
                 $scope.displayCashFlow = true;
                 $scope.displaySurveyInfo = true;
                 $scope.surveyName = scope.response.uiDisplayConfigurations.viewClient.takeSurveyName;
-                $scope.isDetailEditable = false;
+                $scope.isDetailEditable = true;
                 $scope.showBankAccountActivate = false;
                 //loan account
                 if (memberParams.activeClientMember.loanAccountBasicData) {
@@ -1279,6 +1279,7 @@
                         }
                     });
                 }
+
                 init();
 
                 function populateTemplate() {
@@ -1333,9 +1334,7 @@
                         $scope.bankAccFormData.accountTypeId = $scope.bankAccountTypeOptions[0].id;
                     }
                     $scope.bankAccountData = $scope.bankData;
-                    if($scope.bankData.status.value == 'initiated'){
-                        $scope.isDetailEditable = true;
-                    }else{
+                    if($scope.bankData.status.value == 'active'){
                         $scope.isDetailEditable = false;
                     }
                     if ($scope.bankData.accountNumber != undefined) {
@@ -1455,22 +1454,6 @@
                     }
                 };
 
-                $scope.isBankAccountAllowToDeActivate = function () {
-                    return $scope.isBankAccountActivated();
-                }
-
-                $scope.isBankAccountAllowToReActivate = function () {
-                    return $scope.isBankAccountDeActivated();
-                }
-
-                $scope.isBankAccountActivated = function () {
-                    return ($scope.bankData.status.value == 'active');
-                }
-
-                $scope.isBankAccountDeActivated = function () {
-                    return ($scope.bankData.status.value == 'inactive');
-                }
-
                 function enableShowSummary() {
                     $scope.viewConfig.showSummary = true;
                 }
@@ -1478,14 +1461,6 @@
                 function disableShowSummary() {
                     $scope.viewConfig.showSummary = false;
                 };
-
-                function getEntityType() {
-                    return $scope.entityType;
-                }
-
-                function getEntityId() {
-                    return $scope.entityId;
-                }
 
                 $scope.uploadBankAccountDocument = function () {
                     $modal.open({
@@ -1502,7 +1477,6 @@
                             }
                         }
                     });
-                    getBankAccountDocuments();
                 };
 
                 var uploadBankAccountDocumentCtrl = function ($scope, $modalInstance, bankAccountDetails) {
@@ -1529,11 +1503,10 @@
                                 $scope.docformatErrMsg = 'label.error.only.files.of.type.image.are.allowed';
                             } else {
                                 $upload.upload({
-                                    url: $rootScope.hostUrl + API_VERSION + '/' + getEntityType() + '/' + getEntityId() + '/bankaccountdetails/' + getBankAccountDetails() + '/documents',
+                                    url: $rootScope.hostUrl + API_VERSION + '/' + bankAccountDetails.entityType + '/' + bankAccountDetails.entityId + '/documents',
                                     data: $scope.docData,
                                     file: $scope.docFile
                                 }).then(function (data) {
-                                    getBankAccountDocuments();
                                     if (data != undefined) {
                                         documentId = data.data.resourceId;
                                         if (documentId != undefined) {
@@ -1617,7 +1590,6 @@
                         populateDetails();
                     });
                 };
-
                 $scope.activateBankAccountDetail = function () {
                     resourceFactory.bankAccountDetailActionResource.doAction({
                         'entityId': $scope.entityId,

@@ -22,13 +22,13 @@
                             <i class="icon-cog icon-white"></i>
                             {{'label.button.resetPassword' | translate}}
                         </button>
-                        <button type="button" ng-hide="user.accountNonLocked" data-text="{{'label.heading.unlockuser.message'| translate}}" data-confirm-popup ng-confirm-success="unlock()" class="btn btn-primary"  has-permission='UNLOCK_USER'>
+                        <button type="button" ng-hide="user.accountNonLocked" data-text="{{'label.heading.revoke.message'| translate}}" data-confirm-popup ng-confirm-success="unlock()" class="btn btn-primary"  has-permission='UNLOCK_USER'>
                             <i class="icon-unlock icon-white"></i>
-                            {{'label.button.unlock' | translate}}
+                            {{'label.button.revoke' | translate}}
                         </button>
-                        <button type="button" ng-hide="!user.accountNonLocked" data-text="{{'label.heading.lockuser.message'| translate}}" data-confirm-popup ng-confirm-success="lock()" class="btn btn-warning"  has-permission='LOCK_USER'>
+                        <button type="button" ng-hide="!user.accountNonLocked" data-text="{{'label.heading.suspend.message'| translate}}" data-confirm-popup ng-confirm-success="lock()" class="btn btn-warning"  has-permission='LOCK_USER'>
                             <i class="icon-lock icon-white"></i>
-                            {{'label.button.lock' | translate}}
+                            {{'label.button.suspend' | translate}}
                         </button>
                     </div>
                 </div>
@@ -77,7 +77,7 @@
                                     <td>{{user.staff.joiningDate | DateFormat}}</td>
                             </tr>
                             <tr>
-                                <td valign="top">{{'label.heading.roles' | translate}}:</td>
+                                <td valign="top">{{'label.heading.permission.groups' | translate}}:</td>
                                 <td>
                                     <table>
                                         <tr ng-repeat="role in user.selectedRoles">

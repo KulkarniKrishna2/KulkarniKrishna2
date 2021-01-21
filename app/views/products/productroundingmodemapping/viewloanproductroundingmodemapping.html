@@ -1,0 +1,29 @@
+<div class="col-md-12" ng-controller="ViewLoanProductRoundingModeMappingController">
+    <ul class="breadcrumb">
+        <li><a href="#/viewloanproductroundingemappings">{{'label.anchor.viewloanproductroundingmodemappings' | translate}}</a></li>
+        <li class="active">{{'label.anchor.viewloanproductroundingmodemapping' | translate}}</li>
+    </ul>  
+    <div class="pull-right btn-group">
+        <a has-permission="UPDATE_LOAN_PRODUCT_ROUNDING_MODE_MAPPING" href="#/updateloanproductroundingemapping/{{id}}" class="btn btn-primary"><i class="icon-edit icon-white"></i>{{
+            'label.button.edit' | translate }}</a>
+    </div>
+    <br> 
+    <table class="table">
+        <thead>
+            <tr class="graybg">
+                <th>{{'label.heading.loanproduct' | translate}}</th>
+                <th>{{'label.heading.roundingmode' | translate}}</th>
+                <th>{{'label.heading.installmentroundingmode' | translate}}</th>
+                <th>{{'label.heading.taxroundingmode' | translate}}</th>
+                <th>{{'label.heading.adjustedroundingmode' | translate}}</th>
+            </tr>
+        </thead>
+            <tr class="pointer-main">
+                <td>{{productMapping.loanProductData.name}}</td>
+                <td>{{productMapping.roundingMode.value}}</td>
+                <td>{{productMapping.installmentRoundingMode.value}}</td>
+                <td>{{productMapping.taxRoundingMode.value}}</td>
+                <td>{{productMapping.adjustedRoundingMode.value}}</td>
+            </tr>
+    </table>
+</div>

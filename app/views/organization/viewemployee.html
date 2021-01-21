@@ -8,6 +8,7 @@
 
     <tabset class="overflowhidden marginbottom0" tabset-name="clientTabset">
         <tab heading="{{'label.heading.general' | translate}}">
+            <api-validate></api-validate>
             <div class="well">
                 <div class="row primarydiv">
                     <div class="pull-right">
@@ -27,6 +28,14 @@
                         </ul>
                         </span>
                     </div>
+                </div>
+            </br>
+            <div class="pull-right">
+                <div class="btn-group">          
+                    <button type="button" data-text="{{'label.heading.deactivate.employee'| translate}}" data-confirm-popup ng-confirm-success="deactivateStaff()" class="btn btn-danger" has-permission='DEACTIVATE_STAFF'>
+                        <i class="icon-ban-circle icon-white"></i>&nbsp;{{'label.button.deactivate' | translate}}
+                    </button>           
+                </div>
                 </div>
                 <h3 class="bolder">{{employee.firstname}}&nbsp;&nbsp;{{employee.lastname}}</h3>
                 <div class="row">

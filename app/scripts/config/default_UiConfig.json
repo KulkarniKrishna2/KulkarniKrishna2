@@ -145,7 +145,8 @@
 				"createLoanApplication": false,
 				"blackList": true,
 				"whiteList": true,
-				"crnNumber" : true
+				"crnNumber" : true,
+				"makeCall" : true
 			},
 			"familyDeatils": {
 				"isHiddenField": {
@@ -164,8 +165,8 @@
 				"isValidateDOBField": {
 					"active": false,
 					"ageCriteria": {
-						"minAge": "",
-						"maxAge": ""
+						"minAge": "0",
+						"maxAge": "130"
 					}
 				},
 				"isValidateFirstName": {
@@ -411,12 +412,7 @@
 			},
 			"isMakerTwoStepPresent": false,
 			"showDeleteButton": true,
-			"showInactiveBankAccountDetails":false,
-			"isReadOnlyField": {
-				"bankName": false,
-				"bankCity": false,
-				"branchName": false
-			}
+			"showInactiveBankAccountDetails":false
 		},
 		"paymentDetails": {
 			"isMandatory": {

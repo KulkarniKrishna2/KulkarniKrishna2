@@ -448,6 +448,9 @@
                             isArray: true
                         }
                     }),
+                    staffResource: defineResource(apiVer + "/staff/:staffId/deactivate", { staffId: '@staffId' }, {
+                        deactivate: { method: 'POST', params: {} }
+                    }),
                     globalSearchTemplateResource: defineResource(apiVer + "/search/template", {}, {
                         get: { method: 'GET', params: {} }
                     }),
@@ -490,6 +493,9 @@
                     accountingClosureResource: defineResource(apiVer + "/glclosures/:accId", { accId: "@accId" }, {
                         get: { method: 'GET', params: {}, isArray: true },
                         getView: { method: 'GET', params: {} }
+                    }),
+                    outboundCallResource: defineResource(apiVer + "/clients/:clientId/call", {clientId: '@clientId'}, {
+                        save: { method: 'POST'}
                     }),
                     accountingClosureByOfficeResource: defineResource(apiVer + "/glclosures/offices/:officeId", { officeId: "@officeId" }, {
                         get: { method: 'GET', params: {}, isArray: true },
@@ -1742,7 +1748,7 @@
 
                     }),
                     reportGenerateResource: defineResource(apiVer + "/:entityType/:entityId/documents/generatereport", { entityType: '@entityType', entityId: '@entityId' }, {
-                        generate: { method: 'POST', params: { command: "generate" } }
+                        generate: { method: 'POST', params: { command: "generate", reportId : '@reportId' } }
                     }),
                     clientsTaskStepsTrackingResource: defineResource(apiVer + "/tasktracking/clientsstepsinfo/:centerId", { centerId: '@centerId' }, {
                         get: { method: 'GET', params: {}, isArray: true }
@@ -1779,7 +1785,8 @@
                         initiate: { method: 'POST', params: {} },
                         getAll: { method: 'GET', params: {}, isArray: true },
                         getEodCollections: { method: 'GET', params: {} },
-                        delete: { method: 'DELETE', params: {} }
+                        delete: { method: 'DELETE', params: {} },
+                        get: { method: 'GET', params: {}}
                     }),
                     eodProcessTemplateResource: defineResource(apiVer + "/eodprocess/template", {}, {
                         get: { method: 'GET', params: {} }
@@ -2156,7 +2163,7 @@
                     getCenterGeoDetailsResource: defineResource(apiVer + "/centers/:centerId/geo", { centerId: '@centerId' }, {
                         getGeoDetails: { method: 'GET', params: { centerId: '@centerId' }, isArray: true }
                     }),
-                    loanOfficerDropdownResource: defineResource(apiVer + "/staff/template/:officeId", { officeId: '@officeId' }, {
+                    loanOfficerDropdownResource: defineResource(apiVer + "/staff/template/:officeId", { officeId: '@officeId', includeInactive: '@includeInactive' }, {
                         getAll: { method: 'GET', params: {}, isArray: true },
                     }),
                     fileProcessIdentifierTemplateResource: defineResource(apiVer + "/fileprocess/template/:fileProcessIdentifier", { fileProcessIdentifier: '@fileProcessIdentifier' }, {
@@ -2171,8 +2178,58 @@
                     getLoanRestructureResource: defineResource(apiVer + "/loanrestructure/loan/:loanId", {}, {
                         get: { method: 'GET', params: { loanId: '@loanId' } }
                     }),
+                    nachMandateRequestResource: defineResource(apiVer + "/:entityType/:entityId/nach-mandate-requests/:requestId/:action/:resource", { entityType: '@entityType', entityId: '@entityId', requestId: '@requestId' }, {
+                        getAll: { method: 'GET', params: {}, isArray: true },
+                        template: { method: 'GET', params: { resource: 'template' }, isArray: false },
+                        refresh: { method: 'POST', params: { action: 'refresh' } },
+                        cancel: { method: 'POST', params: { action: 'cancel' } },
+                        reject: { method: 'POST', params: { action: 'reject' } },
+                        initiateRequest: { method: 'POST', params: {} }
+                    }),
+                    requestEsignResource: defineResource(apiVer + "/esign-request/:esignRequestId", {}, {
+                        save: { method: 'POST'},
+                        getTemplate: { method: 'GET'},
+                        get: { method: 'GET', params: { esignRequestId: '@esignRequestId' } }
+                    }),
+                    refreshEsignRequestResource: defineResource(apiVer + "/esign-request/:esignRequestId/refresh", {}, {
+                        refresh: { method: 'POST', params: { esignRequestId: '@esignRequestId' } }
+                    }),
+                    cancelEsignRequestResource: defineResource(apiVer + "/esign-request/:esignRequestId/cancel", {}, {
+                        cancel: { method: 'POST', params: { esignRequestId: '@esignRequestId' } } 
+                    }),
+                    esignRequestByEntityResource: defineResource(apiVer + "/esign-request/:entityType/:entityId", {}, {
+                        getAll: { method: 'GET', params: { entityType: '@entityType',entityId: '@entityId'}, isArray: true }
+                    }),
+                    esignRequestTemplateResource: defineResource(apiVer + "/esign-request/template", {}, {
+                        get: { method: 'GET'},
+                    }),
+                    financialOfficeMappingResource: defineResource(apiVer + "/financialactivityaccounts/:mappingId/officemapping/:id", {mappingId: '@mappingId',id: '@id'}, {
+                        get: { method: 'GET', params: {mappingId: '@mappingId',id: '@id' } },
+                        getAll: { method: 'GET', params: {mappingId: '@mappingId'}, isArray: true },
+                        update: { method: 'PUT', params: {mappingId: '@mappingId',id: '@id' } }
+                    }),
+                    financialOfficeMappingTemplateResource: defineResource(apiVer + "/financialactivityaccounts/:mappingId/officemapping/template", {mappingId: '@mappingId'}, {
+                        get: { method: 'GET', params: {mappingId: '@mappingId', isArray: true} }
+                    }),
                     getLoanRestructureEMI: defineResource(apiVer + "/loanrestructure/loan/calculateEMI", {}, {
                         calculateEMI: { method: 'POST'}
+                    }),
+                    loanProductRoundingModeMappingResource: defineResource(apiVer + "/loanProductRoundingModeMapping/:id", {id: '@id'}, {
+                        get: { method: 'GET', params: {id: '@id' } },
+                        getAll: { method: 'GET', params: {}, isArray: true },
+                        update: { method: 'PUT', params: {id: '@id' } }
+                    }),
+                    loanProductRoundingModeMappingTemplateResource: defineResource(apiVer + "/loanProductRoundingModeMapping/template", {}, {
+                        get: { method: 'GET', params: {} }
+                    }),
+                    clientLoansPaymentSettlementResource: defineResource(apiVer + "/clients/:clientId/loans/payment/settlement", {clientId: '@clientId'}, {
+                        paymentSettlement: { method: 'POST', params: { clientId: '@clientId' } }
+                    }),
+                    getLoanRestructureEMI: defineResource(apiVer + "/loanrestructure/loan/calculateEMI", {}, {
+                        calculateEMI: { method: 'POST'}
+                    }),
+                    LoanHistoryScheduleResource: defineResource(apiVer + "/loans/:loanId/schedulehistory/:historyVersion", { loanId: '@loanId', historyVersion:'@historyVersion' }, {
+                        getLoanScheduleHistory: { method: 'GET', params: {}}
                     })
                 };
             }];

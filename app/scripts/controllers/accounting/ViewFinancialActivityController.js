@@ -2,8 +2,12 @@
     mifosX.controllers = _.extend(module, {
         ViewFinancialActivityController: function (scope, resourceFactory, routeParams, location, $modal) {
             scope.financialActivityAccountPaymentTypeMappingData = [];
+            scope.showOfficeLevelMapping = false;
             resourceFactory.officeToGLAccountMappingResource.get({mappingId: routeParams.mappingId},function (data) {
                 scope.mapping = data;
+                if(data.financialActivityData.id==100 || data.financialActivityData.id==200){
+                    scope.showOfficeLevelMapping = true;
+                }
                 scope.financialActivityAccountPaymentTypeMappingData = data.financialActivityAccountPaymentTypeMappingData;
             });
 

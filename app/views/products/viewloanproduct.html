@@ -127,7 +127,8 @@
 </tr>
 <tr>
     <td>{{'label.heading.repayevery' | translate}}:</td>
-    <td colspan="3">{{loanproduct.repaymentEvery}}&nbsp;&nbsp;{{loanproduct.repaymentFrequencyType.value}}</td>
+    <td ng-if="!loanproduct.frequencyHumanReadable" colspan="3">{{loanproduct.repaymentEvery}}&nbsp;&nbsp;{{loanproduct.repaymentFrequencyType.value}}</td>
+    <td ng-if="loanproduct.frequencyHumanReadable" colspan="3">{{loanproduct.frequencyHumanReadable}}</td>
 </tr>
 <tr ng-show="(loanproduct.minLoanTerm != null)||(loanproduct.maxLoanTerm != null)">
     <td>{{'label.heading.loanTerm' | translate}}:</td>
@@ -311,6 +312,14 @@
 <tr>
     <td>{{'label.input.daysinmonth' | translate}}</td>
     <td colspan="3">{{loanproduct.daysInMonthType.value}}</td>
+</tr>
+<tr ng-show="loanproduct.brokenPeriodDaysInYearType">
+    <td>{{'label.input.brokenperioddaysinyears' | translate}}</td>
+    <td colspan="3">{{loanproduct.brokenPeriodDaysInYearType.value}}</td>
+</tr>
+<tr ng-show="loanproduct.brokenPeriodDaysInMonthType">
+    <td>{{'label.input.brokenperioddaysinmonth' | translate}}</td>
+    <td colspan="3">{{loanproduct.brokenPeriodDaysInMonthType.value}}</td>
 </tr>
 <tr ng-if="loanproduct.daysInMonthType.id === 30">
     <td>{{'label.input.partial.period.type' | translate}}</td>

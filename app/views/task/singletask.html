@@ -12,6 +12,10 @@
                 </small>
                 <small><span >{{'label.heading.duedate' | translate}} {{taskData.dueDate | DateFormat}}&nbsp;{{dueTimeToDisplay}}&nbsp;</span><a ng-if = "canReschedule && isShowRescheduleButton" 
                     ng-click = "initiateTaskAction('reschedule')" class = "btn btn-default"><i class="icon-time"></i>&nbsp;{{'label.button.reschedule' | translate}}</a></small>
+                    <button type="button" class="btn btn-success" data-ng-click="call()" ng-show="isMakeCallToClient()"
+                    data-text="{{'label.input.call.confirm.workflow.message' | translate}}" data-confirm-popup ng-confirm-success="call()" has-permission='CALL_CLIENT' tooltip="{{'label.button.phone.call' | translate}}">
+                        <i class="icon-phone"></i> {{'label.button.call' | translate}}
+                    </button>
             </h3>
         </div>
 

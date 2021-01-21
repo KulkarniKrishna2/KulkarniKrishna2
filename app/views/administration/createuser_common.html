@@ -177,8 +177,8 @@
                 </div>
             </div>
 			<div class="form-group">
-				<div class="col-sm-3 col-md-3 col-md-offset-1">
-					<label class="control-label col-sm-9">{{ 'label.input.availableroles' | translate }}</label>
+				<div class="col-sm-3 col-md-4 col-md-offset-1">
+					<label class="control-label col-sm-9">{{ 'label.input.available.permission.groups' | translate }}</label>
 					<select id="availableroles" ng-model="available" name="availableroles" class="form-control multiselectmin" multiple>
 						<option ng-repeat="availablerole in availableRoles" value="{{availablerole.id}}">
 							{{availablerole.name}}
@@ -192,8 +192,8 @@
 					<button type="button" class="btn btn-primary" data-ng-click="removeRole()"><i
 							class="icon-double-angle-left"></i></button>
 				</div>
-				<div class="col-sm-3 col-md-3">
-					<label class="control-label col-sm-9">{{ 'label.input.selectedroles' | translate}}</label>
+				<div class="col-sm-3 col-md-4">
+					<label class="control-label col-sm-9">{{ 'label.input.selected.permission.groups' | translate}}</label>
 					<select id="roles" ng-model="selected" name="role" class="form-control multiselectmin" multiple>
 						<option ng-repeat="availablerole in selectedRoles" value="{{availablerole.id}}">
 							{{availablerole.name}}

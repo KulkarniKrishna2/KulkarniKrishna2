@@ -1,0 +1,56 @@
+<div class="col-md-12" ng-controller="ViewEodProcessController">
+	<div>
+		<ul class="breadcrumb">
+			<li><a href="#/accounting">{{'label.anchor.accounting' | translate}}</a></li>
+			<li><a href="#/eodprocess">{{'label.anchor.eod.process' | translate}}</a></li>
+			<li class="active">{{'label.heading.view.eod.process' | translate}}</li>
+		</ul>
+	</div>
+	<div class="well">
+		<legend>{{ 'label.heading.view.eod.process' | translate }}
+			<div class="pull-right">
+				<button class="btn btn-primary" ng-click="viewEOD()" has-permission='READ_EOD_PROCESS'>
+					{{'label.button.view.eod' | translate}}</button>
+				<button ng-show="!eod.isDeleted" type="button" data-text="{{'label.heading.confirm.to.reject'}}"
+					data-confirm-popup ng-confirm-success="rejectEOD()"
+					class="btn btn-primary btn-xs">{{'label.button.reject.eod' | translate }}</button>
+			</div>
+		</legend>
+
+		<div class="row">
+			<div class="col-md-6">
+				<api-validate></api-validate>
+				<table class="table table-bogndrai12rdered table-striped">
+					<tr>
+						<td><strong>{{ 'label.heading.office' | translate }}</strong></td>
+						<td>{{getOfficeName(eod.officeData.name,eod.officeData.officeReferenceNumber)}}</td>
+					</tr>
+					<tr>
+						<td><strong>{{ 'label.input.closingdate' | translate }}:</strong></td>
+						<td>{{eod.eodDate | DateFormat}}</td>
+					</tr>
+					<tr>
+						<td><strong>{{ 'label.heading.status' | translate }}:</strong></td>
+						<td>{{eod.status.value}}</td>
+					</tr>
+					<tr>
+						<td><strong>{{'label.heading.is.operational.closure.done' | translate }}</strong></td>
+						<td>{{isDone(eod.isOperationalClosureDone)}}</td>
+					</tr>
+					<tr>
+						<td><strong>{{'label.heading.is.financial.closure.done' | translate }}</strong></td>
+						<td>{{isDone(eod.isFinancialClosureDone)}}</td>
+					</tr>
+					<tr>
+						<td><strong>{{ 'label.heading.createdby' | translate }}</strong></td>
+						<td>{{eod.createdBy.firstname}}&nbsp;{{eod.createdBy.lastname}}</td>
+					</tr>
+					<tr>
+						<td><strong>{{ 'label.heading.isactive' | translate }}:</strong></td>
+						<td>{{!eod.isDeleted}}</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

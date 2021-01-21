@@ -339,6 +339,10 @@
 								<li>
 									<a ng-click="routeToCreditHistory()" has-permission='READ_CREDITHISTORY'>{{'label.button.view.credit.history' | translate }}</a>
 								</li>
+
+								<li>
+									<a ng-click="routeToClientLoansPaymentSettelment()" has-permission='LOANS_PAYMENT_SETTLEMENT'>{{'label.button.client.loans.payment.settlement' | translate }}</a>
+								</li>
 							</ul>
 						</span>
 				    </div>
@@ -436,6 +440,10 @@
 					            <button type="button" class="btn btn-primary" data-ng-click="capturePic()" has-permission='CREATE_CLIENTIMAGE'
 					                    tooltip="{{'label.button.capturepic' | translate}}">
 					                <i class="icon-camera"></i>
+								</button>
+								<button type="button" class="btn btn-primary" data-ng-click="call()" ng-hide="makeCall" data-text="{{'label.input.call.confirm.message' | translate}} {{client.displayName}}" data-confirm-popup ng-confirm-success="call()" has-permission='CALL_CLIENT'
+					                    tooltip="{{'label.button.phone.call' | translate}}">
+					                <i class="icon-phone"></i>
 					            </button>
 					            <button type="button" class="btn btn-primary" ng-show="client.imagePresent" data-ng-click="deletePic()" has-permission='DELETE_CLIENTIMAGE'
 					                    tooltip="{{'label.button.deletepic' | translate}}">
@@ -629,7 +637,7 @@
 							<th>{{'label.heading.interestpaid' | translate}}</th>
 							<th>{{'label.heading.overdueamount' | translate}}</th>
 							<th>{{'label.heading.delinquentdays' | translate}}</th>
-							<th>{{'label.heading.isnpa' | translate}}</th>
+							<th>{{'label.heading.accountclosedate' | translate}}</th>
 					</tr>
 					<tr class="pointer-main"
 						ng-repeat="loanaccount in clientAccounts.loanAccounts | orderBy:'id':true | filter:isClosed">
@@ -650,7 +658,7 @@
 							<td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.interestPaid|number}}</td>
 							<td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.overdueAmount|number}}</td>
 							<td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.delinquentDays|number}}</td>
-							<td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{(loanaccount.isNpa)? 'Yes' : 'No'}}</td>
+							<td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.closedOnDate|DateFormat}}</td>
 					</tr>
 				</table>
 			</div>

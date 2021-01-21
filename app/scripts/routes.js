@@ -2198,6 +2198,36 @@
             })
             .when('/productivesheet/:officeId/:officeName/:meetingDate/:staffId/:newtransactionDate', {
                 templateUrl: 'views/collection/productivecollectionsheet.html'
+            })            
+            .when('/viewloanproductroundingemappings', {
+                templateUrl: 'views/products/productroundingmodemapping/loanproductroundingmodemappings.html'
+            })            
+            .when('/viewloanproductroundingemapping/:id', {
+                templateUrl: 'views/products/productroundingmodemapping/viewloanproductroundingmodemapping.html'
+            })            
+            .when('/updateloanproductroundingemapping/:id', {
+                templateUrl: 'views/products/productroundingmodemapping/updateloanproductroundingmodemapping.html'
+            })            
+            .when('/createloanproductroundingemapping', {
+                templateUrl: 'views/products/productroundingmodemapping/createloanproductroundingmodemapping.html'
+            })
+            .when('/createfinancialofficemapping/:mappingId', {
+                templateUrl: 'views/accounting/financialofficemapping/createfinanacialofficemapping.html'
+            })
+            .when('/updatefinancialofficemapping/:mappingId/officemapping/:id', {
+                templateUrl: 'views/accounting/financialofficemapping/updatefinanacialofficemapping.html'
+            })
+            .when('/viewfinancialofficemappings/:mappingId/officemappings', {
+                templateUrl: 'views/accounting/financialofficemapping/viewfinanacialofficemappings.html'
+            })
+            .when('/viewfinancialofficemapping/:mappingId/officemapping/:id', {
+                templateUrl: 'views/accounting/financialofficemapping/viewfinanacialofficemapping.html'
+            })
+            .when('/vieweodprocess/:id', {
+                templateUrl: 'views/accounting/eodprocess/vieweodprocess.html'
+            })
+            .when('/clients/:clientId/loans/payment/settlement', {
+                templateUrl: 'views/clients/clientsloanspaymentsettlement.html'
             })
         $locationProvider.html5Mode(false);
     };

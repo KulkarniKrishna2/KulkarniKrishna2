@@ -20,6 +20,14 @@
     		<div class="col-md-12">
 		    	<legend>{{ 'label.heading.viewfinancialmapping' | translate }}
 		    		<div class="pull-right">
+				        <div class="btn-group" ng-show="showOfficeLevelMapping">
+				        	<a href="#/createfinancialofficemapping/{{mapping.id}}" class="btn btn-primary"
+				               has-permission='CREATE_FINANCIAL_ACCOUNT_OFFICE_MAPPING'><i
+				                    class="icon-plus icon-white"></i>{{'label.button.officemappings' | translate}}</a>
+				        	<a href="#/viewfinancialofficemappings/{{mapping.id}}/officemappings" class="btn btn-primary"
+				               has-permission='READ_FINANCIAL_ACCOUNT_OFFICE_MAPPING'><i
+				                    class="icon-eye-open icon-white"></i>{{'label.button.officemappings' | translate}}</a>
+				        </div>
 				        <div class="btn-group">
 				            <a href="#/editfinancialactivitymapping/{{mapping.id}}" class="btn btn-primary"
 				               has-permission='UPDATE_FINANCIALACTIVITYACCOUNT'><i

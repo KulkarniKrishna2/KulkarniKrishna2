@@ -1,0 +1,56 @@
+<div class="col-md-12" ng-controller="ViewFinancialOfficeMappingsController">
+    <ul class="breadcrumb">
+        <li><a href="#/viewfinancialactivitymapping/{{mappingId}}">{{'label.anchor.financialactivity.accountmappings' | translate}}</a></li>
+        <li class="active">{{'label.anchor.viewofficemappings' | translate}}</li>
+    </ul>
+    <legend>{{financialActivityData.financialActivityData.name  | translate }}</legend>
+    <form  novalidate="" class="form-horizontal " rc-submit="submit()">
+        
+            <div class="form-group">
+                <label class=" col-sm-2">
+                    {{'label.input.from.office' | translate}}
+                </label>
+                <div class="col-sm-3">
+                    <div>
+                        <select chosen="offices" id="fromOfficeId" ng-model="formData.fromOfficeId"  class="form-control" ng-options="office.id as office.name for office in offices" value="{{office.id}}">
+                        <option value="">--{{'label.menu.selectoffice' | translate}}--</option>
+                        </select>
+                    </div>
+                </div>
+                <label class="col-sm-2">
+                    {{'label.input.tooffice' | translate}}
+                </label>
+
+                <div class="col-sm-3">
+                    <div>
+                        <select chosen="offices" id="toOfficeId" ng-model="formData.toOfficeId"  class="form-control" ng-options="office.id as office.name for office in offices" value="{{office.id}}">
+                        <option value="">--{{'label.menu.selectoffice' | translate}}--</option>
+                        </select>
+                    </div>
+                </div>
+                <div  class="col-sm-2">
+                    <button id="save" type="submit" class="btn btn-primary"  ng-hide="blockUI" has-permission='READ_FINANCIAL_ACCOUNT_OFFICE_MAPPING'>{{'label.button.search' | translate}}</button>
+                </div>
+            </div>  
+    </form>
+    <table class="table">
+    <thead>
+        <tr class="graybg">
+            <th>{{'label.heading.from.office' | translate}}</th>
+            <th>{{'label.heading.to.office' | translate}}</th>
+            <th>{{'label.heading.glaccount' | translate}}</th>
+            <th>{{'label.heading.actions' | translate}}</th>
+        </tr>
+    </thead>
+    <tr class="pointer-main" ng-repeat="mapping in officeMappings">
+        <td>{{mapping.fromOfficeData.name}}</td>
+        <td>{{mapping.toOfficeData.name}}</td>
+        <td>{{mapping.glAccountData.name}}&nbsp;({{mapping.glAccountData.glCode}})</td>
+        <td>
+            <div class="btn-group">
+                <button type="button" has-permission="READ_FINANCIAL_ACCOUNT_OFFICE_MAPPING" ng-click="view(mapping.id)" class="btn btn-warning" ><i  tooltip="View" class="icon-white icon-eye-open"></i></button>
+            </div>
+        </td>
+    </tr>
+</table>
+</div>

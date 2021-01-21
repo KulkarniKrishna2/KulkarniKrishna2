@@ -21,6 +21,8 @@
             scope.roundingModeOptions = [];
             scope.chargeAppliesToLoan = 1;
             scope.showChargeCategoryType = false;
+            scope.showEventTypeOptions = false;
+            scope.chargeEventsTypeOptions = [];
 
             if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createCharges &&
                 scope.response.uiDisplayConfigurations.createCharges.isHiddenField) {
@@ -28,6 +30,7 @@
             }
             resourceFactory.chargeResource.getCharge({chargeId: routeParams.id, template: true}, function (data) {
                 scope.template = data;
+                scope.chargeEventsTypeOptions = data.chargeEventsTypeOptions;
                 scope.incomeAccountOptions = data.incomeOrLiabilityAccountOptions.incomeAccountOptions || [];
                 scope.liabilityAccountOptions = data.incomeOrLiabilityAccountOptions.liabilityAccountOptions || [];
                 scope.incomeAndLiabilityAccountOptions = scope.incomeAccountOptions.concat(scope.liabilityAccountOptions);
@@ -42,6 +45,9 @@
                     scope.showEmiRoundingGoalSeek = true;
                     scope.showMinimunCapping = true;
                     scope.showMaximumCapping = true;
+                    if(data.chargeEventType){
+                        scope.showEventTypeOptions = true;
+                    }
                 } else if (data.chargeAppliesTo.value === "Savings") {
                     scope.chargeTimeTypeOptions = data.savingsChargeTimeTypeOptions;
                     scope.template.chargeCalculationTypeOptions = scope.template.savingsChargeCalculationTypeOptions;
@@ -104,6 +110,9 @@
                     scope.showSlabBasedCharges = true;
                 } else {
                     scope.showSlabBasedCharges = false;
+                }
+                if(scope.showEventTypeOptions == true){
+                    scope.formData.chargeEventType = data.chargeEventType.id;
                 }
                 showCapitalizedChargeCheckbox();
 
@@ -202,6 +211,12 @@
                     scope.formData.overdueChargeDetail = {};
                 }else{
                     delete  scope.formData.overdueChargeDetail;
+                }
+                scope.showEventTypeOptions = (chargeTimeType==51);
+                if(scope.showEventTypeOptions==false){
+                    scope.formData.chargeEventType = undefined;
+                }else{
+                    scope.formData.chargeEventType = scope.chargeEventsTypeOptions[0].id;
                 }
                 if (scope.formData.chargeAppliesTo === 2 || scope.formData.chargeAppliesTo === 3) {
                     for (var i in scope.template.chargeTimeTypeOptions) {

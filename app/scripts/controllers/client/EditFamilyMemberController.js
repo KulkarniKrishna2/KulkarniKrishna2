@@ -16,7 +16,7 @@
             scope.educationOptions = [];
             scope.occupationOptions = [];
             scope.subOccupations = [];
-            if(scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isValidateDOBField.active && scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isValidateDOBField.ageCriteria){
+            if(scope.response && scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isValidateDOBField.active && scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isValidateDOBField.ageCriteria){
                 scope.familyMemberMinAge = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isValidateDOBField.ageCriteria.minAge;
                 scope.familyMemberMaxAge = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isValidateDOBField.ageCriteria.maxAge;
             }
@@ -50,11 +50,7 @@
                         scope.maxAge = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isValidateDOBField.ageCriteria.maxAge;
                     }
                 }
-            } else {
-                scope.minAge = 0;
-                scope.maxAge = scope.restrictDate;
-
-            }
+            } 
             scope.minDateOfBirth = getMinimumRestrictedDate(new Date());
             scope.maxDateOfBirth = getMaximumRestrictedDate(new Date());
             function getMaximumRestrictedDate(restrictedDate) {

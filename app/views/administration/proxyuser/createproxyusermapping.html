@@ -16,7 +16,10 @@
 
                 <div class="col-sm-3">
                     <div>
-                        <select chosen="users" id="proxyUserId" name="proxyUserId" ng-model="formData.proxyUserId"  class="form-control" ng-options="user.id as user.username for user in users" value="{{user.id}}" required late-validate></select>
+                        <select chosen="users" id="proxyUserId" name="proxyUserId" ng-model="formData.proxyUserId" class="form-control"
+                            ng-options="user.id as user.username for user in users" value="{{user.id}}" required late-validate>
+                            <option value="" selected>{{'label.selectone' | translate}}</option>
+                        </select>
                     </div>
                 </div>
                 <div class="col-sm-2">
@@ -31,11 +34,14 @@
 
                 <div class="col-sm-3">
                     <div>
-                        <select chosen="users" id="targetUserId" name="targetUserId" ng-model="formData.targetUserId"  class="form-control" ng-options="user.id as user.username for user in users" value="{{user.id}}" required late-validate></select>
+                        <select chosen="users" id="targetUserId" name="targetUserId" ng-model="formData.targetUserId" class="form-control"
+                            ng-options="user.id as user.username for user in users" value="{{user.id}}" required late-validate>
+                            <option value="" selected>{{'label.selectone' | translate}}</option>
+                        </select>
                     </div>
                 </div>
                 <div class="col-sm-2">
-                    <form-validate valattributeform="createmappingform" valattribute="proxyUserId"/>
+                    <form-validate valattributeform="createmappingform" valattribute="targetUserId"/>
                 </div>
             </div>
 

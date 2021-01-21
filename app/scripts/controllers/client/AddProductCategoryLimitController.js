@@ -4,12 +4,12 @@
         AddProductCategoryLimitController: function (scope, resourceFactory) {
             scope.formData = {};
             scope.limit = { locale: "en" };
-            scope.limit.productCategories = [];
             resourceFactory.productCategoriesResource.getProductCategories(function (data) {
                 scope.productCategories = data;
             });
 
             scope.submit = function () {
+                scope.limit.productCategories = [];
                 scope.formData.maxAllowedLimit = scope.formData.categoryLimit;
                 scope.limit.productCategories.push(scope.formData);
                 resourceFactory.clientCategoryLimitsResource.save({ clientId: scope.clientId }, scope.limit, function (data) {

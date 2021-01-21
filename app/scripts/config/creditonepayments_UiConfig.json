@@ -1,0 +1,26 @@
+{
+	"enableUIDisplayConfiguration": true,
+	"uiDisplayConfigurations": {
+		"viewClient": {
+			"isHiddenField": {
+				"makeCall" : false
+			}
+	},
+	"createClient": {
+		"isValidateDOBField": {
+			"active": true,
+			"ageCriteria": {
+				"minAge": 18,
+				"maxAge": 60
+			}
+		},
+		"isMandatoryField": {
+			"dateOfBirth": true,
+			"mobileNumber": true
+		},
+		"isValidMobileNumber": {
+			"mobileNumberPattern": "/^[1-9]{1}\\d{9}$/"
+		}
+	}
+}
+}

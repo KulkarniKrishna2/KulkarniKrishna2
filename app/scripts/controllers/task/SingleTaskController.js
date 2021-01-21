@@ -560,6 +560,22 @@
                 };
             };
 
+            scope.isMakeCallToClient = function(){
+                if(scope.response.uiDisplayConfigurations && !scope.response.uiDisplayConfigurations.viewClient.isHiddenField.makeCall){
+                    if(scope.taskconfig && scope.taskconfig.clientId){
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            scope.outboundCallData = {"origin": "workflow","referenceId": scope.getTaskId()}
+            scope.call = function(){
+                resourceFactory.outboundCallResource.save({clientId : scope.taskconfig.clientId},scope.outboundCallData, function(data) {
+                    $scope.close();
+                });
+            }; 
+
             scope.displayQueries = function () {
                 scope.isDisplayNotes=false;
                 scope.isDisplayAttachments=false;

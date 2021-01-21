@@ -1,0 +1,56 @@
+<div class="col-md-12" ng-controller="ViewLoanProductRoundingModeMappingsController">
+    <ul class="breadcrumb">
+        <li class="active">{{'label.anchor.viewloanproductroundingmodemappings' | translate}}</li>
+    </ul>  
+    <div class="pull-right btn-group">
+        <a has-permission="CREATE_LOAN_PRODUCT_ROUNDING_MODE_MAPPING" href="#/createloanproductroundingemapping" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{
+            'label.button.create' | translate }}</a>
+    </div>
+    <br> 
+     <script type="text/ng-template" id="deletemapping.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.delete' | translate}}&nbsp;&nbsp;{{deleteItem.name}}</h3>
+
+        </div>
+        <div class="modal-body ">
+            <api-validate></api-validate>
+            <br>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+    <table class="table">
+        <thead>
+            <tr class="graybg">
+                <th>{{'label.heading.loanproduct' | translate}}</th>
+                <th>{{'label.heading.roundingmode' | translate}}</th>
+                <th>{{'label.heading.installmentroundingmode' | translate}}</th>
+                <th>{{'label.heading.taxroundingmode' | translate}}</th>
+                <th>{{'label.heading.adjustedroundingmode' | translate}}</th>
+                <th>{{'label.heading.actions' | translate}}</th>
+            </tr>
+        </thead>
+            <tr ng-repeat="mapping in productMappings">
+                <td>{{mapping.loanProductData.name}}</td>
+                <td>{{mapping.roundingMode.value}}</td>
+                <td>{{mapping.installmentRoundingMode.value}}</td>
+                <td>{{mapping.taxRoundingMode.value}}</td>
+                <td>{{mapping.adjustedRoundingMode.value}}</td>
+                <td>
+                    <div class="btn-group">
+                        <a type="button" has-permission="READ_LOAN_PRODUCT_ROUNDING_MODE_MAPPING" href="#/viewloanproductroundingemapping/{{mapping.id}}" class="btn btn-primary" >
+                            <i  tooltip="View" class="icon-white icon-eye-open"></i>
+                        </a>
+                    </div>
+                    <div class="btn-group">                        
+                        <a type="button" has-permission="UPDATE_LOAN_PRODUCT_ROUNDING_MODE_MAPPING" href="#/updateloanproductroundingemapping/{{mapping.id}}" class="btn btn-primary" >
+                            <i  tooltip="Edit" class="icon-white icon-edit"></i>
+                        </a>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" has-permission="DELETE_LOAN_PRODUCT_ROUNDING_MODE_MAPPING" ng-click="delete(mapping.id,mapping.loanProductData.name)" class="btn btn-danger" ><i  tooltip="Delete" class="icon-white icon-trash"></i></button>
+                    </div>
+                </td>
+            </tr>
+    </table>
+</div>
