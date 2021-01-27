@@ -43,6 +43,9 @@
 				"expenseAmount" : false,
 				"expectedDisbursementDate": true
 			},
+			"isReadOnlyField" :{
+				"loanProductForSpecificSteps" : false
+			},
 			"disableSelectAllClients": true,
 			"disableMeetingFrequency": false,
 			"showDeleteClientIdentifierAction": true,
