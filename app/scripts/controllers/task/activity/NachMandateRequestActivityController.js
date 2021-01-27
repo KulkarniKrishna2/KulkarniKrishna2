@@ -32,7 +32,7 @@
             }
 
             scope.canRefresh = function (nachMandateRequest) {
-                if (nachMandateRequest && nachMandateRequest.status == 'PENDING') {
+                if (nachMandateRequest && (nachMandateRequest.status == 'PENDING' || nachMandateRequest.status == 'AUTH_SUCCESS')) {
                     return true;
                 }
                 return false;
@@ -107,6 +107,7 @@
                     scope.bankAccountDetails = data.bankAccountDetails;
                     scope.formData.debitType = data.debitType.id;
                     scope.formData.debitFrequency = data.debitFrequency.id;
+                    scope.registrationModes = data.registrationModes;
                     if (scope.bankAccountDetails.length > 0) {
                         scope.formData.bankAccountDetailId = scope.bankAccountDetails[0].id;
                     }
@@ -123,6 +124,7 @@
                 requestBody.debitType = scope.formData.debitType;
                 requestBody.debitFrequency = scope.formData.debitFrequency;
                 requestBody.bankAccountDetailId = scope.formData.bankAccountDetailId;
+                requestBody.registrationMode = scope.formData.registrationMode;
                 resourceFactory.nachMandateRequestResource.initiateRequest({
                     entityType: scope.nachMandateEntityType,
                     entityId: scope.nachMandateEntityId

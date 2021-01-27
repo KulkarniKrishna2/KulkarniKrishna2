@@ -8875,6 +8875,7 @@
      "validation.msg.loanproduct.principalCycleNumbers.is.not.in.order":"please add principle cycle number in order",
      "validation.msg.loanproduct.repaymentCycleNumber.is.not.in.order":"please add repayment cycle number in order",
      "validation.msg.loanproduct.interestRateCycleNumber.is.not.in.order":"please add interestRate cycle number in order",
+     "label.input.nach.registration.mode": "Nach Registration Mode",
 
      "------ end of translation file ------": "----------"
 
