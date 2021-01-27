@@ -75,6 +75,11 @@
             }
 
             scope.editLoan = function (loanAccountBasicData, groupId) {
+                var isLoanProductReadOnly;
+                if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow &&
+                    scope.response.uiDisplayConfigurations.workflow.isReadOnlyField) {
+                    isLoanProductReadOnly = scope.response.uiDisplayConfigurations.workflow.isReadOnlyField.loanProductForSpecificSteps;
+                }
                 $modal.open({
                     templateUrl: 'views/task/popup/editLoan.html',
                     controller: editLoanCtrl,
@@ -83,7 +88,7 @@
                     size: 'lg',
                     resolve: {
                         memberParams: function () {
-                            return { 'groupId': groupId, 'loanAccountBasicData': loanAccountBasicData };
+                            return { 'groupId': groupId, 'loanAccountBasicData': loanAccountBasicData,'isLoanProductReadOnly' : isLoanProductReadOnly };
                         }
                     }
                 });
@@ -141,7 +146,7 @@
                 $scope.inparams.entityId = $scope.clientId;
                 $scope.formData = {};
                 $scope.isEmiAmountEditable= true;
-                $scope.isLoanProductReadOnly = true;
+                $scope.isLoanProductReadOnly = memberParams.isLoanProductReadOnly;
 
                 if (scope.response && scope.response.uiDisplayConfigurations.loanAccount) {
 
@@ -152,9 +157,13 @@
                     $scope.showBrokenPeriodType = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.brokenPeriodMethodType;
                     $scope.isLoanPurposeRequired = scope.response.uiDisplayConfigurations.loanAccount.isMandatory.loanPurposeId;
                 }
-                if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow &&
+                if( _.isUndefined($scope.isLoanProductReadOnly)){
+                    if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow &&
                     scope.response.uiDisplayConfigurations.workflow.isReadOnlyField) {
                     $scope.isLoanProductReadOnly = scope.response.uiDisplayConfigurations.workflow.isReadOnlyField.loanProduct;
+                    }else{
+                        $scope.isLoanProductReadOnly = true;
+                    }
                 }
 
                 resourceFactory.loanResource.get($scope.inparams, function (data) {
