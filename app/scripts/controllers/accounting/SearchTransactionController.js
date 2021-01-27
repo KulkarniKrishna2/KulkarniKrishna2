@@ -47,7 +47,7 @@
                 scope.glAccounts = data;
             });
 
-            resourceFactory.officeResource.getAllOffices(function (data) {
+            resourceFactory.officeResource.getAllOffices({onlyActive:true},function (data) {
                 scope.offices = data;
             });
 
