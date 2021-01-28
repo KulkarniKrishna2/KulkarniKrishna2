@@ -310,7 +310,7 @@
                 if(transaction.transactionType.accrual==false){
                     if (accountTransfer) {
                         var transferId = transaction.transfer.id;
-                        location.path('/viewaccounttransfers/' + transferId).search('redirectPath','viewrecurringdepositaccount').search('accoutId',accountId);
+                        location.path('/viewaccounttransfers/' + transferId).search('redirectPath','viewrecurringdepositaccount').search('accoutId',accountId).search('transactionId',transactionId);
                     } else {
                         location.path('/viewrecurringdepositaccounttrxn/' + accountId + '/' + transactionId);
                     }
