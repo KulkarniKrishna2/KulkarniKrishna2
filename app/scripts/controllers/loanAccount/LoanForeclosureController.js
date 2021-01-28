@@ -59,7 +59,7 @@
                     scope.formData.outstandingPrincipalPortion = scope.foreclosuredata.principalPortion;
                     scope.formData.outstandingInterestPortion = scope.foreclosuredata.interestPortion;
                     scope.paymentModeOptions = scope.foreclosuredata.paymentModeOptions;
-                    scope.paymentTypeOptions = scope.foreclosuredata.paymentTypeOptions;
+                    //scope.paymentTypeOptions = scope.foreclosuredata.paymentTypeOptions;
                     if (scope.foreclosuredata.unrecognizedIncomePortion) {
                         scope.formData.interestAccruedAfterDeath = scope.foreclosuredata.unrecognizedIncomePortion;
                     }
