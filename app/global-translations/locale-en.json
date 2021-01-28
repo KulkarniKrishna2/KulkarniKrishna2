@@ -1149,6 +1149,9 @@
     "error.msg.cannot.total.max.allowed.limit.cannot.be.greater.than.client.super.limit": "Failed to assign limit as Total max allowed limit is exceeding client Super limit of {{params[1].value}}",
     "error.msg.loanproduct.is.already.mapped":"The loanproduct is already mapped",
     "error.msg.savingsproduct.is.already.mapped": "The savingsproduct is already mapped",
+    "proxy.user.cannot.be.switched.to.target.user.today.as.the.mapped.date.is.not.in.the.range": "Proxy User cannot be switched to target user today, as the mapped date is from {{params[0].value}} to {{params[2].value}}",
+    "validation.msg.PROXYUSERMAPPING.toDate.is.less.than.date": "To Date is less than From Date",
+    "validation.msg.PROXYUSERMAPPING.fromDate.is.less.than.date": "From Date is less than Current Date",
     "#--------": "------------",
 
     "#Groups": "....",
@@ -3110,8 +3113,8 @@
     "label.heading.roletosavingsproducts": "Role access to savings products",
     "label.heading.unlockuser": "Unlock User",
     "label.heading.lockuser": "Lock User",
-    "label.heading.lockuser.message": "Do you want to lock the User?",
-    "label.heading.unlockuser.message": "Do you want to un-lock the User?",
+    "label.heading.suspend.message": "Do you want to suspend the User?",
+    "label.heading.revoke.message": "Do you want to revoke the User?",
     "label.heading.deactivate.employee": "Are you sure, do you want to deactivate the Employee?",
 
     "#Anchors": "..",
@@ -3141,8 +3144,8 @@
     "#Buttons": "..",
     "label.button.createuser": "Create User",
     "label.button.changepassword": "Change Password",
-    "label.button.unlock": "unlock",
-    "label.button.lock": "lock",
+    "label.button.revoke": "revoke",
+    "label.button.suspend": "suspend",
     "label.input.captcha": "Enter Captcha",
     "error.captcha.verification.failed": "Captcha Verification failed",
     "error.captcha.verification.required":"Captcha Verification Required",
@@ -8192,6 +8195,7 @@
     "error.msg.cannot.be.processed.as.the.associated.village.is.blacklisted": "Cannot be processed as the associated village is blacklisted",
     "error.msg.village.status.audit.not.found": "Audit Status of Village with identifier `{{params[0].value}}` does not exist",
     "validation.msg.loanutilizationcheck.parameter.amount.loanUtilizationCVId.is.one.of.these.mandatory" : "Amount cannot be empty",
+    "validation.msg.riskFactorConfiguration.uname.does.not.match.regexp": "Short name field should not have space",
 
     "error.msg.staff.office.can.not.be.updated" : "Staff's office can not be updated , as it is attached to active {{params[0].value}} accounts {{params[1].value}} ",
     "label.self.service.user" : "Self Service Users",
@@ -8870,6 +8874,9 @@
      "label.input.brokenperioddaysinmonth": "Broken Period Days in month",
      "--preclosure charges" : "---preclosure charges--",
      "label.input.eventtype": "Event Type",
+     "validation.msg.loanproduct.principalCycleNumbers.is.not.in.order":"please add principle cycle number in order",
+     "validation.msg.loanproduct.repaymentCycleNumber.is.not.in.order":"please add repayment cycle number in order",
+     "validation.msg.loanproduct.interestRateCycleNumber.is.not.in.order":"please add interestRate cycle number in order",
 
      "------ end of translation file ------": "----------"
 
