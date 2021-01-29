@@ -94,18 +94,24 @@
                     //method to rotate the image in clockwise
                     angular.element('#giraresq').click(function () {
                         //set the rotate angle for clockwise rotation
-                        angleInDegrees = 5;
+                        angleInDegrees = 90;
                         currentAngle += angleInDegrees;
-                        drawImage();
+                        if (currentAngle > 360) {
+                            currentAngle = currentAngle - 360;
+                        }
+                        drawImageBy90Rotation();
                     });
 
 
                     //method to rotate the image in anti clockwise
                     angular.element('#girardir').click(function () {
                         //set the rotate angle for anti clockwise rotation
-                        angleInDegrees = -5;
+                        angleInDegrees = -90;
                         currentAngle += angleInDegrees;
-                        drawImage();
+                        if (currentAngle < -360) {
+                            currentAngle = currentAngle + 360;
+                        }
+                        drawImageBy90Rotation();
                     });
 
 
@@ -179,6 +185,35 @@
                         element.restore();
                     }
 
+                    //method to draw the image in the canvas from image element by 90 degree Rotatio
+                    function drawImageBy90Rotation() {
+                        clear();
+                        element.save();
+                        element.scale(currentScale, currentScale);
+                        element.rotate(currentAngle * Math.PI / 180);
+                        var ratio = Math.min((canvas.width) / image.width, (canvas.height) / image.height);
+                        var imagewidth = image.width * ratio;
+                        var imageheight = image.height * ratio;
+                        var translatex = (canvas.width - imagewidth) / 2;
+                        var translatey = (canvas.height - imageheight) / 2;
+                        if (currentAngle == 90 || currentAngle == -270) {
+                            element.translate(translatex, -translatey);
+                            element.drawImage(image, 0, 0, image.width, image.height, 0, -imageheight, imagewidth, imageheight);
+                        }
+                        else if (currentAngle == 180 || currentAngle == -180) {
+                            element.translate(-translatex, -translatey);
+                            element.drawImage(image, 0, 0, image.width, image.height, -imagewidth, -imageheight, image.width * ratio, imageheight);
+                        }
+                        else if (currentAngle == 270 || currentAngle == -90) {
+                            element.translate(-translatex, translatey);
+                            element.drawImage(image, 0, 0, image.width, image.height, -imagewidth, 0, image.width * ratio, imageheight);
+                        } else if (currentAngle == 360 || currentAngle == -360 || (currentAngle == 0)) {
+                            element.translate(translatex, translatey);
+                            element.drawImage(image, 0, 0, image.width, image.height, 0, 0, imagewidth, imageheight);
+                        }
+                        element.restore();
+                    }
+
                     //method to clear the canvas
                     function clear() {
                         element.clearRect(-2000,-2000,5000,5000);
@@ -195,6 +230,8 @@
 
 
                 }
+
+
             }
         }
     });
