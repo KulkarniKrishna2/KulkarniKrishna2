@@ -383,6 +383,7 @@
                 $scope.formData = {};
                 $scope.isEmiAmountEditable = true;
                 $scope.isLoanProductReadOnly = true;
+                $scope.loanEMIPacks = [];
                 if (scope.response && scope.response.uiDisplayConfigurations.loanAccount) {
 
                     $scope.showExternalId = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.externalId;
@@ -571,6 +572,7 @@
                     $scope.formData.loanPurposeGroupId = null;
                     resourceFactory.loanResource.get($scope.inparams, function (data) {
                         $scope.loanaccountinfo = data;
+                        $scope.loanEMIPacks = data.loanEMIPacks;
                         var refreshLoanCharges = true;
                         $scope.previewClientLoanAccInfo(refreshLoanCharges);
                         $scope.updateSlabBasedCharges();
@@ -619,6 +621,14 @@
                             $scope.interestRatesListAvailable = true;
                         }
                     });
+                }
+
+                $scope.updateEmiPacks = function(loanaccountinfo){
+                    for(var i in loanaccountinfo.loanEMIPacks){
+                        if(loanaccountinfo.principal >= loanaccountinfo.loanEMIPacks[i].sanctionAmount){
+                            $scope.loanEMIPacks.push(loanaccountinfo.loanEMIPacks[i])
+                        }
+                    }
                 }
 
                 $scope.updateDataFromEmiPack = function (loanEMIPacks) {
@@ -710,6 +720,7 @@
                 $scope.getLoanData = function (loanId) {
                     resourceFactory.loanResource.get({ loanId: loanId, template: true, associations: 'charges,meeting', staffInSelectedOfficeOnly: true }, function (data) {
                         $scope.loanaccountinfo = data;
+                        $scope.updateEmiPacks($scope.loanaccountinfo);
                         $scope.charges = data.charges;
                     });
                 }
