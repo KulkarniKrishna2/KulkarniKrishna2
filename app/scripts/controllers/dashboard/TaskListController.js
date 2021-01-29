@@ -39,42 +39,7 @@
                     scope.childrenTaskConfigs = data.taskConfigs;
                 });
             };
-
-            resourceFactory.taskConfigResource.getTemplate({}, function(data) {
-                scope.parentTaskConfigs = data.taskConfigs;
-                scope.offices = data.officeOptions;
-                scope.loanAccountTypeOptions = data.loanAccoutTypeOptions;
-            });
-
-            scope.onLoanTypeChange = function(loanTypeId) {
-                scope.filterByCenter = false;
-                for (var i in scope.loanAccountTypeOptions) {
-                    if (scope.loanAccountTypeOptions[i].id == loanTypeId && scope.loanAccountTypeOptions[i].value == "JLG") {
-                        scope.filterByCenter = true;
-                    }
-                }
-            };
-
-            resourceFactory.centerResource.getAllCenters(function(data){
-                scope.centers = data.pageItems;
-            });
-
-            scope.toggleAll = function() {
-                var toggleStatus = !scope.formData.isAllSelected;
-                angular.forEach(scope.workFlowTasks, function(itm){ itm.selected = toggleStatus; });
-            };
-
-            if (!scope.searchCriteria.workFlowT) {
-                scope.searchCriteria.workFlowT = null;
-                scope.saveSC();
-            }
-            scope.filterText = scope.searchCriteria.workFlowT;
-
-            scope.onFilter = function() {
-                scope.searchCriteria.workFlowT = scope.filterText;
-                scope.saveSC();
-            };
-
+            
             if(!scope.searchCriteria.taskListSearch){
                 scope.searchCriteria.taskListSearch = {};
             } else {
@@ -110,6 +75,42 @@
                 scope.formData.includeChildOfficeTaskList = scope.searchCriteria.taskListSearch.includeChildOfficeTaskList;
                }
             }
+
+            resourceFactory.taskConfigResource.getTemplate({}, function(data) {
+                scope.parentTaskConfigs = data.taskConfigs;
+                scope.offices = data.officeOptions;
+                scope.loanAccountTypeOptions = data.loanAccoutTypeOptions;
+                scope.onLoanTypeChange(scope.formData.loanType);
+            });
+
+            scope.onLoanTypeChange = function(loanTypeId) {
+                scope.filterByCenter = false;
+                for (var i in scope.loanAccountTypeOptions) {
+                    if (scope.loanAccountTypeOptions[i].id == loanTypeId && scope.loanAccountTypeOptions[i].value == "JLG") {
+                        scope.filterByCenter = true;
+                    }
+                }
+            };
+
+            resourceFactory.centerResource.getAllCenters(function(data){
+                scope.centers = data.pageItems;
+            });
+
+            scope.toggleAll = function() {
+                var toggleStatus = !scope.formData.isAllSelected;
+                angular.forEach(scope.workFlowTasks, function(itm){ itm.selected = toggleStatus; });
+            };
+
+            if (!scope.searchCriteria.workFlowT) {
+                scope.searchCriteria.workFlowT = null;
+                scope.saveSC();
+            }
+            scope.filterText = scope.searchCriteria.workFlowT;
+
+            scope.onFilter = function() {
+                scope.searchCriteria.workFlowT = scope.filterText;
+                scope.saveSC();
+            };
 
             var fetchFunction = function (offset, limit, callback) {
                     scope.searchCriteria.taskListSearch.sortBy = scope.sortBy;
