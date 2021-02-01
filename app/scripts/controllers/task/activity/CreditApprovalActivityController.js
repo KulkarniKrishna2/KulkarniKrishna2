@@ -669,8 +669,6 @@
                     $scope.interestRatesListAvailable = false;
                     $scope.charges = [];
                     $scope.inparams.fetchRDAccountOnly = scope.response.uiDisplayConfigurations.loanAccount.savingsAccountLinkage.reStrictLinkingToRDAccount;
-                    $scope.editLoanAccountdata.loanPurposeId = null;
-                    $scope.formData.loanPurposeGroupId = null;
                     resourceFactory.loanResource.get($scope.inparams, function (data) {
                         $scope.loanaccountinfo = data;
                         $scope.loanEMIPacks = data.loanEMIPacks;

@@ -175,7 +175,10 @@
                 });
             }
 
-
+             //loan account edit 
+             scope.refreshTask = function () {
+                initTask();
+            }
 
             //lona account edit 
             scope.editLoan = function (loanAccountBasicData, groupId) {
