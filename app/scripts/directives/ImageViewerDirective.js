@@ -160,7 +160,7 @@
                             var y = pos.y;
 
                             element.translate(x - startX, y - startY);
-                            drawImage();
+                            drawImageBy90Rotation();
 
                             startX = x;
                             startY = y;
