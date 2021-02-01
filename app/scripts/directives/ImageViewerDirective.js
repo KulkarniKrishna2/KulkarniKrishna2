@@ -75,18 +75,18 @@
                         //for initial loading
                         if(scope.flag){
                             scope.flag = 0;
-                            drawImage();
+                            drawImageBy90Rotation();
                             element.translate(canvas.width / 2, canvas.height / 2);
                             setTimeout(function(){
                                 angular.element('#canvas').attr('data-girar', 0);
-                                drawImage();
+                                drawImageBy90Rotation();
                             },1000);
                         }
                         else{
                             element.translate(0,0);
                             setTimeout(function(){
                                 angular.element('#canvas').attr('data-girar', 0);
-                                drawImage();
+                                drawImageBy90Rotation();
                             },1000);
                         }
                     };
@@ -118,7 +118,7 @@
                     //method to zoom in the image
                     angular.element('#zoomIn').click(function () {
                         currentScale += zoomDelta;
-                        drawImage();
+                        drawImageBy90Rotation();
                     });
 
 
@@ -127,13 +127,13 @@
                         if (event.originalEvent.wheelDelta > 0 || event.originalEvent.detail < 0) {
                             // scroll up
                             currentScale += zoomDelta;
-                            drawImage();
+                            drawImageBy90Rotation();
                         }
                         else {
                             // scroll down
                             if(currentScale-zoomDelta - 0.1 > 0){
                                 currentScale -= zoomDelta;
-                                drawImage();
+                                drawImageBy90Rotation();
                             }
                         }
                     });
@@ -141,7 +141,7 @@
                     //method to zoom out the image
                     angular.element('#zoomOut').click(function () {
                         currentScale -= zoomDelta;
-                        drawImage();
+                        drawImageBy90Rotation();
                     });
 
                     //method to get the mouse position when mouse button is down
