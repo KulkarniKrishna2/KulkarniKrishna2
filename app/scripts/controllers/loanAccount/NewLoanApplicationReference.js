@@ -45,6 +45,7 @@
             scope.isLoanPurposeRequired = false;
             scope.isLoanOfficerRequired = false;
             scope.showLoanPurposeCustomField = false;
+            scope.showLoanTerms = true;
 
             if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createLoanApplication) {
                 if (scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField) {
@@ -122,6 +123,7 @@
                 scope.inparams.productId = loanProductId;
                 scope.previewRepayment = false;
                 scope.formPreviewRepaymentData = {};
+                scope.showLoanTerms =!(scope.loanaccountinfo.loanEMIPacks && scope.isLoanEmiPackEnabled)?true:false;
                 resourceFactory.loanResource.get(scope.inparams, function (data) {
                     scope.loanaccountinfo = data;
                     scope.loanPurposeOptions = scope.loanaccountinfo.loanPurposeOptions;
@@ -501,6 +503,18 @@
                 if (this.formData.loanPurposeId == null){
                     delete this.formData.loanPurposeId;
                 }
+
+                if(this.formData.isTopup==true){
+                    this.formData.loanIdToClose = [];
+                    for(var i in scope.loanaccountinfo.clientActiveLoanOptions){
+                        if(scope.loanaccountinfo.clientActiveLoanOptions[i].isSelected==true){
+                            this.formData.loanIdToClose.push(scope.loanaccountinfo.clientActiveLoanOptions[i].id);
+                        }
+                    }
+                }else{
+                    this.formData.loanIdToClose = undefined;
+                }
+                
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 resourceFactory.loanApplicationReferencesResource.save(this.formData, function (data) {
@@ -692,6 +706,12 @@
                     scope.previewRepayment = true;
                 });
 
+            }
+
+            scope.selectAllLoanToClose = function(isAllLoanToClose){
+                for(var i in scope.loanaccountinfo.clientActiveLoanOptions){
+                    scope.loanaccountinfo.clientActiveLoanOptions[i].isSelected = isAllLoanToClose;
+                }
             }
         }
     });
