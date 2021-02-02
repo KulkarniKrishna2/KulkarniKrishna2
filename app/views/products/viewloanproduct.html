@@ -406,6 +406,10 @@
     <td colspan="3">{{loanproduct.isRepaymentAtDisbursement | YesOrNo}}</td>
 </tr>
 </tr>
+    <td>{{'label.input.isupfrontinterestenabled' | translate}}</td>
+    <td colspan="3">{{loanproduct.isUpfrontInterestEnabled | YesOrNo}}</td>
+</tr>
+</tr>
     <td>{{'label.input.disable.excess.amount.adjustment' | translate}}</td>
     <td colspan="3">{{loanproduct.disableAdjustedExcessAmount | YesOrNo}}</td>
 </tr>
@@ -503,8 +507,30 @@
     <td colspan="3">{{loanproduct.interestRecalculationData.allowCompoundingOnEod | YesOrNo}}</td>
 </tr>
 <tr data-ng-show="loanproduct.isInterestRecalculationEnabled">
+    <td>{{'label.input.compoundingstartdatetype' | translate}}</td>
+    <td colspan="3">{{loanproduct.interestRecalculationData.compoundingStartDayType.value}}</td>
+</tr>
+<tr data-ng-show="loanproduct.isInterestRecalculationEnabled">
     <td>{{'label.input.issubsidyapplicable' | translate}}</td>
     <td colspan="3">{{loanproduct.interestRecalculationData.isSubsidyApplicable | YesOrNo}}</td>
+</tr>
+<tr data-ng-show="loanproduct.isInterestRecalculationEnabled && loanproduct.interestRecalculationData.allowScheduleAfterMaturity && loanproduct.interestRecalculationData.frequencyAfterMaturityType.id != 0">
+    <td>{{'label.input.frequency.after.maturity' | translate}}</td>
+    <td colspan="3">{{loanproduct.interestRecalculationData.frequencyAfterMaturityType.value}}
+        <label data-ng-show="loanproduct.interestRecalculationData.frequencyAfterMaturityType.id == 3 &&
+                        loanproduct.interestRecalculationData.frequencyAfterMaturityType != null"> on {{ loanproduct.interestRecalculationData.frequencyAfterMaturityWeekDay.value}}</label>
+        <label data-ng-show="loanproduct.interestRecalculationData.frequencyAfterMaturityType.id == 4 &&
+                        loanproduct.interestRecalculationData.frequencyAfterMaturityType != null">on day {{ loanproduct.interestRecalculationData.frequencyAfterMaturityOnDay}}</label>
+        <label data-ng-show="loanproduct.interestRecalculationData.frequencyAfterMaturityType.id == 4 &&
+                        loanproduct.interestRecalculationData.frequencyAfterMaturityOnDay == null &&
+                        loanproduct.interestRecalculationData.frequencyAfterMaturityNthDay != null">on {{ loanproduct.interestRecalculationData.frequencyAfterMaturityNthDay.value}} {{ loanproduct.interestRecalculationData.frequencyAfterMaturityWeekDay.value}}
+        </label>
+    </td>
+</tr>
+<tr data-ng-show="loanproduct.isInterestRecalculationEnabled && loanproduct.interestRecalculationData.allowScheduleAfterMaturity && loanproduct.interestRecalculationData.frequencyAfterMaturityType.id != 0
+        && loanproduct.interestRecalculationData.frequencyAfterMaturityType.id != 1">
+    <td>{{'label.input.frequency.interval.after.maturity' | translate}}</td>
+    <td colspan="3">{{loanproduct.interestRecalculationData.frequencyAfterMaturityInterval}}</td>
 </tr>
 <tr>
     <td colspan="4"><br/></td>
@@ -737,6 +763,10 @@
             <tr>
                 <td>{{'label.heading.overpaymentliability' | translate}}:</td>
                 <td colspan="3">{{loanproduct.accountingMappings.overpaymentLiabilityAccount.name}}&nbsp;({{loanproduct.accountingMappings.overpaymentLiabilityAccount.glCode}})</td>
+            </tr>
+            <tr ng-show="loanproduct.accountingMappings.upfrontInterestLiabilityAccount">
+                <td>{{'label.heading.upfrontinterest' | translate}}:</td>
+                <td colspan="3">{{loanproduct.accountingMappings.upfrontInterestLiabilityAccount.name}}&nbsp;({{loanproduct.accountingMappings.upfrontInterestLiabilityAccount.glCode}})</td>
             </tr>
             <tr ng-if="loanproduct.disableAdjustedExcessAmount">
                 <td>{{'label.heading.excesspaymentliability' | translate}}:</td>

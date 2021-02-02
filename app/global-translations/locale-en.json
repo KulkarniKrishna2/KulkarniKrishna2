@@ -8885,6 +8885,25 @@
      "validation.msg.loanapplicationreference.loanIdToClose.cannot.be.empty" :  "Please select loan to close with topup",
      "validation.msg.EOD_BALANCE_CHECK.denominationCount.not.greater.than.zero" : "Denomination count must be greater than zero.",
 
+     "label.input.isupfrontinterestenabled" : "Upfront Interest Enabled",
+     "label.input.allowscheduleaftermaturity" : "Allow schedule after maturity",
+     "label.input.compoundingstartdatetype" : "Compounding Start Date Type",
+     "label.input.frequency.after.maturity" : "Frequency after maturity",
+     "label.input.frequency.interval.after.maturity" : "Frequency interval after maturity",
+     "validation.msg.loanproduct.isUpfrontInterestEnabled.must.be.repayment.at.disbursment.enabled" : "For Upfront interest repayment at disbursement must be enabled.",
+     "validation.msg.loanproduct.numberOfRepayments.upfront.interest.not.equal.to.specified.number" :"For upfront interest number of repayment must be 1.",
+     "validation.msg.loanproduct.minNumberOfRepayments.upfront.interest.cannot.be.blank" :"For upfront interest minimum number of repayment must be 1.",
+     "validation.msg.loanproduct.maxNumberOfRepayments.upfront.interest.cannot.be.blank" :"For upfront interest maximum number of repayment must be 1.",
+     "validation.msg.loanproduct.upfront.interest.compoundingStartDayType.cannot.be.blank" : "Upfront compounding start day type can not be empty.",
+     "validation.msg.loanproduct.upfront.interest.recalculationUpfrontFrequencyType.cannot.be.blank" : "Upfront Recalculate frequency type can not be blank.",
+     "validation.msg.loanproduct.minNumberOfRepayments.upfront.interest.not.equal.to.specified.number" :"For upfront interest minimum number of repayment must be 1.",
+     "validation.msg.loanproduct.maxNumberOfRepayments.upfront.interest.not.equal.to.specified.number" :"For upfront interest maximum number of repayment must be 1.",
+     "label.input.frequency.after.maturity" : "Frequency after maturity",
+     "label.input.frequency.interval.after.maturity" : "Frequency interval after maturity",
+     "label.input.upfrontinterest" : "Upfront Interest",
+     "validation.msg.loanproduct.upfrontInterestLiabilityAccountId.cannot.be.blank" : "Upfront Interest liability account mapping can not be blank.",
+     "label.heading.upfrontinterest" : "Upfront Interest",
+
      "------ end of translation file ------": "----------"
 
 }

@@ -1286,6 +1286,16 @@
 	               class="form-control" ng-model="formData.noOfAdvEmiCollection">
         </div>
     </div>
+    <div class="form-group"  ng-if="formData.isRepaymentAtDisbursement">
+     <label class="control-label col-sm-4">
+        {{'label.input.isupfrontinterestenabled'  | translate }}
+     </label>
+        <div class="col-sm-2">
+            <label class="checkbox control-label">
+                <input id="isUpfrontInterestEnabled" type="checkbox" ng-model="formData.isUpfrontInterestEnabled">
+            </label>
+        </div>
+    </div>
 
     <div class="form-group">
         <label class="control-label col-sm-4">{{'label.input.disable.excess.amount.adjustment'  | translate }}</label>
@@ -1421,6 +1431,19 @@
             <input id="allowCompoundingOnEod" type="checkbox" ng-model="formData.allowCompoundingOnEod"/>
         </div>
     </div>
+<div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled && formData.interestRecalculationCompoundingMethod != 0
+        && formData.recalculationCompoundingFrequencyType != 1">
+        <label class="control-label col-sm-2">{{'label.input.compoundingstartdatetype' | translate}}</label></label>
+        <div class="col-sm-2">
+            <label class="control-label">
+                <select id="compoundingStartDayType" class="form-control"
+                    ng-model="formData.compoundingStartDayType"
+                    ng-options="type.id as type.value for type in product.compoundingStartDayTypeOptions"
+                    value="{{type.id}}"></select>
+            </label>
+        </div>
+    </div>
+    
 
 <div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled">
     <label class="control-label col-sm-2">{{'label.input.frequency.for.recalculte.outstanding.principal'
@@ -1489,6 +1512,57 @@
         </label>
     </div>
 </div>
+
+<div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled">
+    <label class="control-label col-sm-2">{{'label.input.allowscheduleaftermaturity' | translate}}</label>
+
+    <div class="col-sm-2">
+        <label class="checkbox control-label">
+            <input id="allowScheduleAfterMaturity" name="allowScheduleAfterMaturity" type="checkbox"
+                   ng-model="formData.allowScheduleAfterMaturity">
+        </label>
+    </div>
+</div>
+
+<div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled && formData.allowScheduleAfterMaturity">
+    <label class="control-label col-sm-2">{{'label.input.frequency.after.maturity'
+        | translate }}<span class="required">*</span>
+    </label>
+    <div class="col-sm-2">
+        <select id="frequencyAfterMaturityType" class="form-control"
+                ng-model="formData.frequencyAfterMaturityType"
+                ng-options="type.id as type.value for type in product.interestRecalculationFrequencyTypeOptions"
+                value="{{type.id}}"></select>
+    </div>
+    <div>
+        <div class="col-sm-2" data-ng-show="formData.frequencyAfterMaturityType == 4">
+            <select id="frequencyAfterMaturityNthDayType" class="form-control" ng-model="formData.frequencyAfterMaturityNthDayType"
+                    ng-options="frequencyAfterMaturityNthDayType.id as frequencyAfterMaturityNthDayType.value for frequencyAfterMaturityNthDayType in product.interestRecalculationNthDayTypeOptions"
+                    value="{{frequencyAfterMaturityNthDayType.id}}"><option value=""></option></select>&nbsp;
+        </div>
+        <div class="col-sm-2" data-ng-show="(formData.frequencyAfterMaturityType == 4 && formData.frequencyAfterMaturityNthDayType != -2) || formData.frequencyAfterMaturityType == 3">
+            <select id="frequencyAfterMaturityDayOfWeekType" class="form-control" ng-model="formData.frequencyAfterMaturityDayOfWeekType"
+                    ng-options="frequencyAfterMaturityDayOfWeekType.id as frequencyAfterMaturityDayOfWeekType.value for frequencyAfterMaturityDayOfWeekType in product.interestRecalculationDayOfWeekTypeOptions"
+                    value="{{frequencyAfterMaturityDayOfWeekType.id}}"><option value="">DAY</option></select>&nbsp;
+        </div>
+        <div class="col-sm-2" data-ng-show="formData.frequencyAfterMaturityType == 4 && formData.frequencyAfterMaturityNthDayType == -2">
+            <select id="frequencyAfterMaturityOnDay" class="form-control" ng-model="formData.frequencyAfterMaturityOnDay"
+                    ng-options="frequencyAfterMaturityOnDay as frequencyAfterMaturityOnDay for frequencyAfterMaturityOnDay in interestRecalculationOnDayTypeOptions"
+                    value="{{frequencyAfterMaturityOnDay}}"></select>&nbsp;
+        </div>
+    </div>
+</div>
+<div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled && formData.allowScheduleAfterMaturity">
+    <label class="control-label col-sm-2">{{'label.input.frequency.interval.after.maturity'
+        | translate }}<span class="required">*</span>
+    </label>
+
+    <div class="col-sm-2">
+        <input id="frequencyAfterMaturityInterval" type="text" autocomplete="off" class="form-control"
+               ng-model="formData.frequencyAfterMaturityInterval">
+    </div>
+</div>
+
 <h3>{{ 'label.heading.gauranteeRequirements' | translate }}</h3>
 <hr>
 <div class="form-group">
@@ -2026,6 +2100,18 @@
                 ng-options="incomeAccount.id as (incomeAccount.name +' ('+ incomeAccount.glCode +')') for incomeAccount in incomeAndLiabilityAccountOptions"
                 value="{{incomeAccount.id}}">
             <option value="">{{'label.menu.selectone'| translate }}</option>
+        </select>
+    </div>
+    <label class="control-label col-sm-2">{{ 'label.input.upfrontinterest' | translate }}<span ng-show="formData.isUpfrontInterestEnabled" class="required">*</span></label>
+    <i class="icon-question-sign col-sm-1 icon-white"
+       tooltip="{{'label.tooltip.upfrontinterest' | translate}}"></i>
+
+    <div class="col-sm-3">
+        <select id="upfrontInterestLiabilityAccountId" ng-model="formData.upfrontInterestLiabilityAccountId"
+                chosen="liabilityAccountOptions"
+                ng-options="liabilityAccount.id as (liabilityAccount.name +' ('+ liabilityAccount.glCode +')') for liabilityAccount in liabilityAccountOptions"
+                value="{{liabilityAccount.id}}">
+                <option value="">{{'label.menu.selectone'| translate }}</option>
         </select>
     </div>
 </div>
