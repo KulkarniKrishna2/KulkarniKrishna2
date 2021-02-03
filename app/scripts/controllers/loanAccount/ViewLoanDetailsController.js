@@ -1105,11 +1105,13 @@
                             scope.loandetails.originalSchedule = scope.loanSpecificData.originalSchedule;
                             if(!_.isUndefined(scope.loandetails.originalSchedule)){
                                 scope.originalSchedule =  scope.loandetails.originalSchedule;
-                                scope.originalScheduleVersion = scope.originalSchedule.loanScheduleHistoryData.historyVersion;
-                                if(scope.originalSchedule.loanScheduleHistoryData.createdDate == undefined){
-                                    scope.originalScheduleCreatedDate = '';
-                                }else{
-                                    scope.originalScheduleCreatedDate = new Date(scope.originalSchedule.loanScheduleHistoryData.createdDate);
+                                if(!_.isUndefined(scope.originalSchedule.loanScheduleHistoryData)){
+                                    scope.originalScheduleVersion = scope.originalSchedule.loanScheduleHistoryData.historyVersion;
+                                    if(scope.originalSchedule.loanScheduleHistoryData.createdDate == undefined){
+                                        scope.originalScheduleCreatedDate = '';
+                                    }else{
+                                        scope.originalScheduleCreatedDate = new Date(scope.originalSchedule.loanScheduleHistoryData.createdDate);
+                                    }
                                 }
                             }
                             scope.loandetails.repaymentSchedule = scope.loanSpecificData.repaymentSchedule;
