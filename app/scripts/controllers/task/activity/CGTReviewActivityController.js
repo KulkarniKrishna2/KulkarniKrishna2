@@ -167,6 +167,10 @@
             scope.editLoan = function (loanAccountBasicData, groupId) {
                 scope.groupId = groupId;
                 scope.loanAccountBasicData = loanAccountBasicData;
+                if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow &&
+                    scope.response.uiDisplayConfigurations.workflow.isReadOnlyField) {
+                    scope.isLoanProductReadOnly = scope.response.uiDisplayConfigurations.workflow.isReadOnlyField.loanProductForSpecificSteps;
+                }
                 var templateUrl = 'views/task/popup/editLoan.html';
                 var controller = 'EditLoanController';
                 popUpUtilService.openFullScreenPopUp(templateUrl, controller, scope);
