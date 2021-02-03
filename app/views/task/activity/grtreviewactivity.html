@@ -7,9 +7,9 @@
             <span ng-if="isSingleGroupInCenter"><label>{{'label.heading.grt.date' | translate}}:&nbsp;</label>
                 {{grtCompletionDetails.grtDate | DateFormat}}&nbsp;&nbsp;|&nbsp;&nbsp;</span>
             <span ng-if="isSingleGroupInCenter"><label>{{'label.anchor.start.time' | translate}}:&nbsp;</label>
-                {{grtCompletionDetails.grtStartTime}}&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+                {{grtStartTime | date:"h:mm a"}}&nbsp;&nbsp;|&nbsp;&nbsp;</span>
             <span ng-if="isSingleGroupInCenter"><label>{{'label.anchor.end.time' | translate}}:&nbsp;</label>
-                {{grtCompletionDetails.grtEndTime}}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                {{grtEndTime | date:"h:mm a"}}&nbsp;&nbsp;&nbsp;&nbsp;</span>
             <span ng-if="isSingleGroupInCenter && grtDocument" class="pull center">
                 <a><i ng-click="openViewDocument()" class="icon-eye-open icon-2x" style="color: blue"
                         tooltip="{{ 'label.tooltip.view.grt.photo' | translate}}"></i></a>

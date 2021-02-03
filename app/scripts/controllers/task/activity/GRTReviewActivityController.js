@@ -85,6 +85,9 @@
                     scope.isSingleGroupInCenter = true;
                     resourceFactory.grtCompletionResource.get({ groupId: groupId }, function (data) {
                         scope.grtCompletionDetails = data;
+                        var today = new Date();
+                        scope.grtStartTime = new Date(data.grtStartTime.iLocalMillis + (today.getTimezoneOffset() * 60 * 1000));
+                        scope.grtEndTime = new Date(data.grtEndTime.iLocalMillis + (today.getTimezoneOffset() * 60 * 1000));
                     });
                     getGRTDocuments();
                 } else {
