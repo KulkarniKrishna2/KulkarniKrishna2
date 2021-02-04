@@ -8878,6 +8878,7 @@
      "label.input.nach.registration.mode": "Nach Registration Mode",
      "error.msg.loan.application.expected.disbursment.date.should.be.after.last.transaction.date.of.loan.to.be.closed" :  "Expected Disbursment date of this loan application `{{params[0].value}}` should be after last transaction date of loan to be closed", 
      "validation.msg.loanapplicationreference.loanIdToClose.cannot.be.empty" :  "Please select loan to close with topup",
+     "validation.msg.EOD_BALANCE_CHECK.denominationCount.not.greater.than.zero" : "Denomination count must be greater than zero.",
 
      "------ end of translation file ------": "----------"
 
