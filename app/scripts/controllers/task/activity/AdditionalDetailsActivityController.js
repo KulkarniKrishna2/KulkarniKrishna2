@@ -1485,7 +1485,8 @@
                                     'entityId': $scope.entityId,
                                     'entityType': $scope.entityType,
                                     'bankAccFormData': $scope.bankAccFormData,
-                                    'bankAccountDocuments': $scope.bankAccountDocuments
+                                    'bankAccountDocuments': $scope.bankAccountDocuments,
+                                    'bankAccountDetailsId' : $scope.bankAccountDetailsId
                                 };
                             }
                         }
@@ -1516,7 +1517,7 @@
                                 $scope.docformatErrMsg = 'label.error.only.files.of.type.image.are.allowed';
                             } else {
                                 $upload.upload({
-                                    url: $rootScope.hostUrl + API_VERSION + '/' + bankAccountDetails.entityType + '/' + bankAccountDetails.entityId + '/documents',
+                                    url: $rootScope.hostUrl + API_VERSION + '/' + bankAccountDetails.entityType + '/' + bankAccountDetails.entityId + '/bankaccountdetails/' + bankAccountDetails.bankAccountDetailsId + '/documents',
                                     data: $scope.docData,
                                     file: $scope.docFile
                                 }).then(function (data) {
@@ -1575,9 +1576,9 @@
 
                 $scope.deleteBankAccountDocument = function (document) {
                     resourceFactory.bankAccountDetailsDocumentsResource.delete({
-                        entityType: getEntityType(),
-                        entityId: getEntityId(),
-                        bankAccountDetailsId: getBankAccountDetails()
+                        entityType: $scope.entityType,
+                        entityId: $scope.entityId,
+                        bankAccountDetailsId: $scope.bankAccountDetailsId
                     }, { 'documentId': document.id }, function (data) {
                         getBankAccountDocuments();
                     });
