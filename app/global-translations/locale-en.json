@@ -8877,6 +8877,7 @@
      "validation.msg.loanproduct.principalCycleNumbers.is.not.in.order":"please add principle cycle number in order",
      "validation.msg.loanproduct.repaymentCycleNumber.is.not.in.order":"please add repayment cycle number in order",
      "validation.msg.loanproduct.interestRateCycleNumber.is.not.in.order":"please add interestRate cycle number in order",
+     "error.msg.loan.application.amount.requested.cannot.exceed.client.available.balance": "Loan Amount Requested cannot exceed client's Available balance of `{{params[0].value}}`",
 
      "------ end of translation file ------": "----------"
 
