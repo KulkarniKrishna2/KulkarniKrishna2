@@ -5,7 +5,7 @@
             scope.nachMandateRequests = [];
             scope.nachMandateEntityType = 'loanapplications';
             scope.nachMandateEntityId = scope.taskconfig['loanApplicationId'];
-            var activeRequestStatus = ['PENDING', 'ERROR', 'INITIATED', 'AUTH_SUCCESS'];
+            var activeRequestStatus = ['PENDING', 'ERROR', 'INITIATED', 'AUTH_SUCCESS', 'DESTINATION_ACCEPTED'];
 
             function initTask() {
                 scope.formData = {};
