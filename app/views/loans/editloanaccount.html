@@ -729,14 +729,14 @@
                 </td>
                 <td class="paddedbottom10" data-ng-show="loanaccountinfo.interestRecalculationData.recalculationRestFrequencyType.id != 0 && loanaccountinfo.interestRecalculationData.recalculationRestFrequencyType.id != 1">
                     <input type="text" autocomplete="off" id="recalculationRestFrequencyStartDate" name="recalculationRestFrequencyStartDate" datepicker-pop="{{df}}"
-                           ng-model="recalculationRestFrequencyStartDate" is-open="opened" min="minDate" class="form-control" ng-readonly="isDatePickerReadOnly" />
+                           ng-model="formData.recalculationRestFrequencyStartDate" is-open="opened" min="minDate" class="form-control" ng-readonly="isDatePickerReadOnly" />
                 </td>
                 <td data-ng-show="loanaccountinfo.interestRecalculationData.interestRecalculationCompoundingType.id != 0 && loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyType.id != 1">
                     <label>{{ 'label.input.frequenc.date.for.compounding' | translate }}:&nbsp;</label>
                 </td>
                 <td class="paddedbottom10" data-ng-show="loanaccountinfo.interestRecalculationData.interestRecalculationCompoundingType.id != 0 && loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyType.id != 1">
                     <input id="recalculationCompoundingFrequencyStartDate" type="text" autocomplete="off" name="recalculationCompoundingFrequencyStartDate"
-                           datepicker-pop="{{df}}" ng-model="recalculationCompoundingFrequencyStartDate" is-open="opened1" min="minDate"
+                           datepicker-pop="{{df}}" ng-model="formData.recalculationCompoundingFrequencyStartDate" is-open="opened1" min="minDate"
                            class="form-control" ng-readonly="isDatePickerReadOnly"/>
                     <form-validate valattributeform="editloanaccountform" valattribute="expecteddisbursementon"/>
                 </td>

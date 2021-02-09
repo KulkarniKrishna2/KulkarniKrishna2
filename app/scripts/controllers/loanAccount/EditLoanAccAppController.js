@@ -246,10 +246,10 @@
 
                 if(scope.loanaccountinfo.isInterestRecalculationEnabled){
                     if (scope.loanaccountinfo.interestRecalculationData.recalculationRestFrequencyStartDate) {
-                        scope.recalculationRestFrequencyStartDate = new Date(scope.loanaccountinfo.interestRecalculationData.recalculationRestFrequencyStartDate);
+                        scope.formData.recalculationRestFrequencyStartDate = new Date(scope.loanaccountinfo.interestRecalculationData.recalculationRestFrequencyStartDate);
                     }
                     if (scope.loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyStartDate) {
-                        scope.recalculationCompoundingFrequencyStartDate = new Date(scope.loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyStartDate);
+                        scope.formData.recalculationCompoundingFrequencyStartDate = new Date(scope.loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyStartDate);
                     }
                 }
 
@@ -823,8 +823,8 @@
                     this.formData.interestChargedFromDate = dateFilter(this.formData.interestChargedFromDate, scope.df);
                 }
                 this.formData.repaymentsStartingFromDate = dateFilter(this.formData.repaymentsStartingFromDate, scope.df);
-                this.formData.recalculationRestFrequencyStartDate = dateFilter(scope.recalculationRestFrequencyStartDate, scope.df);
-                this.formData.recalculationCompoundingFrequencyStartDate = dateFilter(scope.recalculationCompoundingFrequencyStartDate, scope.df);
+                this.formData.recalculationRestFrequencyStartDate = dateFilter(scope.formData.recalculationRestFrequencyStartDate, scope.df);
+                this.formData.recalculationCompoundingFrequencyStartDate = dateFilter(scope.formData.recalculationCompoundingFrequencyStartDate, scope.df);
                 if(!scope.loanaccountinfo.isLoanProductLinkedToFloatingRate) {
                     delete this.formData.interestRateDifferential ;
                     delete this.formData.isFloatingInterestRate ;
@@ -926,8 +926,8 @@
                     this.formData.interestChargedFromDate = dateFilter(this.formData.interestChargedFromDate, scope.df);
                 }
                 this.formData.repaymentsStartingFromDate = dateFilter(this.formData.repaymentsStartingFromDate, scope.df);
-                this.formData.recalculationRestFrequencyStartDate = dateFilter(scope.recalculationRestFrequencyStartDate, scope.df);
-                this.formData.recalculationCompoundingFrequencyStartDate = dateFilter(scope.recalculationCompoundingFrequencyStartDate, scope.df);
+                this.formData.recalculationRestFrequencyStartDate = dateFilter(scope.formData.recalculationRestFrequencyStartDate, scope.df);
+                this.formData.recalculationCompoundingFrequencyStartDate = dateFilter(scope.formData.recalculationCompoundingFrequencyStartDate, scope.df);
                 this.formData.createStandingInstructionAtDisbursement = scope.formData.createStandingInstructionAtDisbursement;
                 this.formData.loanTermFrequency = scope.loanTerm;
                  if(this.formData.loanEMIPackId && this.formData.loanEMIPackId>0){
