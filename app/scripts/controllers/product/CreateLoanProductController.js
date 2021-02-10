@@ -62,7 +62,6 @@
             scope.repaymentFrequencyDayOfTheWeekType = {};
             resourceFactory.loanProductResource.get({resourceType: 'template'}, function (data) {
                 scope.product = data;
-                console.log(data.accountingMappingOptions)
                 scope.assetAccountOptions = scope.product.accountingMappingOptions.assetAccountOptions || [];
                 scope.incomeAccountOptions = scope.product.accountingMappingOptions.incomeAccountOptions || [];
                 scope.expenseAccountOptions = scope.product.accountingMappingOptions.expenseAccountOptions || [];
@@ -760,15 +759,16 @@
                 if(!(scope.formData.isRepaymentAtDisbursement && scope.formData.isRepaymentAtDisbursement==true)){
                     scope.formData.isUpfrontInterestEnabled = false;
                 }
-                /*if(scope.formData.isUpfrontInterestEnabled == false){
-                        delete scope.formData.compoundingStartDayType;
-                        delete scope.formData.recalculationUpfrontFrequencyType;
-                        delete scope.formData.recalculationUpfrontFrequencyNthDayType ;
-                        delete scope.formData.recalculationUpfrontFrequencyDayOfWeekType ;
-                        delete scope.formData.recalculationUpfrontFrequencyOnDayType ;                        
-                        delete scope.formData.recalculationUpfrontFrequencyInterval ;
-                }*/
-
+                if(scope.formData.frequencyAfterMaturityInterval == ""){
+                    delete scope.formData.frequencyAfterMaturityInterval;
+                }
+                if(scope.formData.allowScheduleAfterMaturity==undefined || scope.formData.allowScheduleAfterMaturity==false){
+                    delete scope.formData.frequencyAfterMaturityType;
+                    delete scope.formData.frequencyAfterMaturityNthDayType;
+                    delete scope.formData.frequencyAfterMaturityDayOfWeekType;
+                    delete scope.formData.frequencyAfterMaturityInterval;
+                    delete scope.formData.frequencyAfterMaturityOnDay;
+                }
                 resourceFactory.loanProductResource.save(this.formData, function (data) {
                     location.path('/viewloanproduct/' + data.resourceId);
                 });

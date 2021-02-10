@@ -566,6 +566,18 @@
                                 <td>{{ 'label.input.compounding.posted.as.interest' | translate }}</td>
                                 <td><span class="padded-td">{{ loandetails.interestRecalculationData.isCompoundingToBePostedAsTransaction | YesOrNo }}</span></td>
                             </tr>
+                            <tr data-ng-show="loandetails.isInterestRecalculationEnabled && loandetails.interestRecalculationData.compoundingStartDayType">
+                                <td>{{ 'label.input.compoundingstartdatetype' | translate }}</td>
+                                <td><span class="padded-td">{{ loandetails.interestRecalculationData.compoundingStartDayType.value}}</span></td>
+                            </tr>
+                            <tr data-ng-show="loandetails.isInterestRecalculationEnabled && loandetails.interestRecalculationData.allowScheduleAfterMaturity">
+                                <td>{{ 'label.input.frequency.after.maturity' | translate }}</td>
+                                <td><span class="padded-td">{{loandetails.interestRecalculationData.humanReadableFrequencyAfterMaturity }}</span></td>
+                            </tr>
+                            <tr data-ng-show="loandetails.isInterestRecalculationEnabled && loandetails.interestRecalculationData.allowScheduleAfterMaturity">
+                                <td>{{ 'label.input.frequency.interval.after.maturity' | translate }}</td>
+                                <td><span class="padded-td">{{loandetails.interestRecalculationData.frequencyAfterMaturityInterval }}</span></td>
+                            </tr>
                             <tr ng-show="isWriteOff">
                                 <td>{{ 'label.input.writeoffreason' | translate }}</td>
                                 <td><span class="padded-td">{{ loandetails.summary.writeoffReason}}</span></td>
