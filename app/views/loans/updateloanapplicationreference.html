@@ -291,6 +291,34 @@
                     <form-validate valattributeform="updateloanapplicationform" valattribute="nominalinterestrate"/>
                 </td>
             </tr>
+            <tr ng-if="showLoanTerms" ng-show="loanaccountinfo.canUseForTopup">
+                <td><label>{{ 'label.heading.isTopup' | translate }}</label></td>
+                <td class="paddedbottom10" colspan="3">
+                    <input type="checkbox" name="isTopup" ng-model="formData.isTopup" ng-change="isTopupSelected()"/>
+                </td>
+            </tr>
+            <tr ng-if="showLoanTerms" ng-show="loanaccountinfo.canUseForTopup && formData.isTopup == true">
+                <td></td>
+              <td class="width36 paddedbottom10"  colspan="2" ng-show="formData.isTopup == true">
+                     
+                     <div  style="display: block; max-height: 300px; overflow-y: auto">
+                        <table class="table well" style="table-layout: fixed">
+                            <thead>
+                                <tr class="graybg"> 
+                                    <th><input type="checkbox" ng-model="isAllLoanToClose" ng-change="selectAllLoanToClose(isAllLoanToClose)"></th>
+                                    <th>{{'label.heading.loanIdToClose' | translate}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-class="($index%2!=0)?'graybg':''" ng-repeat="loanTopupDetail in loanaccountinfo.clientActiveLoanOptions">
+                                    <td><input type="checkbox" ng-model="loanTopupDetail.isSelected"  ng-change="updateAllCheckbox()"></td>
+                                    <td>{{loanTopupDetail.accountNo}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                      </div>                    
+                </td>
+            </tr>
 
             <tr ng-if="loanaccountinfo.multiDisburseLoan === true">
                 <td class="width14"><label>Max no of Tranches:</label>&nbsp;</td>

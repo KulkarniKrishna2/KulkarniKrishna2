@@ -68,7 +68,7 @@
                 scope.formData.currencyCode = localStorageService.getFromCookies('currencyCode') || scope.currencyOptions[0].code;
             });
 
-            resourceFactory.officeResource.getAllOffices(function (data) {
+            resourceFactory.officeResource.getAllOffices({onlyActive:true},function (data) {
                 scope.offices = data;
                 scope.formData.officeId = parseInt(localStorageService.getFromCookies('officeId')) || scope.offices[0].id;
             });

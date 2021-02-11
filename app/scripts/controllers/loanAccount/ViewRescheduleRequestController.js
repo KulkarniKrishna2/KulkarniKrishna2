@@ -49,6 +49,11 @@
                         scope.introduceGracePeriods = true;
                     }
 
+                    if (scope.loanTermVariationsData[i].termType.value == "graceOnInterestWithinEmiAndCompoundAfterEachGrace") {
+                        scope.loanRescheduleDetails.graceOnInterestWithinEmiAndCompoundAfterEachGrace = scope.loanTermVariationsData[i].decimalValue;
+                        scope.introduceGracePeriods = true;
+                    }
+
                     if(scope.loanTermVariationsData[i].termType.value == "postGraceOnInterest") {
                         scope.loanRescheduleDetails.postGraceOnInterest = scope.loanTermVariationsData[i].decimalValue;
                         scope.introduceGracePeriods = true;
@@ -56,6 +61,16 @@
 
                     if(scope.loanTermVariationsData[i].termType.value == "postGraceOnInterestUpdateEmi") {
                         scope.loanRescheduleDetails.postGraceOnInterestUpdateEmi = scope.loanTermVariationsData[i].decimalValue;
+                        scope.introduceGracePeriods = true;
+                    }
+
+                    if (scope.loanTermVariationsData[i].termType.value == "postGraceOnInterestAfterEachGrace") {
+                        scope.loanRescheduleDetails.postGraceOnInterestAfterEachGrace = scope.loanTermVariationsData[i].decimalValue;
+                        scope.introduceGracePeriods = true;
+                    }
+
+                    if (scope.loanTermVariationsData[i].termType.value == "postGraceOnInterestAfterEachGraceUpdateEmi") {
+                        scope.loanRescheduleDetails.postGraceOnInterestAfterEachGraceUpdateEmi = scope.loanTermVariationsData[i].decimalValue;
                         scope.introduceGracePeriods = true;
                     }
 

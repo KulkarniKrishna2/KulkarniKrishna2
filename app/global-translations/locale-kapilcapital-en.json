@@ -15,6 +15,7 @@
     "validation.msg.GRT.endTime.cannot.be.blank": "Please Enter CRT end time ",
     "validation.msg.GRT.grtDate.is.greater.than.date": "CRT Date cannot be a future date",
     "validation.msg.GRT.grtDate.cannot.be.blank": "CRT Date cannot be blank",
+    "label.heading.instrument.no": "Account No",
     
     "------ end of translation file ------": "----------"
     }

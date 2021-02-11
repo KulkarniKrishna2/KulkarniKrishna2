@@ -694,6 +694,16 @@
                 if (!(scope.loanaccountinfo.product.isRepaymentAtDisbursement == true && scope.formData.brokenPeriodMethodType === 3)) {
                     delete scope.formData.brokenPeriodInterestCollectAtDisbursement;
                 }
+                if(this.formData.isTopup==true){
+                    this.formData.loanIdToClose = [];
+                    for(var i in scope.loanaccountinfo.clientActiveLoanOptions){
+                        if(scope.loanaccountinfo.clientActiveLoanOptions[i].isSelected==true){
+                            this.formData.loanIdToClose.push(scope.loanaccountinfo.clientActiveLoanOptions[i].id);
+                        }
+                    }
+                }else{
+                    this.formData.loanIdToClose = undefined;
+                }
                 resourceFactory.loanResource.save({command: 'calculateLoanSchedule'}, this.formData, function (data) {
                     scope.repaymentscheduleinfo = data;
                     if(data.periods.length > 0) {        
