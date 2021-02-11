@@ -118,6 +118,16 @@
                 </tr>
                 <tr>
                     <td class="width14" ng-show="introduceGracePeriods">
+                        <label class="control-label" style="padding-left: 20px;text-align: left;">{{ 'label.input.graceOnInterest' |
+                            translate
+                            }}&nbsp;({{ 'label.input.gracewithinemiandcompoundaftereachgrace' | translate }})</label>
+                    </td>
+                    <td ng-show="introduceGracePeriods">
+                        {{loanRescheduleDetails.graceOnInterestWithinEmiAndCompoundAfterEachGrace}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="width14" ng-show="introduceGracePeriods">
                         <label class="control-label" style="padding-left: 20px;text-align: left;">{{ 'label.input.graceOnInterest' | translate
                             }}&nbsp;({{ 'label.input.postGraceOnInterest' | translate }})</label></td>
                     <td ng-show="introduceGracePeriods">
@@ -130,6 +140,26 @@
                             }}&nbsp;({{ 'label.input.postGraceOnInterestUpdateEmi' | translate }})</label></td>
                     <td ng-show="introduceGracePeriods">
                         {{loanRescheduleDetails.postGraceOnInterestUpdateEmi}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="width14" ng-show="introduceGracePeriods">
+                        <label class="control-label" style="padding-left: 20px;text-align: left;">{{ 'label.input.graceOnInterest' |
+                            translate
+                            }}&nbsp;({{ 'label.input.postGraceOnInterestAfterEachGrace' | translate }})</label>
+                    </td>
+                    <td ng-show="introduceGracePeriods">
+                        {{loanRescheduleDetails.postGraceOnInterestAfterEachGrace}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="width14" ng-show="introduceGracePeriods">
+                        <label class="control-label" style="padding-left: 20px;text-align: left;">{{ 'label.input.graceOnInterest' |
+                            translate
+                            }}&nbsp;({{ 'label.input.postGraceOnInterestAfterEachGraceUpdateEmi' | translate }})</label>
+                    </td>
+                    <td ng-show="introduceGracePeriods">
+                        {{loanRescheduleDetails.postGraceOnInterestAfterEachGraceUpdateEmi}}
                     </td>
                 </tr>
                 <tr>

@@ -30,7 +30,8 @@
         "mobileNumber":true,
         "disbursementMode":true,
         "expectedDisbursalPaymentType":true,
-        "backDatedReason": true
+        "backDatedReason": true,
+        "transactionPaymentType": true
       },
       "isHiddenSection": {
         "interestRecalculationSection": true,

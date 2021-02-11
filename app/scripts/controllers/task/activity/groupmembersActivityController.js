@@ -528,6 +528,7 @@
 
             var SLAB_BASED = 'slabBasedCharge';
             var UPFRONT_FEE = 'upfrontFee';
+            scope.showLoanTerms = true;
 
             if (scope.clientId && scope.groupId) {
                 scope.inparams.templateType = 'jlg';
@@ -570,7 +571,7 @@
         scope.loanProductChange = function(loanProductId) {
 
             scope.inparams.productId = loanProductId;
-
+            scope.showLoanTerms =!(scope.loanaccountinfo.loanEMIPacks && scope.isLoanEmiPackEnabled)?true:false;
             resourceFactory.loanResource.get(scope.inparams, function(data) {
                 scope.loanaccountinfo = data;
                 if (scope.loanaccountinfo.loanEMIPacks) {
@@ -787,6 +788,19 @@
             } else {
                 this.formData.expectedDisbursementDate = dateFilter(new Date(), scope.df);
             }
+
+            if(this.formData.isTopup==true){
+                this.formData.loanIdToClose = [];
+                for(var i in scope.loanaccountinfo.clientActiveLoanOptions){
+                    if(scope.loanaccountinfo.clientActiveLoanOptions[i].isSelected==true){
+                        this.formData.loanIdToClose.push(scope.loanaccountinfo.clientActiveLoanOptions[i].id);
+                    }
+                }
+            }else{
+                this.formData.loanIdToClose = undefined;
+            }
+            
+
             this.formData.accountType = scope.inparams.templateType;
             this.formData.locale = scope.optlang.code;
             this.formData.dateFormat = scope.df;
@@ -934,7 +948,12 @@
             }
             return workflowCompleted;
         };
-  
+
+        scope.selectAllLoanToClose = function(isAllLoanToClose){
+            for(var i in scope.loanaccountinfo.clientActiveLoanOptions){
+                scope.loanaccountinfo.clientActiveLoanOptions[i].isSelected = isAllLoanToClose;
+            }
+        }
       }
     });
     mifosX.ng.application.controller('groupmembersActivityController', ['$q','$controller','$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope','$filter', mifosX.controllers.groupmembersActivityController]).run(function ($log) {

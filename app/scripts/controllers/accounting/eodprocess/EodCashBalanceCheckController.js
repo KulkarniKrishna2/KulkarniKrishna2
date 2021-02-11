@@ -63,6 +63,16 @@
             	scope.requestBody.systemAmount = scope.systemAmount;
             	scope.requestBody.note = scope.note;
             	scope.requestBody.physicalAmount = scope.totalAmount;
+                scope.denominationDetails = [];
+                for(var i in scope.denominationsOptions){
+                    if(scope.denominationsOptions[i].count){
+                        var data = {};
+                        data.denominationId = scope.denominationsOptions[i].id;
+                        data.denominationCount = scope.denominationsOptions[i].count;
+                        scope.denominationDetails.push(data);
+                    }
+                }
+                scope.requestBody.denominationDetails = scope.denominationDetails;
                 resourceFactory.eodSummaryResource.save({eodProcessId:scope.eodProcessId,resourceName:'cashbalancecheck'},scope.requestBody,
                     function(data){
                         scope.init();

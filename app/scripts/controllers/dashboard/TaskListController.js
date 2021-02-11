@@ -1,6 +1,6 @@
 (function(module) {
     mifosX.controllers = _.extend(module, {
-        TaskListController: function (scope, resourceFactory, location, paginatorUsingOffsetService, routeParams,bootstrapToolTip) {
+        TaskListController: function (scope, resourceFactory, location, paginatorUsingOffsetService, routeParams,localStorageService,$filter) {
             scope.formData = {};
             scope.taskTypes = [
                 {id: 'tab1', name: "label.tab.myworkflowstatus", status: 'assigned-workflow', icon:'icon-user',type:'assigned',active:true},
@@ -20,7 +20,18 @@
             scope.sortBy = 'dueDate';
             scope.sortType = 'asc';
             scope.taskTypeTabValue = scope.taskTypes[0];
-            scope.formData.officeId = scope.currentSession.user.officeId; 
+            scope.formData.officeId = scope.currentSession.user.officeId;
+            scope.formData.includeChildOfficeTaskList = true;
+            var savedTabs = localStorageService.getFromLocalStorage("tabPersistence");
+            if (savedTabs) {
+                scope.savedTaskListTabset = savedTabs.tasklistTabset;
+                for (var i in scope.taskTypes) {
+                    var taskTypeName = $filter('translate')(scope.taskTypes[i].name);
+                    if (taskTypeName == scope.savedTaskListTabset) {
+                        scope.taskTypeTabValue = scope.taskTypes[i];
+                    }
+                }
+            }
 
             scope.getChildrenTaskConfigs = function() {
                 scope.formData.childConfigId = null;
@@ -28,11 +39,48 @@
                     scope.childrenTaskConfigs = data.taskConfigs;
                 });
             };
+            
+            if(!scope.searchCriteria.taskListSearch){
+                scope.searchCriteria.taskListSearch = {};
+            } else {
+               if(scope.searchCriteria.taskListSearch.sortBy){
+                scope.sortBy = scope.searchCriteria.taskListSearch.sortBy;
+               }
+               if(scope.searchCriteria.taskListSearch.sortType){
+                scope.sortType = scope.searchCriteria.taskListSearch.sortType;
+               }
+
+               if(scope.searchCriteria.taskListSearch.officeId){
+                scope.formData.officeId = scope.searchCriteria.taskListSearch.officeId;
+               }
+
+               if(scope.searchCriteria.taskListSearch.parentConfigId){
+                scope.formData.parentConfigId  = scope.searchCriteria.taskListSearch.parentConfigId;
+                scope.getChildrenTaskConfigs();
+               }
+
+               if(scope.searchCriteria.taskListSearch.childConfigId){
+                scope.formData.childConfigId = scope.searchCriteria.taskListSearch.childConfigId;
+               }
+
+               if(scope.searchCriteria.taskListSearch.loanType){
+                scope.formData.loanType = scope.searchCriteria.taskListSearch.loanType;
+               }
+
+               if(scope.searchCriteria.taskListSearch.centerId){
+                scope.formData.centerId = scope.searchCriteria.taskListSearch.centerId;
+               }
+
+               if(scope.searchCriteria.taskListSearch.includeChildOfficeTaskList == true || scope.searchCriteria.taskListSearch.includeChildOfficeTaskList == false){
+                scope.formData.includeChildOfficeTaskList = scope.searchCriteria.taskListSearch.includeChildOfficeTaskList;
+               }
+            }
 
             resourceFactory.taskConfigResource.getTemplate({}, function(data) {
                 scope.parentTaskConfigs = data.taskConfigs;
                 scope.offices = data.officeOptions;
                 scope.loanAccountTypeOptions = data.loanAccoutTypeOptions;
+                scope.onLoanTypeChange(scope.formData.loanType);
             });
 
             scope.onLoanTypeChange = function(loanTypeId) {
@@ -65,6 +113,46 @@
             };
 
             var fetchFunction = function (offset, limit, callback) {
+                    scope.searchCriteria.taskListSearch.sortBy = scope.sortBy;
+                    scope.searchCriteria.taskListSearch.sortType =
+                      scope.sortType;
+                    scope.searchCriteria.taskListSearch.officeId =
+                      scope.formData.officeId;
+                    if (scope.formData.parentConfigId) {
+                      scope.searchCriteria.taskListSearch.parentConfigId =
+                        scope.formData.parentConfigId;
+                    } else {
+                      scope.searchCriteria.taskListSearch.parentConfigId = null;
+                    }
+
+                    if (scope.formData.childConfigId) {
+                      scope.searchCriteria.taskListSearch.childConfigId =
+                        scope.formData.childConfigId;
+                    } else {
+                      scope.searchCriteria.taskListSearch.childConfigId = null;
+                    }
+
+                    if (scope.formData.loanType) {
+                      scope.searchCriteria.taskListSearch.loanType =
+                        scope.formData.loanType;
+                    } else {
+                      scope.searchCriteria.taskListSearch.loanType = null;
+                    }
+
+                    if (scope.formData.centerId) {
+                      scope.searchCriteria.taskListSearch.centerId =
+                        scope.formData.centerId;
+                    } else {
+                      scope.searchCriteria.taskListSearch.centerId = null;
+                    }
+
+                    if (scope.formData.includeChildOfficeTaskList) {
+                      scope.searchCriteria.taskListSearch.includeChildOfficeTaskList =
+                        scope.formData.includeChildOfficeTaskList;
+                    } else {
+                      scope.searchCriteria.taskListSearch.includeChildOfficeTaskList = false;
+                    }
+                    scope.saveSC();
                 resourceFactory.taskListSearchResource.get({
                     filterby: scope.selectedStatus,
                     orderBy:scope.sortBy,
@@ -198,7 +286,7 @@
             }
         }
     });
-    mifosX.ng.application.controller('TaskListController', ['$scope', 'ResourceFactory','$location', 'PaginatorUsingOffsetService', '$routeParams', mifosX.controllers.TaskListController]).run(function ($log) {
+    mifosX.ng.application.controller('TaskListController', ['$scope', 'ResourceFactory','$location', 'PaginatorUsingOffsetService', '$routeParams','localStorageService','$filter', mifosX.controllers.TaskListController]).run(function ($log) {
         $log.info("TaskListController initialized");
     });
 }(mifosX.controllers || {}));
