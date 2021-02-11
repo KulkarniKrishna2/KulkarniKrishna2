@@ -523,6 +523,9 @@
                     scope.formDisbursementData();
                     scope.getPaymentTypeOtions();
                     scope.fetchBankDetailsData();
+                    if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.loanAccount.isMandatory) {
+                        scope.isPaymentTypeMandatory = scope.response.uiDisplayConfigurations.loanAccount.isMandatory.transactionPaymentType;
+                    }
                     scope.taskPermissionName = 'DISBURSE_LOAN';
                     break;
                 case "disbursetosavings":
@@ -619,6 +622,9 @@
                         scope.interestPortion = data.interestPortion;
                         scope.processDate = true;
                     });
+                    if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.loanAccount.isMandatory) {
+                        scope.isPaymentTypeMandatory = scope.response.uiDisplayConfigurations.loanAccount.isMandatory.transactionPaymentType;
+                    }
                     scope.title = 'label.heading.preclose';
                     scope.labelName = 'label.input.transactiondate';
                     scope.isTransaction = true;

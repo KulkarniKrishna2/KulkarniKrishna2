@@ -48,11 +48,14 @@
 						<td class="col-md-1 cell-overflow">{{activeClientMember.loanAccountBasicData.loanProductName}}</td>
 						<td class="col-md-1">{{activeClientMember.loanAccountBasicData.loanEMIPackData.sanctionAmount | number}}</td>
 						<td class="col-md-2 cell-overflow">{{activeClientMember.loanAccountBasicData.loanPurposeName}}</td>
-						<td class="col-md-1"><span ng-repeat="item in filterCharges(activeClientMember.loanAccountBasicData.charges,1)">{{item.amount
-								| number}} &nbsp;</span></td>
-						<td class="col-md-1" ng-if = "isInsuranceChargeHidden"><span ng-repeat="item in filterCharges(activeClientMember.loanAccountBasicData.charges, 2)">{{item.amount
-								| number}} &nbsp;</span>&nbsp;&nbsp;<span ng-repeat="item in filterCharges(activeClientMember.loanAccountBasicData.charges, 3)">{{item.amount
-								| number}} &nbsp;</span></td>
+						<td class="col-md-1"><span
+							ng-repeat="processingItem in activeClientMember.filteredCharges[1]">{{processingItem.amount | number}}
+							&nbsp;</span></td>
+					<td class="col-md-1" ng-if = "isInsuranceChargeHidden"><span
+							ng-repeat="singleInsuranceItem in activeClientMember.filteredCharges[2]">{{singleInsuranceItem.amount | number}}
+							&nbsp;</span>&nbsp;&nbsp;<span
+							ng-repeat="doubleInsuranceItem in activeClientMember.filteredCharges[3]">{{doubleInsuranceItem.amount | number}}
+							&nbsp;</span></td>
 						<td class="col-md-1">
 							<a type="button" class="btn btn-default btn-xs" ng-click="editLoan(activeClientMember.loanAccountBasicData,groupMember.id)"
 							 ng-disabled="activeClientMember.isClientFinishedThisTask" title="{{'label.button.edit.loan' | translate}}">

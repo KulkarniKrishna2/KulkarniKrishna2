@@ -506,7 +506,8 @@
 			"hideReject": false,
 			"isReadOnlyField": {
 				"createSubGroupDate": false,
-				"loanProduct": true
+				"loanProduct": true,
+				"loanProductForSpecificSteps": true
 			},
 			"initiateWorkflow": {
 				"showInitiateOnCompletion": false

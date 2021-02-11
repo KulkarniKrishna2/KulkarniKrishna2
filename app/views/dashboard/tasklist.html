@@ -97,8 +97,8 @@
     <div id="home" class="row">
         <div class="col-md-12">
             <div class="card-content no-h-padding">
-                <tabset class="paddedtop paddedbottom10" >
-                    <tab ng-repeat="taskType in taskTypes" ng-click="getWorkFlowTasks(taskType)">
+                <tabset class="paddedtop paddedbottom10" tabset-name="tasklistTabset">
+                    <tab heading="{{taskType.name | translate}}" ng-repeat="taskType in taskTypes" ng-click="getWorkFlowTasks(taskType)">
 
                         <tab-heading>
                             <i class="{{taskType.icon}}"></i> {{taskType.name | translate}}

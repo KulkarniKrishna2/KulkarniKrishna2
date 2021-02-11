@@ -10,7 +10,7 @@
                 scope.voucherTypeOptions = data.templateData.voucherTypeOptions;
             });
 
-            resourceFactory.officeResource.getAllOffices(function(data) {
+            resourceFactory.officeResource.getAllOffices({onlyActive:true},function(data) {
                 scope.offices = data;
             });
 

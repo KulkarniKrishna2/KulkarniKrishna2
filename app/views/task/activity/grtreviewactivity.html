@@ -7,9 +7,9 @@
             <span ng-if="isSingleGroupInCenter"><label>{{'label.heading.grt.date' | translate}}:&nbsp;</label>
                 {{grtCompletionDetails.grtDate | DateFormat}}&nbsp;&nbsp;|&nbsp;&nbsp;</span>
             <span ng-if="isSingleGroupInCenter"><label>{{'label.anchor.start.time' | translate}}:&nbsp;</label>
-                {{grtCompletionDetails.grtStartTime}}&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+                {{grtStartTime | date:"h:mm a"}}&nbsp;&nbsp;|&nbsp;&nbsp;</span>
             <span ng-if="isSingleGroupInCenter"><label>{{'label.anchor.end.time' | translate}}:&nbsp;</label>
-                {{grtCompletionDetails.grtEndTime}}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                {{grtEndTime | date:"h:mm a"}}&nbsp;&nbsp;&nbsp;&nbsp;</span>
             <span ng-if="isSingleGroupInCenter && grtDocument" class="pull center">
                 <a><i ng-click="openViewDocument()" class="icon-eye-open icon-2x" style="color: blue"
                         tooltip="{{ 'label.tooltip.view.grt.photo' | translate}}"></i></a>
@@ -79,13 +79,13 @@
                         <td class="col-md-2 cell-overflow">{{activeClientMember.loanAccountBasicData.loanPurposeName}}
                         </td>
                         <td class="col-md-1"><span
-                                ng-repeat="item in filterCharges(activeClientMember.loanAccountBasicData.charges,1)">{{item.amount | number}}
-                                &nbsp;</span></td>
-                        <td class="col-md-1" ng-if = "isInsuranceChargeHidden"><span
-                                ng-repeat="item in filterCharges(activeClientMember.loanAccountBasicData.charges, 2)">{{item.amount | number}}
-                                &nbsp;</span>&nbsp;&nbsp;<span
-                                ng-repeat="item in filterCharges(activeClientMember.loanAccountBasicData.charges, 3)">{{item.amount | number}}
-                                &nbsp;</span></td>
+                            ng-repeat="processingItem in activeClientMember.filteredCharges[1]">{{processingItem.amount | number}}
+                            &nbsp;</span></td>
+                    <td class="col-md-1" ng-if = "isInsuranceChargeHidden"><span
+                            ng-repeat="singleInsuranceItem in activeClientMember.filteredCharges[2]">{{singleInsuranceItem.amount | number}}
+                            &nbsp;</span>&nbsp;&nbsp;<span
+                            ng-repeat="doubleInsuranceItem in activeClientMember.filteredCharges[3]">{{doubleInsuranceItem.amount | number}}
+                            &nbsp;</span></td>
                         <td class="col-md-1">
                             <a type="button" class="btn btn-default btn-xs"
                                 ng-click="editLoan(activeClientMember.loanAccountBasicData,groupMember.id)"

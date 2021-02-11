@@ -9,7 +9,7 @@
             scope.totalDebitAmount = 0;
             scope.totalCreditAmount = 0;
 
-            resourceFactory.officeResource.getAllOffices(function (data) {
+            resourceFactory.officeResource.getAllOffices({onlyActive:true},function (data) {
                 scope.offices = data;
             });
 

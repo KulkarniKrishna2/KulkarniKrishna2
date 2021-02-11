@@ -54,6 +54,18 @@
             <legend>{{'label.anchor.initiate.nach.mandate.request' | translate}}</legend>
             <div>
                 <div class="form-group">
+                    <label class="control-label col-sm-2" for="fromDate">{{ 'label.input.nach.registration.mode' | translate }}<span
+                            class="required">*</span></label>
+                    <div class="col-sm-3">
+                        <select class="form-control col-sm-2"  name="registrationMode" ng-model="formData.registrationMode" required>
+                            <option ng-repeat="registrationMode in registrationModes" ng-value="registrationMode">{{registrationMode}}</option>
+                          </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="initiateNachRequestForm" valattribute="registrationMode" />
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="control-label col-sm-2" for="fromDate">{{ 'label.heading.fromdate' | translate }}<span
                             class="required">*</span></label>
 
