@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        BulkPortfolioTransactionsController: function (scope, resourceFactory, location, dateFilter, http, routeParams, paginatorService, API_VERSION, $upload, $rootScope, CommonUtilService) {
+        BulkPortfolioTransactionsController: function (scope, resourceFactory, location, dateFilter, http, routeParams, paginatorService, API_VERSION, $upload, $rootScope, CommonUtilService,paginatorUsingOffsetService) {
      scope.bankStatements  = [];
       scope.options = [];
       var option1 = {id:0,value:"Not Processed"};
@@ -25,11 +25,11 @@
         params.limit = limit;
         params.orderBy = 'lastModifiedDate';
         params.sortOrder = 'DESC';
-        resourceFactory.bulkStatementsResource.getAllBankStatement(params, callback);
+        resourceFactory.bulkStatementResource.getAllBankStatement(params, callback);
         };
 
         scope.fetchData = function () {
-                scope.bulkcollection = paginatorService.paginate(scope.fetchFunction, 10);   
+                scope.bulkcollection = paginatorUsingOffsetService.paginate(scope.fetchFunction, 10);  
         };
         
         scope.fetchData();
@@ -43,7 +43,7 @@
     }
 
     });
-    mifosX.ng.application.controller('BulkPortfolioTransactionsController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams','PaginatorService', 'API_VERSION', '$upload', '$rootScope', 'CommonUtilService', mifosX.controllers.BulkPortfolioTransactionsController]).run(function ($log) {
+    mifosX.ng.application.controller('BulkPortfolioTransactionsController', ['$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams','PaginatorService', 'API_VERSION', '$upload', '$rootScope', 'CommonUtilService','PaginatorUsingOffsetService', mifosX.controllers.BulkPortfolioTransactionsController]).run(function ($log) {
         $log.info("BulkPortfolioTransactionsController initialized");
     });
 }(mifosX.controllers || {}));

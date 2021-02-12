@@ -44,12 +44,12 @@
                     scope.parseTransactions(scope.jetransactions);
                 });
             }else{
-                resourceFactory.journalEntriesResource.get({transactionId: routeParams.transactionId, transactionDetails:true}, function (data) {
+                resourceFactory.journalEntriesSearchResource.get({transactionId: routeParams.transactionId, transactionDetails:true}, function (data) {
                     scope.transactionNumber = routeParams.transactionId;
-                    scope.jetransactions = data.pageItems;
-                    for (var i in data.pageItems) {
-                        scope.manualEntry = data.pageItems[i].manualEntry;
-                        if (data.pageItems[i].reversed == false) {
+                    scope.jetransactions = data;
+                    for (var i in data) {
+                        scope.manualEntry = data.manualEntry;
+                        if (data.reversed == false) {
                             scope.flag = true;
                         }
                     }

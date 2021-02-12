@@ -489,6 +489,10 @@
                         reverse: { method: 'POST', params: { command: 'reverse' } },
                         search: { method: 'GET', params: {} }
                     }),
+                    journalEntriesSearchResource: defineResource(apiVer + "/journalentries/search", {trxid: '@transactionId'}, {
+                        get: { method: 'GET', params: { transactionId: '@transactionId' }, isArray: true },
+                        search: { method: 'GET', params: {}, isArray: true }
+                    }),
                     frequentPostingResource: defineResource(apiVer + "/frequentpostings", {}, {}),
                     accountingClosureResource: defineResource(apiVer + "/glclosures/:accId", { accId: "@accId" }, {
                         get: { method: 'GET', params: {}, isArray: true },
@@ -958,6 +962,9 @@
                         update: { method: 'PUT', params: { bankStatementId: '@bankStatementId' } },
                         getBankStatement: { method: 'GET', params: { bankStatementId: '@bankStatementId' } },
                         reconcileBankStatement: { method: 'POST', params: { command: 'reconcile' } }
+                    }),
+                    bulkStatementResource: defineResource(apiVer + "/bulkcollection/search", {}, {
+                        getAllBankStatement: { method: 'GET', params: {}, isArray: true }
                     }),
                     deleteBankStatementsResource: defineResource(apiVer + "/bankstatements/:bankStatementId/delete", { bankStatementId: '@bankStatementId', command: '@command' }, {
                         deleteBankStatement: { method: 'POST', params: { bankStatementId: '@bankStatementId' }, command: 'command' }
