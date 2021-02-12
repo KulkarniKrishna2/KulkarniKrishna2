@@ -671,15 +671,7 @@
                         translate }}<span class="required">*</span></label>
                 </td>
                 <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
-                    <label>{{ loanaccountinfo.interestRecalculationData.recalculationRestFrequencyType.value}}</label>
-                    <label data-ng-show="loanaccountinfo.interestRecalculationData.recalculationRestFrequencyType.id == 3 &&
-                        loanaccountinfo.interestRecalculationData.recalculationRestFrequencyWeekday != null"> on {{ loanaccountinfo.interestRecalculationData.recalculationRestFrequencyWeekday.value}}</label>
-                    <label data-ng-show="loanaccountinfo.interestRecalculationData.recalculationRestFrequencyType.id == 4 &&
-		                loanaccountinfo.interestRecalculationData.recalculationRestFrequencyOnDay != null">on day {{ loanaccountinfo.interestRecalculationData.recalculationRestFrequencyOnDay}}</label>
-                    <label data-ng-show="loanaccountinfo.interestRecalculationData.recalculationRestFrequencyType.id == 4 &&
-                        loanaccountinfo.interestRecalculationData.recalculationRestFrequencyOnDay == null &&
-                        loanaccountinfo.interestRecalculationData.recalculationRestFrequencyNthDay != null">on {{ loanaccountinfo.interestRecalculationData.recalculationRestFrequencyNthDay.value}} {{ loanaccountinfo.interestRecalculationData.recalculationRestFrequencyWeekday.value}}
-                    </label>
+                    <label>{{ loanaccountinfo.interestRecalculationData.humanReadableRestFrequency}}</label>
                 </td>
             </tr>
             <tr ng-if="showLoanTerms" data-ng-show="loanaccountinfo.isInterestRecalculationEnabled && loanaccountinfo.interestRecalculationData.recalculationRestFrequencyType.id != 1">
@@ -696,15 +688,8 @@
                         translate }}<span class="required">*</span></label>
                 </td>
                 <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
-                    <label>{{ loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyType.value}}</label>
-                    <label data-ng-show="loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyType.id == 3 &&
-                        loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyWeekday != null"> on {{ loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyWeekday.value}}</label>
-                    <label data-ng-show="loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyType.id == 4 &&
-		                loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyOnDay != null">on day {{ loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyOnDay}}</label>
-                    <label data-ng-show="loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyType.id == 4 &&
-                        loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyOnDay == null &&
-                        loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyNthDay != null">on {{ loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyNthDay.value}} {{ loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyWeekday.value}}
-                    </label>
+                    <label>{{loanaccountinfo.interestRecalculationData.humanReadableCompoundingFrequency}}</label>
+                    
                 </td>
             </tr>
             <tr ng-if="showLoanTerms" data-ng-show="loanaccountinfo.isInterestRecalculationEnabled && loanaccountinfo.interestRecalculationData.interestRecalculationCompoundingType.id != 0 && loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyType.id != 1">
@@ -723,20 +708,44 @@
                     <label>{{ loanaccountinfo.interestRecalculationData.isSubsidyApplicable }}</label>
                 </td>
             </tr>
+            <tr ng-if="showLoanTerms" data-ng-show="loanaccountinfo.isInterestRecalculationEnabled && loanaccountinfo.interestRecalculationData.compoundingStartDayType">
+                <td >
+                    <label class="control-label">{{ 'label.input.compoundingstartdatetype' | translate }}</label>
+                </td>
+                <td class="paddedbottom10" >
+                    <label>{{ loanaccountinfo.interestRecalculationData.compoundingStartDayType.value }}</label>
+                </td>
+            </tr>
+            <tr ng-if="showLoanTerms" data-ng-show="loanaccountinfo.isInterestRecalculationEnabled && loanaccountinfo.interestRecalculationData.allowScheduleAfterMaturity==true">
+                <td >
+                    <label class="control-label">{{ 'label.input.frequency.after.maturity' | translate }}</label>
+                </td>
+                <td class="paddedbottom10" >
+                    <label>{{ loanaccountinfo.interestRecalculationData.humanReadableFrequencyAfterMaturity }}</label>
+                </td>
+            </tr>
+            <tr ng-if="showLoanTerms" data-ng-show="loanaccountinfo.isInterestRecalculationEnabled && loanaccountinfo.interestRecalculationData.allowScheduleAfterMaturity==true">
+                <td >
+                    <label class="control-label">{{ 'label.input.frequency.interval.after.maturity' | translate }}</label>
+                </td>
+                <td class="paddedbottom10" >
+                    <label>{{ loanaccountinfo.interestRecalculationData.frequencyAfterMaturityInterval }}</label>
+                </td>
+            </tr>
             <tr ng-if="showLoanTerms" data-ng-show="loanaccountinfo.isInterestRecalculationEnabled">
                 <td data-ng-show="loanaccountinfo.interestRecalculationData.recalculationRestFrequencyType.id != 0 && loanaccountinfo.interestRecalculationData.recalculationRestFrequencyType.id != 1">
                     <label>{{ 'label.input.frequenc.date.for.recalculte.outstanding.principal' | translate }}:&nbsp;</label>
                 </td>
                 <td class="paddedbottom10" data-ng-show="loanaccountinfo.interestRecalculationData.recalculationRestFrequencyType.id != 0 && loanaccountinfo.interestRecalculationData.recalculationRestFrequencyType.id != 1">
                     <input type="text" autocomplete="off" id="recalculationRestFrequencyStartDate" name="recalculationRestFrequencyStartDate" datepicker-pop="{{df}}"
-                           ng-model="recalculationRestFrequencyStartDate" is-open="opened" min="minDate" class="form-control" ng-readonly="isDatePickerReadOnly" />
+                           ng-model="formData.recalculationRestFrequencyStartDate" is-open="opened" min="minDate" class="form-control" ng-readonly="isDatePickerReadOnly" />
                 </td>
                 <td data-ng-show="loanaccountinfo.interestRecalculationData.interestRecalculationCompoundingType.id != 0 && loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyType.id != 1">
                     <label>{{ 'label.input.frequenc.date.for.compounding' | translate }}:&nbsp;</label>
                 </td>
                 <td class="paddedbottom10" data-ng-show="loanaccountinfo.interestRecalculationData.interestRecalculationCompoundingType.id != 0 && loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyType.id != 1">
                     <input id="recalculationCompoundingFrequencyStartDate" type="text" autocomplete="off" name="recalculationCompoundingFrequencyStartDate"
-                           datepicker-pop="{{df}}" ng-model="recalculationCompoundingFrequencyStartDate" is-open="opened1" min="minDate"
+                           datepicker-pop="{{df}}" ng-model="formData.recalculationCompoundingFrequencyStartDate" is-open="opened1" min="minDate"
                            class="form-control" ng-readonly="isDatePickerReadOnly"/>
                     <form-validate valattributeform="editloanaccountform" valattribute="expecteddisbursementon"/>
                 </td>

@@ -79,6 +79,7 @@
                     scope.assetAndLiabilityAccountOptions = scope.glAccounts;
                     scope.assetLiabilityAndIncomeAccountOptions = scope.glAccounts;
                 }
+                scope.compoundingStartDayTypeOptions = scope.product.compoundingStartDayTypeOptions || [];
                 scope.penaltyOptions = scope.product.penaltyOptions || [];
                 scope.chargeOptions = scope.product.chargeOptions || [];
                 scope.writeOffReasonOptions = [];
@@ -665,26 +666,26 @@
                 }
                 if (this.formData.recalculationCompoundingFrequencyType == 4) {
                     if (this.formData.recalculationCompoundingFrequencyNthDayType == -2) {
-                        delete this.formData.recalculationCompoundingFrequencyNthDayType;
+                        //delete this.formData.recalculationCompoundingFrequencyNthDayType;
                         delete this.formData.recalculationCompoundingFrequencyDayOfWeekType;
                     } else {
                         delete this.formData.recalculationCompoundingFrequencyOnDayType;
                     }
                 } else if (this.formData.recalculationCompoundingFrequencyType == 3) {
                     delete this.formData.recalculationCompoundingFrequencyOnDayType;
-                    delete this.formData.recalculationCompoundingFrequencyNthDayType;
+                    //delete this.formData.recalculationCompoundingFrequencyNthDayType;
                 }
 
                 if (this.formData.recalculationRestFrequencyType == 4) {
                     if (this.formData.recalculationRestFrequencyNthDayType == -2) {
-                        delete this.formData.recalculationRestFrequencyNthDayType;
+                        //delete this.formData.recalculationRestFrequencyNthDayType;
                         delete this.formData.recalculationRestFrequencyDayOfWeekType;
                     } else {
                         delete this.formData.recalculationRestFrequencyOnDayType;
                     }
                 } else if (this.formData.recalculationRestFrequencyType == 3) {
                     delete this.formData.recalculationRestFrequencyOnDayType;
-                    delete this.formData.recalculationRestFrequencyNthDayType;
+                    //delete this.formData.recalculationRestFrequencyNthDayType;
                 }
                 if (!this.formData.isSubsidyApplicable) {
                     delete this.formData.isSubsidyApplicable;
@@ -755,7 +756,19 @@
                     delete scope.formData.repaymentFrequencyDayOfWeekType;
                     scope.formData.repeatsOnDayOfMonth  = [];
                 }
-
+                if(!(scope.formData.isRepaymentAtDisbursement && scope.formData.isRepaymentAtDisbursement==true)){
+                    scope.formData.isUpfrontInterestEnabled = false;
+                }
+                if(scope.formData.frequencyAfterMaturityInterval == ""){
+                    delete scope.formData.frequencyAfterMaturityInterval;
+                }
+                if(scope.formData.allowScheduleAfterMaturity==undefined || scope.formData.allowScheduleAfterMaturity==false){
+                    delete scope.formData.frequencyAfterMaturityType;
+                    delete scope.formData.frequencyAfterMaturityNthDayType;
+                    delete scope.formData.frequencyAfterMaturityDayOfWeekType;
+                    delete scope.formData.frequencyAfterMaturityInterval;
+                    delete scope.formData.frequencyAfterMaturityOnDay;
+                }
                 resourceFactory.loanProductResource.save(this.formData, function (data) {
                     location.path('/viewloanproduct/' + data.resourceId);
                 });

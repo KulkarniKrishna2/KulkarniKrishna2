@@ -281,6 +281,9 @@
                     case "refund":
                         location.path('/loanaccount/' + accountId + '/refund');
                         break;
+                    case "refundFromUpfrontInterest":
+                        location.path('/loanaccount/' + accountId + '/refundFromUpfrontInterest');
+                        break;
                     case "disburse.creditbureaureport":
                         if (scope.isCBCheckReq) {
                             if (scope.loandetails.loanApplicationReferenceId && scope.loandetails.loanApplicationReferenceId > 0 && scope.loandetails.status.id == 200) {
@@ -482,6 +485,12 @@
                 } else {
                     scope.isExcessAmountPaidLoan = false;
                 }
+                if(!_.isUndefined(scope.loandetails.summary) && !_.isUndefined(scope.loandetails.summary.upfrontInterestAvilable) && scope.loandetails.summary.upfrontInterestAvilable > 0){
+                    scope.isUpfrontAmountAvilable = true;
+                }else{
+                    scope.isUpfrontAmountAvilable = false;
+                }
+
                 if (scope.status == "Submitted and pending approval" || scope.status == "Active" || scope.status == "Approved") {
                     scope.choice = true;
                 }
@@ -857,7 +866,14 @@
                             isHidden: scope.isGlim
                         });
                     }
-
+                    if(scope.isUpfrontAmountAvilable) {
+                        scope.buttons.options.push(
+                            {
+                                name: "button.refundFromUpfrontInterest",
+                                taskPermissionName: 'REFUNDUPFRONTINTEREST_LOAN',
+                                isHidden: scope.isGlim
+                            });
+                    }
                 }
                 if (data.status.value == "Rejected") {
                     scope.options.push(
