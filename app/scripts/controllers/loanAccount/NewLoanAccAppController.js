@@ -51,6 +51,9 @@
             scope.showGraceOnArrearsAgeing = true;
             scope.showLoanPurposeCustomField = false;
             scope.eventBasedFee = 51;
+            scope.hideIntrestRecalculationConfig = false;
+            scope.showIntrestRecalculation = false;
+
 
             if(routeParams.clientId){
                 resourceFactory.clientResource.get({clientId: routeParams.clientId, associations:'hierarchyLookup'}, function (data) {
@@ -121,6 +124,11 @@
                     scope.showRecurringMoratoriumOnPrincipalPeriods= !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.recurringMoratoriumOnPrincipalPeriods;
                     scope.showGraceOnPrincipalPayment = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.graceOnPrincipalPayment;
                     scope.showGraceOnArrearsAgeing = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.graceOnArrearsAgeing;
+                    
+                }
+
+                if(scope.response.uiDisplayConfigurations.loanAccount.isHiddenSection){
+                    scope.hideIntrestRecalculationConfig =  scope.response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection;
                 }
 
                 if(scope.response.uiDisplayConfigurations.loanAccount.isMandatory){
@@ -188,6 +196,9 @@
                 scope.inparams.fetchRDAccountOnly = scope.response.uiDisplayConfigurations.loanAccount.savingsAccountLinkage.reStrictLinkingToRDAccount;
                 resourceFactory.loanResource.get(scope.inparams, function (data) {
                     scope.loanaccountinfo = data;
+                    if(scope.hideIntrestRecalculationConfig == false && scope.loanaccountinfo.isInterestRecalculationEnabled==true){
+                        scope.showIntrestRecalculation = true;
+                    }
                     scope.loanPurposeOptions = scope.loanaccountinfo.loanPurposeOptions;
                     scope.isOverrideMoratorium = scope.loanaccountinfo.product.allowAttributeOverrides.graceOnPrincipalAndInterestPayment;
                     scope.showLoanTerms =!(scope.loanaccountinfo.loanEMIPacks && scope.isLoanEmiPackEnabled)?true:false;
@@ -330,6 +341,7 @@
                     }
                 }
             });
+
             scope.$watch('formData.numberOfRepayments', function(){
                 if(scope.formData.principal != '' && scope.formData.principal != undefined && scope.formData.numberOfRepayments != '' && scope.formData.numberOfRepayments != undefined){
                     for(var i in scope.charges){

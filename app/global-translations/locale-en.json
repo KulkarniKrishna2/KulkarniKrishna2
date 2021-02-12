@@ -8907,6 +8907,8 @@
      "label.heading.upfrontinterest" : "Upfront Interest",
      "validation.msg.loanproduct.frequencyAfterMaturityInterval.cannot.be.blank" : "Frequency interval after maturity can not be empty",
      "label.heading.upfront.amount.avilable":"Upfront Interest Avilable",
+     "validation.msg.loanproduct.interestRecalculationCompoundingMethod.cannot.be.blank" : "Interest recalculation compounding method can not be empty",
+     "validation.msg.loanproduct.rescheduleStrategyMethod.cannot.be.blank" : "Advance payment adjustment type can not be empty",
 
      "------ end of translation file ------": "----------"
 
