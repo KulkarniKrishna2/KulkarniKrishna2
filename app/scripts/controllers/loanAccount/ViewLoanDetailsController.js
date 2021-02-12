@@ -485,6 +485,12 @@
                 } else {
                     scope.isExcessAmountPaidLoan = false;
                 }
+                if(!_.isUndefined(scope.loandetails.summary) && !_.isUndefined(scope.loandetails.summary.upfrontInterestAvilable) && scope.loandetails.summary.upfrontInterestAvilable > 0){
+                    scope.isUpfrontAmountAvilable = true;
+                }else{
+                    scope.isUpfrontAmountAvilable = false;
+                }
+
                 if (scope.status == "Submitted and pending approval" || scope.status == "Active" || scope.status == "Approved") {
                     scope.choice = true;
                 }
@@ -860,7 +866,7 @@
                             isHidden: scope.isGlim
                         });
                     }
-                    if(!_.isUndefined(scope.loandetails.summary) && !_.isUndefined(scope.loandetails.summary.upfrontInterestAvilable) && scope.loandetails.summary.upfrontInterestAvilable > 0) {
+                    if(scope.isUpfrontAmountAvilable) {
                         scope.buttons.options.push(
                             {
                                 name: "button.refundFromUpfrontInterest",

@@ -8906,6 +8906,7 @@
      "validation.msg.loanproduct.upfrontInterestLiabilityAccountId.cannot.be.blank" : "Upfront Interest liability account mapping can not be blank.",
      "label.heading.upfrontinterest" : "Upfront Interest",
      "validation.msg.loanproduct.frequencyAfterMaturityInterval.cannot.be.blank" : "Frequency interval after maturity can not be empty",
+     "label.heading.upfront.amount.avilable":"Upfront Interest Avilable",
 
      "------ end of translation file ------": "----------"
 

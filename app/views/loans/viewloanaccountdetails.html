@@ -361,6 +361,12 @@
                                     data-ng-hide="isExcessAmountPaidLoan">{{'label.heading.notprovided' | translate}}</span></span>
                             </td>
                         </tr>
+                        <tr ng-show="isUpfrontAmountAvilable">
+                            <th class="table-bold-loan">{{'label.heading.upfront.amount.avilable' | translate}}</th>
+                            <td><span class="padded-td">{{loandetails.summary.upfrontInterestAvilable| number}}<span
+                                    data-ng-hide="isUpfrontAmountAvilable">{{'label.heading.notprovided' | translate}}</span></span>
+                            </td>
+                        </tr>
                     </table>
 
                 </div>
