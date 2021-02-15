@@ -131,7 +131,7 @@
                 } else {
                     this.formData.bankAccountDetails.locale = scope.optlang.code;
                 }
-                if(scope.formData.paymentMode!=scope.fileBasedModeValue){
+                if(scope.formData.paymentMode!=scope.fileBasedModeValue ||scope.formData.serviceProvider == 0){
                     this.formData.serviceProvider =  undefined;
                 }
                 resourceFactory.paymentTypeResource.update({paymentTypeId: routeParams.id},this.formData, function (data) {
