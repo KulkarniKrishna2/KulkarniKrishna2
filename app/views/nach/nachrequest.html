@@ -10,6 +10,7 @@
             <thead>
                 <th class="col-md-2">{{'label.input.requested.on' | translate}}</th>
                 <th class="col-md-1">{{'label.placeholder.amount' | translate}}</th>
+                <th class="col-md-1">{{'label.heading.mandate.mode' | translate}}</th>
                 <th class="col-md-1">{{'label.heading.mandate.umrn' | translate}}</th>
                 <th class="col-md-1">{{'label.heading.mandate.debitFrequency' | translate}}</th>
                 <th class="col-md-1">{{'label.heading.status' | translate}}</th>
@@ -22,6 +23,7 @@
                     <td ng-click="showMandateRequestDetails(nachMandateRequest)">
                         {{nachMandateRequest.amount | number:2}}
                     </td>
+                    <td ng-click="showMandateRequestDetails(nachMandateRequest)">{{nachMandateRequest.mode}}</td>
                     <td ng-click="showMandateRequestDetails(nachMandateRequest)">{{nachMandateRequest.umrn}}</td>
                     <td ng-click="showMandateRequestDetails(nachMandateRequest)">
                         {{nachMandateRequest.debitFrequencyEnum.value}}</td>
@@ -177,6 +179,10 @@
         <tr>
             <td>{{'label.heading.status' | translate}}:</td>
             <td>{{nachRequestDetails.status}}</td>
+        </tr>
+        <tr>
+            <td>{{'label.heading.mandate.mode' | translate}}:</td>
+            <td>{{nachRequestDetails.mode}}</td>
         </tr>
         <tr ng-if="nachRequestDetails.umrn">
             <td>{{'label.heading.mandate.umrn' | translate}}:</td>

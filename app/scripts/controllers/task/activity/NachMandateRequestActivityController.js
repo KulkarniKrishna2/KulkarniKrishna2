@@ -5,7 +5,7 @@
             scope.nachMandateRequests = [];
             scope.nachMandateEntityType = 'loanapplications';
             scope.nachMandateEntityId = scope.taskconfig['loanApplicationId'];
-            var activeRequestStatus = ['PENDING', 'ERROR', 'INITIATED', 'AUTH_SUCCESS', 'DESTINATION_ACCEPTED'];
+            var activeRequestStatus = ['PENDING', 'ERROR', 'INITIATED', 'AUTH_SUCCESS', 'DESTINATION_ACCEPTED','FAILED'];
 
             function initTask() {
                 scope.formData = {};
@@ -32,7 +32,7 @@
             }
 
             scope.canRefresh = function (nachMandateRequest) {
-                if (nachMandateRequest && (nachMandateRequest.status == 'PENDING' || nachMandateRequest.status == 'AUTH_SUCCESS')) {
+                if (nachMandateRequest && (nachMandateRequest.status == 'PENDING' || nachMandateRequest.status == 'AUTH_SUCCESS' || nachMandateRequest.status == 'FAILED')) {
                     return true;
                 }
                 return false;
@@ -46,7 +46,7 @@
             }
 
             scope.canReject = function (nachMandateRequest) {
-                if (nachMandateRequest && nachMandateRequest.status == 'ERROR') {
+                if (nachMandateRequest && (nachMandateRequest.status == 'ERROR' || nachMandateRequest.status == 'FAILED') ) {
                     return true;
                 }
                 return false;
