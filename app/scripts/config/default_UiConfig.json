@@ -799,6 +799,11 @@
 			"isReadOnlyField": {
 				"externalId": true
 			}
+		},
+		"viewLoanApplication" : {
+			"isHiddenField" : {
+			  "modifyApplication" : false
+			}
 		}
 	}
 }

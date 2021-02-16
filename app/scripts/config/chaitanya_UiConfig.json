@@ -281,6 +281,11 @@
       "isHiddenFeild":{
         "toggleButton":false
       }
+    },
+    "viewLoanApplication" : {
+      "isHiddenField" : {
+        "modifyApplication" : true
+      }
     }
   }
 }

@@ -10,16 +10,21 @@
             scope.riskCheckDone = false;
             scope.showRiskDetail =false;
             scope.codes = [];
-            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow &&
-                scope.response.uiDisplayConfigurations.workflow.isMandatory) {
-                    scope.isRejectReasonMandatory = scope.response.uiDisplayConfigurations.workflow.isMandatory.rejectReason;
-            }
-
             scope.isWorkflowEnabled = false;
             scope.showUpfrontAmount = true;
-            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createLoanApplication &&
-                scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField && scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.upfrontAmount) {
-                scope.showUpfrontAmount = !scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.upfrontAmount;
+            scope.allowModifyLoanApplication = true;
+            
+            if(scope.response && scope.response.uiDisplayConfigurations) {
+                if(scope.response.uiDisplayConfigurations.workflow && scope.response.uiDisplayConfigurations.workflow.isMandatory){
+                     scope.isRejectReasonMandatory = scope.response.uiDisplayConfigurations.workflow.isMandatory.rejectReason;
+                }
+                if(scope.response.uiDisplayConfigurations.createLoanApplication &&
+                    scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField && scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.upfrontAmount) {
+                    scope.showUpfrontAmount = !scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.upfrontAmount;
+                }
+                if(scope.response.uiDisplayConfigurations.viewLoanApplication && scope.response.uiDisplayConfigurations.viewLoanApplication.isHiddenField){
+                    scope.allowModifyLoanApplication = !scope.response.uiDisplayConfigurations.viewLoanApplication.isHiddenField.modifyApplication;
+                }
             }
 
             scope.initData = function () {

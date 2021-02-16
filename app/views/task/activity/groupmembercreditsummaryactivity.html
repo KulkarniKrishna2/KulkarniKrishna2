@@ -34,7 +34,7 @@
                                     <td ng-if="workflow != undefined" class="col-sm-6">
                                         <a type="button" id="workflow.id" class="btn angled-btn btn-default "
                                             data-ng-click="goToTask(workflow)">
-                                            <span ng-if="workflow.activeChildTask">{{workflow.activeChildTask.name}}</span>
+                                            <span ng-if="workflow.currentChildTaskId">{{workflow.currentChildTaskName}}</span>
                                             <i class="pull-right icon-arrow-right"></i>
                                         </a> <br>
                                         <span>{{workflow.status.code | translate }}</span>

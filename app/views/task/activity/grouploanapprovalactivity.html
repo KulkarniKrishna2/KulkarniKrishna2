@@ -27,7 +27,7 @@
                             <td>{{loanApp.loanProductName}}</td>
                             <td>{{loanApp.statusInReadableFormat}}</td>
                             <td ng-if="loanApp.status.id == 100 || loanApp.status.id == 200">
-                                <a tooltip="{{'label.button.approve' | translate}}" has-permission='APPROVE_LOANAPPLICATIONREFERENCE' ng-click="approveLoan(loanApp)" class="btn btn-xs btn-primary ng-binding">
+                                <a tooltip="{{'label.button.approve' | translate}}" ng-disabled = "isApproveDisabled(loanApp.loanApplicationReferenceId)" has-permission='APPROVE_LOANAPPLICATIONREFERENCE' ng-click="approveLoan(loanApp)" class="btn btn-xs btn-primary ng-binding">
                                     <i class="icon-ok icon-white"></i>
                                 </a>
                             </td>
