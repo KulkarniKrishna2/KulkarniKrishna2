@@ -2237,7 +2237,10 @@
                     }),
                     LoanHistoryScheduleResource: defineResource(apiVer + "/loans/:loanId/schedulehistory/:historyVersion", { loanId: '@loanId', historyVersion:'@historyVersion' }, {
                         getLoanScheduleHistory: { method: 'GET', params: {}}
-                    })
+                    }),
+                    loanAppTaskBasicDetailGroupResource: defineResource(apiVer + '/groups/:groupId/clientsloanapptaskbasicdetail', { groupId: '@groupId' }, {
+                        get: { method: "GET", params: {}, isArray: true }
+                    }),
                 };
             }];
         }

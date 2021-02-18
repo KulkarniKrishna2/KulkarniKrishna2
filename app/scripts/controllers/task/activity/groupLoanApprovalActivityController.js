@@ -14,6 +14,7 @@
             scope.taskStatus = scope.taskconfig.status.value;  
             scope.chargeFormData = {}; 
             scope.chargeFetchingError = false;
+            scope.loanAppWorkflowStatusBasicDataList = [];
             if (scope.response && scope.response.uiDisplayConfigurations.loanAccount.isAutoPopulate.interestChargedFromDate) {
                 scope.isAutoUpdateInterestStartDate = scope.response.uiDisplayConfigurations.loanAccount.isAutoPopulate.interestChargedFromDate;
 
@@ -23,6 +24,16 @@
                         scope.group = data;
                         scope.loanApplications = [];
                         if (data.clientMembers) {
+                            resourceFactory.loanAppTaskBasicDetailGroupResource.get({groupId: scope.groupId},function(data){
+                                scope.clientLoanAppTaskBasicDetailDataList = data;
+                                angular.forEach(scope.clientLoanAppTaskBasicDetailDataList,function(clientLoanAppTaskBasicDetailData){
+                                    var loanAppWorkflowStatusBasicData = {};
+                                    loanAppWorkflowStatusBasicData.loanAppRefId = clientLoanAppTaskBasicDetailData.loanAppRefId;
+                                    loanAppWorkflowStatusBasicData.parentTaskStatusCode = clientLoanAppTaskBasicDetailData.parentTaskStatusEnum.code;
+                                    scope.loanAppWorkflowStatusBasicDataList.push(loanAppWorkflowStatusBasicData);
+                                });
+                            });
+                            
                             scope.allMembers = data.clientMembers;
                             angular.forEach(scope.group.clientMembers, function(client) {
                                 resourceFactory.loanApplicationReferencesForGroupResource.get({groupId: scope.groupId,clientId: client.id}, function(data1) {
@@ -31,13 +42,28 @@
                                                 loanApplication.clientName = client.displayName; 
                                                 loanApplication.statusInReadableFormat = getApplicationStatus(loanApplication.status.value);
                                                 scope.loanApplications.push(loanApplication);
-                                        });
+                                            });
                                     }
                                 });
                             });
                         }
                     });
             };
+
+            scope.isApproveDisabled = function(loanAppRefId){
+                if(!_.isUndefined(scope.loanAppWorkflowStatusBasicDataList)){
+                    for(var i in scope.loanAppWorkflowStatusBasicDataList){
+                        var loanAppWorkflowStatusBasicData =  scope.loanAppWorkflowStatusBasicDataList[i];
+                        if(loanAppRefId === loanAppWorkflowStatusBasicData.loanAppRefId){
+                            if(loanAppWorkflowStatusBasicData.parentTaskStatusCode != "taskStatus.completed"){
+                                return true;
+                            }
+                            return false;
+                        }
+                    }
+                }
+
+            }
 
             function getApplicationStatus(value) {
                 if(value == 'APPLICATION_CREATED') {
@@ -887,7 +913,7 @@
                 if (scope.loanApplications != undefined) {
                     scope.loanApplications.forEach(function(loanApplication) {
                         for (var i in loanApplication) {
-                            if (!loanApplication.status.id > 201 ) {
+                            if (!(loanApplication.status.id > 201)) {
                                 loanApplicationsApproved = false;
                                 break;
                             }

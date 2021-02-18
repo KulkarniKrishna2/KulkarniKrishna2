@@ -59,7 +59,7 @@
                      has-permission='READ_COAPPLICANTS'><i
                           class="icon-edit icon-white"></i>{{'label.button.managecoapplicants' | translate}}</a>
                 </span>
-                <span ng-if="formData.status.id < 300">
+                <span ng-if="formData.status.id < 300 && allowModifyLoanApplication">
                   <a href="#/updateloanapplicationreference/{{loanApplicationReferenceId}}"
                      class="btn btn-primary"
                      has-permission='UPDATE_LOANAPPLICATIONREFERENCE'><i

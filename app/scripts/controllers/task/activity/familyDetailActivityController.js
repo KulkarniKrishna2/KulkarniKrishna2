@@ -195,7 +195,7 @@
             }
 
             scope.$watch('formData.dateOfBirth', function(newValue, oldValue){
-                if(scope.formData.dateOfBirth != null)
+                if(!_.isUndefined(scope.formData.dateOfBirth))
                 {
                     var ageDifMs = Date.now() - scope.formData.dateOfBirth.getTime();
                     var ageDate = new Date(ageDifMs); // miliseconds from epoch
