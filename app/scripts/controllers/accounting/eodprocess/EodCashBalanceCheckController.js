@@ -27,12 +27,15 @@
             }
             scope.validate = function(){
             	scope.isValidate = true;
+                if(scope.totalAmount==undefined){
+                   scope.totalAmount = 0; 
+                }
+                if(scope.systemAmount==undefined){
+                    scope.systemAmount = 0;
+                }
                 if(scope.systemAmount==scope.totalAmount){
 					scope.msg = "System amount and physical amount matched.";
             		scope.amountMatched = true;
-            	}else if(scope.totalAmount==undefined){
-					scope.msg = "System amount ("+scope.systemAmount+") not matching to physical amount 0. Diffrence amount is = "+(scope.systemAmount);
-            		scope.amountMatched = false;
             	}else{
                     scope.msg = "System amount ("+scope.systemAmount+") not matching to physical amount "+scope.totalAmount+". Diffrence amount is = "+(scope.systemAmount-scope.totalAmount);
                     scope.amountMatched = false;
