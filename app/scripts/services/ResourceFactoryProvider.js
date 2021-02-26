@@ -191,6 +191,9 @@
                     fileUrlResource: defineResource(apiVer + "/files/:fileId", { fileId: '@fileId' }, {
                         get: { method: 'GET', params: {} }
                     }),
+                    fileDownloadResource: defineResource(apiVer + "/files/:fileId/download", { fileId: '@fileId' }, {
+                        get: { method: 'GET', params: {} }
+                    }),
                     reportsResource: defineResource(apiVer + "/reports/:id/:resourceType", { id: '@id', resourceType: '@resourceType', usageTrackingEnabledOnly: '@usageTrackingEnabledOnly' }, {
                         save: { method: 'POST', headers: { 'Content-Type': undefined }, transformRequest: angular.identity, params: {} },
                         get: { method: 'GET', params: { id: '@id' } },
