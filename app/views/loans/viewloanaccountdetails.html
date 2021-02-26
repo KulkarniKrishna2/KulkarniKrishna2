@@ -362,7 +362,7 @@
                             </td>
                         </tr>
                         <tr ng-show="isUpfrontAmountAvilable">
-                            <th class="table-bold-loan">{{'label.heading.upfront.amount.avilable' | translate}}</th>
+                            <th class="table-bold-loan">{{'label.heading.upfront.amount.available' | translate}}</th>
                             <td><span class="padded-td">{{loandetails.summary.upfrontInterestAvilable| number}}<span
                                     data-ng-hide="isUpfrontAmountAvilable">{{'label.heading.notprovided' | translate}}</span></span>
                             </td>
@@ -556,7 +556,7 @@
                             </tr>
                             <tr data-ng-show="loandetails.isInterestRecalculationEnabled && loandetails.interestRecalculationData.interestRecalculationCompoundingType.id !=0">
                                 <td>{{ 'label.input.frequency.for.compounding' | translate }}</td>
-                                <td><span class="padded-td">{{ loandetails.interestRecalculationData.compoundingCalendarData.humanReadable}}</span></td>
+                                <td><span class="padded-td">{{ loandetails.interestRecalculationData.humanReadableCompoundingFrequency}}</span></td>
                             </tr>
                             <tr data-ng-show="loandetails.isVariableInstallmentsAllowed">
                                 <td>{{ 'label.input.variable.installments.allowed' | translate }}</td>

@@ -1178,7 +1178,7 @@
     "label.heading.editmeeting": "Edit Meeting",
     "label.heading.refund": "Refund",
     "label.button.refund": "Refund",
-    "label.button.refundFromUpfrontInterest": "Refund Excess Avilable From Interest",
+    "label.button.refundFromUpfrontInterest": "Refund Excess Available From Interest",
 
     "#Menu Links": "..",
     "label.menu.selectoffice": "Select Office",
@@ -2475,7 +2475,7 @@
     "error.msg.loan.transaction.is.exceeding.overpaid.amount": "Amount for transfer funds must be less than or equal to overpaid amount.",
     "error.msg.loan.transaction.is.not.a.overpaid.loan ": "Transfer funds is allowed only for loan accounts with overpaid status ",
     "error.msg.loan.transaction.is.not.after.repayment.date": "Transfer date must be after last repayment date.",
-    "error.msg.loan.transaction.is.exceeding.excess.upfront.amount":"Refund Amount is more than avilable excess upfront interest",
+    "error.msg.loan.transaction.is.exceeding.excess.upfront.amount":"Refund Amount is more than available excess upfront interest",
     "validation.msg.loans.reassignment.loans.cannot.be.empty": "You must select at least one Loan Account to transfer.",
     "validation.msg.loans.reassignment.fromLoanOfficerId.cannot.be.blank": "You must select current Loan Officer.",
     "validation.msg.loans.reassignment.toLoanOfficerId.cannot.be.blank": "You must select target Loan Officer.",
@@ -8906,9 +8906,12 @@
      "validation.msg.loanproduct.upfrontInterestLiabilityAccountId.cannot.be.blank" : "Upfront Interest liability account mapping can not be blank.",
      "label.heading.upfrontinterest" : "Upfront Interest",
      "validation.msg.loanproduct.frequencyAfterMaturityInterval.cannot.be.blank" : "Frequency interval after maturity can not be empty",
-     "label.heading.upfront.amount.avilable":"Upfront Interest Avilable",
+     "label.heading.upfront.amount.available":"Upfront Interest Available",
      "validation.msg.loanproduct.interestRecalculationCompoundingMethod.cannot.be.blank" : "Interest recalculation compounding method can not be empty",
      "validation.msg.loanproduct.rescheduleStrategyMethod.cannot.be.blank" : "Advance payment adjustment type can not be empty",
+     "label.anchor.refundFromUpfrontInterest" : "Refund from Upfront Interest",
+     "error.msg.loan.transaction.can.not.be.undone" : "Loan transaction can not be undo.",
+     "error.msg.loan.refund.cannot.be.made.before.last.transaction.date" : "Refund transaction date can not be before last transaction date.",
 
      "------ end of translation file ------": "----------"
 
