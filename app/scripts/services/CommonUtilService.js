@@ -110,10 +110,10 @@
                     doc.href = url;
                     doc.target = '_blank';
                     var now = new Date();
-                    var currDate = dateFilter(now, 'yyyy_MM_dd_hh_mm_ss');              
+                    var currDate = dateFilter(now, 'yyyy-MM-dd-HH-mm-ss');              
                     fileName = this.getDownloadableFileName(fileName);
-                    fileName = fileName.replaceAll(' ', '_');
-                    doc.download = fileName+'_'+currDate+'.'+fileType;
+                    fileName = fileName.replaceAll(' ', '-');
+                    doc.download = fileName+'-'+currDate+'.'+fileType;
                     doc.click();
                     setTimeout(function(){
                         window.URL.revokeObjectURL(url)
