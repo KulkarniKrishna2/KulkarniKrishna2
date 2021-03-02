@@ -9,6 +9,13 @@
 				"dateOfBirth": true,
 				"mobileNumber": true,
 				"addressType": true
+			},
+			"isValidateDOBField": {
+				"active": true,
+				"ageCriteria": {
+					"minAge": "18",
+					"maxAge": "60"
+				}
 			}
 		},
 		"createCenter": {
@@ -19,7 +26,8 @@
 		"createLoanApplication": {
 			"isHiddenField": {
 				"firstRepaymentDate": false
-			}
+			},
+			"newLoanApplicationLimitAllowed" : true
 		},
 		"loanAccount": {
 			"isHiddenField": {
