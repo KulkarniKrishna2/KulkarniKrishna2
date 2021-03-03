@@ -39,6 +39,13 @@
 				"mobileNumber": true,
 				"clientClassificationId": true,
 				"houseNo": true
+			},
+			"isValidateDOBField": {
+				"active": true,
+				"ageCriteria": {
+				  "minAge": 18,
+				  "maxAge": 60
+				}
 			}
 		},
 		"documentConfiguration": {
@@ -87,6 +94,13 @@
 			"familyDeatils": {
 				"isMandatoryField": {
 					"dateOfBirth": true
+				},
+				"isValidateDOBField": {
+					"active": true,
+					"ageCriteria": {
+						"minAge": 18,
+						"maxAge": 60
+					}
 				}
 			}
 		},
