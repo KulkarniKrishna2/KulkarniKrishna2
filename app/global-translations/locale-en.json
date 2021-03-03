@@ -8914,6 +8914,7 @@
      "label.anchor.refundFromUpfrontInterest" : "Refund from Upfront Interest",
      "error.msg.loan.transaction.can.not.be.undone" : "Loan transaction can not be undo.",
      "error.msg.loan.refund.cannot.be.made.before.last.transaction.date" : "Refund transaction date can not be before last transaction date.",
+      "error.msg.loan.rectification.not.allowed.for.upfront.interest.repayment" : "Upfront interest repayment not allowed for rectify",
 
      "------ end of translation file ------": "----------"
 
