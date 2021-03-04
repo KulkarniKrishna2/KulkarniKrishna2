@@ -1642,7 +1642,7 @@
 	<div class="form-group">
 	    <div class="col-sm-3">
 	        <select id="chargeId" ng-model="chargeId" class="form-control"
-	                ng-options="charge.id as charge.name for charge in product.chargeOptions | filter:formData.currencyCode:strict"
+	                ng-options="charge.id as charge.name for charge in chargeOptions | filter:formData.currencyCode:strict"
 	                value="{{charge.id}}">
 	            <option class="displaynone" value="">{{'label.selectcharge' | translate}}</option>
 	        </select>
@@ -1668,14 +1668,13 @@
 				<th>{{'label.checkbox.ischargeamountnoneditable' | translate}}</th>
 	            <th>{{'label.heading.actions' | translate}}</th>
 	        </tr>
-	        <tr ng-repeat="charge in charges" ng-hide="charge.penalty">
+	        <tr ng-repeat="charge in charges" ng-hide="charge.penalty || (charge.chargeTimeType.id==eventBasedFee)">
 	            <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
 	            <td>{{charge.chargeCalculationType.value}}</td>
 	            <td></td>
 	            <td>{{charge.amount|number}}</td>
 	            <td></td>
-	            <td ng-show="charge.chargeTimeType.id==eventBasedFee">{{charge.chargeEventType.value}}</td>
-            	<td ng-hide="charge.chargeTimeType.id==eventBasedFee">{{charge.chargeTimeType.value}}</td>
+            	<td>{{charge.chargeTimeType.value}}</td>
 	            <td></td>
 	            <td></td>
 				<td><input type="checkbox" ng-model="charge.isMandatory"/></td>
@@ -1730,6 +1729,44 @@
 	        </tr>
 	    </table>
 	</div>
+<h3>{{ 'label.heading.eventbased.charge' | translate }}</h3>
+<hr>
+<div class="form-group">
+    <div class="col-sm-3">
+        <select id="chargeId" ng-model="chargeId" class="form-control"
+                ng-options="charge.id as charge.name for charge in eventBasedChargeOptions | filter:filterCharges(formData.currencyCode, formData.multiDisburseLoan)"
+                value="{{charge.id}}">
+            <option class="displaynone" value="">{{'label.select.eventbased.charge' | translate}}</option>
+        </select>
+    </div>
+    <div class="col-sm-1">
+        <button type="button" class="btn btn-primary"
+                ng-click="chargeSelected(chargeId)">{{ 'label.button.add' | translate }}
+        </button>
+    </div>
+</div>
+<div class="form-group col-md-12">
+    <table class="table width100">
+        <tr class="graybg">
+            <th>{{'label.heading.name' | translate}}</th>
+            <th>{{'label.heading.type' | translate}}</th>
+            <th></th>
+            <th>{{'label.heading.amount' | translate}}</th>
+            <th></th>
+            <th>{{'label.heading.collectedon' | translate}}</th>
+            <th>{{'label.heading.actions' | translate}}</th>
+        </tr>
+        <tr ng-repeat="charge in charges" ng-show="charge.chargeTimeType.id==eventBasedFee">
+            <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
+            <td>{{charge.chargeCalculationType.value}}</td>
+            <td></td>
+            <td>{{charge.amount}}</td>
+            <td></td>
+            <td>{{charge.chargeEventType.value}}</td>
+            <td><a ng-click="deleteCharge($index)"><i class="icon-remove icon-white"></i></a></td>
+        </tr>
+    </table>
+</div>
 	<h3>{{ 'label.heading.accounting' | translate }}</h3>
 	<hr>
 	<div class="radio-inline">

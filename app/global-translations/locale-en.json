@@ -8912,6 +8912,8 @@
      "label.anchor.refundFromUpfrontInterest" : "Refund from Upfront Interest",
      "error.msg.loan.transaction.can.not.be.undone" : "Loan transaction can not be undo.",
      "error.msg.loan.refund.cannot.be.made.before.last.transaction.date" : "Refund transaction date can not be before last transaction date.",
+     "label.heading.eventbased.charge": "Event Based Charges",
+     "label.select.eventbased.charge": "Select Event Based Charge",
 
      "------ end of translation file ------": "----------"
 
