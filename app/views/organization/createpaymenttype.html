@@ -135,7 +135,8 @@
                     </div>
                 </div>
                 <div class="form-group"  data-ng-show="showBankDetails()">
-                    <label class="control-label col-sm-2">{{'label.input.accounttype' | translate}}</label>
+                    <label class="control-label col-sm-2">{{'label.input.accounttype' | translate}}<span data-ng-show="showBankDetails()"
+                        class="required">*</span></label>
                     <div class="col-sm-3">
                         <select id="accountType"  name = "accountType" ng-model="formData.bankAccountDetails.accountTypeId" class="form-control"
                                 ng-options="accountType.id as accountType.value for accountType in bankAccountTypeOptions"
@@ -144,7 +145,8 @@
                     </div>
                 </div>
                 <div class="form-group" data-ng-show="showBankDetails()">
-                    <label class="control-label col-sm-2">{{'label.input.ifsccode' | translate}}</label>
+                    <label class="control-label col-sm-2">{{'label.input.ifsccode' | translate}}<span data-ng-show="showBankDetails()"
+                        class="required">*</span></label>
                     <div class="col-sm-3">
                         <input name="ifscCode" id="ifscCode" ng-model="formData.bankAccountDetails.ifscCode" type="text" autocomplete="off"
                          ng-minlength="11" maxlength="11"   class="form-control" ng-pattern="{{regexFormats.ifscCodePattern}}" />
