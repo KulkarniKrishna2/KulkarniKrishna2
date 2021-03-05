@@ -21,6 +21,20 @@
 		"isValidMobileNumber": {
 			"mobileNumberPattern": "/^[1-9]{1}\\d{9}$/"
 		}
+	},
+	"bankAccountDetails": {
+		"isMandatory": {
+			"bankAccountHolderName": true,
+			"bankAccountNumber": true,
+			"accountType": false,
+			"bankIFSCCode": true,
+			"bankName": true,
+			"branchName": false,
+			"bankCity": false,
+			"mobileNumber": false,
+			"lastTransactionDate": false,
+			"docFile": false
+		}
 	}
 }
 }
