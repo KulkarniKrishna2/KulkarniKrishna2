@@ -7,6 +7,7 @@
             scope.requestBody = {};
             scope.requestBody.locale = scope.optlang.code;
             scope.requestBody.dateFormat = scope.df;
+            scope.isOperationalClosureDone = false;
 
             scope.init =function(){
                 resourceFactory.eodSummaryResource.get({eodProcessId:scope.eodProcessId,resourceName:'operational'},
@@ -17,6 +18,7 @@
                             scope.eodSummary.eodOprationalData[i].summary = JSON.parse(data);
                         }
                         scope.isOperationalClosureDone = scope.eodSummary.eodProcessData.isOperationalClosureDone;
+                        scope.isOperationalStepDone = scope.eodSummary.eodProcessData.isOperationalStepDone;
                     });
             }
             scope.init();
