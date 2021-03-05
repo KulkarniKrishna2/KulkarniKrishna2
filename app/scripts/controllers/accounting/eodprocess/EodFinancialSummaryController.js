@@ -1,3 +1,4 @@
+
 (function (module) {
     mifosX.controllers = _.extend(module, {
         EodFinancialSummaryController: function ($controller,scope,$modal, routeParams, resourceFactory,location,dateFilter,popUpUtilService) {
@@ -9,6 +10,7 @@
             scope.cashAccounts = [];
             scope.highLightedType = [0,1,4];
             scope.isFinancialClosureDone = false;
+            scope.isFinancialStepDone = false;
             
             scope.init =function(){
                 resourceFactory.eodSummaryResource.get({eodProcessId:scope.eodProcessId,resourceName:'financial'},
@@ -17,6 +19,7 @@
                         scope.officeId = financialData.eodProcessData.officeData.id;
                         scope.constructData();
                         scope.isFinancialClosureDone = financialData.eodProcessData.isFinancialClosureDone;
+                        scope.isFinancialStepDone =  financialData.eodProcessData.isFinancialStepDone;
                     });
             }
 

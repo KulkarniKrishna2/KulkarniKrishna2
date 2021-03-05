@@ -8884,6 +8884,7 @@
      "validation.msg.EOD_BALANCE_CHECK.denominationCount.not.greater.than.zero" : "Denomination count must be greater than zero.",
      "label.heading.mandate.mode": "Request Mode",
      "error.msg.can.not.reject.nach.request": "Nach Request with status `{{params[0].value}}` can not be rejected",
+     "error.msg.work.flow.step.not.completed" : "Activity not completed",
 
      "------ end of translation file ------": "----------"
 
