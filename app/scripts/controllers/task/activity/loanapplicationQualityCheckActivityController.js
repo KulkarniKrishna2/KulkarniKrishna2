@@ -4,6 +4,11 @@
             angular.extend(this, $controller('defaultActivityController', { $scope: scope }));
             scope.formValidationData = {};
             scope.identitydocuments = [];
+            scope.clientdocuments = [];
+            scope.bankAccountDetails = [];
+            scope.bankDocuments = [];
+            scope.familyDetails = [];
+            scope.isS3Enabled = scope.isSystemGlobalConfigurationEnabled(scope.globalConstants.AMAZON_S3);
             function fetchClientData() {
 
                 resourceFactory.clientResource.get({ clientId: scope.clientId }, function (data) {
@@ -12,17 +17,25 @@
                         scope.formValidationData.loanOfficerId = data.staffId;
                     }
                     if (data.imagePresent) {
+                        var params = '';
+                    if(scope.isS3Enabled){
+                        params = '?maxHeight=150&downloadableUrl=true';
+                    }
                         http({
                             method: 'GET',
-                            url: $rootScope.hostUrl + API_VERSION + '/client/' + scope.clientId + '/images'
+                            url: $rootScope.hostUrl + API_VERSION + '/client/' + scope.clientId + '/images' + params
                         }).then(function (imageData) {
                             scope.imageData = imageData.data[0];
-                            http({
-                                method: 'GET',
-                                url: $rootScope.hostUrl + API_VERSION + '/client/' + routeParams.id + '/images/' + scope.imageData.imageId + '?maxHeight=860'
-                            }).then(function (imageData) {
-                                scope.image = imageData.data;
-                            });
+                            if(scope.imageData.storageType == 1 || !scope.isS3Enabled){
+                                http({
+                                    method: 'GET',
+                                    url: $rootScope.hostUrl + API_VERSION + '/client/' + routeParams.id + '/images/'+scope.imageData.imageId+'?maxHeight=150'
+                                }).then(function (imageData) {
+                                    scope.image = imageData.data;
+                                });
+                            }else{
+                                scope.image = scope.imageData.downloadableUrl;
+                            }
                         });
                     }
                 });
@@ -44,44 +57,62 @@
                             scope.spouse = data[l];
                         }
                     }
+                    scope.familyDetails = data;
                 });
 
-                resourceFactory.clientResource.getAllClientDocuments({ clientId: scope.clientId, anotherresource: 'identifiers' }, function (data) {
-                    scope.identitydocuments = data;
-                    for (var i = 0; i < scope.identitydocuments.length; i++) {
-                        resourceFactory.clientIdentifierResource.get({ clientIdentityId: scope.identitydocuments[i].id }, function (data) {
-                            for (var j = 0; j < scope.identitydocuments.length; j++) {
-                                if (data.length > 0 && scope.identitydocuments[j].id == data[0].parentEntityId) {
-                                    for (var l in data) {
-
-                                        var loandocs = {};
-                                        loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment';
-                                        data[l].docUrl = loandocs;
-
-                                    }
-                                    scope.identitydocuments[j].documents = data;
-                                }
-                            }
-                        });
+                
+                resourceFactory.bankAccountDetailsResource.getAll({entityType: 'clients', entityId: scope.clientId, status: 'all'}, function (data) {
+                    scope.bankAccountDetails = data;
+                    for(var k = 0; k < data.length; k++){
+                        resourceFactory.bankAccountDetailsDocumentsResource.getAllDocuments({entityType: 'clients', entityId: scope.clientId, bankAccountDetailsId: data[k].id}, function (documentsData) {
+                            scope.bankDocuments = documentsData.bankAccountDocuments || [];
+                    for (var i = 0; i < scope.bankDocuments.length; i++) {
+                        var docs = {};                      
+                            docs = $rootScope.hostUrl + API_VERSION + '/' + scope.bankDocuments[i].parentEntityType + '/' + scope.bankDocuments[i].parentEntityId + '/documents/' + scope.bankDocuments[i].id + '/download';       
+                        scope.bankDocuments[i].docUrl = docs;
+                    }
+                        });  
                     }
                 });
 
-                scope.viewIdentityDocument = function (document) {
-                    var url = $rootScope.hostUrl + document.docUrl;
-                    url = $sce.trustAsResourceUrl(url);
-                    http.get(url, { responseType: 'arraybuffer' }).
-                        success(function (data, status, headers, config) {
-                            var supportedContentTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'application/pdf', 'application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.presentationml.presentation', 'text/html', 'application/xml', 'text/plain'];
-                            var contentType = headers('Content-Type');
-                            var file = new Blob([data], { type: contentType });
-                            var fileContent = URL.createObjectURL(file);
-                            if (supportedContentTypes.indexOf(contentType) > -1) {
-                                var docData = $sce.trustAsResourceUrl(fileContent);
-                                window.open(docData);
-                            }
-                        });
-                }
 
+
+                resourceFactory.clientDocumentsResource.getAllClientDocuments({clientId: scope.clientId}, function (data) {
+                    scope.clientdocuments = {};
+                    for (var l = 0; l < data.length; l++) {
+                        if (data[l].id) {
+                            var loandocs = {};
+                            loandocs = $rootScope.hostUrl + API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id  + '/download';                         
+                            data[l].docUrl = loandocs;
+                        }
+                        if(data[l].tagValue){
+                            scope.pushDocumentToTag(data[l], data[l].tagValue);
+                        } else {
+                            scope.pushDocumentToTag(data[l], 'uploadedDocuments');
+                        }
+                    }
+                });
+
+                scope.pushDocumentToTag = function(document, tagValue){
+                    if (scope.clientdocuments.hasOwnProperty(tagValue)) {
+                        scope.clientdocuments[tagValue].push(document);
+                    } else {
+                        scope.clientdocuments[tagValue] = [];
+                        scope.clientdocuments[tagValue].push(document);
+                    }
+                };
+
+
+            }
+
+            scope.viewDocument = function(docUrl) {
+                var url = docUrl;
+                http({
+                    method: 'GET',
+                    url: url
+                }).then(function (documentImage) {
+                    scope.selectedImageUrl = documentImage.data;
+                });
             }
 
             scope.showImageModal = function (name, imageUrl) {
