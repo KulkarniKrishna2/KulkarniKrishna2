@@ -27,6 +27,11 @@
                     <span class="col-md-3">{{'label.input.applicationdate' | translate}}</span>
                     <span class="col-md-3">{{loanApplicationData.submittedOnDate | DateFormat}}</span>
                 </div>
+                <div class="row">
+                    <span class="col-md-2">{{'label.heading.externalid.one' | translate}}</span>
+                    <span class="col-md-4">{{loanApplicationData.externalIdOne}}</span>
+                    
+                </div>
                 <div class="row" ng-if="groupData">
                     <span class="col-md-2">{{'label.heading.centername' | translate}}</span>
                     <span class="col-md-4" ng-if="groupData.centerId"><a href="#/viewcenter/{{groupData.centerId}}">{{groupData.centerName}}</a></span>
