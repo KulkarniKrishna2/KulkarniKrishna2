@@ -6841,8 +6841,7 @@
     "label.heading.subslabs": "Sub Slabs",
     "label.heading.pattern": "Pattern",
     "label.heading.based.on.number.of.repayments": "based on number of repayments",
-    "label.heading.based.on.installment.amounts": "basedd on installment amounts",
-    "label.heading.subslabs": "Sub Slabs",
+    "label.heading.based.on.installment.amounts": "based on installment amounts",
     "label.repayments.between": " Repayments between ",
     "error.msg.charge.not.falls.in.slab": "Value does not falls in slab range.",
     "error.msg.charge.slab.installment.amount.range.overlapping": "Slab/Sub Slabs installment amount range overlapping.",
@@ -8900,8 +8899,6 @@
      "validation.msg.loanproduct.upfront.interest.recalculationUpfrontFrequencyType.cannot.be.blank" : "Upfront Recalculate frequency type can not be blank.",
      "validation.msg.loanproduct.minNumberOfRepayments.upfront.interest.not.equal.to.specified.number" :"For upfront interest minimum number of repayment must be 1.",
      "validation.msg.loanproduct.maxNumberOfRepayments.upfront.interest.not.equal.to.specified.number" :"For upfront interest maximum number of repayment must be 1.",
-     "label.input.frequency.after.maturity" : "Frequency after maturity",
-     "label.input.frequency.interval.after.maturity" : "Frequency interval after maturity",
      "label.input.upfrontinterest" : "Upfront Interest",
      "validation.msg.loanproduct.upfrontInterestLiabilityAccountId.cannot.be.blank" : "Upfront Interest liability account mapping can not be blank.",
      "label.heading.upfrontinterest" : "Upfront Interest",
@@ -8914,6 +8911,9 @@
      "error.msg.loan.refund.cannot.be.made.before.last.transaction.date" : "Refund transaction date can not be before last transaction date.",
      "label.heading.eventbased.charge": "Event Based Charges",
      "label.select.eventbased.charge": "Select Event Based Charge",
+     "label.input.min.tenureindays" : "Minimum Tenure in Days",
+     "label.input.max.tenureindays" : "Maximum Tenure in Days",
+     "label.heading.based.on.tenure.in.days" : "based on tenure in days",
 
      "------ end of translation file ------": "----------"
 
