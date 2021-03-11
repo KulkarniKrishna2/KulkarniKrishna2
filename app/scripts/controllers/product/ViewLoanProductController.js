@@ -123,6 +123,10 @@
                         scope.loanproduct.charges.push(charge);
                     }
                 }
+                scope.eventBasedCharges = [];
+                for(var i in scope.loanProductData.eventBasedCharges){
+                    scope.eventBasedCharges.push(scope.loanProductData.eventBasedCharges[i].chargeData);
+                }
                 if(scope.loanproduct.applicableForLoanType.id == 2){
                     scope.isEnableRestrictionForClientProfile = false;
                 }

@@ -1305,7 +1305,7 @@
                                 <th ng-hide="isGlimEnabled()">{{'label.heading.actions' | translate}}</th>
                                 <th>{{'label.heading.info' | translate}}</th>
                             </tr>
-                            <tr ng-repeat="charge in charges" class="pointer-main">
+                            <tr ng-repeat="charge in charges" class="pointer-main" ng-hide="charge.chargeTimeType.id==eventBasedFee"> 
                                 <th  ng-hide="isGlimEnabled()"><input type="checkbox" ng-change="addForSelection(charge)" data-ng-model="charge.selected" data-ng-disabled="charge.actionFlag"/></th>
                                 <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.name}}</td>
                                 <td ng-show="charge.penalty" class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{"penalty"}}</td>
@@ -1341,6 +1341,38 @@
                                 translate}}
                             </button>
                         </div>
+                    </tab>
+                    <tab active="tabs[11].active" ng-if="loandetails.status.closed" heading="{{'label.heading.eventbased.charge' | translate}}" select="getSpecificData('charges')">
+                        <div ng-show="chargeTableShow">
+                        <table class="table width100">
+                            <tr class="graybg sticky1">
+                                <th ng-hide="isGlimEnabled()"><input type="checkbox" ng-change="selectAllCharges()" data-ng-model="charges.selectallcharges"></th>
+                                <th>{{'label.heading.name' | translate}}</th>
+                                <th>{{'label.heading.feeorpenalty' | translate}}</th>
+                                <th>{{'label.heading.paymentdueat' | translate}}</th>
+                                <th>{{'label.heading.dueasof' | translate}}</th>
+                                <th>{{'label.heading.calculationtype' | translate}}</th>
+                                <th>{{'label.heading.duetax' | translate}}</th>
+                                <th>{{'label.heading.paid' | translate}}</th>
+                                <th>{{'label.heading.outstanding' | translate}}</th>
+                                <th>{{'label.heading.info' | translate}}</th>
+                            </tr>
+                            <tr ng-repeat="charge in charges" class="pointer-main" ng-show="charge.chargeTimeType.id==eventBasedFee">
+                                <th  ng-hide="isGlimEnabled()"><input type="checkbox" ng-change="addForSelection(charge)" data-ng-model="charge.selected" data-ng-disabled="charge.actionFlag"/></th>
+                                <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.name}}</td>
+                                <td ng-show="charge.penalty" class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{"penalty"}}</td>
+                                <td ng-hide="charge.penalty" class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{"fee"}}</td>
+                                <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.chargeTimeType.value}}</td>
+                                <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.dueDate | DateFormat}}</td>
+                                <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.amountOrPercentage + "  " +charge.chargeCalculationType.value}}</td>
+                                <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amount}}{{" ( "}}{{(charge.taxAmount | number : 2) || "0"}}
+                                {{" )"}}</td>
+                                <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amountPaid| number}}</td>
+                                <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amountOutstanding| number}}</td>
+                                <td ng-show="charge.taxAmount" class="pointer" ng-click="showTaxDetails(charge.id)"><i class="icon-info ng-scope icon-primary"></i></td>
+                            </tr>
+                        </table>
+                      </div>
                     </tab>
 
                     <script type="text/ng-template" id="delcharge.html">
