@@ -38,6 +38,8 @@
             scope.showUpfrontAmount = true;
             scope.isMandatoryUpfrontAmountCollection = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.amountForUpfrontCollection;
             scope.isEmiPacksEditable = false;
+            scope.showLoanPurposeCustomField = false;
+            scope.showLoanTerms = true;
 
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createLoanApplication &&
                 scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField && scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.disbursementPaymentType) {
@@ -121,6 +123,8 @@
                 if(applicationData.maxOutstandingLoanBalance){
                         scope.formData.maxOutstandingLoanBalance = approveddata.maxOutstandingLoanBalance;
                 }
+                scope.formData.isTopup = applicationData.isTopup;
+                scope.loanTopupDetailsData = applicationData.loanTopupDetailsData;
             });
 
             resourceFactory.loanApplicationReferencesTrancheResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (applicationTrancheData) {
@@ -164,6 +168,20 @@
                     scope.productLoanCharges = data.product.charges || [];
                     scope.canDisburseToGroupBankAccounts = data.product.allowDisbursementToGroupBankAccounts;
                     scope.isMultiDisburse = scope.product.multiDisburseLoan;
+
+                    if (scope.formData.isTopup && scope.loanaccountinfo.clientActiveLoanOptions.length > 0 && scope.loanTopupDetailsData.length > 0) {
+                        for (var i in scope.loanTopupDetailsData) {
+                            var closureLoanId = scope.loanTopupDetailsData[i].closureLoanId;
+                            for (var j = 0; j < scope.loanaccountinfo.clientActiveLoanOptions.length; j++) {
+                                if (scope.loanaccountinfo.clientActiveLoanOptions[j].id == closureLoanId) {
+                                    scope.loanaccountinfo.clientActiveLoanOptions[j].isSelected = true;
+                                }
+                            };
+                        }
+                        scope.isAllLoanToClose = (scope.loanaccountinfo.clientActiveLoanOptions.length == scope.loanTopupDetailsData.length);
+                
+                    }
+
                     if(scope.isMultiDisburse){
                         scope.formData.maxOutstandingLoanBalance = scope.loanaccountinfo.product.outstandingLoanBalance;
                     }
@@ -556,6 +574,18 @@
                 if (this.formData.loanPurposeId == null){
                     delete this.formData.loanPurposeId;
                 }
+
+                if(this.formData.isTopup==true){
+                    this.formData.loanIdToClose = [];
+                    for(var i in scope.loanaccountinfo.clientActiveLoanOptions){
+                        if(scope.loanaccountinfo.clientActiveLoanOptions[i].isSelected==true){
+                            this.formData.loanIdToClose.push(scope.loanaccountinfo.clientActiveLoanOptions[i].id);
+                        }
+                    }
+                }else{
+                    this.formData.loanIdToClose = undefined;
+                }
+
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 resourceFactory.loanApplicationReferencesResource.update({loanApplicationReferenceId: scope.loanApplicationReferenceId}, this.formData, function (data) {
@@ -743,8 +773,20 @@
                 var selectedLoanPurpose = scope.loanPurposeOptions.find(function (loanPurpose) {
                     return loanPurpose.id === loanPurposeId;
                 })
-                scope.showLoanPurposeCustomField = selectedLoanPurpose.isCustom;
+                if(selectedLoanPurpose){
+                    scope.showLoanPurposeCustomField = selectedLoanPurpose.isCustom;
+                }
             }
+
+            scope.updateAllCheckbox = function(){
+                var isAll = true;
+                for(var i in scope.loanaccountinfo.clientActiveLoanOptions){
+                    if(scope.loanaccountinfo.clientActiveLoanOptions[i].isSelected == undefined || scope.loanaccountinfo.clientActiveLoanOptions[i].isSelected==false){
+                        isAll = false;
+                    }
+                }
+                scope.isAllLoanToClose = isAll;
+            };
         }
     });
     mifosX.ng.application.controller('UpdateLoanApplicationReference', ['$scope', '$routeParams', 'ResourceFactory', '$location', 'dateFilter', '$filter', mifosX.controllers.UpdateLoanApplicationReference]).run(function ($log) {

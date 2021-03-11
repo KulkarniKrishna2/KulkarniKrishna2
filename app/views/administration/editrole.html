@@ -2,15 +2,15 @@
     <div>
         <ul class="breadcrumb">
             <li><a href="#/system">{{'label.anchor.system' | translate}}</a></li>
-            <li><a href="#/admin/roles">{{'label.anchor.viewroles' | translate}}</a></li>
-            <li><a href="#/admin/viewrole/{{roleId}}">{{'label.anchor.viewrole' | translate}}</a></li>
-            <li class="active">{{'label.anchor.editrole' | translate}}</li>
+            <li><a href="#/admin/roles">{{'label.anchor.view.permission.groups' | translate}}</a></li>
+            <li><a href="#/admin/viewrole/{{roleId}}">{{'label.anchor.view.permission.group' | translate}}</a></li>
+            <li class="active">{{'label.anchor.edit.permission.group' | translate}}</li>
         </ul>
     </div>
     <form name="addroleform" novalidate="" class="form-horizontal well" rc-submit="submit()">
         <api-validate></api-validate>
         <fieldset>
-            <legend>{{'label.heading.editrole' | translate}}</legend>
+            <legend>{{'label.heading.edit.permission.group' | translate}}</legend>
 
             <div class="form-group">
                 <label class="control-label col-sm-2" for="name">{{'label.input.name' | translate}}<span
@@ -65,7 +65,7 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-2">{{ 'label.anchor.showrolebasedlimits' | translate}}</label>
+                <label class="control-label col-sm-2">{{ 'label.anchor.showpermissiongroupbasedlimits' | translate}}</label>
 
                 <div class="col-sm-3">
                     <a class="btn btn-primary" ng-click="showRoleBasedLimits=!showRoleBasedLimits">

@@ -13,32 +13,34 @@
                 <label class="control-label col-sm-1" >{{'label.heading.activity' |translate}}
                     <span class="required">*</span></label>
                 <div class="col-sm-2">
-                   <select  id="activityData" name="activityData" ng-model="activityData"
-                        class="form-control" ng-options = "activity as activity.name for activity in taskActivities" ng-change="activityChange()" required late-Validate>
+                   <select id="activityData" name="activityData" ng-model="activityData"
+                        class="form-control" ng-options = "activity as activity.name for activity in taskActivities | orderBy:'name'" ng-change="activityChange()" required late-Validate>
                         <option value="" default>-- Select one --</option>
                    </select>
                 </div>
                 <div class="col-sm-1">
                    <form-validate valattributeform="addworkflowstepsform" valattribute="activityData"/>
                 </div> 
+
                 <label class="control-label col-sm-1" ng-if="isSurveyIdReq">
                   {{'label.input.surveryid' |translate}}
                   <span class="required">*</span></label>
-                <div class="col-sm-2">
-                  <input id="surveyId" name="surveyId" ng-model="configValues.surveyId" 
-                      ng-if="isSurveyIdReq" class="form-control"/>
+                <div class="col-sm-2" ng-if="isSurveyIdReq">
+                  <input id="surveyId" name="surveyId" ng-model="configValues.surveyId" class="form-control"/>
                 </div>
+
                 <label class="control-label col-sm-1" ng-if="isDataTableReq">
                   {{'label.input.datatable.name' |translate}}
                   <span class="required">*</span></label>
-                <div class="col-sm-2">
+                <div class="col-sm-2" ng-if="isDataTableReq" >
                   <input id="datatableName" name="datatableName" ng-model="configValues.datatablename" 
-                      ng-if="isDataTableReq" class="form-control"/>
+                      class="form-control"/>
                 </div>
+
                 <label class="control-label col-sm-1" ng-if="isEntityTypeReq">{{'label.heading.entitytype'|translate}}<span class="required">*</span></label>
-                <div class="col-sm-2">
+                <div class="col-sm-2" ng-if="isEntityTypeReq">
                    <select  id="entityType" name="entityType" ng-model="configValues.entityType"
-                        class="form-control" ng-options = "entityType.value as entityType.value for entityType in entityTypes" ng-if="isEntityTypeReq">
+                        class="form-control" ng-options = "entityType.value as entityType.value for entityType in entityTypes">
                         <option value="" default>-- Select one --</option>
                    </select>
                 </div>                             
@@ -73,7 +75,7 @@
                     <label class="control-label col-sm-2" >{{'label.input.criteria' |translate}}</label>
                     <div class="col-sm-2">
                        <select  id="criteriaId" name="criteriaId" ng-model="riskCriteriaId"
-                            class="form-control" ng-options="riskCriteria.id as riskCriteria.name for riskCriteria in riskCriterias" ng-change="changeInCriteria()">
+                            class="form-control" ng-options="riskCriteria.id as riskCriteria.name for riskCriteria in riskCriterias | orderBy:'name'" ng-change="changeInCriteria()">
                             <option value="" default>-- Select one --</option>
                        </select>
                     </div>                             
@@ -113,7 +115,7 @@
                 <div class="col-sm-2">
                        <select  id="taskActionGroup" name="taskActionGroup" 
                            ng-model="formData.actionGroupId"
-                            class="form-control" ng-options="taskActionGroup.id as taskActionGroup.actionGroupName for taskActionGroup in taskActionGroups">
+                            class="form-control" ng-options="taskActionGroup.id as taskActionGroup.actionGroupName for taskActionGroup in taskActionGroups | orderBy:'actionGroupName'">
                             <option value="" default>-- Select one --</option>
                        </select>
                 </div>                             

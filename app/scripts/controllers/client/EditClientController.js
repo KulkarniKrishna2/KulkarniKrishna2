@@ -98,6 +98,10 @@
                 scope.maxAge = scope.restrictDate;
 
             }
+            if (scope.response.uiDisplayConfigurations.createClient.isDisabled) {
+                scope.submittedOnDate = scope.response.uiDisplayConfigurations.createClient.isDisabled.submittedOnDate;
+                scope.activationDate = scope.response.uiDisplayConfigurations.createClient.isDisabled.activationDate;
+            }
             scope.maxDateOfBirth = getMaximumRestrictedDate(new Date());
             scope.minDateOfBirth = getMinimumRestrictedDate(new Date());
             if(scope.response.uiDisplayConfigurations.createClient.isValidateFirstName) {

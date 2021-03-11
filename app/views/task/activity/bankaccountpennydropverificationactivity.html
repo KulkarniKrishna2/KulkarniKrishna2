@@ -1,4 +1,3 @@
 <div ng-controller="bankaccountpennydropverificationActivityController">
-    <div ng-if="commonConfig.bankAccountData.isAllowPennyDropTransaction == true"
-        ng-include="'views/bankaccountdetails/common/bank_account_common.html'"></div>
+    <div ng-if="bankAccountPDVUI.isInitiated == true" ng-include="'views/bankaccountdetails/common/bank_account_common.html'"></div>
 </div>

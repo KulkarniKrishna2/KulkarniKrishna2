@@ -73,26 +73,8 @@
                             }
                         });
                     }
-                    console.log(scope.identitydocuments);
                     
-                });
-
-                scope.viewIdentityDocument = function(document){
-                    var url = $rootScope.hostUrl + document.docUrl;
-                    url = $sce.trustAsResourceUrl(url);
-                    http.get(url, { responseType: 'arraybuffer' }).
-                    success(function(data, status, headers, config) {
-                        var supportedContentTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'application/pdf', 'application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.presentationml.presentation', 'text/html', 'application/xml', 'text/plain'];
-                        var contentType = headers('Content-Type');
-                        var file = new Blob([data], { type: contentType });
-                        var fileContent = URL.createObjectURL(file);
-                        if (supportedContentTypes.indexOf(contentType) > -1) {
-                            var docData = $sce.trustAsResourceUrl(fileContent);
-                            window.open(docData);
-                        }
-                    });
-                }
-                
+                });                
 
                 resourceFactory.familyDetails.getAll({clientId: scope.clientId}, function (data) {
                     scope.familyMembers = data;
@@ -108,315 +90,34 @@
                 });
             };
 
-            scope.showSummary = function () {
-                scope.forceCriteriaDisable = true;
-                fetchClientData();
-                scope.incomeAndexpense();
-                // existingLoans();
-                //scope.getCreditBureauReportSummary();
-                resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (applicationData) {
-                    scope.formData = applicationData;
-                    scope.loanProductChange(applicationData.loanProductId);
-                    resourceFactory.loanApplicationReferencesResource.getChargesByLoanAppId({
-                        loanApplicationReferenceId: scope.loanApplicationReferenceId,
-                        command: 'loanapplicationcharges'
-                    }, function (loanAppChargeData) {
-                        scope.loanAppChargeData = loanAppChargeData;
-                        for (var i = 0; i < scope.loanAppChargeData.length; i++) {
-                            if (scope.loanAppChargeData[i].chargeId) {
-                                scope.constructExistingCharges(i, scope.loanAppChargeData[i].chargeId);
-                            } else {
-                                curIndex++;
-                            }
-                        }
-                    });
-                    if(scope.formData.status.id === 100){
-                        resourceFactory.loanApplicationReferencesResource.update({
-                            loanApplicationReferenceId: scope.loanApplicationReferenceId,
-                            command: 'requestforapproval'
-                        }, {}, function (data) {
-                            showEditForm();
-                        });
-                    }else if(scope.formData.status.id === 200){
-                        showEditForm();
-                    }else if(scope.formData.status.id > 200){
-                        scope.status = 'SUMMARY';
-                    }
-                    if(scope.approvalType != undefined && scope.approvalType == "lenderApprove"){
-                        scope.status = 'SUMMARY';
+            scope.viewIdentityDocument = function(document){
+                var url = $rootScope.hostUrl + document.docUrl;
+                url = $sce.trustAsResourceUrl(url);
+                http.get(url, { responseType: 'arraybuffer' }).
+                success(function(data, status, headers, config) {
+                    var supportedContentTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'application/pdf', 'application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.presentationml.presentation', 'text/html', 'application/xml', 'text/plain'];
+                    var contentType = headers('Content-Type');
+                    var file = new Blob([data], { type: contentType });
+                    var fileContent = URL.createObjectURL(file);
+                    if (supportedContentTypes.indexOf(contentType) > -1) {
+                        var docData = $sce.trustAsResourceUrl(fileContent);
+                        window.open(docData);
                     }
                 });
+            };
 
-                scope.forceCriteriaDisable = true;
+            scope.showSummary = function () {
+                fetchClientData();
+                scope.incomeAndexpense();
+                resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (applicationData) {
+                    scope.formData = applicationData;
+                });
 
             }
 
             scope.showSummary();
 
-            function showEditForm(){
-                scope.status = 'UPDATE';
-            }
-
-            scope.constructExistingCharges = function (index, chargeId) {
-                resourceFactory.chargeResource.get({chargeId: chargeId, template: 'true'}, function (data) {
-                    data.chargeId = data.id;
-                    scope.charges.push(data);
-                    curIndex++;
-                    if (curIndex == scope.loanAppChargeData.length) {
-                        for (var i = 0; i < scope.charges.length; i++) {
-                            for (var j = 0; j < scope.loanAppChargeData.length; j++) {
-                                if (scope.charges[i].chargeId == scope.loanAppChargeData[j].chargeId) {
-                                    scope.charges[i].loanAppChargeId = scope.loanAppChargeData[j].loanAppChargeId;
-                                    scope.charges[i].loanApplicationReferenceId = scope.loanAppChargeData[j].loanApplicationReferenceId;
-                                    scope.charges[i].dueDate = scope.loanAppChargeData[j].dueDate;
-                                    scope.charges[i].amount = scope.loanAppChargeData[j].amount;
-                                    scope.charges[i].isMandatory = scope.loanAppChargeData[j].isMandatory;
-                                }
-                            }
-                        }
-                        angular.copy(scope.charges,scope.existingCharges);
-                    }
-                });
-            };
-
-            scope.loanProductChange = function (loanProductId) {
-                scope.inparams = {resourceType: 'template', activeOnly: 'true'};
-                if (scope.formData.clientId && scope.formData.groupId) {
-                    scope.inparams.templateType = 'jlg';
-                } else if (scope.formData.groupId) {
-                    scope.inparams.templateType = 'group';
-                } else if (scope.formData.clientId) {
-                    scope.inparams.templateType = 'individual';
-                }
-                if (scope.formData.clientId) {
-                    scope.inparams.clientId = scope.formData.clientId;
-                }
-                if (scope.formData.groupId) {
-                    scope.inparams.groupId = scope.formData.groupId;
-                }
-                scope.inparams.staffInSelectedOfficeOnly = true;
-                scope.inparams.productId = loanProductId;
-
-                resourceFactory.loanResource.get(scope.inparams, function (data) {
-                    scope.loanaccountinfo = data;
-                    scope.productLoanCharges = data.product.charges || [];
-                    if (scope.loanaccountinfo.product.multiDisburseLoan) {
-                        scope.formRequestData.loanApplicationSanctionTrancheDatas = [];
-                    }
-                    if (data.clientName) {
-                        scope.clientName = data.clientName;
-                    }
-                    if (data.group) {
-                        scope.groupName = data.group.name;
-                    }
-                    resourceFactory.loanApplicationReferencesResource.getByLoanAppId({
-                        loanApplicationReferenceId: scope.loanApplicationReferenceId,
-                        command: 'approveddata'
-                    }, function (approveddata) {
-                        if (approveddata.loanAppSanctionId) {
-                            scope.formRequestData = approveddata;
-                            if(scope.formRequestData.repaymentsStartingFromDate){
-                                scope.formRequestData.repaymentsStartingFromDate = dateFilter(new Date(scope.formRequestData.repaymentsStartingFromDate), scope.df);
-                            }
-                            delete scope.formRequestData.loanAppSanctionId;
-                            delete scope.formRequestData.loanApplicationReferenceId;
-                            scope.formRequestData.repaymentPeriodFrequencyEnum = scope.formRequestData.repaymentPeriodFrequency.id;
-                            delete scope.formRequestData.repaymentPeriodFrequency;
-                            scope.formRequestData.termPeriodFrequencyEnum = scope.formRequestData.termPeriodFrequency.id;
-                            delete scope.formRequestData.termPeriodFrequency;
-                            scope.formRequestData.expectedDisbursementDate = dateFilter(new Date(scope.formRequestData.expectedDisbursementDate), scope.df);
-                            if (approveddata.loanApplicationSanctionTrancheDatas) {
-                                for (var i = 0; i < scope.formRequestData.loanApplicationSanctionTrancheDatas.length; i++) {
-                                    scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate = dateFilter(new Date(scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate), scope.df);
-                                }
-                            }
-                            if(scope.formRequestData.approvedOnDate){
-                                scope.formRequestData.approvedOnDate = dateFilter(new Date(scope.formRequestData.approvedOnDate),scope.df);
-                            }
-                        } else {
-                            scope.formRequestData.loanAmountApproved = scope.formData.loanAmountRequested;
-                            scope.formRequestData.numberOfRepayments = scope.formData.numberOfRepayments;
-                            scope.formRequestData.repaymentPeriodFrequencyEnum = scope.formData.repaymentPeriodFrequency.id;
-                            scope.formRequestData.repayEvery = scope.formData.repayEvery;
-                            scope.formRequestData.termPeriodFrequencyEnum = scope.formData.termPeriodFrequency.id;
-                            scope.formRequestData.termFrequency = scope.formData.termFrequency;
-                            if (scope.formData.noOfTranche && scope.formData.noOfTranche > 0) {
-                                scope.constructTranches();
-                            }
-                        }
-                        if(scope.formData.fixedEmiAmount){
-                            scope.formRequestData.fixedEmiAmount = scope.formData.fixedEmiAmount;
-                        }
-                        scope.formRequestData.maxOutstandingLoanBalance = scope.loanaccountinfo.maxOutstandingLoanBalance;
-                        scope.formDataForValidtion();
-                    });
-                });
-            };
-
-            scope.formValidationData = {};
-            scope.formDataForValidtion = function () {
-                scope.formValidationData.submittedOnDate = dateFilter(scope.formData.submittedOnDate, scope.df);
-                scope.formValidationData.clientId = scope.formData.clientId;
-                if (scope.formData.groupId) {
-                    scope.formValidationData.groupId = scope.formData.groupId;
-                }
-                scope.previewClientLoanAccInfo();
-                if (scope.loanaccountinfo.loanOfficerOptions && !scope.formData.loanOfficerId) {
-                    resourceFactory.clientResource.get({clientId: routeParams.clientId}, function (data) {
-                        // scope.clientData = data;
-                        if (data.staffId != null) {
-                            scope.formValidationData.loanOfficerId = data.staffId;
-                        }
-                    });
-                } else {
-                    scope.formValidationData.loanOfficerId = scope.formData.loanOfficerId;
-                }
-            };
-
-            scope.previewClientLoanAccInfo = function () {
-
-                if (scope.loanaccountinfo.calendarOptions) {
-                    scope.formValidationData.syncRepaymentsWithMeeting = true;
-                    if (scope.response && !scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.syncDisbursementWithMeeting) {
-                        scope.formValidationData.syncDisbursementWithMeeting = false;
-                    } else {
-                        scope.formValidationData.syncDisbursementWithMeeting = true;
-                    }
-                }
-
-                if (scope.response && scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.fundId != null) {
-                    scope.formValidationData.fundId = scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.fundId;
-                } else {
-                    scope.formValidationData.fundId = scope.loanaccountinfo.fundId;
-                }
-                scope.formValidationData.productId = scope.formData.loanProductId;
-                scope.formValidationData.loanPurposeId = scope.formData.loanPurposeId;
-                scope.formValidationData.principal = scope.formRequestData.loanAmountApproved;
-
-                scope.formValidationData.loanTermFrequency = scope.formRequestData.termFrequency;
-                scope.formValidationData.loanTermFrequencyType = scope.formRequestData.termPeriodFrequencyEnum;
-                scope.formValidationData.numberOfRepayments = scope.formRequestData.numberOfRepayments;
-                scope.formValidationData.repaymentEvery = scope.formRequestData.repayEvery;
-                scope.formValidationData.repaymentFrequencyType = scope.formRequestData.repaymentPeriodFrequencyEnum;
-
-                scope.formValidationData.interestRatePerPeriod = scope.loanaccountinfo.interestRatePerPeriod;
-                scope.formValidationData.amortizationType = scope.loanaccountinfo.amortizationType.id;
-                scope.formValidationData.interestType = scope.loanaccountinfo.interestType.id;
-                scope.formValidationData.interestCalculationPeriodType = scope.loanaccountinfo.interestCalculationPeriodType.id;
-                scope.formValidationData.allowPartialPeriodInterestCalcualtion = scope.loanaccountinfo.allowPartialPeriodInterestCalcualtion;
-                scope.formValidationData.inArrearsTolerance = scope.loanaccountinfo.inArrearsTolerance;
-                scope.formValidationData.graceOnPrincipalPayment = scope.loanaccountinfo.graceOnPrincipalPayment;
-                scope.formValidationData.graceOnInterestPayment = scope.loanaccountinfo.graceOnInterestPayment;
-                scope.formValidationData.graceOnArrearsAgeing = scope.loanaccountinfo.graceOnArrearsAgeing;
-                scope.formValidationData.transactionProcessingStrategyId = scope.loanaccountinfo.transactionProcessingStrategyId;
-                scope.formValidationData.graceOnInterestCharged = scope.loanaccountinfo.graceOnInterestCharged;
-                // scope.formValidationData.fixedEmiAmount = scope.loanaccountinfo.fixedEmiAmount;
-                scope.formValidationData.maxOutstandingLoanBalance = scope.formRequestData.maxOutstandingLoanBalance;
-
-                if (scope.loanaccountinfo.isInterestRecalculationEnabled && scope.loanaccountinfo.interestRecalculationData.recalculationRestFrequencyDate) {
-                    //scope.formValidationData.recalculationRestFrequencyDate = new Date(scope.loanaccountinfo.interestRecalculationData.recalculationRestFrequencyDate);
-                }
-                if (scope.loanaccountinfo.isInterestRecalculationEnabled && scope.loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyDate) {
-                    //scope.formValidationData.recalculationCompoundingFrequencyDate = new Date(scope.loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyDate);
-                }
-
-                if (scope.loanaccountinfo.isLoanProductLinkedToFloatingRate) {
-                    scope.formValidationData.isFloatingInterestRate = false;
-                }
-            }
-
-            scope.constructTranches = function () {
-                var noOfTranche = scope.formData.noOfTranche;
-                var i = 0;
-                while (i < noOfTranche) {
-                    var loanApplicationSanctionTrancheDatas = {};
-                    //loanApplicationSanctionTrancheDatas.fixedEmiAmount = scope.formData.fixedEmiAmount;
-                    scope.formRequestData.loanApplicationSanctionTrancheDatas.push(loanApplicationSanctionTrancheDatas);
-                    i++;
-                }
-            };
-
-            scope.$watch('formRequestData.expectedDisbursementDate', function () {
-                if (scope.formRequestData.loanApplicationSanctionTrancheDatas && scope.formRequestData.loanApplicationSanctionTrancheDatas[0]) {
-                    if (scope.formRequestData.expectedDisbursementDate != '' && scope.formRequestData.expectedDisbursementDate != undefined) {
-                        var dateValue = scope.formRequestData.expectedDisbursementDate;
-                        if ((new Date(dateValue)).toString() != 'Invalid Date') {
-                            scope.formRequestData.loanApplicationSanctionTrancheDatas[0].expectedTrancheDisbursementDate = dateFilter(new Date(dateValue), scope.df);
-                        }
-                    }
-                }
-            });
-
-            scope.submit = function (onComplete) {
-                scope.formRequestData.expectedDisbursementDate = dateFilter(scope.formRequestData.expectedDisbursementDate, scope.df);
-                scope.formRequestData.repaymentsStartingFromDate =  dateFilter(scope.formRequestData.repaymentsStartingFromDate, scope.df);
-                if(scope.formRequestData.approvedOnDate){
-                    scope.formRequestData.approvedOnDate = dateFilter(new Date(scope.formRequestData.approvedOnDate),scope.df);
-                }
-                this.formRequestData.locale = scope.optlang.code;
-                this.formRequestData.dateFormat = scope.df;
-                if (scope.formRequestData.loanApplicationSanctionTrancheDatas != undefined && scope.formRequestData.loanApplicationSanctionTrancheDatas.length > 0) {
-                    for (var i = 0; i < scope.formRequestData.loanApplicationSanctionTrancheDatas.length; i++) {
-                        scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate = dateFilter(scope.formRequestData.loanApplicationSanctionTrancheDatas[i].expectedTrancheDisbursementDate, scope.df);
-                        scope.formRequestData.loanApplicationSanctionTrancheDatas[i].locale = scope.optlang.code;
-                        scope.formRequestData.loanApplicationSanctionTrancheDatas[i].dateFormat = scope.df;
-                    }
-                }
-
-                scope.submitData = {};
-                scope.submitData.formValidationData = {};
-                angular.copy(scope.formValidationData,scope.submitData.formValidationData);
-                if(scope.submitData.formValidationData.syncRepaymentsWithMeeting){
-                    delete scope.submitData.formValidationData.syncRepaymentsWithMeeting;
-                }
-                scope.submitData.formValidationData = scope.formValidationData;
-                scope.submitData.formRequestData = scope.formRequestData;
-                if (scope.charges.length > 0) {
-                    scope.submitData.formRequestData.charges = [];
-                    for (var i in scope.charges) {
-                        var charge = {};
-                        charge.chargeId = scope.charges[i].chargeId;
-                        charge.amount = scope.charges[i].amount;
-                        if(scope.charges[i].dueDate){
-                            charge.dueDate = dateFilter(scope.charges[i].dueDate, scope.df);
-                        }
-                        charge.isMandatory = scope.charges[i].isMandatory;
-                        //charge.locale = scope.optlang.code;
-                        //charge.dateFormat = scope.df;
-                        scope.submitData.formRequestData.charges.push(charge);
-                    }
-                }
-                /**
-                 * This formValidationData data is required only for validation purpose
-                 * @type {{}|*}
-                 */
-                var command = 'approve';
-                if(scope.approvalType != undefined){
-                    if(scope.approvalType == "requestForLenderApproval") {
-                     command = 'requestforlenderapproval';
-                    }
-                    if(scope.approvalType == "lenderApprove") {
-                        command = 'lenderApprove';
-                    }
-                }
-                resourceFactory.loanApplicationReferencesResource.update({
-                    loanApplicationReferenceId: scope.loanApplicationReferenceId,
-                    command: command
-                }, this.submitData, function (data) {
-                    scope.status = 'SUMMARY';
-                    onComplete();
-                });
-            };
-
             scope.report = false;
-
-            scope.$on('activityApprove', function (event, data) {
-                if (!_.isUndefined(scope.approveloanapplicationform) && scope.approveloanapplicationform.$valid) {
-                    scope.submit();
-                }else{
-                    scope.issubmitted = true;
-                }
-            });
 
             scope.calculateOccupationTotal = function(){
                 var total = 0;

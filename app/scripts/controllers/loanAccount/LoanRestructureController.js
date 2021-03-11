@@ -4,6 +4,11 @@
 
             scope.loanId = routeParams.id;
             scope.isTopup = false;
+            scope.isEditable = false;
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.loanrestructure &&
+                scope.response.uiDisplayConfigurations.loanrestructure.isHiddenField){
+                scope.isShowEditButton = !scope.response.uiDisplayConfigurations.loanrestructure.isHiddenField.editButton;
+            }
 
             resourceFactory.getLoanRestructureResource.get({ loanId: scope.loanId }, function (data) {
                 scope.restructureData = data;
@@ -16,6 +21,10 @@
             };
 
             var LoanRestructureCtrl = function ($scope, $modalInstance, formData) {
+                $scope.isTopupLoan = scope.isTopup;
+                resourceFactory.getLoanRestructureEMI.calculateEMI({},formData, function (data) {
+                $scope.calculateEMIAmount = data.calculateEMIAmount;
+                });
                 $scope.confirm = function () {
                     resourceFactory.submitLoanRestructureResource.save({}, formData, function (data) {
                         $modalInstance.close('delete');
@@ -26,6 +35,9 @@
                     $modalInstance.dismiss('cancel');
                 };
             };
+            scope.madeEditable = function(){
+               scope.isEditable = true; 
+            }
 
             scope.submit = function () {
                 scope.formData = {
@@ -51,24 +63,15 @@
                 if(scope.restructureData.loanPurposeId){
                     scope.formData.loanPurposeId = scope.restructureData.loanPurposeId;
                 }
-                if(scope.isTopup){
-                    $modal.open({
-                        templateUrl: 'loanrestructure.html',
-                        controller: LoanRestructureCtrl,
-                        resolve: {
-                            formData: function () {
-                                return scope.formData;
-                            }
+                $modal.open({
+                    templateUrl: 'loanrestructure.html',
+                    controller: LoanRestructureCtrl,
+                    resolve: {
+                        formData: function () {
+                            return scope.formData;
                         }
-                    });
-                }else{
-                    resourceFactory.submitLoanRestructureResource.save({}, this.formData, function (data) {
-                        location.path('/viewloanaccount/' + data.resourceId);
-                    });
-                }
-                
-
-                
+                    }
+                });
             }
 
         }

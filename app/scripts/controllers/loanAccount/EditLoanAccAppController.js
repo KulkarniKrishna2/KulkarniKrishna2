@@ -32,6 +32,8 @@
             scope.isLoanPurposeMandatory = false;
             scope.showGraceOnArrearsAgeing = true;
             scope.showMoratorium = false;
+            scope.showLoanPurposeCustomField = false;
+            scope.eventBasedFee = 51;
             
             if (scope.response && scope.response.uiDisplayConfigurations) {
                 scope.isProductNameReadOnly = scope.response.uiDisplayConfigurations.editJlgLoan.isReadOnlyField.productName;
@@ -240,6 +242,7 @@
                 if(scope.loanaccountinfo.fundId){
                     scope.formData.fundId = scope.loanaccountinfo.fundId;
                 }
+                
 
                 if(scope.loanaccountinfo.isInterestRecalculationEnabled){
                     if (scope.loanaccountinfo.interestRecalculationData.recalculationRestFrequencyStartDate) {
@@ -348,9 +351,13 @@
                 scope.formData.pledgeId = data.pledgeId;
                 scope.changePledge(scope.formData.pledgeId);
             };
-            
+            scope.principalGraceApplied = false;
+            scope.isFirstRepaymentApplied = false;
             resourceFactory.loanResource.get({loanId: routeParams.id, template: true, associations: 'charges,collateral,meeting,multiDisburseDetails,loanTopupDetails',staffInSelectedOfficeOnly:true, fetchRDAccountOnly: scope.fetchRDAccountOnly}, function (data) {
                 scope.loanaccountinfo = data;
+                if(data.expectedFirstRepaymentOnDate && data.expectedFirstRepaymentOnDate.length>0){
+                    scope.isFirstRepaymentApplied = true;
+                }
                 scope.isOverrideMoratorium = scope.loanaccountinfo.product.allowAttributeOverrides.graceOnPrincipalAndInterestPayment;
                 scope.showLoanTerms =!(scope.loanaccountinfo.loanEMIPacks && scope.isLoanEmiPackEnabled)?true:false;
                 if(data.loanEMIPackData){
@@ -827,6 +834,19 @@
                 }else{
                     scope.formData.repeatsOnDayOfMonth = [];
                 }
+                if (!(scope.loanaccountinfo.product.isRepaymentAtDisbursement == true && scope.formData.brokenPeriodMethodType === 3)) {
+                    delete scope.formData.brokenPeriodInterestCollectAtDisbursement;
+                }
+                if(this.formData.isTopup==true){
+                    this.formData.loanIdToClose = [];
+                    for(var i in scope.loanaccountinfo.clientActiveLoanOptions){
+                        if(scope.loanaccountinfo.clientActiveLoanOptions[i].isSelected==true){
+                            this.formData.loanIdToClose.push(scope.loanaccountinfo.clientActiveLoanOptions[i].id);
+                        }
+                    }
+                }else{
+                    this.formData.loanIdToClose = undefined;
+                }
                 resourceFactory.loanResource.save({command: 'calculateLoanSchedule'}, this.formData, function (data) {
                     scope.repaymentscheduleinfo = data;
                     scope.previewRepayment = true;
@@ -839,7 +859,6 @@
                 delete scope.formData.overdueCharges;
                 delete scope.formData.collateral;
                 delete scope.formData.loanPurposeGroupId;
-
                 if (scope.formData.disbursementData.length > 0) {
                     for (var i in scope.formData.disbursementData) {
                         if(scope.formData.disbursementData[i].expectedDisbursementDate === ""){
@@ -976,6 +995,12 @@
                     this.formData.loanAccountDpDetail = scope.loanAccountDpDetailData;
                 }
 
+                if(scope.isFirstRepaymentApplied==true && this.formData.repaymentsStartingFromDate==undefined){
+                    this.formData.repaymentsStartingFromDate = null;
+                }
+                if (!(scope.loanaccountinfo.product.isRepaymentAtDisbursement == true && scope.formData.brokenPeriodMethodType === 3)) {
+                    delete scope.formData.brokenPeriodInterestCollectAtDisbursement;
+                }
                 resourceFactory.loanResource.put({loanId: routeParams.id}, this.formData, function (data) {
                     location.path('/viewloanaccount/' + data.loanId);
                 });
@@ -1121,7 +1146,9 @@
                 var selectedLoanPurpose = scope.loanPurposeOptions.find(function (loanPurpose) {
                     return loanPurpose.id === loanPurposeId;
                 })
-                scope.showLoanPurposeCustomField = selectedLoanPurpose.isCustom;
+                if(selectedLoanPurpose){
+                    scope.showLoanPurposeCustomField = selectedLoanPurpose.isCustom; 
+                }
             }
         }
     });

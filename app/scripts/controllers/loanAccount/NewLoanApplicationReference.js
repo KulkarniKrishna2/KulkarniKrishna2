@@ -43,6 +43,9 @@
             scope.isMandatoryDisbursementPaymentType = false;
             scope.loanReferenceTrancheData = false;
             scope.isLoanPurposeRequired = false;
+            scope.isLoanOfficerRequired = false;
+            scope.showLoanPurposeCustomField = false;
+            scope.showLoanTerms = true;
 
             if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createLoanApplication) {
                 if (scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField) {
@@ -50,6 +53,7 @@
                     scope.isHiddenFirstRepaymentDate = scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.firstRepaymentDate;
                     scope.isHiddenRateOfInterest = scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.interestRatePerPeriod;
                     scope.isHiddenTrancheData = scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.tranchedata;
+                    scope.newLoanApplicationLimitAllowed = scope.response.uiDisplayConfigurations.createLoanApplication.newLoanApplicationLimitAllowed;
                 }
                 if (scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField) {
                     scope.isMandatoryExpectedDisbursementDate = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.expectedDisbursementDate;
@@ -61,6 +65,7 @@
                 if (scope.response.uiDisplayConfigurations.createLoanApplication.isMandatory) {
                     scope.loanReferenceTrancheData = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatory.trancheData;
                     scope.isLoanPurposeRequired = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatory.loanPurposeId;
+                    scope.isLoanOfficerRequired = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.loanOfficer;
                 }
             }
             resourceFactory.clientResource.get({clientId: routeParams.clientId, associations:'hierarchyLookup'}, function (data) {
@@ -75,7 +80,7 @@
             });
 
             scope.inparams = {resourceType: 'template', activeOnly: 'true'};
-            scope.newLoanApplicationLimitAllowed = scope.response.uiDisplayConfigurations.createLoanApplication.newLoanApplicationLimitAllowed;
+            
             if (scope.clientId && scope.groupId && !scope.disbursementToGroupAllowed)  {
                 scope.inparams.templateType = 'jlg';
             } else if (scope.groupId && !scope.disbursementToGroupAllowed) {
@@ -118,6 +123,7 @@
                 scope.inparams.productId = loanProductId;
                 scope.previewRepayment = false;
                 scope.formPreviewRepaymentData = {};
+                scope.showLoanTerms =!(scope.loanaccountinfo.loanEMIPacks && scope.isLoanEmiPackEnabled)?true:false;
                 resourceFactory.loanResource.get(scope.inparams, function (data) {
                     scope.loanaccountinfo = data;
                     scope.loanPurposeOptions = scope.loanaccountinfo.loanPurposeOptions;
@@ -237,7 +243,9 @@
                 var selectedLoanPurpose = scope.loanPurposeOptions.find(function (loanPurpose) {
                     return loanPurpose.id === loanPurposeId;
                 })
-                scope.showLoanPurposeCustomField = selectedLoanPurpose.isCustom;
+                if(selectedLoanPurpose){
+                    scope.showLoanPurposeCustomField = selectedLoanPurpose.isCustom;
+                }
             }
 
             scope.calculateTermFrequency = function (){
@@ -495,6 +503,18 @@
                 if (this.formData.loanPurposeId == null){
                     delete this.formData.loanPurposeId;
                 }
+
+                if(this.formData.isTopup==true){
+                    this.formData.loanIdToClose = [];
+                    for(var i in scope.loanaccountinfo.clientActiveLoanOptions){
+                        if(scope.loanaccountinfo.clientActiveLoanOptions[i].isSelected==true){
+                            this.formData.loanIdToClose.push(scope.loanaccountinfo.clientActiveLoanOptions[i].id);
+                        }
+                    }
+                }else{
+                    this.formData.loanIdToClose = undefined;
+                }
+                
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 resourceFactory.loanApplicationReferencesResource.save(this.formData, function (data) {
@@ -686,6 +706,12 @@
                     scope.previewRepayment = true;
                 });
 
+            }
+
+            scope.selectAllLoanToClose = function(isAllLoanToClose){
+                for(var i in scope.loanaccountinfo.clientActiveLoanOptions){
+                    scope.loanaccountinfo.clientActiveLoanOptions[i].isSelected = isAllLoanToClose;
+                }
             }
         }
     });

@@ -37,6 +37,7 @@
                                 var clientLevelCriteriaObj = scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelCriteriaResultData;
                                 scope.centerDetails.subGroupMembers[i].memberData[j].allowLoanRejection = false;
                                 scope.centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = false;
+                                scope.centerDetails.subGroupMembers[i].memberData[j].filteredCharges = scope.filterCharges(scope.centerDetails.subGroupMembers[i].memberData[j].loanAccountBasicData.charges)
                                 if (clientLevelTaskTrackObj == undefined) {
                                     scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
                                     scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-none";
@@ -303,12 +304,15 @@
                 })
             }
 
-            scope.filterCharges = function (chargeData,categoryId) {
-                if (chargeData != undefined) {
+            scope.filterCharges = function (chargeData) {
+                if (!_.isUndefined(chargeData)) {
                     var chargesCategory = _.groupBy(chargeData, function (value) {
+                        if(_.isUndefined(value.chargeCategoryType)){
+                            return;
+                        }
                         return value.chargeCategoryType.id;
                     });
-                    return chargesCategory[categoryId];
+                    return chargesCategory;
                 }
             }
 
@@ -383,6 +387,7 @@
                 $scope.formData = {};
                 $scope.isEmiAmountEditable = true;
                 $scope.isLoanProductReadOnly = true;
+                $scope.loanEMIPacks = [];
                 if (scope.response && scope.response.uiDisplayConfigurations.loanAccount) {
 
                     $scope.showExternalId = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.externalId;
@@ -567,10 +572,9 @@
                     $scope.interestRatesListAvailable = false;
                     $scope.charges = [];
                     $scope.inparams.fetchRDAccountOnly = scope.response.uiDisplayConfigurations.loanAccount.savingsAccountLinkage.reStrictLinkingToRDAccount;
-                    $scope.editLoanAccountdata.loanPurposeId = null;
-                    $scope.formData.loanPurposeGroupId = null;
                     resourceFactory.loanResource.get($scope.inparams, function (data) {
                         $scope.loanaccountinfo = data;
+                        $scope.loanEMIPacks = data.loanEMIPacks;
                         var refreshLoanCharges = true;
                         $scope.previewClientLoanAccInfo(refreshLoanCharges);
                         $scope.updateSlabBasedCharges();
@@ -619,6 +623,14 @@
                             $scope.interestRatesListAvailable = true;
                         }
                     });
+                }
+
+                $scope.updateEmiPacks = function(loanaccountinfo){
+                    for(var i in loanaccountinfo.loanEMIPacks){
+                        if(loanaccountinfo.principal >= loanaccountinfo.loanEMIPacks[i].sanctionAmount){
+                            $scope.loanEMIPacks.push(loanaccountinfo.loanEMIPacks[i])
+                        }
+                    }
                 }
 
                 $scope.updateDataFromEmiPack = function (loanEMIPacks) {
@@ -710,6 +722,7 @@
                 $scope.getLoanData = function (loanId) {
                     resourceFactory.loanResource.get({ loanId: loanId, template: true, associations: 'charges,meeting', staffInSelectedOfficeOnly: true }, function (data) {
                         $scope.loanaccountinfo = data;
+                        $scope.updateEmiPacks($scope.loanaccountinfo);
                         $scope.charges = data.charges;
                     });
                 }
@@ -828,6 +841,7 @@
                 if (scope.response && scope.response.uiDisplayConfigurations){
                     if (scope.response.uiDisplayConfigurations.bankAccountDetails) {
                         $scope.isMandatoryFields = scope.response.uiDisplayConfigurations.bankAccountDetails.isMandatory;
+                        $scope.isReadOnlyFields = scope.response.uiDisplayConfigurations.bankAccountDetails.isReadOnlyField;
                     }
                     if(scope.response.uiDisplayConfigurations.workflow && scope.response.uiDisplayConfigurations.workflow.hiddenFields){
                         $scope.showBankAccountActivate = !scope.response.uiDisplayConfigurations.workflow.hiddenFields.bankAccountActivate;
@@ -1300,6 +1314,7 @@
                         $scope.bankData = data;
                         $scope.bankAccountTypeOptions = $scope.bankData.bankAccountTypeOptions;
                         constructBankAccountDetails();
+                        getBankAccountDocuments();
                     });
                 }
 
@@ -1351,6 +1366,25 @@
                     if (!_.isUndefined($scope.bankAccountDocuments) && $scope.bankAccountDocuments.length > 0) {
                         $scope.viewDocument($scope.bankAccountDocuments[0]);
                     }
+                }
+
+                function getBankAccountDocuments() {
+                    resourceFactory.bankAccountDetailsDocumentsResource.getAllDocuments({
+                        entityType: $scope.entityType,
+                        entityId: $scope.entityId,
+                        bankAccountDetailsId: getBankAccountDetails()
+                    }, function (data) {
+                        $scope.bankAccountDocuments = data.bankAccountDocuments;
+                        for (var i = 0; i < $scope.bankAccountDocuments.length; i++) {
+                            var docs = {};
+                            if ($scope.bankAccountDocuments[i].storage && $scope.bankAccountDocuments[i].storage.toLowerCase() == 's3') {
+                                docs = $rootScope.hostUrl + API_VERSION + '/' + $scope.bankAccountDocuments[i].parentEntityType + '/' + $scope.bankAccountDocuments[i].parentEntityId + '/documents/' + $scope.bankAccountDocuments[i].id + '/downloadableURL';
+                            } else {
+                                docs = $rootScope.hostUrl + API_VERSION + '/' + $scope.bankAccountDocuments[i].parentEntityType + '/' + $scope.bankAccountDocuments[i].parentEntityId + '/documents/' + $scope.bankAccountDocuments[i].id + '/download';
+                            }
+                            $scope.bankAccountDocuments[i].docUrl = docs;
+                        }
+                    });
                 }
 
                 function getBankAccountDetails() {
@@ -1451,7 +1485,8 @@
                                     'entityId': $scope.entityId,
                                     'entityType': $scope.entityType,
                                     'bankAccFormData': $scope.bankAccFormData,
-                                    'bankAccountDocuments': $scope.bankAccountDocuments
+                                    'bankAccountDocuments': $scope.bankAccountDocuments,
+                                    'bankAccountDetailsId' : $scope.bankAccountDetailsId
                                 };
                             }
                         }
@@ -1482,7 +1517,7 @@
                                 $scope.docformatErrMsg = 'label.error.only.files.of.type.image.are.allowed';
                             } else {
                                 $upload.upload({
-                                    url: $rootScope.hostUrl + API_VERSION + '/' + bankAccountDetails.entityType + '/' + bankAccountDetails.entityId + '/documents',
+                                    url: $rootScope.hostUrl + API_VERSION + '/' + bankAccountDetails.entityType + '/' + bankAccountDetails.entityId + '/bankaccountdetails/' + bankAccountDetails.bankAccountDetailsId + '/documents',
                                     data: $scope.docData,
                                     file: $scope.docFile
                                 }).then(function (data) {
@@ -1539,6 +1574,36 @@
                     updateData();
                 };
 
+                $scope.deleteBankAccountDocument = function (document) {
+                    resourceFactory.bankAccountDetailsDocumentsResource.delete({
+                        entityType: $scope.entityType,
+                        entityId: $scope.entityId,
+                        bankAccountDetailsId: $scope.bankAccountDetailsId
+                    }, { 'documentId': document.id }, function (data) {
+                        getBankAccountDocuments();
+                    });
+                };
+
+                $scope.activateBankAccountDetails = function () {
+                    resourceFactory.bankAccountDetailsActivateResource.activate({
+                        entityType: $scope.entityType,
+                        entityId: $scope.entityId,
+                        bankAccountDetailsId: getBankAccountDetails()
+                    }, {}, function (data) {
+                        populateDetails();
+                        enableShowSummary();
+                    });
+                };
+
+                $scope.deActivateBankAccountDetails = function () {
+                    resourceFactory.bankAccountDetailsDeActivateResource.deActivate({
+                        entityType: $scope.entityType,
+                        entityId: $scope.entityId,
+                        bankAccountDetailsId: getBankAccountDetails()
+                    }, {}, function (data) {
+                        populateDetails();
+                    });
+                };
                 $scope.activateBankAccountDetail = function () {
                     resourceFactory.bankAccountDetailActionResource.doAction({
                         'entityId': $scope.entityId,

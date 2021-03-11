@@ -6,8 +6,10 @@
     </ul>
     <div class="well">
         <h3 class="bolder">{{charge.name}}
-        	<div class="btn-group pull-right">
-             <a href="#/editcharge/{{charge.id}}" class="btn btn-primary" has-permission='UPDATE_CHARGE'><i class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
+			<div class="col pull-right">
+			 <a href="#/charges/{{charge.id}}/clone" class="btn btn-primary"><i
+						class="icon-copy icon-white"></i>{{'label.button.clone' | translate}}</a>
+             <a href="#/charges/{{charge.id}}/edit" class="btn btn-primary" has-permission='UPDATE_CHARGE'><i class="icon-edit icon-white"></i>{{'label.button.edit' | translate}}</a>
              <button type="button" data-ng-click="deleteCharge()" class="btn btn-warning" has-permission='DELETE_CHARGE'><i
                      class="icon-trash icon-white"></i>{{'label.button.delete' | translate}}
              </button>
@@ -55,6 +57,10 @@
 	                <tr>
 	                    <td>{{'label.heading.chargetimetype' | translate}}</td>
 	                    <td>{{charge.chargeTimeType.value}}</td>
+	                </tr>
+	                <tr ng-show="charge.chargeEventType">
+	                    <td>{{'label.heading.eventtype' | translate}}</td>
+	                    <td>{{charge.chargeEventType.value}}</td>
 	                </tr>
 	                <tr>
 	                    <td>{{'label.heading.chargeappliesto' | translate}}</td>

@@ -14,7 +14,7 @@
 
             <div class="col-sm-3">
                 <input type="text" autocomplete="off" datepicker-pop="{{df}}" id="{{modelName}}" name="modelName"
-                       ng-model="formData[modelName]" min="'2000-01-01'" max="restrictDate"  class="form-control" ng-readonly="isDatePickerReadOnly"/>
+                       ng-model="formData[modelName]" min="'2000-01-01'" max="restrictDate"  class="form-control" ng-readonly="isDatePickerReadOnly" ng-disabled="disableActivationDate(modelName)"/>
             </div>
         </div>
         <div class="form-group" ng-show="showActivationDateField">
@@ -22,7 +22,7 @@
 
             <div class="col-sm-3">
                 <input type="text" autocomplete="off" datepicker-pop="{{df}}" id="{{modelName}}" name="modelName"
-                       ng-model="formData[modelName]" min="mindate" max="restrictDate"  class="form-control" ng-readonly="isDatePickerReadOnly"/>
+                       ng-model="formData[modelName]" min="mindate" max="restrictDate"  class="form-control" ng-readonly="isDatePickerReadOnly" ng-disabled="disableActivationDate(modelName)"/>
             </div>
         </div>
         <div class="form-group" ng-show="reasonField">

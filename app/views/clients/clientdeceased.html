@@ -140,21 +140,40 @@
                     </tr>
                 </tbody>
             </table>
-            <div class="form-group">
-                <label class="control-label col-sm-4" for="mobileNo">{{'label.input.insurance.contact.number' | translate}}<span
-                        class="required">*</span></label>
-        
-                <div class="col-sm-4">
-                    <input type="text" autocomplete="off" id="mobileNo" name="mobileNo" ng-model="formData.mobileNo"
+            <div class="row well">
+                <div class="row graybg form-group">
+                    <div class="col-md-4">
+                        <h4><strong>{{'label.input.insurance.nominee.relationship' | translate}}</strong><span class="required">*</span></h4>
+                        <select id="contactPersonRelationshipId" name="contactPersonRelationshipId" ng-model="formData.contactPersonRelationshipId"
+                            ng-options="type.id as type.name for type in relationships" class="form-control" required>
+                            <option value="{{type.id}}">{{'label.insurance.nominee.select.relationship' | translate}}</option>
+                        </select>
+                        <div class="col-md-6">
+                            <form-validate valattributeform="createdeceaseddetailsform" valattribute="contactPersonRelationshipId" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <h4><strong>{{'label.input.insurance.contact.name' | translate}}</strong><span class="required">*</span></h4>
+                        <input name="contactPersonName" ng-model="formData.contactPersonName" type="text" autocomplete="off"
+                                class="form-control" required late-Validate />
+    
+                        <div class="col-md-6">
+                            <form-validate valattributeform="createdeceaseddetailsform" valattribute="contactPersonName" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <h4><strong>{{'label.input.insurance.contact.number' | translate}}</strong><span class="required">*</span></h4>
+                        <input type="text" autocomplete="off" id="mobileNo" name="mobileNo" ng-model="formData.mobileNo"
                         ng-pattern="{{mobileNumberPattern}}" class="form-control" required />
-                </div>
-                <div class="col-sm-3">
-                    <span ng-show="createdeceaseddetailsform.mobileNo.$invalid && createdeceaseddetailsform.mobileNo.$dirty">
-                        <small class="required" ng-show="createdeceaseddetailsform.mobileNo.$error.pattern">
-                            {{'label.mustbenumeric.and.valid' | translate}}
-                        </small>
-                    </span>
-                    <form-validate valattributeform="createdeceaseddetailsform" valattribute="mobileNo"/>
+                        <div class="col-md-6">
+                            <span ng-show="createdeceaseddetailsform.mobileNo.$invalid && createdeceaseddetailsform.mobileNo.$dirty">
+                                <small class="required" ng-show="createdeceaseddetailsform.mobileNo.$error.pattern">
+                                    {{'label.mustbenumeric.and.valid' | translate}}
+                                </small>
+                            </span>
+                            <form-validate valattributeform="createdeceaseddetailsform" valattribute="mobileNo"/>
+                        </div>
+                    </div>
                 </div>
             </div>
             <br />

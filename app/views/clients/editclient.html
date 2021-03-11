@@ -101,7 +101,7 @@
 				<label class="control-label col-sm-2" ng-show="showNonPersonOptions">{{'label.input.incorporationdate' | translate}}</label>
 				<div ng-hide="showNonPersonOptions" class="col-sm-3">
 			        <input id="dateofbirth" type="text" autocomplete="off" name="dateofbirth" datepicker-pop="{{df}}"
-			               ng-model="date.dateOfBirth" is-open="opened1" min="minDateOfBirth" max="maxDateOfBirth"  class="form-control" ng-required="isDateOfBirthMandatory" ng-readonly="isDatePickerReadOnly" ng-change = "isDateOfBirthNotInRange(date.dateOfBirth)"/>
+			               ng-model="date.dateOfBirth" is-open="opened1" min="minDateOfBirth" max="maxDateOfBirth"  class="form-control" ng-required="isDateOfBirthMandatory" ng-readonly="isDatePickerReadOnly" ng-bind = "isDateOfBirthNotInRange(date.dateOfBirth)"/>
 					<span class="error" ng-show="dateOfBirthNotInRange">{{'label.input.dob.not.range' | translate}} {{minAge}} {{'label.input.and' | translate}} {{maxAge}} {{'label.input.year' | translate}}</span>
 				</div>
 			    <div ng-show="showNonPersonOptions" class="col-sm-3">
@@ -288,7 +288,7 @@
 
                 <div class="col-sm-3">
                     <input id="submittedOnDate" type="text" autocomplete="off" name="submittedOnDate" datepicker-pop="{{df}}"
-                           ng-model="date.submittedOnDate" is-open="opened1" max="restrictDate"  class="form-control" ng-readonly="isDatePickerReadOnly"/>
+                           ng-model="date.submittedOnDate" is-open="opened1" max="restrictDate"  class="form-control" ng-readonly="isDatePickerReadOnly" ng-disabled="submittedOnDate"/>
                 </div>
                 <div data-ng-switch on="choice">
 		            <div data-ng-switch-when="1">
@@ -298,7 +298,7 @@
 		                <div class="col-sm-3">
 		                    <input id="activationDate" type="text" autocomplete="off" datepicker-pop="{{df}}"
 		                           ng-model="date.activationDate" is-open="opened" min="'2000-01-01'"
-		                           max="restrictDate"  class="form-control" ng-readonly="isDatePickerReadOnly"/>
+		                           max="restrictDate"  class="form-control" ng-readonly="isDatePickerReadOnly" ng-disabled="activationDate"/>
 		                </div>
 		            </div>
 	        	</div>

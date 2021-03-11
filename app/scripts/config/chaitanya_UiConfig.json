@@ -29,7 +29,9 @@
         "loanPurposeId": true,
         "mobileNumber":true,
         "disbursementMode":true,
-        "expectedDisbursalPaymentType":true
+        "expectedDisbursalPaymentType":true,
+        "backDatedReason": true,
+        "transactionPaymentType": true
       },
       "isHiddenSection": {
         "interestRecalculationSection": true,
@@ -95,7 +97,11 @@
       },
        "isValidMobileNumber": {
         "mobileNumberPattern":"/^[1-9]{1}\\d{9}$/"
-      }
+      },
+      "isDisabled":{
+				"submittedOnDate": true,
+				"activationDate": true
+			}
     },
     "defaultGISConfig": {
       "address": {
@@ -259,6 +265,11 @@
       "isMandatoryField": {
         "companyCode":true
       }
+    },
+		"createCharges": {
+			"isHiddenField": {
+				"chargeCategoryType": false
+			}
     },
     "collectionSheet": {
       "isAutoPopulate": {

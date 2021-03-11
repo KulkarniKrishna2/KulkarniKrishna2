@@ -1,6 +1,10 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         EditRecurringDepositProductController: function (scope, resourceFactory, location, routeParams, dateFilter,$modal) {
+            scope.action = routeParams.action;
+            if (routeParams.action && routeParams.action === 'clone') {
+                scope.isCloneRecurringDepositProduct = true;
+            };
             scope.formData = {};
             scope.charges = [];
             scope.showOrHideValue = "show";
@@ -298,11 +302,24 @@
                 if(this.formData.autoRenewalEnabled){
                     this.formData.autoRenewalData.locale = this.formData.locale;
                 }
-                this.formData.deleteFeeAccountMappings = deleteFeeAccountMappings;
+                this.formData.deleteFeeAccountMappings = deleteFeeAccountMappings;   
                 this.formData.deletePenaltyAccountMappings = deletePenaltyAccountMappings;
-                resourceFactory.recurringDepositProductResource.update({productId: routeParams.productId}, this.formData, function (data) {
-                    location.path('/viewrecurringdepositproduct/' + data.resourceId);
-                });
+
+                if (!_.isUndefined(scope.isCloneRecurringDepositProduct) && scope.isCloneRecurringDepositProduct) {
+                    if(_.isEmpty(this.formData.minDepositAmount)){
+                        delete  this.formData.minDepositAmount;
+                    }
+                    if(_.isEmpty(this.formData.maxDepositAmount)){
+                        delete  this.formData.maxDepositAmount;
+                    }
+                    resourceFactory.recurringDepositProductResource.save(this.formData, function (data) {
+                        location.path('/viewrecurringdepositproduct/' + data.resourceId);
+                    });
+                } else {
+                    resourceFactory.recurringDepositProductResource.update({ productId: routeParams.productId }, this.formData, function (data) {
+                        location.path('/viewrecurringdepositproduct/' + data.resourceId);
+                    });
+                }   
             }
 
             /**

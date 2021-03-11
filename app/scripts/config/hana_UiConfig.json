@@ -5,7 +5,7 @@
 			"isHiddenField": {
 				"fundId": true,
 				"externalId": true,
-				"linkAccountId": true,
+				"linkAccountId":false,
 				"createStandingInstruction": true,
 				"repaymentFrequencyType": true,
 				"repaymentFrequencyNthDayType": true,
@@ -145,6 +145,11 @@
 		"createLoanApplication": {
 			"isMandatory": {
 				"loanPurposeId": true
+			}
+		},
+		"loanrestructure": {
+			"isHiddenField": {
+				"editButton":false
 			}
 		}
 	}

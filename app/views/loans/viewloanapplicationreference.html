@@ -449,6 +449,27 @@
                         </div>
                     </div>
                 </div>
+                <div data-ng-show="formData.isTopup">
+                    <label>{{'label.input.isTopup' | translate}}:&nbsp;</label>{{formData.isTopup}}
+                    <table class="table  table-striped well">
+                        <thead>
+                          <tr  class="graybg">
+                              <th>{{'label.heading.loanIdToClose' | translate}}</th>
+                              <th>{{'label.heading.topupAmount' | translate}}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr ng-class="($index%2!=0)?'graybg':''" ng-repeat="loanTopupDetail in formData.loanTopupDetailsData">
+                              <td>
+                                <span class="padded-td">
+                                  <a href="#/viewloanaccount/{{loanTopupDetail.closureLoanId}}">{{loanTopupDetail.closureLoanAccountNo}}</a>
+                                </span>
+                              </td>
+                              <td>{{loanTopupDetail.topupAmount| number}}</td>
+                          </tr>
+                      </tbody>
+                    </table>
+                </div>
                 <table class="width100">
                     <tr>
                         <td colspan="4">&nbsp;</td>

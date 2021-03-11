@@ -12,6 +12,17 @@
             scope.user = [];
             scope.formData.roles = [] ;
 
+            scope.isExternalIdRequired = false;
+            scope.isExternalIdReadOnly = true; 
+            scope.isExternalIdMandatory = false;
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.user) {
+                if(scope.response.uiDisplayConfigurations.user.isReadOnlyField){
+                    scope.isExternalIdReadOnly = scope.response.uiDisplayConfigurations.user.isReadOnlyField.externalId; 
+                }
+                if(scope.response.uiDisplayConfigurations.user.isMandatory){
+                    scope.isExternalIdMandatory = scope.response.uiDisplayConfigurations.user.isMandatory.externalId;  
+                }
+            }
 
             resourceFactory.userListResource.get({userId: routeParams.id, template: 'true'}, function (data) {
                 scope.formData.username = data.username;
@@ -94,6 +105,10 @@
             scope.submit = function () {
                 for (var i in scope.selectedRoles) {
                     scope.formData.roles.push(scope.selectedRoles[i].id) ;
+                }
+                scope.isExternalIdRequired = scope.isExternalIdMandatory && !scope.staffName ? (scope.formData.externalId == undefined || scope.formData.externalId.length==0 ) : false;
+                if(scope.isExternalIdRequired) {
+                    return;
                 }
                 scope.formData.locale = scope.optlang.code;
                 scope.formData.dateFormat = scope.df;

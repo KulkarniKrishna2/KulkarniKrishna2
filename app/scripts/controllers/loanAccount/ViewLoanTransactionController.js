@@ -10,6 +10,10 @@
             scope.isRefundTransaction = false;
             scope.isWriteOff = false;
             scope.isGlimLoan = false;
+            scope.backDatedTxn = false;
+            scope.backDatedTxnError = false;
+            scope.backDatedReasonMandatory = scope.response.uiDisplayConfigurations.loanAccount.isMandatory.backDatedReason;
+            
             function init(){
                 resourceFactory.loanTrxnsResource.get({loanId: routeParams.accountId, transactionId: routeParams.id}, function (data) {
                     scope.transaction = data;
@@ -18,7 +22,8 @@
                     if(scope.transaction.type.code === "loanTransactionType.refund"){
                         scope.isRefundTransaction = true;
                     }
-                    if(data.isGlimLoan && scope.isWriteOff){
+                    
+                    if(data.isGlimLoan){
                         scope.glimTransactions = data.glimTransactions;
                         if(scope.isGlimPaymentAsGroupEnabled){
                             scope.isGlimWriteOffTransaction = true;
@@ -34,8 +39,19 @@
                     scope.isValueDateEnabled = scope.isSystemGlobalConfigurationEnabled('enable-value-date-for-loan-transaction');
                     scope.isUndoEditTrxnEnabled();
                     scope.getReversalReasonCodes();
+                    scope.isBackDatedTxn(data.date);
                 });
             };
+
+            scope.isBackDatedTxn = function(transactionDate){
+                var txndate = dateFilter(transactionDate, scope.df) ;
+                txndate = txndate+"";
+                var date = dateFilter(new Date(), scope.df) ;
+                date = date+"";
+                if(!(txndate==date) && scope.backDatedReasonMandatory==true){
+                    scope.backDatedTxn = true;
+                }
+            }
 
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.loanAccount &&
                 scope.response.uiDisplayConfigurations.loanAccount.isMandatory){
@@ -86,7 +102,9 @@
                 $scope.reasons = scope.reversalReasons;
                 $scope.isError = false;
                 $scope.isRejectReasonRequired = scope.isRejectReasonRequired;
-                $scope.undoTransaction = function (reason) {
+                $scope.backDatedTxn = scope.backDatedTxn;
+                $scope.backDatedTxnError = false;
+                $scope.undoTransaction = function (reason,note) {
                     var params = {loanId: accountId};
                     if(scope.isWriteOff && (scope.isGlimWriteOffTransaction || !scope.isGlimLoan)){
                         params.command = 'undowriteoff';
@@ -94,8 +112,15 @@
                         params.transactionId = transactionId;
                         params.command = 'undo';
                      }
+                     if($scope.backDatedTxn==true && (note==undefined || note=="")){
+                        $scope.backDatedTxnError = true;
+                        return false;
+                    }
                     
                     var formData = {dateFormat: scope.df, locale: scope.optlang.code, transactionAmount: 0};
+                    if(note){
+                        formData.note = note;
+                    }
                     if(reason){
                         formData.reason = reason;
                     }else{

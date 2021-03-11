@@ -1,0 +1,69 @@
+<div class="col-md-12" ng-controller="CreateFinancialOfficeMappingController">
+    <ul class="breadcrumb">
+        <li><a href="#/viewfinancialactivitymapping/{{mappingId}}">{{'label.anchor.financialactivity.accountmappings' | translate}}</a></li>
+        <li class="active">{{'label.anchor.createofficemapping' | translate}}</li>
+    </ul>
+    <form name="createofficemappingform" novalidate="" class="form-horizontal well" rc-submit="submit()">
+        <api-validate></api-validate>
+        <fieldset>
+            <legend>{{'label.heading.createofficemapping' | translate}}:{{financialActivityData.financialActivityData.name | translate }}</legend>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">
+                    {{'label.input.from.office' | translate}} <span class="required">*</span>
+                </label>
+
+                <div class="col-sm-3">
+                    <div>
+                        <select chosen="offices"  name="fromOfficeId" id="fromOfficeId" ng-model="formData.fromOfficeId"  class="form-control" ng-options="office.id as office.name for office in offices" value="{{office.id}}" required late-Validate>
+                            <option value="" style="display:none;">--{{'label.menu.selectoffice' | translate}}--</option>
+                        </select>
+                    </div>
+                </div>
+
+                    <div class="col-sm-3" >
+                         <form-validate valattributeform="createofficemappingform" valattribute="fromOfficeId"/>
+                     </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">
+                    {{'label.input.tooffice' | translate}} <span class="required">*</span>
+                </label>
+
+                <div class="col-sm-3">
+                    <div>
+                        <select chosen="offices"  name="toOfficeId" id="toOfficeId" ng-model="formData.toOfficeId"  class="form-control" ng-options="office.id as office.name for office in offices" value="{{office.id}}" required late-Validate>
+                            <option value="" style="display:none;">--{{'label.menu.selectoffice' | translate}}--</option>
+                        </select>
+                    </div>
+                </div>
+
+                    <div class="col-sm-3" >
+                         <form-validate valattributeform="createofficemappingform" valattribute="toOfficeId"/>
+                     </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">
+                    {{'label.input.associatetoglaccount' | translate}} <span class="required">*</span>
+                </label>
+
+                <div class="col-sm-3">
+                    <div >
+                        <select chosen="accountOptions" id="glAccountId" ng-model="formData.glAccountId"  class="form-control"
+                                ng-options="glaccount.id as (glaccount.name +' ('+ glaccount.glCode +')') for glaccount in accountOptions" value="{{glaccount.id}}"
+                                name="glAccountId" required late-Validate>
+                            <option value="" style="display:none;">--{{'label.menu.selectglaccount' | translate}}--</option>
+                        </select>
+                    </div>
+                </div>
+             <div class="col-sm-3" >
+                 <form-validate valattributeform="createofficemappingform" valattribute="glAccountId"/>
+             </div>
+            </div>
+            <div class="col-md-offset-5">
+                <a id="cancel" href="#/viewfinancialactivitymapping/{{mappingId}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                <button id="save" type="submit" class="btn btn-primary"  ng-hide="blockUI" has-permission='CREATE_FINANCIAL_ACCOUNT_OFFICE_MAPPING'>{{'label.button.save' | translate}}</button>
+            </div>
+        </fieldset>
+    </form>
+</div>

@@ -48,7 +48,7 @@
                 if(transaction.transactionType.accrual==false){
                     if (accountTransfer) {
                         var transferId = transaction.transfer.id;
-                        location.path('/viewaccounttransfers/' + transferId).search('redirectPath','viewsavingaccount').search('accoutId',savingsAccountId);
+                        location.path('/viewaccounttransfers/' + transferId).search('redirectPath','viewsavingaccount').search('accoutId',savingsAccountId).search('transactionId',transactionId);
                     } else {
                         location.path('/viewsavingtrxn/' + savingsAccountId + '/trxnId/' + transactionId);
                     }
@@ -181,6 +181,9 @@
                     case "postAccrualAsOn":
                             location.path('/savingaccount/' + accountId + '/postAccrualAsOn');
                             break;
+                    case "reactivate":
+                        location.path('/savingaccount/' + accountId + '/reactivate');
+                        break;
 
                 }
             };
@@ -436,6 +439,18 @@
                         }
                     }
                 }
+
+                if(data.status.value == "Closed"){
+                    scope.buttons = { singlebuttons: [
+                        {
+                            name: "button.reactivate",
+                            icon: "icon-undo",
+                            taskPermissionName:"REACTIVATE_SAVINGSACCOUNT"
+                        },
+                    ]
+                }
+            }
+
                 if (data.annualFee) {
                     var annualdueDate = [];
                     annualdueDate = data.annualFee.feeOnMonthDay;
@@ -714,7 +729,6 @@
             
             scope.transactionSort = {
                 column: 'date',
-                columnId: 'id',
                 descending: true
             };
 

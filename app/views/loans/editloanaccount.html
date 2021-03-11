@@ -350,10 +350,14 @@
                     <select id="repaymentFrequencyNthDayType" class="form-control" ng-model="formData.repaymentFrequencyNthDayType"
                             ng-options="repaymentFrequencyNthDayType.id as repaymentFrequencyNthDayType.value for repaymentFrequencyNthDayType in loanaccountinfo.repaymentFrequencyNthDayTypeOptions"
                             ng-show="formData.repaymentFrequencyType == 2"
+                            ng-disabled="((!loanaccountinfo.product.allowAttributeOverrides.repaymentEvery)||
+                            (response.uiDisplayConfigurations.loanAccount.isReadOnlyField.repaymentFrequencyType))"
                             value="{{repaymentFrequencyNthDayType.id}}"><option value=""></option></select>&nbsp;
                     <select id="repaymentFrequencyDayOfWeekType" class="form-control" ng-model="formData.repaymentFrequencyDayOfWeekType"
                             ng-options="repaymentFrequencyDayOfWeekType.id as repaymentFrequencyDayOfWeekType.value for repaymentFrequencyDayOfWeekType in loanaccountinfo.repaymentFrequencyDaysOfWeekTypeOptions"
                             ng-show="formData.repaymentFrequencyType == 2 && formData.repaymentFrequencyNthDayType != -2"
+                            ng-disabled="((!loanaccountinfo.product.allowAttributeOverrides.repaymentEvery)||
+                            (response.uiDisplayConfigurations.loanAccount.isReadOnlyField.repaymentFrequencyType))"
                             value="{{repaymentFrequencyDayOfWeekType.id}}"><option value=""></option></select>&nbsp;
                     <form-validate valattributeform="editloanaccountform" valattribute="repaidevery"/>
                 </td>
@@ -369,7 +373,8 @@
                     <table>
                         <tr>
                             <td align="left">
-                                <select id="avilabledays" ng-model="available" name="avilabledays" class="form-control multiselectmin" multiple>
+                                <select id="avilabledays" ng-model="available" name="avilabledays" class="form-control multiselectmin" 
+                                ng-disabled="((!loanaccountinfo.product.allowAttributeOverrides.repaymentEvery) ||(response.uiDisplayConfigurations.loanAccount.isReadOnlyField.repaymentFrequencyType))" multiple>
                                     <option ng-repeat="onday in repeatsOnDayOfMonthOptions" value="{{onday}}">
                                         {{onday}}
                                     </option>
@@ -385,7 +390,8 @@
                                 &nbsp;
                             </td>
                             <td align="left">
-                                <select id="selecteddays" ng-model="selected" name="selecteddays" class="form-control multiselectmin" multiple>
+                                <select id="selecteddays" ng-model="selected" name="selecteddays" class="form-control multiselectmin"
+                                ng-disabled="((!loanaccountinfo.product.allowAttributeOverrides.repaymentEvery) ||(response.uiDisplayConfigurations.loanAccount.isReadOnlyField.repaymentFrequencyType))" multiple>
                                     <option ng-repeat="onday in selectedOnDayOfMonthOptions" value="{{onday}}">
                                         {{onday}}
                                     </option>
@@ -927,11 +933,12 @@
                 <td>{{charge.chargeCalculationType.value}}</td>
                 <td><input id="{{charges[$index].amount}}" class="form-control" number-format type="text" autocomplete="off" ng-model="charge.amountOrPercentage"
                            placeholder="{{'label.input.amount' | translate}}" ng-readonly="!hasPermission('UPDATE_LOANCHARGE') || isChargeAmountNonEditable(charge)"></td>
-                <td>{{charge.chargeTimeType.value}}</td>
+                <td ng-show="charge.chargeTimeType.id==eventBasedFee">{{charge.chargeEventType.value}}</td>
+                <td ng-hide="charge.chargeTimeType.id==eventBasedFee">{{charge.chargeTimeType.value}}</td>
                 <td>
                     <input id="charges[{{$index}}].duedate" type="text" autocomplete="off" datepicker-pop="{{df}}" class="form-control"
                            placeholder="{{'label.input.duedate' | translate}}" ng-model="charge.dueDate"
-                           is-open="'openedch'+$index" ng-readonly="isDatePickerReadOnly || charge.chargeTimeType.value == upfrontFee" min="minDate" max="globalMaxDate"/>
+                           is-open="'openedch'+$index" ng-readonly="isDatePickerReadOnly || charge.chargeTimeType.value == upfrontFee || charge.chargeTimeType.id==eventBasedFee" min="minDate" max="globalMaxDate"/>
                 </td>
                 <td ng-hide="charge.isMandatory == true" has-permission='DELETE_LOANCHARGE'><a ng-click="deleteCharge($index)"><i class="icon-remove icon-white"></i></a></td>
             </tr>

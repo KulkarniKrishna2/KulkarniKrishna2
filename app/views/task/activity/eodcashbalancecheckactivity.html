@@ -1,0 +1,106 @@
+<div ng-controller="EodCashBalanceCheckController">
+    <api-validate></api-validate>
+    <div ng-show="isValidate && amountMatched">
+        <span ng-show="amountMatched">{{msg}}</span>
+    </div>
+    <div ng-show="isValidate">
+        <span  class="error" ng-hide="amountMatched">{{msg}}</span>
+    </div>
+
+    <div class="col-sm-12" ng-hide="isBalanceCheckClosureDone">
+        <div class="col-sm-8">
+            <table class="table well" ng-hide="showPreview">
+                <thead>
+                <tr class="graybg">
+                    <th colspan="2">{{ 'label.heading.denomination.entry' | translate }}&nbsp;&nbsp;({{ date | DateFormat }})</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr  ng-repeat="denom in denominationsOptions">
+                        <td >{{denom.name}}&nbsp;<b>*</b></td>
+                        <td ><input type="number" ng-model="denominationsOptions[$index].count" ng-change="getAmount($index,denominationsOptions[$index].count,denominationsOptions[$index].name)" ng-readonly="isValidate"></td>
+                    </tr>
+                    <hr/>
+                    <tr  class="graybg">
+                        <td><b>{{'label.heading.total' | translate }}</b></td>
+                        <td >{{totalCount | number}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="pull-right">
+                            <button ng-click="togglePreview()"  class="btn btn-primary">{{'label.button.preview' | translate}}</button>
+                        </td>
+                       
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table well" ng-show="showPreview">
+                <thead>
+                <tr class="graybg">
+                    <th colspan="2">{{ 'label.heading.denomination.entry' | translate }}&nbsp;&nbsp;({{ date | DateFormat }})</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr  ng-repeat="denom in denominationsOptions" ng-if="denominationsOptions[$index].count>0">
+                        <td >{{denom.name}}&nbsp;<b>*</b></td>
+                        <td >{{denom.count | number}}</td>
+                        <td >{{denom.actualAmount | number}}</td>
+                    </tr>
+                    <tr  class="graybg">
+                        <td ><b>{{'label.heading.total' | translate }}</b></td>
+                        <td >{{totalCount | number}}</td>
+                        <td >{{totalAmount | number}}</td>
+                    </tr>
+                    <tr>
+                        <td class="pull-right">
+                            <button ng-click="validate()"  class="btn btn-primary">{{'label.button.validate' | translate}}</button>
+                        </td>
+                        <td colspan="2" class="pull-right">
+                            <button ng-click="togglePreview()"  class="btn btn-primary">{{'label.button.hidepreview' | translate}}</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </div>
+        
+        <br>
+        <div class="col-sm-12" ng-show="isValidate">
+            <div class="col-sm-6">
+                 <textarea type="text" id="description" name="description" class="form-control" rows="3" ng-model="note"></textarea>
+            </div>            
+        </div>
+        <br>
+        <hr/>
+        <div class="col-md-offset-5 col-sm-12" ng-show="isValidate">
+            <button id="cancel" type="reset" class="btn btn-default" ng-click="init()" ng-hide="isOperationalClosureDone">{{'label.button.cancel' | translate}}</button>
+            <button id="save" ng-click="submit()" type="submit" class="btn btn-primary" ng-hide="isOperationalClosureDone">{{'label.button.save' | translate}}</button>
+        </div>
+    </div>
+    <div class="col-sm-12" ng-show="isBalanceCheckClosureDone">
+        <div class="col-sm-12">
+            <table class="table well">
+                <thead>
+                <tr class="graybg">
+                    <th>{{ 'label.heading.office' | translate }}</th>
+                    <th>{{ 'label.heading.date' | translate }}</th>
+                    <th>{{ 'label.heading.system.cash.balance' | translate }}</th>
+                    <th>{{ 'label.heading.physical.cash.balance' | translate }}</th>
+                    <th>{{ 'label.heading.difference' | translate }}</th>
+                    <th>{{ 'label.heading.comment.by.branch' | translate }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td >{{officeName}}</td>
+                        <td >{{date | DateFormat }}</td>
+                        <td >{{eodBalanceCheckData.systemAmount | number}}</td>
+                        <td >{{eodBalanceCheckData.physicalAmount | number}}</td>
+                        <td >{{eodBalanceCheckData.differenceAmount | number}}</td>
+                        <td >{{eodBalanceCheckData.note}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>

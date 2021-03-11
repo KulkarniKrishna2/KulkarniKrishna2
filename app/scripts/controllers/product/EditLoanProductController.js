@@ -1,6 +1,13 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        EditLoanProductController: function (scope, resourceFactory, location, routeParams, dateFilter, commonUtilService) {
+        EditLoanProductController: function ($controller, scope, resourceFactory, location, routeParams, dateFilter, commonUtilService) {
+            angular.extend(this, $controller('CommonLoanProductController', {$scope: scope}));
+
+            scope.action = routeParams.action;
+            if (routeParams.action && routeParams.action === 'clone') {
+                scope.isCloneLoanProduct = true;
+            };
+
             scope.formData = {};
             scope.restrictDate = new Date();
             scope.charges = [];
@@ -11,12 +18,15 @@
             scope.penaltySpecificIncomeaccounts = [];
             scope.codeValueSpecificAccountMappings = [];
             scope.transactionTypeMappings = [];
+            scope.repeatsOnDayOfMonthOptions = [];
+            scope.selectedOnDayOfMonthOptions = [];
             scope.configureFundOption = {};
             scope.date = {};
             scope.irFlag = false;
             scope.pvFlag = false;
             scope.rvFlag = false;
             scope.tlFlag = false;
+            scope.eventBasedFee = 51;
             scope.interestRecalculationOnDayTypeOptions = commonUtilService.onDayTypeOptions();
 
             scope.INDIVIDUAL_CLIENT = 2;
@@ -210,6 +220,19 @@
                     brokenPeriodInterestCollectAtDisbursement:scope.product.brokenPeriodInterestCollectAtDisbursement,
                     noOfAdvEmiCollection:scope.product.noOfAdvEmiCollection
                 };
+
+                if(scope.product.brokenPeriodDaysInYearType){
+                   scope.formData.brokenPeriodDaysInYearType = scope.product.brokenPeriodDaysInYearType.id;
+                }
+                if(scope.product.brokenPeriodDaysInMonthType){
+                    scope.formData.brokenPeriodDaysInMonthType = scope.product.brokenPeriodDaysInMonthType.id;
+                }
+
+                if(scope.product.partialPeriodType){
+                    scope.existingPartialPeriodType = angular.copy(scope.product.partialPeriodType.id);
+                    scope.formData.partialPeriodType = scope.product.partialPeriodType.id;
+                }
+
                 if(scope.product.isRepaymentAtDisbursement && scope.product.paymentTypeForRepaymentAtDisbursement){
                     scope.formData.paymentTypeIdForRepaymentAtDisbursement = scope.product.paymentTypeForRepaymentAtDisbursement.id;
                 }
@@ -488,6 +511,16 @@
                 scope.formData.canUseForTopup = scope.product.canUseForTopup;
                 scope.formData.allowUpfrontCollection = scope.product.allowUpfrontCollection;
                 scope.formData.allowDisbursementToGroupBankAccounts = scope.product.allowDisbursementToGroupBankAccounts;
+                if(scope.product.repaymentFrequencyNthDayType){
+                    scope.formData.repaymentFrequencyNthDayType = scope.product.repaymentFrequencyNthDayType.id;
+                }
+                if(scope.product.repaymentFrequencyDayOfWeekType){
+                    scope.formData.repaymentFrequencyDayOfWeekType = scope.product.repaymentFrequencyDayOfWeekType.id;
+                }
+                if(scope.product.repeatsOnDayOfMonth && scope.product.repeatsOnDayOfMonth.length>0){
+                    scope.available = scope.product.repeatsOnDayOfMonth;
+                    scope.addMonthDay();
+                }
             });
             scope.variableName = function (minDurationType) {
                 if (minDurationType == 1) {
@@ -503,6 +536,48 @@
                     scope.maxDaysBetweenDisbursalAndFirstRepaymentShow = false;
                 }
             };
+
+            for (var i = 1; i <= 28; i++) {
+                scope.repeatsOnDayOfMonthOptions.push(i);
+            }
+
+            scope.addMonthDay = function () {
+                for (var i in this.available) {
+                    for (var j in scope.repeatsOnDayOfMonthOptions) {
+                        if (scope.repeatsOnDayOfMonthOptions[j] == this.available[i]) {
+                            scope.selectedOnDayOfMonthOptions.push(this.available[i]);
+                            scope.repeatsOnDayOfMonthOptions.splice(j, 1);
+                            break;
+                        }
+                    }
+                }
+                //We need to remove selected items outside of above loop. If we don't remove, we can see empty item appearing
+                //If we remove available items in above loop, all items will not be moved to selectedRoles
+                scope.available = [];
+                scope.selectedOnDayOfMonthOptions.sort(scope.sortNumber);
+            };
+
+            scope.sortNumber = function(a,b)
+            {
+                return a - b;
+            };
+
+            scope.removeMonthDay = function () {
+                for (var i in this.selected) {
+                    for (var j in scope.selectedOnDayOfMonthOptions) {
+                        if (scope.selectedOnDayOfMonthOptions[j] == this.selected[i]) {
+                            scope.repeatsOnDayOfMonthOptions.push(this.selected[i]);
+                            scope.selectedOnDayOfMonthOptions.splice(j, 1);
+                            break;
+                        }
+                    }
+                }
+                //We need to remove selected items outside of above loop. If we don't remove, we can see empty item appearing
+                //If we remove available items in above loop, all items will not be moved to selectedRoles
+                scope.selected = [];
+                scope.repeatsOnDayOfMonthOptions.sort(scope.sortNumber);
+            };
+
             scope.chargeSelected = function (chargeId) {
                 if (chargeId) {
                     resourceFactory.chargeResource.get({
@@ -831,6 +906,7 @@
                 };
 
             };
+
             scope.changeChargeOfPenaltySpecificIncomeAccount = function(oldChargeId) {
                 scope.existPenaltySpecificIncomeaccounts = [];
                 for (var i in scope.product.penaltyToIncomeAccountMappings) {
@@ -845,6 +921,13 @@
                             deletePenaltyAccountMappings.push(scope.existPenaltySpecificIncomeaccounts[0]);
                         }
                     }
+                }
+            };
+
+            scope.editChangeDaysInMonthType = function(){
+                scope.changeDaysInMonthType();
+                if(scope.formData.daysInMonthType === 30 && scope.existingPartialPeriodType){
+                    scope.formData.partialPeriodType = angular.copy(scope.existingPartialPeriodType);
                 }
             };
 
@@ -1145,13 +1228,40 @@
                     delete scope.formData.interestReceivableAndDueAccountId;
                 }
 
-                resourceFactory.loanProductResource.put({loanProductId: routeParams.id}, this.formData, function (data) {
-                    location.path('/viewloanproduct/' + data.resourceId);
-                });
+                if(scope.formData.repaymentFrequencyType == 2){
+                    if(scope.formData.repaymentFrequencyNthDayType == -2){
+                        scope.formData.repeatsOnDayOfMonth = scope.selectedOnDayOfMonthOptions;
+                        delete scope.formData.repaymentFrequencyDayOfWeekType;
+                    } else {
+                        scope.formData.repeatsOnDayOfMonth  = [];
+                    }
+                } else {
+                    delete scope.formData.repaymentFrequencyDayOfWeekType;
+                    scope.formData.repeatsOnDayOfMonth  = [];
+                }
+
+                if(!_.isUndefined(scope.isCloneLoanProduct) && scope.isCloneLoanProduct) {
+                    if(!_.isUndefined(this.formData.interestRatesListPerPeriod) && !this.formData.interestRatesListPerPeriod.length > 0){
+                        delete  this.formData.interestRatesListPerPeriod;
+                    }
+                    if(this.formData.minLoanTerm == null){
+                        delete  this.formData.minLoanTerm;
+                    }
+                    if(this.formData.maxLoanTerm == null){
+                        delete  this.formData.maxLoanTerm;
+                    }
+                    resourceFactory.loanProductResource.save(this.formData, function (data) {
+                        location.path('/viewloanproduct/' + data.resourceId);
+                    });
+                }else{
+                    resourceFactory.loanProductResource.put({loanProductId: routeParams.id}, this.formData, function (data) {
+                        location.path('/viewloanproduct/' + data.resourceId);
+                    });
+                }
             }
         }
     });
-    mifosX.ng.application.controller('EditLoanProductController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', 'CommonUtilService', mifosX.controllers.EditLoanProductController]).run(function ($log) {
+    mifosX.ng.application.controller('EditLoanProductController', ['$controller', '$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', 'CommonUtilService', mifosX.controllers.EditLoanProductController]).run(function ($log) {
         $log.info("EditLoanProductController initialized");
     });
 }(mifosX.controllers || {}));

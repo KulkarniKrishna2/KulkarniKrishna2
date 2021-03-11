@@ -12,6 +12,7 @@
             scope.showAsTextBox = true;
             scope.formData = {};
             scope.first = {};
+            scope.disableMeetingDate = false;
             scope.disbursementDateFound = false;
             scope.expectedDisbursementOnDate = null;
             scope.hideCenterMeetingEdit = true;
@@ -43,53 +44,6 @@
             }
 
            function initTask() {
-               resourceFactory.centerWorkflowResource.get({
-                   centerId: scope.groupOrCenterId,
-                   eventType: scope.eventType,
-                   associations: 'groupMembers, loanaccounts, collectionMeetingCalendar'
-               }, function (data) {
-                   scope.centerMeetingData = data;
-                   scope.isEditExpectedDisbursementDateOnly = false;
-                   scope.formData.expectedDisbursementDate = new Date();
-                   scope.expectedDisbursementOnDate  = dateFilter(new Date(),scope.df);
-                                    
-                   if (scope.centerMeetingData && scope.centerMeetingData.collectionMeetingCalendar && scope.centerMeetingData.collectionMeetingCalendar.calendarInstanceId) {
-                       scope.isCenterMeetingAttached = true;
-                       scope.isCenterMeetingEdit = false;
-                       var today = new Date();
-                       if (scope.centerMeetingData.collectionMeetingCalendar.meetingTime) {
-                           scope.meetingTime = new Date(scope.centerMeetingData.collectionMeetingCalendar.meetingTime.iLocalMillis + (today.getTimezoneOffset() * 60 * 1000));
-                       }
-                        for(var i in scope.centerMeetingData.subGroupMembers){
-                            for(var j in scope.centerMeetingData.subGroupMembers[i].memberData){
-                                 if(scope.centerMeetingData.subGroupMembers[i].memberData[j].loanAccountBasicData && scope.centerMeetingData.subGroupMembers[i].memberData[j].loanAccountBasicData.status.code === 'loanStatusType.approved'){
-                                       var actualExpectedDisburseDate = dateFilter(new Date(scope.centerMeetingData.subGroupMembers[i].memberData[j].loanAccountBasicData.expectedDisbursementOnDate),scope.df);
-                                            scope.formData.expectedDisbursementDate = actualExpectedDisburseDate;
-                                            scope.expectedDisbursementOnDate = actualExpectedDisburseDate;             
-                                 }       
-                            }       
-                       }                     
-                   }
-                   if (scope.formData.expectedDisbursementDate != undefined) {
-                       var maxDaysCount = 1000 * 60 * 60 * 24 * scope.maxDaysLimit;
-                       scope.minMeetingDate = scope.formData.expectedDisbursementDate;
-                       var date = new Date(dateFilter(scope.formData.expectedDisbursementDate, scope.df));
-                       scope.maxMeetingDate = new Date(scope.formData.expectedDisbursementDate.getTime() + maxDaysCount);
-                   }
-                   var weekday = new Array(7);
-                   weekday[0] = "Sunday";
-                   weekday[1] = "Monday";
-                   weekday[2] = "Tuesday";
-                   weekday[3] = "Wednesday";
-                   weekday[4] = "Thursday";
-                   weekday[5] = "Friday";
-                   weekday[6] = "Saturday";
-                   var disbursedate = new Date(dateFilter(scope.formData.expectedDisbursementDate, scope.df));
-                   scope.disbursementDay = weekday[disbursedate.getDay()];
-               });
-           };
-        
-        initTask(); 
             resourceFactory.attachMeetingResource.get({
                 groupOrCenter: scope.entityType, groupOrCenterId: scope.groupOrCenterId,
                 templateSource: 'template'
@@ -104,12 +58,19 @@
                     { id: 3, value: "monthly" },
                     { id: 4, value: "yearly" }
                 ];
+                
                 if (scope.meetingReccurenceOptions && scope.meetingReccurenceOptions.length > 0) {
+                    var repeatoptionsArray = [];
+                    var retainRepeatOptions = [];
                     for(var i in scope.repeatsOptions){
-                        if(!scope.meetingReccurenceOptions.includes(scope.repeatsOptions[i].value)){
-                            scope.repeatsOptions.splice(i, 1);
+                        repeatoptionsArray.push(scope.repeatsOptions[i].value);
+                    }
+                    for(var i in scope.repeatsOptions){
+                        if(scope.meetingReccurenceOptions.includes(repeatoptionsArray[i])){
+                            retainRepeatOptions.push(scope.repeatsOptions[i]);
                         }
                     }
+                    scope.repeatsOptions = retainRepeatOptions;
                 }
                 //scope.repeatsEveryOptions = ["1", "2", "3", "4", "5"];
                 //to display default in select boxes
@@ -118,31 +79,92 @@
                     frequency: '0',
                     interval: '1'
                 }
-                scope.formData.frequency = scope.repeatsOptions[1].id;
-                scope.formData.interval = '2';
-                scope.periodValue = "week(s)";
-                scope.showAsTextBox = false;
-               
-                scope.repeatsOnOptions = [
-                    { name: "MON", value: "1" },
-                    { name: "TUE", value: "2" },
-                    { name: "WED", value: "3" },
-                    { name: "THU", value: "4" },
-                    { name: "FRI", value: "5" },
-                    { name: "SAT", value: "6" },
-                    { name: "SUN", value: "7" }
-                ]
+                if(scope.repeatsOptions[1]){
+                    scope.formData.frequency = scope.repeatsOptions[1].id;
+                    scope.formData.interval = '2';
+                }else {
+                    scope.formData.frequency = scope.repeatsOptions[0].id;
+                } 
+                scope.selectedPeriod(scope.formData.frequency);          
+                
                 scope.tempFormData.meetingTime = new Date();
                 scope.locationOptions = data.meetingLocations;
+
+                resourceFactory.centerWorkflowResource.get({
+                    centerId: scope.groupOrCenterId,
+                    eventType: scope.eventType,
+                    associations: 'groupMembers, loanaccounts, collectionMeetingCalendar'
+                }, function (data) {
+                    scope.centerMeetingData = data;
+                    scope.isEditExpectedDisbursementDateOnly = false;
+                    scope.formData.expectedDisbursementDate = new Date();
+                    scope.expectedDisbursementOnDate  = dateFilter(new Date(),scope.df);
+                                     
+                    if (scope.centerMeetingData && scope.centerMeetingData.collectionMeetingCalendar && scope.centerMeetingData.collectionMeetingCalendar.calendarInstanceId) {
+                        scope.isCenterMeetingAttached = true;
+                        scope.isCenterMeetingEdit = false;
+                        var today = new Date();
+                        if (scope.centerMeetingData.collectionMeetingCalendar.meetingTime) {
+                            scope.meetingTime = new Date(scope.centerMeetingData.collectionMeetingCalendar.meetingTime.iLocalMillis + (today.getTimezoneOffset() * 60 * 1000));
+                        }
+                         for(var i in scope.centerMeetingData.subGroupMembers){
+                             for(var j in scope.centerMeetingData.subGroupMembers[i].memberData){
+                                  if(scope.centerMeetingData.subGroupMembers[i].memberData[j].loanAccountBasicData && scope.centerMeetingData.subGroupMembers[i].memberData[j].loanAccountBasicData.status.code === 'loanStatusType.approved'){
+                                        var actualExpectedDisburseDate = dateFilter(new Date(scope.centerMeetingData.subGroupMembers[i].memberData[j].loanAccountBasicData.expectedDisbursementOnDate),scope.df);
+                                             scope.formData.expectedDisbursementDate = actualExpectedDisburseDate;
+                                             scope.expectedDisbursementOnDate = actualExpectedDisburseDate;             
+                                  }       
+                             }       
+                        }                     
+                    }
+                    if (scope.formData.expectedDisbursementDate != undefined) {
+                        var maxDaysCount = 1000 * 60 * 60 * 24 * scope.maxDaysLimit;
+                        scope.minMeetingDate = scope.formData.expectedDisbursementDate;
+                        var date = new Date(dateFilter(scope.formData.expectedDisbursementDate, scope.df));
+                        scope.maxMeetingDate = new Date(scope.formData.expectedDisbursementDate.getTime() + maxDaysCount);
+                    }
+                    if(isAllowOnlyCurrentMeetingdate()){
+                        scope.minMeetingDate = new Date();
+                        scope.maxMeetingDate = scope.minMeetingDate;
+                        scope.first.date = scope.minMeetingDate;
+                        scope.disableMeetingDate = true;
+                    }
+                    var weekday = new Array(7);
+                    weekday[0] = "Sunday";
+                    weekday[1] = "Monday";
+                    weekday[2] = "Tuesday";
+                    weekday[3] = "Wednesday";
+                    weekday[4] = "Thursday";
+                    weekday[5] = "Friday";
+                    weekday[6] = "Saturday";
+                    var disbursedate = new Date(dateFilter(scope.formData.expectedDisbursementDate, scope.df));
+                    scope.disbursementDay = weekday[disbursedate.getDay()];
+                });
             });
+               
+           };
+        
+        initTask(); 
+
+            function isAllowOnlyCurrentMeetingdate() {
+                if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.meeting && scope.response.uiDisplayConfigurations.meeting.create) {
+                    var createMeetingUiConfig = scope.response.uiDisplayConfigurations.meeting.create;
+                    if (createMeetingUiConfig.selectMeetingDateType === 'allowOnlyCurrentDate') {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            
 
             scope.selectedPeriod = function (period) {
+                scope.disableMeetingDate = false;
                 if (period == 1) {
                     scope.repeatsEveryOptions = ["1", "2", "3"];
                     scope.periodValue = "day(s)"
                     scope.showAsTextBox = true;
                 }
-                if (period == 2) {
+                else if (period == 2) {
                     //scope.repeatsEveryOptions = ["1", "2", "3", "4", "5"];
                     scope.formData.repeatsOnDay = '2';
                     scope.periodValue = "week(s)";
@@ -157,7 +179,7 @@
                     ]
                     scope.showAsTextBox = false;
                 }
-                if (period == 3) {
+                else if (period == 3) {
                     scope.periodValue = "month(s)";
                     scope.repeatsEveryOptions = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"];
                     scope.frequencyNthDayOptions = [
@@ -178,8 +200,9 @@
                         { name: "SUN", value: "7" }
                     ];
                     scope.showAsTextBox = false;
+                    scope.disableMeetingDate = true;
                 }
-                if (period == 4) {
+                else if (period == 4) {
                     scope.periodValue = "year(s)";
                     scope.repeatsEveryOptions = ["1", "2", "3"];
                     scope.showAsTextBox = true;
@@ -191,13 +214,23 @@
                     var maxDaysCount = 1000 * 60 * 60 * 24 * scope.maxDaysLimit;
                     scope.minMeetingDate = scope.formData.expectedDisbursementDate;
                     scope.maxMeetingDate = new Date(scope.formData.expectedDisbursementDate.getTime()+maxDaysCount);
-                    scope.first.date = null;
+                    if(!isAllowOnlyCurrentMeetingdate()){
+                        scope.first.date = null;
+                        
+                    } 
+                    
+                }
+                if(isAllowOnlyCurrentMeetingdate()){
+                    if(scope.isCenterMeetingEdit == true && scope.disableMeetingDate === true){
+                        scope.disableMeetingDate = false;
+                    }
                 }
             });
 
             scope.$watch('first.date', function() {
                 if (scope.first.date && new Date(dateFilter(scope.first.date, scope.df)) > new Date(dateFilter(scope.maxMeetingDate, scope.df))) {
                     scope.first.date = null;
+                    alert(2);
                 }
             });
 
@@ -313,6 +346,10 @@
 
             scope.updateMeeting = function (data,isCenterMeetingEdit) {
                 scope.isCenterMeetingEdit = isCenterMeetingEdit;
+                var existingExpectedDisbursementDate = undefined;
+                angular.copy(scope.formData.expectedDisbursementDate, existingExpectedDisbursementDate);
+                scope.formData.expectedDisbursementDate = new Date();
+                scope.formData.expectedDisbursementDate = existingExpectedDisbursementDate;
                 scope.isEditExpectedDisbursementDateOnly = !isCenterMeetingEdit;
                 if(isCenterMeetingEdit){
                     scope.isCenterMeetingAttached = false;

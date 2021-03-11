@@ -16,6 +16,9 @@
             scope.showPreclosureReason = false;
             scope.isPaymentModeMandatory = false;
             scope.isPaymentTypeMandatory = false;
+            scope.backDatedReasonMandatory = false;
+            scope.backDatedTxn = false;
+            scope.backDatedTxnError = false;
             if(scope.response && scope.response.uiDisplayConfigurations) {
                 if (scope.response.uiDisplayConfigurations.preClose && scope.response.uiDisplayConfigurations.preClose.hiddenFields) {
                     scope.isPaymentTypeHidden = scope.response.uiDisplayConfigurations.preClose.hiddenFields.paymentType;
@@ -23,6 +26,7 @@
                 if (scope.response.uiDisplayConfigurations.loanAccount.isMandatory) {
                     scope.isPaymentModeMandatory = scope.response.uiDisplayConfigurations.loanAccount.isMandatory.transactionPaymentMode;
                     scope.isPaymentTypeMandatory = scope.response.uiDisplayConfigurations.loanAccount.isMandatory.transactionPaymentType;
+                    scope.backDatedReasonMandatory = scope.response.uiDisplayConfigurations.loanAccount.isMandatory.backDatedReason;
                 }                    
             }
             scope.showPreclosureReason = scope.response.uiDisplayConfigurations.loanAccount.isMandatory.isPreclosureReasonEnabled;
@@ -55,7 +59,7 @@
                     scope.formData.outstandingPrincipalPortion = scope.foreclosuredata.principalPortion;
                     scope.formData.outstandingInterestPortion = scope.foreclosuredata.interestPortion;
                     scope.paymentModeOptions = scope.foreclosuredata.paymentModeOptions;
-                    scope.paymentTypeOptions = scope.foreclosuredata.paymentTypeOptions;
+                    //scope.paymentTypeOptions = scope.foreclosuredata.paymentTypeOptions;
                     if (scope.foreclosuredata.unrecognizedIncomePortion) {
                         scope.formData.interestAccruedAfterDeath = scope.foreclosuredata.unrecognizedIncomePortion;
                     }
@@ -122,6 +126,7 @@
             };
 
             scope.submit = function () {
+                scope.backDatedTxnError = false;
                 if(this.formData.accountNumber || this.formData.checkNumber || this.formData.routingCode || this.formData.receiptNumber || this.formData.bankNumber){
                     if(_.isUndefined(this.formData.paymentTypeId) || this.formData.paymentTypeId == null) {
                         scope.errorDetails = [];
@@ -148,9 +153,14 @@
                     preclosureReasonId : this.formData.codeReasonId,
                     reasonDescription : this.formData.reasonDescription
                 };
+                if(scope.backDatedTxn==true && (this.formData.note==undefined || this.formData.note=="")){
+                    scope.backDatedTxnError = true;
+                    return false;
+                }
                 resourceFactory.loanTrxnsResource.save({loanId: routeParams.id, command: 'foreclosure'}, scope.foreclosureFormData, function(data) {
                     location.path('/viewloanaccount/' + scope.accountId);
                 });
+                
             };
 
             scope.cancel = function () {
@@ -160,6 +170,30 @@
             scope.getStatusCode = function () {
                 return loanDetailsService.getStatusCode(scope.loandetails);
             };
+
+            scope.$watch('formData.transactionDate', function() {
+                scope.backDatedTxn = false;
+                scope.backDatedTxnError = false;
+                var txndate = dateFilter(scope.formData.transactionDate, scope.df) ;
+                txndate = txndate+"";
+                var date = dateFilter(new Date(), scope.df) ;
+                date = date+"";
+                if(!(txndate==date) && scope.backDatedReasonMandatory==true){
+                    scope.backDatedTxn = true;
+                }
+            });
+
+            scope.checkNote = function(){
+                if(scope.backDatedTxn==true){
+                    if(scope.formData.note.length>0){
+                        scope.backDatedTxnError = false;
+                    }else{
+                        scope.backDatedTxnError = true;
+                    }
+                            
+                }                
+            }
+
         }
     });
     mifosX.ng.application.controller('LoanForeclosureController', ['$scope', '$routeParams', '$rootScope', 'ResourceFactory', '$location', '$route', '$http', '$modal', 'dateFilter','$filter', 'LoanDetailsService' , mifosX.controllers.LoanForeclosureController]).run(function ($log) {

@@ -1,12 +1,26 @@
 {
-"label.heading.companyname":"Digamber Finance",
-"label.anchor.kotak.approval" : "Head Office Approval",
-"label.tab.kotak.approval.loans" : "Approved Loans",
-"label.tab.kotak.reject.loans" : "Rejected Loans",
-"KotakApproved": "Approved",
-"KotakRejected": "Rejected",
-"label.heading.summary.penalties": "Broken period interest",
-
-
-"------ end of translation file ------": "----------"
+    "label.heading.companyname": "Digamber Finance",
+    "label.anchor.kotak.approval": "Head Office Approval",
+    "label.tab.kotak.approval.loans": "Approved Loans",
+    "label.tab.kotak.reject.loans": "Rejected Loans",
+    "KotakApproved": "Approved",
+    "KotakRejected": "Rejected",
+    "label.heading.summary.penalties": "Broken period interest",
+    "label.input.talukname": "Tehsil",
+    "label.menu.selectTaluka": "Select Tehsil",
+    "label.button.applypenalties": "Apply Broken Period Interest",
+    "label.heading.penalties": "BP Interest",
+    "label.heading.penalty.amount": "BP Interest amount",
+    "label.heading.talukname": "Tehsil",
+    "label.heading.taluka.name" : "Tehsil Name",
+    "label.heading.taluka.code" : "Tehsil Code",
+    "label.heading.taluk": "Tehsil",
+    "label.button.createtaluka" : "Create Tehsil",
+    "label.anchor.createtaluka" : "Create Tehsil",
+    "label.input.taluka.name" : "Tehsil Name",
+    "label.input.talukacode" : "Tehsil Code",
+    "label.heading.createtaluka" : "Create Tehsil",
+    "error.msg.taluka.with.id.can.not.be.deleted" :"Tehsil can not be deleted.",
+    "error.msg.taluka.already.exist" : "Tehsil with name `{{params[0].value}}` already exist.",
+    "------ end of translation file ------": "----------"
 }

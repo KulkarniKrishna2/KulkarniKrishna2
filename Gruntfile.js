@@ -366,6 +366,7 @@ module.exports = function(grunt) {
     var lastCommitYear = lastCommitDate.getFullYear();
     var fullBranch= grunt.config('gitinfo.fullBranch');
     var tag = grunt.config('gitinfo.local.branch.current.tag');
+    var localbranch = grunt.config('gitinfo.local.branch.current.name');
 
     var branch =  !!fullBranch ? fullBranch.split(/[//]+/).pop():grunt.config('gitinfo.local.branch.current.name');
     
@@ -375,8 +376,9 @@ module.exports = function(grunt) {
     grunt.log.writeln("lastCommitDate: " + lastCommitDate);
     grunt.log.writeln("tag: " + tag);
     grunt.log.writeln("branch: " + branch)
+    grunt.log.writeln("localbranch: " + localbranch)
     grunt.file.write('app/version.json', JSON.stringify({
-	    version: !!tag?tag:branch,
+      version: localbranch,
             commit: localShortSha,
             releasedate: lastCommitDateStr,
             releaseyear: lastCommitYear,

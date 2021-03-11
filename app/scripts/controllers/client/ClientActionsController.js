@@ -11,6 +11,10 @@
             scope.forceActivateClientPermission = 'FORCE_ACTIVATE_CLIENT';
             scope.loanApplicationReferenceId = routeParams.loanApplicationReferenceId;
             scope.showDedupeTag = false;
+            scope.isDisableActivationDate = false;
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isDisabled.activationDate) {
+                scope.isDisableActivationDate = scope.response.uiDisplayConfigurations.createClient.isDisabled.activationDate;
+            }
 
             // Transaction UI Related
 
@@ -45,6 +49,7 @@
                     scope.showActivationDateField = true;
                     scope.showDateField = false;
                     scope.taskPermissionName = 'ACTIVATE_CLIENT';
+                    scope.formData.activationDate = new Date();
                     break;
                 case "assignstaff":
                     scope.breadcrumbName = 'label.anchor.assignstaff';
@@ -160,6 +165,7 @@
                     scope.showActivationDateField = true;
                     scope.showDateField = false;
                     scope.taskPermissionName = 'REACTIVATE_CLIENT';
+                    scope.formData.reactivationDate = new Date();
                     break;
                 case "undoReject":
                     resourceFactory.clientResource.get({clientId: routeParams.id}, function (data) {
@@ -216,6 +222,14 @@
             }
             scope.cancel = function () {
                 location.path('/viewclient/' + routeParams.id);
+            }
+
+            scope.disableActivationDate = function (action) {
+                if (action == "activationDate" || action == "reactivationDate") {
+                    return scope.isDisableActivationDate;
+                } else {
+                    return false;
+                }
             }
 
             scope.matchClient = function(clientId){

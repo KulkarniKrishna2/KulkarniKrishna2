@@ -35,6 +35,7 @@
                                 var clientLevelCriteriaObj = scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelCriteriaResultData;
                                 scope.centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = false;
                                 scope.centerDetails.subGroupMembers[i].memberData[j].allowLoanRejection = false;
+                                scope.centerDetails.subGroupMembers[i].memberData[j].filteredCharges = scope.filterCharges(scope.centerDetails.subGroupMembers[i].memberData[j].loanAccountBasicData.charges);
                                 if (clientLevelTaskTrackObj == undefined) {
                                     scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
                                     scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-none";
@@ -83,6 +84,9 @@
                     scope.isSingleGroupInCenter = true;
                     resourceFactory.cgtDetailsResource.get({ groupId: groupId }, function (data) {
                         scope.cgtDetails = data;
+                        var today = new Date();
+                        scope.cgtStartTime = new Date(data.cgtStartTime.iLocalMillis + (today.getTimezoneOffset() * 60 * 1000));
+                        scope.cgtEndTime = new Date(data.cgtEndTime.iLocalMillis + (today.getTimezoneOffset() * 60 * 1000));
                     });
                     getCGTDocuments();
                 } else {
@@ -133,12 +137,15 @@
                 };
             };
 
-            scope.filterCharges = function (chargeData, categoryId) {
-                if (chargeData != undefined) {
+            scope.filterCharges = function (chargeData) {
+                if (!_.isUndefined(chargeData)) {
                     var chargesCategory = _.groupBy(chargeData, function (value) {
+                        if(_.isUndefined(value.chargeCategoryType)){
+                            return;
+                        }
                         return value.chargeCategoryType.id;
                     });
-                    return chargesCategory[categoryId];
+                    return chargesCategory;
                 }
             }
 
@@ -167,6 +174,10 @@
             scope.editLoan = function (loanAccountBasicData, groupId) {
                 scope.groupId = groupId;
                 scope.loanAccountBasicData = loanAccountBasicData;
+                if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow &&
+                    scope.response.uiDisplayConfigurations.workflow.isReadOnlyField) {
+                    scope.isLoanProductReadOnly = scope.response.uiDisplayConfigurations.workflow.isReadOnlyField.loanProductForSpecificSteps;
+                }
                 var templateUrl = 'views/task/popup/editLoan.html';
                 var controller = 'EditLoanController';
                 popUpUtilService.openFullScreenPopUp(templateUrl, controller, scope);

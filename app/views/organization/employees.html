@@ -34,7 +34,7 @@
         </thead>
         <tbody>
         <tr class="pointer-main" dir-paginate="employee in employees | filter:filterText | itemsPerPage: staffPerPage" total-items="totalStaff">
-            <td class="pointer" data-ng-click="routeTo(employee.id)">{{employee.displayName}}</td>
+            <td class="pointer" data-ng-click="routeTo(employee.id)">{{employee.firstname}}&nbsp;&nbsp;{{employee.lastname}}</td>
             <td class="pointer" data-ng-click="routeTo(employee.id)">{{employee.isLoanOfficer}}</td>
             <td class="pointer" data-ng-click="routeTo(employee.id)">{{employee.officeName}}</td>
             <td class="pointer" data-ng-click="routeTo(employee.id)">{{employee.isActive}}</td>

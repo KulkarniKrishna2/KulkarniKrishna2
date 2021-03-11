@@ -1,6 +1,10 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         EditChargeController: function (scope, resourceFactory, location, routeParams, dateFilter) {
+            scope.action = routeParams.action;
+            if (routeParams.action && routeParams.action === 'clone') {
+                scope.isCloneChargeProduct = true;
+            };
             scope.template = [];
             scope.showdatefield = false;
             scope.repeatEvery = false;
@@ -17,6 +21,8 @@
             scope.roundingModeOptions = [];
             scope.chargeAppliesToLoan = 1;
             scope.showChargeCategoryType = false;
+            scope.showEventTypeOptions = false;
+            scope.chargeEventsTypeOptions = [];
 
             if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createCharges &&
                 scope.response.uiDisplayConfigurations.createCharges.isHiddenField) {
@@ -24,6 +30,7 @@
             }
             resourceFactory.chargeResource.getCharge({chargeId: routeParams.id, template: true}, function (data) {
                 scope.template = data;
+                scope.chargeEventsTypeOptions = data.chargeEventsTypeOptions;
                 scope.incomeAccountOptions = data.incomeOrLiabilityAccountOptions.incomeAccountOptions || [];
                 scope.liabilityAccountOptions = data.incomeOrLiabilityAccountOptions.liabilityAccountOptions || [];
                 scope.incomeAndLiabilityAccountOptions = scope.incomeAccountOptions.concat(scope.liabilityAccountOptions);
@@ -38,6 +45,9 @@
                     scope.showEmiRoundingGoalSeek = true;
                     scope.showMinimunCapping = true;
                     scope.showMaximumCapping = true;
+                    if(data.chargeEventType){
+                        scope.showEventTypeOptions = true;
+                    }
                 } else if (data.chargeAppliesTo.value === "Savings") {
                     scope.chargeTimeTypeOptions = data.savingsChargeTimeTypeOptions;
                     scope.template.chargeCalculationTypeOptions = scope.template.savingsChargeCalculationTypeOptions;
@@ -100,6 +110,9 @@
                     scope.showSlabBasedCharges = true;
                 } else {
                     scope.showSlabBasedCharges = false;
+                }
+                if(scope.showEventTypeOptions == true){
+                    scope.formData.chargeEventType = data.chargeEventType.id;
                 }
                 showCapitalizedChargeCheckbox();
 
@@ -198,6 +211,12 @@
                     scope.formData.overdueChargeDetail = {};
                 }else{
                     delete  scope.formData.overdueChargeDetail;
+                }
+                scope.showEventTypeOptions = (chargeTimeType==51);
+                if(scope.showEventTypeOptions==false){
+                    scope.formData.chargeEventType = undefined;
+                }else{
+                    scope.formData.chargeEventType = scope.chargeEventsTypeOptions[0].id;
                 }
                 if (scope.formData.chargeAppliesTo === 2 || scope.formData.chargeAppliesTo === 3) {
                     for (var i in scope.template.chargeTimeTypeOptions) {
@@ -365,9 +384,22 @@
                 if(this.formData.emiRoundingGoalSeek != true){
                     this.formData.glimChargeCalculation = undefined;
                 }
-                resourceFactory.chargeResource.update({chargeId: routeParams.id}, this.formData, function (data) {
-                    location.path('/viewcharge/' + data.resourceId);
-                });
+
+                if (!_.isUndefined(scope.isCloneChargeProduct) && scope.isCloneChargeProduct) {
+                    if(_.isEmpty(this.formData.minCap)){
+                        delete  this.formData.minCap;
+                    }
+                    if(_.isEmpty(this.formData.maxCap)){
+                        delete  this.formData.maxCap;
+                    }
+                    resourceFactory.chargeResource.save(this.formData, function (data) {
+                        location.path('/viewcharge/' + data.resourceId);
+                    });
+                } else {
+                    resourceFactory.chargeResource.update({ chargeId: routeParams.id }, this.formData, function (data) {
+                        location.path('/viewcharge/' + data.resourceId);
+                    });
+                }
             };
         }
     });

@@ -54,7 +54,8 @@
 				"transactionPaymentType": false,
 				"graceOnPrincipalPayment": false,
 				"graceOnInterestPayment": false,
-				"recurringMoratoriumOnPrincipalPeriods": false
+				"recurringMoratoriumOnPrincipalPeriods": false,
+				"backDatedReason": false
 			},
 			"isHiddenSection": {
 				"interestRecalculationSection": false,
@@ -64,7 +65,9 @@
 				"nextRepaymentDateDisburseScreen": false,
 				"adjustRepaymentDateDisburseScreen": false,
 				"retryBankTransaction": true,
-				"isDeferPaymentsForHalfTheLoanTerm": false
+				"isDeferPaymentsForHalfTheLoanTerm": false,
+				"interestRate" : true,
+				"flatInterestRate": true
 			},
 			"isReadOnlyField": {
 				"externalId": false,
@@ -142,7 +145,8 @@
 				"createLoanApplication": false,
 				"blackList": true,
 				"whiteList": true,
-				"crnNumber" : true
+				"crnNumber" : true,
+				"makeCall" : true
 			},
 			"familyDeatils": {
 				"isHiddenField": {
@@ -161,8 +165,8 @@
 				"isValidateDOBField": {
 					"active": false,
 					"ageCriteria": {
-						"minAge": "",
-						"maxAge": ""
+						"minAge": "0",
+						"maxAge": "130"
 					}
 				},
 				"isValidateFirstName": {
@@ -267,6 +271,10 @@
 			},
 			"isValidateFirstName": {
 				"firstNamePattern": "/^[a-zA-Z\\s]*$/"
+			},
+			"isDisabled":{
+				"submittedOnDate": false,
+				"activationDate": false
 			},
 			"defaultMobileNumber": ""
 		},
@@ -498,7 +506,8 @@
 			"hideReject": false,
 			"isReadOnlyField": {
 				"createSubGroupDate": false,
-				"loanProduct": true
+				"loanProduct": true,
+				"loanProductForSpecificSteps": true
 			},
 			"initiateWorkflow": {
 				"showInitiateOnCompletion": false
@@ -556,7 +565,8 @@
 				"interestRatePerPeriod": false,
 				"disbursementPaymentMode": false,
 				"amountForUpfrontCollection": false,
-				"disbursementPaymentType":false
+				"disbursementPaymentType":false,
+				"loanOfficer": false
 			},
 			"isMandatory": {
 				"trancheData": false,
@@ -593,6 +603,9 @@
 					"showAllMeetingDates": true,
 					"count": null
 				}
+			},
+			"mandatory":{
+				"loanUtilization": true
 			}
 		},
 		"createOffice": {
@@ -694,7 +707,12 @@
 		},
 		"editCenter": {
 			"isReadOnlyField": {
-				"activationDate": false
+				"activationDate": false,
+				"name": false
+			},
+			"isHiddenField": {
+				"villageOptions": false,
+				"staffOptions": false
 			}
 		},
 		"loanproduct": {
@@ -760,20 +778,27 @@
 		"documentConfiguration": {
 			"restrictTaggedDocuments": false
 		},
-		"editCenter": {
-			"isReadOnlyField": {
-				"name": false
-			},
-			"isHiddenField": {
-				"villageOptions": false,
-				"staffOptions": false
-			}
-		},
 		"centerTransfer": {
 			"isMandatory": {
 				"toVillage": true,
 				"toStaff": true
 			}
-		}	
+		},
+		"bankTransaction": {
+			"submitForTransferOnRetry": false
+		},
+		"loanrestructure": {
+			"isHiddenField": {
+				"editButton":true
+			}
+		},
+		"user": {
+			"isMandatory": {
+				"externalId":true
+			},
+			"isReadOnlyField": {
+				"externalId": true
+			}
+		}
 	}
 }

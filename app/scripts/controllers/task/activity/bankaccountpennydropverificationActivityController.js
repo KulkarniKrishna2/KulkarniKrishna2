@@ -1,20 +1,52 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         bankaccountpennydropverificationActivityController: function (scope, resourceFactory) {
+            
+            scope.bankAccountPDVUI = {
+                "isInitiated": false
+            };
+
             function getBankAccountDetails() {
-                resourceFactory.bankAccountDetailsResource.get({ entityType: scope.entityType, entityId: scope.entityId, bankAccountDetailsId: scope.bankAccountDetailsId }, function (data) {
-                    var bankAccountData = {
-                        bankAccountData: {
+                if (!(scope.commonConfig && scope.commonConfig.bankAccountData.bankAccountDetailsData)) {
+                    resourceFactory.bankAccountDetailsTemplateResource.get({
+                        entityType: scope.entityType,
+                        entityId: scope.entityId
+                    }, function (templateData) {
+                        resourceFactory.bankAccountDetailsResource.get({
                             entityType: scope.entityType,
-                            entityId: scope.entityId, bankAccountDetailsId: scope.bankAccountDetailsId,
-                            eventType: scope.eventType,
-                            bankAccountDetailsData: data,
-                            isAllowPennyDropTransaction: true,
-                            isAllowOnlyPennyDropAction: true
-                        }
+                            entityId: scope.entityId,
+                            bankAccountDetailsId: scope.bankAccountDetailsId
+                        }, function (data) {
+                            var bankAccountData = {
+                                bankAccountData: {
+                                    entityType: scope.entityType,
+                                    entityId: scope.entityId,
+                                    bankAccountDetailsId: scope.bankAccountDetailsId,
+                                    templateData: templateData,
+                                    bankAccountDetailsData: data
+                                }
+                            };
+                            initiateUIDisplay(bankAccountData);
+                        });
+                    });
+                } else {
+                    var bankAccountData = {
+                        bankAccountData: scope.commonConfig.bankAccountData
                     };
-                    angular.extend(scope.commonConfig, bankAccountData);
-                });
+                    initiateUIDisplay(bankAccountData);
+                }
+            }
+
+            function initiateUIDisplay(bankAccountData) {
+                bankAccountData.bankAccountData.isAllowPennyDropTransaction = true;
+                bankAccountData.bankAccountData.isAllowOnlyPennyDropAction = true;
+                bankAccountData.bankAccountData.eventType = scope.eventType;
+
+                angular.extend(scope.commonConfig, bankAccountData);
+
+                scope.viewUIConfig.isTask = true;
+
+                scope.bankAccountPDVUI.isInitiated = true;
             }
 
             function initTask() {
@@ -24,7 +56,6 @@
                 if(_.isUndefined(scope.commonConfig)){
                     scope.commonConfig = {};
                 }
-                scope.viewUIConfig.isTask = true;
                 if (scope.taskconfig.hasOwnProperty('entityType')) {
                     scope.entityType = scope.taskconfig['entityType'];
                     switch (scope.entityType) {

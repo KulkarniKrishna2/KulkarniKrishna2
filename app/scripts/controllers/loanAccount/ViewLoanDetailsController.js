@@ -49,6 +49,8 @@
             scope.showEditActiveLoan = true;
             scope.isNPA = false;
             scope.loanSchedule = [];
+            scope.submitBankTransactionForTransferOnRetry = false;
+            scope.isWorkflowEnabled = scope.isSystemGlobalConfigurationEnabled('work-flow');
             
             scope.showBankApprovalStatus = false;
             scope.displayInterestRateFromProduct = false;
@@ -57,6 +59,8 @@
                 scope.hideWriteoff = scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.writeOff;
                 scope.hidePreviewSchedule = scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.previewSchedule;
                 scope.showSavingToDisburse = scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.linkAccountId;
+                scope.showInterestRate = scope.response.uiDisplayConfigurations.loanAccount.isShowField.interestRate;
+                scope.showFlatInterestRate = scope.response.uiDisplayConfigurations.loanAccount.isShowField.flatInterestRate;
                 if (scope.response.uiDisplayConfigurations.viewLoanAccountDetails) {
                     scope.showBankApprovalStatus = scope.response.uiDisplayConfigurations.viewLoanAccountDetails.displayBankApprovalStatus;
                     scope.displayInterestRateFromProduct = scope.response.uiDisplayConfigurations.viewLoanAccountDetails.displayInterestRateFromProduct;
@@ -76,6 +80,9 @@
                         scope.showEditActiveLoan = !scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.editActiveLoan;
                     }
                 }
+                if (scope.response.uiDisplayConfigurations.bankTransaction) {
+                    scope.submitBankTransactionForTransferOnRetry = scope.response.uiDisplayConfigurations.bankTransaction.submitForTransferOnRetry;
+                }  
             }
             if (scope.showBankApprovalStatus) {
                 resourceFactory.bankApprovalStatusResource.get({ loanId: routeParams.id }, function (bankLoanStatusData) {
@@ -91,6 +98,7 @@
             scope.pendingTransaction = 4;
             scope.initiatedTransaction = 3;
             scope.errorTransaction = 8;
+            scope.rejectedTransaction = 10;
             scope.enableClientVerification = scope.isSystemGlobalConfigurationEnabled('client-verification');
             scope.canForceDisburse = false;
             scope.allowBankAccountsForGroups = scope.isSystemGlobalConfigurationEnabled('allow-bank-account-for-groups');
@@ -1095,8 +1103,20 @@
                         if (associations === 'repaymentSchedule' || associations === 'repaymentSchedule,originalSchedule') {
                             scope.isRepaymentSchedule = true;
                             scope.loandetails.originalSchedule = scope.loanSpecificData.originalSchedule;
+                            if(!_.isUndefined(scope.loandetails.originalSchedule)){
+                                scope.originalSchedule =  scope.loandetails.originalSchedule;
+                                if(!_.isUndefined(scope.originalSchedule.loanScheduleHistoryData)){
+                                    scope.originalScheduleVersion = scope.originalSchedule.loanScheduleHistoryData.historyVersion;
+                                    if(scope.originalSchedule.loanScheduleHistoryData.createdDate == undefined){
+                                        scope.originalScheduleCreatedDate = '';
+                                    }else{
+                                        scope.originalScheduleCreatedDate = new Date(scope.originalSchedule.loanScheduleHistoryData.createdDate);
+                                    }
+                                }
+                            }
                             scope.loandetails.repaymentSchedule = scope.loanSpecificData.repaymentSchedule;
                             scope.isWaived = scope.loandetails.repaymentSchedule.totalWaived > 0;
+                            scope.loandetails.scheduleHistoryDataList = scope.reconstructScheduleHistoryDataList(scope.loanSpecificData.scheduleHistoryDataList);
                         } else if (associations === 'futureSchedule') {
                             scope.isFutureSchedule = true;
                             scope.futurePeriods = data.repaymentSchedule.futurePeriods;
@@ -1718,9 +1738,14 @@
                 location.path('/viewbankaccounttransfers/' + 'loans/' + transferData.entityId + '/' + transferData.transactionId);
             };
 
+            scope.viewBasicTransferDetails = function (transferData) {
+                location.path('/viewbanktransfer/' + 'loans/' + transferData.entityId + '/' + transferData.transactionId);
+            };
+
             scope.retryTransfer = function (transferData) {
-                if (transferData.status.id == 6) {
-                    resourceFactory.bankAccountTransferResource.save({ bankTransferId: transferData.transactionId, command: 'retry' }, function (data) {
+                if (transferData.status.id == 6 || transferData.status.id == 10) {
+                    var request = { "submitForTransfer": scope.submitBankTransactionForTransferOnRetry };
+                    resourceFactory.bankAccountTransferResource.save({ bankTransferId: transferData.transactionId, command: 'retry' }, request, function (data) {
                         fetchBankTransferDetails();
                     });
                 }
@@ -2236,6 +2261,30 @@
                     return charge.amountWaived;
                 }
                 return charge.amountWrittenOff;
+            }
+
+            scope.getScheduleHistoryData = function(historyVersion){
+                if(historyVersion == null){
+                    historyVersion = scope.originalScheduleVersion;
+                }
+                resourceFactory.LoanHistoryScheduleResource.getLoanScheduleHistory({loanId: routeParams.id,historyVersion: historyVersion},function(data){
+                    scope.originalSchedule = data;
+                });
+            }
+
+            scope.reconstructScheduleHistoryDataList = function(scheduleHistoryDataList){
+                var reconstructedScheduleHistoryDataList = [];
+                for(var i in scheduleHistoryDataList){
+                    var data = {};
+                    if(scheduleHistoryDataList[i].createdDate == undefined){
+                        data.createdDate = '';
+                    }else{
+                        data.createdDate = dateFilter(new Date(scheduleHistoryDataList[i].createdDate),scope.df);
+                    }
+                    data.historyVersion = scheduleHistoryDataList[i].historyVersion;
+                    reconstructedScheduleHistoryDataList.push(data);
+                }
+                return reconstructedScheduleHistoryDataList;
             }
         }
     });

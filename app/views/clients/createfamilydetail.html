@@ -96,8 +96,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label col-sm-2">{{'label.input.dateofbirth' | translate}}
-                       
+                    <label class="control-label col-sm-2">{{ 'label.input.dateofbirth' | translate }}
+                        <span ng-if="isDateOfBirthMandatory" class="required">*</span>
                     </label>
                     <div class="col-sm-3">
                         <input id="dateofbirth" type="text" autocomplete="off" name="dateofbirth" datepicker-pop="{{df}}" ng-model="formData.dateOfBirth" 
@@ -173,14 +173,13 @@
                     <div class="col-sm-2">
                         <form-validate valattributeform="createFamilyDetails" valattribute="documentKey" />
                     </div>
-                    
+                    <label class="control-label col-sm-2">{{ 'label.input.dateofbirth' | translate }}</label>
                     <div class="col-sm-3">
-                        <input id="dateofbirth" type="text" name="dateofbirth" datepicker-pop="dd MMMM yyyy" ng-model="first.dateOfBirth"
-                        is-open="opened1" class="form-control" ng-required="isDateOfBirthMandatory"/>
+                        <input id="dateofbirthOnDocument" type="text" name="dateofbirthOnDocument" datepicker-pop="dd MMMM yyyy" ng-model="first.dateOfBirth"
+                        is-open="opened1" class="form-control"/>
                     </div>
                     <div class="col-sm-2">
                         <label class="control-label col-sm-1" ng-show="displayAge">{{'label.input.age' | translate}}{{":"}}{{age}}</label>
-                        <form-validate valattributeform="createclientform" valattribute="dateofbirth"/>
                     </div>
                 </div>
              

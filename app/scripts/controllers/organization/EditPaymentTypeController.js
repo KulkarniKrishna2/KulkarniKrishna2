@@ -114,6 +114,12 @@
             };
 
              scope.showBankDetails = function(){
+                var externalService = _.find(scope.externalservices, function (type) {
+                    return type.id === scope.formData.externalServiceId;
+                });
+                if(!_.isUndefined(externalService) && externalService.type.id === 5){
+                    return false;
+                }
                 return scope.formData.externalServiceId || (!scope.formData.isCashPayment && (scope.formData.paymentMode==scope.manualModeValue));
             };
 
@@ -125,7 +131,7 @@
                 } else {
                     this.formData.bankAccountDetails.locale = scope.optlang.code;
                 }
-                if(scope.formData.paymentMode!=scope.fileBasedModeValue){
+                if(scope.formData.paymentMode!=scope.fileBasedModeValue ||scope.formData.serviceProvider == 0){
                     this.formData.serviceProvider =  undefined;
                 }
                 resourceFactory.paymentTypeResource.update({paymentTypeId: routeParams.id},this.formData, function (data) {

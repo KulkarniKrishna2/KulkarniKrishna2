@@ -49,6 +49,8 @@
             scope.isLoanPurposeMandatory = false;
             scope.showMoratorium = false;
             scope.showGraceOnArrearsAgeing = true;
+            scope.showLoanPurposeCustomField = false;
+            scope.eventBasedFee = 51;
 
             if(routeParams.clientId){
                 resourceFactory.clientResource.get({clientId: routeParams.clientId, associations:'hierarchyLookup'}, function (data) {
@@ -385,6 +387,7 @@
                 scope.formData.disbursementData = scope.loanaccountinfo.disbursementDetails || [];
                 scope.collaterals = [];
 
+
                 if (scope.loanaccountinfo.calendarOptions) {
                     scope.temp.syncRepaymentsWithMeeting = true;
                     if (scope.response && !scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.syncDisbursementWithMeeting) {
@@ -437,6 +440,24 @@
                     scope.formData.brokenPeriodMethodType = scope.loanaccountinfo.brokenPeriodMethodType.id;
                 }else{
                     scope.formData.brokenPeriodMethodType = "";
+                }
+
+                if(scope.loanaccountinfo.product.repaymentFrequencyNthDayType){
+                    scope.formData.repaymentFrequencyNthDayType = scope.loanaccountinfo.product.repaymentFrequencyNthDayType.id;
+                } else {
+                    delete scope.formData.repaymentFrequencyNthDayType;
+                }
+                if(scope.loanaccountinfo.product.repaymentFrequencyDayOfWeekType){
+                    scope.formData.repaymentFrequencyDayOfWeekType = scope.loanaccountinfo.product.repaymentFrequencyDayOfWeekType.id;
+                } else {
+                    delete scope.formData.repaymentFrequencyDayOfWeekType;
+                }
+                if(scope.loanaccountinfo.product.repeatsOnDayOfMonth && scope.loanaccountinfo.product.repeatsOnDayOfMonth.length>0){
+                    scope.available = scope.loanaccountinfo.product.repeatsOnDayOfMonth;
+                    scope.addMonthDay();
+                } else {
+                    scope.available = [];
+                    scope.selectedOnDayOfMonthOptions = [];
                 }
 
                 if (scope.loanaccountinfo.product.isRepaymentAtDisbursement == true) {
@@ -670,6 +691,19 @@
                         }
                     }
                 }
+                if (!(scope.loanaccountinfo.product.isRepaymentAtDisbursement == true && scope.formData.brokenPeriodMethodType === 3)) {
+                    delete scope.formData.brokenPeriodInterestCollectAtDisbursement;
+                }
+                if(this.formData.isTopup==true){
+                    this.formData.loanIdToClose = [];
+                    for(var i in scope.loanaccountinfo.clientActiveLoanOptions){
+                        if(scope.loanaccountinfo.clientActiveLoanOptions[i].isSelected==true){
+                            this.formData.loanIdToClose.push(scope.loanaccountinfo.clientActiveLoanOptions[i].id);
+                        }
+                    }
+                }else{
+                    this.formData.loanIdToClose = undefined;
+                }
                 resourceFactory.loanResource.save({command: 'calculateLoanSchedule'}, this.formData, function (data) {
                     scope.repaymentscheduleinfo = data;
                     if(data.periods.length > 0) {        
@@ -830,7 +864,9 @@
                     scope.loanAccountDpDetailData.dateFormat = scope.df;
                     this.formData.loanAccountDpDetail = scope.loanAccountDpDetailData;
                 }   
-
+                if (!(scope.loanaccountinfo.product.isRepaymentAtDisbursement == true && scope.formData.brokenPeriodMethodType === 3)) {
+                    delete scope.formData.brokenPeriodInterestCollectAtDisbursement;
+                }
                 resourceFactory.loanResource.save(this.formData, function (data) {
                     location.path('/viewloanaccount/' + data.loanId);
                 });
@@ -1006,7 +1042,9 @@
                 var selectedLoanPurpose = scope.loanPurposeOptions.find(function (loanPurpose) {
                     return loanPurpose.id === loanPurposeId;
                 })
-                scope.showLoanPurposeCustomField = selectedLoanPurpose.isCustom;
+                if(selectedLoanPurpose){
+                    scope.showLoanPurposeCustomField = selectedLoanPurpose.isCustom;
+                }
             }
         }
     });

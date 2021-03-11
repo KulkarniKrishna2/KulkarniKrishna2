@@ -665,10 +665,45 @@
                 ng-options="repaymentFrequencyType.id as repaymentFrequencyType.value for repaymentFrequencyType in product.repaymentFrequencyTypeOptions"
                 value="{{repaymentFrequencyType.id}}"></select>
     </div>
+    <div ng-if="formData.repaymentFrequencyType == 2" class="col-sm-2">
+        <select id="repaymentFrequencyNthDayType" class="form-control" ng-model="formData.repaymentFrequencyNthDayType"
+                ng-options="repaymentFrequencyNthDayType.id as repaymentFrequencyNthDayType.value for repaymentFrequencyNthDayType in product.repaymentFrequencyNthDayTypeOptions"
+                value="{{repaymentFrequencyNthDayType.id}}"/>&nbsp;
+    </div>
+    <div ng-if="formData.repaymentFrequencyType == 2 &&  formData.repaymentFrequencyNthDayType != -2" class="col-sm-2">
+        <select id="repaymentFrequencyDayOfWeekType" class="form-control" ng-model="formData.repaymentFrequencyDayOfWeekType"
+                ng-options="repaymentFrequencyDayOfWeekType.id as repaymentFrequencyDayOfWeekType.value for repaymentFrequencyDayOfWeekType in product.repaymentFrequencyDaysOfWeekTypeOptions"
+                value="{{repaymentFrequencyDayOfWeekType.id}}"/>&nbsp;
+    </div>
     <div class="col-sm-2">
         <form-validate valattributeform="createloanproductform" valattribute="repaymentEvery"/>
     </div>
 
+</div>
+<div class="form-group" ng-if="formData.repaymentFrequencyType == 2 && formData.repaymentFrequencyNthDayType == -2">
+    <label class="control-label col-sm-2">{{ 'label.input.selectmonthday' | translate }}
+    </label>
+    <div class="col-sm-1">
+        <select id="avilabledays" ng-model="available" name="avilabledays" class="form-control multiselectmin" multiple>
+            <option ng-repeat="onday in repeatsOnDayOfMonthOptions" value="{{onday}}">
+                {{onday}}
+            </option>
+        </select>
+    </div>&nbsp;
+    <div class="col-sm-1">
+        <button type="button" class="btn btn-primary" data-ng-click="addMonthDay()"><i
+            class="icon-double-angle-right"></i></button>
+    <button type="button" class="btn btn-primary" data-ng-click="removeMonthDay()"><i
+            class="icon-double-angle-left"></i></button>
+        </select>
+    </div>
+    <div class="col-sm-1">
+        <select id="selecteddays" ng-model="selected" name="selecteddays" class="form-control multiselectmin" multiple>
+            <option ng-repeat="onday in selectedOnDayOfMonthOptions" value="{{onday}}">
+                {{onday}}
+            </option>
+        </select>
+    </div>
 </div>
     <div class="form-group">
         <label class="control-label col-sm-2">{{ 'label.input.loanTerm' | translate }}
@@ -933,7 +968,26 @@
     <div class="col-sm-2">
         <select id="daysInMonthType" class="form-control" ng-model="formData.daysInMonthType"
                 ng-options="type.id as type.value for type in product.daysInMonthTypeOptions"
-                value="{{type.id}}"></select>
+                value="{{type.id}}" data-ng-change="createChangeDaysInMonthType()"></select>
+    </div>
+</div>
+<div class="form-group">
+    <label class="control-label col-sm-2">{{'label.input.brokenperioddaysinyears' | translate }}
+        <i class="icon-question-sign" tooltip="{{'label.tooltip.daysinyear' | translate}}"
+           tooltip-append-to-body="true"></i>
+    </label>
+    <div class="col-sm-2">
+        <select id="brokenPeriodDaysInYearType" class="form-control" ng-model="formData.brokenPeriodDaysInYearType" ng-options="type.id as type.value for type in product.daysInYearTypeOptions" value="{{type.id}}">            
+        </select>
+    </div>
+    <label class="control-label col-sm-2 col-sm-offset-2">
+        {{ 'label.input.brokenperioddaysinmonth' | translate }}
+        <i class="icon-question-sign" tooltip="{{'label.tooltip.daysinmonth' | translate}}"
+           tooltip-append-to-body="true"></i>
+    </label>
+    <div class="col-sm-2">
+        <select id="brokenPeriodDaysInMonthType" class="form-control" ng-model="formData.brokenPeriodDaysInMonthType" ng-options="type.id as type.value for type in product.daysInMonthTypeOptions" value="{{type.id}}">                   
+        </select>
     </div>
 </div>
 <div class="form-group">
@@ -942,6 +996,17 @@
        <select id="weeksInYearType" class="form-control" ng-model="formData.weeksInYearType"
                     ng-options="type.id as type.value for type in product.weeksInYearTypeOptions"
                     value="{{type.id}}"></select>
+    </div>
+
+    <label class="control-label col-sm-2 col-sm-offset-2" ng-if="formData.daysInMonthType === 30">{{ 'label.input.partial.period.type' |
+        translate }}<span class="required">*</span>
+        <i class="icon-question-sign" tooltip="{{'label.tooltip.partial.period.type' | translate}}"
+           tooltip-append-to-body="true"></i>
+    </label>
+    <div class="col-sm-2" ng-if="formData.daysInMonthType === 30">
+        <select id="daysInMonthType" class="form-control" ng-model="formData.partialPeriodType"
+                ng-options="type.id as type.value for type in product.partialPeriodTypeOptions"
+                value="{{type.id}}"></select>
     </div>
 </div>
 
@@ -1667,7 +1732,8 @@
             <td></td>
             <td>{{charge.amount}}</td>
             <td></td>
-            <td>{{charge.chargeTimeType.value}}</td>
+            <td ng-show="charge.chargeTimeType.id==eventBasedFee">{{charge.chargeEventType.value}}</td>
+            <td ng-hide="charge.chargeTimeType.id==eventBasedFee">{{charge.chargeTimeType.value}}</td>
             <td></td>
             <td></td>
             <td><input type="checkbox" ng-model="charge.isMandatory" ng-true-value="true" ng-false-value="false"/></td>

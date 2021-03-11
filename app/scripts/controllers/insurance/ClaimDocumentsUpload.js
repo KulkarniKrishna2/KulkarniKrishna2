@@ -63,9 +63,14 @@
                 scope.clientDeceased.deathDate = new Date(dateFilter(scope.insuranceCliamDetials.deathDate, scope.df));
                 scope.clientDeceased.deathIntimationDate = new Date(dateFilter(scope.insuranceCliamDetials.intimationDate, scope.df));
                 scope.clientDeceased.contactNumber = scope.insuranceCliamDetials.contactNumber;
+                scope.clientDeceased.contactPersonName = scope.insuranceCliamDetials.contactPersonName;
                 scope.clientDeceased.clientType = scope.insuranceCliamDetials.insuredClientType.value;
                 scope.clientDeceased.locale = scope.formData.locale;
                 scope.clientDeceased.dateFormat = scope.df;
+                resourceFactory.codeValueByCodeNameResources.get({ codeName: "RelationShip" }, function (codeValueData) {
+                    scope.contactPersonRelationShip = codeValueData;
+                    scope.clientDeceased.contactPersonRelationshipId = scope.insuranceCliamDetials.contactPersonRelationType.id;
+                });
                 resourceFactory.codeValueByCodeNameResources.get({ codeName: "Deceased Reason" }, function (codeValueData) {
                     scope.causeOfDeath = codeValueData;
                     scope.clientDeceased.causeOfDeathId = scope.insuranceCliamDetials.causeOfDeath.id;

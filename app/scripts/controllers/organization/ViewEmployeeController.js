@@ -142,6 +142,12 @@
                 });
             };
 
+            scope.deactivateStaff = function () {
+                resourceFactory.staffResource.deactivate({staffId: routeParams.id}, function (data) {
+                    location.path('/employees');
+                });
+            };
+
             scope.hideId = function(row){
                 return  (row.columnName === 'id');
             };

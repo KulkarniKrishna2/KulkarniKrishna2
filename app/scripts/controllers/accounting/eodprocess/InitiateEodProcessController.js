@@ -19,7 +19,7 @@
                     if(data.changes.isWorkflowCreated === true){
                         location.path('/eodonboarding/create/'+ data.resourceId+'/workflow');
                     }else{
-                        location.path('/view_close_accounting/' + data.resourceId);
+                        location.path('/vieweodprocess/' + data.resourceId);
                     }
                 });
             }

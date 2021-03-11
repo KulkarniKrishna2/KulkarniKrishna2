@@ -6,18 +6,12 @@
             scope.clientId = routeParams.entityId;
             scope.bankAccountDetailsId = routeParams.bankAccountDetailsId;
             scope.viewUIConfig = {
-                "isInitiated": false,
-                "isTask": false,
+                "isInitiated": false
             };
 
             function init() {
                 scope.commonConfig = {};
-                var isWorkFlowEnabled = scope.isSystemGlobalConfigurationEnabled(scope.globalConstants.WORK_FLOW);
-                if (isWorkFlowEnabled) {
-                    getWorkflow();
-                } else {
-                    getBankAccountDetails();
-                }
+                getBankAccountDetails();
             }
             init();
 
@@ -38,14 +32,33 @@
                                 bankAccountDetailsId: scope.bankAccountDetailsId,
                                 templateData: templateData,
                                 bankAccountDetailsData: data,
-                                isAllowPennyDropTransaction: true,
+                                isAllowPennyDropTransaction: scope.isSystemGlobalConfigurationEnabled(scope.globalConstants.DEFAULT_PENNY_DROP_TRANSACTION_PAYMENT_TYPE_ID),
                                 isAllowOnlyPennyDropAction: false
                             }
-                        }
+                        };
                         angular.extend(scope.commonConfig, bankAccountData);
-                        scope.viewUIConfig.isInitiated = true;
+
+                        if (scope.isSystemGlobalConfigurationEnabled(scope.globalConstants.WORK_FLOW)) {
+                            if(data.status.value === 'initiated'){
+                                getWorkflow();
+                            }else{
+                                isTask(false);
+                                initiateUIDisplay();
+                            }
+                        }else{
+                            isTask(false);
+                            initiateUIDisplay();
+                        }
                     });
                 });
+            }
+
+            function initiateUIDisplay(){
+                scope.viewUIConfig.isInitiated = true;
+            }
+
+            function isTask(isTask){
+                scope.viewUIConfig.isTask = isTask;
             }
 
             function getWorkflow() {
@@ -57,7 +70,6 @@
                     var bankWorkflowData = data;
                     if (bankWorkflowData != undefined && bankWorkflowData.id != undefined) {
                         if (bankWorkflowData.status.id != 7) {
-                            scope.viewUIConfig.isTask = true;
                             var taskConfig = {
                                 taskData: {
                                     id: bankWorkflowData.id,
@@ -66,11 +78,13 @@
                                 }
                             };
                             angular.extend(scope.commonConfig, taskConfig);
-                            scope.viewUIConfig.isInitiated = true;
+                            isTask(true);
+                            initiateUIDisplay();
                         }
                     }
-                    if(!scope.viewUIConfig.isTask){
-                        getBankAccountDetails();
+                    if(_.isUndefined(scope.viewUIConfig.isTask) || !scope.viewUIConfig.isTask){
+                        isTask(false);
+                        initiateUIDisplay();
                     }
                 });
             }

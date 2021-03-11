@@ -22,6 +22,11 @@
             scope.applicableOnDisbursement = 2;
             scope.isClientActive = false;
 
+            if (scope.response.uiDisplayConfigurations.createClient.isDisabled) {
+                scope.submittedOnDate = scope.response.uiDisplayConfigurations.createClient.isDisabled.submittedOnDate;
+                scope.activationDate = scope.response.uiDisplayConfigurations.createClient.isDisabled.activationDate;
+            }
+
             scope.changeVillage = function (villageId) {
                 if(villageId != null){
 
@@ -278,6 +283,52 @@
                     scope.isEmailIdMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.emailId;
                 }
 
+                scope.minAge = 0;
+                scope.maxAge = 0;
+                scope.dateOfBirthNotInRange = false;
+                if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient && 
+                    scope.response.uiDisplayConfigurations.createClient.isValidateDOBField && scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.active) {
+                    if (scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.ageCriteria.minAge > 0) {
+                        scope.minAge = scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.ageCriteria.minAge;
+    
+                    }
+                    if (scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.ageCriteria.maxAge > 0) {
+                        scope.maxAge = scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.ageCriteria.maxAge;
+                    }
+                } else{
+                    scope.minAge = 0;
+                    scope.maxAge = scope.restrictDate;
+    
+                }
+                scope.minDateOfBirth = getMinimumRestrictedDate(new Date());
+                scope.maxDateOfBirth = getMaximumRestrictedDate(new Date());
+                scope.displayAge = false;
+                
+                scope.$watch('first.dateOfBirth', function(newValue, oldValue){
+                    if(scope.first.dateOfBirth != null)
+                    {
+                        var ageDifMs = Date.now() - scope.first.dateOfBirth.getTime();
+                        var ageDifMs = Date.now() - scope.first.dateOfBirth.getTime();
+                        var ageDate = new Date(ageDifMs); // miliseconds from epoch
+                        scope.displayAge = true;
+                        scope.age = Math.abs(ageDate.getUTCFullYear() - 1970);
+                    }else{
+                        scope.displayAge = false;
+                    }
+                });
+
+                function getMaximumRestrictedDate(restrictedDate) {
+    
+                    restrictedDate.setYear(restrictedDate.getFullYear() - scope.minAge);
+                    return restrictedDate;
+                };
+    
+                function getMinimumRestrictedDate(restrictedDate) {
+    
+                    restrictedDate.setYear(restrictedDate.getFullYear() - scope.maxAge);
+                    return restrictedDate;
+                };
+
                 resourceFactory.clientTemplateResource.get(requestParams, function(data) {
                      scope.offices = data.officeOptions;
                      scope.staffs = data.staffOptions;
@@ -477,6 +528,7 @@
 
             var SLAB_BASED = 'slabBasedCharge';
             var UPFRONT_FEE = 'upfrontFee';
+            scope.showLoanTerms = true;
 
             if (scope.clientId && scope.groupId) {
                 scope.inparams.templateType = 'jlg';
@@ -519,7 +571,7 @@
         scope.loanProductChange = function(loanProductId) {
 
             scope.inparams.productId = loanProductId;
-
+            scope.showLoanTerms =!(scope.loanaccountinfo.loanEMIPacks && scope.isLoanEmiPackEnabled)?true:false;
             resourceFactory.loanResource.get(scope.inparams, function(data) {
                 scope.loanaccountinfo = data;
                 if (scope.loanaccountinfo.loanEMIPacks) {
@@ -736,6 +788,19 @@
             } else {
                 this.formData.expectedDisbursementDate = dateFilter(new Date(), scope.df);
             }
+
+            if(this.formData.isTopup==true){
+                this.formData.loanIdToClose = [];
+                for(var i in scope.loanaccountinfo.clientActiveLoanOptions){
+                    if(scope.loanaccountinfo.clientActiveLoanOptions[i].isSelected==true){
+                        this.formData.loanIdToClose.push(scope.loanaccountinfo.clientActiveLoanOptions[i].id);
+                    }
+                }
+            }else{
+                this.formData.loanIdToClose = undefined;
+            }
+            
+
             this.formData.accountType = scope.inparams.templateType;
             this.formData.locale = scope.optlang.code;
             this.formData.dateFormat = scope.df;
@@ -811,6 +876,26 @@
                 delete this.addClientformData.lastname;
             }
 
+            if(!scope.showNonPersonOptions && scope.first.dateOfBirth && scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.active) {
+                if(!(scope.first.dateOfBirth < scope.maxDateOfBirth && scope.first.dateOfBirth > scope.minDateOfBirth)){
+                    scope.dateOfBirthNotInRange = true;
+                } else{
+                    scope.dateOfBirthNotInRange = false;
+                }
+            } else if(scope.showNonPersonOptions && scope.first.dateOfBirth && scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.forNonPerson &&scope.response.uiDisplayConfigurations.createClient.forNonPerson.isValidateDOBField.active){
+                if(!(scope.first.dateOfBirth < scope.maxNonPersonDateOfIncorporation && scope.first.dateOfBirth > scope.minNonPersonDateOfIncorporation)){
+                    scope.dateOfBirthNotInRange = true;
+                } else{
+                    scope.dateOfBirthNotInRange = false;
+                }
+            } else {
+                scope.dateOfBirthNotInRange = false;
+            }
+
+            if(scope.dateOfBirthNotInRange){
+                return false;
+            }
+
             if (scope.first.incorpValidityTillDate) {
                 this.addClientformData.clientNonPersonDetails.locale = scope.optlang.code;
                 this.addClientformData.clientNonPersonDetails.dateFormat = scope.df;
@@ -863,7 +948,12 @@
             }
             return workflowCompleted;
         };
-  
+
+        scope.selectAllLoanToClose = function(isAllLoanToClose){
+            for(var i in scope.loanaccountinfo.clientActiveLoanOptions){
+                scope.loanaccountinfo.clientActiveLoanOptions[i].isSelected = isAllLoanToClose;
+            }
+        }
       }
     });
     mifosX.ng.application.controller('groupmembersActivityController', ['$q','$controller','$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope','$filter', mifosX.controllers.groupmembersActivityController]).run(function ($log) {

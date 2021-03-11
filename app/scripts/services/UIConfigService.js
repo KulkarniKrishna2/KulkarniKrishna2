@@ -1,24 +1,23 @@
- (function (module) {
+(function (module) {
     mifosX.services = _.extend(module, {
 
-        UIConfigService: function ($q,$http) {
+        UIConfigService: function ($q, $http) {
 
-            var configUIArray = ["agronomica","almajmoua","bss","chaitanya","crediangolar","digamber","eastlanka",
-            "flexidemo","felxiloans","grayquest","habitat","hana","kapilcapital","light","mobilityfinance","neev",
-            "phakamani","secdep","sef","shivakarifin","sunvest","tapstart","vayarbl","vayabc","vaya","default"];
+            var configUIArray = ["agronomica", "almajmoua", "bss", "chaitanya", "crediangolar", "creditonepayments", "digamber", "eastlanka", "flexi", "grayquest", "habitat", "hana", "kapilcapital", "light", "mobilityfinance", "neev",
+                "phakamani", "secdep", "sef", "shivakarifin", "sunvest", "tapstart", "vayarbl", "vayabc", "vaya", "mfi", "default"];
 
-            var getUIConfigKey = function(tenantName){
+            var getUIConfigKey = function (tenantName) {
                 var arrayLength = configUIArray.length;
-                if(!!tenantName){
+                if (!!tenantName) {
                     for (var i = 0; i < arrayLength; i++) {
-                        
-                        if(tenantName.includes(configUIArray[i])){
+
+                        if (tenantName.includes(configUIArray[i])) {
                             return configUIArray[i];
                         }
                         //Do something
                     }
                     return tenantName;
-                }else{
+                } else {
                     return "default";
                 }
             };
@@ -64,9 +63,9 @@
                     });
                 };
 
-                var isObjectData = function(tenantSpecificData){
-                    if(!_.isUndefined(tenantSpecificData) && tenantSpecificData != null){
-                        if(!_.isUndefined(tenantSpecificData.length)){
+                var isObjectData = function (tenantSpecificData) {
+                    if (!_.isUndefined(tenantSpecificData) && tenantSpecificData != null) {
+                        if (!_.isUndefined(tenantSpecificData.length)) {
                             return false;
                         }
                     }
@@ -89,9 +88,9 @@
         }
     });
 
- mifosX.ng.services.service('UIConfigService', ['$q','$http',mifosX.services.UIConfigService]).run(function ($log) {
-    $log.info("UIConfigService initialized");
+    mifosX.ng.services.service('UIConfigService', ['$q', '$http', mifosX.services.UIConfigService]).run(function ($log) {
+        $log.info("UIConfigService initialized");
 
-});
+    });
 
 }(mifosX.services || {}));

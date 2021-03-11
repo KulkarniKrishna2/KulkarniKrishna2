@@ -101,6 +101,9 @@
                     clientAccountsOverviewsResource: defineResource(apiVer + "/clients/:clientId/accounts/overviews", { clientId: '@clientId' }, {
                         getAllClientAccounts: { method: 'GET', params: {} }
                     }),
+                    clientAccountsOverviewResource: defineResource(apiVer + "/clients/:clientId/accounts-overview", { clientId: '@clientId' }, {
+                        getAllClientAccounts: { method: 'GET', params: {} }
+                    }),
                     clientNotesResource: defineResource(apiVer + "/clients/:clientId/notes", { clientId: '@clientId' }, {
                         getAllNotes: { method: 'GET', params: {}, isArray: true }
                     }),
@@ -227,6 +230,26 @@
                     }),
                     DataTablesTemplateResource: defineResource(apiVer + "/datatables/template", {}, {
                         get: { method: 'GET', params: {}, isArray: false }
+                    }),
+                    productCategoriesResource: defineResource(apiVer + "/productcategories", {}, {
+                        getProductCategories: { method: 'GET', params: {}, isArray: true }
+                    }),
+                    categoryResource: defineResource(apiVer + "/productcategories/:categoryId", { categoryId: '@categoryId' }, {
+                        getProductCategory: { method: 'GET', params: {} }
+                    }),
+                    clientLimitsResource: defineResource(apiVer + "/clients/:clientId/limits", { clientId: '@clientId' }, {
+                        get: { method: 'GET', params: {} }
+                    }),
+                    clientSuperLimitResource: defineResource(apiVer + "/clients/:clientId/limits/superlimit", { clientId: '@clientId' }, {
+                        get: { method: 'GET', params: {}, isArray: true },
+                        save : { method: 'POST',params: {} }
+                    }),
+                    clientCategoryLimitsResource: defineResource(apiVer + "/clients/:clientId/limits/categorylimits", { clientId: '@clientId' }, {
+                        get: { method: 'GET', params: {}, isArray: true }
+                    }),
+                    mapCategorytoProductResource: defineResource(apiVer + "/categories/:categoryId/product-mappings", { categoryId: '@categoryId' }, {
+                        save: { method: 'POST', params: {} },
+                        getAllMappedProducts: { method: 'GET', params:{} }
                     }),
                     loanProductResource: defineResource(apiVer + "/loanproducts/:loanProductId/:resourceType", { resourceType: '@resourceType', loanProductId: '@loanProductId' }, {
                         getAllLoanProducts: { method: 'GET', params: {}, isArray: true },
@@ -425,6 +448,9 @@
                             isArray: true
                         }
                     }),
+                    staffResource: defineResource(apiVer + "/staff/:staffId/deactivate", { staffId: '@staffId' }, {
+                        deactivate: { method: 'POST', params: {} }
+                    }),
                     globalSearchTemplateResource: defineResource(apiVer + "/search/template", {}, {
                         get: { method: 'GET', params: {} }
                     }),
@@ -467,6 +493,9 @@
                     accountingClosureResource: defineResource(apiVer + "/glclosures/:accId", { accId: "@accId" }, {
                         get: { method: 'GET', params: {}, isArray: true },
                         getView: { method: 'GET', params: {} }
+                    }),
+                    outboundCallResource: defineResource(apiVer + "/clients/:clientId/call", {clientId: '@clientId'}, {
+                        save: { method: 'POST'}
                     }),
                     accountingClosureByOfficeResource: defineResource(apiVer + "/glclosures/offices/:officeId", { officeId: "@officeId" }, {
                         get: { method: 'GET', params: {}, isArray: true },
@@ -854,7 +883,8 @@
                         getAllPledges: { method: 'GET', params: { limit: 1000 } },
                         getAll: { method: 'GET', params: { pledgeId: '@pledgeId' }, isArray: true },
                         deleteCollateralDetails: { method: 'DELETE', params: { collateralDetailId: '@collateralDetailId' } },
-                        closePledge: { method: 'POST', params: { command: 'close' } }
+                        closePledge: { method: 'POST', params: { command: 'close' } },
+                        update: { method: 'PUT', params: {} }
                     }),
                     collateralDetailsResource: defineResource(apiVer + "/pledges/:pledgeId/collateraldetails/:collateralDetailId", {
                         pledgeId: '@pledgeId',
@@ -1598,6 +1628,71 @@
                         get: { method: 'GET', params: {}, isArray: true },
                         post: { method: 'POST' }
                     }),
+                    notificationConfigurationResource: defineResource(apiVer + "/notification", {}, {
+                        retrieveAll: { method: 'GET', params: {}, isArray: true },
+                        save: { method: 'POST'}
+                    }),
+                    notificationConfigurationDetailsResource: defineResource(apiVer + "/notification/:notificationConfigId", { notificationConfigId: '@notificationConfigId'}, {
+                        get: { method: 'GET', params: {} },
+                        update: { method: 'PUT', params: {} }
+                    }),
+                    notificationConfigurationDeactivateResource: defineResource(apiVer + "/notification/:notificationConfigId/deactivate", { notificationConfigId: '@notificationConfigId'}, {
+                        deactivate: { method: 'POST' }
+                    }),
+                    notificationConfigurationActivateResource: defineResource(apiVer + "/notification/:notificationConfigId/activate", { notificationConfigId: '@notificationConfigId'}, {
+                        activate: { method: 'POST' }
+                    }),
+                    notificationCampaignDeactivateResource: defineResource(apiVer + "/notification/:notificationConfigId/campaign/:campaignId/deactivate", { notificationConfigId: '@notificationConfigId',campaignId: '@campaignId'}, {
+                        deactivate: { method: 'POST' }
+                    }),
+                    notificationCampaignActivateResource: defineResource(apiVer + "/notification/:notificationConfigId/campaign/:campaignId/activate", { notificationConfigId: '@notificationConfigId',campaignId: '@campaignId'}, {
+                        activate: { method: 'POST' }
+                    }),
+                    notificationCampaignResource: defineResource(apiVer + "/notification/:notificationConfigId/campaign", { notificationConfigId: '@notificationConfigId' }, {
+                        retrieveAll: { method: 'GET', params: {}, isArray: true },
+                        save: { method: 'POST'}
+                    }),
+                    notificationCampaignTemplateResource: defineResource(apiVer + "/notification/:notificationConfigId/campaign/template", { notificationConfigId: '@notificationConfigId' }, {
+                        retrieveAll: { method: 'GET', params: {} }
+                    }),
+                    notificationConfigTemplateResource: defineResource(apiVer + "/notification/template", {}, {
+                        retrieve: { method: 'GET', params: {} }
+                    }),
+                    notificationCampaignDetailsResource: defineResource(apiVer + "/notification/:notificationConfigId/campaign/:campaignId", { notificationConfigId: '@notificationConfigId', campaignId:'@campaignId'}, {
+                        get: { method: 'GET', params: {} },
+                        update: { method: 'PUT', params: {} }
+                    }),
+                    notificationEventMappingTemplateResource: defineResource(apiVer + "/notification/:notificationConfigId/events/template", { notificationConfigId: '@notificationConfigId' }, {
+                        get: { method: 'GET', params: {} }
+                    }),
+                    notificationEventMappingResource: defineResource(apiVer + "/notification/:notificationConfigId/events", { notificationConfigId: '@notificationConfigId'}, {
+                        save:{method:'POST',params: {} },
+                        retrieveAll:{method: 'GET', params:{},isArray: true }
+                    }),
+                    notificationEventMappingUpdateResource: defineResource(apiVer + "/notification/:notificationConfigId/events/:eventId", { eventId: "@eventId",notificationConfigId: '@notificationConfigId'}, {
+                        update:{method:'PUT'},
+                        get: { method: 'GET', params: {} }
+                    }),
+                    notificationEventMappingActivateResource: defineResource(apiVer + "/notification/:notificationConfigId/events/:eventId/activate", { eventId: "@eventId",notificationConfigId: '@notificationConfigId' }, {
+                        activate: { method: 'POST', params: {} }
+                    }),
+                    notificationEventMappingDeActivateResource: defineResource(apiVer + "/notification/:notificationConfigId/events/:eventId/deactivate", { eventId: "@eventId",notificationConfigId: '@notificationConfigId' }, {
+                        deactivate: { method: 'POST', params: {} }
+                    }),
+                    notificationJobMappingResource: defineResource(apiVer + "/notification/:notificationConfigId/jobs", { notificationConfigId: '@notificationConfigId'}, {
+                        save:{method:'POST',params: {} },
+                        retrieveAll:{method: 'GET', params:{},isArray: true }
+                    }),
+                    notificationJobMappingUpdateResource: defineResource(apiVer + "/notification/:notificationConfigId/jobs/:jobId", { notificationConfigId: '@notificationConfigId',jobId: '@jobId' }, {
+                        update:{method:'PUT'},
+                        get: {method:'GET',params: {} }
+                    }),
+                    notificationJobMappingActivateResource: defineResource(apiVer + "/notification/:notificationConfigId/jobs/:jobId/activate",{ jobId: '@jobId',notificationConfigId: '@notificationConfigId'}, {
+                        activate: { method: 'POST', params: {} }
+                    }),
+                    notificationJobMappingDeActivateResource: defineResource(apiVer + "/notification/:notificationConfigId/jobs/:jobId/deactivate", { jobId: '@jobId',notificationConfigId: '@notificationConfigId'}, {
+                        deactivate: { method: 'POST', params: {} }
+                    }),
                     customSequenceTemplateResource: defineResource(apiVer + "/sequences/template", {}, {
                         get: { method: 'GET', params: {} }
                     }),
@@ -1654,7 +1749,7 @@
 
                     }),
                     reportGenerateResource: defineResource(apiVer + "/:entityType/:entityId/documents/generatereport", { entityType: '@entityType', entityId: '@entityId' }, {
-                        generate: { method: 'POST', params: { command: "generate" } }
+                        generate: { method: 'POST', params: { command: "generate", reportId : '@reportId' } }
                     }),
                     clientsTaskStepsTrackingResource: defineResource(apiVer + "/tasktracking/clientsstepsinfo/:centerId", { centerId: '@centerId' }, {
                         get: { method: 'GET', params: {}, isArray: true }
@@ -1691,7 +1786,8 @@
                         initiate: { method: 'POST', params: {} },
                         getAll: { method: 'GET', params: {}, isArray: true },
                         getEodCollections: { method: 'GET', params: {} },
-                        delete: { method: 'DELETE', params: {} }
+                        delete: { method: 'DELETE', params: {} },
+                        get: { method: 'GET', params: {}}
                     }),
                     eodProcessTemplateResource: defineResource(apiVer + "/eodprocess/template", {}, {
                         get: { method: 'GET', params: {} }
@@ -2068,7 +2164,7 @@
                     getCenterGeoDetailsResource: defineResource(apiVer + "/centers/:centerId/geo", { centerId: '@centerId' }, {
                         getGeoDetails: { method: 'GET', params: { centerId: '@centerId' }, isArray: true }
                     }),
-                    loanOfficerDropdownResource: defineResource(apiVer + "/staff/template/:officeId", { officeId: '@officeId' }, {
+                    loanOfficerDropdownResource: defineResource(apiVer + "/staff/template/:officeId", { officeId: '@officeId', includeInactive: '@includeInactive' }, {
                         getAll: { method: 'GET', params: {}, isArray: true },
                     }),
                     fileProcessIdentifierTemplateResource: defineResource(apiVer + "/fileprocess/template/:fileProcessIdentifier", { fileProcessIdentifier: '@fileProcessIdentifier' }, {
@@ -2082,6 +2178,59 @@
                     }),
                     getLoanRestructureResource: defineResource(apiVer + "/loanrestructure/loan/:loanId", {}, {
                         get: { method: 'GET', params: { loanId: '@loanId' } }
+                    }),
+                    nachMandateRequestResource: defineResource(apiVer + "/:entityType/:entityId/nach-mandate-requests/:requestId/:action/:resource", { entityType: '@entityType', entityId: '@entityId', requestId: '@requestId' }, {
+                        getAll: { method: 'GET', params: {}, isArray: true },
+                        template: { method: 'GET', params: { resource: 'template' }, isArray: false },
+                        refresh: { method: 'POST', params: { action: 'refresh' } },
+                        cancel: { method: 'POST', params: { action: 'cancel' } },
+                        reject: { method: 'POST', params: { action: 'reject' } },
+                        initiateRequest: { method: 'POST', params: {} }
+                    }),
+                    requestEsignResource: defineResource(apiVer + "/esign-request/:esignRequestId", {}, {
+                        save: { method: 'POST'},
+                        getTemplate: { method: 'GET'},
+                        get: { method: 'GET', params: { esignRequestId: '@esignRequestId' } }
+                    }),
+                    refreshEsignRequestResource: defineResource(apiVer + "/esign-request/:esignRequestId/refresh", {}, {
+                        refresh: { method: 'POST', params: { esignRequestId: '@esignRequestId' } }
+                    }),
+                    cancelEsignRequestResource: defineResource(apiVer + "/esign-request/:esignRequestId/cancel", {}, {
+                        cancel: { method: 'POST', params: { esignRequestId: '@esignRequestId' } } 
+                    }),
+                    esignRequestByEntityResource: defineResource(apiVer + "/esign-request/:entityType/:entityId", {}, {
+                        getAll: { method: 'GET', params: { entityType: '@entityType',entityId: '@entityId'}, isArray: true }
+                    }),
+                    esignRequestTemplateResource: defineResource(apiVer + "/esign-request/template", {}, {
+                        get: { method: 'GET'},
+                    }),
+                    financialOfficeMappingResource: defineResource(apiVer + "/financialactivityaccounts/:mappingId/officemapping/:id", {mappingId: '@mappingId',id: '@id'}, {
+                        get: { method: 'GET', params: {mappingId: '@mappingId',id: '@id' } },
+                        getAll: { method: 'GET', params: {mappingId: '@mappingId'}, isArray: true },
+                        update: { method: 'PUT', params: {mappingId: '@mappingId',id: '@id' } }
+                    }),
+                    financialOfficeMappingTemplateResource: defineResource(apiVer + "/financialactivityaccounts/:mappingId/officemapping/template", {mappingId: '@mappingId'}, {
+                        get: { method: 'GET', params: {mappingId: '@mappingId', isArray: true} }
+                    }),
+                    getLoanRestructureEMI: defineResource(apiVer + "/loanrestructure/loan/calculateEMI", {}, {
+                        calculateEMI: { method: 'POST'}
+                    }),
+                    loanProductRoundingModeMappingResource: defineResource(apiVer + "/loanProductRoundingModeMapping/:id", {id: '@id'}, {
+                        get: { method: 'GET', params: {id: '@id' } },
+                        getAll: { method: 'GET', params: {}, isArray: true },
+                        update: { method: 'PUT', params: {id: '@id' } }
+                    }),
+                    loanProductRoundingModeMappingTemplateResource: defineResource(apiVer + "/loanProductRoundingModeMapping/template", {}, {
+                        get: { method: 'GET', params: {} }
+                    }),
+                    clientLoansPaymentSettlementResource: defineResource(apiVer + "/clients/:clientId/loans/payment/settlement", {clientId: '@clientId'}, {
+                        paymentSettlement: { method: 'POST', params: { clientId: '@clientId' } }
+                    }),
+                    getLoanRestructureEMI: defineResource(apiVer + "/loanrestructure/loan/calculateEMI", {}, {
+                        calculateEMI: { method: 'POST'}
+                    }),
+                    LoanHistoryScheduleResource: defineResource(apiVer + "/loans/:loanId/schedulehistory/:historyVersion", { loanId: '@loanId', historyVersion:'@historyVersion' }, {
+                        getLoanScheduleHistory: { method: 'GET', params: {}}
                     })
                 };
             }];

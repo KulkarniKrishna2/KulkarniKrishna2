@@ -1,4 +1,4 @@
-<div ng-controller="InsurancePolicyController">
+<div class="col-md-12" ng-controller="InsurancePolicyController">
     <button type="button" class="btn btn-primary" ng-show="showAdd" ng-click="addInsurancePolicy()"><i
             class="icon-check-sign icon-white"></i>{{ 'label.button.add' | translate }}
     </button>
@@ -7,31 +7,36 @@
             rc-submit="insurancePolicySubmit()">
             <api-validate></api-validate>
             <fieldset>
-                <table>
-                    <thead><strong>
-                            <div ng-if="!isUpdate">
-                                {{'label.heading.add.insurance.policy' | translate}}
-                            </div>
-                            <div ng-if="isUpdate">
-                                {{'label.heading.edit.insurance.policy' | translate}}
-                            </div>
-                        </strong>
-                    </thead>
-                    <wbr>
+                <div class="col-md-6">
+                    <table class="table well" >
+                        <thead ><strong>
+                                <div ng-if="!isUpdate">
+                                    {{'label.heading.add.insurance.policy' | translate}}
+                                </div>
+                                <div ng-if="isUpdate">
+                                    {{'label.heading.edit.insurance.policy' | translate}}
+                                </div>
+                            </strong>
+                        </thead>
+                        <wbr>
+                        <tr >
+                            <td >
+                                <label><strong>{{'label.input.insurance.provider' | translate}}:</strong></label>&nbsp;
+                                <select id="providerId" name="providerId" ng-model="formData.providerId"
+                                    ng-options="code.id as code.name for code in insuranceProviderOptions"
+                                    value="{{code.name}}" class="input-sm form-control" required late-Validate>
+                                    <option value="">{{'label.selectone' | translate}}</option>
+                                </select>
+                                <div>
+                                    <form-validate valattributeform="insurancepolicyform" valattribute="providerId" />
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <table class="table well" >
                     <tr>
-                        <td class="col-sm-3">
-                            <label><strong>{{'label.input.insurance.provider' | translate}}:</strong></label>&nbsp;
-                            <select id="providerId" name="providerId" ng-model="formData.providerId"
-                                ng-options="code.id as code.name for code in insuranceProviderOptions"
-                                value="{{code.name}}" class="input-sm form-control" required late-Validate>
-                                <option value="">{{'label.selectone' | translate}}</option>
-                            </select>
-                            <div>
-                                <form-validate valattributeform="insurancepolicyform" valattribute="providerId" />
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="graybg">
+                        <th >{{'label.input.insurance.select' | translate}}</th>
                         <th>{{'label.input.insurance.client.type' | translate}}</th>
                         <th>{{'label.input.policy.number' | translate}}</th>
                         <th>{{'label.input.COI.number' | translate}}</th>
@@ -40,6 +45,13 @@
                         <th>{{'label.input.insurance.expiry.date' | translate}}</th>
                     </tr>
                     <tr ng-repeat="insurancePolicyDetail in formData.insurancePolicyDetails">
+
+                        <td>
+                        <span>
+                            <input type="checkbox" ng-model="insurancePolicyDetail.isMemberChecked"  
+                            checked></input>
+                            </span>
+                        </td>
                         <td>
                             <span>
                                 <input id="insuranceClientTypeId" name="insuranceClientType"

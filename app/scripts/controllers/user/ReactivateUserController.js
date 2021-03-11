@@ -13,16 +13,38 @@
                     email: scope.formData.email,
                     sendPasswordToEmail: scope.formData.sendPasswordToEmail
                 };
-                if (scope.formData.password) {
-                    activateFormdata.password = commonUtilService.encrypt(scope.formData.password);
+                encryptNewpassword(activateFormdata);
+                
+                
+            }
+
+            var encryptNewpassword = function(activateFormdata){
+                if(scope.formData.password){
+                    commonUtilService.encrypt(scope.formData.password).then(function(encriptedText) {
+                        activateFormdata.password = commonUtilService.convertEncriptedArrayToText(encriptedText);
+                        encryptRepeatPassword(activateFormdata);
+                    });
+                }else{
+                    encryptRepeatPassword(activateFormdata);
                 }
-                if (scope.formData.repeatPassword) {
-                    activateFormdata.repeatPassword = commonUtilService.encrypt(scope.formData.repeatPassword);
+            };
+
+            var encryptRepeatPassword = function(activateFormdata){
+                if(scope.formData.repeatPassword){
+                    commonUtilService.encrypt(scope.formData.repeatPassword).then(function(encriptedText) {
+                        activateFormdata.repeatPassword = commonUtilService.convertEncriptedArrayToText(encriptedText);
+                        sendReactivateRequest(activateFormdata);
+                    });
+                }else{
+                    sendReactivateRequest(activateFormdata);
                 }
+            };
+
+            var sendReactivateRequest = function(activateFormdata){
                 resourceFactory.userListResource.post({ userId: routeParams.id, command: 'reactivate' }, activateFormdata, function (data) {
                     location.path('/users');
                 });
-            }
+            };
         }
     });
     mifosX.ng.application.controller('ReactivateUserController', ['$scope', 'ResourceFactory', '$routeParams', 'CommonUtilService', '$location', mifosX.controllers.ReactivateUserController]).run(function ($log) {

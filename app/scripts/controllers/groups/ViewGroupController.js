@@ -22,6 +22,7 @@
             scope.isHideCreateEntity = false;
             scope.isShowTransferClients=scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.transferClients;
             scope.isClientCreationEnabled=scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.canAddClients;
+            scope.createjlgLoanApplication = true;
             if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow){
                 scope.showInitiateOnCompletion = scope.response.uiDisplayConfigurations.workflow.initiateWorkflow.showInitiateOnCompletion;
             }           
@@ -29,7 +30,7 @@
             if(scope.isWorkflowEnabled && scope.hideManageMember){
                 scope.isHideCreateEntity = true;
             }
-            scope.createjlgLoanApplication = scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.createjlgLoanApplication;
+            scope.createjlgLoanApplication = !scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.createjlgLoanApplication;
             scope.exceedMaxLimit = false;
             scope.routeToLoan = function (id) {
                 location.path('/viewloanaccount/' + id);
