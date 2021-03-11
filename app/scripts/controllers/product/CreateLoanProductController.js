@@ -81,7 +81,19 @@
                 }
                 scope.compoundingStartDayTypeOptions = scope.product.compoundingStartDayTypeOptions || [];
                 scope.penaltyOptions = scope.product.penaltyOptions || [];
-                scope.chargeOptions = scope.product.chargeOptions || [];
+                scope.chargeOptions = [];
+                scope.eventBasedChargeOptions = [];
+                for (var i in scope.product.chargeOptions) {
+                    var tempcharge = scope.product.chargeOptions[i];
+                    if(!tempcharge.penalty){
+                        if(tempcharge.chargeTimeType.id==scope.eventBasedFee) {
+                            scope.eventBasedChargeOptions.push(tempcharge);
+                        } else {
+                            scope.chargeOptions.push(tempcharge);
+                        }
+                    }
+                }
+
                 scope.writeOffReasonOptions = [];
                 if(angular.isDefined(scope.product.codeValueOptions) && scope.product.codeValueOptions.length>0){
                     scope.writeOffReasonOptions = scope.product.codeValueOptions;
