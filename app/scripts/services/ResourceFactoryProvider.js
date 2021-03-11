@@ -890,7 +890,8 @@
                         getAllPledges: { method: 'GET', params: { limit: 1000 } },
                         getAll: { method: 'GET', params: { pledgeId: '@pledgeId' }, isArray: true },
                         deleteCollateralDetails: { method: 'DELETE', params: { collateralDetailId: '@collateralDetailId' } },
-                        closePledge: { method: 'POST', params: { command: 'close' } }
+                        closePledge: { method: 'POST', params: { command: 'close' } },
+                        update: { method: 'PUT', params: {} }
                     }),
                     collateralDetailsResource: defineResource(apiVer + "/pledges/:pledgeId/collateraldetails/:collateralDetailId", {
                         pledgeId: '@pledgeId',
