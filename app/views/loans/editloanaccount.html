@@ -989,7 +989,7 @@
                 </tr>
             </table>
         </div>
-        <div ng-show="loanaccountinfo.product.eventBasedCharges.length>0">
+        <div ng-show="eventBasedCharges.length>0">
             <label><strong>{{ 'label.heading.eventbased.charge' | translate }}</strong></label>
             <table class="table" class="width100" >
                 <tr class="graybg">
@@ -998,11 +998,11 @@
                     <th>{{'label.heading.amount' | translate}}</th>
                     <th>{{'label.heading.collectedon' | translate}}</th>
                 </tr>
-                <tr ng-repeat="charge in loanaccountinfo.product.eventBasedCharges">
-                    <td>{{charge.chargeData.name}},{{charge.chargeData.currency.displaySymbol}}</td>
-                    <td>{{charge.chargeData.chargeCalculationType.value}}</td>
-                    <td>{{charge.chargeData.amount | number}}</td>
-                    <td>{{charge.chargeData.chargeTimeType.value}}</td>
+                <tr ng-repeat="charge in eventBasedCharges">
+                    <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
+                    <td>{{charge.chargeCalculationType.value}}</td>
+                    <td>{{charge.amount | number}}</td>
+                    <td>{{charge.chargeEventType.value}}</td>
                 </tr>
             </table>
         </div>

@@ -1112,7 +1112,7 @@
                     scope.isDataAlreadyFetched = true;
                 } else if (associations === 'charges' && scope.ischarges === true) {
                     scope.isDataAlreadyFetched = true;
-                }
+                } 
                 if (!scope.isDataAlreadyFetched) {
                     resourceFactory.LoanAccountResource.getLoanAccountDetails({ loanId: routeParams.id, associations: associations, isFetchSpecificData: true, exclude: 'loanBasicDetails' }, function (data) {
                         scope.loanSpecificData = data;
@@ -2302,6 +2302,26 @@
                 }
                 return reconstructedScheduleHistoryDataList;
             }
+
+            scope.showEventBasedChargeDetails = function (charge) {
+                $modal.open({
+                    templateUrl: 'showEventBasedChargeDetail.html',
+                    controller: showEventBasedChargeDetailCtrl,
+                    windowClass: 'app-modal-window-full-screen',
+                    resolve: {
+                        charge: function () {
+                            return charge ;
+                        }
+                    }
+                });
+            };
+
+            var showEventBasedChargeDetailCtrl = function ($scope, $modalInstance, charge) {
+                $scope.eventBasedSlab = charge;
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            };
         }
     });
 
