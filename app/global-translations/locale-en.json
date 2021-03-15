@@ -8922,6 +8922,9 @@
      "label.input.max.tenureindays" : "Maximum Tenure in Days",
      "label.heading.based.on.tenure.in.days" : "based on tenure in days",
      "validation.msg.event.based.charge.must.be.fee" : "Event Based Charge must be fee",
+     "label.heading.charge.slab.detail": "Charge Slab Detail",
+     "label.heading.charge.slab.minvalue": "Minimum Value",
+     "label.heading.charge.slab.maxvalue": "Maximum Value",
 
      "------ end of translation file ------": "----------"
 

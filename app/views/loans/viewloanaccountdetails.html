@@ -1305,7 +1305,7 @@
                                 <th ng-hide="isGlimEnabled()">{{'label.heading.actions' | translate}}</th>
                                 <th>{{'label.heading.info' | translate}}</th>
                             </tr>
-                            <tr ng-repeat="charge in charges" class="pointer-main" ng-hide="charge.chargeTimeType.id==eventBasedFee"> 
+                            <tr ng-repeat="charge in charges" class="pointer-main"> 
                                 <th  ng-hide="isGlimEnabled()"><input type="checkbox" ng-change="addForSelection(charge)" data-ng-model="charge.selected" data-ng-disabled="charge.actionFlag"/></th>
                                 <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.name}}</td>
                                 <td ng-show="charge.penalty" class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{"penalty"}}</td>
@@ -1342,39 +1342,24 @@
                             </button>
                         </div>
                     </tab>
-                    <tab active="tabs[11].active" ng-if="loandetails.status.closed" heading="{{'label.heading.eventbased.charge' | translate}}" select="getSpecificData('charges')">
-                        <div ng-show="chargeTableShow">
-                        <table class="table width100">
-                            <tr class="graybg sticky1">
-                                <th ng-hide="isGlimEnabled()"><input type="checkbox" ng-change="selectAllCharges()" data-ng-model="charges.selectallcharges"></th>
+                    <tab active="tabs[11].active" heading="{{'label.heading.eventbased.charge' | translate}}" select="getSpecificData('eventBasedCharges')">
+                        <table ng-show="loanSpecificData.eventBasedCharges.length>0" class="table" class="width100" >
+                            <tr class="graybg">
                                 <th>{{'label.heading.name' | translate}}</th>
-                                <th>{{'label.heading.feeorpenalty' | translate}}</th>
-                                <th>{{'label.heading.paymentdueat' | translate}}</th>
-                                <th>{{'label.heading.dueasof' | translate}}</th>
-                                <th>{{'label.heading.calculationtype' | translate}}</th>
-                                <th>{{'label.heading.duetax' | translate}}</th>
-                                <th>{{'label.heading.paid' | translate}}</th>
-                                <th>{{'label.heading.outstanding' | translate}}</th>
+                                <th>{{'label.heading.type' | translate}}</th>
+                                <th>{{'label.heading.amount' | translate}}</th>
+                                <th>{{'label.heading.collectedon' | translate}}</th>
                                 <th>{{'label.heading.info' | translate}}</th>
                             </tr>
-                            <tr ng-repeat="charge in charges" class="pointer-main" ng-show="charge.chargeTimeType.id==eventBasedFee">
-                                <th  ng-hide="isGlimEnabled()"><input type="checkbox" ng-change="addForSelection(charge)" data-ng-model="charge.selected" data-ng-disabled="charge.actionFlag"/></th>
-                                <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.name}}</td>
-                                <td ng-show="charge.penalty" class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{"penalty"}}</td>
-                                <td ng-hide="charge.penalty" class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{"fee"}}</td>
-                                <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.chargeTimeType.value}}</td>
-                                <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.dueDate | DateFormat}}</td>
-                                <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.amountOrPercentage + "  " +charge.chargeCalculationType.value}}</td>
-                                <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amount}}{{" ( "}}{{(charge.taxAmount | number : 2) || "0"}}
-                                {{" )"}}</td>
-                                <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amountPaid| number}}</td>
-                                <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.currency.displaySymbol}}{{charge.amountOutstanding| number}}</td>
-                                <td ng-show="charge.taxAmount" class="pointer" ng-click="showTaxDetails(charge.id)"><i class="icon-info ng-scope icon-primary"></i></td>
+                            <tr ng-repeat="charge in loanSpecificData.eventBasedCharges">
+                                <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
+                                <td>{{charge.chargeCalculationType.value}}</td>
+                                <td>{{charge.amount | number}}</td>
+                                <td>{{charge.chargeEventType.value}}</td>
+                                <td ng-show="charge.isSlabBased" class="pointer" ng-click="showEventBasedChargeDetails(charge)"><i class="icon-info ng-scope icon-primary"></i></td>
                             </tr>
                         </table>
-                      </div>
                     </tab>
-
                     <script type="text/ng-template" id="delcharge.html">
                         <div class="modal-header silver">
                             <h3 class="bolder">{{'label.heading.confirm' | translate}}</h3>
@@ -2012,6 +1997,43 @@
              <div style="position: fixed; top:20%; right:10%; width:600px; height: 500px;">
                 <view-document-directive  ng-entity-type="{{data.reportEntityType}}"
                 ng-entity-id="{{data.enquiryId}}"></view-document-directive>
+            </div>
+    </script>
+    <script type="text/ng-template" id="showEventBasedChargeDetail.html">
+            <div class="modal-body well">
+                <label><strong>{{ 'label.heading.eventbased.charge' | translate }}</strong></label>
+                <br><br>
+                <table class="table" class="width100" >
+                    <tr class="graybg">
+                        <th>{{'label.heading.charge.slab.minvalue' | translate}}</th>
+                        <th>{{'label.heading.charge.slab.maxvalue' | translate}}</th>
+                        <th>{{'label.heading.amount' | translate}}</th>
+                        <th>{{'label.input.slabchargetype' | translate}}</th>
+                        <th>{{'label.heading.subslabs' | translate}}</th>
+                    </tr>
+                    <tr ng-repeat="slab in eventBasedSlab.slabs" >
+                        <td>{{slab.minValue}}</td>
+                        <td>{{slab.maxValue}}</td>
+                        <td>{{slab.amount | number}}</td>
+                        <td>{{slab.type.value}}</td>
+                        <td ng-if="slab.subSlabs.length>0"><table class="table" class="width50" >
+                                    <tr class="graybg">
+                                        <th>{{'label.heading.charge.slab.minvalue' | translate}}</th>
+                                        <th>{{'label.heading.charge.slab.maxvalue' | translate}}</th>
+                                        <th>{{'label.heading.amount' | translate}}</th>
+                                        <th>{{'label.input.subslabchargetype' | translate}}</th>
+                                    </tr>
+                                    <tr ng-repeat="subSlab in slab.subSlabs">
+                                        <td>{{subSlab.minValue}}</td>
+                                        <td>{{subSlab.maxValue}}</td>
+                                        <td>{{subSlab.amount | number}}</td>
+                                        <td>{{subSlab.type.value}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
             </div>
     </script>
 </div>
