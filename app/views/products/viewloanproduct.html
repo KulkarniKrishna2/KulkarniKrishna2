@@ -632,7 +632,7 @@
     <td>{{'label.checkbox.ischargeamountnoneditable' | translate}}</td>
 </tr>
 <tr ng-repeat="charge in loanproduct.charges" ng-hide="charge.penalty">
-    <td>{{charge.name}}</td>
+    <td>{{charge.productLoanChargeId}}.&nbsp;{{charge.name}}</td>
     <td>{{charge.chargeCalculationType.value}}</td>
     <td>{{charge.amount|number}}</td>
     <td>{{charge.chargeTimeType.value}}</td>
@@ -654,7 +654,7 @@
     <td>{{'label.checkbox.ischargeamountnoneditable' | translate}}</td>
 </tr>
 <tr ng-repeat="charge in loanproduct.charges" ng-show="charge.penalty">
-    <td>{{charge.name}}</td>
+    <td>{{charge.productLoanChargeId}}.&nbsp;{{charge.name}}</td>
     <td>{{charge.chargeCalculationType.value}}</td>
     <td>{{charge.amount|number}}</td>
     <td>{{charge.chargeTimeType.value}}</td>
