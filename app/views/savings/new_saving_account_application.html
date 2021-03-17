@@ -54,6 +54,17 @@
             <input ng-show="formData.productId" id="externalId" ng-model="formData.externalId" class="form-control"/>
         </td>
     </tr>
+    <tr ng-if="formData.productId">
+        <td class="width14">
+            <label class="control-label col-sm-2">{{ 'label.input.fund' | translate }}</label>
+            <td class="width36 paddedbottom10">
+                <select id="fundId" ng-model="formData.fundId" class="form-control"
+                    ng-options="fund.id as fund.name for fund in fundOptions" value="{{fund.id}}">
+                    <option value="">{{'label.selectfund' | translate}}</option>
+                </select>
+            </td>
+        </td>
+    </tr>
 </table>
 <hr ng-if="formData.productId"/>
 <label ng-if="data"><strong>{{ 'label.heading.terms' | translate }}</strong></label>
