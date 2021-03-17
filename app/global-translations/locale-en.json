@@ -2880,6 +2880,7 @@
     "label.tooltip.dpfrequencytype": "Drawing power interval frequency type",
     "label.tooltip.dpfreequncyinterval": "Drawing power interval",
 
+    "label.tooltip.savingsproduct.fund": "Savings products may be assigned to a fund set up by your financial institution. If available, the fund field can be used for tracking and reporting on groups of savings acounts.",
     "label.tooltip.nominalannualinterestrateoverdraft": "Default interest rate on overdraft",
     "label.tooltip.minoverdraftforinterestcalculation": "Sets the overdraft required for interest calculation",
     "label.tooltip.savingreference": "An Asset account (typically a Cash account), to which the amount is debited when a deposit is made by the account holder and credit when the account holder makes a withdrawal",
