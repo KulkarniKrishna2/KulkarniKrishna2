@@ -632,118 +632,118 @@
             </tr>
             <tr ng-if="showLoanTerms" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
                 <td>
-                    <label class="control-label">{{ 'label.input.recalculateinterest' | translate }}</label>
+                    <label class="control-label labelMarginBottom">{{ 'label.input.recalculateinterest' | translate }}</label>
                 </td>
-                <td class="paddedbottom10">
-                    <label class="control-label">{{ loanaccountinfo.isInterestRecalculationEnabled | YesOrNo }}</label>
+                <td>
+                    <label class="control-label labelMarginBottomMarginLeft">{{ loanaccountinfo.isInterestRecalculationEnabled | YesOrNo }}</label>
                 </td>
                 <td data-ng-show="loanaccountinfo.isInterestRecalculationEnabled">
-                    <label>{{ 'label.input.daysinyears' | translate }}</label>
+                    <label class="labelMarginBottom">{{ 'label.input.daysinyears' | translate }}</label>
                 </td>
-                <td class="paddedbottom10">
-                    <label>{{ loanaccountinfo.daysInYearType.value}}</label>
-                </td>
-            </tr>
-            <tr ng-if="showLoanTerms" data-ng-show="loanaccountinfo.isInterestRecalculationEnabled">
-                <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
-                    <label>{{ 'label.input.interest.recalculation.reschdule.strategy' | translate }}</label>
-                </td>
-                <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
-                    <label>{{ loanaccountinfo.interestRecalculationData.rescheduleStrategyType.value}}</label>
-                </td>
-                <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
-                    <label>{{ 'label.input.daysinmonth' | translate }}</label>
-                </td>
-                <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
-                    <label>{{ loanaccountinfo.daysInMonthType.value }}</label>
+                <td>
+                    <label class="labelMarginBottomMarginLeft">{{ loanaccountinfo.daysInYearType.value}}</label>
                 </td>
             </tr>
             <tr ng-if="showLoanTerms" data-ng-show="loanaccountinfo.isInterestRecalculationEnabled">
                 <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
-                    <label class="control-label">{{ 'label.input.interest.recalculation.compounding.method' | translate }}</label>
+                    <label class="labelMarginBottom">{{ 'label.input.interest.recalculation.reschdule.strategy' | translate }}</label>
                 </td>
-                <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
-                    <label>{{ loanaccountinfo.interestRecalculationData.interestRecalculationCompoundingType.value}}</label>
+                <td  ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
+                    <label class="labelMarginBottomMarginLeft">{{ loanaccountinfo.interestRecalculationData.rescheduleStrategyType.value}}</label>
+                </td>
+                <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
+                    <label class="labelMarginBottom">{{ 'label.input.daysinmonth' | translate }}</label>
+                </td>
+                <td  ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
+                    <label class="labelMarginBottomMarginLeft">{{ loanaccountinfo.daysInMonthType.value }}</label>
+                </td>
+            </tr>
+            <tr ng-if="showLoanTerms" data-ng-show="loanaccountinfo.isInterestRecalculationEnabled">
+                <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
+                    <label class="control-label" class="labelMarginBottom">{{ 'label.input.interest.recalculation.compounding.method' | translate }}</label>
+                </td>
+                <td  ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
+                    <label class="labelMarginBottomMarginLeft">{{ loanaccountinfo.interestRecalculationData.interestRecalculationCompoundingType.value}}</label>
                 </td>
 
                 <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
-                    <label class="control-label">{{ 'label.input.frequency.for.recalculte.outstanding.principal' |
+                    <label class="control-label labelMarginBottom">{{ 'label.input.frequency.for.recalculte.outstanding.principal' |
                         translate }}<span class="required">*</span></label>
                 </td>
-                <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
-                    <label>{{ loanaccountinfo.interestRecalculationData.humanReadableRestFrequency}}</label>
+                <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
+                    <label class= "labelMarginBottomMarginLeft">{{ loanaccountinfo.interestRecalculationData.humanReadableRestFrequency}}</label>
                 </td>
             </tr>
             <tr ng-if="showLoanTerms" data-ng-show="loanaccountinfo.isInterestRecalculationEnabled && loanaccountinfo.interestRecalculationData.recalculationRestFrequencyType.id != 1">
                 <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
-                    <label class="control-label">{{ 'label.input.frequenc.interval.for.recalculte.outstanding.principal' | translate }}</label>
+                    <label class="control-label labelMarginBottom">{{ 'label.input.frequenc.interval.for.recalculte.outstanding.principal' | translate }}</label>
                 </td>
-                <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
-                    <label>{{ loanaccountinfo.interestRecalculationData.recalculationRestFrequencyInterval}}</label>
+                <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
+                    <label class= "labelMarginBottomMarginLeft">{{ loanaccountinfo.interestRecalculationData.recalculationRestFrequencyInterval}}</label>
                 </td>
             </tr>
             <tr ng-if="showLoanTerms" data-ng-show="loanaccountinfo.isInterestRecalculationEnabled  && loanaccountinfo.interestRecalculationData.interestRecalculationCompoundingType.id != 0">
-                <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
-                    <label class="control-label">{{ 'label.input.frequency.for.compounding' |
+                <td  ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
+                    <label class="control-label labelMarginBottom">{{ 'label.input.frequency.for.compounding' |
                         translate }}<span class="required">*</span></label>
                 </td>
-                <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
-                    <label>{{loanaccountinfo.interestRecalculationData.humanReadableCompoundingFrequency}}</label>
+                <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
+                    <label class= "labelMarginBottomMarginLeft">{{loanaccountinfo.interestRecalculationData.humanReadableCompoundingFrequency}}</label>
                     
                 </td>
             </tr>
             <tr ng-if="showLoanTerms" data-ng-show="loanaccountinfo.isInterestRecalculationEnabled && loanaccountinfo.interestRecalculationData.interestRecalculationCompoundingType.id != 0 && loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyType.id != 1">
                 <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
-                    <label class="control-label">{{ 'label.input.frequenc.interval.for.compounding' | translate }}</label>
+                    <label class="control-label labelMarginBottom">{{ 'label.input.frequenc.interval.for.compounding' | translate }}</label>
                 </td>
-                <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
-                    <label>{{ loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyInterval}}</label>
+                <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
+                    <label class= "labelMarginBottomMarginLeft">{{ loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyInterval}}</label>
                 </td>
             </tr>
             <tr ng-if="showLoanTerms" data-ng-show="loanaccountinfo.isInterestRecalculationEnabled" >
                 <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
-                    <label class="control-label">{{ 'label.input.issubsidyapplicable' | translate }}</label>
+                    <label class="control-label labelMarginBottom">{{ 'label.input.issubsidyapplicable' | translate }}</label>
                 </td>
-                <td class="paddedbottom10" ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
-                    <label>{{ loanaccountinfo.interestRecalculationData.isSubsidyApplicable }}</label>
+                <td  ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenSection.interestRecalculationSection == true">
+                    <label class= "labelMarginBottomMarginLeft">{{ loanaccountinfo.interestRecalculationData.isSubsidyApplicable }}</label>
                 </td>
             </tr>
             <tr ng-if="showLoanTerms" data-ng-show="loanaccountinfo.isInterestRecalculationEnabled && loanaccountinfo.interestRecalculationData.compoundingStartDayType">
-                <td >
-                    <label class="control-label">{{ 'label.input.compoundingstartdatetype' | translate }}</label>
+                <td>
+                    <label class="control-label labelMarginBottom">{{ 'label.input.compoundingstartdatetype' | translate }}</label>
                 </td>
-                <td class="paddedbottom10" >
-                    <label>{{ loanaccountinfo.interestRecalculationData.compoundingStartDayType.value }}</label>
+                <td>
+                    <label class= "labelMarginBottomMarginLeft">{{ loanaccountinfo.interestRecalculationData.compoundingStartDayType.value }}</label>
+                </td>
+            </tr>
+            <tr ng-if="showLoanTerms" data-ng-show="loanaccountinfo.isInterestRecalculationEnabled && loanaccountinfo.interestRecalculationData.allowScheduleAfterMaturity==true">
+                <td>
+                    <label class="control-label labelMarginBottom">{{ 'label.input.frequency.after.maturity' | translate }}</label>
+                </td>
+                <td>
+                    <label class= "labelMarginBottomMarginLeft">{{ loanaccountinfo.interestRecalculationData.humanReadableFrequencyAfterMaturity }}</label>
                 </td>
             </tr>
             <tr ng-if="showLoanTerms" data-ng-show="loanaccountinfo.isInterestRecalculationEnabled && loanaccountinfo.interestRecalculationData.allowScheduleAfterMaturity==true">
                 <td >
-                    <label class="control-label">{{ 'label.input.frequency.after.maturity' | translate }}</label>
+                    <label class="control-label labelMarginBottom">{{ 'label.input.frequency.interval.after.maturity' | translate }}</label>
                 </td>
-                <td class="paddedbottom10" >
-                    <label>{{ loanaccountinfo.interestRecalculationData.humanReadableFrequencyAfterMaturity }}</label>
-                </td>
-            </tr>
-            <tr ng-if="showLoanTerms" data-ng-show="loanaccountinfo.isInterestRecalculationEnabled && loanaccountinfo.interestRecalculationData.allowScheduleAfterMaturity==true">
-                <td >
-                    <label class="control-label">{{ 'label.input.frequency.interval.after.maturity' | translate }}</label>
-                </td>
-                <td class="paddedbottom10" >
-                    <label>{{ loanaccountinfo.interestRecalculationData.frequencyAfterMaturityInterval }}</label>
+                <td>
+                    <label class= "labelMarginBottomMarginLeft">{{ loanaccountinfo.interestRecalculationData.frequencyAfterMaturityInterval }}</label>
                 </td>
             </tr>
             <tr ng-if="showLoanTerms" data-ng-show="loanaccountinfo.isInterestRecalculationEnabled">
                 <td data-ng-show="loanaccountinfo.interestRecalculationData.recalculationRestFrequencyType.id != 0 && loanaccountinfo.interestRecalculationData.recalculationRestFrequencyType.id != 1">
-                    <label>{{ 'label.input.frequenc.date.for.recalculte.outstanding.principal' | translate }}:&nbsp;</label>
+                    <label class="labelMarginBottom">{{ 'label.input.frequenc.date.for.recalculte.outstanding.principal' | translate }}:&nbsp;</label>
                 </td>
-                <td class="paddedbottom10" data-ng-show="loanaccountinfo.interestRecalculationData.recalculationRestFrequencyType.id != 0 && loanaccountinfo.interestRecalculationData.recalculationRestFrequencyType.id != 1">
+                <td data-ng-show="loanaccountinfo.interestRecalculationData.recalculationRestFrequencyType.id != 0 && loanaccountinfo.interestRecalculationData.recalculationRestFrequencyType.id != 1">
                     <input type="text" autocomplete="off" id="recalculationRestFrequencyStartDate" name="recalculationRestFrequencyStartDate" datepicker-pop="{{df}}"
                            ng-model="formData.recalculationRestFrequencyStartDate" is-open="opened" min="minDate" class="form-control" ng-readonly="isDatePickerReadOnly" />
                 </td>
                 <td data-ng-show="loanaccountinfo.interestRecalculationData.interestRecalculationCompoundingType.id != 0 && loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyType.id != 1">
-                    <label>{{ 'label.input.frequenc.date.for.compounding' | translate }}:&nbsp;</label>
+                    <label style="margin-bottom: 0px;" class= "labelMarginBottomMarginLeft">{{ 'label.input.frequenc.date.for.compounding' | translate }}:&nbsp;</label>
                 </td>
-                <td class="paddedbottom10" data-ng-show="loanaccountinfo.interestRecalculationData.interestRecalculationCompoundingType.id != 0 && loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyType.id != 1">
+                <td  data-ng-show="loanaccountinfo.interestRecalculationData.interestRecalculationCompoundingType.id != 0 && loanaccountinfo.interestRecalculationData.recalculationCompoundingFrequencyType.id != 1">
                     <input id="recalculationCompoundingFrequencyStartDate" type="text" autocomplete="off" name="recalculationCompoundingFrequencyStartDate"
                            datepicker-pop="{{df}}" ng-model="formData.recalculationCompoundingFrequencyStartDate" is-open="opened1" min="minDate"
                            class="form-control" ng-readonly="isDatePickerReadOnly"/>
