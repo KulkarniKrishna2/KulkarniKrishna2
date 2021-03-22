@@ -1000,6 +1000,15 @@
                 if(scope.isFirstRepaymentApplied==true && this.formData.repaymentsStartingFromDate==undefined){
                     this.formData.repaymentsStartingFromDate = null;
                 }
+
+                if(this.formData.recalculationRestFrequencyStartDate==undefined){
+                    this.formData.recalculationRestFrequencyStartDate = null;
+                }
+
+                if(this.formData.recalculationCompoundingFrequencyStartDate==undefined){
+                    this.formData.recalculationCompoundingFrequencyStartDate = null;
+                }
+
                 if (!(scope.loanaccountinfo.product.isRepaymentAtDisbursement == true && scope.formData.brokenPeriodMethodType === 3)) {
                     delete scope.formData.brokenPeriodInterestCollectAtDisbursement;
                 }
