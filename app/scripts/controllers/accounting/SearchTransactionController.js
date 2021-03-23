@@ -118,7 +118,7 @@
                 } else
                     scope.searchCriteria.journals[7] = null;
 
-                resourceFactory.journalEntriesSearchResource.search(params, callback);
+                    fetchJournalEntries(params, callback);
             };
 
             scope.clearFilters = function () {
@@ -165,6 +165,22 @@
                 scope.isCollapsed = false;
                 scope.isValid = true;
                 scope.path = "#/viewsavingaccount/" + scope.formData.savingsaccountId;
+            }
+
+            fetchJournalEntries = function(params,callback){
+                resourceFactory.journalEntriesSearchResource.search(params, function (data) {
+                    var explodedJEList = [];
+                    data.forEach(element => {
+                        element.journalEntryDetails.forEach(journalEntry => {
+                            var temp = {};
+                            angular.copy(element,temp);
+                            temp.transactiondetail =  journalEntry;
+                            explodedJEList.push(temp);
+                        });
+                        
+                    });
+                    callback(explodedJEList);
+                });
             }
 
         }
