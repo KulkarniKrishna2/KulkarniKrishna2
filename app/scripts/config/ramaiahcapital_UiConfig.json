@@ -1,0 +1,18 @@
+{
+	"enableUIDisplayConfiguration": true,
+	"uiDisplayConfigurations": {
+        "createClient": {
+            "isValidateDOBField": {
+				"active": true,
+				"ageCriteria": {
+					"minAge": 21,
+					"maxAge": 58
+                }
+			},
+            "isMandatoryField": {
+				"dateOfBirth": true,
+                "clientClassificationId": true
+            }
+        }
+    }
+}
