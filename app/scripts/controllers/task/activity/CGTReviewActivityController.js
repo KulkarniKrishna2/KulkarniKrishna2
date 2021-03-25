@@ -35,7 +35,9 @@
                                 var clientLevelCriteriaObj = scope.centerDetails.subGroupMembers[i].memberData[j].clientLevelCriteriaResultData;
                                 scope.centerDetails.subGroupMembers[i].memberData[j].isMemberChecked = false;
                                 scope.centerDetails.subGroupMembers[i].memberData[j].allowLoanRejection = false;
-                                scope.centerDetails.subGroupMembers[i].memberData[j].filteredCharges = scope.filterCharges(scope.centerDetails.subGroupMembers[i].memberData[j].loanAccountBasicData.charges);
+                                if(!_.isUndefined(scope.centerDetails.subGroupMembers[i].memberData[j].loanAccountBasicData)){
+                                    scope.centerDetails.subGroupMembers[i].memberData[j].filteredCharges = scope.filterCharges(scope.centerDetails.subGroupMembers[i].memberData[j].loanAccountBasicData.charges);
+                                }
                                 if (clientLevelTaskTrackObj == undefined) {
                                     scope.centerDetails.subGroupMembers[i].memberData[j].isClientFinishedThisTask = true;
                                     scope.centerDetails.subGroupMembers[i].memberData[j].color = "background-none";
