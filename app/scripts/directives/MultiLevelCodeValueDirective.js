@@ -37,7 +37,7 @@
                                 }
                             }
                         }
-                        for(var i =0;i<scope.documentTagOptions.length;i++) {
+                        for(i =0;i<scope.documentTagOptions.length;i++) {
                             if(scope.documentTagOptions[i].parentId == undefined ){
                                 scope.mastTagOptions.push(scope.documentTagOptions[i]);
                             }
@@ -55,31 +55,33 @@
                     }
 
                     scope.onShow = function($event, codeValue) {
-                        $event.toElement.parentElement.parentElement.className = "multiChildDropDown ng-scope open";
-                        for(var i=0;i<$event.toElement.children[1].children.length;i++) {
-                            if($event.toElement.children[1].children[i].style.display == "none") {
-                            $event.toElement.children[1].children[i].style.display = "block";
-                             } else {
-                                 $event.toElement.children[1].children[i].style.display = "none";
-                             }
+                        $event.stopPropagation();
+                        for (var i = 0; i < codeValue.child.length; i++) {
+                            if(codeValue.child[i].display=== true){
+                                codeValue.child[i].display = false;
+                            }else{
+                                codeValue.child[i].display = true;
+                            }
                         }
+                
                     }
-
+                    
 
                     var template =
                     '<div class="multiChildDropDown">' +
-                    ' <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{tagIdentifierName}}<span class="caret"></span></button>'+
+                    ' <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{tagIdentifierName}}<span style = "margin-left:10px" class="caret"></span></button>'+
                         '<ul class="dropdown-menu multi-level"  role="menu">' +
-                            '<li ng-repeat="item in mastTagOptions" id="wrapper" ng-click="onShow($event, item)" ng-include="\'menu_sublevel.html\'"></li>'+
+                            '<li ng-repeat="item in mastTagOptions" id="wrapper"  ng-include="\'menu_sublevel.html\'"></li>'+
                         '</ul>' +
                     '</div>'+
                     '<script type="text/ng-template" id="menu_sublevel.html">' +
-                        '<div class=" btn  dropdown-toggle">' +
+                        '<div class=" btn " >' +
                             '<input type="radio" class="custom-control-input" style="margin-right: 20px" name="codeValue" ng-if="!item.child.length > 0" ng-click="onClick(item)"/>' +
                             '<span >{{item.name}}</span> ' +
+                        ' <button ng-click="onShow($event, item)" class="btn "  ng-if="item.child.length > 0" type="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></button>' +
                         '</div>' +
                         '<ul class="accordion" >' +
-                            '<li  class="dropdown-submenu multi-level" style="display:none" ng-repeat="item in item.child"   ng-include="\'menu_sublevel.html\'"> </li>' +
+                            '<li  class="dropdown-submenu multi-level" ng-show="item.display" ng-repeat="item in item.child"   ng-include="\'menu_sublevel.html\'"> </li>' +
                         '</ul>' +
                     '</script>';
 
