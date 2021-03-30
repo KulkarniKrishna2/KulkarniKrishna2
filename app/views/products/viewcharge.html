@@ -70,7 +70,7 @@
 	                    <td>{{'label.heading.chargecalculationtype' | translate}}</td>
 	                    <td>{{charge.chargeCalculationType.value}}</td>
 					</tr>
-					<tr ng-if="showChargeCategoryType">
+					<tr ng-if="charge.chargeCategoryType != undefined && showChargeCategoryType">
 	                    <td>{{'label.heading.chargeCategoryType' | translate}}</td>
 	                    <td>{{charge.chargeCategoryType.value}}</td>
 	                </tr>

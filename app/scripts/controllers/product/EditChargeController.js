@@ -24,8 +24,7 @@
             scope.showEventTypeOptions = false;
             scope.chargeEventsTypeOptions = [];
 
-            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createCharges &&
-                scope.response.uiDisplayConfigurations.createCharges.isHiddenField) {
+            if (scope.response.uiDisplayConfigurations.createCharges.isHiddenField) {
                 scope.showChargeCategoryType = !scope.response.uiDisplayConfigurations.createCharges.isHiddenField.chargeCategoryType;
             }
             resourceFactory.chargeResource.getCharge({chargeId: routeParams.id, template: true}, function (data) {
@@ -97,6 +96,7 @@
                     decimalPlaces: data.decimalPlaces,
                     isCapitalized: data.isCapitalized
                 };
+                scope.chargeTimeChange(scope.formData.chargeTimeType);
                 if(data.roundingMode){
                     scope.formData.roundingMode = data.roundingMode.id;
                 }
@@ -205,6 +205,11 @@
             //to display 'Due date' field, if chargeTimeType is
             // 'annual fee' or 'monthly fee'
             scope.chargeTimeChange = function (chargeTimeType) {
+                if(chargeTimeType == 1){
+                    scope.showChargeCategoryType = scope.response.uiDisplayConfigurations.createCharges.isHiddenField.chargeCategoryType;
+                }else{
+                    scope.showChargeCategoryType = false;
+                }
                 scope.showOverdueOptions = false;
                 if(chargeTimeType == 9){
                     scope.showOverdueOptions = true;
