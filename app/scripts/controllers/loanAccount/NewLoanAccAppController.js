@@ -189,6 +189,7 @@
                 resourceFactory.loanResource.get(scope.inparams, function (data) {
                     scope.loanaccountinfo = data;
                     scope.loanPurposeOptions = scope.loanaccountinfo.loanPurposeOptions;
+                    scope.formData.isTopup = scope.loanaccountinfo.canUseForTopup;
                     scope.isOverrideMoratorium = scope.loanaccountinfo.product.allowAttributeOverrides.graceOnPrincipalAndInterestPayment;
                     scope.showLoanTerms =!(scope.loanaccountinfo.loanEMIPacks && scope.isLoanEmiPackEnabled)?true:false;
                     scope.getProductPledges(scope.loanaccountinfo);
