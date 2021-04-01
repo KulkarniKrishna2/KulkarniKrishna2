@@ -307,6 +307,9 @@
                     loanApplicationReferencesTrancheResource: defineResource(apiVer + "/loanapplicationreferences/:loanApplicationReferenceId/tranchedatas", { loanApplicationReferenceId: '@loanApplicationReferenceId' }, {
                         getByLoanAppId: { method: 'GET', params: {}, isArray: true }
                     }),
+                    loanApplicationReferencesChargeAmountResource: defineResource(apiVer + "/loans/charge-amount-to-collect-as-cash", {}, {
+                        save: { method: 'POST', params: {} }
+                    }),
                     loanApplicationOverViewsResource: defineResource(apiVer + "/loanapplicationreferences/:loanApplicationReferenceId/overviews", { loanApplicationReferenceId: '@loanApplicationReferenceId' }, {
                         getByClientId: { method: 'GET', params: {}, isArray: true },
                         getByLoanAppId: { method: 'GET', params: {} }
