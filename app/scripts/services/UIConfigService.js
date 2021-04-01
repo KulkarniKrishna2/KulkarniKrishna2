@@ -2,11 +2,15 @@
     mifosX.services = _.extend(module, {
 
         UIConfigService: function ($q, $http) {
-
-            var configUIArray = ["agronomica", "almajmoua", "bss", "chaitanya", "crediangolar", "creditonepayments", "digamber", "eastlanka", "flexi", "grayquest", "habitat", "hana", "kapilcapital", "light", "mobilityfinance", "neev",
+            var customConfig = {"lms.moneytap.com":"moneytap","finflux.tapstart.in":"tapstart"};
+            var configUIArray = ["agronomica", "almajmoua", "bss", "chaitanya", "crediangolar", "creditonepayments", "digamber", "eastlanka", "flexi", "grayquest", "habitat", "hana", "kapilcapital", "light", "mobilityfinance","moneytap","neev",
                 "phakamani", "ramaiahcapital", "secdep", "sef", "shivakarifin", "sunvest", "tapstart", "vayarbl", "vayabc", "vaya", "mfi", "default"];
 
             var getUIConfigKey = function (tenantName) {
+                var hostname = window.location.hostname;
+                if(customConfig[hostname]!== undefined){
+                    return customConfig[hostname];
+                }
                 var arrayLength = configUIArray.length;
                 if (!!tenantName) {
                     for (var i = 0; i < arrayLength; i++) {
