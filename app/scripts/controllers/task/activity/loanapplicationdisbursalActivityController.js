@@ -336,13 +336,15 @@
                     });
                 }
             }
-
+            
             scope.submitWithConfirmationCheck = function () {
               scope.prepareFormDataForSchedule();
               resourceFactory.loanApplicationReferencesChargeAmountResource.save({},scope.formRequestPreveieData,function (data) {
                   scope.disbursementChargeAmountToCollectAsCash = data.disbursementChargeAmountToCollectAsCash;
                   if (scope.disbursementChargeAmountToCollectAsCash > 0) {
-                    angular.element("#confirm-save").triggerHandler("click");
+                    setTimeout(function() {
+                        angular.element("#confirm-save").triggerHandler("click");                  
+                    }, 300);                                      
                   } else {
                     scope.submit();
                   }

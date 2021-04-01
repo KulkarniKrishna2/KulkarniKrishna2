@@ -969,7 +969,7 @@
                                         {{'label.button.reject' | translate}}</a>
                                 <button id="confirm-save"    data-text="{{'label.heading.disbursement.charge.amount.as.cash'| translate}}{{disbursementChargeAmountToCollectAsCash}}{{'label.heading.disbursement.charge.amount.from.customer'| translate}}" data-confirm-popup ng-confirm-success="submit()"
                                         has-permission='DISBURSE_LOANAPPLICATIONREFERENCE'
-                                        class="btn btn-primary" ng-if="formData.status.id === 300 && !canDisburseToGroupsBanks()"
+                                        class="btn btn-primary" ng-if="disbursementChargeAmountToCollectAsCash>0"
                                         ng-show="false">{{'label.button.disburse' |translate}}
                                 </button>
                                 <button id="save" type="submit"  
