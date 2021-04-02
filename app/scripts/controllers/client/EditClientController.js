@@ -14,6 +14,7 @@
             scope.isDateOfBirthMandatory = false;
             scope.hideClientClassification = false;
             scope.isClientClassificationMandatory = false;
+            scope.isClientTypeMandatory = false;
             scope.isExternalIdMandatory = false;
             scope.isMobileNumberMandatory = false;
             scope.isEmailIdMandatory = false;
@@ -50,7 +51,11 @@
                 scope.response.uiDisplayConfigurations.createClient.isMandatoryField && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.clientClassificationId) {
                 scope.isClientClassificationMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.clientClassificationId;
             }
-            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
+                scope.response.uiDisplayConfigurations.createClient.isMandatoryField && scope.response.uiDisplayConfigurations.createClient.isMandatoryField.clientType) {
+                    scope.isClientTypeMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.clientType;
+            }
+             if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient &&
                 scope.response.uiDisplayConfigurations.createClient.isHiddenField) {
                 if (scope.response.uiDisplayConfigurations.createClient.isHiddenField.hideClientClassification) {
                     scope.hideClientClassification = scope.response.uiDisplayConfigurations.createClient.isHiddenField.hideClientClassification;

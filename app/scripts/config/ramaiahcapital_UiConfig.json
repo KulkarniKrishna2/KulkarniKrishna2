@@ -11,7 +11,9 @@
 			},
             "isMandatoryField": {
 				"dateOfBirth": true,
-                "clientClassificationId": true
+                "clientClassificationId": true,
+                "mobileNumber": true,
+                "clientType": true
             }
         }
     }

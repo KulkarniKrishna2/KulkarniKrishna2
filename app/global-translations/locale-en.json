@@ -3119,6 +3119,8 @@
     "label.heading.suspend.message": "Do you want to suspend the User?",
     "label.heading.revoke.message": "Do you want to revoke the User?",
     "label.heading.deactivate.employee": "Are you sure, do you want to deactivate the Employee?",
+    "label.heading.disbursement.charge.amount.as.cash": "I have collected Disbursement charges of Rs.",
+    "label.heading.disbursement.charge.amount.from.customer": " from customer",
 
     "#Anchors": "..",
     "label.anchor.users": "Users",
@@ -8885,6 +8887,7 @@
      "label.heading.mandate.mode": "Request Mode",
      "error.msg.can.not.reject.nach.request": "Nach Request with status `{{params[0].value}}` can not be rejected",
      "error.msg.work.flow.step.not.completed" : "Activity not completed",
+     "label.input.iscollectedascash" : "Is Collected As Cash",
 
      "------ end of translation file ------": "----------"
 
