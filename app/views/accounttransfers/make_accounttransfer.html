@@ -5,13 +5,15 @@
                 translate}}</a></li>
             <li ng-show="displayAccountType == 1"><a href="#/viewloanaccount/{{transfer.fromAccount.id}}">{{'label.anchor.viewloanaccount' |
                 translate}}</a></li>
-            <li class="active">{{'label.anchor.accounttransfers' | translate}}</li>
+            <li ng-if="!isRefundByTransfer" class="active">{{'label.anchor.accounttransfers' | translate}}</li>
+            <li ng-if="isRefundByTransfer" class="active">{{'label.heading.refundbytransfer' | translate}}</li>
         </ul>
     </div>
     <api-validate></api-validate>
     <form class="form-horizontal well" name="accounttransferform" autocomplete="off" novalidate="" rc-submit="submit()">
         <fieldset>
-            <legend>{{ 'label.heading.accounttransfers' | translate }}</legend>
+            <legend ng-if="!isRefundByTransfer">{{ 'label.heading.accounttransfers' | translate }}</legend>
+            <legend ng-if="isRefundByTransfer">{{ 'label.heading.refundbytransfer' | translate }}</legend>
             <div class="row paddedleft">
                 <label><strong>{{ 'label.heading.transferringfrom' | translate}}</strong></label>
                 <table class="table table-striped">
@@ -118,8 +120,7 @@
                         <form-validate valattributeform="accounttransferform" valattribute="accountnumber" />
                     </div>
                 </div>
-
-                <div ng-if="loansEnabled">
+                <div ng-if="loansEnabled && !isRefundByTransfer">
                     <div class="form-group">
                         <label class="control-label col-sm-2">{{'label.input.next.emi.amount' | translate}}</label>
                         <div class="col-sm-3">
@@ -182,11 +183,26 @@
                         <input type="text" autocomplete="off" id="transferDate" datepicker-pop="{{df}}" ng-model="formData.transferDate" class="form-control" is-open="opened" min="'2000-01-01'" max="restrictDate" ng-readonly="isDatePickerReadOnly" />
                     </div>
                 </div>
+                <div class="form-group" ng-if="formData.fromAccountType == 1">
+                    <label class="control-label col-sm-2" for="fromAccountTransferActionType">{{ 'label.heading.from.account.transfer.action.type' | translate }}</label>
+                    <div class="col-sm-3">
+                        <select id="fromAccountTransferActionType" ng-model="formData.fromAccountTransferActionType" name="fromTransferActionType" class="form-control" ng-options="fromTransferActionType.id as fromTransferActionType.value for fromTransferActionType in fromTransferActionTypeOptions" value="{{fromTransferActionType.id}}">
+                            <option value="">{{'label.selectone' | translate}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group" ng-if="formData.toAccountType == 1">
+                    <label class="control-label col-sm-2" for="toTransferActionType">{{ 'label.heading.to.account.transfer.action.type' | translate }}</label>
+                    <div class="col-sm-3">
+                        <select id="toAccountTransferActionType" ng-model="formData.toAccountTransferActionType" name="toTransferActionType" class="form-control" ng-options="toTransferActionType.id as toTransferActionType.value for toTransferActionType in toTransferActionTypeOptions" value="{{toTransferActionType.id}}">
+                            <option value="">{{'label.selectone' | translate}}</option>
+                        </select>
+                    </div>
+                </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="transferAmount">{{ 'label.input.transfer.amount' | translate }}<span class="required">*</span></label>
-
                     <div class="col-sm-3">
-                        <input type="text" autocomplete="off" id="transferAmount" number-format name="transferAmount" ng-model="formData.transferAmount" class="form-control" required late-validate/>
+                        <input type="text" autocomplete="off" id="transferAmount" number-format name="transferAmount" ng-readonly="isRefundByTransfer" ng-model="formData.transferAmount" class="form-control" required late-validate/>
                     </div>
                     <div class="col-sm-3">
                         <form-validate valattributeform="accounttransferform" valattribute="transferAmount" />
