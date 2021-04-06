@@ -58,6 +58,10 @@
 	                    <td>{{'label.heading.chargetimetype' | translate}}</td>
 	                    <td>{{charge.chargeTimeType.value}}</td>
 	                </tr>
+					<tr ng-show="charge.isCollectedAsCash">
+	                    <td>{{'label.input.iscollectedascash' | translate}}</td>
+	                    <td>{{charge.isCollectedAsCash}}</td>
+	                </tr>
 	                <tr ng-show="charge.chargeEventType">
 	                    <td>{{'label.heading.eventtype' | translate}}</td>
 	                    <td>{{charge.chargeEventType.value}}</td>

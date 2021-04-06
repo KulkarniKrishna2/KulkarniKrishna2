@@ -83,7 +83,14 @@
                     </div>
                 </div>
 
-
+                <div class="form-group" ng-show="formData.chargeTimeType == 1">
+                    <label class="control-label col-sm-2">{{'label.input.iscollectedascash' | translate}}</label>
+                    <div class="col-sm-3">
+                        <label class="checkbox">
+                            <input id="isCollectedAsCash" type="checkbox" ng-model="formData.isCollectedAsCash">
+                        </label>
+                    </div>
+                </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2">{{'label.input.chargecalculation' | translate}}<span
                             class="required">*</span></label>

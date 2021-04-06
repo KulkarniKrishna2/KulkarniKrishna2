@@ -119,7 +119,6 @@
             });
 
             scope.loanProductChange = function (loanProductId) {
-
                 scope.inparams.productId = loanProductId;
                 scope.previewRepayment = false;
                 scope.formPreviewRepaymentData = {};
@@ -127,6 +126,7 @@
                 resourceFactory.loanResource.get(scope.inparams, function (data) {
                     scope.loanaccountinfo = data;
                     scope.loanPurposeOptions = scope.loanaccountinfo.loanPurposeOptions;
+                    scope.formData.isTopup = scope.loanaccountinfo.canUseForTopup;
                     scope.product = scope.loanaccountinfo.product;
                     if(scope.loanaccountinfo.loanEMIPacks){
                         var len = scope.loanaccountinfo.loanEMIPacks.length;
