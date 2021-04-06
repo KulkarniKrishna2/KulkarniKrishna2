@@ -70,6 +70,9 @@
             scope.viewEOD = function(eodProcessId){
                 location.path('/vieweodprocess/' + eodProcessId);
             }
+            scope.createEOD = function(){
+                location.path('/createeodprocess');
+            }
         }
     });
 

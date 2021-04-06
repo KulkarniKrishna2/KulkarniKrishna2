@@ -783,7 +783,9 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'product/productroundingmodemapping/UpdateLoanProductRoundingModeMappingController',
             'product/productroundingmodemapping/ViewLoanProductRoundingModeMappingController',
             'product/productroundingmodemapping/ViewLoanProductRoundingModeMappingsController',
-            'client/ClientLoansPaymentSettlementController'
+            'client/ClientLoansPaymentSettlementController',
+            'accounting/eodprocess/CreateEodProcessController'
+
         ],
         filters: [
             'StatusLookup',
