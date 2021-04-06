@@ -2322,6 +2322,10 @@
                     $modalInstance.dismiss('cancel');
                 };
             };
+
+            scope.refundByTransfer = function () {
+                location.path('/loan/' + scope.loandetails.id + "/refundbytransfer");
+            };
         }
     });
 

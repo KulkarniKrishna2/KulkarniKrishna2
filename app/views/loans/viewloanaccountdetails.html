@@ -275,6 +275,9 @@
                               <li class="{{button.icon}}" ng-show="loandetails.status.active==true">
                                 <a href="#/loan/{{loandetails.id}}/restructure" has-permission="RESTRUCTURE_LOAN">{{'label.button.restructure' | translate}}</a> 
                               </li>
+                              <li class="{{button.icon}}" ng-show="isUpfrontAmountAvilable">
+                                <a ng-click="refundByTransfer()" has-permission="CREATE_ACCOUNTTRANSFER">{{'label.heading.refundbytransfer' | translate}}</a> 
+                              </li>
                           </ul>
                       </span>
                 </div>

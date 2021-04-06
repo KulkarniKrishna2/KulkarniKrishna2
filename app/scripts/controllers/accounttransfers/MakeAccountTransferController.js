@@ -4,9 +4,15 @@
             scope.restrictDate = new Date();
             scope.transferDate = new Date();
             var params = {fromAccountId: routeParams.accountId};
+            var path =location.$$path;
+            scope.isRefundByTransfer = false;
             var accountType = routeParams.accountType || '';
             if (accountType == 'fromsavings') params.fromAccountType = 2;
             else if (accountType == 'fromloans') params.fromAccountType = 1;
+            else if (path.includes('refundbytransfer')){
+                scope.isRefundByTransfer = true;
+                params.fromAccountType = 1;
+            }
             else params.fromAccountType = 0;
 
             scope.toOffices = [];
@@ -14,22 +20,31 @@
             scope.toAccountTypes = [];
             scope.toAccounts = [];
             scope.toOwnAccounts = [];
-
+            
             scope.loansEnabled = false;
             scope.enableOwnAccountTransfer = false;
             scope.enableOtherAccountTransfer = false;
             scope.displayAccountType = params.fromAccountType;
+            scope.refundAmount = 0;
+            scope.formData = {fromAccountId: params.fromAccountId, fromAccountType: params.fromAccountType};
 
             scope.back = function () {
                 window.history.back();
             };
 
-            scope.formData = {fromAccountId: params.fromAccountId, fromAccountType: params.fromAccountType};
+            if(scope.isRefundByTransfer){
+                resourceFactory.loanTrxnsTemplateResource.get({loanId: params.fromAccountId, command: 'refundFromUpfrontInterest'}, function (data) {
+                    scope.refundAmount = data.amount || 0;
+                });
+            }
+
             resourceFactory.accountTransfersTemplateResource.get(params, function (data) {
                 scope.transfer = data;
                 scope.toOffices = data.toOfficeOptions;
                 scope.toAccountTypes = data.toAccountTypeOptions;
-                scope.formData.transferAmount = data.transferAmount;
+                scope.toTransferActionTypeOptions = data.toTransferActionTypeOptions;
+                scope.fromTransferActionTypeOptions = data.fromTransferActionTypeOptions;
+                scope.formData.transferAmount  = scope.isRefundByTransfer ? scope.refundAmount : data.transferAmount;
                 scope.formData.transferDate=scope.transferDate;
 
             });
@@ -99,24 +114,25 @@
             scope.changeEvent = function () {
 
                 var params = scope.formData;
-                delete params.transferAmount;
+                if(!scope.isRefundByTransfer){
+                    delete params.transferAmount;
+                }
                 delete params.transferDescription;
 
                 if(!scope.loansEnabled){
                     delete params.transferDate;
-
-                resourceFactory.accountTransfersTemplateResource.get(params, function (data) {
-                    scope.transfer = data;
-                    scope.toOffices = data.toOfficeOptions;
-                    scope.toAccountTypes = data.toAccountTypeOptions;
-                    scope.toClients = data.toClientOptions;
-                    scope.toAccounts = data.toAccountOptions;
-                    scope.formData.transferAmount = data.transferAmount;
-                    scope.formData.transferDate = new Date();
-                });
-            }
-
-                if(scope.loansEnabled){        
+                    scope.formData.toAccountTransferActionType = undefined;
+                    scope.formData.fromAccountTransferActionType = undefined;
+                    resourceFactory.accountTransfersTemplateResource.get(params, function (data) {
+                        scope.transfer = data;
+                        scope.toOffices = data.toOfficeOptions;
+                        scope.toAccountTypes = data.toAccountTypeOptions;
+                        scope.toClients = data.toClientOptions;
+                        scope.toAccounts = data.toAccountOptions;
+                        scope.formData.transferAmount  = scope.isRefundByTransfer ? scope.refundAmount : data.transferAmount;
+                        scope.formData.transferDate = new Date();
+                    });
+                } else if(!scope.isRefundByTransfer){
                     resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.formData.toAccountId, command: 'currentstatus'}, function (data) {
                         scope.currentstatus = data;
                         scope.nextEMIAmount = scope.currentstatus.fixedEmiAmount;
@@ -126,7 +142,6 @@
                         scope.overdueWithNextEMIAmount = scope.currentstatus.loanOverdueData.overdueWithNextInstallment;     
                     });
                 }
-
             };
 
             scope.descopeElements = function(){
@@ -136,8 +151,10 @@
                 scope.toOwnAccounts = undefined;
                 scope.formData.toAccountType = undefined;
                 scope.formData.toAccountId = undefined;
-                scope.formData.transferAmount = undefined;
+                scope.formData.transferAmount  = scope.isRefundByTransfer ? scope.refundAmount : undefined;
                 scope.formData.transferDescription = undefined;
+                scope.formData.toAccountTransferActionType = undefined;
+                scope.formData.fromAccountTransferActionType = undefined;
             };
 
             scope.changeEventType = function(){

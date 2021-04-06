@@ -8929,6 +8929,11 @@
      "label.heading.charge.slab.maxvalue": "Maximum Value",
      "validation.msg.loanCharge.chargeId.event.based.charge.adding.explicitly.not.allowed": "Cannot add event based charge explicitly",
      "label.input.iscollectedascash" : "Is Collected As Cash",
+     "label.heading.refundbytransfer": "Refund By Transfer",
+     "label.heading.to.account.transfer.action.type": "To Account Transfer Action Type",
+     "error.msg.foreclosure.amount.not.equal.to.transfer.amount": "Foreclosure amount not equal to transfer amount", 
+     "label.heading.from.account.transfer.action.type": "From Account Transfer Action Type",
+     "error.msg.from.account.transfer.action.type.not.allowed.for.the.loan" : "From Account Transfer Action Type Not Allowed For the Loan", 
 
      "------ end of translation file ------": "----------"
 
