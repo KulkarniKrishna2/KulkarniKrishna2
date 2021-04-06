@@ -8888,6 +8888,7 @@
      "error.msg.can.not.reject.nach.request": "Nach Request with status `{{params[0].value}}` can not be rejected",
      "error.msg.work.flow.step.not.completed" : "Activity not completed",
      "label.input.iscollectedascash" : "Is Collected As Cash",
+     "label.button.create.eod.without.workflow" : "Create Eod Without Workflow",
 
      "------ end of translation file ------": "----------"
 

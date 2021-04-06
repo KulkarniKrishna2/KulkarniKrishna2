@@ -2228,6 +2228,9 @@
             })
             .when('/clients/:clientId/loans/payment/settlement', {
                 templateUrl: 'views/clients/clientsloanspaymentsettlement.html'
+            }) 
+            .when('/createeodprocess', {
+                templateUrl: 'views/accounting/eodprocess/createeodprocess.html'
             })
         $locationProvider.html5Mode(false);
     };
