@@ -595,6 +595,7 @@
                     scope.loanaccountinfo = data;
                     scope.loanaccountinfo.chargeOptions = scope.getChargeOptions()
                     scope.loanPurposeOptions = scope.loanaccountinfo.loanPurposeOptions;
+                    scope.formData.isTopup = scope.loanaccountinfo.canUseForTopup;
                     scope.isOverrideMoratorium = scope.loanaccountinfo.product.allowAttributeOverrides.graceOnPrincipalAndInterestPayment;
                     scope.showLoanTerms =!(scope.loanaccountinfo.loanEMIPacks && scope.isLoanEmiPackEnabled)?true:false;
                     scope.collaterals = [];

@@ -95,7 +95,8 @@
                     slabs: data.slabs,
                     isSlabBased:data.isSlabBased,
                     decimalPlaces: data.decimalPlaces,
-                    isCapitalized: data.isCapitalized
+                    isCapitalized: data.isCapitalized,
+                    isCollectedAsCash :  data.isCollectedAsCash
                 };
                 if(data.roundingMode){
                     scope.formData.roundingMode = data.roundingMode.id;

@@ -43,6 +43,7 @@
             scope.isClientActive = false;
             scope.hideClientClassification = false;
             scope.isClientClassificationMandatory = false;
+            scope.isClientTypeMandatory = false;
             scope.isExternalIdMandatory = false;
             scope.pincode = false;
             scope.isVillageTownMandatory = false;
@@ -85,12 +86,11 @@
 
                 if (scope.response.uiDisplayConfigurations.createClient) {
                     if (scope.response.uiDisplayConfigurations.createClient.isValidateFirstName) {
-                       // scope.firstNamePattern = scope.response.uiDisplayConfigurations.createClient.isValidateFirstName.firstNamePattern;
+                     // scope.firstNamePattern = scope.response.uiDisplayConfigurations.createClient.isValidateFirstName.firstNamePattern;
                     }
                     if (scope.response.uiDisplayConfigurations.createClient.isAutoPopulate) {
                         scope.isGenderAutoPopulate = scope.response.uiDisplayConfigurations.createClient.isAutoPopulate.genderOption;
                     }
-
                     if (scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber && scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber.mobileNumberPattern) {
                         scope.mobileNumberPattern = scope.response.uiDisplayConfigurations.createClient.isValidMobileNumber.mobileNumberPattern;
                     }
@@ -99,6 +99,9 @@
 
                         if (scope.response.uiDisplayConfigurations.createClient.isMandatoryField.clientClassificationId) {
                             scope.isClientClassificationMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.clientClassificationId;
+                        }
+                        if(scope.response.uiDisplayConfigurations.createClient.isMandatoryField.clientType) {
+                            scope.isClientTypeMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.clientType;
                         }
                         if (scope.response.uiDisplayConfigurations.createClient.isMandatoryField.dateOfBirth) {
                             scope.isDateOfBirthMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.dateOfBirth;

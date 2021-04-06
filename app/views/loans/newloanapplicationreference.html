@@ -280,7 +280,7 @@
             <tr ng-if="showLoanTerms" ng-show="loanaccountinfo.canUseForTopup">
                 <td><label>{{ 'label.heading.isTopup' | translate }}</label></td>
                 <td class="paddedbottom10" colspan="3">
-                    <input type="checkbox" name="isTopup" ng-model="formData.isTopup" ng-change="isTopupSelected()"/>
+                    <input type="checkbox" name="isTopup" ng-model="formData.isTopup" ng-change="isTopupSelected()" disabled="formData.isTopup"/>
                 </td>
             </tr>
             <tr ng-if="showLoanTerms" ng-show="loanaccountinfo.canUseForTopup && formData.isTopup == true">
