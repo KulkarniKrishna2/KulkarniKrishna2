@@ -669,7 +669,7 @@
     "label.error.LuhnsAlgorithm.checkbitincorrect": "Checkbit is incorrect",
     "label.error.LuhnsAlgorithm.idnumbervalid": "Id Number is valid",
     "label.error.LuhnsAlgorithm.selecId": "Select Identifier Type as Id to validate",
-    "label.error.required": "Required",
+    "label.error.required": "Required Field",
     "error.msg.spouse.insurance.not.valid": "Spouse Insurance is applicable only if the member is married and proper spouse details are added",
     "label.error.LuhnsAlgorithm.passportnumbervalid": "Passport Number is valid",
     "label.error.LuhnsAlgorithm.selectpassport": "Select Document Type Passport to validate",
@@ -8934,6 +8934,11 @@
      "error.msg.foreclosure.amount.not.equal.to.transfer.amount": "Foreclosure amount not equal to transfer amount", 
      "label.heading.from.account.transfer.action.type": "From Account Transfer Action Type",
      "error.msg.from.account.transfer.action.type.not.allowed.for.the.loan" : "From Account Transfer Action Type Not Allowed For the Loan", 
+     "label.button.create.eod.without.workflow" : "Create Eod Without Workflow",
+     "label.heading.overdue.based.on": "Overdue Based On",
+     "error.msge.overdue.charge.must.have.any.one.of.the.applicable.overdue.based.on.value": "Overdue Charge having Id: `{{params[0].value}}` must have any one of the applicable overduebasedon values",
+     "error.msge.loan.overdue.charge.detail.must.have.any.one.of.the.applicable.overdue.based.on.value": "Overdue loan Charge detail having Id: `{{params[0].value}}` must have any one of the applicable overduebasedon values",
+     "error.msge.all.the.loan.overdue.charge.details.must.have.any.one.of.the.applicable.overdue.based.on.value":"All the overdue loan charge details must have any one of the applicable overduebasedon values",
 
      "------ end of translation file ------": "----------"
 

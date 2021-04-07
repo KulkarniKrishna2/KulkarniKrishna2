@@ -655,7 +655,8 @@
 </tr>
 <tr ng-repeat="charge in loanproduct.charges" ng-show="charge.penalty">
     <td>{{charge.productLoanChargeId}}.&nbsp;{{charge.name}}</td>
-    <td>{{charge.chargeCalculationType.value}}</td>
+    <td ng-hide="charge.chargeOverdueData.overdueBasedOn.value != 'Invalid'">{{charge.chargeCalculationType.value}}</td>
+    <td ng-show="charge.chargeOverdueData.overdueBasedOn.value != 'Invalid'">{{charge.chargeCalculationType.value}}({{charge.chargeOverdueData.overdueBasedOn.value}})</td>
     <td>{{charge.amount|number}}</td>
     <td>{{charge.chargeTimeType.value}}</td>
     <td>{{charge.isMandatory == true ? 'Yes': 'No'}}</td>

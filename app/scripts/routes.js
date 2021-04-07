@@ -2228,6 +2228,9 @@
             })
             .when('/clients/:clientId/loans/payment/settlement', {
                 templateUrl: 'views/clients/clientsloanspaymentsettlement.html'
+            }) 
+            .when('/createeodprocess', {
+                templateUrl: 'views/accounting/eodprocess/createeodprocess.html'
             })
             .when('/loan/:accountId/refundbytransfer', {
                 templateUrl: 'views/loans/refundbytransfer.html'
