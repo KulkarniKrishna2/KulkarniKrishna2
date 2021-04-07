@@ -1,10 +1,8 @@
 {
-
-	"version": "FE-4587-CRUD",
-	"releasedate": "11/26/2020",
-	"releaseyear": 2020,
+	"version": "FE-5539_2",
+	"releasedate": "4/6/2021",
+	"releaseyear": 2021,
 	"tag": "NA",
-	"commit": "4878dc1ad",
-	"branch": "FE-4587-CRUD"
-
+	"commit": "292ffb15b",
+	"branch": "hotfix-21.02.08"
 }
