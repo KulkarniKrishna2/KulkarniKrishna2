@@ -1644,8 +1644,9 @@
 	        </tr>
 	        <tr ng-repeat="charge in charges" ng-show="charge.penalty">
 	            <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
-	            <td>{{charge.chargeCalculationType.value}}</td>
-	            <td></td>
+	            <td ng-hide="charge.chargeOverdueData.overdueBasedOn.value != 'Invalid'">{{charge.chargeCalculationType.value}}</td>
+            	<td ng-show="charge.chargeOverdueData.overdueBasedOn.value != 'Invalid'">{{charge.chargeCalculationType.value}}({{charge.chargeOverdueData.overdueBasedOn.value}})</td>
+            	<td></td>
 	            <td>{{charge.amount|number}}</td>
 	            <td></td>
 	            <td>{{charge.chargeTimeType.value}}</td>

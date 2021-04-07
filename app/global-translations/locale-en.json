@@ -8889,6 +8889,10 @@
      "error.msg.work.flow.step.not.completed" : "Activity not completed",
      "label.input.iscollectedascash" : "Is Collected As Cash",
      "label.button.create.eod.without.workflow" : "Create Eod Without Workflow",
+     "label.heading.overdue.based.on": "Overdue Based On",
+     "error.msge.overdue.charge.must.have.any.one.of.the.applicable.overdue.based.on.value": "Overdue Charge having Id: `{{params[0].value}}` must have any one of the applicable overduebasedon values",
+     "error.msge.loan.overdue.charge.detail.must.have.any.one.of.the.applicable.overdue.based.on.value": "Overdue loan Charge detail having Id: `{{params[0].value}}` must have any one of the applicable overduebasedon values",
+     "error.msge.all.the.loan.overdue.charge.details.must.have.any.one.of.the.applicable.overdue.based.on.value":"All the overdue loan charge details must have any one of the applicable overduebasedon values",
 
      "------ end of translation file ------": "----------"
 

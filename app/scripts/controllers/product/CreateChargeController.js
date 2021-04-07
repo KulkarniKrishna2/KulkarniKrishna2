@@ -43,6 +43,7 @@
                 scope.incomeAndLiabilityAccountOptions = scope.incomeAccountOptions.concat(scope.liabilityAccountOptions);
                 scope.glimChargeCalculationTypeOptions = data.glimChargeCalculationTypeOptions || [];
                 scope.roundingModeOptions = data.roundingModeTypeOptions;
+                scope.overdueBasedOnOptions = data.overdueBasedOnOptions;
             });
 
             scope.sortByFromLoanAmount = function(v1, v2){
@@ -183,11 +184,13 @@
             }
 
             scope.onchangeSetAsCurrentOverdue = function(){
-                if(scope.formData.chargeCalculationType == 1 ||  (scope.formData.percentageType != undefined && scope.formData.percentageType == 1) ) {
-                    scope.formData.overdueChargeDetail.calculateChargeOnCurrentOverdue = true;
-                    scope.formData.overdueChargeDetail.applyChargeForBrokenPeriod = false;
-                }else{
-                    scope.formData.overdueChargeDetail.calculateChargeOnCurrentOverdue = false;
+                if(!_.isUndefined(scope.formData.overdueChargeDetail)){
+                    if(scope.formData.chargeCalculationType == 1 ||  (scope.formData.percentageType != undefined && scope.formData.percentageType == 1) ) {
+                        scope.formData.overdueChargeDetail.calculateChargeOnCurrentOverdue = true;
+                        scope.formData.overdueChargeDetail.applyChargeForBrokenPeriod = false;
+                    }else{
+                        scope.formData.overdueChargeDetail.calculateChargeOnCurrentOverdue = false;
+                    }
                 }
             }
 
@@ -236,6 +239,16 @@
                 scope.slabs[index].subSlabs[scope.slabs[index].subSlabs.length].amount = 0;
 
             };
+
+            scope.showOverdueBasedOn = function(){
+                var isDisplayOverdueBasedOn = false;
+                if(!_.isUndefined(scope.formData)  && !_.isUndefined(scope.formData.chargeAppliesTo) && !_.isUndefined(scope.formData.chargeTimeType) && !_.isUndefined(scope.formData.chargeCalculationType)){
+                    if(scope.formData.chargeAppliesTo == 1 && scope.formData.chargeTimeType == 9 && scope.formData.chargeCalculationType == 1){
+                        isDisplayOverdueBasedOn  = true;
+                    }
+                }
+                return isDisplayOverdueBasedOn;
+            }
 
             scope.updateSubSlabChargeValues = function(subslab,slab,index){
                 if(subslab.minValue != undefined && subslab.maxValue != undefined && subslab.amount != undefined) {
