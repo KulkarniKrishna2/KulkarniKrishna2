@@ -23,6 +23,7 @@
             scope.showChargeCategoryType = false;
             scope.showEventTypeOptions = false;
             scope.chargeEventsTypeOptions = [];
+            scope.overdueBasedOnOptions = [];
 
             if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createCharges &&
                 scope.response.uiDisplayConfigurations.createCharges.isHiddenField) {
@@ -48,6 +49,7 @@
                     if(data.chargeEventType){
                         scope.showEventTypeOptions = true;
                     }
+                    scope.overdueBasedOnOptions = scope.template.overdueBasedOnOptions;
                 } else if (data.chargeAppliesTo.value === "Savings") {
                     scope.chargeTimeTypeOptions = data.savingsChargeTimeTypeOptions;
                     scope.template.chargeCalculationTypeOptions = scope.template.savingsChargeCalculationTypeOptions;
@@ -174,7 +176,8 @@
                         considerOnlyPostedInterest: data.chargeOverdueData.considerOnlyPostedInterest,
                         calculateChargeOnCurrentOverdue: data.chargeOverdueData.calculateChargeOnCurrentOverdue,
                         minOverdueAmountRequired: data.chargeOverdueData.minOverdueAmountRequired,
-                        stopChargeOnNPA:data.chargeOverdueData.stopChargeOnNPA
+                        stopChargeOnNPA:data.chargeOverdueData.stopChargeOnNPA,
+                        overdueBasedOn:data.chargeOverdueData.overdueBasedOn.id
                     };
                     scope.percentageTypeOptionDisplay();
                     scope.onfeefrequencychange();
@@ -183,6 +186,15 @@
 
             });
 
+            scope.showOverdueBasedOn = function(){
+                var isDisplayOverdueBasedOn = false;
+                if(!_.isUndefined(scope.formData)  && !_.isUndefined(scope.formData.chargeAppliesTo) && !_.isUndefined(scope.formData.chargeTimeType) && !_.isUndefined(scope.formData.chargeCalculationType)){
+                    if(scope.formData.chargeAppliesTo == 1 && scope.formData.chargeTimeType == 9 && scope.formData.chargeCalculationType == 1){
+                        isDisplayOverdueBasedOn  = true;
+                    }
+                }
+                return isDisplayOverdueBasedOn;
+            }
 
             scope.updateSlabOptionsValues = function(slabs){
                 scope.isSubSlabSEnabled = false;
@@ -405,6 +417,10 @@
                     this.formData.glimChargeCalculation = undefined;
                 }
 
+                if(!(this.formData.chargeAppliesTo == 1 && this.formData.chargeTimeType == 9 && this.formData.chargeCalculationType == 1)){
+                    this.formData.overdueChargeDetail.overdueBasedOn  = undefined;
+                }
+                
                 if (!_.isUndefined(scope.isCloneChargeProduct) && scope.isCloneChargeProduct) {
                     if(_.isEmpty(this.formData.minCap)){
                         delete  this.formData.minCap;

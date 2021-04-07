@@ -1,8 +1,8 @@
 {
-	"version": "4946_4",
-	"releasedate": "2/2/2021",
+	"version": "FE-5539_2",
+	"releasedate": "4/6/2021",
 	"releaseyear": 2021,
 	"tag": "NA",
-	"commit": "e03c276cd",
-	"branch": "4946_4"
+	"commit": "292ffb15b",
+	"branch": "hotfix-21.02.08"
 }

@@ -106,7 +106,20 @@
                      <div class="col-sm-3">
                         <form-validate valattributeform="createchargeform" valattribute="chargecalculation"/>
                     </div>
-                </div>  
+                </div>
+                
+                <div class="form-group"  ng-if="showOverdueBasedOn()">
+                    <label class="control-label col-sm-2">{{'label.heading.overdue.based.on' | translate}}<span class="required">*</span></label>
+                    <div class="col-sm-3">
+                        <select id ="overdueBasedOn" name="overdueBasedOn" ng-model="formData.overdueChargeDetail.overdueBasedOn"
+                            ng-options="overdueBasedOn.id as overdueBasedOn.value for overdueBasedOn in overdueBasedOnOptions"  value ={{overdueBasedOn.id}} class="form-control" required> 
+                        <option value="">{{'label.selectone' | translate}}</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3">
+                        <form-validate valattributeform="createchargeform" valattribute="overdueBasedOn"/>
+                    </div>
+                </div>
                 
                 <div class="form-group" ng-if="showChargeCategoryType">
                     <label class="control-label col-sm-2">{{'label.input.chargeCategoryType' | translate}}<span
