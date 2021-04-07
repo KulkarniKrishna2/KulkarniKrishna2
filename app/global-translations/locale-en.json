@@ -667,7 +667,7 @@
     "label.error.LuhnsAlgorithm.checkbitincorrect": "Checkbit is incorrect",
     "label.error.LuhnsAlgorithm.idnumbervalid": "Id Number is valid",
     "label.error.LuhnsAlgorithm.selecId": "Select Identifier Type as Id to validate",
-    "label.error.required": "Required",
+    "label.error.required": "Required Field",
     "error.msg.spouse.insurance.not.valid": "Spouse Insurance is applicable only if the member is married and proper spouse details are added",
     "label.error.LuhnsAlgorithm.passportnumbervalid": "Passport Number is valid",
     "label.error.LuhnsAlgorithm.selectpassport": "Select Document Type Passport to validate",
