@@ -1792,6 +1792,7 @@
                     taskClientLevelQueryResolveTemplateResource: defineResource(apiVer + "/tasktracking/:trackerId/query/template", { trackerId: '@trackerId' }, {
                         get: { method: 'GET', params: {} }
                     }),
+                    
                     officeDropDownResource: defineResource(apiVer + "/offices/template", {}, {
                         getAllOffices: { method: 'GET', params: {} }
                     }),
@@ -2247,6 +2248,10 @@
                     }),
                     loanAppTaskBasicDetailGroupResource: defineResource(apiVer + '/groups/:groupId/clientsloanapptaskbasicdetail', { groupId: '@groupId' }, {
                         get: { method: "GET", params: {}, isArray: true }
+                    }),
+                    ocrVerificationResource: defineResource(apiVer + "/ocr/clients/:clientId/loanapplications/:loanApplicationId",{clientId:'@clientId',loanApplicationId:'@loanApplicationId'}, {
+                        get: {method: 'GET', params: {}},
+                        post:{ method: 'POST', params: {} }
                     }),
                 };
             }];

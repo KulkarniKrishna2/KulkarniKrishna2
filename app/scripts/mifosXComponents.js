@@ -758,6 +758,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'task/activity/bankaccountpennydropverificationActivityController',
             'loanAccount/LoanRestructureController',
             'task/activity/RblEkycActivityController',
+            'task/activity/ExternalIntegrationChecksActivityController',
             'accounttransfers/ViewBankTransferDetailController',
             'notification/NotificationConfigurationController',
             'notification/CreateNotificationConfigController',

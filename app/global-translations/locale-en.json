@@ -8940,6 +8940,15 @@
      "error.msge.loan.overdue.charge.detail.must.have.any.one.of.the.applicable.overdue.based.on.value": "Overdue loan Charge detail having Id: `{{params[0].value}}` must have any one of the applicable overduebasedon values",
      "error.msge.all.the.loan.overdue.charge.details.must.have.any.one.of.the.applicable.overdue.based.on.value":"All the overdue loan charge details must have any one of the applicable overduebasedon values",
 
+    "label.initiate.checks" : "Initiate Checks",
+    "label.ocr.aadhaar" : "OCR Aadhaar",
+    "label.ocr.pan" : "OCR PAN",
+    "label.aadhaar.number" : "Aadhaar Number",
+    "label.aadhaar.number.score" : "Aadhaar Number Score",
+    "label.input.pan": "PAN number",
+    "label.name.on.card" : "Name on Card",
+    "label.pan.no.score" : "PAN No Score",
+
      "------ end of translation file ------": "----------"
 
 }

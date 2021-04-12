@@ -1,0 +1,65 @@
+<div ng-controller="ExternalIntegrationChecksActivityController">
+
+    <!-- Submit form, new data    -->
+    <div class="pull-right">
+        <button id="externalintegrationchecks" type="button" class="btn btn-primary" ng-click="initiateChecks()">
+            {{'label.initiate.checks' | translate}}
+        </button>
+    </div>
+    <div class="row client" ng-show="showResults">
+        <form class="form-inline">
+            <div class="col-md-12">
+                <div>
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <span class="boldlabel">
+                                <strong>{{'label.ocr.aadhaar' | translate}}</strong>
+                            </span>
+                            <table class="table table-striped">
+                                <tr>
+                                    <td>{{'label.heading.status' | translate}}</td>
+                                    <td>{{aadhaarError}}  <i class="icon-ok-sign icon-green" data-ng-show="isAadhaarOcrSuccess"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>{{'label.aadhaar.number' | translate}}</td>
+                                    <td>{{aadhaarIdNumber}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'label.aadhaar.number.score' | translate}}</td>
+                                    <td>{{aadhaarIdNumberScore}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'label.name.on.card' | translate}}</td>
+                                    <td>{{aadhaarNameOnCard}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <span class="boldlabel">
+                                <strong>{{'label.ocr.pan' | translate}}</strong>
+                            </span>
+                            <table class="table table-striped">
+                                <tr>
+                                    <td>{{'label.heading.status' | translate}}</td>
+                                    <td>{{panError}}  <i class="icon-ok-sign icon-green" data-ng-show="isPanOcrSuccess"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>{{'label.input.pan' | translate}}</td>
+                                    <td>{{panIdNumber}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'label.pan.no.score' | translate}}</td>
+                                    <td>{{panIdNumberScore}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'label.name.on.card' | translate}}</td>
+                                    <td>{{panNameOnCard}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
