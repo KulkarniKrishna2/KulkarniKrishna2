@@ -501,6 +501,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'task/activity/UserActivityController',
             'task/activity/BankCBApprovalActivityController',
             'task/activity/GroupLevelClientDatatableController',
+            'task/activity/rcCleanScoreActivityController',
+            'task/activity/rcPoiUpdateActivityController',
             'reports/AuditReportController',
             'reports/ViewAuditReportController',
             'reports/IndividualAccountReportController',

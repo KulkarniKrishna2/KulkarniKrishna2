@@ -202,3 +202,177 @@
 .ml-90-label{
   margin-left: 90px !important;
 }
+
+/* Score Card CSS */
+.score-card-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 40px 0px;
+    padding: 20px;
+    box-sizing: border-box;
+    border-left: 6px solid #649729;
+    border-radius: 6px;
+    box-shadow: 0 2.5px 23.9px rgb(0 0 0 / 1%), 0 12.9px 33.5px rgb(0 0 0 / 4%), 0 52px 80px rgb(0 0 0 / 5%);
+    min-height: 50vh;
+}
+
+.score-card-button {
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    font-size: 18px;
+    color: white;
+    border-radius: 4px;
+    padding: 15px 25px;
+    /* box-shadow: 2px 2px 13px 8px #e6e4e4; */
+    cursor: pointer;
+    background: rgb(100, 151, 42);
+}
+
+.score-card-button:active {
+    box-shadow: 2px 2px 13px 8px #eeeeee;
+    background: rgb(76, 124, 21);
+}
+
+.score-card-img-block,
+.roi-img-block {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.score-card-img,
+.roi-img {
+    max-width: 15%;
+}
+
+.score-card-desc-block,
+.roi-init-block {
+    width: 90%;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.score-card-heading,
+.roi-heading,
+.score-card-subheading,
+.roi-subheading {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding: 10px 0px;
+    font-size: inherit;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.score-card-subheading,
+.roi-subheading {
+    font-size: 16px;
+    font-weight: normal;
+}
+
+.score-card-error-text,
+.roi-error-text {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-size: 16px;
+    position: absolute;
+    top: 58%;
+    color: red;
+}
+
+/* ROI CSS */
+.roi-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 40px 0px;
+    padding: 20px;
+    box-sizing: border-box;
+    border-left: 6px solid royalblue;
+    border-radius: 6px;
+    box-shadow: 0 2.5px 23.9px rgb(0 0 0 / 1%), 0 12.9px 33.5px rgb(0 0 0 / 4%), 0 52px 80px rgb(0 0 0 / 5%);
+    min-height: 50vh;
+}
+
+.roi-button {
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    font-size: 18px;
+    color: white;
+    border-radius: 4px;
+    padding: 15px 25px;
+    /* box-shadow: 2px 2px 13px 8px #e6e4e4; */
+    cursor: pointer;
+    background: royalblue;
+}
+
+.roi-button:active {
+    box-shadow: 2px 2px 13px 8px #eeeeee;
+    background: rgb(45, 82, 194);
+}
+
+.roi-contents {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.roi-percent-block {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    font-size: 75px;
+    font-weight: bold;
+    color: #404040;
+}
+
+.roi-pa-text {
+    font-size: 46px;
+    margin-left: 5%;
+    font-weight: normal;
+}
+
+.roi-desc-block {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-left: 2px solid grey;
+    flex-wrap: wrap;
+    padding: 25px 0px;
+}
+
+.roi-desc-heading,
+.roi-desc-subheading {
+    width: 80%;
+    text-align: center;
+    padding: 10px 0px;
+    font-size: inherit;
+    font-size: 32px;
+    font-weight: bold;
+    color: #404040;
+}
+
+.roi-desc-subheading {
+    font-size: 22px;
+    font-weight: normal;
+}

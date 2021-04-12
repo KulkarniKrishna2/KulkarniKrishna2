@@ -1,0 +1,21 @@
+<div ng-controller="rcPoiUpdateActivityController">
+    <div class="roi-container">
+        <div class="roi-button" ng-click="roiActivity()" ng-if="roiGenerateBtn">Generate Rate of Intrest %</div>
+        <div class="roi-error-text" ng-if="roiErrorText">Something Went Wrong!! Please Try Again</div>
+        <div class="roi-img-block " ng-if="roiInitScreen" id="sc-img-block">
+            <img src="../../../images/relax.png" class="roi-img" id="roi-img"></img>
+        </div>
+        <div class="roi-init-block" ng-if="roiInitScreen">
+            <div class="roi-heading">Sit back and relax</div>
+            <div class="roi-subheading">System is doing all the hard for you, we are analysing all the data points to generate the risk score, you will have result in any moment!</div>
+        </div>
+        <div class="roi-contents" ng-if="roiShowContent">
+            <div class="roi-percent-block">{{roiPercentValue}}% <span class="roi-pa-text">pa</span></div>
+            <div class="roi-desc-block">
+                <div class="roi-desc-heading">{{rcTitleValue}}</div>
+                <div class="roi-desc-subheading">Based available data system has analysis and classified this loan application as low risk prospect. Based on the acceptable level of risk-reward trade-off <b>system has updated</b> the interest for the loan application to <b>{{roiPercentValue}}% pa</b></div>
+            </div>
+        </div>
+        
+    </div>
+</div>
