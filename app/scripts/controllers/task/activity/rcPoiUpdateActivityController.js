@@ -17,21 +17,13 @@
             scope.rcTitleValue = '';
             scope.roiRetryBtn = false;
             scope.roiRetryText = false;
+            scope.viewRuleResult = false;
+            scope.viewRuleResultContent = false;
+            scope.cleanScoreLinkClass = 'roi-link';
+            scope.ruleResultText = 'View Rule Result';
             scope.roiEvents = {"pointer-events" : "auto"};
-            var roiObj = [
-                {
-                    rcValue: 'Low Risk ( RC-A )'
-                },
-                {
-                    rcValue: 'Medium Risk ( RC-B )'
-                },
-                {
-                    rcValue: 'High Risk ( RC-C )'
-                },
-                {
-                    rcValue: 'Highest Risk ( RC-D )'
-                }
-            ];
+            var roiBucketObj = ['RC-A', 'RC-B', 'RC-C', 'RC-D'];
+            var roiTextObj = ['Low Risk', 'Medium Risk', 'High Risk', 'Highest Risk'];
             var count = 0;
 
             if (scope.response && scope.response.uiDisplayConfigurations) {
@@ -41,22 +33,14 @@
             // new code
             scope.roiActivity = function() {
                 console.log(scope.isTaskCompleted());
+                scope.roiGenerateBtn = false;
+                scope.roiInitScreen = true;
+                scope.roiErrorText = false;
                 resourceFactory.loanAppScoreCardResource.post({loanAppId: scope.loanAppId, scoreKey: 'rcBureauScore'}, function(data) {
                     console.log('rcBureau POST :', data);
                     resourceFactory.loanAppScoreCardResource.get({loanAppId: scope.loanAppId, scoreKey: 'rcBureauScore'}, function(bureauScoreData) {
                         console.log('rcBureau GET :', bureauScoreData);
-                        // based on the count value, we will display the rcValue.
-                        if(bureauScoreData.value < scope.scoreCardRange.sc1) {
-                            count = 3;
-                        } else if((bureauScoreData.value >= scope.scoreCardRange.sc1) && (bureauScoreData.value < scope.scoreCardRange.sc2)) {
-                            count = 2;
-                        } else if((bureauScoreData.value >= scope.scoreCardRange.sc2) && (bureauScoreData.value < scope.scoreCardRange.sc3)) {
-                            count = 1;
-                        } else if((bureauScoreData.value >= scope.scoreCardRange.sc3) && (bureauScoreData.value < scope.scoreCardRange.sc4)) {
-                            count = 0;
-                        } else if(bureauScoreData.value > scope.scoreCardRange.sc4) {
-                            count = 0;
-                        } else if((bureauScoreData.value == undefined) || (bureauScoreData.value == '') || (bureauScoreData.value == null)) {
+                        if((bureauScoreData.value == undefined) || (bureauScoreData.value == '') || (bureauScoreData.value == null)) {
                             scope.roiErrorHandler(bureauScoreData.value);
                             return;
                         }
@@ -78,21 +62,22 @@
                     console.log('ROI POST : ',data);
                     resourceFactory.loanAppRateOfIntrestResource.get({loanAppId: scope.loanAppId, poiKey: scope.poiKey}, function(roiData) {
                         console.log('ROI Get :',roiData);
-                        scope.roiGenerateBtn = false;
-                        scope.roiInitScreen = true;
-                        scope.roiErrorText = false;
                         if((roiData.value == undefined) || (roiData.value == '') || (roiData.value == null)) {
                             scope.roiErrorHandler(roiData.value);
                             return;
                         }
-                        setTimeout(() => {
+                        for(var i=0; i<roiBucketObj.length; i++) {
+                            if(roiBucketObj[i] == roiData.ruleResult.output.bucket) {
+                                count = i;
+                            }
+                        }
                             scope.roiInitScreen = false;
                             scope.roiShowContent = true;
+                            scope.viewRuleResult = true;
+                            scope.bureauScoreDetail = roiData;
                             scope.roiPercentValue = roiData.value;
-                            scope.rcTitleValue = roiObj[0].rcValue;
-                            scope.$apply();
-                            return;
-                        }, 5000);
+                            // scope.rcTitleValue = roiObj[count].rcValue;
+                            scope.rcTitleValue = roiTextObj[count] + ' ' + ' ( ' + roiData.ruleResult.output.bucket + ' ) ' ;
                     },
                     function(error) {
                         scope.roiErrorHandler(error);
@@ -113,7 +98,7 @@
             }
 
             scope.roiErrorHandlerPostActivity = function() {
-                scope.roiRetryBtn = true;
+                scope.roiRetryBtn = false;
                 scope.roiRetryText = true;
                 scope.roiInitScreen = false;
                 scope.roiShowContent = false;
@@ -127,19 +112,8 @@
                     scope.rcTitleValue = '';
                     resourceFactory.loanAppScoreCardResource.get({loanAppId: scope.loanAppId, scoreKey: 'rcBureauScore'}, function(bureauScoreData) {
                         console.log('rcBureau GET :', bureauScoreData);
-                        // based on the count value, we will display the rcValue.
-                        if(bureauScoreData.value < scope.scoreCardRange.sc1) {
-                            count = 3;
-                        } else if((bureauScoreData.value >= scope.scoreCardRange.sc1) && (bureauScoreData.value < scope.scoreCardRange.sc2)) {
-                            count = 2;
-                        } else if((bureauScoreData.value >= scope.scoreCardRange.sc2) && (bureauScoreData.value < scope.scoreCardRange.sc3)) {
-                            count = 1;
-                        } else if((bureauScoreData.value >= scope.scoreCardRange.sc3) && (bureauScoreData.value < scope.scoreCardRange.sc4)) {
-                            count = 0;
-                        } else if(bureauScoreData.value > scope.scoreCardRange.sc4) {
-                            count = 0;
-                        } else if((bureauScoreData.value == undefined) || (bureauScoreData.value == '') || (bureauScoreData.value == null)) {
-                            scope.roiRetryBtn = true;
+                        if((bureauScoreData.value == undefined) || (bureauScoreData.value == '') || (bureauScoreData.value == null)) {
+                            scope.roiRetryBtn = false;
                             scope.roiRetryText = true;
                             scope.roiInitScreen = false;
                             scope.roiShowContent = false;
@@ -148,18 +122,29 @@
                         }
                         resourceFactory.loanAppRateOfIntrestResource.get({loanAppId: scope.loanAppId, poiKey: scope.poiKey}, function(roiData) {
                             if((roiData.value == undefined) || (roiData.value == '') || (roiData.value == null)) {
-                                scope.roiRetryBtn = true;
+                                scope.roiRetryBtn = false;
                                 scope.roiRetryText = true;
                                 scope.roiInitScreen = false;
                                 scope.roiShowContent = false;
                                 scope.roiEvents = {"pointer-events" : "none"};
                                 return;
                             }
+                            for(var i=0; i<roiBucketObj.length; i++) {
+                                if(roiBucketObj[i] == roiData.ruleResult.output.bucket) {
+                                    count = i;
+                                }
+                                if((roiData.ruleResult.output.bucket == 'Default') || (roiData.ruleResult.output.bucket == '') || (roiData.ruleResult.output.bucket == null)) {
+                                    count = 3;
+                                }
+                            }
+                            scope.bureauScoreDetail = roiData;
                             console.log('ROI Get :',roiData);
                                 scope.roiInitScreen = false;
                                 scope.roiShowContent = true;
+                                scope.viewRuleResult = true;
                                 scope.roiPercentValue = roiData.value;
-                                scope.rcTitleValue = roiObj[0].rcValue;
+                                // scope.rcTitleValue = roiObj[count].rcValue;
+                                scope.rcTitleValue = roiTextObj[count] + ' ' + ' ( ' + roiData.ruleResult.output.bucket + ' ) ' ;
                                 return;
                         },
                         function(error) {
@@ -172,6 +157,25 @@
                 }
             }
             scope.fetchData();
+
+            scope.viewRuleResultToggleBtn = function() {
+                scope.roiScoreLinkClass = 'roi-link';
+                scope.detailScore = scope.bureauScoreDetail;
+                if(scope.ruleResultText == 'Close') {
+                    scope.ruleResultText = 'View Rule Result';
+                    scope.viewRuleResultContent = false;
+                    scope.roiShowContent = true;
+                } else {
+                    scope.ruleResultText = 'Close';
+                    scope.viewRuleResultContent = true;
+                    scope.roiShowContent = false;
+                }
+            }
+
+            scope.cleanScoreLinkToggle = function(value) {
+                    scope.roiScoreLinkClass = 'roi-link';
+                    scope.detailScore = scope.bureauScoreDetail;
+            }
 
         }
     });

@@ -1,5 +1,9 @@
 <div class="col-md-12" ng-controller="rcCleanScoreActivityController">
+    <div class="rule-result-container">
+        <div class="rule-result-toggle-btn" ng-if="viewRuleResult" ng-click="viewRuleResultToggleBtn()">{{ruleResultText}}</div>
+    </div>
     <div class="score-card-container" id="sc-container" ng-style="scoreCardBorderStyle">
+        
         <div class="score-card-button" id="sc-button" ng-if="scoreCardViewButton && !isTaskCompleted()" ng-click="scoreCardActivity()">View Score Card </div>
         <div class="score-card-error-text" ng-if="scoreCardErrorText">No Score Found!! Retry</div>
         <div class="view-score-card score-card-img-block " ng-if="scoreCardScreen" id="sc-img-block">
@@ -11,5 +15,56 @@
         </div>
         <div class="score-card-retry-button" ng-if="scoreCardRetryBtn" ng-style="scoreCardEvents" ng-click="fetchData()">Retry</div>
         <div class="score-card-retry-error-text" ng-if="scoreCardRetryText">No Score Found!! Retry</div>
+        
+        <div class="rule-result-contents">
+            <div class="rule-result-content-heading" ng-if="viewRuleResultContent">Application Scorecards</div>
+            <div class="rule-result-content-links" ng-if="viewRuleResultContent">
+                <div class="clean-score-link" ng-class="cleanScoreLinkClass" ng-click="cleanScoreLinkToggle(1)">Clean Score</div>
+                <div class="clean-score-tag-link" ng-class="cleanScoreTagLinkClass" ng-click="cleanScoreLinkToggle(2)">Clean Score Tag</div>
+            </div>
+            <div class="" ng-if="viewRuleResultContent">
+                <div class="form-group paddedtop">
+                    <span><b>{{'label.input.name' | translate}}:&nbsp;</b></span>
+                    <span>{{detailScore.display}}</span>
+                </div>
+                <div class="form-group paddedtop">
+                    <span><b>{{'label.input.value' | translate}}:&nbsp;</b></span>
+                    <span>{{detailScore.value}}</span>
+                </div>
+                <div class="form-group paddedtop">
+                    <span><b>{{'label.input.status' | translate}}:&nbsp;</b></span>
+                    <span ng-if="detailScore.isSuccess">{{'label.scorecard.success' | translate}}</span><span ng-if="!detailScore.isSuccess">{{'label.scorecard.failed' | translate}}</span><span ng-if="detailScore.error">&nbsp;({{detailScore.error}})</span>
+                </div>
+                <div class="form-group paddedtop" ng-if="viewRuleResultContent">
+                    <span><b>{{'label.rule.result' | translate}}:&nbsp;</b></span>
+                </div>
+                <span class="badge">{{detailScore.ruleResult.output.value}}</span>
+                {{detailScore.ruleResult.output.bucket}}&nbsp;[{{detailScore.ruleResult.name}}] <span ng-if="detailScore.ruleResult.output.error"> - {{detailScore.ruleResult.output.error}}</span>
+                
+                <ul>
+                    <li ng-repeat="dimensionResult in detailScore.ruleResult.ruleResultHierarchy">
+                        <span class="badge">{{dimensionResult.output.value}}</span>
+                        {{dimensionResult.output.bucket}}&nbsp;[{{dimensionResult.name}}]  <span ng-if="dimensionResult.output.error"> - {{dimensionResult.output.error}}</span>
+                        <ol>
+                            <li  ng-repeat="factorResult in dimensionResult.ruleResultHierarchy">
+                                <span class="badge">{{factorResult.output.value}}</span>
+                                 {{factorResult.output.bucket}}&nbsp;[{{factorResult.name}}] <span ng-if="factorResult.output.error"> - {{factorResult.output.error}}</span>
+                        </ol>
+                    </li>
+                </ul>
+            </div>
+            <div class="form-group paddedtop" ng-if="detailScore.ruleResult.inputs && viewRuleResultContent" >
+                <span><b>{{'label.rule.inputs' | translate}}:&nbsp;</b></span>
+                <div>
+                    <ul>
+                        <li ng-repeat="(key, value) in detailScore.ruleResult.inputs">
+                            <span>{{key}}:&nbsp;</span><span >{{value}}</span>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
     </div>
 </div>

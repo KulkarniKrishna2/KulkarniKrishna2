@@ -21,6 +21,11 @@
             scope.scoreCardErrorText = false;
             scope.scoreCardRetryBtn = false;
             scope.scoreCardRetryText = false;
+            scope.viewRuleResult = false;
+            scope.viewRuleResultContent = false;
+            scope.cleanScoreLinkClass = 'score-card-link';
+            scope.cleanScoreTagLinkClass = '';
+            scope.ruleResultText = 'View Rule Result';
             scope.scoreCardEvents = {"pointer-events" : "auto"};
             scope.scoreCardBorderStyle = {"border-left" : "6px solid #649729"};
             var scoreCardObj = [
@@ -111,6 +116,7 @@
                         scope.scoreCardErrorHandler(cleanScoreData.value);
                         return;
                     }
+                    scope.cleanScoreDetail = cleanScoreData;
                     resourceFactory.loanAppScoreCardResource.get({loanAppId: scope.loanAppId, scoreKey: 'cleanScoreTag'}, function(cleanScoreTagData) {
                         console.log('Clean Score Tag : ', cleanScoreTagData);
                         if((cleanScoreTagData.value == undefined) || (cleanScoreTagData.value == '') || (cleanScoreTagData.value == null)) {
@@ -119,6 +125,8 @@
                         }
                         setTimeout(() => {
                             scope.scoreCardScreen = true;
+                            scope.viewRuleResult = true;
+                            scope.cleanScoreTagDetail = cleanScoreTagData;
                             scope.scoreCardUpdateImageSrc = scoreCardObj[count].scImg;
                             scope.scoreCardBorderStyle = {"border-left" : scoreCardObj[count].scBorderLeft};
                             scope.scoreCardHeading = scoreCardObj[count].scHeading + ' ' + cleanScoreTagData.value + ' ( ' + cleanScoreData.value + ' score ) '; 
@@ -164,22 +172,25 @@
                         } else if(cleanScoreData.value > scope.scoreCardRange.sc4) {
                             count = 1;
                         } else if((cleanScoreData.value == undefined) || (cleanScoreData.value == '') || (cleanScoreData.value == null)) {
-                            scope.scoreCardRetryBtn = true;
+                            scope.scoreCardRetryBtn = false;
                             scope.scoreCardRetryText = true;
                             scope.scoreCardScreen = false;
                             scope.scoreCardEvents = {"pointer-events" : "none"};
                             return;
                         }
+                        scope.cleanScoreDetail = cleanScoreData;
                         resourceFactory.loanAppScoreCardResource.get({loanAppId: scope.loanAppId, scoreKey: 'cleanScoreTag'}, function(cleanScoreTagData) {
                             console.log('Clean Score Tag : ', cleanScoreTagData);
                             if((cleanScoreTagData.value == undefined) || (cleanScoreTagData.value == '') || (cleanScoreTagData.value == null)) {
-                                scope.scoreCardRetryBtn = true;
+                                scope.scoreCardRetryBtn = false;
                                 scope.scoreCardRetryText = true;
                                 scope.scoreCardScreen = false;
                                 scope.scoreCardEvents = {"pointer-events" : "none"};
                                 return;
                             }
                                 scope.scoreCardScreen = true;
+                                scope.viewRuleResult = true;
+                                scope.cleanScoreTagDetail = cleanScoreTagData;
                                 scope.scoreCardUpdateImageSrc = scoreCardObj[count].scImg;
                                 scope.scoreCardBorderStyle = {"border-left" : scoreCardObj[count].scBorderLeft};
                                 scope.scoreCardHeading = scoreCardObj[count].scHeading + ' ' + cleanScoreTagData.value + ' ( ' + cleanScoreData.value + ' score ) '; 
@@ -195,6 +206,34 @@
                 }
             }
             scope.fetchData();
+
+            scope.viewRuleResultToggleBtn = function() {
+                scope.cleanScoreLinkClass = 'score-card-link';
+                scope.cleanScoreTagLinkClass = '';
+                scope.detailScore = scope.cleanScoreDetail;
+                if(scope.ruleResultText == 'Close') {
+                    scope.ruleResultText = 'View Rule Result';
+                    scope.viewRuleResultContent = false;
+                    scope.scoreCardScreen = true;
+                } else {
+                    scope.ruleResultText = 'Close';
+                    scope.viewRuleResultContent = true;
+                    scope.scoreCardScreen = false;
+                }
+            }
+
+            scope.cleanScoreLinkToggle = function(value) {
+                if(value == 1) {
+                    scope.cleanScoreLinkClass = 'score-card-link';
+                    scope.cleanScoreTagLinkClass = '';
+                    scope.detailScore = scope.cleanScoreDetail;
+                } else {
+                    scope.cleanScoreTagLinkClass = 'score-card-link';
+                    scope.cleanScoreLinkClass = '';
+                    scope.detailScore = scope.cleanScoreTagDetail;
+                }
+                
+            }
 
         }
     });
