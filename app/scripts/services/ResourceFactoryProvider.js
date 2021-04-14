@@ -2260,11 +2260,7 @@
                     loanAppScoreCardResourceList: defineResource(apiVer2 + '/loanapplicationreferences/:loanAppId/scorecards', { loanAppId: '@loanAppId' }, {
                         getAll: { method: "GET", params: {}, isArray: true }
                     }),
-                    loanAppRateOfIntrestResource: defineResource(apiVer2 + '/loanapplicationreferences/:loanAppId/postprocess/poi-update/poi-update-1', { loanAppId: '@loanAppId' }, {
-                        get: { method: "GET", params: {} },
-                        post: { method: 'POST', params: {} },
-                    }),
-                    loanAppRcBureauScore: defineResource(apiVer2 + '/loanapplicationreferences/:loanAppId/scorecards/rcBureauScore', { loanAppId: '@loanAppId' }, {
+                    loanAppRateOfIntrestResource: defineResource(apiVer2 + '/loanapplicationreferences/:loanAppId/postprocess/poi-update/:poiKey', { loanAppId: '@loanAppId', poiKey: '@poiKey' }, {
                         get: { method: "GET", params: {} },
                         post: { method: 'POST', params: {} },
                     }),

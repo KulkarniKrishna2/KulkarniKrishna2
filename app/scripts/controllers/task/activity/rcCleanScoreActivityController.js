@@ -19,6 +19,9 @@
             scope.scoreCardHeading = ''; 
             scope.scoreCardSubHeading = '';
             scope.scoreCardErrorText = false;
+            scope.scoreCardRetryBtn = false;
+            scope.scoreCardRetryText = false;
+            scope.scoreCardEvents = {"pointer-events" : "auto"};
             scope.scoreCardBorderStyle = {"border-left" : "6px solid #649729"};
             var scoreCardObj = [
                 {
@@ -53,9 +56,11 @@
                 }
             ];
             var count = 0;
-            scope.scoreCardUpdateImageSrc = scoreCardObj[count].scImg;
-            scope.scoreCardHeading = scoreCardObj[count].scHeading; 
-            scope.scoreCardSubHeading = scoreCardObj[count].scSubHeading; 
+            if(!scope.isTaskCompleted()) {
+                scope.scoreCardUpdateImageSrc = scoreCardObj[count].scImg;
+                scope.scoreCardHeading = scoreCardObj[count].scHeading; 
+                scope.scoreCardSubHeading = scoreCardObj[count].scSubHeading;
+            }
 
             if (scope.response && scope.response.uiDisplayConfigurations) {
                 scope.scoreCardRange = scope.response.uiDisplayConfigurations.scoreCardRange;
@@ -68,6 +73,7 @@
             scope.getScoreCardDetails();
 
              scope.scoreCardActivity = function() {
+                 console.log(scope.isTaskCompleted());
                 scope.scoreCardViewButton = false;
                 scope.scoreCardErrorText = false;
                 scope.scoreCardScreen = true;
@@ -101,9 +107,16 @@
                         count = 1;
                     } else if(cleanScoreData.value > scope.scoreCardRange.sc4) {
                         count = 1;
+                    } else if((cleanScoreData.value == undefined) || (cleanScoreData.value == '') || (cleanScoreData.value == null)) {
+                        scope.scoreCardErrorHandler(cleanScoreData.value);
+                        return;
                     }
                     resourceFactory.loanAppScoreCardResource.get({loanAppId: scope.loanAppId, scoreKey: 'cleanScoreTag'}, function(cleanScoreTagData) {
                         console.log('Clean Score Tag : ', cleanScoreTagData);
+                        if((cleanScoreTagData.value == undefined) || (cleanScoreTagData.value == '') || (cleanScoreTagData.value == null)) {
+                            scope.scoreCardErrorHandler(cleanScoreData.value);
+                            return;
+                        }
                         setTimeout(() => {
                             scope.scoreCardScreen = true;
                             scope.scoreCardUpdateImageSrc = scoreCardObj[count].scImg;
@@ -131,6 +144,57 @@
                 scope.scoreCardErrorText = true;
                 return;
             }
+
+            scope.fetchData = function() {
+                if(scope.isTaskCompleted()) {
+                    scope.scoreCardUpdateImageSrc = '';
+                    scope.scoreCardBorderStyle = '';
+                    scope.scoreCardHeading = '';
+                    count = 1;
+                    resourceFactory.loanAppScoreCardResource.get({loanAppId: scope.loanAppId, scoreKey: 'cleanScore'}, function(cleanScoreData) {
+                        console.log('cleanScore Get', cleanScoreData);
+                        if(cleanScoreData.value < scope.scoreCardRange.sc1) {
+                            count = 4;
+                        } else if((cleanScoreData.value >= scope.scoreCardRange.sc1) && (cleanScoreData.value < scope.scoreCardRange.sc2)) {
+                            count = 3;
+                        } else if((cleanScoreData.value >= scope.scoreCardRange.sc2) && (cleanScoreData.value < scope.scoreCardRange.sc3)) {
+                            count = 2;
+                        } else if((cleanScoreData.value >= scope.scoreCardRange.sc3) && (cleanScoreData.value < scope.scoreCardRange.sc4)) {
+                            count = 1;
+                        } else if(cleanScoreData.value > scope.scoreCardRange.sc4) {
+                            count = 1;
+                        } else if((cleanScoreData.value == undefined) || (cleanScoreData.value == '') || (cleanScoreData.value == null)) {
+                            scope.scoreCardRetryBtn = true;
+                            scope.scoreCardRetryText = true;
+                            scope.scoreCardScreen = false;
+                            scope.scoreCardEvents = {"pointer-events" : "none"};
+                            return;
+                        }
+                        resourceFactory.loanAppScoreCardResource.get({loanAppId: scope.loanAppId, scoreKey: 'cleanScoreTag'}, function(cleanScoreTagData) {
+                            console.log('Clean Score Tag : ', cleanScoreTagData);
+                            if((cleanScoreTagData.value == undefined) || (cleanScoreTagData.value == '') || (cleanScoreTagData.value == null)) {
+                                scope.scoreCardRetryBtn = true;
+                                scope.scoreCardRetryText = true;
+                                scope.scoreCardScreen = false;
+                                scope.scoreCardEvents = {"pointer-events" : "none"};
+                                return;
+                            }
+                                scope.scoreCardScreen = true;
+                                scope.scoreCardUpdateImageSrc = scoreCardObj[count].scImg;
+                                scope.scoreCardBorderStyle = {"border-left" : scoreCardObj[count].scBorderLeft};
+                                scope.scoreCardHeading = scoreCardObj[count].scHeading + ' ' + cleanScoreTagData.value + ' ( ' + cleanScoreData.value + ' score ) '; 
+                                scope.scoreCardSubHeading = scoreCardObj[count].scSubHeading;
+                        },
+                        function(error) {
+                            scope.scoreCardErrorHandler(error);
+                        });
+                    },
+                    function(error) {
+                        scope.scoreCardErrorHandler(error);
+                    });
+                }
+            }
+            scope.fetchData();
 
         }
     });

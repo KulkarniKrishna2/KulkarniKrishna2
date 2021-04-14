@@ -1,7 +1,7 @@
 <div class="col-md-12" ng-controller="rcCleanScoreActivityController">
     <div class="score-card-container" id="sc-container" ng-style="scoreCardBorderStyle">
-        <div class="score-card-button" id="sc-button" ng-if="scoreCardViewButton" ng-click="scoreCardActivity()">View Score Card </div>
-        <div class="score-card-error-text" ng-if="scoreCardErrorText">Something Went Wrong!! Please Try Again</div>
+        <div class="score-card-button" id="sc-button" ng-if="scoreCardViewButton && !isTaskCompleted()" ng-click="scoreCardActivity()">View Score Card </div>
+        <div class="score-card-error-text" ng-if="scoreCardErrorText">No Score Found!! Retry</div>
         <div class="view-score-card score-card-img-block " ng-if="scoreCardScreen" id="sc-img-block">
             <img ng-src="{{scoreCardUpdateImageSrc}}" class="score-card-img" id="sc-img"></img>
         </div>
@@ -9,5 +9,7 @@
             <div class="score-card-heading" id="sc-heading">{{scoreCardHeading}}</div>
             <div class="score-card-subheading" id="sc-subheading">{{scoreCardSubHeading}}</div>
         </div>
+        <div class="score-card-retry-button" ng-if="scoreCardRetryBtn" ng-style="scoreCardEvents" ng-click="fetchData()">Retry</div>
+        <div class="score-card-retry-error-text" ng-if="scoreCardRetryText">No Score Found!! Retry</div>
     </div>
 </div>

@@ -1,7 +1,7 @@
 <div ng-controller="rcPoiUpdateActivityController">
     <div class="roi-container">
-        <div class="roi-button" ng-click="roiActivity()" ng-if="roiGenerateBtn">Generate Rate of Intrest %</div>
-        <div class="roi-error-text" ng-if="roiErrorText">Something Went Wrong!! Please Try Again</div>
+        <div class="roi-button" ng-click="roiActivity()" ng-if="roiGenerateBtn && !isTaskCompleted()">Generate Rate of Intrest %</div>
+        <div class="roi-error-text" ng-if="roiErrorText">No Rate Of Intrest Found!! Retry</div>
         <div class="roi-img-block " ng-if="roiInitScreen" id="sc-img-block">
             <img src="../../../images/relax.png" class="roi-img" id="roi-img"></img>
         </div>
@@ -16,6 +16,7 @@
                 <div class="roi-desc-subheading">Based available data system has analysis and classified this loan application as low risk prospect. Based on the acceptable level of risk-reward trade-off <b>system has updated</b> the interest for the loan application to <b>{{roiPercentValue}}% pa</b></div>
             </div>
         </div>
-        
+        <div class="roi-retry-button" ng-if="roiRetryBtn" ng-style="roiEvents" ng-click="fetchData()">Retry</div>
+        <div class="roi-retry-error-text" ng-if="roiRetryText">No Rate Of Intrest Found !! Retry</div>
     </div>
 </div>
