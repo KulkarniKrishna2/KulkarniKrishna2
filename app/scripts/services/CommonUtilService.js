@@ -3,7 +3,7 @@
  */
 (function (module) {
     mifosX.services = _.extend(module, {
-        CommonUtilService: function ($rootScope,webStorage,http) {
+        CommonUtilService: function ($rootScope,webStorage,http,dateFilter) {
             this.onDayTypeOptions = function () {
                 var onDayTypeOptions = [];
                 for (var i = 1; i <= 28; i++) {
@@ -110,9 +110,10 @@
                     doc.href = url;
                     doc.target = '_blank';
                     var now = new Date();
-                    var n = now.toLocaleDateString() + "_" + now.toLocaleTimeString();
+                    var currDate = dateFilter(now, 'yyyy-MM-dd-HH-mm-ss');              
                     fileName = this.getDownloadableFileName(fileName);
-                    doc.download = fileName+'_'+n+'.'+fileType;
+                    fileName = fileName.replaceAll(' ', '-');
+                    doc.download = fileName+'-'+currDate+'.'+fileType;
                     doc.click();
                     setTimeout(function(){
                         window.URL.revokeObjectURL(url)
@@ -152,7 +153,7 @@
         }
         }
     });
-    mifosX.ng.services.service('CommonUtilService', ['$rootScope','webStorage','$http',mifosX.services.CommonUtilService]).run(function ($log) {
+    mifosX.ng.services.service('CommonUtilService', ['$rootScope','webStorage','$http','dateFilter',mifosX.services.CommonUtilService]).run(function ($log) {
         $log.info("CommonUtilService initialized");
     });
 }(mifosX.services || {}));

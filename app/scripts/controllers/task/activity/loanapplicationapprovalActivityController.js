@@ -87,7 +87,7 @@
                     if(scope.formData.expectedFirstRepaymentOnDate != undefined){
                         scope.formRequestData.repaymentsStartingFromDate=dateFilter(new Date(scope.formData.expectedFirstRepaymentOnDate), scope.df);
                     }
-                    if(scope.formData.status.id === scope.loanapplicationSubmitted){
+                    if(scope.formData.status.id === scope.loanapplicationSubmitted || scope.formData.status.id === scope.loanapplicationInApproval){
                         scope.loanApplicationSubmittedData();
                     }
                     if (scope.formData.status.id === scope.loanapplicationInApproval || scope.formData.status.id === scope.loanapplicationApproved || scope.formData.status.id === scope.loanApplicationActive

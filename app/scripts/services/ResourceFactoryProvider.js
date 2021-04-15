@@ -191,6 +191,9 @@
                     fileUrlResource: defineResource(apiVer + "/files/:fileId", { fileId: '@fileId' }, {
                         get: { method: 'GET', params: {} }
                     }),
+                    fileDownloadResource: defineResource(apiVer + "/files/:fileId/download", { fileId: '@fileId' }, {
+                        get: { method: 'GET', params: {} }
+                    }),
                     reportsResource: defineResource(apiVer + "/reports/:id/:resourceType", { id: '@id', resourceType: '@resourceType', usageTrackingEnabledOnly: '@usageTrackingEnabledOnly' }, {
                         save: { method: 'POST', headers: { 'Content-Type': undefined }, transformRequest: angular.identity, params: {} },
                         get: { method: 'GET', params: { id: '@id' } },
@@ -306,6 +309,9 @@
                     }),
                     loanApplicationReferencesTrancheResource: defineResource(apiVer + "/loanapplicationreferences/:loanApplicationReferenceId/tranchedatas", { loanApplicationReferenceId: '@loanApplicationReferenceId' }, {
                         getByLoanAppId: { method: 'GET', params: {}, isArray: true }
+                    }),
+                    loanApplicationReferencesChargeAmountResource: defineResource(apiVer + "/loans/charge-amount-to-collect-as-cash", {}, {
+                        save: { method: 'POST', params: {} }
                     }),
                     loanApplicationOverViewsResource: defineResource(apiVer + "/loanapplicationreferences/:loanApplicationReferenceId/overviews", { loanApplicationReferenceId: '@loanApplicationReferenceId' }, {
                         getByClientId: { method: 'GET', params: {}, isArray: true },
@@ -887,7 +893,8 @@
                         getAllPledges: { method: 'GET', params: { limit: 1000 } },
                         getAll: { method: 'GET', params: { pledgeId: '@pledgeId' }, isArray: true },
                         deleteCollateralDetails: { method: 'DELETE', params: { collateralDetailId: '@collateralDetailId' } },
-                        closePledge: { method: 'POST', params: { command: 'close' } }
+                        closePledge: { method: 'POST', params: { command: 'close' } },
+                        update: { method: 'PUT', params: {} }
                     }),
                     collateralDetailsResource: defineResource(apiVer + "/pledges/:pledgeId/collateraldetails/:collateralDetailId", {
                         pledgeId: '@pledgeId',
@@ -1785,6 +1792,7 @@
                     taskClientLevelQueryResolveTemplateResource: defineResource(apiVer + "/tasktracking/:trackerId/query/template", { trackerId: '@trackerId' }, {
                         get: { method: 'GET', params: {} }
                     }),
+                    
                     officeDropDownResource: defineResource(apiVer + "/offices/template", {}, {
                         getAllOffices: { method: 'GET', params: {} }
                     }),
@@ -2240,6 +2248,21 @@
                     }),
                     loanAppTaskBasicDetailGroupResource: defineResource(apiVer + '/groups/:groupId/clientsloanapptaskbasicdetail', { groupId: '@groupId' }, {
                         get: { method: "GET", params: {}, isArray: true }
+                    }),
+                    ocrVerificationResource: defineResource(apiVer + "/ocr/clients/:clientId/loanapplications/:loanApplicationId",{clientId:'@clientId',loanApplicationId:'@loanApplicationId'}, {
+                        get: {method: 'GET', params: {}},
+                        post:{ method: 'POST', params: {} }
+                    }),
+                    loanAppScoreCardResource: defineResource(apiVer2 + '/loanapplicationreferences/:loanAppId/scorecards/:scoreKey', { loanAppId: '@loanAppId', scoreKey:'@scoreKey' }, {
+                        get: { method: "GET", params: {} },
+                        post: { method: 'POST', params: {} },
+                    }),
+                    loanAppScoreCardResourceList: defineResource(apiVer2 + '/loanapplicationreferences/:loanAppId/scorecards', { loanAppId: '@loanAppId' }, {
+                        getAll: { method: "GET", params: {}, isArray: true }
+                    }),
+                    loanAppRateOfIntrestResource: defineResource(apiVer2 + '/loanapplicationreferences/:loanAppId/postprocess/poi-update/:poiKey', { loanAppId: '@loanAppId', poiKey: '@poiKey' }, {
+                        get: { method: "GET", params: {} },
+                        post: { method: 'POST', params: {} },
                     }),
                 };
             }];

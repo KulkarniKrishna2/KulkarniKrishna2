@@ -50,7 +50,6 @@
             scope.showMoratorium = false;
             scope.showGraceOnArrearsAgeing = true;
             scope.showLoanPurposeCustomField = false;
-            scope.eventBasedFee = 51;
             scope.hideIntrestRecalculationConfig = false;
             scope.showIntrestRecalculation = false;
 
@@ -200,6 +199,7 @@
                         scope.showIntrestRecalculation = true;
                     }
                     scope.loanPurposeOptions = scope.loanaccountinfo.loanPurposeOptions;
+                    scope.formData.isTopup = scope.loanaccountinfo.canUseForTopup;
                     scope.isOverrideMoratorium = scope.loanaccountinfo.product.allowAttributeOverrides.graceOnPrincipalAndInterestPayment;
                     scope.showLoanTerms =!(scope.loanaccountinfo.loanEMIPacks && scope.isLoanEmiPackEnabled)?true:false;
                     scope.getProductPledges(scope.loanaccountinfo);
@@ -209,6 +209,13 @@
                     if (scope.showLoanPurposeWithoutGroup){
                         scope.loanPurposeOptions = data.loanPurposeOptions;
                     }
+                    var tempCharges = [];
+                    for(var i in scope.loanaccountinfo.chargeOptions){
+                        if(scope.loanaccountinfo.chargeOptions[i].chargeTimeType.code != "chargeTimeType.eventBasedFee"){
+                            tempCharges.push(scope.loanaccountinfo.chargeOptions[i]);
+                        }
+                    }
+                    scope.loanaccountinfo.chargeOptions= tempCharges;
                     if(scope.productLoanCharges && scope.productLoanCharges.length > 0){
                         for(var i in scope.productLoanCharges){
                             if(scope.productLoanCharges[i].chargeData){

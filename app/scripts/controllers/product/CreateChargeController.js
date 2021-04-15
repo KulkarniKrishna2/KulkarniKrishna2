@@ -42,6 +42,7 @@
                 scope.incomeAndLiabilityAccountOptions = scope.incomeAccountOptions.concat(scope.liabilityAccountOptions);
                 scope.glimChargeCalculationTypeOptions = data.glimChargeCalculationTypeOptions || [];
                 scope.roundingModeOptions = data.roundingModeTypeOptions;
+                scope.overdueBasedOnOptions = data.overdueBasedOnOptions;
             });
 
             scope.sortByFromLoanAmount = function(v1, v2){
@@ -189,11 +190,13 @@
             }
 
             scope.onchangeSetAsCurrentOverdue = function(){
-                if(scope.formData.chargeCalculationType == 1 ||  (scope.formData.percentageType != undefined && scope.formData.percentageType == 1) ) {
-                    scope.formData.overdueChargeDetail.calculateChargeOnCurrentOverdue = true;
-                    scope.formData.overdueChargeDetail.applyChargeForBrokenPeriod = false;
-                }else{
-                    scope.formData.overdueChargeDetail.calculateChargeOnCurrentOverdue = false;
+                if(!_.isUndefined(scope.formData.overdueChargeDetail)){
+                    if(scope.formData.chargeCalculationType == 1 ||  (scope.formData.percentageType != undefined && scope.formData.percentageType == 1) ) {
+                        scope.formData.overdueChargeDetail.calculateChargeOnCurrentOverdue = true;
+                        scope.formData.overdueChargeDetail.applyChargeForBrokenPeriod = false;
+                    }else{
+                        scope.formData.overdueChargeDetail.calculateChargeOnCurrentOverdue = false;
+                    }
                 }
             }
 
@@ -207,12 +210,21 @@
             };
 
             scope.getSlabPlaceHolder = function(value,type){
-                if(type=="min"){
-                    return (value==scope.installmentAmountSlabType)?'label.input.fromloanamount':'label.input.minrepayment';
-                }else{
-                    return (value==scope.installmentAmountSlabType)?'label.input.toloanamount':'label.input.maxrepayment';
+                var  slabPlaceHolder='';
+                switch(value){
+                    case 1 : if(type=="min"){
+                        slabPlaceHolder =  'label.input.fromloanamount';
+                    }else{
+                        slabPlaceHolder =  'label.input.toloanamount';
+                    }
+                    break;
+                    case 2 :slabPlaceHolder =  'label.input.'+type+'repayment';
+                    break;
+                    case 3 :slabPlaceHolder =  'label.input.'+type+'.tenureindays';
+                    break;
+                    default: break;
                 }
-                 
+                return slabPlaceHolder;
             };            
 
             scope.getSlabBaseChargeLabel = function(slabChargeType){
@@ -220,9 +232,19 @@
             };
             
             scope.getSubSlabHeading = function(subSlabType){
+                var subSlabHeading = '';
                 if(subSlabType != undefined){
-                    return (subSlabType==scope.installmentAmountSlabType)?'label.heading.based.on.installment.amounts':'label.heading.based.on.number.of.repayments';
+                    switch(subSlabType){
+                        case 1 : subSlabHeading = 'label.heading.based.on.installment.amounts';
+                            break;
+                        case 2:subSlabHeading = 'label.heading.based.on.number.of.repayments';
+                            break;
+                        case 3:subSlabHeading = 'label.heading.based.on.tenure.in.days';
+                            break;
+                        default:break;
+                    }
                 }
+                return subSlabHeading;
             };
 
             scope.addSlabCharge = function (slab) {
@@ -242,6 +264,16 @@
                 scope.slabs[index].subSlabs[scope.slabs[index].subSlabs.length].amount = 0;
 
             };
+
+            scope.showOverdueBasedOn = function(){
+                var isDisplayOverdueBasedOn = false;
+                if(!_.isUndefined(scope.formData)  && !_.isUndefined(scope.formData.chargeAppliesTo) && !_.isUndefined(scope.formData.chargeTimeType) && !_.isUndefined(scope.formData.chargeCalculationType)){
+                    if(scope.formData.chargeAppliesTo == 1 && scope.formData.chargeTimeType == 9 && scope.formData.chargeCalculationType == 1){
+                        isDisplayOverdueBasedOn  = true;
+                    }
+                }
+                return isDisplayOverdueBasedOn;
+            }
 
             scope.updateSubSlabChargeValues = function(subslab,slab,index){
                 if(subslab.minValue != undefined && subslab.maxValue != undefined && subslab.amount != undefined) {

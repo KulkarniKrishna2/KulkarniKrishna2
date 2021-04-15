@@ -1448,7 +1448,11 @@
                     params.loanId = scope.accountId;
                     params.command = 'prepayLoan';
                     resourceFactory.loanTrxnsTemplateResource.get(params, function (data) {
-                        scope.formData.transactionAmount = data.amount;
+                        if(data.excessAmountPaymentPortion && data.excessAmountPaymentPortion>0){
+                            scope.formData.transactionAmount = data.amount - data.excessAmountPaymentPortion;
+                        }else{
+                            scope.formData.transactionAmount = data.amount;
+                        }
                         if (data.penaltyChargesPortion > 0) {
                             scope.showPenaltyPortionDisplay = true;
                         }

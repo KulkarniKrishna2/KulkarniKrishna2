@@ -804,6 +804,12 @@
 			"isHiddenField" : {
 			  "modifyApplication" : false
 			}
-		}
+		},
+        "scoreCardRange": {
+            "sc1": 30,
+            "sc2": 32,
+            "sc3": 42,
+            "sc4": 50
+        }
 	}
 }

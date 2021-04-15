@@ -27,6 +27,7 @@
             
             resourceFactory.savingsTemplateResource.get(scope.inparams, function (data) {
                 scope.products = data.productOptions;
+                scope.fundOptions = data.fundOptions;
                 scope.chargeOptions = data.chargeOptions;
                 scope.clientName = data.clientName;
                 scope.groupName = data.groupName;

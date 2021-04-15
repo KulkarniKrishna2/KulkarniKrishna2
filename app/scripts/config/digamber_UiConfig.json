@@ -100,11 +100,6 @@
 				"meetingStartDate":true
 			}
 		},
-		"relationshipOptions": {
-			"AgeMandatoryFor": [
-				"Spouse"
-			]
-		},
 		"viewGroup": {
 			"isReadOnlyField": {
 				"groupName": true

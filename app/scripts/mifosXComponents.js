@@ -501,6 +501,8 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'task/activity/UserActivityController',
             'task/activity/BankCBApprovalActivityController',
             'task/activity/GroupLevelClientDatatableController',
+            'task/activity/rcCleanScoreActivityController',
+            'task/activity/rcPoiUpdateActivityController',
             'reports/AuditReportController',
             'reports/ViewAuditReportController',
             'reports/IndividualAccountReportController',
@@ -758,6 +760,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'task/activity/bankaccountpennydropverificationActivityController',
             'loanAccount/LoanRestructureController',
             'task/activity/RblEkycActivityController',
+            'task/activity/ExternalIntegrationChecksActivityController',
             'accounttransfers/ViewBankTransferDetailController',
             'notification/NotificationConfigurationController',
             'notification/CreateNotificationConfigController',
@@ -783,7 +786,9 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'product/productroundingmodemapping/UpdateLoanProductRoundingModeMappingController',
             'product/productroundingmodemapping/ViewLoanProductRoundingModeMappingController',
             'product/productroundingmodemapping/ViewLoanProductRoundingModeMappingsController',
-            'client/ClientLoansPaymentSettlementController'
+            'client/ClientLoansPaymentSettlementController',
+            'accounting/eodprocess/CreateEodProcessController'
+
         ],
         filters: [
             'StatusLookup',

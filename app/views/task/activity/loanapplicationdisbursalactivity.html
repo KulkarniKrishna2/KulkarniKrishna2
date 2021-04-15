@@ -182,7 +182,7 @@
 
                 <div ng-hide="report">
                     <form class="well form-inline" name="disburseloanapplicationreferenceform" novalidate=""
-                          rc-submit="submit()">
+                          rc-submit="submitWithConfirmationCheck()">
                         <api-validate></api-validate>
                         <div class="span gray-head">
                     <span class="boldlabel">
@@ -967,7 +967,12 @@
                                         has-permission='REJECT_LOANAPPLICATIONREFERENCE' 
                                         ng-if="formData.status.id === 300" ng-show="loanaccountinfo">
                                         {{'label.button.reject' | translate}}</a>
-                                <button id="save" type="submit" ng-click="issubmitted = true"
+                                <button id="confirm-save"    data-text="{{'label.heading.disbursement.charge.amount.as.cash'| translate}}{{disbursementChargeAmountToCollectAsCash}}{{'label.heading.disbursement.charge.amount.from.customer'| translate}}" data-confirm-popup ng-confirm-success="submit()"
+                                        has-permission='DISBURSE_LOANAPPLICATIONREFERENCE'
+                                        class="btn btn-primary" ng-if="disbursementChargeAmountToCollectAsCash>0"
+                                        ng-show="false">{{'label.button.disburse' |translate}}
+                                </button>
+                                <button id="save" type="submit"  
                                         has-permission='DISBURSE_LOANAPPLICATIONREFERENCE'
                                         class="btn btn-primary" ng-if="formData.status.id === 300 && !canDisburseToGroupsBanks()"
                                         ng-show="loanaccountinfo">{{'label.button.disburse' |translate}}

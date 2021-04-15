@@ -34,12 +34,14 @@
                 }
                 scope.formData.productId = data.savingsProductId;
                 scope.products = data.productOptions;
+                scope.fundOptions = data.fundOptions;
                 if (data.fieldOfficerId != 0)scope.formData.fieldOfficerId = data.fieldOfficerId;
                 if (data.timeline) {
                     var submittedOnDate = dateFilter(data.timeline.submittedOnDate, scope.df);
                     scope.formData.submittedOnDate = new Date(submittedOnDate);
                 }
                 scope.formData.externalId = data.externalId;
+                scope.formData.fundId = data.fundId;
                 scope.fieldOfficers = data.fieldOfficerOptions;
                 scope.formData.nominalAnnualInterestRate = data.nominalAnnualInterestRate;
                 scope.formData.minRequiredOpeningBalance = data.minRequiredOpeningBalance;
@@ -92,7 +94,7 @@
                 resourceFactory.savingsTemplateResource.get(inparams, function (data) {
 
                     scope.data = data;
-
+                    scope.fundOptions = data.fundOptions;
                     scope.fieldOfficers = data.fieldOfficerOptions;
                     scope.formData.nominalAnnualInterestRate = data.nominalAnnualInterestRate;
                     scope.formData.minRequiredOpeningBalance = data.minRequiredOpeningBalance;

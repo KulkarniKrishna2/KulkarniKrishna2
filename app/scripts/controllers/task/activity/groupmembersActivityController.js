@@ -556,10 +556,10 @@
         };
 
         scope.loanProductChange = function(loanProductId) {
-
             scope.inparams.productId = loanProductId;
             scope.showLoanTerms =!(scope.loanaccountinfo.loanEMIPacks && scope.isLoanEmiPackEnabled)?true:false;
             resourceFactory.loanResource.get(scope.inparams, function(data) {
+                scope.formData.isTopup = scope.loanaccountinfo.canUseForTopup;
                 scope.loanaccountinfo = data;
                 if (scope.loanaccountinfo.loanEMIPacks) {
                     var len = scope.loanaccountinfo.loanEMIPacks.length;

@@ -1,0 +1,10 @@
+{
+  "enableUIDisplayConfiguration": true,
+  "uiDisplayConfigurations": {
+
+    "shares": {
+			"hidesharesmodule": false
+		}
+  }
+}
+

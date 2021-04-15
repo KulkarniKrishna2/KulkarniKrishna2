@@ -632,7 +632,7 @@
     <td>{{'label.checkbox.ischargeamountnoneditable' | translate}}</td>
 </tr>
 <tr ng-repeat="charge in loanproduct.charges" ng-hide="charge.penalty">
-    <td>{{charge.name}}</td>
+    <td>{{charge.productLoanChargeId}}.&nbsp;{{charge.name}}</td>
     <td>{{charge.chargeCalculationType.value}}</td>
     <td>{{charge.amount|number}}</td>
     <td>{{charge.chargeTimeType.value}}</td>
@@ -654,12 +654,28 @@
     <td>{{'label.checkbox.ischargeamountnoneditable' | translate}}</td>
 </tr>
 <tr ng-repeat="charge in loanproduct.charges" ng-show="charge.penalty">
-    <td>{{charge.name}}</td>
-    <td>{{charge.chargeCalculationType.value}}</td>
+    <td>{{charge.productLoanChargeId}}.&nbsp;{{charge.name}}</td>
+    <td ng-hide="charge.chargeOverdueData.overdueBasedOn.value != 'Invalid'">{{charge.chargeCalculationType.value}}</td>
+    <td ng-show="charge.chargeOverdueData.overdueBasedOn.value != 'Invalid'">{{charge.chargeCalculationType.value}}({{charge.chargeOverdueData.overdueBasedOn.value}})</td>
     <td>{{charge.amount|number}}</td>
     <td>{{charge.chargeTimeType.value}}</td>
     <td>{{charge.isMandatory == true ? 'Yes': 'No'}}</td>
     <td>{{charge.isAmountNonEditable == true ? 'Yes': 'No'}}</td>
+</tr>
+<tr class="bottomborder">
+    <td colspan="4"><strong>{{'label.heading.eventbased.charge' | translate}}</strong></td>
+</tr>
+<tr class="bottomborder graybg">
+    <td>{{'label.heading.name' | translate}}</td>
+    <td>{{'label.heading.type' | translate}}</td>
+    <td>{{'label.heading.amount' | translate}}</td>
+    <td>{{'label.heading.collectedon' | translate}}</td>
+</tr>
+<tr ng-repeat="charge in eventBasedCharges">
+    <td>{{charge.name}}</td>
+    <td>{{charge.chargeCalculationType.value}}</td>
+    <td>{{charge.amount|number}}</td>
+    <td>{{charge.chargeTimeType.value}}</td>
 </tr>
 <tr>
     <td colspan="4"><br/></td>

@@ -77,7 +77,18 @@
                     scope.assetLiabilityAndIncomeAccountOptions = scope.glAccounts;
                 }
                 scope.penaltyOptions = scope.product.penaltyOptions || [];
-                scope.chargeOptions = scope.product.chargeOptions || [];
+                scope.chargeOptions = [];
+                scope.eventBasedChargeOptions = [];
+                for (var i in scope.product.chargeOptions) {
+                    var tempCharge = scope.product.chargeOptions[i];
+                    if(!tempCharge.penalty){
+                        if(tempCharge.chargeTimeType.id==scope.eventBasedFee) {
+                            scope.eventBasedChargeOptions.push(tempCharge);
+                        } else {
+                            scope.chargeOptions.push(tempCharge);
+                        }
+                    }
+                }
                 scope.paymentTypeOptions = scope.product.paymentTypeOptions || [];
                 scope.charges = [];
                 scope.transactionTypeOptions = data.transactionTypeOptions;
@@ -88,6 +99,9 @@
                         charge.isAmountNonEditable = scope.product.charges[i].isAmountNonEditable;
                         scope.charges.push(charge);
                     }
+                }
+                for(var i in scope.product.eventBasedCharges){
+                    scope.charges.push(scope.product.eventBasedCharges[i].chargeData);
                 }
                 scope.writeOffReasonOptions = [];
                 if(angular.isDefined(scope.product.codeValueOptions) && scope.product.codeValueOptions.length>0){

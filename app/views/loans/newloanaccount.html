@@ -617,7 +617,7 @@
             <tr ng-if="showLoanTerms" ng-show="loanaccountinfo.canUseForTopup">
                 <td><label>{{ 'label.heading.isTopup' | translate }}</label></td>
                 <td class="paddedbottom10" colspan="3">
-                    <input type="checkbox" name="isTopup" ng-model="formData.isTopup" ng-change="isTopupSelected()"/>
+                    <input type="checkbox" name="isTopup" ng-model="formData.isTopup" ng-change="isTopupSelected()" disabled="form.isTopup" />
                 </td>
             </tr>
             <tr ng-if="showLoanTerms" ng-show="loanaccountinfo.canUseForTopup && formData.isTopup == true">
@@ -966,12 +966,11 @@
                     <td>{{charge.chargeCalculationType.value}}</td>
                     <td><input id="{{charges[$index].amount}}" class="form-control" type="text" autocomplete="off" ng-model="charge.amount"
                                placeholder="{{'label.input.amount' | translate}}" number-format ng-readonly="isDatePickerReadOnly || !hasPermission('UPDATE_LOANCHARGE') || isChargeAmountNonEditable(charge)"></td>
-                    <td ng-show="charge.chargeTimeType.id==eventBasedFee">{{charge.chargeEventType.value}}</td>
-                    <td ng-hide="charge.chargeTimeType.id==eventBasedFee">{{charge.chargeTimeType.value}}</td>
+                    <td>{{charge.chargeTimeType.value}}</td>
                     <td>
                         <input id="charges[{{$index}}].duedate" type="text" autocomplete="off" datepicker-pop="{{df}}" class="form-control"
                                placeholder="{{'label.input.duedate' | translate}}" ng-model="charge.dueDate"
-                               is-open="'openedch'+$index" ng-readonly="isDatePickerReadOnly || charge.chargeTimeType.value == upfrontFee || charge.chargeTimeType.id== eventBasedFee" min="minDate" max="globalMaxDate"/>
+                               is-open="'openedch'+$index" ng-readonly="isDatePickerReadOnly || charge.chargeTimeType.value == upfrontFee" min="minDate" max="globalMaxDate"/>
                     </td>
                     <td>{{charge.isCapitalized}}</td>
                     <td ng-hide="charge.isMandatory == true" has-permission='DELETE_LOANCHARGE'><a ng-click="deleteCharge($index)"><i class="icon-remove icon-white"></i></a></td>
@@ -1011,14 +1010,32 @@
                     </tr>
                     <tr ng-repeat="charge in loanaccountinfo.overdueCharges">
                         <td>{{charge.chargeData.name}},{{charge.chargeData.currency.displaySymbol}}</td>
-                        <td>{{charge.chargeData.chargeCalculationType.value}}</td>
+                        <td ng-hide="charge.overdueBasedOn.value != 'Invalid'">{{charge.chargeData.chargeCalculationType.value}}</td>
+                        <td ng-show="charge.overdueBasedOn.value != 'Invalid'">{{charge.chargeData.chargeCalculationType.value}}({{charge.overdueBasedOn.value}})</td>
                         <td ng-if="isAmountNonEditable">{{charge.chargeData.amount | number}}</td>
                         <td ng-if="!isAmountNonEditable"><input id="{{charge.id}}" class="form-control" type="text" autocomplete="off" ng-model="charge.chargeData.amount"
                             placeholder="{{'label.input.amount' | translate}}" number-format /></td>
                         <td>{{charge.chargeData.chargeTimeType.value}}</td>
                     </tr>
                 </table>
-            </div><br><br>
+            </div>
+            <div ng-show="loanaccountinfo.product.eventBasedCharges.length>0">
+                <label><strong>{{ 'label.heading.eventbased.charge' | translate }}</strong></label>
+                <table class="table" class="width100" >
+                    <tr class="graybg">
+                        <th>{{'label.heading.name' | translate}}</th>
+                        <th>{{'label.heading.type' | translate}}</th>
+                        <th>{{'label.heading.amount' | translate}}</th>
+                        <th>{{'label.heading.collectedon' | translate}}</th>
+                    </tr>
+                    <tr ng-repeat="charge in loanaccountinfo.product.eventBasedCharges">
+                        <td>{{charge.chargeData.name}},{{charge.chargeData.currency.displaySymbol}}</td>
+                        <td>{{charge.chargeData.chargeCalculationType.value}}</td>
+                        <td>{{charge.chargeData.amount | number}}</td>
+                        <td>{{charge.chargeData.chargeTimeType.value}}</td>
+                    </tr>
+                </table>
+            </div>
             <hr ng-show="pledges.length>0 && !isLoanEmiPackEnabled"/>
             <div class="col-md-12" ng-show="pledges.length>0 && !isLoanEmiPackEnabled">
                 <label><strong>{{ 'label.view.collaterals' | translate }}</strong></label>
