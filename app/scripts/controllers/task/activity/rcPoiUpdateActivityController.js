@@ -21,6 +21,7 @@
             scope.viewRuleResultContent = false;
             scope.cleanScoreLinkClass = 'roi-link';
             scope.ruleResultText = 'View Rule Result';
+            scope.riskBasedText = 'risk';
             scope.roiEvents = {"pointer-events" : "auto"};
             var roiBucketObj = ['RC-A', 'RC-B', 'RC-C', 'RC-D'];
             var roiTextObj = ['Low Risk', 'Medium Risk', 'High Risk', 'Highest Risk'];
@@ -69,6 +70,11 @@
                         for(var i=0; i<roiBucketObj.length; i++) {
                             if(roiBucketObj[i] == roiData.ruleResult.output.bucket) {
                                 count = i;
+                                scope.riskBasedText = roiTextObj[count];
+                            }
+                            if((roiData.ruleResult.output.bucket == 'Default') || (roiData.ruleResult.output.bucket == '') || (roiData.ruleResult.output.bucket == null)) {
+                                count = 3;
+                                scope.riskBasedText = roiTextObj[count];
                             }
                         }
                             scope.roiInitScreen = false;
@@ -132,9 +138,11 @@
                             for(var i=0; i<roiBucketObj.length; i++) {
                                 if(roiBucketObj[i] == roiData.ruleResult.output.bucket) {
                                     count = i;
+                                    scope.riskBasedText = roiTextObj[count];
                                 }
                                 if((roiData.ruleResult.output.bucket == 'Default') || (roiData.ruleResult.output.bucket == '') || (roiData.ruleResult.output.bucket == null)) {
                                     count = 3;
+                                    scope.riskBasedText = roiTextObj[count];
                                 }
                             }
                             scope.bureauScoreDetail = roiData;

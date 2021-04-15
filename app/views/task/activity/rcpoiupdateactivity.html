@@ -16,7 +16,7 @@
             <div class="roi-percent-block">{{roiPercentValue}}% <span class="roi-pa-text">pa</span></div>
             <div class="roi-desc-block">
                 <div class="roi-desc-heading">{{rcTitleValue}}</div>
-                <div class="roi-desc-subheading">Based available data system has analysis and classified this loan application as low risk prospect. Based on the acceptable level of risk-reward trade-off <b>system has updated</b> the interest for the loan application to <b>{{roiPercentValue}}% pa</b></div>
+                <div class="roi-desc-subheading">Based available data system has analysis and classified this loan application as <span style="text-transform: lowercase;">{{riskBasedText}}</span> prospect. Based on the acceptable level of risk-reward trade-off <b>system has updated</b> the interest for the loan application to <b>{{roiPercentValue}}% pa</b></div>
             </div>
         </div>
         <div class="roi-retry-button" ng-if="roiRetryBtn" ng-style="roiEvents" ng-click="fetchData()">Retry</div>
