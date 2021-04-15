@@ -33,7 +33,6 @@
             scope.showGraceOnArrearsAgeing = true;
             scope.showMoratorium = false;
             scope.showLoanPurposeCustomField = false;
-            scope.eventBasedFee = 51;
             
             if (scope.response && scope.response.uiDisplayConfigurations) {
                 scope.isProductNameReadOnly = scope.response.uiDisplayConfigurations.editJlgLoan.isReadOnlyField.productName;
@@ -353,8 +352,10 @@
             };
             scope.principalGraceApplied = false;
             scope.isFirstRepaymentApplied = false;
-            resourceFactory.loanResource.get({loanId: routeParams.id, template: true, associations: 'charges,collateral,meeting,multiDisburseDetails,loanTopupDetails',staffInSelectedOfficeOnly:true, fetchRDAccountOnly: scope.fetchRDAccountOnly}, function (data) {
+            resourceFactory.loanResource.get({loanId: routeParams.id, template: true, associations: 'charges,eventBasedCharges,collateral,meeting,multiDisburseDetails,loanTopupDetails',staffInSelectedOfficeOnly:true, fetchRDAccountOnly: scope.fetchRDAccountOnly}, function (data) {
                 scope.loanaccountinfo = data;
+                scope.eventBasedCharges = data.eventBasedCharges;
+                scope.loanaccountinfo.chargeOptions = scope.getChargeOptions()
                 if(data.expectedFirstRepaymentOnDate && data.expectedFirstRepaymentOnDate.length>0){
                     scope.isFirstRepaymentApplied = true;
                 }
@@ -592,7 +593,9 @@
                 inparams.staffInSelectedOfficeOnly = true;
                 resourceFactory.loanResource.get(inparams, function (data) {
                     scope.loanaccountinfo = data;
+                    scope.loanaccountinfo.chargeOptions = scope.getChargeOptions()
                     scope.loanPurposeOptions = scope.loanaccountinfo.loanPurposeOptions;
+                    scope.formData.isTopup = scope.loanaccountinfo.canUseForTopup;
                     scope.isOverrideMoratorium = scope.loanaccountinfo.product.allowAttributeOverrides.graceOnPrincipalAndInterestPayment;
                     scope.showLoanTerms =!(scope.loanaccountinfo.loanEMIPacks && scope.isLoanEmiPackEnabled)?true:false;
                     scope.collaterals = [];
@@ -998,6 +1001,15 @@
                 if(scope.isFirstRepaymentApplied==true && this.formData.repaymentsStartingFromDate==undefined){
                     this.formData.repaymentsStartingFromDate = null;
                 }
+
+                if(this.formData.recalculationRestFrequencyStartDate==undefined){
+                    this.formData.recalculationRestFrequencyStartDate = null;
+                }
+
+                if(this.formData.recalculationCompoundingFrequencyStartDate==undefined){
+                    this.formData.recalculationCompoundingFrequencyStartDate = null;
+                }
+
                 if (!(scope.loanaccountinfo.product.isRepaymentAtDisbursement == true && scope.formData.brokenPeriodMethodType === 3)) {
                     delete scope.formData.brokenPeriodInterestCollectAtDisbursement;
                 }
@@ -1149,6 +1161,16 @@
                 if(selectedLoanPurpose){
                     scope.showLoanPurposeCustomField = selectedLoanPurpose.isCustom; 
                 }
+            }
+
+            scope.getChargeOptions = function () {
+                var tempCharges = [];
+                    for(var i in scope.loanaccountinfo.chargeOptions){
+                        if(scope.loanaccountinfo.chargeOptions[i].chargeTimeType.code != "chargeTimeType.eventBasedFee"){
+                            tempCharges.push(scope.loanaccountinfo.chargeOptions[i]);
+                        }
+                    }
+                    return tempCharges;
             }
         }
     });

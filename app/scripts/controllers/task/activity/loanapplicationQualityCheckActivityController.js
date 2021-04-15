@@ -85,11 +85,7 @@
                             loandocs = $rootScope.hostUrl + API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id  + '/download';                         
                             data[l].docUrl = loandocs;
                         }
-                        if(data[l].tagValue){
-                            scope.pushDocumentToTag(data[l], data[l].tagValue);
-                        } else {
-                            scope.pushDocumentToTag(data[l], 'uploadedDocuments');
-                        }
+                        scope.pushDocumentToTag(data[l], 'uploadedDocuments');
                     }
                 });
 

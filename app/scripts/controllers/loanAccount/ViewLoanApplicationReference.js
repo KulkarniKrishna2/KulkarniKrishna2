@@ -13,6 +13,8 @@
             scope.isWorkflowEnabled = false;
             scope.showUpfrontAmount = true;
             scope.allowModifyLoanApplication = true;
+            scope.showScore = false;
+            scope.showScoreDetail = false;
             
             if(scope.response && scope.response.uiDisplayConfigurations) {
                 if(scope.response.uiDisplayConfigurations.workflow && scope.response.uiDisplayConfigurations.workflow.isMandatory){
@@ -70,10 +72,11 @@
                             scope.formData.approvedData = data;
                         });
                     };
+                    fetchScores();
                 });
             };
 
-            scope.initData();
+            
 
             function fetchRiskCalculation (){
                 resourceFactory.riskCalculation.getForLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId},
@@ -85,7 +88,7 @@
                     }
                 );
             }
-            fetchRiskCalculation();
+            
 
             scope.doRiskCheck = function () {
                 resourceFactory.riskCalculation.save({loanApplicationReferenceId: scope.loanApplicationReferenceId},{}, function (response) {
@@ -101,6 +104,16 @@
                 }
             }
 
+            function fetchScores(){
+                resourceFactory.loanAppScoreCardResourceList.getAll({loanAppId:scope.loanApplicationReferenceId}, function (response) {
+                    scope.showScore = true;
+                    scope.scoreList = response;
+                    console.log(response);
+                });
+            }
+
+            scope.initData();
+            fetchRiskCalculation();
             scope.loanProductChange = function (loanProductId) {
 
                 scope.inparams = {resourceType: 'template', activeOnly: 'true'};
@@ -184,6 +197,14 @@
                     templateUrl: 'reject.html',
                     controller: RejectCtrl,
                     windowClass: 'modalwidth700'
+                });
+            };
+
+            scope.fetchScorecardDetail = function (selctedScoreKey) {
+                scope.showScoreDetail = true;
+                resourceFactory.loanAppScoreCardResource.get({loanAppId:scope.loanApplicationReferenceId, scoreKey:selctedScoreKey}, function (response) {
+                    scope.detailScore = response;
+                    console.log(response);
                 });
             };
 

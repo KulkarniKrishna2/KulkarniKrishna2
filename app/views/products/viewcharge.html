@@ -58,6 +58,10 @@
 	                    <td>{{'label.heading.chargetimetype' | translate}}</td>
 	                    <td>{{charge.chargeTimeType.value}}</td>
 	                </tr>
+					<tr ng-show="charge.isCollectedAsCash">
+	                    <td>{{'label.input.iscollectedascash' | translate}}</td>
+	                    <td>{{charge.isCollectedAsCash}}</td>
+	                </tr>
 	                <tr ng-show="charge.chargeEventType">
 	                    <td>{{'label.heading.eventtype' | translate}}</td>
 	                    <td>{{charge.chargeEventType.value}}</td>
@@ -70,8 +74,12 @@
 	                    <td>{{'label.heading.chargecalculationtype' | translate}}</td>
 	                    <td>{{charge.chargeCalculationType.value}}</td>
 					</tr>
+					<tr ng-show="charge.chargeOverdueData.overdueBasedOn">
+						<td>{{'label.heading.overdue.based.on' | translate}}</td>
+						<td>{{charge.chargeOverdueData.overdueBasedOn.value}}</td>
+					</tr>
 					<tr ng-if="charge.chargeCategoryType != undefined && showChargeCategoryType">
-	                    <td>{{'label.heading.chargeCategoryType' | translate}}</td>
+						<td>{{'label.heading.chargeCategoryType' | translate}}</td>
 	                    <td>{{charge.chargeCategoryType.value}}</td>
 	                </tr>
 	                <tr ng-show="charge.isSlabBased  || charge.chargeCalculationType.value == slabBasedCharge">

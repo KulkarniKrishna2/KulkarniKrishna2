@@ -1,0 +1,26 @@
+{
+	"enableUIDisplayConfiguration": true,
+	"uiDisplayConfigurations": {
+        "createClient": {
+            "isValidateDOBField": {
+				"active": true,
+				"ageCriteria": {
+					"minAge": 21,
+					"maxAge": 58
+                }
+			},
+            "isMandatoryField": {
+				"dateOfBirth": true,
+                "clientClassificationId": true,
+                "mobileNumber": true,
+                "clientType": true
+            }
+        },
+        "scoreCardRange": {
+            "sc1": 30,
+            "sc2": 32,
+            "sc3": 42,
+            "sc4": 50
+        }
+    }
+}

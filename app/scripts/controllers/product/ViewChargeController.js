@@ -24,12 +24,21 @@
             };
 
             scope.getSlabPlaceHolder = function(value,type){
-                if(type=="min"){
-                    return (value==scope.installmentAmountSlabType)?'label.input.fromloanamount':'label.input.minrepayment';
-                }else{
-                    return (value==scope.installmentAmountSlabType)?'label.input.toloanamount':'label.input.maxrepayment';
+                var  slabPlaceHolder='';
+                switch(value){
+                    case 1 : if(type=="min"){
+                        slabPlaceHolder =  'label.input.fromloanamount';
+                    }else{
+                        slabPlaceHolder =  'label.input.toloanamount';
+                    }
+                        break;
+                    case 2 :slabPlaceHolder =  'label.input.'+type+'repayment';
+                        break;
+                    case 3 :slabPlaceHolder =  'label.input.'+type+'.tenureindays';
+                        break;
+                    default:break;
                 }
-                 
+                return slabPlaceHolder;
             };
 
             var ChDeleteCtrl = function ($scope, $modalInstance) {

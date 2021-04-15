@@ -49,6 +49,7 @@
                     shortName: data.shortName,
                     description: data.description,
                     externalId: data.externalId,
+                    fundId: data.fundId,
                     currencyCode: data.currency.code,
                     digitsAfterDecimal: data.currency.decimalPlaces,
                     inMultiplesOf: data.currency.inMultiplesOf,
