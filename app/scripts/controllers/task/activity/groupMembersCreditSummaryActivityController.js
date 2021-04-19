@@ -5,6 +5,11 @@
                 $scope: scope
             }));
 
+            scope.showClosedLoanApplicationInGroupMembersCreditSummary = true;
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow) {
+                scope.showClosedLoanApplicationInGroupMembersCreditSummary = scope.response.uiDisplayConfigurations.workflow.showClosedLoanApplicationInGroupMembersCreditSummary;
+            }
+
             resourceFactory.groupResource.get({
                 groupId: scope.groupId,
                 associations: 'clientMembers'
@@ -26,7 +31,9 @@
                                         if(!_.isUndefined(scope.loanAppWorkflowStatusBasicDataList)){
                                             for(var i in scope.loanAppWorkflowStatusBasicDataList){
                                                 var loanAppWorkflowStatusBasicData = scope.loanAppWorkflowStatusBasicDataList[i];
-                                                if(loanAppWorkflowStatusBasicData.loanAppRefId === loanApplication.loanApplicationReferenceId){
+                                                var showLoan = scope.showClosedLoanApplicationInGroupMembersCreditSummary ? true: (loanAppWorkflowStatusBasicData.parentTaskStatusEnum.value !="taskStatus.rejected" || loanAppWorkflowStatusBasicData.parentTaskStatusEnum.value !="taskStatus.cb.rejected");
+
+                                                if(showLoan && loanAppWorkflowStatusBasicData.loanAppRefId === loanApplication.loanApplicationReferenceId ){
                                                     if(!_.isUndefined(loanAppWorkflowStatusBasicData.parentTaskStatusEnum) && loanAppWorkflowStatusBasicData.parentTaskStatusEnum.id>1){
                                                         workflow.status = loanAppWorkflowStatusBasicData.parentTaskStatusEnum;
                                                         workflow.currentChildTaskId = loanAppWorkflowStatusBasicData.currentTaskId;
