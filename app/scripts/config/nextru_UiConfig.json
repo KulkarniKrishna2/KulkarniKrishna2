@@ -1,17 +1,17 @@
 {
 	"enableUIDisplayConfiguration": true,
 	"uiDisplayConfigurations": {
-		"createClient": {
-			"isValidateDOBField": {
+        "createClient": {
+            "isValidateDOBField": {
 				"active": true,
 				"ageCriteria": {
 					"minAge": 18,
 					"maxAge": 60
-				}
-			}
-		},
-        "workflow": {
-            "showClosedLoanApplicationInGroupMembersCreditSummary" : false
+                }
+			},
+            "isMandatoryField": {
+				"dateOfBirth": true
+            }
         }
-	}
-}
+    }
+} 
