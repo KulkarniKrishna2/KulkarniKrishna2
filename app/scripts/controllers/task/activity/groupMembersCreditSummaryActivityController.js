@@ -31,7 +31,7 @@
                                         if(!_.isUndefined(scope.loanAppWorkflowStatusBasicDataList)){
                                             for(var i in scope.loanAppWorkflowStatusBasicDataList){
                                                 var loanAppWorkflowStatusBasicData = scope.loanAppWorkflowStatusBasicDataList[i];
-                                                var showLoan = scope.showClosedLoanApplicationInGroupMembersCreditSummary ? true: (loanAppWorkflowStatusBasicData.parentTaskStatusEnum.value !="taskStatus.rejected" || loanAppWorkflowStatusBasicData.parentTaskStatusEnum.value !="taskStatus.cb.rejected");
+                                                var showLoan = scope.showClosedLoanApplicationInGroupMembersCreditSummary ? true: !["taskStatus.cancelled", "taskStatus.inactive"].includes(loanAppWorkflowStatusBasicData.parentTaskStatusEnum.code);
 
                                                 if(showLoan && loanAppWorkflowStatusBasicData.loanAppRefId === loanApplication.loanApplicationReferenceId ){
                                                     if(!_.isUndefined(loanAppWorkflowStatusBasicData.parentTaskStatusEnum) && loanAppWorkflowStatusBasicData.parentTaskStatusEnum.id>1){

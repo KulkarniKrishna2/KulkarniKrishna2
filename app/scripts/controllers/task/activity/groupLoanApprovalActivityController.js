@@ -15,9 +15,15 @@
             scope.chargeFormData = {}; 
             scope.chargeFetchingError = false;
             scope.loanAppWorkflowStatusBasicDataList = [];
-            if (scope.response && scope.response.uiDisplayConfigurations.loanAccount.isAutoPopulate.interestChargedFromDate) {
-                scope.isAutoUpdateInterestStartDate = scope.response.uiDisplayConfigurations.loanAccount.isAutoPopulate.interestChargedFromDate;
+            scope.showClosedLoanApplicationInGroupLoanApproval = true;
 
+            if (scope.response && scope.response.uiDisplayConfigurations) {
+                if (scope.response.uiDisplayConfigurations.loanAccount.isAutoPopulate) {
+                    scope.isAutoUpdateInterestStartDate = scope.response.uiDisplayConfigurations.loanAccount.isAutoPopulate.interestChargedFromDate;
+                }
+                if(scope.response.uiDisplayConfigurations.workflow){
+                    scope.showClosedLoanApplicationInGroupLoanApproval = scope.response.uiDisplayConfigurations.workflow.showClosedLoanApplicationInGroupLoanApproval;
+                }
             }
             function populateDetails() {
                      resourceFactory.groupResource.get({groupId: scope.groupId, associations: 'clientMembers'}, function(data) {
@@ -27,10 +33,13 @@
                             resourceFactory.loanAppTaskBasicDetailGroupResource.get({groupId: scope.groupId},function(data){
                                 scope.clientLoanAppTaskBasicDetailDataList = data;
                                 angular.forEach(scope.clientLoanAppTaskBasicDetailDataList,function(clientLoanAppTaskBasicDetailData){
-                                    var loanAppWorkflowStatusBasicData = {};
-                                    loanAppWorkflowStatusBasicData.loanAppRefId = clientLoanAppTaskBasicDetailData.loanAppRefId;
-                                    loanAppWorkflowStatusBasicData.parentTaskStatusCode = clientLoanAppTaskBasicDetailData.parentTaskStatusEnum.code;
-                                    scope.loanAppWorkflowStatusBasicDataList.push(loanAppWorkflowStatusBasicData);
+                                    var showLoan = scope.showClosedLoanApplicationInGroupLoanApproval ? true: !["taskStatus.cancelled", "taskStatus.inactive"].includes(clientLoanAppTaskBasicDetailData.parentTaskStatusEnum.code);
+                                    if(showLoan){
+                                        var loanAppWorkflowStatusBasicData = {};
+                                        loanAppWorkflowStatusBasicData.loanAppRefId = clientLoanAppTaskBasicDetailData.loanAppRefId;
+                                        loanAppWorkflowStatusBasicData.parentTaskStatusCode = clientLoanAppTaskBasicDetailData.parentTaskStatusEnum.code;
+                                        scope.loanAppWorkflowStatusBasicDataList.push(loanAppWorkflowStatusBasicData);
+                                     }
                                 });
                             });
                             
@@ -39,9 +48,12 @@
                                 resourceFactory.loanApplicationReferencesForGroupResource.get({groupId: scope.groupId,clientId: client.id}, function(data1) {
                                     if (data1.length > 0) {
                                         angular.forEach(data1, function(loanApplication) {
+                                            var showLoan = scope.showClosedLoanApplicationInGroupLoanApproval ? true: !["loanApplication.rejected", "loanApplication.cb.rejected"].includes(loanApplication.status.code);
+                                            if(showLoan){
                                                 loanApplication.clientName = client.displayName; 
                                                 loanApplication.statusInReadableFormat = getApplicationStatus(loanApplication.status.value);
                                                 scope.loanApplications.push(loanApplication);
+                                            }
                                             });
                                     }
                                 });

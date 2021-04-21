@@ -12,6 +12,10 @@
             "isMandatoryField": {
 				"dateOfBirth": true
             }
+        },
+		"workflow": {
+            "showClosedLoanApplicationInGroupMembersCreditSummary" : false,
+			"showClosedLoanApplicationInGroupLoanApproval" : false
         }
     }
 } 
