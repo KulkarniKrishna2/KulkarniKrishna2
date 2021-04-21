@@ -1847,7 +1847,6 @@
             <th>{{'label.heading.actions' | translate}}</th>
         </tr>
         <tr ng-repeat="charge in charges" ng-show="charge.penalty">
-            {{charge}}
             <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
             <td ng-hide="charge.chargeOverdueData.overdueBasedOn.value != 'Invalid'">{{charge.chargeCalculationType.value}}</td>
             <td ng-show="charge.chargeOverdueData.overdueBasedOn.value != 'Invalid'">{{charge.chargeCalculationType.value}}({{charge.chargeOverdueData.overdueBasedOn.value}})</td>
