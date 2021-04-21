@@ -14,8 +14,7 @@
             }
         },
 		"workflow": {
-            "showClosedLoanApplicationInGroupMembersCreditSummary" : false,
-			"showClosedLoanApplicationInGroupLoanApproval" : false
+            "showClosedLoanApplicationInGroupActivity" : false
         }
     }
 } 

@@ -22,7 +22,7 @@
                     scope.isAutoUpdateInterestStartDate = scope.response.uiDisplayConfigurations.loanAccount.isAutoPopulate.interestChargedFromDate;
                 }
                 if(scope.response.uiDisplayConfigurations.workflow){
-                    scope.showClosedLoanApplicationInGroupLoanApproval = scope.response.uiDisplayConfigurations.workflow.showClosedLoanApplicationInGroupLoanApproval;
+                    scope.showClosedLoanApplicationInGroupLoanApproval = scope.response.uiDisplayConfigurations.workflow.showClosedLoanApplicationInGroupActivity;
                 }
             }
             function populateDetails() {

@@ -7,7 +7,7 @@
 
             scope.showClosedLoanApplicationInGroupMembersCreditSummary = true;
             if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow) {
-                scope.showClosedLoanApplicationInGroupMembersCreditSummary = scope.response.uiDisplayConfigurations.workflow.showClosedLoanApplicationInGroupMembersCreditSummary;
+                scope.showClosedLoanApplicationInGroupMembersCreditSummary = scope.response.uiDisplayConfigurations.workflow.showClosedLoanApplicationInGroupActivity;
             }
 
             resourceFactory.groupResource.get({
