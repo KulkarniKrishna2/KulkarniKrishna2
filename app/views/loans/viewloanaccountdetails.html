@@ -275,6 +275,9 @@
                               <li class="{{button.icon}}" ng-show="loandetails.status.active==true">
                                 <a href="#/loan/{{loandetails.id}}/restructure" has-permission="RESTRUCTURE_LOAN">{{'label.button.restructure' | translate}}</a> 
                               </li>
+                              <li class="{{button.icon}}" ng-show="isUpfrontAmountAvilable">
+                                <a ng-click="refundByTransfer()" has-permission="CREATE_ACCOUNTTRANSFER">{{'label.heading.refundbytransfer' | translate}}</a> 
+                              </li>
                           </ul>
                       </span>
                 </div>
@@ -359,6 +362,12 @@
                             <th class="table-bold-loan">{{'label.heading.excess.amount.paid' | translate}}</th>
                             <td><span class="padded-td">{{loandetails.summary.excessAmountPaid| number}}<span
                                     data-ng-hide="isExcessAmountPaidLoan">{{'label.heading.notprovided' | translate}}</span></span>
+                            </td>
+                        </tr>
+                        <tr ng-show="isUpfrontAmountAvilable">
+                            <th class="table-bold-loan">{{'label.heading.upfront.amount.available' | translate}}</th>
+                            <td><span class="padded-td">{{loandetails.summary.upfrontInterestAvilable| number}}<span
+                                    data-ng-hide="isUpfrontAmountAvilable">{{'label.heading.notprovided' | translate}}</span></span>
                             </td>
                         </tr>
                     </table>
@@ -550,7 +559,7 @@
                             </tr>
                             <tr data-ng-show="loandetails.isInterestRecalculationEnabled && loandetails.interestRecalculationData.interestRecalculationCompoundingType.id !=0">
                                 <td>{{ 'label.input.frequency.for.compounding' | translate }}</td>
-                                <td><span class="padded-td">{{ loandetails.interestRecalculationData.compoundingCalendarData.humanReadable}}</span></td>
+                                <td><span class="padded-td">{{ loandetails.interestRecalculationData.humanReadableCompoundingFrequency}}</span></td>
                             </tr>
                             <tr data-ng-show="loandetails.isVariableInstallmentsAllowed">
                                 <td>{{ 'label.input.variable.installments.allowed' | translate }}</td>
@@ -565,6 +574,18 @@
                             <tr data-ng-show="loandetails.isInterestRecalculationEnabled && loandetails.interestRecalculationData.interestRecalculationCompoundingType.id !=0">
                                 <td>{{ 'label.input.compounding.posted.as.interest' | translate }}</td>
                                 <td><span class="padded-td">{{ loandetails.interestRecalculationData.isCompoundingToBePostedAsTransaction | YesOrNo }}</span></td>
+                            </tr>
+                            <tr data-ng-show="loandetails.isInterestRecalculationEnabled && loandetails.interestRecalculationData.compoundingStartDayType">
+                                <td>{{ 'label.input.compoundingstartdatetype' | translate }}</td>
+                                <td><span class="padded-td">{{ loandetails.interestRecalculationData.compoundingStartDayType.value}}</span></td>
+                            </tr>
+                            <tr data-ng-show="loandetails.isInterestRecalculationEnabled && loandetails.interestRecalculationData.allowScheduleAfterMaturity">
+                                <td>{{ 'label.input.frequency.after.maturity' | translate }}</td>
+                                <td><span class="padded-td">{{loandetails.interestRecalculationData.humanReadableFrequencyAfterMaturity }}</span></td>
+                            </tr>
+                            <tr data-ng-show="loandetails.isInterestRecalculationEnabled && loandetails.interestRecalculationData.allowScheduleAfterMaturity">
+                                <td>{{ 'label.input.frequency.interval.after.maturity' | translate }}</td>
+                                <td><span class="padded-td">{{loandetails.interestRecalculationData.frequencyAfterMaturityInterval }}</span></td>
                             </tr>
                             <tr ng-show="isWriteOff">
                                 <td>{{ 'label.input.writeoffreason' | translate }}</td>
@@ -924,7 +945,6 @@
                             <colgroup span="4"></colgroup>
                             <thead>
                                 <tr class="graybg">
-                                    <th class="pointer sticky1" ng-click="changeTransactionSort('id')">{{'label.heading.id' | translate}}</th>
                                     <th class="pointer sticky1" ng-click="changeTransactionSort('officeName')">{{'label.heading.office' | translate}}</th>
                                     <th class="pointer sticky1" ng-click="changeTransactionSort('date')">{{'label.heading.transactiondate' | translate}}</th>
                                     <th class="pointer sticky1" ng-click="changeTransactionSort('type.value')">{{'label.heading.transactiontype' | translate}}</th>
@@ -935,7 +955,6 @@
                                     <th class="sticky1"></th>
                                 </tr>
                                 <tr>
-                                    <th scope="col" class="sticky2">&nbsp;</th>
                                     <th scope="col" class="sticky2">&nbsp;</th>
                                     <th scope="col" class="sticky2">&nbsp;</th>
                                     <th scope="col" class="sticky2">&nbsp;</th>
@@ -952,9 +971,6 @@
                             <tbody>
                                 <tr class="pointer-main" ng-class="{strikeoff : transaction.manuallyReversed==true}"
                                     ng-repeat="transaction in loandetails.transactions | filter:hideAccruals:transaction | orderBy:transactionSort.column:transactionSort.descending">
-                                    <td class="pointer" data-ng-click="routeTo(loandetails.id,transaction.id,transaction.type.id)">
-                                        {{transaction.id}}
-                                    </td>
                                     <td class="pointer" data-ng-click="routeTo(loandetails.id,transaction.id,transaction.type.id)">
                                         <span ng-show="isReferenceNumberAsNameEnable && transaction.officeReferenceNumber">
                                                 {{transaction.officeName}}&nbsp;-&nbsp;{{ transaction.officeReferenceNumber}}
@@ -1293,7 +1309,7 @@
                                 <th ng-hide="isGlimEnabled()">{{'label.heading.actions' | translate}}</th>
                                 <th>{{'label.heading.info' | translate}}</th>
                             </tr>
-                            <tr ng-repeat="charge in charges" class="pointer-main">
+                            <tr ng-repeat="charge in charges" class="pointer-main"> 
                                 <th  ng-hide="isGlimEnabled()"><input type="checkbox" ng-change="addForSelection(charge)" data-ng-model="charge.selected" data-ng-disabled="charge.actionFlag"/></th>
                                 <td class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{charge.name}}</td>
                                 <td ng-show="charge.penalty" class="pointer" data-ng-click="viewLoanChargeDetails(charge.id)">{{"penalty"}}</td>
@@ -1330,7 +1346,24 @@
                             </button>
                         </div>
                     </tab>
-
+                    <tab active="tabs[11].active" heading="{{'label.heading.eventbased.charge' | translate}}" select="getSpecificData('eventBasedCharges')">
+                        <table ng-show="loanSpecificData.eventBasedCharges.length>0" class="table" class="width100" >
+                            <tr class="graybg">
+                                <th>{{'label.heading.name' | translate}}</th>
+                                <th>{{'label.heading.type' | translate}}</th>
+                                <th>{{'label.heading.amount' | translate}}</th>
+                                <th>{{'label.heading.collectedon' | translate}}</th>
+                                <th>{{'label.heading.info' | translate}}</th>
+                            </tr>
+                            <tr ng-repeat="charge in loanSpecificData.eventBasedCharges">
+                                <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
+                                <td>{{charge.chargeCalculationType.value}}</td>
+                                <td>{{charge.amount | number}}</td>
+                                <td>{{charge.chargeEventType.value}}</td>
+                                <td ng-show="charge.isSlabBased" class="pointer" ng-click="showEventBasedChargeDetails(charge)"><i class="icon-info ng-scope icon-primary"></i></td>
+                            </tr>
+                        </table>
+                    </tab>
                     <script type="text/ng-template" id="delcharge.html">
                         <div class="modal-header silver">
                             <h3 class="bolder">{{'label.heading.confirm' | translate}}</h3>
@@ -1968,6 +2001,43 @@
              <div style="position: fixed; top:20%; right:10%; width:600px; height: 500px;">
                 <view-document-directive  ng-entity-type="{{data.reportEntityType}}"
                 ng-entity-id="{{data.enquiryId}}"></view-document-directive>
+            </div>
+    </script>
+    <script type="text/ng-template" id="showEventBasedChargeDetail.html">
+            <div class="modal-body well">
+                <label><strong>{{ 'label.heading.eventbased.charge' | translate }}</strong></label>
+                <br><br>
+                <table class="table" class="width100" >
+                    <tr class="graybg">
+                        <th>{{'label.heading.charge.slab.minvalue' | translate}}</th>
+                        <th>{{'label.heading.charge.slab.maxvalue' | translate}}</th>
+                        <th>{{'label.heading.amount' | translate}}</th>
+                        <th>{{'label.input.slabchargetype' | translate}}</th>
+                        <th>{{'label.heading.subslabs' | translate}}</th>
+                    </tr>
+                    <tr ng-repeat="slab in eventBasedSlab.slabs" >
+                        <td>{{slab.minValue}}</td>
+                        <td>{{slab.maxValue}}</td>
+                        <td>{{slab.amount | number}}</td>
+                        <td>{{slab.type.value}}</td>
+                        <td ng-if="slab.subSlabs.length>0"><table class="table" class="width50" >
+                                    <tr class="graybg">
+                                        <th>{{'label.heading.charge.slab.minvalue' | translate}}</th>
+                                        <th>{{'label.heading.charge.slab.maxvalue' | translate}}</th>
+                                        <th>{{'label.heading.amount' | translate}}</th>
+                                        <th>{{'label.input.subslabchargetype' | translate}}</th>
+                                    </tr>
+                                    <tr ng-repeat="subSlab in slab.subSlabs">
+                                        <td>{{subSlab.minValue}}</td>
+                                        <td>{{subSlab.maxValue}}</td>
+                                        <td>{{subSlab.amount | number}}</td>
+                                        <td>{{subSlab.type.value}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
             </div>
     </script>
 </div>

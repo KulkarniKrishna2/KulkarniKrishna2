@@ -74,30 +74,30 @@
                 <th>{{'label.heading.entity'| translate}}</th>
             </tr>
             </thead>
-            <tbody ng-repeat="transaction in transactions.currentPageItems">
-            <tr class="pointer-main"  ng-repeat="transactiondetail in transaction.journalEntryDetails">
+            <tbody>
+            <tr class="pointer-main"  ng-repeat="transaction in transactions.currentPageItems">
                 <td class="pointer" data-ng-click="routeTo(transaction.id)">{{transaction.transactionId}}</td>
                 <td class="pointer" data-ng-click="routeTo(transaction.id)">{{transaction.officeName}}</td>
                 <td class="pointer" data-ng-click="routeTo(transaction.id)">{{transaction.transactionDate |
                     DateFormat}}
                 </td>
                 <td class="pointer" data-ng-click="routeTo(transaction.id)">
-                    {{transactiondetail.glAccountData.type.value}}
+                    {{transaction.transactiondetail.glAccountData.type.value}}
                 </td>
                 <td class="pointer" data-ng-click="routeTo(transaction.id)">
                     {{transaction.createdByUserName}}
                 </td>
                 <td class="pointer" data-ng-click="routeTo(transaction.id)">
-                    {{transactiondetail.glAccountData.name}}&nbsp;({{transactiondetail.glAccountData.glCode}})
+                    {{transaction.transactiondetail.glAccountData.name}}&nbsp;({{transaction.transactiondetail.glAccountData.glCode}})
                 </td>
                 <td class="pointer" data-ng-click="routeTo(transaction.id)">
-                    <div ng-show="transactiondetail.entryType.value == 'DEBIT'">
-                        {{transaction.currency.displaySymbol}}&nbsp;{{transactiondetail.amount | number}}
+                    <div ng-show="transaction.transactiondetail.entryType.value == 'DEBIT'">
+                        {{transaction.currency.displaySymbol}}&nbsp;{{transaction.transactiondetail.amount | number}}
                     </div>
                 </td>
                 <td class="pointer" data-ng-click="routeTo(transaction.id)">
-                    <div ng-show="transactiondetail.entryType.value == 'CREDIT'">
-                        {{transaction.currency.displaySymbol}}&nbsp;{{transactiondetail.amount | number}}
+                    <div ng-show="transaction.transactiondetail.entryType.value == 'CREDIT'">
+                        {{transaction.currency.displaySymbol}}&nbsp;{{transaction.transactiondetail.amount | number}}
                     </div>
                 </td>
                 <td class="pointer" data-ng-click="routeTo(transaction.id)">

@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        SearchTransactionController: function (scope, resourceFactory, paginatorService, dateFilter, location, localStorageService) {
+        SearchTransactionController: function (scope, resourceFactory, paginatorService, dateFilter, location, localStorageService,paginatorUsingOffsetService) {
             scope.filters = [
                 {option: "All", value: ""},
                 {option: "Manual Entries", value: true},
@@ -118,7 +118,7 @@
                 } else
                     scope.searchCriteria.journals[7] = null;
 
-                resourceFactory.journalEntriesResource.search(params, callback);
+                    fetchJournalEntries(params, callback);
             };
 
             scope.clearFilters = function () {
@@ -137,7 +137,7 @@
 
             scope.searchTransaction = function () {
                 scope.displayResults = true;
-                scope.transactions = paginatorService.paginate(fetchFunction, 7);
+                scope.transactions = paginatorUsingOffsetService.paginate(fetchFunction, 14);
                 scope.isCollapsed = false;
             };
 
@@ -145,14 +145,14 @@
             if(localStorageService.getFromLocalStorage('displayResults') === "true"){
                 localStorageService.removeFromLocalStorage('displayResults');
                 scope.displayResults = true;
-                scope.transactions = paginatorService.paginate(fetchFunction, 7);
+                scope.transactions = paginatorUsingOffsetService.paginate(fetchFunction, 14);
                 scope.isCollapsed = false;
             }
 
             if(location.search().loanId != null){
                 scope.formData.loanaccountId = location.search().loanId;
                 scope.displayResults = true;
-                scope.transactions = paginatorService.paginate(fetchFunction, 7);
+                scope.transactions = paginatorUsingOffsetService.paginate(fetchFunction, 14);
                 scope.isCollapsed = false;
                 scope.isValid = true;
                 scope.path = "#/viewloanaccount/" + scope.formData.loanaccountId;
@@ -161,15 +161,31 @@
             if(location.search().savingsId != null){
                 scope.formData.savingsaccountId = location.search().savingsId;
                 scope.displayResults = true;
-                scope.transactions = paginatorService.paginate(fetchFunction, 7);
+                scope.transactions = paginatorUsingOffsetService.paginate(fetchFunction, 14);
                 scope.isCollapsed = false;
                 scope.isValid = true;
                 scope.path = "#/viewsavingaccount/" + scope.formData.savingsaccountId;
             }
 
+            fetchJournalEntries = function(params,callback){
+                resourceFactory.journalEntriesSearchResource.search(params, function (data) {
+                    var explodedJEList = [];
+                    data.forEach(element => {
+                        element.journalEntryDetails.forEach(journalEntry => {
+                            var temp = {};
+                            angular.copy(element,temp);
+                            temp.transactiondetail =  journalEntry;
+                            explodedJEList.push(temp);
+                        });
+                        
+                    });
+                    callback(explodedJEList);
+                });
+            }
+
         }
     });
-    mifosX.ng.application.controller('SearchTransactionController', ['$scope', 'ResourceFactory', 'PaginatorService', 'dateFilter', '$location', 'localStorageService', mifosX.controllers.SearchTransactionController]).run(function ($log) {
+    mifosX.ng.application.controller('SearchTransactionController', ['$scope', 'ResourceFactory', 'PaginatorService', 'dateFilter', '$location', 'localStorageService','PaginatorUsingOffsetService', mifosX.controllers.SearchTransactionController]).run(function ($log) {
         $log.info("SearchTransactionController initialized");
     });
 }(mifosX.controllers || {}));

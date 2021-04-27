@@ -1287,6 +1287,17 @@
         </div>
     </div>
 
+    <div class="form-group"  ng-if="formData.isRepaymentAtDisbursement">
+     <label class="control-label col-sm-4">
+        {{'label.input.isupfrontinterestenabled'  | translate }}
+     </label>
+        <div class="col-sm-2">
+            <label class="checkbox control-label">
+                <input id="isUpfrontInterestEnabled" type="checkbox" ng-model="formData.isUpfrontInterestEnabled">
+            </label>
+        </div>
+    </div>
+
     <div class="form-group">
         <label class="control-label col-sm-4">{{'label.input.disable.excess.amount.adjustment'  | translate }}</label>
 
@@ -1421,6 +1432,18 @@
             <input id="allowCompoundingOnEod" type="checkbox" ng-model="formData.allowCompoundingOnEod"/>
         </div>
     </div>
+    <div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled && formData.interestRecalculationCompoundingMethod != 0
+            && formData.recalculationCompoundingFrequencyType != 1">
+            <label class="control-label col-sm-2">{{'label.input.compoundingstartdatetype' | translate}}</label></label>
+            <div class="col-sm-2">
+                <label class="control-label">
+                    <select id="compoundingStartDayType" class="form-control"
+                        ng-model="formData.compoundingStartDayType"
+                        ng-options="type.id as type.value for type in product.compoundingStartDayTypeOptions"
+                        value="{{type.id}}"></select>
+                </label>
+            </div>
+        </div>   
 
 <div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled">
     <label class="control-label col-sm-2">{{'label.input.frequency.for.recalculte.outstanding.principal'
@@ -1489,6 +1512,57 @@
         </label>
     </div>
 </div>
+
+<div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled">
+    <label class="control-label col-sm-2">{{'label.input.allowscheduleaftermaturity' | translate}}</label>
+
+    <div class="col-sm-2">
+        <label class="checkbox control-label">
+            <input id="allowScheduleAfterMaturity" name="allowScheduleAfterMaturity" type="checkbox"
+                   ng-model="formData.allowScheduleAfterMaturity">
+        </label>
+    </div>
+</div>
+
+<div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled && formData.allowScheduleAfterMaturity">
+    <label class="control-label col-sm-2">{{'label.input.frequency.after.maturity'
+        | translate }}<span class="required">*</span>
+    </label>
+    <div class="col-sm-2">
+        <select id="frequencyAfterMaturityType" class="form-control"
+                ng-model="formData.frequencyAfterMaturityType"
+                ng-options="type.id as type.value for type in product.interestRecalculationFrequencyTypeOptions"
+                value="{{type.id}}"></select>
+    </div>
+    <div>
+        <div class="col-sm-2" data-ng-show="formData.frequencyAfterMaturityType == 4">
+            <select id="frequencyAfterMaturityNthDayType" class="form-control" ng-model="formData.frequencyAfterMaturityNthDayType"
+                    ng-options="frequencyAfterMaturityNthDayType.id as frequencyAfterMaturityNthDayType.value for frequencyAfterMaturityNthDayType in product.interestRecalculationNthDayTypeOptions"
+                    value="{{frequencyAfterMaturityNthDayType.id}}"><option value=""></option></select>&nbsp;
+        </div>
+        <div class="col-sm-2" data-ng-show="(formData.frequencyAfterMaturityType == 4 && formData.frequencyAfterMaturityNthDayType != -2) || formData.frequencyAfterMaturityType == 3">
+            <select id="frequencyAfterMaturityDayOfWeekType" class="form-control" ng-model="formData.frequencyAfterMaturityDayOfWeekType"
+                    ng-options="frequencyAfterMaturityDayOfWeekType.id as frequencyAfterMaturityDayOfWeekType.value for frequencyAfterMaturityDayOfWeekType in product.interestRecalculationDayOfWeekTypeOptions"
+                    value="{{frequencyAfterMaturityDayOfWeekType.id}}"><option value="">DAY</option></select>&nbsp;
+        </div>
+        <div class="col-sm-2" data-ng-show="formData.frequencyAfterMaturityType == 4 && formData.frequencyAfterMaturityNthDayType == -2">
+            <select id="frequencyAfterMaturityOnDay" class="form-control" ng-model="formData.frequencyAfterMaturityOnDay"
+                    ng-options="frequencyAfterMaturityOnDay as frequencyAfterMaturityOnDay for frequencyAfterMaturityOnDay in interestRecalculationOnDayTypeOptions"
+                    value="{{frequencyAfterMaturityOnDay}}"></select>&nbsp;
+        </div>
+    </div>
+</div>
+<div class="form-group" data-ng-show="formData.isInterestRecalculationEnabled && formData.allowScheduleAfterMaturity && formData.frequencyAfterMaturityType>1">
+    <label class="control-label col-sm-2">{{'label.input.frequency.interval.after.maturity'
+        | translate }}<span class="required">*</span>
+    </label>
+
+    <div class="col-sm-2">
+        <input id="frequencyAfterMaturityInterval" type="text" autocomplete="off" class="form-control"
+               ng-model="formData.frequencyAfterMaturityInterval">
+    </div>
+</div>
+
 <h3>{{ 'label.heading.gauranteeRequirements' | translate }}</h3>
 <hr>
 <div class="form-group">
@@ -1700,7 +1774,7 @@
 <div class="form-group">
     <div class="col-sm-3">
         <select id="chargeId" ng-model="chargeId" class="form-control"
-                ng-options="charge.id as charge.name for charge in product.chargeOptions | filter:filterCharges(formData.currencyCode, formData.multiDisburseLoan)"
+                ng-options="charge.id as charge.name for charge in chargeOptions | filter:filterCharges(formData.currencyCode, formData.multiDisburseLoan)"
                 value="{{charge.id}}">
             <option class="displaynone" value="">{{'label.selectcharge' | translate}}</option>
         </select>
@@ -1726,14 +1800,13 @@
             <th>{{'label.checkbox.ischargeamountnoneditable' | translate}}</th>
             <th>{{'label.heading.actions' | translate}}</th>
         </tr>
-        <tr ng-repeat="charge in charges" ng-hide="charge.penalty">
+        <tr ng-repeat="charge in charges" ng-hide="charge.penalty || charge.chargeTimeType.id==eventBasedFee">
             <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
             <td>{{charge.chargeCalculationType.value}}</td>
             <td></td>
             <td>{{charge.amount}}</td>
             <td></td>
-            <td ng-show="charge.chargeTimeType.id==eventBasedFee">{{charge.chargeEventType.value}}</td>
-            <td ng-hide="charge.chargeTimeType.id==eventBasedFee">{{charge.chargeTimeType.value}}</td>
+            <td>{{charge.chargeTimeType.value}}</td>
             <td></td>
             <td></td>
             <td><input type="checkbox" ng-model="charge.isMandatory" ng-true-value="true" ng-false-value="false"/></td>
@@ -1785,6 +1858,44 @@
             <td></td>
             <td><input type="checkbox" ng-model="charge.isMandatory" ng-true-value="true" ng-false-value="false"/></td>
             <td><input type="checkbox" ng-model="charge.isChargeAmountNonEditable" ng-true-value="true" ng-false-value="false"/></td>
+            <td><a ng-click="deleteCharge($index)"><i class="icon-remove icon-white"></i></a></td>
+        </tr>
+    </table>
+</div>
+<h3>{{ 'label.heading.eventbased.charge' | translate }}</h3>
+<hr>
+<div class="form-group">
+    <div class="col-sm-3">
+        <select id="chargeId" ng-model="chargeId" class="form-control"
+                ng-options="charge.id as charge.name for charge in eventBasedChargeOptions | filter:filterCharges(formData.currencyCode, formData.multiDisburseLoan)"
+                value="{{charge.id}}">
+            <option class="displaynone" value="">{{'label.select.eventbased.charge' | translate}}</option>
+        </select>
+    </div>
+    <div class="col-sm-1">
+        <button type="button" class="btn btn-primary"
+                ng-click="chargeSelected(chargeId)">{{ 'label.button.add' | translate }}
+        </button>
+    </div>
+</div>
+<div class="form-group col-md-12">
+    <table class="table width100">
+        <tr class="graybg">
+            <th>{{'label.heading.name' | translate}}</th>
+            <th>{{'label.heading.type' | translate}}</th>
+            <th></th>
+            <th>{{'label.heading.amount' | translate}}</th>
+            <th></th>
+            <th>{{'label.heading.collectedon' | translate}}</th>
+            <th>{{'label.heading.actions' | translate}}</th>
+        </tr>
+        <tr ng-repeat="charge in charges" ng-show="charge.chargeTimeType.id==eventBasedFee">
+            <td>{{charge.name}},{{charge.currency.displaySymbol}}</td>
+            <td>{{charge.chargeCalculationType.value}}</td>
+            <td></td>
+            <td>{{charge.amount}}</td>
+            <td></td>
+            <td>{{charge.chargeEventType.value}}</td>
             <td><a ng-click="deleteCharge($index)"><i class="icon-remove icon-white"></i></a></td>
         </tr>
     </table>
@@ -2081,6 +2192,20 @@
         </div>
         </div>
     </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2">{{ 'label.input.upfrontinterest' | translate }}<span ng-show="formData.isUpfrontInterestEnabled" class="required">*</span></label>
+                <i class="icon-question-sign col-sm-1 icon-white"
+                   tooltip="{{'label.tooltip.upfrontinterest' | translate}}"></i>
+
+        <div class="col-sm-3">
+            <select id="upfrontInterestLiabilityAccountId" ng-model="formData.upfrontInterestLiabilityAccountId"
+                    chosen="liabilityAccountOptions"
+                    ng-options="liabilityAccount.id as (liabilityAccount.name +' ('+ liabilityAccount.glCode +')') for liabilityAccount in liabilityAccountOptions"
+                    value="{{liabilityAccount.id}}">
+                    <option value="">{{'label.menu.selectone'| translate }}</option>
+            </select>
+        </div>
+    </div>
 
 <hr>
 <div class="form-group" ng-if="formData.isSubsidyApplicable && isAccountingEnabled()">
@@ -2220,7 +2345,7 @@
             <td class="width30">
                 <select id="specificIncomeAccountMapping[{{$index}}].chargeId"
                         ng-model="specificMapping.chargeId" class="form-control"
-                        ng-options="charge.id as charge.name for charge in chargeOptions"
+                        ng-options="charge.id as charge.name for charge in product.chargeOptions"
                         value="{{charge.id}}">
                         <option value="">{{'label.menu.selectone'| translate }}</option>
                 </select>

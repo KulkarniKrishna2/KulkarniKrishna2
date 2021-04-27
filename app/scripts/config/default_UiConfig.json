@@ -302,7 +302,7 @@
 			},
 			"isHiddenField": {
 				"villageOptions": false,
-				"showGroupExternalId": true,
+				"externalId": false,
 				"showSubmittedOn": true,
 				"showStaff": true,
 				"addclients": true,
@@ -326,7 +326,8 @@
 		"createGroup": {
 			"isReadOnlyField": {
 				"staff": false,
-				"active": false
+				"active": false,
+				"externalId": false
 			},
 			"isAutoPopulate": {
 				"active": false
@@ -539,7 +540,8 @@
 				"maxDaysLimit":"",
 				"repeatsEveryOptions" :["1", "2", "3", "4", "5"]
 			},
-			"isEditTaskEnableAfterCompleted":false
+			"isEditTaskEnableAfterCompleted":false,
+			"showClosedLoanApplicationInGroupActivity" : true
 		},
 		"globalSearchScope": {
 			"name": "label.search.scope.clients.and.clientIdentifiers",
@@ -708,7 +710,8 @@
 		"editCenter": {
 			"isReadOnlyField": {
 				"activationDate": false,
-				"name": false
+				"name": false,
+				"externalId": false
 			},
 			"isHiddenField": {
 				"villageOptions": false,
@@ -799,6 +802,17 @@
 			"isReadOnlyField": {
 				"externalId": true
 			}
-		}
+		},
+		"viewLoanApplication" : {
+			"isHiddenField" : {
+			  "modifyApplication" : false
+			}
+		},
+        "scoreCardRange": {
+            "sc1": 30,
+            "sc2": 32,
+            "sc3": 42,
+            "sc4": 50
+        }
 	}
 }

@@ -2232,6 +2232,9 @@
             .when('/createeodprocess', {
                 templateUrl: 'views/accounting/eodprocess/createeodprocess.html'
             })
+            .when('/loan/:accountId/refundbytransfer', {
+                templateUrl: 'views/loans/refundbytransfer.html'
+            })
         $locationProvider.html5Mode(false);
     };
     mifosX.ng.application.config(defineRoutes).run(function ($log) {

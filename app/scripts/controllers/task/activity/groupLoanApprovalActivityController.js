@@ -14,30 +14,68 @@
             scope.taskStatus = scope.taskconfig.status.value;  
             scope.chargeFormData = {}; 
             scope.chargeFetchingError = false;
-            if (scope.response && scope.response.uiDisplayConfigurations.loanAccount.isAutoPopulate.interestChargedFromDate) {
-                scope.isAutoUpdateInterestStartDate = scope.response.uiDisplayConfigurations.loanAccount.isAutoPopulate.interestChargedFromDate;
+            scope.loanAppWorkflowStatusBasicDataList = [];
+            scope.showClosedLoanApplicationInGroupLoanApproval = true;
 
+            if (scope.response && scope.response.uiDisplayConfigurations) {
+                if (scope.response.uiDisplayConfigurations.loanAccount.isAutoPopulate) {
+                    scope.isAutoUpdateInterestStartDate = scope.response.uiDisplayConfigurations.loanAccount.isAutoPopulate.interestChargedFromDate;
+                }
+                if(scope.response.uiDisplayConfigurations.workflow){
+                    scope.showClosedLoanApplicationInGroupLoanApproval = scope.response.uiDisplayConfigurations.workflow.showClosedLoanApplicationInGroupActivity;
+                }
             }
             function populateDetails() {
                      resourceFactory.groupResource.get({groupId: scope.groupId, associations: 'clientMembers'}, function(data) {
                         scope.group = data;
                         scope.loanApplications = [];
                         if (data.clientMembers) {
+                            resourceFactory.loanAppTaskBasicDetailGroupResource.get({groupId: scope.groupId},function(data){
+                                scope.clientLoanAppTaskBasicDetailDataList = data;
+                                angular.forEach(scope.clientLoanAppTaskBasicDetailDataList,function(clientLoanAppTaskBasicDetailData){
+                                    var showLoan = scope.showClosedLoanApplicationInGroupLoanApproval ? true: !["taskStatus.cancelled", "taskStatus.inactive"].includes(clientLoanAppTaskBasicDetailData.parentTaskStatusEnum.code);
+                                    if(showLoan){
+                                        var loanAppWorkflowStatusBasicData = {};
+                                        loanAppWorkflowStatusBasicData.loanAppRefId = clientLoanAppTaskBasicDetailData.loanAppRefId;
+                                        loanAppWorkflowStatusBasicData.parentTaskStatusCode = clientLoanAppTaskBasicDetailData.parentTaskStatusEnum.code;
+                                        scope.loanAppWorkflowStatusBasicDataList.push(loanAppWorkflowStatusBasicData);
+                                     }
+                                });
+                            });
+                            
                             scope.allMembers = data.clientMembers;
                             angular.forEach(scope.group.clientMembers, function(client) {
                                 resourceFactory.loanApplicationReferencesForGroupResource.get({groupId: scope.groupId,clientId: client.id}, function(data1) {
                                     if (data1.length > 0) {
                                         angular.forEach(data1, function(loanApplication) {
+                                            var showLoan = scope.showClosedLoanApplicationInGroupLoanApproval ? true: !["loanApplication.rejected", "loanApplication.cb.rejected"].includes(loanApplication.status.code);
+                                            if(showLoan){
                                                 loanApplication.clientName = client.displayName; 
                                                 loanApplication.statusInReadableFormat = getApplicationStatus(loanApplication.status.value);
                                                 scope.loanApplications.push(loanApplication);
-                                        });
+                                            }
+                                            });
                                     }
                                 });
                             });
                         }
                     });
             };
+
+            scope.isApproveDisabled = function(loanAppRefId){
+                if(!_.isUndefined(scope.loanAppWorkflowStatusBasicDataList)){
+                    for(var i in scope.loanAppWorkflowStatusBasicDataList){
+                        var loanAppWorkflowStatusBasicData =  scope.loanAppWorkflowStatusBasicDataList[i];
+                        if(loanAppRefId === loanAppWorkflowStatusBasicData.loanAppRefId){
+                            if(loanAppWorkflowStatusBasicData.parentTaskStatusCode != "taskStatus.completed"){
+                                return true;
+                            }
+                            return false;
+                        }
+                    }
+                }
+
+            }
 
             function getApplicationStatus(value) {
                 if(value == 'APPLICATION_CREATED') {
@@ -887,7 +925,7 @@
                 if (scope.loanApplications != undefined) {
                     scope.loanApplications.forEach(function(loanApplication) {
                         for (var i in loanApplication) {
-                            if (!loanApplication.status.id > 201 ) {
+                            if (!(loanApplication.status.id > 201)) {
                                 loanApplicationsApproved = false;
                                 break;
                             }

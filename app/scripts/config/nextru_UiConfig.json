@@ -1,0 +1,38 @@
+{
+	"enableUIDisplayConfiguration": true,
+	"uiDisplayConfigurations": {
+        "createClient": {
+            "isValidateDOBField": {
+				"active": true,
+				"ageCriteria": {
+					"minAge": 18,
+					"maxAge": 60
+                }
+			},
+            "isMandatoryField": {
+				"dateOfBirth": true
+            }
+        },
+		"workflow": {
+            "showClosedLoanApplicationInGroupActivity" : false
+        },
+        "createCenter": {
+            "isHiddenField": {
+				"externalId": true
+			}
+        },
+        "editCenter": {
+            "isReadOnlyField": {
+				"externalId": true
+			}
+        },
+        "createGroup": {
+            "isHiddenMenu": {
+                "groupExternalId": true
+            },
+            "isReadOnlyField": {
+				"externalId": true
+			}
+        }
+    }
+} 

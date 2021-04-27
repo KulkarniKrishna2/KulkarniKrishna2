@@ -5,53 +5,54 @@
                 $scope: scope
             }));
 
+            scope.showClosedLoanApplicationInGroupMembersCreditSummary = true;
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow) {
+                scope.showClosedLoanApplicationInGroupMembersCreditSummary = scope.response.uiDisplayConfigurations.workflow.showClosedLoanApplicationInGroupActivity;
+            }
+
             resourceFactory.groupResource.get({
                 groupId: scope.groupId,
                 associations: 'clientMembers'
             }, function (data) {
                 scope.group = data;
                 if (data.clientMembers) {
-                    angular.forEach(scope.group.clientMembers, function (client) {
-                        client.workflows = [];
-                        resourceFactory.loanApplicationReferencesForGroupResource.get({ groupId: scope.groupId, clientId: client.id }, function (data1) {
-                            if (data1.length > 0) {
-                                for (var j=0; j< data1.length;j++) {
-                                    resourceFactory.entityTaskExecutionResource.get({
-                                        entityType: "loanApplication",
-                                        entityId: data1[j].loanApplicationReferenceId
-                                    }, function (data2) {
-                                        if (data2 && data2.status && data2.status.id > 1) {
-                                            resourceFactory.taskExecutionChildrenResource.getAll({
-                                                taskId: data2.id
-                                            }, function (children) {
-                                                loanIndex = data1.findIndex(x => x.loanApplicationReferenceId == data2.entityId);
-                                                if (loanIndex > -1) {
-                                                    data2.loanProductName = data1[loanIndex].loanProductName;
-                                                    data2.loanAmountRequested = data1[loanIndex].loanAmountRequested;
+
+                    resourceFactory.loanAppTaskBasicDetailGroupResource.get({groupId: scope.groupId},function(data){
+                        scope.loanAppWorkflowStatusBasicDataList = data;
+
+                        angular.forEach(scope.group.clientMembers, function(client) {
+                            client.workflows = [];
+                            resourceFactory.loanApplicationReferencesForGroupResource.get({ groupId: scope.groupId, clientId: client.id }, function (data) {
+                                if(data.length>0){
+                                    angular.forEach(data, function(loanApplication){
+                                        var workflow = {}
+                                        workflow.loanProductName = loanApplication.loanProductName;
+                                        workflow.loanAmountRequested = loanApplication.loanAmountRequested;
+                                        if(!_.isUndefined(scope.loanAppWorkflowStatusBasicDataList)){
+                                            for(var i in scope.loanAppWorkflowStatusBasicDataList){
+                                                var loanAppWorkflowStatusBasicData = scope.loanAppWorkflowStatusBasicDataList[i];
+                                                var showLoan = scope.showClosedLoanApplicationInGroupMembersCreditSummary ? true: !["taskStatus.cancelled", "taskStatus.inactive"].includes(loanAppWorkflowStatusBasicData.parentTaskStatusEnum.code);
+
+                                                if(showLoan && loanAppWorkflowStatusBasicData.loanAppRefId === loanApplication.loanApplicationReferenceId ){
+                                                    if(!_.isUndefined(loanAppWorkflowStatusBasicData.parentTaskStatusEnum) && loanAppWorkflowStatusBasicData.parentTaskStatusEnum.id>1){
+                                                        workflow.status = loanAppWorkflowStatusBasicData.parentTaskStatusEnum;
+                                                        workflow.currentChildTaskId = loanAppWorkflowStatusBasicData.currentTaskId;
+                                                        workflow.currentChildTaskName = loanAppWorkflowStatusBasicData.currentTaskName;
+                                                        workflow.id = loanAppWorkflowStatusBasicData.parentTaskId;
+                                                        workflow.entityId = loanAppWorkflowStatusBasicData.loanAppRefId;
+                                                        client.workflows.push(workflow);
+                                                    }
                                                 }
-                                                data2.activeChildTask = getActiveChildTask(children);
-                                                client.workflows.push(data2);
-                                            });
+                                            }
                                         }
                                     });
-                                };
-                            }
+                                }
+                            });
                         });
                     });
                 }
             });
-
-            function getActiveChildTask(childTasks) {
-                if (childTasks && childTasks.length > 0) {
-                    for (index in childTasks) {
-                        var task = childTasks[index];
-                        if (task.status && task.status.id > 1 && task.status.id < 7) {
-                            return task;
-                        }
-                    }
-                }
-                return null;
-            };
+            
 
             scope.routeToMem = function (id) {
                 location.path('/viewclient/' + id);

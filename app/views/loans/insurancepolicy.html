@@ -36,7 +36,7 @@
                 </div>
                 <table class="table well" >
                     <tr>
-                        <th >{{'label.input.insurance.select' | translate}}</th>
+                        <th >{{'label.input.insured.name' | translate}}</th>
                         <th>{{'label.input.insurance.client.type' | translate}}</th>
                         <th>{{'label.input.policy.number' | translate}}</th>
                         <th>{{'label.input.COI.number' | translate}}</th>
@@ -47,10 +47,19 @@
                     <tr ng-repeat="insurancePolicyDetail in formData.insurancePolicyDetails">
 
                         <td>
-                        <span>
-                            <input type="checkbox" ng-model="insurancePolicyDetail.isMemberChecked"  
-                            checked></input>
+
+                        <span data-ng-show="insurancePolicyDetail.insuranceClientType.value == 'INSURED'">
+
+                            {{clientData.displayName}}
                             </span>
+                        <span data-ng-show="insurancePolicyDetail.insuranceClientType.value == 'CO-INSURED'">
+
+                            <select id="familymemberid" name="familymemberid" ng-model="insurancePolicyDetail.familyMemberId"
+                                ng-options="familyDetail.id as (familyDetail.firstname + ' ' +familyDetail.lastname+'('+familyDetail.relationship.name+')') for familyDetail in familyDetails"
+                                value="{{familyDetail.id}}" class="input-sm form-control">
+                                <option value="">{{'label.selectone' | translate}}</option>
+                            </select>
+                        </span>
                         </td>
                         <td>
                             <span>
@@ -141,6 +150,7 @@
                 <wbr>
                 <table class="width100">
                     <tr class="graybg">
+                        <th >{{'label.input.insured.name' | translate}}</th>
                         <th>{{'label.input.insurance.client.type' | translate}}</th>
                         <th>{{'label.input.policy.number' | translate}}</th>
                         <th>{{'label.input.COI.number' | translate}}</th>
@@ -149,6 +159,17 @@
                         <th>{{'label.input.insurance.expiry.date' | translate}}</th>
                     </tr>
                     <tr ng-repeat="insurancePolicyData in insurancePolicyDatas">
+                        <td>
+
+                            <span data-ng-show="insurancePolicyData.insuranceClientType.value == 'INSURED'">
+    
+                                {{insurancePolicyData.clientData.displayName}}
+                                </span>
+                            <span data-ng-show="insurancePolicyData.insuranceClientType.value == 'CO-INSURED'">
+                                {{insurancePolicyData.familyDetailData.firstname}}  {{insurancePolicyData.familyDetailData.lastname}} 
+                                    ({{insurancePolicyData.familyDetailData.relationship.name}})
+                            </span>
+                            </td>
                         <td>
                             {{insurancePolicyData.insuranceClientType.value}}
                         </td>

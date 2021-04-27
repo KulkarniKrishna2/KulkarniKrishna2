@@ -118,10 +118,15 @@
                 for(var i in scope.loanProductData.charges){
                     if(scope.loanProductData.charges[i].chargeData){
                         var charge = scope.loanProductData.charges[i].chargeData;
+                        charge.productLoanChargeId = scope.loanProductData.charges[i].id;
                         charge.isMandatory = scope.loanProductData.charges[i].isMandatory;
                         charge.isAmountNonEditable = scope.loanProductData.charges[i].isAmountNonEditable;
                         scope.loanproduct.charges.push(charge);
                     }
+                }
+                scope.eventBasedCharges = [];
+                for(var i in scope.loanProductData.eventBasedCharges){
+                    scope.eventBasedCharges.push(scope.loanProductData.eventBasedCharges[i].chargeData);
                 }
                 if(scope.loanproduct.applicableForLoanType.id == 2){
                     scope.isEnableRestrictionForClientProfile = false;

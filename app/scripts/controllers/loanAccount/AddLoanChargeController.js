@@ -8,7 +8,12 @@
             scope.isCollapsed = true;
             scope.loanId = routeParams.id;
             resourceFactory.loanChargeTemplateResource.get({loanId: scope.loanId}, function (data) {
-                scope.charges = data.chargeOptions;
+                var temp = data.chargeOptions;
+                for(var i in temp){
+                    if(temp[i].chargeTimeType.code != "chargeTimeType.eventBasedFee"){
+                        scope.charges.push(temp[i]);
+                    }
+                }
             });
 
             scope.selectCharge = function(chargeId){

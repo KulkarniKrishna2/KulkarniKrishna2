@@ -614,7 +614,11 @@
                         scope.paymentTypes = data.paymentTypeOptions;
                         scope.paymentModeOptions = data.paymentModeOptions;
                         scope.updatePaymentType(data.expectedPaymentId);
-                        scope.formData.transactionAmount = data.amount;
+                        if(data.excessAmountPaymentPortion && data.excessAmountPaymentPortion>0){
+                            scope.formData.transactionAmount = data.amount - data.excessAmountPaymentPortion;
+                        }else{
+                            scope.formData.transactionAmount = data.amount;
+                        }
                         if(data.penaltyChargesPortion>0){
                             scope.showPenaltyPortionDisplay = true;
                         }
@@ -642,10 +646,15 @@
                         scope.paymentTypes = data.paymentTypeOptions;
                         scope.paymentModeOptions = data.paymentModeOptions;
                         scope.updatePaymentType(data.expectedPaymentId);
-                        scope.formData.transactionAmount = data.amount;
+                        if(data.excessAmountPaymentPortion && data.excessAmountPaymentPortion>0){
+                            scope.formData.transactionAmount = data.amount - data.excessAmountPaymentPortion;
+                        }else{
+                            scope.formData.transactionAmount = data.amount;
+                        }
                         if(data.penaltyChargesPortion>0){
                             scope.showPenaltyPortionDisplay = true;
                         }
+                        
                         scope.principalPortion = data.principalPortion;
                         scope.interestPortion = data.interestPortion;
                         scope.processDate = true;
@@ -774,6 +783,26 @@
                     scope.isTransaction = true;
                     scope.showAmountDispaly = true;
                     scope.taskPermissionName = 'REFUND_LOAN';
+                    break;
+                case "refundFromUpfrontInterest":
+                    scope.isConfirmNeeded = true;
+                    scope.confirmText="message.loanaccount.refund.confirm";
+                    scope.modelName = 'transactionDate';
+                    if (scope.isValueDateEnabled) {
+                        scope.showValueDateField = true;
+                    }
+                    resourceFactory.loanTrxnsTemplateResource.get({loanId: scope.accountId, command: 'refundFromUpfrontInterest'}, function (data) {
+                        scope.amount = data.amount;
+                        scope.paymentTypes = data.paymentTypeOptions;
+                        scope.paymentModeOptions = data.paymentModeOptions;
+                        scope.updatePaymentType(data.expectedPaymentId);
+                        scope.formData[scope.modelName] = new Date(data.date) || new Date();
+                    });
+                    scope.title = 'label.heading.refund';
+                    scope.labelName = 'label.input.transactiondate';
+                    scope.isTransaction = true;
+                    scope.showAmountDispaly = true;
+                    scope.taskPermissionName = 'REFUNDUPFRONTINTEREST_LOAN';
                     break;
                 case "modifytransaction":
                     resourceFactory.loanTrxnsResource.get({loanId: scope.accountId, transactionId: routeParams.transactionId, template: 'true'},
@@ -1197,7 +1226,7 @@
                 if (scope.action == "repayment" || scope.action == "waiveinterest" || scope.action == "writeoff" || scope.action == "close-rescheduled"
                     || scope.action == "close" || scope.action == "modifytransaction" || scope.action == "recoverypayment" || scope.action == "prepayloan"
                     || scope.action == "addsubsidy" || scope.action == "revokesubsidy" ||scope.action == "refund" || scope.action == "prepayment" || scope.action == "refundByCash"
-                    || scope.action == "returnloan" || scope.action == "prudentialwriteoff") {
+                    || scope.action == "returnloan" || scope.action == "prudentialwriteoff" || scope.action == "refundFromUpfrontInterest" ) {
 
                     if (scope.action == "modifytransaction") {
                         params.command = 'modify';
@@ -1419,7 +1448,11 @@
                     params.loanId = scope.accountId;
                     params.command = 'prepayLoan';
                     resourceFactory.loanTrxnsTemplateResource.get(params, function (data) {
-                        scope.formData.transactionAmount = data.amount;
+                        if(data.excessAmountPaymentPortion && data.excessAmountPaymentPortion>0){
+                            scope.formData.transactionAmount = data.amount - data.excessAmountPaymentPortion;
+                        }else{
+                            scope.formData.transactionAmount = data.amount;
+                        }
                         if (data.penaltyChargesPortion > 0) {
                             scope.showPenaltyPortionDisplay = true;
                         }

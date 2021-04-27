@@ -21,6 +21,7 @@
             scope.applicableOnRepayment = 1;
             scope.applicableOnDisbursement = 2;
             scope.isClientActive = false;
+            scope.loanAppWorkflowStatusBasicDataList = [];
 
             if (scope.response.uiDisplayConfigurations.createClient.isDisabled) {
                 scope.submittedOnDate = scope.response.uiDisplayConfigurations.createClient.isDisabled.submittedOnDate;
@@ -416,18 +417,6 @@
                  location.path('/viewclient/' +id);
              };
 
-             function getActiveChildTask(childTasks) {
-                 if (childTasks != undefined && childTasks.length > 0) {
-                     for (index in childTasks) {
-                         var task = childTasks[index];
-                         if (task.status != undefined && task.status.id > 1 && task.status.id < 7) {
-                             return task;
-                         }
-                     }
-                 }
-                 return null;
-             };
-
             scope.associateMember = function () {
                 if(scope.client != undefined){
                     scope.associate = {};
@@ -476,27 +465,25 @@
                 if (data.clientMembers) {
                     scope.allMembers = data.clientMembers;
 
-                    angular.forEach(scope.group.clientMembers, function(client) {
-                        client.workflows = [];
-                        resourceFactory.loanApplicationReferencesForGroupResource.get({groupId: scope.groupId,clientId: client.id}, function(data1) {
-                            if (data1.length > 0) {
-                                for (var j in data1) {
-                                    if(data1[j] && data1[j].loanApplicationReferenceId){
-                                        resourceFactory.entityTaskExecutionResource.get({
-                                            entityType: "loanApplication",
-                                            entityId: data1[j].loanApplicationReferenceId
-                                        }, function(data2) {
-                                            if (data2 != undefined && data2.status && data2.status.id > 1) {
-                                                resourceFactory.taskExecutionChildrenResource.getAll({
-                                                    taskId: data2.id
-                                                }, function(children) {
-                                                    data2.activeChildTask = getActiveChildTask(children);
-                                                    client.workflows.push(data2);
-                                                });
-                                            }
-                                        });
+                    resourceFactory.loanAppTaskBasicDetailGroupResource.get({groupId: scope.groupId},function(data){
+                        scope.loanAppWorkflowStatusBasicDataList = data;
+
+                        angular.forEach(scope.group.clientMembers, function(client) {
+                            client.workflows = [];
+                            if(!_.isUndefined(scope.loanAppWorkflowStatusBasicDataList)){
+                                for(var i in scope.loanAppWorkflowStatusBasicDataList){
+                                    var loanAppWorkflowStatusBasicData = scope.loanAppWorkflowStatusBasicDataList[i];
+                                    if(loanAppWorkflowStatusBasicData.clientId === client.id){
+                                        if(loanAppWorkflowStatusBasicData.parentTaskStatusEnum.id>1){
+                                            var workflow = {}
+                                            workflow.status = loanAppWorkflowStatusBasicData.parentTaskStatusEnum;
+                                            workflow.currentChildTaskId = loanAppWorkflowStatusBasicData.currentTaskId;
+                                            workflow.currentChildTaskName = loanAppWorkflowStatusBasicData.currentTaskName;
+                                            workflow.id = loanAppWorkflowStatusBasicData.parentTaskId;
+                                            client.workflows.push(workflow);
+                                        }
                                     }
-                                };
+                                }
                             }
                         });
                     });

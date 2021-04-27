@@ -351,6 +351,13 @@
                                 <td><span class="padded-td">{{savingaccountdetails.lastActiveTransactionDate | DateFormat}}</span>
                                 </td>
                             </tr>
+                            <tr>
+                                <td class="table-bold-acc fontnormal">{{'label.heading.fundsource' | translate}}
+                                </td>
+                                <td><span
+                                        class="padded-td">{{savingaccountdetails.fundName}}</span>
+                                </td>
+                            </tr>
                             <tr ng-hide="savingaccountdetails.subStatus.id==0">
                                 <td class="table-bold-acc fontnormal">{{'label.subStatus' | translate}}
                                 </td>

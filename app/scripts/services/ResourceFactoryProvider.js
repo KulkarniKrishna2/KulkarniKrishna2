@@ -191,6 +191,9 @@
                     fileUrlResource: defineResource(apiVer + "/files/:fileId", { fileId: '@fileId' }, {
                         get: { method: 'GET', params: {} }
                     }),
+                    fileDownloadResource: defineResource(apiVer + "/files/:fileId/download", { fileId: '@fileId' }, {
+                        get: { method: 'GET', params: {} }
+                    }),
                     reportsResource: defineResource(apiVer + "/reports/:id/:resourceType", { id: '@id', resourceType: '@resourceType', usageTrackingEnabledOnly: '@usageTrackingEnabledOnly' }, {
                         save: { method: 'POST', headers: { 'Content-Type': undefined }, transformRequest: angular.identity, params: {} },
                         get: { method: 'GET', params: { id: '@id' } },
@@ -491,6 +494,10 @@
                         get: { method: 'GET', params: { transactionId: '@transactionId' } },
                         reverse: { method: 'POST', params: { command: 'reverse' } },
                         search: { method: 'GET', params: {} }
+                    }),
+                    journalEntriesSearchResource: defineResource(apiVer + "/journalentries/search", {trxid: '@transactionId'}, {
+                        get: { method: 'GET', params: { transactionId: '@transactionId' }, isArray: true },
+                        search: { method: 'GET', params: {}, isArray: true }
                     }),
                     frequentPostingResource: defineResource(apiVer + "/frequentpostings", {}, {}),
                     accountingClosureResource: defineResource(apiVer + "/glclosures/:accId", { accId: "@accId" }, {
@@ -962,6 +969,9 @@
                         update: { method: 'PUT', params: { bankStatementId: '@bankStatementId' } },
                         getBankStatement: { method: 'GET', params: { bankStatementId: '@bankStatementId' } },
                         reconcileBankStatement: { method: 'POST', params: { command: 'reconcile' } }
+                    }),
+                    bulkStatementResource: defineResource(apiVer + "/bulkcollection/search", {}, {
+                        getAllBankStatement: { method: 'GET', params: {}, isArray: true }
                     }),
                     deleteBankStatementsResource: defineResource(apiVer + "/bankstatements/:bankStatementId/delete", { bankStatementId: '@bankStatementId', command: '@command' }, {
                         deleteBankStatement: { method: 'POST', params: { bankStatementId: '@bankStatementId' }, command: 'command' }
@@ -1782,6 +1792,7 @@
                     taskClientLevelQueryResolveTemplateResource: defineResource(apiVer + "/tasktracking/:trackerId/query/template", { trackerId: '@trackerId' }, {
                         get: { method: 'GET', params: {} }
                     }),
+                    
                     officeDropDownResource: defineResource(apiVer + "/offices/template", {}, {
                         getAllOffices: { method: 'GET', params: {} }
                     }),
@@ -2234,7 +2245,25 @@
                     }),
                     LoanHistoryScheduleResource: defineResource(apiVer + "/loans/:loanId/schedulehistory/:historyVersion", { loanId: '@loanId', historyVersion:'@historyVersion' }, {
                         getLoanScheduleHistory: { method: 'GET', params: {}}
-                    })
+                    }),
+                    loanAppTaskBasicDetailGroupResource: defineResource(apiVer + '/groups/:groupId/clientsloanapptaskbasicdetail', { groupId: '@groupId' }, {
+                        get: { method: "GET", params: {}, isArray: true }
+                    }),
+                    ocrVerificationResource: defineResource(apiVer + "/ocr/clients/:clientId/loanapplications/:loanApplicationId",{clientId:'@clientId',loanApplicationId:'@loanApplicationId'}, {
+                        get: {method: 'GET', params: {}},
+                        post:{ method: 'POST', params: {} }
+                    }),
+                    loanAppScoreCardResource: defineResource(apiVer2 + '/loanapplicationreferences/:loanAppId/scorecards/:scoreKey', { loanAppId: '@loanAppId', scoreKey:'@scoreKey' }, {
+                        get: { method: "GET", params: {} },
+                        post: { method: 'POST', params: {} },
+                    }),
+                    loanAppScoreCardResourceList: defineResource(apiVer2 + '/loanapplicationreferences/:loanAppId/scorecards', { loanAppId: '@loanAppId' }, {
+                        getAll: { method: "GET", params: {}, isArray: true }
+                    }),
+                    loanAppRateOfIntrestResource: defineResource(apiVer2 + '/loanapplicationreferences/:loanAppId/postprocess/poi-update/:poiKey', { loanAppId: '@loanAppId', poiKey: '@poiKey' }, {
+                        get: { method: "GET", params: {} },
+                        post: { method: 'POST', params: {} },
+                    }),
                 };
             }];
         }

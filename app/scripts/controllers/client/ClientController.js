@@ -93,6 +93,16 @@
             scope.showSearchForm = function () {
                 scope.showSearch = scope.showSearch ? false: true;
             };
+
+            scope.getStatusCode = function (client) {
+                if (client.status) {
+                    if (client.subStatus && client.subStatus.id == 600) {
+                        return client.status.code + "." + client.subStatus.code;
+                    } else {
+                        return client.status.code;
+                    }
+                }
+            };
         }
     });
 

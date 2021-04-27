@@ -281,6 +281,9 @@
                     case "refund":
                         location.path('/loanaccount/' + accountId + '/refund');
                         break;
+                    case "refundFromUpfrontInterest":
+                        location.path('/loanaccount/' + accountId + '/refundFromUpfrontInterest');
+                        break;
                     case "disburse.creditbureaureport":
                         if (scope.isCBCheckReq) {
                             if (scope.loandetails.loanApplicationReferenceId && scope.loandetails.loanApplicationReferenceId > 0 && scope.loandetails.status.id == 200) {
@@ -482,6 +485,12 @@
                 } else {
                     scope.isExcessAmountPaidLoan = false;
                 }
+                if(!_.isUndefined(scope.loandetails.summary) && !_.isUndefined(scope.loandetails.summary.upfrontInterestAvilable) && scope.loandetails.summary.upfrontInterestAvilable > 0){
+                    scope.isUpfrontAmountAvilable = true;
+                }else{
+                    scope.isUpfrontAmountAvilable = false;
+                }
+
                 if (scope.status == "Submitted and pending approval" || scope.status == "Active" || scope.status == "Approved") {
                     scope.choice = true;
                 }
@@ -857,7 +866,14 @@
                             isHidden: scope.isGlim
                         });
                     }
-
+                    if(scope.isUpfrontAmountAvilable) {
+                        scope.buttons.options.push(
+                            {
+                                name: "button.refundFromUpfrontInterest",
+                                taskPermissionName: 'REFUNDUPFRONTINTEREST_LOAN',
+                                isHidden: scope.isGlim
+                            });
+                    }
                 }
                 if (data.status.value == "Rejected") {
                     scope.options.push(
@@ -1096,7 +1112,7 @@
                     scope.isDataAlreadyFetched = true;
                 } else if (associations === 'charges' && scope.ischarges === true) {
                     scope.isDataAlreadyFetched = true;
-                }
+                } 
                 if (!scope.isDataAlreadyFetched) {
                     resourceFactory.LoanAccountResource.getLoanAccountDetails({ loanId: routeParams.id, associations: associations, isFetchSpecificData: true, exclude: 'loanBasicDetails' }, function (data) {
                         scope.loanSpecificData = data;
@@ -1612,7 +1628,7 @@
             };
 
             scope.transactionSort = {
-                column: ['date', 'id'],
+                column: [],
                 descending: true
             };
             scope.changeTransactionSort = function (column) {
@@ -2286,6 +2302,30 @@
                 }
                 return reconstructedScheduleHistoryDataList;
             }
+
+            scope.showEventBasedChargeDetails = function (charge) {
+                $modal.open({
+                    templateUrl: 'showEventBasedChargeDetail.html',
+                    controller: showEventBasedChargeDetailCtrl,
+                    windowClass: 'app-modal-window-full-screen',
+                    resolve: {
+                        charge: function () {
+                            return charge ;
+                        }
+                    }
+                });
+            };
+
+            var showEventBasedChargeDetailCtrl = function ($scope, $modalInstance, charge) {
+                $scope.eventBasedSlab = charge;
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            };
+
+            scope.refundByTransfer = function () {
+                location.path('/loan/' + scope.loandetails.id + "/refundbytransfer");
+            };
         }
     });
 

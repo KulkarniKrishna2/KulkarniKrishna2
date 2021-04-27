@@ -29,6 +29,7 @@
                     "clientStatusType.transfer.in.progress": "statustransferprogress",
                     "clientStatusType.transfer.on.hold": "statustransferonhold",
                     "clientStatusType.onHold":"statushold",
+                    "clientStatusType.active.clientSubStatusType.deceased": "statusdeceased",
                     "groupingStatusType.active": "statusactive",
                     "groupingStatusType.pending": "statuspending",
                     "groupingStatusType.submitted.and.pending.approval": "statuspending",
