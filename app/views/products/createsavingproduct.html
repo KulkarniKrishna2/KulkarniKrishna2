@@ -134,8 +134,34 @@
 							ng-model="formData.interestPostingPeriodType"
 							ng-options="type.id as type.value for type in product.interestPostingPeriodTypeOptions"
 							value="{{type.id}}"></select>
+							
 				</div>
 			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2">{{ 'label.input.custom.interest.posting.on.day' | translate }}</label>
+				<i class="icon-question-sign col-sm-1" tooltip="{{'label.tooltip.custom.interest.posting.on.day' | translate}}"></i>
+				<div class="col-sm-1">
+					<select id="avilabledays" ng-model="available" name="avilabledays" class="form-control multiselectmin" multiple>
+						<option ng-repeat="onday in repeatsOnDayOfMonthOptions" value="{{onday}}">
+							{{onday}}
+						</option>
+					</select>
+				</div>&nbsp;
+				<div class="col-sm-1">
+					<button type="button" class="btn btn-primary" data-ng-click="addMonthDay()"><i
+						class="icon-double-angle-right"></i></button>
+				<button type="button" class="btn btn-primary" data-ng-click="removeMonthDay()"><i
+						class="icon-double-angle-left"></i></button>
+					</select>
+				</div>
+				<div class="col-sm-1">
+					<select id="selecteddays" ng-model="selected" name="selecteddays" class="form-control multiselectmin" multiple>
+						<option ng-repeat="onday in selectedOnDayOfMonthOptions" value="{{onday}}">
+							{{onday}}
+						</option>
+					</select>
+				</div>
+			</div>    
 			<div class="form-group">
 				<label class="control-label col-sm-2">{{ 'label.input.interestcalculatedusing' | translate }}<span class="required">*</span></label>
 				<i class="icon-question-sign col-sm-1" tooltip="{{'label.tooltip.interestcalculatedusing' | translate}}"></i>
