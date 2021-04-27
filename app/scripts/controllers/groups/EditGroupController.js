@@ -4,8 +4,15 @@
             scope.first = {};
             scope.managecode = routeParams.managecode;
             scope.restrictDate = new Date();
-            scope.isGroupNameReadOnly = scope.response.uiDisplayConfigurations.viewGroup.isReadOnlyField.groupName;
-            scope.isActivationReadOnly = scope.response.uiDisplayConfigurations.viewGroup.isReadOnlyField.activationDate;
+            scope.isGroupNameReadOnly = false;
+            scope.isActivationReadOnly = false;
+            scope.isExternalIdReadOnly = false;
+
+            if(scope.response && scope.response.uiDisplayConfigurations){
+                scope.isGroupNameReadOnly = scope.response.uiDisplayConfigurations.viewGroup.isReadOnlyField.groupName;
+                scope.isActivationReadOnly = scope.response.uiDisplayConfigurations.viewGroup.isReadOnlyField.activationDate;
+                scope.isExternalIdReadOnly = scope.response.uiDisplayConfigurations.createGroup.isReadOnlyField.externalId; 
+            }
             resourceFactory.groupResource.get({groupId: routeParams.id, associations: 'clientMembers', template: 'true',staffInSelectedOfficeOnly:true}, function (data) {
                 scope.editGroup = data;
                 scope.isWorkflowEnabled = (data.isWorkflowEnabled && data.isWorkflowEnableForBranch);

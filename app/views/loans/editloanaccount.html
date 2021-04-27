@@ -598,7 +598,7 @@
             <tr ng-if="showLoanTerms" ng-show="loanaccountinfo.canUseForTopup">
                 <td><label>{{ 'label.heading.isTopup' | translate }}</label></td>
                 <td class="paddedbottom10" colspan="3">
-                    <input type="checkbox" name="isTopup" ng-model="formData.isTopup" ng-change="isTopupSelected()" disabled="formData.isTopup"/>
+                    <input type="checkbox" name="isTopup" ng-model="formData.isTopup" ng-change="isTopupSelected()"/>
                 </td>
             </tr>
             <tr ng-if="showLoanTerms" ng-show="loanaccountinfo.canUseForTopup && formData.isTopup == true">
@@ -981,8 +981,8 @@
                 </tr>
                 <tr ng-repeat="charge in loanaccountinfo.overdueCharges">
                         <td>{{charge.chargeData.name}},{{charge.chargeData.currency.displaySymbol}}</td>
-                        <td ng-hide="charge.overdueBasedOn.value != 'Invalid'">{{charge.chargeData.chargeCalculationType.value}}</td>
-                        <td ng-show="charge.overdueBasedOn.value != 'Invalid'">{{charge.chargeData.chargeCalculationType.value}}({{charge.overdueBasedOn.value}})</td>
+                        <td ng-hide="charge.overdueBasedOn">{{charge.chargeData.chargeCalculationType.value}}</td>
+                        <td ng-show="charge.overdueBasedOn">{{charge.chargeData.chargeCalculationType.value}}({{charge.overdueBasedOn.value}})</td>
                         <td ng-if="isAmountNonEditable">{{charge.chargeData.amount | number}}</td>
                         <td ng-if="!isAmountNonEditable"><input id="{{charge.id}}" class="form-control" type="text" autocomplete="off" ng-model="charge.chargeData.amount"
                             placeholder="{{'label.input.amount' | translate}}" number-format /></td>

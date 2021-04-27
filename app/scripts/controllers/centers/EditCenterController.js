@@ -9,6 +9,8 @@
             scope.isHiddenVillageOption = true;
             scope.villages = [];
             scope.isActivationDateReadOnly = false;
+            scope.isExternalIdReadOnly = false;
+
             if(scope.response != undefined){
                 scope.isHiddenVillageOption = scope.response.uiDisplayConfigurations.editCenter.isHiddenField.villageOptions;                
                 scope.isNameAutoPopulate = scope.response.uiDisplayConfigurations.createCenter.isAutoPopulate.name;
@@ -22,6 +24,7 @@
             }
             if(scope.response && scope.response.uiDisplayConfigurations){
                 scope.loanOfficersOnly = scope.response.uiDisplayConfigurations.createCenter.loanOfficersOnly;
+                scope.isExternalIdReadOnly = scope.response.uiDisplayConfigurations.editCenter.isReadOnlyField.externalId; 
             }
             resourceFactory.centerResource.get({centerId: routeParams.id, template: 'true',staffInSelectedOfficeOnly:true,loanOfficersOnly:scope.loanOfficersOnly, associations:'hierarchyLookup'}, function (data) {
                 scope.edit = data;

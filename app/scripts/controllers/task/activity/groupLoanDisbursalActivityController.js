@@ -15,6 +15,10 @@
             scope.showEmiDetailsInDisbursement = !scope.response.uiDisplayConfigurations.workflow.loanDisbusal.hiddenField.showEmipack;
             scope.isAmountReadOnly = scope.response.uiDisplayConfigurations.workflow.loanDisbusal.isReadOnlyField.transactionAmount;
             scope.isFixedEmiReadOnly = scope.response.uiDisplayConfigurations.workflow.loanDisbusal.isReadOnlyField.fixedEmiAmount;
+            scope.showClosedLoanApplicationInGroupActivity = true;
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow){
+                scope.showClosedLoanApplicationInGroupActivity = scope.response.uiDisplayConfigurations.workflow.showClosedLoanApplicationInGroupActivity;
+            }
 
             function populateDetails() {
                 if(scope.taskStatus != undefined && scope.taskStatus != 'completed'){
@@ -33,8 +37,11 @@
                                 }, function(data1) {
                                     if (data1.length > 0) {
                                         angular.forEach(data1, function(loanApplication) {
+                                            var showLoan = scope.showClosedLoanApplicationInGroupActivity ? true: !["loanApplication.rejected", "loanApplication.cb.rejected"].includes(loanApplication.status.code);
+                                            if(showLoan){
                                                 loanApplication.statusInReadableFormat = getApplicationStatus(loanApplication.status.value);
                                                 scope.loanApplications.push(loanApplication);
+                                            }
                                         });
                                     }
                                 });

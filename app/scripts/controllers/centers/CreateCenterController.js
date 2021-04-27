@@ -19,6 +19,7 @@
             scope.isBranchNameIncluded = false;
             scope.hideAreaCategory = true;
             scope.areaCategories = [];
+            scope.hideExternalId = false;
             
             if(scope.response && scope.response.uiDisplayConfigurations){
                 scope.isHiddenVillageOption = scope.response.uiDisplayConfigurations.createCenter.isHiddenField.villageOptions;
@@ -26,7 +27,8 @@
                 scope.showaddGroups = !scope.response.uiDisplayConfigurations.createCenter.isHiddenField.addGroups;
                 scope.isNameAutoPopulate = scope.response.uiDisplayConfigurations.createCenter.isAutoPopulate.name;
                 scope.loanOfficersOnly = scope.response.uiDisplayConfigurations.createCenter.loanOfficersOnly;
-                scope.hideAreaCategory = scope.response.uiDisplayConfigurations.createCenter.isHiddenField.areaCategory;                     
+                scope.hideAreaCategory = scope.response.uiDisplayConfigurations.createCenter.isHiddenField.areaCategory;  
+                scope.hideExternalId = scope.response.uiDisplayConfigurations.createCenter.isHiddenField.externalId;    
                 if(scope.response.uiDisplayConfigurations.createCenter.isValidateName) {
                     scope.namePattern = scope.response.uiDisplayConfigurations.createCenter.isValidateName.namePattern;
                 }
