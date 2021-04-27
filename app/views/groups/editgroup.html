@@ -35,7 +35,7 @@
                     <label class="control-label col-sm-2" for="externalid">{{'label.input.groupexternalid' | translate}}</label>
 
                     <div class="col-sm-3">
-                        <input type="text" autocomplete="off" id="externalId" ng-model="formData.externalId" class="form-control"/>
+                        <input type="text" autocomplete="off" ng-disabled="isExternalIdReadOnly" id="externalId" ng-model="formData.externalId" class="form-control"/>
                     </div>
                 </div>
                 <div class="col-md-offset-3">

@@ -302,7 +302,7 @@
 			},
 			"isHiddenField": {
 				"villageOptions": false,
-				"showGroupExternalId": true,
+				"externalId": false,
 				"showSubmittedOn": true,
 				"showStaff": true,
 				"addclients": true,
@@ -326,7 +326,8 @@
 		"createGroup": {
 			"isReadOnlyField": {
 				"staff": false,
-				"active": false
+				"active": false,
+				"externalId": false
 			},
 			"isAutoPopulate": {
 				"active": false
@@ -709,7 +710,8 @@
 		"editCenter": {
 			"isReadOnlyField": {
 				"activationDate": false,
-				"name": false
+				"name": false,
+				"externalId": false
 			},
 			"isHiddenField": {
 				"villageOptions": false,
