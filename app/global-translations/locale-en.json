@@ -8954,6 +8954,9 @@
     "label.input.pan": "PAN number",
     "label.name.on.card" : "Name on Card",
     "label.pan.no.score" : "PAN No Score",
+    "label.input.custom.interest.posting.on.day" : "Custom Interest Posting On Day",
+    "label.tooltip.custom.interest.posting.on.day" : "Custom Interst posting on month day",
+    "label.heading.custom.interest.posting.every" : "Custom Interest Posting Every",
 
      "------ end of translation file ------": "----------"
 
