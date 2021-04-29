@@ -5,9 +5,6 @@
             scope.isWorkflowEnabled = scope.isSystemGlobalConfigurationEnabled('work-flow');
             scope.hideCreateGroup = false;
             scope.isHideCreateEntity = false;
-            if(scope.isWorkflowEnabled && scope.hideCreateGroup){
-                scope.isHideCreateEntity = true;
-            }
             scope.hideGroupName = false;
             if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewGroup &&
                 scope.response.uiDisplayConfigurations.viewGroup.isHiddenField) {
@@ -18,6 +15,9 @@
                 if (scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.referenceNo) {
                     scope.showRefNo =  !scope.response.uiDisplayConfigurations.viewGroup.isHiddenField.referenceNo;
                 }
+            }
+            if(scope.isWorkflowEnabled && scope.hideCreateGroup){
+                scope.isHideCreateEntity = true;
             }
 
             scope.itemsPerPage = 15;
