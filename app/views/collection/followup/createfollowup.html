@@ -1,0 +1,93 @@
+<div class="col-md-12" ng-controller="CreateFollowUpController">
+
+	<form name="createfollowupform" novalidate="" class="form-horizontal well" rc-submit="submit()">
+      <api-validate></api-validate>
+		<fieldset>
+            <legend>{{'label.heading.add.follow.up' | translate}}</legend>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{'label.input.followup.date' | translate}}<span class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input id="followupdate" type="text" name="followup" datepicker-pop="dd MMMM yyyy"  ng-model="first.date" is-open="opened1" min="minDate" max="restrictDate"  class="form-control" required late-Validate/>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="createfollowupform" valattribute="followup"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">
+                    {{'label.input.office' | translate}} <span class="required">*</span>
+                </label>
+
+                <div class="col-sm-3">
+                        <select chosen="offices" id="officeId" name="officeId" ng-model="formData.officeId"  class="form-control" required late-Validate
+                                ng-options="office.id as office.name for office in offices" value="{{office.id}}"
+                                ng-change="changeOffice(formData.officeId)"></select>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="createfollowupform" valattribute="officeId"/>
+                </div>
+            </div>    
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{'label.input.staff' | translate}}<span class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <select chosen="staffs" id="staffId" name="staffId" ng-model="formData.staffId" required late-Validate 
+                    class="form-control"
+                            ng-options="staff.id as staff.displayName for staff in staffs" value="{{staff.id}}">
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="createfollowupform" valattribute="staffId"/>
+                </div>
+            </div>
+             <div class="form-group">
+                <label class="control-label col-sm-2">{{'label.input.followuptype' | translate}}<span class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <select chosen="followUpType" id="followupTypeId" name="followupTypeId"        ng-model="formData.followupTypeId"
+                            ng-options="followuptype.id as followuptype.name for followuptype in followUpType"
+                            value="{{followuptype.id}}" required="required" class="form-control" required
+                         late-Validate>
+                        <option value="">--{{'label.menu.select.followup.type' | translate}}--</option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <form-validate valattributeform="createfollowupform" valattribute="followupTypeId"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="description">{{'label.input.call.summary' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <textarea id="callsumarry" rows="2" ng-model="formData.callsummary" class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{'label.input.next.followup.date' | translate}}<span class="required">*</span></label></label>
+
+                <div class="col-sm-3">
+                    <input id="nextfollowupdate" type=" " name="nextfollowup" datepicker-pop="dd MMMM yyyy"
+                           ng-model="first.nextFollowUpDate" is-open="opened1" min="minDate" max="globalMaxDate"  class="form-control" required late-Validate/>
+                </div>
+               <div class="col-sm-2">
+                    <form-validate valattributeform="createfollowupform" valattribute="followupTypeId"/>
+                </div> 
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="description">{{'label.input.next.note' | translate}}</label>
+
+                <div class="col-sm-3">
+                    <textarea id="note" rows="2" ng-model="formData.note" class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="col-md-offset-5">
+                <button id="save" type="submit" class="btn btn-primary"  ng-hide="blockUI" has-permission='CREATE_FOLLOWUP'>{{'label.button.save' | translate}}</button>
+                <a id="cancel" ng-href="{{cancel}}" class="btn btn-default">{{'label.button.cancel' | translate}}</a>
+                <button class="btn btn-info" ng-show="blockUI"><strong>{{'label.button.processing' | translate}}</strong></button>
+            </div>
+
+        </fieldset>
+	</form>
+
+</div>

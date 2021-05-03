@@ -1,0 +1,61 @@
+<div class="col-md-12" ng-controller="ViewFollowUpController">
+    <ul class="breadcrumb">
+        <li><a href="#">{{'label.anchor.viewfollowup' | translate}}</a></li>
+    </ul>
+    <script type="text/ng-template" id="deletefollowup.html">
+        <div class="modal-header silver">
+            <h3 class="bolder">{{'label.heading.delete' | translate}}</h3>
+        </div>
+        <div class="modal-body ">
+
+            <br>
+            <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
+            <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+        </div>
+    </script>
+    <div class="well">
+        <div class="pull-right">
+            <div class="btn-group">
+                <button type="button" ng-click="editfollowup()" class="btn btn-primary" has-permission='UPDATE_FOLLOWUP'><i class="icon-edit icon-white"></i>
+                    {{'label.button.edit' | translate}}</button>
+                <button type="button" ng-click="deletefollowup(followUpData.id)" class="btn btn-primary" has-permission='DELETE_FOLLOWUP'>
+                    <i class="icon-trash icon-white"></i>{{'label.button.delete' | translate}}
+                </button>
+            </div>
+        </div>
+        <div class="row">
+	        <div class="col-md-6">
+		        <table class="table table-bordered table-striped">
+		            <tr>
+		                <td>{{'label.input.followup.date' | translate}}:</td>
+		                <td>{{followUpData.followUpDate | DateFormat}}</td>
+		            </tr>
+		            <tr>
+		                <td>{{'label.heading.office' | translate}}:</td>
+		                <td>{{followUpData.officeName}}</td>
+		            </tr>
+		            <tr>
+		                <td>{{'label.heading.call.made.by' | translate}}:</td>
+		                <td>{{followUpData.staffName}}</td>
+		            </tr>
+		            <tr>
+		            	<td>{{'label.heading.call.type' | translate}}:</td>
+		            	<td>{{followUpData.followUpType.name}}</td>
+		            </tr>
+		            <tr>
+		                <td>{{'label.input.call.summary' | translate}}:</td>
+		                <td><pre style="border: 0;">{{followUpData.callSummary}}</pre></td>
+		            </tr>
+                    <tr>
+                        <td>{{'label.input.next.followup.date' | translate}}:</td>
+                        <td>{{followUpData.nextFollowUpDate | DateFormat}}</td>
+                    </tr>
+		            <tr>
+		                <td>{{'label.input.next.note' | translate}}:</td>
+		                <td>{{followUpData.nextFollowUpNote}}</td>
+		            </tr>
+		        </table>
+			</div>
+		</div>
+    </div>
+</div>

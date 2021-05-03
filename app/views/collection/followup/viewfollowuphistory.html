@@ -1,0 +1,69 @@
+<div class="col-md-12" ng-controller="ViewFollowUpHistoryController">
+    <ul class="breadcrumb">
+        <li class="active">{{'label.anchor.viewfollowup' | translate}}</li>
+    </ul>
+    <api-validate></api-validate>
+
+    <button type="button" ng-click="routeToAddFollowUp()" class="btn btn-primary pull-right" has-permission='CREATE_FOLLOWUP'><i class="icon-plus icon-white"></i>{{'label.button.add.followup' | translate}}</button>
+    <div class="col-sm-1 col-md-12"></div>
+<div class="row span" style="margin-left:-1px;margin-top: -20px">
+    <div class="col-sm-6 col-md-6">
+        <table class="table table-striped table-bordered">
+            <tr>
+                <th class="table-bold-loan">{{'label.heading.name' | translate}}</th>
+                <td><span class="padded-td">{{report.row[5]}}</span></td>
+            </tr>
+            <tr>
+                <th class="table-bold-loan">{{'label.heading.loan' | translate}}</th>
+                <td><span class="padded-td">{{report.row[7]}}({{report.row[13]}})</span></td>
+            </tr>
+            <tr>
+                <th class="table-bold-loan">{{'label.heading.arrears' | translate}}</th>
+                <td><span class="padded-td">{{report.row[9]}}</span></td>
+            </tr>
+            <tr>
+                <th class="table-bold-loan">{{'label.heading.outstanding' | translate}}</th>
+                <td><span class="padded-td">{{report.row[10]}}</span></td>
+            </tr>
+        </table>
+    </div> 
+    <div class="col-sm-6 col-md-6">
+        <table class="table table-striped table-bordered">
+            <tr>
+                <th class="table-bold-loan">{{'label.heading.dpd' | translate}}</th>
+                <td><span class="padded-td">{{report.row[11]}}</span></td>
+            </tr>
+            <tr>
+                <th class="table-bold-loan">{{'label.heading.last.follow.up' | translate}}</th>
+                <td><span class="padded-td">{{report.row[12] | DateFormat}}</span></td>
+            </tr>
+        </table>
+    </div>       
+</div>
+
+    <table class="table">
+        <thead>
+        <tr class="graybg">
+            <th>{{'label.input.followup.date' | translate}}</th>
+            <th>{{'label.heading.office' | translate}}</th>
+            <th>{{'label.heading.call.made.by' | translate}}</th>
+            <th>{{'label.heading.call.type' | translate}}</th>
+            <th>{{'label.input.call.summary' | translate}}</th>
+            <th>{{'label.input.next.followup.date' | translate}}</th>
+            <th>{{'label.input.next.note' | translate}}</th>
+        </tr>
+        </thead>
+
+        <tbody>
+            <tr class="pointer-main" ng-repeat="followUpdata in followUpDatas">
+                <td data-ng-click="routeTo(followUpdata)">{{followUpdata.followUpDate | DateFormat}}</td>
+                <td data-ng-click="routeTo(followUpdata.id)">{{followUpdata.officeName}}</td>
+                <td data-ng-click="routeTo(followUpdata.id)">{{followUpdata.staffName}}</td>
+                <td data-ng-click="routeTo(followUpdata.id)">{{followUpdata.followUpType.name}}</td>
+                <td data-ng-click="routeTo(followUpdata.id)">{{getTruncatedText(followUpdata.callSummary)}}</td>
+                <td data-ng-click="routeTo(followUpdata.id)">{{followUpdata.nextFollowUpDate | DateFormat}}</td>
+                <td  data-ng-click="routeTo(followUpdata.id)">{{followUpdata.nextFollowUpNote}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

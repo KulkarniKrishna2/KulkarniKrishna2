@@ -2264,6 +2264,14 @@
                         get: { method: "GET", params: {} },
                         post: { method: 'POST', params: {} },
                     }),
+                    followUpTemplateResource: defineResource(apiVer + "/collectionsfollowup/:entityTypeId/:entityId/template", {officeId:'@officeId',staffId:'@staffId',entityTypeId:'@entityTypeId',entityId:'@entityId'}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+                    followUpResource: defineResource(apiVer + "/collectionsfollowup/:entityTypeId/:entityId/:followUpId", {entityTypeId:'@entityTypeId',entityId:'@entityId',followUpId:'@followUpId'}, {
+                        getAll: {method: 'GET', params: {},isArray:true},
+                        get: {method: 'GET', params: {},isArray:false},
+                        update: {method: 'PUT', params: {}}
+                    })
                 };
             }];
         }
