@@ -9026,6 +9026,12 @@
     "validation.msg.taskAssign.categoryId.cannot.be.blank" : "category should not be blank",
     "validation.msg.taskAssign.clientOfficeId.cannot.be.blank" : "To Be Done For 'officeId' should not be blank",
     "validation.msg.taskAssign.entityId.cannot.be.blank" : "entity id should not be blank",
+    "validation.msg.bulkloanimport.Client External ID.cannot.be.blank" : "Client External ID is Mandatory",
+    "validation.msg.bulkloanimport.Product ID.cannot.be.blank" : "Product ID is Mandatory",
+    "validation.msg.bulkloanimport.No Of Installments.cannot.be.blank" : "No Of Installments is Mandatory",
+    "validation.msg.bulkloanimport.Interest Rate.cannot.be.blank" : "Interest Rate is Mandatory",
+    "validation.msg.bulkloanimport.Disbursement Date.cannot.be.blank" : "Disbursement Date is Mandatory",
+    "validation.msg.bulkloanimport.Loan Amount.cannot.be.blank" : "Loan Amount is Mandatory",
 
      "------ end of translation file ------": "----------"
 }
