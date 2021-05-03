@@ -68,7 +68,7 @@
 				"clientClassificationId": true,
 				"houseNo": true,
 				"lastName": false
-			}
+			}	
 		},
 		"documentConfiguration": {
 			"restrictTaggedDocuments": true
@@ -112,6 +112,11 @@
 		"viewClient": {
 			"isHiddenField": {
 				"referenceNo": false
+			},
+			"familyDeatils": {
+				"isMandatoryField": {
+					"familyMemeberUniqueNoType": false
+				}
 			}
 		},
 		"viewLoanAccountDetails": {
