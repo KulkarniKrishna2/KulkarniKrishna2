@@ -68,6 +68,13 @@
 				"clientClassificationId": true,
 				"houseNo": true,
 				"lastName": false
+			},
+			"isValidateDOBField": {
+				"active": true,
+				"ageCriteria": {
+					"minAge": 18,
+					"maxAge": 55
+				}
 			}
 		},
 		"documentConfiguration": {
