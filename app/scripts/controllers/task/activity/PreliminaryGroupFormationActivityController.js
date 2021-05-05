@@ -1059,6 +1059,11 @@
                     var ageDifMs = Date.now() - $scope.familyMembersFormData.dateOfBirth.getTime();
                     var ageDate = new Date(ageDifMs); // miliseconds from epoch
                     $scope.familyMembersFormData.age=Math.abs(ageDate.getUTCFullYear() - 1970);
+                    if($scope.familyMemberMinAge <= $scope.familyMembersFormData.age && $scope.familyMembersFormData.age <= $scope.familyMemberMaxAge){
+                        $scope.isValidAge = true;
+                    }else{
+                        $scope.isValidAge = false;
+                    }       
                 } 
             });
 
