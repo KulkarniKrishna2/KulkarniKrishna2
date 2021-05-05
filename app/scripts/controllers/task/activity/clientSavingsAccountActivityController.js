@@ -1,6 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        clientSavingsAccountActivityController: function (scope, resourceFactory, location, routeParams, dateFilter) {
+        clientSavingsAccountActivityController: function ($controller, scope, resourceFactory, location, routeParams, dateFilter) {
+            angular.extend(this, $controller('defaultActivityController', {$scope: scope}));
             scope.products = [];
             scope.fieldOfficers = [];
             scope.formData = {};
@@ -204,7 +205,7 @@
             scope.isReadOnlyField = true;
         }
     });
-    mifosX.ng.application.controller('clientSavingsAccountActivityController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', mifosX.controllers.clientSavingsAccountActivityController]).run(function ($log) {
+    mifosX.ng.application.controller('clientSavingsAccountActivityController', ['$controller', '$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', mifosX.controllers.clientSavingsAccountActivityController]).run(function ($log) {
         $log.info("clientSavingsAccountActivityController initialized");
     });
 }(mifosX.controllers || {}));
