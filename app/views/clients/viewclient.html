@@ -473,7 +473,7 @@
 					            </tr>
 					            <tr data-ng-show="client.mobileNo">
 					                <th class="table-bold">{{ 'label.input.mobilenumber' | translate }}</th>
-					                <td><span class="padded-td">{{client.mobileNo}}</span>
+					                <td><span class="padded-td">{{client.mobileNo}}</span>&nbsp<i class="icon-ok-sign icon-green" data-ng-hide="!client.isMobileVerified"></i>
 					                </td>
 								</tr>
 								<tr data-ng-show="client.alternateMobileNo">
