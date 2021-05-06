@@ -9,6 +9,9 @@
             scope.educationOptions = [];
             scope.occupationOptions = [];
             scope.subOccupations = [];
+            scope.familyMemberMinAge = 0;
+            scope.familyMemberMaxAge = 100;
+
             scope.isExisitingClient = false;
             scope.formData = {};
             scope.isHideSalutation = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isHiddenField.salutation;
@@ -31,6 +34,11 @@
                     var ageDifMs = Date.now() - scope.formData.dateOfBirth.getTime();
                     var ageDate = new Date(ageDifMs); // miliseconds from epoch
                     scope.formData.age = Math.abs(ageDate.getUTCFullYear() - 1970);
+                    if(scope.familyMemberMinAge <= scope.formData.age && scope.formData.age <= scope.familyMemberMaxAge){
+                        scope.isValidAge = true;
+                    }else{
+                        scope.isValidAge = false; 
+                    }
                 } 
             });
 

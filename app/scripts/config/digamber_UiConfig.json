@@ -68,6 +68,13 @@
 				"clientClassificationId": true,
 				"houseNo": true,
 				"lastName": false
+			},
+			"isValidateDOBField": {
+				"active": true,
+				"ageCriteria": {
+					"minAge": 18,
+					"maxAge": 55
+				}
 			}
 		},
 		"documentConfiguration": {
@@ -112,6 +119,20 @@
 		"viewClient": {
 			"isHiddenField": {
 				"referenceNo": false
+			},
+			"familyDeatils": {
+				"isMandatoryField": {
+					"age": true,
+					"familyMemeberUniqueNoType": false,
+					"dateOfBirth": false
+				},
+				"isValidateDOBField": {
+					"active": true,
+					"ageCriteria": {
+						"minAge": 21,
+						"maxAge": 58
+					}
+				}
 			}
 		},
 		"viewLoanAccountDetails": {
