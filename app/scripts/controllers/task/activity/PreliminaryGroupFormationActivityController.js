@@ -7,6 +7,8 @@
                 scope.centerId = scope.taskconfig.centerId;
                 scope.taskInfoTrackArray = [];
                 scope.clientProfileRatingScoreForSuccess = 0;
+                scope.familyMemberMinAge = 0;
+                scope.familyMemberMaxAge = 100;
                 scope.isAllClientFinishedThisTask = true;
 
                 if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow &&
