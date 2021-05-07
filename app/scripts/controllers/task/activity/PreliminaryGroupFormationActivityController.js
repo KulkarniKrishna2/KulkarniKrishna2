@@ -416,6 +416,20 @@
                     location.path('/viewclient/'+clientId);
                 }
 
+                $scope.$watch('first.dateOfBirth', function(newValue, oldValue){
+                    if($scope.first.dateOfBirth != undefined)
+                    {
+                        var ageDifMs = Date.now() - $scope.first.dateOfBirth.getTime();
+                        var ageDifMs = Date.now() - $scope.first.dateOfBirth.getTime();
+                        var ageDate = new Date(ageDifMs); // miliseconds from epoch
+                        $scope.displayAge = true;
+                        $scope.age = Math.abs(ageDate.getUTCFullYear() - 1970);
+                    }else{
+                        $scope.displayAge = false;
+                    }
+                });
+
+
                 $scope.submit = function () {
                     var reqDate = dateFilter($scope.first.date, scope.df);
 
