@@ -9032,6 +9032,8 @@
     "validation.msg.bulkloanimport.Interest Rate.cannot.be.blank" : "Interest Rate is Mandatory",
     "validation.msg.bulkloanimport.Disbursement Date.cannot.be.blank" : "Disbursement Date is Mandatory",
     "validation.msg.bulkloanimport.Loan Amount.cannot.be.blank" : "Loan Amount is Mandatory",
+    "error.msg.client.to.loanproduct.mapping.doesnot.exists" : "Loan Product is not mapped to the client",
+    "error.msg.client.to.savingsproduct.mapping.doesnot.exists" : "Savings Product is not mapped to the client",
 
      "------ end of translation file ------": "----------"
 }
