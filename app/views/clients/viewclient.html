@@ -1640,6 +1640,109 @@
 			</tabset>
 		</tab>
 
+		<tab heading="Score Card" select="getScoreCardList()">
+			<div class="z-scoreCard-body">
+				<div class="z-scoreCard-header">
+					<div class="z-scoreCard-title">Score Card Details</div>
+				</div>
+				<div class="z-scoreCardList-content">
+					<div class="z-scoreCardList-title">Score Card List</div>
+					<div class="z-scoreCardList-blocks">
+						<div class="z-scoreCardList-block" ng-repeat="scoreCard in scoreCardList" ng-class="{listBtnStyle: scoreCard.display == listStyleValue }" ng-click="getScoreCardResult(scoreCard.display)">{{scoreCard.display}}</div>
+					</div>
+				</div>
+				<div class="z-scoreCardList-values">
+					<div class="z-scoreCardList-title">Score Card Result : {{listStyleValue}}</div>
+					<div class="z-scoreCardList-values-block">
+						<!-- Input Rule Results -->
+						<div class="z-scoreCardList-subTitle">
+							<div class="z-scoreCardList-subTitle-text1">Input</div>
+							<div class="z-scoreCardList-subTitle-text2" ng-if="inputExpand" ng-click="inputResultExpand()"><span class="result-expand">-</span></div>
+							<div class="z-scoreCardList-subTitle-text2" ng-if="!inputExpand" ng-click="inputResultExpand()"><span class="result-expand">+</span></div>
+						</div>
+						<div class="z-scoreCardList-input-block" ng-if="inputExpand">
+							<div class="z-scoreCardList-input-content" ng-repeat="input in inputObj">
+								<div class="input-key">{{ input[0] }}</div>
+								<div class="input-value">{{ input[1] }}</div>
+							</div>
+						</div>
+
+						<!-- Output Rule Results -->
+						<div class="z-scoreCardList-subTitle">
+							<div class="z-scoreCardList-subTitle-text1">Output</div>
+							<div class="z-scoreCardList-subTitle-text2" ng-if="outputExpand" ng-click="outputResultExpand()"><span class="result-expand">-</span></div>
+							<div class="z-scoreCardList-subTitle-text2" ng-if="!outputExpand" ng-click="outputResultExpand()"><span class="result-expand">+</span></div>
+						</div>
+						<div class="z-scoreCardList-output-block" ng-if="outputExpand">
+							<div class="z-scoreCardList-output-content" ng-repeat="output in outputObj">
+								<div class="output-key">{{ output[0] }}</div>
+								<div class="output-value">{{ output[1] }}</div>
+							</div>
+						</div>
+
+						<!--  Rule Results Hierarchy -->
+						<div class="z-scoreCardList-subTitle">
+							<div class="z-scoreCardList-subTitle-text1">Rule Result Hierarchy</div>
+							<div class="z-scoreCardList-subTitle-text2" ng-if="ruleResultExpand" ng-click="ruleResultExpandFun()"><span class="result-expand">-</span></div>
+							<div class="z-scoreCardList-subTitle-text2" ng-if="!ruleResultExpand" ng-click="ruleResultExpandFun()"><span class="result-expand">+</span></div>
+						</div>
+						<div class="z-scoreCardList-ruleResult-block" ng-if="ruleResultExpand">
+							<div class="z-scoreCardList-ruleResult-content" ng-repeat="ruleResult in ruleResultHierarchy">
+								<div class="ruleResult-name">{{ruleResult.name}}</div>
+								<div class="ruleResult-localInputs-block">
+									<div class="ruleResult-localInputs-title">Inputs</div>
+									<div class="ruleResult-localInputs-contents" ng-repeat="value in localInputs">
+										<div class="ruleResult-localInputs-content">{{value[0]}}</div>
+										<div class="ruleResult-localInputs-content-r">{{value[1]}}</div>
+									</div>
+								</div>
+								<div class="ruleResult-output-block">
+									<div class="ruleResult-output-title">Outputs</div>
+								</div>
+								<div class="ruleResult-output-key">
+									<div class="ruleResult-output-key-title">Bucket</div>
+									<div class="ruleResult-output-key-value">{{ruleResult.output.bucket}}</div>
+								</div>
+								<div class="ruleResult-output-value">
+									<div class="ruleResult-output-value-title">Value</div>
+									<div class="ruleResult-output-value-value">{{ruleResult.output.value}}</div>
+								</div>
+
+								<!-- Level 2 Hierarchy -->
+								<div class="ruleResult-level2-content">
+									<div class="z-scoreCardList-ruleResult-content ec" ng-repeat="ruleResultLv2 in ruleResult.ruleResultHierarchy">
+										<div class="ruleResult-name ruleResult-name-ec">{{ruleResultLv2.name}}</div>
+										<div class="ruleResult-localInputs-block">
+											<div class="ruleResult-localInputs-title">Inputs</div>
+											<!-- <div class="ruleResult-localInputs-contents" ng-repeat="valueLv2 in getLv2LocalInputs(ruleResultLv2.localInputs)">
+												<div class="ruleResult-localInputs-content">{{valueLv2[0]}}</div>
+												<div class="ruleResult-localInputs-content-r">{{valueLv2[1]}}</div>
+											</div> -->
+											<div class="ruleResult-localInputs-contents" ng-repeat="(key, value) in ruleResultLv2.localInputs">
+												<div class="ruleResult-localInputs-content">{{key}}</div>
+												<div class="ruleResult-localInputs-content-r">{{value}}</div>
+											</div>
+										</div>
+										<div class="ruleResult-output-block">
+											<div class="ruleResult-output-title">Outputs</div>
+										</div>
+										<div class="ruleResult-output-key">
+											<div class="ruleResult-output-key-title">Bucket</div>
+											<div class="ruleResult-output-key-value">{{ruleResultLv2.output.bucket}}</div>
+										</div>
+										<div class="ruleResult-output-value">
+											<div class="ruleResult-output-value-title">Value</div>
+											<div class="ruleResult-output-value-value">{{ruleResultLv2.output.value}}</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</tab>
+
 	</tabset>
 	<div>
 		<audit-logs></audit-logs>

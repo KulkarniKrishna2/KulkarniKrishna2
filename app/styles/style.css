@@ -484,3 +484,226 @@
     border: 2px solid black;
     background: #ffc864;
 }
+
+/* New CSS  -------- ZOLVE ------- */
+.z-scoreCard-body {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 3% 0;
+    /* border: 1px solid #eaeaea; */
+    padding: 25px;
+    box-shadow: 0 2.5px 23.9px rgb(0 0 0 / 1%), 0 12.9px 33.5px rgb(0 0 0 / 4%), 0 52px 80px rgb(0 0 0 / 5%);
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.z-scoreCard-header {
+    width: 100%;
+    margin-bottom: 2%;
+}
+
+.z-scoreCard-title {
+    font-size: 22px;
+    border-left: 4px solid royalblue;
+    padding-left: 10px;
+}
+
+.z-scoreCardList-content {
+    width: 28%;
+    border: 1px solid #d6d6d6;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+}
+
+.z-scoreCardList-title {
+    background: #e2eceb;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.z-scoreCardList-values {
+    width: 70%;
+    border: 1px solid #d6d6d6;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+}
+
+.z-scoreCardList-values-block {
+    height: 70vh;
+    overflow: auto;
+    padding: 15px;
+}
+
+.z-scoreCardList-blocks {
+    padding: 10px;
+    height: 70vh;
+    overflow: auto;
+}
+
+.z-scoreCardList-block {
+    padding: 10px;
+    border: 1px solid #e8e8e8;
+    border-radius: 4px;
+    /* margin: 10px 0px; */
+    margin-bottom: 2%;
+    box-shadow: 2px 2px 2px 2px #fbfbfb;
+    cursor: pointer;
+}
+
+.z-scoreCardList-block:hover {
+    border: 1px solid royalblue;
+}
+
+.z-scoreCardList-subTitle {
+    width: 90%;
+    font-size: 16px;
+    margin: 10px 0px;
+    padding: 10px;
+    border-bottom: 2px solid #d6d6d6;
+    display: flex;
+    justify-content: space-between;
+}
+
+.result-expand {
+    padding: 5px 10px;
+    font-weight: bold;
+    font-size: 16px;
+    color: white;
+    background: royalblue;
+    box-shadow: 2px 2px 2px 2px rgb(240, 240, 240);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.z-scoreCardList-input-block,
+.z-scoreCardList-output-block,
+.z-scoreCardList-ruleResult-block {
+    width: 100%;
+    padding: 5px 20px;
+    margin-bottom: 20px;
+}
+
+.z-scoreCardList-input-content,
+.z-scoreCardList-output-content,
+.z-scoreCardList-ruleResult-content {
+    width: 75%;
+    display: flex;
+    justify-self: flex-start;
+    flex-wrap: wrap;
+    padding: 4px;
+    border-bottom: 1px solid #ffe6e6;
+}
+
+.z-scoreCardList-ruleResult-content {
+    margin-bottom: 3%;
+    border: 1px solid #e6e6e6;
+    box-shadow: 2px 2px 17px 0px #ececec;
+    padding: 10px;
+    width: 88%;
+    border-radius: 6px;
+}
+
+.ec {
+    margin-top: 4%;
+    background: #927cff0a;
+    border: 1px solid #dad7d7;
+    width: 100%;
+    box-shadow: none;
+}
+
+.input-key,
+.output-key {
+    width: 49%;
+}
+
+.input-value,
+.output-value {
+    width: 51%;
+    text-align: right;
+}
+
+.listBtnStyle {
+    background: royalblue;
+    color: white;
+    font-weight: bold;
+}
+
+.ruleResult-name {
+    width: 100%;
+    font-size: 16px;
+    font-weight: bold;
+    color: dodgerblue;
+}
+
+.ruleResult-localInputs-block {
+    width: 100%;
+    padding: 10px;
+}
+
+.ruleResult-localInputs-title,
+.ruleResult-output-title {
+    width: 100%;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.ruleResult-output-title {
+    margin-bottom: 0px;
+}
+
+.ruleResult-localInputs-contents {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    padding: 5px 10px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.ruleResult-localInputs-content {
+    width: 50%;
+}
+
+.ruleResult-localInputs-content-r {
+    width: 50%;
+    text-align: right;
+}
+
+.ruleResult-output-block {
+    width: 100%;
+    padding: 5px 10px;
+    font-size: 16px;
+    margin-top: 10px;
+
+}
+
+.ruleResult-output-key,
+.ruleResult-output-value {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    padding: 5px 10px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.ruleResult-output-key-title,
+.ruleResult-output-value-title {
+    width: 50%;
+}
+
+.ruleResult-output-key-value,
+.ruleResult-output-value-value {
+    width: 50%;
+    text-align: right;
+}
+
+.ruleResult-level2-content {
+    padding: 5px 10px;
+}
+
+.ruleResult-name-ec {
+    color: #7b9223;
+}

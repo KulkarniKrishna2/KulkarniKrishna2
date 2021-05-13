@@ -1992,6 +1992,100 @@
                     }
                 }
             };
+
+
+
+            // Score Card Functions
+
+            scope.inputObj;
+
+            scope.getScoreCardList = function() {
+                resourceFactory.scoreCardsListResource.get({clientId: routeParams.id}, function (data) {
+                    console.log('Score Card List :',data);
+                    scope.scoreCardList = data;
+                    // scope.inputObj = Object.entries(scope.scoreCardList[0].input);
+                    // console.log(scope.inputObj);
+                });
+            }
+            scope.getScoreCardList();
+
+            scope.listStyleValue;
+            scope.listStyle = {
+                "color" : "white",
+                "background-color" : "#4169e1",
+            }
+            scope.ruleResultHierarchyLv2LocalInputs = [];
+            scope.ruleResultHierarchyLv2 = [];
+            scope.ruleResultHierarchyLv2Temp = [];
+            scope.localInputsLv2 = true;
+            scope.getScoreCardResult = function(displayName) {
+                for(var i=0; i<scope.scoreCardList.length; i++) {
+                    if(scope.scoreCardList[i].display == displayName) {
+                        scope.listStyleValue = displayName;
+                        if(scope.scoreCardList[i].input !== undefined) {
+                            scope.inputObj = Object.entries(scope.scoreCardList[i].input);
+                        } else {
+                            scope.inputObj = [];
+                            scope.inputExpand = false;
+                        }
+
+                        if(scope.scoreCardList[i].output !== undefined) {
+                            scope.outputObj = Object.entries(scope.scoreCardList[i].output);
+                        } else {
+                            scope.outputObj = [];
+                            scope.outputExpand = false;
+                        }
+                        
+                        // Level 1 Rule Result Hierarchy
+                        scope.ruleResultHierarchy = scope.scoreCardList[i].ruleResult.ruleResultHierarchy;
+                        console.log(scope.ruleResultHierarchy);
+                        if(scope.ruleResultHierarchy.length > 0) {
+                            for(var j=0; j<scope.ruleResultHierarchy.length; j++) {
+                                if(scope.ruleResultHierarchy[j].localInputs !== undefined) {
+                                    scope.localInputs = Object.entries(scope.ruleResultHierarchy[j].localInputs);
+                                } else {
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            scope.getLv2LocalInputs = function(ruleResultLv2Name) {
+                if(ruleResultLv2Name !== undefined) {
+                   return Object.entries(ruleResultLv2Name); 
+                }
+                return;
+            }
+
+            scope.inputExpand = true;
+            scope.outputExpand = true;
+            scope.ruleResultExpand = true;
+            scope.inputResultExpand = function() {
+                if(scope.inputExpand == true) {
+                    scope.inputExpand = false;
+                } else {
+                    scope.inputExpand = true;
+                }
+            }
+
+            scope.outputResultExpand = function() {
+                if(scope.outputExpand == true) {
+                    scope.outputExpand = false;
+                } else {
+                    scope.outputExpand = true;
+                }
+            }
+
+            scope.ruleResultExpandFun = function() {
+                if(scope.ruleResultExpand == true) {
+                    scope.ruleResultExpand = false;
+                } else {
+                    scope.ruleResultExpand = true;
+                }
+            }
+
         }
     });
 

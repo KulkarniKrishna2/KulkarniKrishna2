@@ -2271,7 +2271,10 @@
                         getAll: {method: 'GET', params: {},isArray:true},
                         get: {method: 'GET', params: {},isArray:false},
                         update: {method: 'PUT', params: {}}
-                    })
+                    }),
+                    scoreCardsListResource: defineResource(apiVer2 + '/client/:clientId/scorecards', { clientId: '@clientId' }, {
+                        get: { method: "GET", params: {}, isArray: true }
+                    }),
                 };
             }];
         }
