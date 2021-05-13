@@ -29,7 +29,8 @@
                     <th>{{'label.heading.transactionid' | translate}}</th>
                     <th ng-hide="isSimplified">{{'label.heading.accounttype' | translate}}</th>
                     <th ng-hide="isSimplified">{{'label.heading.transactionType' | translate}}</th>
-                     <th>{{'label.heading.accountno' | translate}}</th>
+                    <th>{{'label.heading.accountno' | translate}}</th>
+                    <th>{{'label.heading.externalid' | translate}}</th>
                     <th>{{'label.heading.transactiondate' | translate}}</th>
                     <th>{{'label.heading.amount' | translate}}</th>
                     <th ng-hide="isSimplified">{{'label.heading.nodalidentifier' | translate}}</th>
@@ -47,6 +48,7 @@
                     <td ng-hide="isSimplified">{{bankStatementDetail.accountingType}}</td>
                     <td ng-hide="isSimplified">{{bankStatementDetail.actionType}}</td>
                     <td>{{bankStatementDetail.loanAccountNumber || bankStatementDetail.savingsAccountNumber}}</td>
+                    <td>{{bankStatementDetail.loanExternalId}}</td>
                     <td>{{bankStatementDetail.transactionDate}}</td>
                     <td>{{bankStatementDetail.amount}}</td>
                     <td ng-hide="isSimplified">{{bankStatementDetail.nodalIdentifier}}</td>
