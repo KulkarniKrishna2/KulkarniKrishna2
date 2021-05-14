@@ -2283,6 +2283,9 @@
                     }),
                     getB2cCreditbureauResource: defineResource(apiVer + '/enquiry/creditbureau/:enquiryId/bureau-data', { clientId: '@enquiryId' }, {
                         get: { method: "GET", params: {} }
+                    }),    
+                    LoanChargesV2Resource: defineResource(apiVer2 + "/loans/:loanId/charges/:chargeId/:action", { loanId: '@loanId', chargeId: '@chargeId' }, {
+                        waiveCharge: { method: 'POST', params: { action: 'waive' } },
                     }),
                 };
             }];

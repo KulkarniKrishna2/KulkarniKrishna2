@@ -9038,6 +9038,9 @@
     "error.msg.client.to.loanproduct.mapping.doesnot.exists" : "Loan Product is not mapped to the client",
     "error.msg.client.to.savingsproduct.mapping.doesnot.exists" : "Savings Product is not mapped to the client",
     "error.msg.system.payment.cannot.be.adjusted":"System Payments Can’t be Adjusted ",
+    "label.input.chargewaivedon": "Charge waived on",
+    "error.msg.invalid.charge.waiver.date" : "Invalid charge waiver date `{{params[0].value | DateFormat}}`",
+    "validation.msg.waiveLoanCharge.arg2.chargeWaiverDate.cannot.be.blank" : "Charge waiver date is mandatory",
 
      "------ end of translation file ------": "----------"
 }
