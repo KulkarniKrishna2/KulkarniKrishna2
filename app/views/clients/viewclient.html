@@ -1589,11 +1589,12 @@
 						<option value="{{loanNumber}}" ng-repeat="loanNumber in existingLoanIdArray">Existing Loan #{{$index + 1}}</option>
 					</select> -->
 					<div class="filter-loan-text">Filter</div>
-					<select class="bReport-select" ng-model="selected"  ng-change="loanFilter(selected)">
+					<!-- <select class="bReport-select" ng-model="selected"  ng-change="loanFilter(selected)">
 						<option value="Active">Active Loans</option>
 						<option value="Closed">Closed Loans</option>
-						<option value="all">Show All Loans</option>
-					</select>
+						<option value="all" ng-selected="selected">Show All Loans</option>
+					</select> -->
+					<select class="bReport-select" data-ng-options="o.name for o in options" data-ng-model="selectedOption" ng-change="loanFilter(selectedOption.id)"></select>
 				</div>
 			</div>
 			<div class="bReport-container" ng-if="showCBReport">
@@ -1853,7 +1854,7 @@
 								<div class="output-value">{{ value }}</div>
 							</div>
 							<div class="z-scoreCardList-output-content" ng-if="!outputError">
-								<div class="output-key">Bucket</div>
+								<div class="output-key" ng-if="outputErrorB">Bucket</div>
 								<div class="output-value">{{ outputObj.bucket }}</div>
 							</div>
 							<div class="z-scoreCardList-output-content outputErrorMsg" ng-if="outputError">{{outputErrorMsg}}</div>
@@ -1901,9 +1902,13 @@
 
 									<div class="ruleResult-localInputs-block">
 										<div class="ruleResult-localInputs-title">Inputs</div>
-										<div class="ruleResult-localInputs-contents" ng-repeat="value in localInputs">
+										<!-- <div class="ruleResult-localInputs-contents" ng-repeat="value in localInputs">
 											<div class="ruleResult-localInputs-content">{{value[0]}}</div>
 											<div class="ruleResult-localInputs-content-r">{{value[1]}}</div>
+										</div> -->
+										<div class="ruleResult-localInputs-contents" ng-repeat="(key, value) in ruleResult.localInputs">
+											<div class="ruleResult-localInputs-content">{{key}}</div>
+											<div class="ruleResult-localInputs-content-r">{{value}}</div>
 										</div>
 									</div>
 

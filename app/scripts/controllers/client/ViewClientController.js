@@ -2075,14 +2075,14 @@
                 return;
             }
 
-            scope.inputExpand = true;
+            scope.inputExpand = false;
             scope.outputExpand = true;
             scope.ruleResultExpand = true;
             scope.inputResultExpand = function() {
-                if(scope.inputExpand == true) {
-                    scope.inputExpand = false;
-                } else {
+                if(scope.inputExpand == false) {
                     scope.inputExpand = true;
+                } else {
+                    scope.inputExpand = false;
                 }
             }
 
@@ -2145,6 +2145,8 @@
             scope.enquiryErrorMsg = false;
             scope.loanInfoErrorMsg = false;
             scope.scoreErrorMsg = false;
+            scope.options = [{ name: "Active", id: 'Active' }, { name: "Closed", id: 'Closed' }, { name: "Show All Loans", id: 'all' }];
+            scope.selectedOption = scope.options[2];
 
             scope.getBureauReportData = function(enquiryIdValue) {
                 console.log(enquiryIdValue);
