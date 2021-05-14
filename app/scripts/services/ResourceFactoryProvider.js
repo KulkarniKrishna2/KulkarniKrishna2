@@ -2275,7 +2275,7 @@
                     scoreCardsListResource: defineResource(apiVer2 + '/client/:clientId/scorecards', { clientId: '@clientId' }, {
                         get: { method: "GET", params: {}, isArray: true }
                     }),
-                    getB2cCreditbureauResource: defineResource(apiVer2 + '/b2c-creditbureau/:enquiryId', { clientId: '@enquiryId' }, {
+                    getB2cCreditbureauResource: defineResource(apiVer + '/enquiry/creditbureau/:enquiryId/bureau-data', { clientId: '@enquiryId' }, {
                         get: { method: "GET", params: {} }
                     }),
                 };

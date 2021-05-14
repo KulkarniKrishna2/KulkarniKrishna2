@@ -2139,6 +2139,12 @@
             scope.showCBReport = false;
             scope.totalNumberOfLoans = 0;
             scope.presentLoanNumber = 1;
+            scope.bureauScore;
+            scope.enquiryHistory = [];
+            scope.enquiryBankList = [];
+            scope.enquiryErrorMsg = false;
+            scope.loanInfoErrorMsg = false;
+            scope.scoreErrorMsg = false;
 
             scope.getBureauReportData = function(enquiryIdValue) {
                 console.log(enquiryIdValue);
@@ -2163,10 +2169,32 @@
                 resourceFactory.getB2cCreditbureauResource.get({enquiryId: enquiryIdValue}, function (data) {
                     console.log('CB Data :', data);
                     scope.showCBReport = true;
-                    scope.bureaReportDetails.push(data.bureauData.existingLoans[0]);
-                    scope.existingLoansArray = data.bureauData.existingLoans;
-                    console.log(scope.existingLoansArray);
+                    // scope.bureaReportDetails.push(data.bureauData.existingLoans[0]);
+                    // scope.existingLoansArray = data.bureauData.existingLoans;
+                    scope.bureaReportDetails.push(data.existingLoans[0]);
+                    if(data.existingLoans != undefined && data.existingLoans != []) {
+                        scope.loanInfoErrorMsg = false;
+                        scope.existingLoansArray = data.existingLoans;
+                        console.log(scope.existingLoansArray);
+                    } else {
+                        scope.loanInfoErrorMsg = true;
+                    }
 
+                    if(data.bureauScore[0] != undefined && data.bureauScore[0] != []) {
+                        scope.scoreErrorMsg = false;
+                        scope.bureauScore = data.bureauScore[0];
+                    } else {
+                        scope.scoreErrorMsg = true;
+                    }
+                    
+                    if(data.enquiryHistory != undefined && data.enquiryHistory != []) {
+                        scope.enquiryErrorMsg = false;
+                        scope.enquiryHistory = data.enquiryHistory;
+                        console.log(scope.bureauScore);
+                    } else {
+                        scope.enquiryErrorMsg = true;
+                    }
+                    
                     for(var a=0; a<scope.existingLoansArray.length; a++) {
                         scope.existingLoanIdArray.push(scope.existingLoansArray[a].existingLoanId);
                     }
@@ -2226,9 +2254,15 @@
                 scope.payementHistory = [];
                 scope.totalNumberOfLoans = 0;
                 scope.totalNumberOfLoans = scope.existingLoanIdArray.length;
+                scope.loanInfoErrorMsg = false;
+
+                if(existingLoanIdValue == undefined) {
+                    scope.loanInfoErrorMsg = true;
+                }
                 
                 for(var i=0; i<scope.existingLoansArray.length; i++) {
                     if(scope.existingLoansArray[i].existingLoanId == existingLoanIdValue) {
+                        scope.loanInfoErrorMsg = false;
                         scope.bureaReportDetails.push(scope.existingLoansArray[i]);
                         console.log(scope.bureaReportDetails);
                         scope.payementHistory = scope.bureaReportDetails[0].creditBureauExistingLoanPaymentDetails;

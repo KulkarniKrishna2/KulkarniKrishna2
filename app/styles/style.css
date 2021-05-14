@@ -746,6 +746,7 @@
     color: white;
     padding: 3px 10px;
     border-radius: 4px;
+    cursor: pointer;
     /* box-shadow: 2px 2px 12px 2px gainsboro; */
 }
 
@@ -1124,3 +1125,197 @@
 /* .bReport-months-content-value {
     padding: 0px 6px;
 } */
+
+/* bureau Score */
+.bReport-scoreDetails {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin: 3% 0;
+}
+
+.bReport-scoreDetails-heading,
+.bReport-enquiry-heading {
+    width: 100%;
+    display: flex;
+}
+
+.bReport-main-heading {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+    text-shadow: 2px 2px 19px #fdfdfd;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.bReport-scoreDetails-content {
+    min-width: 70%;
+    margin: 2% 0;
+    /* padding: 10px; */
+    display: flex;
+    border: 1px solid #eaeaea;
+    border-radius: 6px;
+    /* padding: 40px; */
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 2.5px 23.9px rgb(0 0 0 / 1%), 0 12.9px 33.5px rgb(0 0 0 / 4%), 0 52px 80px rgb(0 0 0 / 5%);
+}
+
+.bReport-score,
+.bReport-scoreCardName {
+    padding: 15px;
+    /* border: 1px solid #e2e2e2; */
+    /* border-radius: 8px; */
+}
+
+.bReport-score {
+    width: 20%;
+    background: #f1ffe2;
+    border-right: 3px solid #1fff00;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.bReport-scoreCardName {
+    width: 80%;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.bReport-score-title {
+    font-weight: bold;
+    color: #7b7b7b;
+    width: 100%;
+    text-align: center;
+}
+
+.bReport-score-value {
+    color: #505050;
+    font-size: 44px;
+    width: 100%;
+    text-align: center;
+}
+
+.bReport-scoreCardName-value {
+    width: 100%;
+    color: #505050;
+    text-align: center;
+    font-size: 18px;
+    padding-top: 5px;
+}
+
+.scoreDetails-text,
+.enquiry-text {
+    width: 100%;
+    text-align: left;
+    font-size: 22px;
+    border-left: 4px solid royalblue;
+    padding-left: 10px;
+}
+
+.bReport-enquiry-container {
+    width: 100%;
+    margin: 4% 0;
+}
+
+.bReport-enquiry-content {
+    width: 100%;
+    /* border: 1px solid #f2f2f2; */
+    display: flex;
+    justify-content: center;
+    margin-top: 3%;
+    box-shadow: 0 2.5px 23.9px rgb(0 0 0 / 1%), 0 12.9px 33.5px rgb(0 0 0 / 4%), 0 52px 80px rgb(0 0 0 / 5%);
+}
+
+.enquiry-block {
+    width: 100%;
+    /* border: 1px solid #f2f2f2; */
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding-bottom: 5px;
+}
+
+.enquiry-block-heading,
+.enquiry-block-list {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.enquiry-block-list { 
+    height: 40vh;
+    overflow: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border: 1px solid #f3f3f3;
+    box-shadow: 2px 2px 2px 2px #f7f7f7;
+}
+
+.enquiry-block-heading {
+    width: 100%;
+    text-align: center;
+    background: rgb(241 240 240);
+    font-weight: bold;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+
+.enquiry-block-heading-title-number,
+.list-value-number {
+    width: 5%;
+    text-align: center;
+    padding: 15px 10px;
+}
+
+.enquiry-block-heading-title-member,
+.list-value-member,
+.enquiry-block-heading-title-loanPurpose,
+.list-value-loanPurpose {
+    width: 30%;
+    text-align: center;
+    padding: 15px 10px;
+}
+
+.enquiry-block-heading-title-date,
+.list-value-date,
+.enquiry-block-heading-title-amount,
+.list-value-amount {
+    width: 15%;
+    text-align: center;
+    padding: 15px 10px;
+}
+
+.list-contents {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.enquiry-error-msg,
+.loanInfo-error-msg {
+    width: 100%;
+    height: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loanInfo-error-msg {
+    margin: 7% 0;
+}
+
+.scoreDetails-error-msg {
+    margin: 2% 0;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
