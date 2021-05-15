@@ -1887,10 +1887,14 @@
 									<div class="ruleResult-output-block">
 										<div class="ruleResult-output-title">Outputs</div>
 									</div>
-									<div class="ruleResult-output-key">
+									<div class="ruleResult-output-key" ng-if="ruleResult.output.error == undefined">
 										<div class="ruleResult-output-key-title">Bucket</div>
 										<div class="ruleResult-output-key-value">{{ruleResult.output.bucket}}</div>
 									</div>
+									<div class="ruleResult-output-key" ng-if="(ruleResult.output.error != undefined)">
+										<div class="z-scoreCardList-output-content outputErrorMsg">{{ruleResult.output.error}}</div>
+									</div>
+
 									<div class="ruleResult-output-key" ng-repeat="(key, value) in ruleResult.output.values">
 										<div class="ruleResult-output-key-title">{{key}}</div>
 										<div class="ruleResult-output-key-value">{{value}}</div>
@@ -1920,14 +1924,18 @@
 											<div class="ruleResult-output-block">
 												<div class="ruleResult-output-title">Outputs</div>
 											</div>
-											<div class="ruleResult-output-key" ng-repeat="(key, value) in ruleResultLv2.output.values">
+											<div class="ruleResult-output-key" ng-if="(ruleResultLv2.output.error == undefined)">
 												<div class="ruleResult-output-key-title">Bucket</div>
 												<div class="ruleResult-output-key-value">{{ruleResultLv2.output.bucket}}</div>
+											</div>
+											<div class="ruleResult-output-key" ng-if="(ruleResultLv2.output.error != undefined)">
+												<div class="z-scoreCardList-output-content outputErrorMsg">{{ruleResultLv2.output.error}}</div>
 											</div>
 											<div class="ruleResult-output-key" ng-repeat="(key, value) in ruleResultLv2.output.values">
 												<div class="ruleResult-output-key-title">{{key}}</div>
 												<div class="ruleResult-output-key-value" >{{value}}</div>
 											</div>
+											
 											<!-- <div class="ruleResult-output-value">
 												<div class="ruleResult-output-value-title">Value</div>
 												<div class="ruleResult-output-value-value">{{ruleResultLv2.output.value}}</div>

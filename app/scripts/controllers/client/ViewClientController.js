@@ -2174,7 +2174,7 @@
                     // scope.bureaReportDetails.push(data.bureauData.existingLoans[0]);
                     // scope.existingLoansArray = data.bureauData.existingLoans;
                     scope.bureaReportDetails.push(data.existingLoans[0]);
-                    if(data.existingLoans != undefined && data.existingLoans != []) {
+                    if(data.existingLoans != undefined && data.existingLoans != [] && data.existingLoans.length != 0) {
                         scope.loanInfoErrorMsg = false;
                         scope.existingLoansArray = data.existingLoans;
                         console.log(scope.existingLoansArray);
@@ -2182,14 +2182,14 @@
                         scope.loanInfoErrorMsg = true;
                     }
 
-                    if(data.bureauScore[0] != undefined && data.bureauScore[0] != []) {
+                    if(data.bureauScore[0] != undefined && data.bureauScore[0] != [] && data.bureauScore.length != 0) {
                         scope.scoreErrorMsg = false;
                         scope.bureauScore = data.bureauScore[0];
                     } else {
                         scope.scoreErrorMsg = true;
                     }
                     
-                    if(data.enquiryHistory != undefined && data.enquiryHistory != []) {
+                    if(data.enquiryHistory != undefined && data.enquiryHistory != [] && data.enquiryHistory.length != 0) {
                         scope.enquiryErrorMsg = false;
                         scope.enquiryHistory = data.enquiryHistory;
                         console.log(scope.bureauScore);
@@ -2204,8 +2204,15 @@
                     console.log(scope.existingLoanIdArray);
                     
                     scope.payementHistory = scope.bureaReportDetails[0].creditBureauExistingLoanPaymentDetails;
-                    scope.paymentStartYear = scope.bureaReportDetails[0].disbursedOnDate[0];
-                    scope.paymentEndYear = scope.bureaReportDetails[0].lastPaymentDate[0];
+                    // scope.paymentStartYear = scope.bureaReportDetails[0].disbursedOnDate[0];
+                    // scope.paymentEndYear = scope.bureaReportDetails[0].lastPaymentDate[0];
+                    if(scope.payementHistory[0].date[0] < scope.payementHistory[scope.payementHistory.length - 1].date[0]) {
+                        scope.paymentStartYear = scope.payementHistory[0].date[0];
+                        scope.paymentEndYear = scope.payementHistory[scope.payementHistory.length - 1].date[0];
+                    } else {
+                        scope.paymentEndYear = scope.payementHistory[0].date[0];
+                        scope.paymentStartYear = scope.payementHistory[scope.payementHistory.length - 1].date[0];
+                    }
                     scope.paymentTotalYears  = scope.paymentEndYear - scope.paymentStartYear;
 
                     scope.tempStartYear = scope.paymentStartYear;
@@ -2267,9 +2274,21 @@
                         scope.loanInfoErrorMsg = false;
                         scope.bureaReportDetails.push(scope.existingLoansArray[i]);
                         console.log(scope.bureaReportDetails);
+                        scope.payementHistory = [];
                         scope.payementHistory = scope.bureaReportDetails[0].creditBureauExistingLoanPaymentDetails;
-                        scope.paymentStartYear = scope.bureaReportDetails[0].disbursedOnDate[0];
-                        scope.paymentEndYear = scope.bureaReportDetails[0].lastPaymentDate[0];
+                        // scope.paymentStartYear = scope.bureaReportDetails[0].disbursedOnDate[0];
+                        // scope.paymentEndYear = scope.bureaReportDetails[0].lastPaymentDate[0];
+                        if(scope.payementHistory[0].date[0] < scope.payementHistory[scope.payementHistory.length - 1].date[0]) {
+                            scope.paymentStartYear = scope.payementHistory[0].date[0];
+                            scope.paymentEndYear = scope.payementHistory[scope.payementHistory.length - 1].date[0];
+                        } else {
+                            scope.paymentEndYear = scope.payementHistory[0].date[0];
+                            scope.paymentStartYear = scope.payementHistory[scope.payementHistory.length - 1].date[0];
+                        }
+                        // scope.paymentStartYear = scope.payementHistory[0].date[0];
+                        // scope.paymentEndYear = scope.payementHistory[scope.payementHistory.length - 1].date[0];
+                        console.log(scope.paymentEndYear);
+                        console.log(scope.paymentStartYear);
                         scope.paymentTotalYears  = scope.paymentEndYear - scope.paymentStartYear;
 
                         scope.tempStartYear = scope.paymentStartYear;
