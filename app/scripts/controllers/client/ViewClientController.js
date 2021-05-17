@@ -2356,6 +2356,8 @@
             scope.loanFilter = function(value) {
                 console.log(value);
                 scope.presentLoanNumber = 1;
+                scope.showPrvBtn = false;
+                scope.showNextBtn = true;
                 if(value != 'all') {
                     scope.existingLoanIdArray = [];
                     for(var i=0; i<scope.existingLoansArray.length; i++) {
