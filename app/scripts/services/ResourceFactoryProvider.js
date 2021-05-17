@@ -533,12 +533,18 @@
                         getHook: { method: 'GET', params: {} },
                         update: { method: 'PUT', params: {} }
                     }),
+                    hookEventResources: defineResource(apiVer + "/hooks/:hookId/events", { hookId: "@hookId" }, {
+                        save: { method: 'POST', params: {} }
+                    }),
                     hookTemplateResource: defineResource(apiVer + "/hooks/template", {}, {
                         get: { method: 'GET', params: {} }
                     }),
                     entityToEntityResource: defineResource(apiVer + "/entitytoentitymapping/:mappingId/:fromId/:toId", { mappingId: '@mappingId' }, {
                         getAllEntityMapping: { method: 'GET', params: {}, isArray: true },
                         getEntityMapValues: { method: 'GET', params: {} }
+                    }),
+                    hookEventActionResources: defineResource(apiVer + "/hooks/:hookId/events/:eventId", { hookId: "@hookId" ,eventId:"@eventId"}, {
+                        delete: { method: 'DELETE', params: {} }
                     }),
                     entityMappingResource: defineResource(apiVer + "/entitytoentitymapping/:mapId", { mappingId: '@mappingId' }, {
                         getAllEntityMapping: { method: 'GET', params: {}, isArray: true },

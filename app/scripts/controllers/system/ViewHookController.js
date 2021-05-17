@@ -6,6 +6,13 @@
             resourceFactory.hookResources.get({hookId: routeParams.id}, function (data) {
                 scope.hook = data;
             });
+
+            scope.deleteEvent = function(eventId) {
+                resourceFactory.hookEventActionResources.delete({hookId: routeParams.id,eventId: eventId},{}, function(data) {
+                    location.path('/hooks');
+                });
+            };
+
             scope.deletehook = function () {
                 $modal.open({
                     templateUrl: 'deletehook.html',

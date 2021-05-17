@@ -593,6 +593,12 @@
             .when('/edithook/:id', {
                 templateUrl: 'views/system/edithook.html'
             })
+            .when('/viewhook/:id/addhookevent', {
+                templateUrl: 'views/system/addhookevent.html'
+            })
+            .when('/viewhook/:id/edithookevent/:eventId', {
+                templateUrl: 'views/system/edithookevent.html'
+            })
             .when('/entitytoentitymapping', {
                 templateUrl: 'views/system/entitytoentitymapping.html'
             })

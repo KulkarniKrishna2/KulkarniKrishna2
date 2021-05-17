@@ -191,6 +191,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'system/HookController',
             'system/ViewHookController',
             'system/CreateHookController',
+            'system/CreateHookEventController',
             'system/EditHookController',
             'system/ViewDataTableController',
             'system/DataTableController',
