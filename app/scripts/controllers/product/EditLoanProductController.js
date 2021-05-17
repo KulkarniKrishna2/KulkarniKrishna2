@@ -1148,6 +1148,19 @@
                     }
                 }
 
+                if(_.isUndefined(scope.formData.minPrincipal)){
+                    this.formData.minPrincipal = null;
+                }
+                if(_.isUndefined(scope.formData.maxPrincipal)){
+                    this.formData.maxPrincipal = null;
+                }
+                if(_.isUndefined(scope.formData.minInterestRatePerPeriod)){
+                    this.formData.minInterestRatePerPeriod = null;
+                }
+                if(_.isUndefined(scope.formData.maxInterestRatePerPeriod)){
+                    this.formData.maxInterestRatePerPeriod = null;
+                }
+
                 if (this.formData.isLinkedToFloatingInterestRates) {
                     delete scope.formData.interestRatePerPeriod;
                     delete scope.formData.minInterestRatePerPeriod;
