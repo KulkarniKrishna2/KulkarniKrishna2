@@ -864,9 +864,11 @@
                     });
 
                     scope.title = 'label.heading.waiveloancharge';
-                    scope.labelName = 'label.input.installment';
                     scope.showNoteField = false;
-                    scope.showDateField = false;
+                    scope.showDateField = true;
+                    scope.labelName = 'label.input.chargewaivedon';
+                    scope.modelName = 'chargeWaiverDate';
+                    scope.formData[scope.modelName] = new Date();
                     scope.taskPermissionName = 'WAIVE_LOANCHARGE';
                     break;
                 case "paycharge":
@@ -1288,7 +1290,7 @@
                         location.path('/viewloanaccount/' + data.loanId);
                     });
                 } else if (scope.action === "waivecharge") {
-                    resourceFactory.LoanAccountResource.save({loanId: routeParams.id, resourceType: 'charges', chargeId: routeParams.chargeId, 'command': 'waive'}, this.formData, function (data) {
+                    resourceFactory.LoanChargesV2Resource.waiveCharge({loanId: routeParams.id, resourceType: 'charges', chargeId: routeParams.chargeId }, this.formData, function (data) {
                         location.path('/viewloanaccount/' + data.loanId);
                     });
                 } else if (scope.action === "paycharge") {
