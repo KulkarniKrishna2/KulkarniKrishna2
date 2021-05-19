@@ -78,7 +78,7 @@
 						<td>{{'label.heading.overdue.based.on' | translate}}</td>
 						<td>{{charge.chargeOverdueData.overdueBasedOn.value}}</td>
 					</tr>
-					<tr ng-if="charge.chargeCategoryType != undefined">
+					<tr ng-if="charge.chargeCategoryType != undefined && charge.chargeTimeType.id == 1  && showChargeCategoryType">
 						<td>{{'label.heading.chargeCategoryType' | translate}}</td>
 	                    <td>{{charge.chargeCategoryType.value}}</td>
 	                </tr>

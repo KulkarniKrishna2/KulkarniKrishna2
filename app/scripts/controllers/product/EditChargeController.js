@@ -219,7 +219,7 @@
             // 'annual fee' or 'monthly fee'
             scope.chargeTimeChange = function (chargeTimeType) {
                 if(chargeTimeType == 1){
-                    scope.showChargeCategoryType = scope.response.uiDisplayConfigurations.createCharges.isHiddenField.chargeCategoryType;
+                    scope.showChargeCategoryType = !scope.response.uiDisplayConfigurations.createCharges.isHiddenField.chargeCategoryType;
                 }else{
                     scope.showChargeCategoryType = false;
                 }
