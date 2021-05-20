@@ -35,7 +35,8 @@
     "karma-coverage": "~0.2.1",
     "karma-junit-reporter": "~0.2.1",
     "grunt-merge-json": "~0.9.7",
-    "grunt-gitinfo": "^0.1.9"
+    "grunt-gitinfo": "^0.1.9",
+    "grunt-license-report": "^0.0.8"
   },
   "scripts": {
     "test": "grunt test --verbose"
