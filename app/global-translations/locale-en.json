@@ -9041,6 +9041,8 @@
     "label.input.chargewaivedon": "Charge waived on",
     "error.msg.invalid.charge.waiver.date" : "Invalid charge waiver date `{{params[0].value | DateFormat}}`",
     "validation.msg.waiveLoanCharge.arg2.chargeWaiverDate.cannot.be.blank" : "Charge waiver date is mandatory",
+    "validation.msg.interest.charged.from.date.must.be.greater.than.or.equal.to.the.last.disbursed.tranche.interest.charged.from.date" : "Interest Charged From Date must be greater than or equal to `{{params[0].value}}` ",
+    "validation.msg.disbursement.date.must.be.greater.than.or.equal.to.the.last.disbursed.tranche.interest.charged.from.date" : "Disbursement date must be greater than or equal to `{{params[0].value}}` ",
 
      "------ end of translation file ------": "----------"
 }
