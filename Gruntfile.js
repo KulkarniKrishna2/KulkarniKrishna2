@@ -6,7 +6,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-gitinfo');
   // Project configuration.
   grunt.initConfig({
-    
+    'grunt-license-report': {
+      output: {
+        path: './report/licenses',
+        format:'html'
+      }
+    },
     gitinfo: {
       commands: {
         'status': ['status', '--porcelain'],
@@ -350,7 +355,7 @@ module.exports = function(grunt) {
         },
     }
   });
-
+  grunt.loadNpmTasks('grunt-license-report');
   //versioning
   grunt.registerTask('saveRevision', function() {
 
@@ -406,5 +411,6 @@ module.exports = function(grunt) {
   grunt.registerTask('dev', ['clean', 'copy:dev']);
   grunt.registerTask('test', ['karma']);
   grunt.registerTask('git-version', ['gitinfo','saveRevision']);
+  grunt.registerTask('license-report', ['grunt-license-report']);
 
 };
