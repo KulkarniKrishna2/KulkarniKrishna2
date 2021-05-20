@@ -639,7 +639,7 @@
 		},
 		"createCharges": {
 			"isHiddenField": {
-				"chargeCategoryType": true
+				"chargeCategoryType": false
 			}
 		},
 		"entityType": {
