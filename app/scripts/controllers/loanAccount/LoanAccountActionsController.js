@@ -334,6 +334,12 @@
                             scope.formData.fixedEmiAmount = data.fixedEmiAmount;
                             scope.showEMIAmountField = true;
                         }
+                        if(!_.isUndefined(data.templateAdditionalDetails) &&  !_.isUndefined(data.templateAdditionalDetails.isUpfrontInterestEnabled) 
+                        && data.templateAdditionalDetails.isUpfrontInterestEnabled){
+                            scope.showupfrontinterestamount = true;
+                        }else{
+                            scope.showupfrontinterestamount = false;
+                        }
                     });
                     scope.title = 'label.heading.disburseloanaccount';
                     scope.labelName = 'label.input.disbursedondate';
@@ -435,6 +441,12 @@
                         if(data.isRepaymentAtDisbursement){
                             scope.formData.paymentTypeIdForRepaymentAtDisbursement = data.paymentTypeIdForRepaymentAtDisbursement;
                         }
+                        if(!_.isUndefined(data.templateAdditionalDetails) &&  !_.isUndefined(data.templateAdditionalDetails.isUpfrontInterestEnabled) 
+                            && data.templateAdditionalDetails.isUpfrontInterestEnabled){
+                            scope.showupfrontinterestamount = true;
+                         }else{
+                             scope.showupfrontinterestamount = false;
+                         }
                     });
                     if(routeParams.type && routeParams.type == 'flatinterest'){
                         scope.showdiscountOnDisburse = true;
