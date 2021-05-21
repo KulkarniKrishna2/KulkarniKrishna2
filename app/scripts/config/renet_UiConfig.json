@@ -8,6 +8,7 @@
         },
         "loanAccount": {
             "isHiddenField": {
+                "graceOnPrincipalPayment": false,
                 "recurringMoratoriumOnPrincipalPeriods": false
             },
             "regexFormats": {
