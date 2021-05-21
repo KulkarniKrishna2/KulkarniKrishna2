@@ -309,6 +309,19 @@
             <div class="col-sm-3">
             </div>
         </div>
+        <div class="form-group" ng-show="showupfrontinterestamount">
+            <label class="control-label col-sm-2" for="transactionAmount">{{ 'label.heading.upfrontinterestamount' |
+                translate}}</label>
+
+            <div class="col-sm-3">
+                <input id="upfrontInterestAmount" type="text" autocomplete="off" name="upfrontInterestAmount" ng-model="formData.upfrontInterestAmount"
+                       class="form-control" 
+                       number-format >
+            </div>
+            <div class="col-sm-3">
+            </div>
+        </div>
+
         <div class="form-group" ng-show="showNetDisbursalAmount">
             <label class="control-label col-sm-2" for="transactionAmount">{{ 'label.heading.netdisbursalamount' |
                 translate}}</label>
