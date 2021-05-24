@@ -965,13 +965,12 @@
                         delete: { method: 'DELETE', params: {} }
                     }),
                     bankStatementsResource: defineResource(apiVer + "/bankstatements/:bankStatementId", { bankStatementId: '@bankStatementId', command: '@command' }, {
-                        getAllBankStatement: { method: 'GET', params: {} },
+                        getAllBankStatement: { method: 'GET', params: {} , isArray: true },
                         update: { method: 'PUT', params: { bankStatementId: '@bankStatementId' } },
                         getBankStatement: { method: 'GET', params: { bankStatementId: '@bankStatementId' } },
                         reconcileBankStatement: { method: 'POST', params: { command: 'reconcile' } }
                     }),
                     bulkStatementsResource: defineResource(apiVer + "/bulkcollection/:bankStatementId", { bankStatementId: '@bankStatementId', command: '@command' }, {
-                        getAllBankStatement: { method: 'GET', params: {} },
                         update: { method: 'PUT', params: { bankStatementId: '@bankStatementId' } },
                         getBankStatement: { method: 'GET', params: { bankStatementId: '@bankStatementId' } },
                         reconcileBankStatement: { method: 'POST', params: { command: 'reconcile' } }
