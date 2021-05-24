@@ -3668,6 +3668,7 @@
     "label.datetime": "Date & Time",
     "label.text": "Text",
     "label.dropdown": "Drop-down",
+    "label.multi.select": "Multi-Select",
     "label.columntypeerr": "Type require",
     "label.columnnameerr": "Column name require",
     "label.codevalueerror": "Code value error",
