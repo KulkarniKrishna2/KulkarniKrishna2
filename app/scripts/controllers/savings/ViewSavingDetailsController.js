@@ -1,7 +1,8 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewSavingDetailsController: function (scope, routeParams, resourceFactory, location, $modal, route, dateFilter, $sce, $rootScope, API_VERSION,http) {
+        ViewSavingDetailsController: function (scope, routeParams, resourceFactory, location, $modal, route, dateFilter, $sce, $rootScope, API_VERSION,http,  CommonUtilService) {
             scope.report = false;
+            scope.savingdocuments = [];
             scope.hidePentahoReport = true;
             scope.showActiveCharges = true;
             scope.formData = {};
@@ -789,9 +790,73 @@
                     scope.getSavingAccountDetailsTemplateData();
                 }
             } 
+
+            scope.getSavingsDocuments = function () {
+                scope.savingdocuments = {};
+                resourceFactory.savingsDocumentResource.getSavingsDocuments({ savingsId: routeParams.id }, function (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        if (data[i].id) {
+                            var savingdocs = {};
+                            savingdocs = API_VERSION + '/savings/' + data[i].parentEntityId + '/documents/' + data[i].id + '/attachment';
+                            data[i].docUrl = savingdocs;
+                        }
+                        if (data[i].tagValue) {
+                            scope.pushDocumentToTag(data[i], data[i].tagValue);
+                        } else {
+                            scope.pushDocumentToTag(data[i], 'uploadedDocuments');
+                        }
+                    }
+                });
+            };
+
+            scope.pushDocumentToTag = function (document, tagValue) {
+                if (scope.savingdocuments.hasOwnProperty(tagValue)) {
+                    scope.savingdocuments[tagValue].push(document);
+                } else {
+                    scope.savingdocuments[tagValue] = [];
+                    scope.savingdocuments[tagValue].push(document);
+                }
+            }
+
+            scope.generateDocument = function (document) {
+                resourceFactory.documentsGenerateResource.generate({ entityType: 'savings', entityId: routeParams.id, identifier: document.reportIdentifier }, function (data) {
+                    document.id = data.resourceId;
+                    var savingdocs = {};
+                    savingdocs = API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment';
+                    document.docUrl = savingdocs;
+                })
+            };
+
+            scope.reGenerateDocument = function (document) {
+                resourceFactory.documentsGenerateResource.reGenerate({ entityType: 'savings', entityId: routeParams.id, identifier: document.id }, function (data) {
+                    document.id = data.resourceId;
+                    var savingdocs = {};
+                    savingdocs = API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment';
+                    document.docUrl = savingdocs;
+                })
+            };
+
+            scope.download = function (file) {
+                var url = $rootScope.hostUrl + file.docUrl;
+                var fileType = file.fileName.substr(file.fileName.lastIndexOf('.') + 1);
+                CommonUtilService.downloadFile(url, fileType, file.fileName);
+            }
+
+
+            scope.deleteDocument = function (document, index, tagValue) {
+                resourceFactory.savingsDocumentResource.delete({ savingsId: scope.savingaccountdetails.id, documentId: document.id }, '', function (data) {
+                    if (document.reportIdentifier) {
+                        delete document.id;
+                    } else {
+                        scope.savingdocuments[tagValue].splice(index, 1);
+                    }
+                });
+            };
+
+
         }
     });
-    mifosX.ng.application.controller('ViewSavingDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location','$modal', '$route', 'dateFilter', '$sce', '$rootScope', 'API_VERSION', '$http', mifosX.controllers.ViewSavingDetailsController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewSavingDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location','$modal', '$route', 'dateFilter', '$sce', '$rootScope', 'API_VERSION', '$http','CommonUtilService', mifosX.controllers.ViewSavingDetailsController]).run(function ($log) {
         $log.info("ViewSavingDetailsController initialized");
     });
 }(mifosX.controllers || {}));

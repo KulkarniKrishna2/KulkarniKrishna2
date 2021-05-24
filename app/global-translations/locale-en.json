@@ -1926,6 +1926,7 @@
     "label.heading.loancollaterals": "Loan Collateral",
     "label.heading.enterpaymentdate": "Enter Payment Date",
     "label.heading.loandocuments": "Loan Documents",
+    "label.heading.savingdocuments": "Saving Documents",
     "label.heading.guarantordetails": "Guarantor Details",
     "label.heading.transactions": "Transactions",
     "label.heading.interestChargedFrom": "Interest Charged From",

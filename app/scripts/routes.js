@@ -247,6 +247,9 @@
             .when('/addloandocument/:loanId', {
                 templateUrl: 'views/loans/addloandocument.html'
             })
+            .when('/addsavingsdocument/:savingsId', {
+                templateUrl: 'views/savings/addsavingsdocument.html'
+            })
             .when('/mandate/:loanId/:command/:mandateId', {
                 templateUrl: 'views/loans/mandate.html'
             })

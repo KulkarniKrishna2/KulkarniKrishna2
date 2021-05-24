@@ -2286,6 +2286,9 @@
                     LoanChargesV2Resource: defineResource(apiVer2 + "/loans/:loanId/charges/:chargeId/:action", { loanId: '@loanId', chargeId: '@chargeId' }, {
                         waiveCharge: { method: 'POST', params: { action: 'waive' } },
                     }),
+                    savingsDocumentResource: defineResource(apiVer + "/savings/:savingsId/documents/:documentId", { savingsId: '@savingsId', documentId: '@documentId' }, {
+                        getSavingsDocuments: { method: 'GET', params: {}, isArray: true }
+                    }),
                 };
             }];
         }
