@@ -513,3 +513,101 @@
     background: #f1f1f1;
     /* color: white; */
 }
+
+
+/* Accounts Tab CSS */
+.loanAcc-table {
+    overflow-y: auto;
+    max-height: 200px;
+    border: 1px solid #f3ecec;
+    border-radius: 6px;
+    margin: 2% 0;
+    box-shadow: 0 2.5px 23.9px rgb(0 0 0 / 1%), 0 12.9px 33.5px rgb(0 0 0 / 4%), 0 52px 80px rgb(0 0 0 / 5%);
+}
+
+.loanAcc-table-header {
+    position: sticky;
+    top: -1px;
+}
+
+.loanAcc-table-header-srs {
+    position: sticky;
+    top: 33px;
+}
+
+tr.newBg td, tr.newBg th {
+    /* background-color: #4071dc; */
+    background-color: #F0F0F0;
+    /* color: white; */
+}
+
+.newPointer {
+    border-top: 1px solid #f5efef;
+}
+
+.newPointer:hover {
+    background: rgb(247, 245, 245);
+}
+
+.loanAcc-title {
+    margin-top: 4%;
+    background: white !important;
+}
+
+.loanAcc-title-text {
+    /* border-left: 4px solid #6b6bff;
+    padding: 5px 10px; */
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.loanAcc-viewCloseAcc-btn {
+    border-radius: 4px;
+    box-shadow: 2px 2px 8px 2px #e8e1e1;
+}
+
+.bgWhite {
+    background: white;
+}
+
+
+/* savings account overview */
+.sa-top {
+    margin-top: 5%;
+}
+
+.sa-p {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
+
+.sa-viewCloseAcc-btn {
+    border-radius: 4px;
+    box-shadow: 2px 2px 8px 2px #e8e1e1;
+}
+
+.sa-table {
+    box-shadow: 0 2.5px 23.9px rgb(0 0 0 / 1%), 0 12.9px 33.5px rgb(0 0 0 / 4%), 0 52px 80px rgb(0 0 0 / 5%);
+    margin-top: 2%;
+}
+
+.sa-btl {
+    border-top-left-radius: 6px;
+}
+
+.sa-btr {
+    border-top-right-radius: 6px;
+}
+
+.sa-bbl {
+    border-bottom-left-radius: 6px;
+}
+
+.sa-bbr {
+    border-bottom-left-radius: 6px;
+}
+
+.td-p {
+    padding-top: 15px !important;
+    padding-bottom: 15px !important;
+}
