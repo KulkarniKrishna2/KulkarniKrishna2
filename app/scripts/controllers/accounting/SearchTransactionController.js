@@ -14,6 +14,22 @@
             scope.date = {};
             scope.formData = {};
 
+            scope.fetchJournalEntries = function(params,callback){
+                resourceFactory.journalEntriesSearchResource.search(params, function (data) {
+                    var explodedJEList = [];
+                    data.forEach(element => {
+                        element.journalEntryDetails.forEach(journalEntry => {
+                            var temp = {};
+                            angular.copy(element,temp);
+                            temp.transactiondetail =  journalEntry;
+                            explodedJEList.push(temp);
+                        });
+                        
+                    });
+                    callback(explodedJEList);
+                });
+            }
+            
             scope.routeTo = function (id) {
                 localStorageService.addToLocalStorage('displayResults', true);
                 location.path('/viewtransactions/' + id);
@@ -118,7 +134,7 @@
                 } else
                     scope.searchCriteria.journals[7] = null;
 
-                    fetchJournalEntries(params, callback);
+                    scope.fetchJournalEntries(params, callback);
             };
 
             scope.clearFilters = function () {
@@ -167,21 +183,7 @@
                 scope.path = "#/viewsavingaccount/" + scope.formData.savingsaccountId;
             }
 
-            fetchJournalEntries = function(params,callback){
-                resourceFactory.journalEntriesSearchResource.search(params, function (data) {
-                    var explodedJEList = [];
-                    data.forEach(element => {
-                        element.journalEntryDetails.forEach(journalEntry => {
-                            var temp = {};
-                            angular.copy(element,temp);
-                            temp.transactiondetail =  journalEntry;
-                            explodedJEList.push(temp);
-                        });
-                        
-                    });
-                    callback(explodedJEList);
-                });
-            }
+            
 
         }
     });
