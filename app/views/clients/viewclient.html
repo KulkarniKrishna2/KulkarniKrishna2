@@ -1748,6 +1748,74 @@
 					</div>
 				</div>
 			</div>
+
+
+			<div class="bReport-address-container"  ng-if="showCBReport">
+				<div class="bReport-address-heading"><span class="address-heading-text">Address List</span></div>
+				<div class="bReport-address-content">
+					<div class="bReport-address-block">
+						<div class="bReport-address-block-heading">
+							<div class="address-block-heading-title">Address Description</div>
+							<div class="address-block-heading-date">Reported Date</div>
+						</div>
+						<div class="bReport-address-block-list">
+							<div class="address-error-msg" ng-if="addressErrorMsg"><span style="color: grey;">No Address List Present</span></div>
+							<div class="address-list-contents" ng-repeat="address in addressList">
+								<div class="address-list-address-value">{{address.address}}</div>
+								<div class="address-list-date-value">{{address.reportedDate[2]}}-{{address.reportedDate[1]}}-{{address.reportedDate[0]}}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="bReport-identifier-contianer" ng-if="showCBReport">
+				<div class="bReport-identifier-heading"><span class="identifier-heading-text">Identifier List</span></div>
+				<div class="bReport-identifier-content">
+					<div class="bReport-identifier-list-block">
+						<!-- <div class="identifier-error-msg" ng-if="kycErrorMsg"><span style="color: grey;">No KYC Details Present</span></div>
+						<div class="bReport-identifier-list" ng-repeat="kyc in kycList">
+							<div class="identifier-title">{{kyc.documentType}}</div>
+							<div class="identifier-number"><span class="identifier-number-text">{{kyc.documentNumber}}</span></div>
+							<div class="identifier-date">Reported Date : {{kyc.reportedDate[2]}}-{{kyc.reportedDate[1]}}-{{kyc.reportedDate[0]}}</div>
+						</div> -->
+						<div class="bReport-contact-block-heading">
+							<div class="contact-block-heading-title">Type</div>
+							<div class="contact-block-heading-number">Number</div>
+							<div class="contact-block-heading-date">Reported Date</div>
+						</div>
+						<div class="bReport-contact-block-list">
+							<div class="contact-error-msg" ng-if="kycErrorMsg"><span style="color: grey;">No KYC List Present</span></div>
+							<div class="contact-list-contents" ng-repeat="kyc in kycList">
+								<div class="contact-list-contact-value">{{kyc.documentType}}</div>
+								<div class="contact-list-date-value">{{kyc.documentNumber}}</div>
+								<div class="contact-list-date-value">{{kyc.reportedDate[2]}}-{{kyc.reportedDate[1]}}-{{kyc.reportedDate[0]}}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="bReport-contact-container" ng-if="showCBReport">
+				<div class="bReport-contact-heading"><span class="contact-heading-text">Contact List</span></div>
+				<div class="bReport-contact-content">
+					<div class="bReport-contact-block">
+						<div class="bReport-contact-block-heading">
+							<div class="contact-block-heading-title">Type</div>
+							<div class="contact-block-heading-number">Number</div>
+							<div class="contact-block-heading-date">Reported Date</div>
+						</div>
+						<div class="bReport-contact-block-list">
+							<div class="contact-error-msg" ng-if="contactErrorMsg"><span style="color: grey;">No Contact List Present</span></div>
+							<div class="contact-list-contents" ng-repeat="contact in contactList">
+								<div class="contact-list-contact-value">{{contact.subType}}</div>
+								<div class="contact-list-date-value">{{contact.value}}</div>
+								<div class="contact-list-date-value">{{contact.reportedDate[2]}}-{{contact.reportedDate[1]}}-{{contact.reportedDate[0]}}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</tab>
 
 		<tab heading="{{'label.heading.upcomingcharges' | translate }}" select="getClientCharges()">

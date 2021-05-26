@@ -2156,8 +2156,14 @@
             scope.presentLoanNumber = 1;
             scope.bureauScore;
             scope.enquiryHistory = [];
+            scope.addressList = [];
+            scope.kycList = [];
+            scope.contactList = [];
             scope.enquiryBankList = [];
             scope.enquiryErrorMsg = false;
+            scope.addressErrorMsg = false;
+            scope.kycErrorMsg = false;
+            scope.contactErrorMsg = false;
             scope.loanInfoErrorMsg = false;
             scope.scoreErrorMsg = false;
             scope.options = [{ name: "Active", id: 'Active' }, { name: "Closed", id: 'Closed' }, { name: "Show All Loans", id: 'all' }];
@@ -2210,6 +2216,30 @@
                         console.log(scope.bureauScore);
                     } else {
                         scope.enquiryErrorMsg = true;
+                    }
+
+                    if(data.bureauConsumerInformation.addressList != undefined && data.bureauConsumerInformation.addressList != [] && data.bureauConsumerInformation.addressList.length != 0) {
+                        scope.addressErrorMsg = false;
+                        scope.addressList = data.bureauConsumerInformation.addressList;
+                        console.log(scope.addressList);
+                    } else {
+                        scope.addressErrorMsg = true;
+                    }
+
+                    if(data.bureauConsumerInformation.bureauConsumerKycData != undefined && data.bureauConsumerInformation.bureauConsumerKycData != [] && data.bureauConsumerInformation.bureauConsumerKycData.length != 0) {
+                        scope.kycErrorMsg = false;
+                        scope.kycList = data.bureauConsumerInformation.bureauConsumerKycData;
+                        console.log(scope.kycList);
+                    } else {
+                        scope.kycErrorMsg = true;
+                    }
+
+                    if(data.bureauConsumerInformation.contactList != undefined && data.bureauConsumerInformation.contactList != [] && data.bureauConsumerInformation.contactList.length != 0) {
+                        scope.contactErrorMsg = false;
+                        scope.contactList = data.bureauConsumerInformation.contactList;
+                        console.log(scope.contactList);
+                    } else {
+                        scope.contactErrorMsg = true;
                     }
                     
                     for(var a=0; a<scope.existingLoansArray.length; a++) {
@@ -2606,6 +2636,10 @@
                 }
                 console.log('Dec Month :',scope.dec);
             }
+
+
+
+
         }
     });
 

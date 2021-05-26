@@ -1136,7 +1136,10 @@
 }
 
 .bReport-scoreDetails-heading,
-.bReport-enquiry-heading {
+.bReport-enquiry-heading,
+.bReport-address-heading,
+.bReport-identifier-heading,
+.bReport-contact-heading {
     width: 100%;
     display: flex;
 }
@@ -1208,7 +1211,10 @@
 }
 
 .scoreDetails-text,
-.enquiry-text {
+.enquiry-text,
+.address-heading-text,
+.identifier-heading-text,
+.contact-heading-text {
     width: 100%;
     text-align: left;
     font-size: 22px;
@@ -1216,12 +1222,18 @@
     padding-left: 10px;
 }
 
-.bReport-enquiry-container {
+.bReport-enquiry-container,
+.bReport-address-container,
+.bReport-identifier-container,
+.bReport-contact-container {
     width: 100%;
     margin: 4% 0;
 }
 
-.bReport-enquiry-content {
+.bReport-enquiry-content,
+.bReport-address-content,
+.bReport-identifier-content,
+.bReport-contact-content {
     width: 100%;
     /* border: 1px solid #f2f2f2; */
     display: flex;
@@ -1230,7 +1242,9 @@
     box-shadow: 0 2.5px 23.9px rgb(0 0 0 / 1%), 0 12.9px 33.5px rgb(0 0 0 / 4%), 0 52px 80px rgb(0 0 0 / 5%);
 }
 
-.enquiry-block {
+.enquiry-block,
+.bReport-address-block,
+.bReport-contact-block {
     width: 100%;
     /* border: 1px solid #f2f2f2; */
     display: flex;
@@ -1240,13 +1254,16 @@
 }
 
 .enquiry-block-heading,
-.enquiry-block-list {
+.enquiry-block-list,
+.bReport-address-block-heading,
+.bReport-contact-block-heading {
     width: 100%;
     display: flex;
     justify-content: center;
 }
 
-.enquiry-block-list { 
+.enquiry-block-list,
+.bReport-address-block-list { 
     height: 40vh;
     overflow: auto;
     display: flex;
@@ -1292,7 +1309,8 @@
     padding: 15px 10px;
 }
 
-.list-contents {
+.list-contents,
+.address-list-contents {
     width: 100%;
     display: flex;
     align-items: center;
@@ -1301,7 +1319,10 @@
 }
 
 .enquiry-error-msg,
-.loanInfo-error-msg {
+.loanInfo-error-msg,
+.address-error-msg,
+.identifier-error-msg,
+.contact-error-msg {
     width: 100%;
     height: inherit;
     display: flex;
@@ -1318,4 +1339,193 @@
     display: flex;
     justify-content: center;
     width: 100%;
+}
+
+.address-block-heading-title {
+    width: 80%;
+    padding: 15px 10px;
+    font-weight: bold;
+    font-size: 1.6rem;
+    color: #404040;
+}
+
+.address-block-heading-date{
+    width: 20%;
+    padding: 15px 10px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.6rem;
+    color: #404040;
+}
+
+.address-list-address-value {
+    padding: 15px 10px;
+    width: 80%;
+}
+
+.address-list-date-value {
+    text-align: center;
+    padding: 15px 10px;
+    width: 20%;
+}
+
+.bReport-address-block-heading {
+    background: whitesmoke;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+
+.bReport-address-block-list {
+    width: 100%;
+}
+
+.bReport-contact-block-list {
+    width: 100%;
+    height: 20vh;
+    overflow: auto;
+}
+
+.bReport-identifier-list-block {
+    /* width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    border-bottom: 1px solid #efeeee;
+    border-radius: 6px;
+    padding: 10px;
+    overflow-x: auto; */
+    width: 60%;
+    display: flex;
+    justify-content: flex-start;
+    border: 1px solid #efeeee;
+    flex-wrap: wrap;
+    border-radius: 6px;
+    /* padding: 10px; */
+    overflow-x: auto;
+}
+
+.bReport-identifier-list {
+    max-width: 30%;
+    border: 1px solid #e2e2e2;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-right: 2%;
+    border-radius: 6px;
+    box-shadow: 2px 2px 8px 2px #f5f5f5;
+    background: #f9f9f9;
+}
+
+.identifier-title {
+    width: 100%;
+    font-weight: bold;
+    color: rgb(31, 31, 31);
+    text-align: center;
+    font-size: 1.6rem;
+}
+
+.identifier-number {
+    width: 100%;
+    margin-top: 15%;
+    color: rgb(31, 31, 31);
+    text-align: center;
+}
+
+.identifier-number-text { 
+    background: #6754c7;
+    padding: 5px 20px;
+    color: white;
+    font-weight: bold;
+    border-radius: 4px;
+}
+
+.identifier-date {
+    width: 100%;
+    margin-top: 4%;
+    color: rgb(86 86 86);
+    text-align: center;
+}
+
+.contact-block-heading-title {
+    width: 30%;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 1.6rem;
+    color: #404040;
+    text-align: center;
+}
+
+.contact-block-heading-date {
+    width: 30%;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.6rem;
+    color: #404040;
+}
+
+.contact-block-heading-number {
+    width: 30%;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.6rem;
+    color: #404040;
+}
+
+.contact-list-contact-value {
+    padding: 15px 10px;
+    width: 30%;
+    text-align: center;
+}
+
+.contact-list-date-value {
+    text-align: center;
+    padding: 15px 10px;
+    width: 30%;
+}
+
+.contact-list-number-value {
+    text-align: center;
+    padding: 15px 10px;
+    width: 30%;
+}
+
+.contact-list-contents {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.bReport-contact-block {
+    justify-content: flex-start;
+    width: 60%;
+    border: 1px solid #dedede;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+
+.bReport-contact-block-heading {
+    width: 100%;
+    background: #f7f2f2;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+
+.contact-error-msg {
+    padding: 20px;
+}
+
+.bReport-contact-block-list {
+    width: 100%;
+}
+
+.bReport-contact-content {
+    justify-content: flex-start;
+}
+
+.bReport-identifier-content{
+    justify-content: flex-start;
 }
