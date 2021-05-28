@@ -562,6 +562,38 @@
 
                     </div>
                 </tab>
+                <tab heading="{{'label.heading.savingdocuments' | translate}}" select="getSavingsDocuments()">
+                    <div class="pull-right" data-ng-show="choice">
+                        <a href="#/addsavingsdocument/{{savingaccountdetails.id}}" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.upload'
+                            | translate}}</a>
+                    </div>
+                    <br>
+                    <div ng-repeat="(key, value) in savingdocuments">
+                      <h3>{{key | translate}}</h3>
+                      <table class="table" ng-show="value.length > 0">
+                          <thead>
+                          <th>{{'label.heading.name' | translate}}</th>
+                          <th>{{'label.heading.description' | translate}}</th>
+                          <th>{{'label.heading.filename' | translate}}</th>
+                          <th>{{'label.heading.actions' | translate}}</th>
+                          </thead>
+                          <tbody>
+                          <tr ng-repeat="document in value">
+                              <td>{{document.name}}</td>
+                              <td>{{document.description}}</td>
+                              <td>{{document.fileName}}</td>
+                              <td >
+                                  <a ng-show="document.id" target="_blank" 
+                                  ng-click = "download(document)" has-permission='DOWNLOAD_DOCUMENT'><i class="icon-cloud-download"></i></a>&nbsp;
+                                  <a ng-show="document.id" ng-click="deleteDocument(document,$index, key)"><i class="icon-remove"></i></a>
+                                  <a ng-show="document.id && document.reportIdentifier" ng-click="reGenerateDocument(document)"><i class="icon-repeat"></i></a>
+                                  <a ng-hide="document.id" ng-click="generateDocument(document)"><i class="icon-link"></i></a>
+                              </td>
+                          </tr>
+                          </tbody>
+                      </table>
+                    </div>
+                </tab>              
                 <tab ng-show="chargeTableShow" has-permission="READ_SAVINGSACCOUNTCHARGE" heading="{{'label.heading.charges' | translate}}">
                     <a class="btn btn-primary pull-right" ng-show="showActiveCharges"
                        ng-click="showActiveCharges=!showActiveCharges">{{'label.button.showInactiveCharges' |
