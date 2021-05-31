@@ -84,12 +84,12 @@
     <td colspan="3">{{depositproduct.nominalAnnualInterestRate}}</td>
 </tr>-->
 <tr>
-    <td>{{'label.heading.interestcompoundingperiod' | translate}}</td>
-    <td colspan="3">{{depositproduct.interestCompoundingPeriodType.value}}</td>
-</tr>
-<tr>
     <td>{{'label.heading.interestpostingperiod' | translate}}</td>
-    <td colspan="3">{{depositproduct.interestPostingPeriodType.value}}</td>
+    <td>{{depositproduct.interestPostingPeriodType.value}}</td>
+</tr>
+<tr ng-if="depositproduct.interestPostingRecurrenceData">
+    <td>{{'label.heading.custom.interest.posting.every' | translate}}</td>
+    <td>{{depositproduct.interestPostingRecurrenceData.interestPostingRecurrenceDisplayFormat}}</td>
 </tr>
 <tr>
     <td>{{'label.heading.interestcalculatedusing' | translate}}</td>

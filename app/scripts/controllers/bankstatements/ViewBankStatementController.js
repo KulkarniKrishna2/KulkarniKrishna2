@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewBankStatementController: function (scope, resourceFactory, location, http, routeParams, API_VERSION, $upload, $rootScope, commonUtilService) {
+        ViewBankStatementController: function (scope, resourceFactory, location, http, routeParams, API_VERSION, $upload, $rootScope, commonUtilService, paginatorUsingOffsetService) {
             scope.bankStatements  = [];
             scope.baseUri = $rootScope.hostUrl+API_VERSION+'/bankstatement/1/documents/';
             scope.appendedUri = '/attachment';
@@ -29,31 +29,27 @@
                 location.path(uri);
             }
 
-            scope.getResultsPage = function (pageNumber) {
-                scope.pageNumber = pageNumber;
-                if(scope.searchText){
-                    var startPosition = (pageNumber - 1) * scope.bankStatementPerPage;
-                    scope.bankStatements = scope.actualBankStatements.slice(startPosition, startPosition + scope.bankStatementPerPage);
-                    return;
+
+            var fetchFunction = function (offset, limit, callback) {
+                resourceFactory.bankStatementsResource.getAllBankStatement({
+                    offset: offset,
+                    limit: limit,
+                }, callback);
+            };
+
+            scope.addCpifDownloadUri = function (){
+                for(var i = 0;i< scope.bankStatements.length; i++){
+                    scope.bankStatements[i].cpifDownloadUri = scope.baseUri+ scope.bankStatements[i].cpifKeyDocumentId+ scope.appendedUri;
+                    if(scope.bankStatements[i].orgStatementKeyDocumentId > 0){
+                        scope.bankStatements[i].orgDownloadUri = scope.baseUri+ scope.bankStatements[i].orgStatementKeyDocumentId+ scope.appendedUri;
+                    }else{
+                        scope.bankStatements[i].orgDownloadUri = null;
+                    }
                 }
-                var items = resourceFactory.bankStatementsResource.getAllBankStatement({
-                    offset: ((pageNumber - 1) * scope.bankStatementPerPage),
-                    limit: scope.bankStatementPerPage
-                }, function (data) {
-                       scope.addCpifDownloadUri(data);
-                });
-            }
-
-            scope.initPage = function () {
-
-                var items = resourceFactory.bankStatementsResource.getAllBankStatement({
-                    offset: 0,
-                    limit: scope.bankStatementPerPage
-                }, function (data) {
-                       scope.addCpifDownloadUri(data);
-                });
-            }
-            scope.initPage();
+            }  
+            
+            scope.bankStatements = paginatorUsingOffsetService.paginate(fetchFunction, scope.bankStatementPerPage);
+            scope.addCpifDownloadUri();
 
             scope.search = function () {
                 scope.actualBankStatements = [];
@@ -117,26 +113,13 @@
                return new Date(bankStatement.lastModifiedDate);
             };
 
-            scope.addCpifDownloadUri = function(data){
-                scope.totalBankStatement = data.totalFilteredRecords;
-                    scope.bankStatements = data.pageItems;
-                    for(var i = 0;i< scope.bankStatements.length; i++){
-                        scope.bankStatements[i].cpifDownloadUri = scope.baseUri+ scope.bankStatements[i].cpifKeyDocumentId+ scope.appendedUri;
-                        if(scope.bankStatements[i].orgStatementKeyDocumentId > 0){
-                            scope.bankStatements[i].orgDownloadUri = scope.baseUri+ scope.bankStatements[i].orgStatementKeyDocumentId+ scope.appendedUri;
-                        }else{
-                            scope.bankStatements[i].orgDownloadUri = null;
-                        }
-                    }
-            }
-
             scope.download = function(fileName,docUrl){
                 var fileType = fileName.substr(fileName.lastIndexOf('.') + 1);
                 commonUtilService.downloadFile(docUrl,fileType,fileName);
             }
         }
     });
-    mifosX.ng.application.controller('ViewBankStatementController', ['$scope', 'ResourceFactory', '$location', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', 'CommonUtilService', mifosX.controllers.ViewBankStatementController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewBankStatementController', ['$scope', 'ResourceFactory', '$location', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', 'CommonUtilService', 'PaginatorUsingOffsetService',mifosX.controllers.ViewBankStatementController]).run(function ($log) {
         $log.info("ViewBankStatementController initialized");
     });
 }(mifosX.controllers || {}));

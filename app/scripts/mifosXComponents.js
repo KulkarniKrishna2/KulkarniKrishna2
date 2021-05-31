@@ -191,6 +191,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'system/HookController',
             'system/ViewHookController',
             'system/CreateHookController',
+            'system/CreateHookEventController',
             'system/EditHookController',
             'system/ViewDataTableController',
             'system/DataTableController',
@@ -225,6 +226,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'reports/XBRLReportController',
             'savings/CreateSavingAccountController',
             'savings/ViewSavingDetailsController',
+            'savings/SavingsDocumentController',
             'shares/CreateShareAccountController',
             'shares/ViewShareAccountController',
             'shares/EditShareAccountController',
@@ -787,8 +789,14 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'product/productroundingmodemapping/ViewLoanProductRoundingModeMappingController',
             'product/productroundingmodemapping/ViewLoanProductRoundingModeMappingsController',
             'client/ClientLoansPaymentSettlementController',
-            'accounting/eodprocess/CreateEodProcessController'
-
+            'accounting/eodprocess/CreateEodProcessController',
+            'collection/BranchCollectionController',
+            'collection/StaffCollectionController',
+            'collection/ClientCollectionController',
+            'collection/followup/ViewFollowUpHistoryController',
+            'collection/followup/CreateFollowUpController',
+            'collection/followup/EditFollowUpController',
+            'collection/followup/ViewFollowUpController'
         ],
         filters: [
             'StatusLookup',

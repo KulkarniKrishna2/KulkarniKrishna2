@@ -25,8 +25,7 @@
             scope.chargeEventsTypeOptions = [];
             scope.overdueBasedOnOptions = [];
 
-            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createCharges &&
-                scope.response.uiDisplayConfigurations.createCharges.isHiddenField) {
+            if (scope.response.uiDisplayConfigurations.createCharges.isHiddenField) {
                 scope.showChargeCategoryType = !scope.response.uiDisplayConfigurations.createCharges.isHiddenField.chargeCategoryType;
             }
             resourceFactory.chargeResource.getCharge({chargeId: routeParams.id, template: true}, function (data) {
@@ -100,6 +99,7 @@
                     isCapitalized: data.isCapitalized,
                     isCollectedAsCash :  data.isCollectedAsCash
                 };
+                scope.chargeTimeChange(scope.formData.chargeTimeType);
                 if(data.roundingMode){
                     scope.formData.roundingMode = data.roundingMode.id;
                 }
@@ -218,6 +218,11 @@
             //to display 'Due date' field, if chargeTimeType is
             // 'annual fee' or 'monthly fee'
             scope.chargeTimeChange = function (chargeTimeType) {
+                if(chargeTimeType == 1){
+                    scope.showChargeCategoryType = !scope.response.uiDisplayConfigurations.createCharges.isHiddenField.chargeCategoryType;
+                }else{
+                    scope.showChargeCategoryType = false;
+                }
                 scope.showOverdueOptions = false;
                 if(chargeTimeType == 9){
                     scope.showOverdueOptions = true;
@@ -418,7 +423,9 @@
                 }
 
                 if(!(this.formData.chargeAppliesTo == 1 && this.formData.chargeTimeType == 9 && this.formData.chargeCalculationType == 1)){
-                    this.formData.overdueChargeDetail.overdueBasedOn  = undefined;
+                    if(!_.isUndefined(this.formData.overdueChargeDetail)){
+                        this.formData.overdueChargeDetail.overdueBasedOn  = undefined;
+                    }
                 }
                 
                 if (!_.isUndefined(scope.isCloneChargeProduct) && scope.isCloneChargeProduct) {

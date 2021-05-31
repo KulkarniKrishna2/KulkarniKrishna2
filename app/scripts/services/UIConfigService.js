@@ -4,7 +4,7 @@
         UIConfigService: function ($q, $http) {
             var customConfig = {"lms.moneytap.com":"moneytap","finflux.tapstart.in":"tapstart"};
             var configUIArray = ["agronomica", "almajmoua", "bss", "chaitanya", "crediangolar", "creditonepayments", "digamber", "eastlanka", "flexi", "grayquest", "habitat", "hana", "kapilcapital", "light", "mobilityfinance","moneytap","neev",
-                "nextru", "phakamani", "ramaiahcapital", "secdep", "sef", "shivakarifin", "sunvest", "tapstart", "vayarbl", "vayabc", "vaya", "mfi", "default"];
+                "nextru", "phakamani", "ramaiahcapital", "renet", "secdep", "sef", "shivakarifin", "sunvest", "tapstart", "vayarbl", "vayabc", "vaya", "mfi", "default"];
 
             var getUIConfigKey = function (tenantName) {
                 var hostname = window.location.hostname;

@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        TaskController: function (scope, resourceFactory, route, dateFilter, $modal, location) {
+        TaskController: function (scope, resourceFactory, route, dateFilter, $modal, location, paginatorUsingOffsetService) {
             scope.clients = [];
             scope.loans = [];
             scope.offices = [];
@@ -20,23 +20,34 @@
             scope.rdactivatetemplate = {};
             scope.showSearchParameters = true;
             scope.hideResult = false;
+            scope.taskPerPage = 10;
+            scope.sqlFilerDf = 'yyyy-MM-dd';
+
+            var endDate = new Date();
+            endDate.setMonth(endDate.getMonth() - 1);
+            var  params = {
+                "makerDateTimeFrom": dateFilter(endDate, scope.sqlFilerDf)
+            };
             scope.rescheduleData = function(){                
-            scope.loanRescheduleData = [];
-            scope.showBackDatedSearchParameters= false;
-            scope.checkForBulkLoanRescheduleApprovalData = [];
+                scope.loanRescheduleData = [];
+                scope.showBackDatedSearchParameters= false;
+                scope.checkForBulkLoanRescheduleApprovalData = [];
                 resourceFactory.loanRescheduleResource.getAll({command:'pending'}, function (data) {
                     scope.loanRescheduleData = data;
                 });
             };
             scope.backDatedTemplate = {};
-            scope.rescheduleData();
 
             resourceFactory.checkerInboxResource.get({templateResource: 'searchtemplate'}, function (data) {
                 scope.checkerTemplate = data;
             });
-            resourceFactory.checkerInboxResource.search(function (data) {
-                scope.searchData = data;
-            });
+            var fetchTasks = function (offset, limit, callback) {
+                params.offset = offset;
+                params.limit = limit;
+                resourceFactory.checkerInboxResource.search(params, callback);
+            };
+            scope.searchData = paginatorUsingOffsetService.paginate(fetchTasks, scope.taskPerPage);
+
             resourceFactory.officeResource.getAllOffices(function (data) {
                 scope.offices = data;
             });
@@ -47,6 +58,7 @@
                 scope.userTypeahead = true;
                 scope.formData.user = item.id;
             };
+
             scope.loanOfficerSelected = function (loanOfficerId) {
                 delete this.centerId;
                 delete this.groupId;
@@ -590,9 +602,9 @@
 
             scope.search = function () {
                 scope.isCollapsed = true;
-                var reqFromDate = dateFilter(scope.date.from, 'yyyy-MM-dd');
-                var reqToDate = dateFilter(scope.date.to, 'yyyy-MM-dd');
-                var params = {};
+                var reqFromDate = dateFilter(scope.date.from, scope.sqlFilerDf);
+                var reqToDate = dateFilter(scope.date.to, scope.sqlFilerDf);
+                params = {};
                 if (scope.formData.action) {
                     params.actionName = scope.formData.action;
                 }
@@ -621,15 +633,12 @@
                 if (scope.date.to) {
                     params.makerDateTimeto = reqToDate;
                 }
-                ;
-                resourceFactory.checkerInboxResource.search(params, function (data) {
-                    scope.searchData = data;
-                    if (scope.userTypeahead) {
-                        scope.formData.user = '';
-                        scope.userTypeahead = false;
-                        scope.user = '';
-                    }
-                });
+                scope.searchData = paginatorUsingOffsetService.paginate(fetchTasks, scope.taskPerPage);;
+                if (scope.userTypeahead) {
+                    scope.formData.user = '';
+                    scope.userTypeahead = false;
+                    scope.user = '';
+                }
             };
 
             scope.approveLoan = function () {
@@ -1149,7 +1158,7 @@
 
             scope.backDatedFormData = {};
             scope.getBackDatedData = function(errorData){
-                var params = {};
+                params = {};
                 scope.backDated.masterCheckbox = false;
                 scope.showBackDatedSearchParameters= true;
                 scope.backDatedTransactionsList = [];
@@ -1187,35 +1196,36 @@
             scope.backDatedTransactions = function(params, errorData){
                 scope.showBackDatedSearchParameters= false;
                 scope.errorExist = false;
-                resourceFactory.checkerInboxResource.search(params, function (data) {
-                    scope.backDatedTransactionsList = data;
+
+                scope.backDatedTransactionsList = paginatorUsingOffsetService.paginate(fetchTasks, scope.taskPerPage);
+                if( scope.backDatedTransactionsList ){
                     for(var i in scope.backDatedTransactionsList ){
-                       var obj = JSON.parse(scope.backDatedTransactionsList[i].commandAsJson);
-                       if(obj.transactionAmount==undefined){
-                            scope.backDatedTransactionsList[i].transactionAmount = 'N/A';
-                       }else if(scope.backDatedTransactionsList[i].actionName=='ADJUST'){
-                            if(obj.transactionAmount==0){
-                                scope.backDatedTransactionsList[i].transactionAmount = 'N/A';
-                                scope.backDatedTransactionsList[i].actionName='UNDO';
-                            }else{
-                                scope.backDatedTransactionsList[i].transactionAmount = obj.transactionAmount;
-                                scope.backDatedTransactionsList[i].actionName='CORRECTION';
-                            }
-                       }else{
-                           scope.backDatedTransactionsList[i].transactionAmount = obj.transactionAmount;
-                       }
-                       if(scope.backDatedTransactionsList[i].actionName=='RECTIFY'){
-                            scope.backDatedTransactionsList[i].actionName='CORRECTION';
-                       }
-                       scope.backDatedTransactionsList[i].transactionDate = obj.transactionDate;
-                       scope.backDatedTransactionsList[i].note = obj.note;
-                       scope.backDatedTransactionsList[i].checked = false;
-                       if(errorData!=null && errorData[scope.backDatedTransactionsList[i].id] && errorData[scope.backDatedTransactionsList[i].id].length>0){
-                            scope.backDatedTransactionsList[i].errMsg = errorData[scope.backDatedTransactionsList[i].id];
-                            scope.errorExist = true;                           
-                       }
-                    }
-                });
+                        var obj = JSON.parse(scope.backDatedTransactionsList[i].commandAsJson);
+                        if(obj.transactionAmount==undefined){
+                             scope.backDatedTransactionsList[i].transactionAmount = 'N/A';
+                        }else if(scope.backDatedTransactionsList[i].actionName=='ADJUST'){
+                             if(obj.transactionAmount==0){
+                                 scope.backDatedTransactionsList[i].transactionAmount = 'N/A';
+                                 scope.backDatedTransactionsList[i].actionName='UNDO';
+                             }else{
+                                 scope.backDatedTransactionsList[i].transactionAmount = obj.transactionAmount;
+                                 scope.backDatedTransactionsList[i].actionName='CORRECTION';
+                             }
+                        }else{
+                            scope.backDatedTransactionsList[i].transactionAmount = obj.transactionAmount;
+                        }
+                        if(scope.backDatedTransactionsList[i].actionName=='RECTIFY'){
+                             scope.backDatedTransactionsList[i].actionName='CORRECTION';
+                        }
+                        scope.backDatedTransactionsList[i].transactionDate = obj.transactionDate;
+                        scope.backDatedTransactionsList[i].note = obj.note;
+                        scope.backDatedTransactionsList[i].checked = false;
+                        if(errorData!=null && errorData[scope.backDatedTransactionsList[i].id] && errorData[scope.backDatedTransactionsList[i].id].length>0){
+                             scope.backDatedTransactionsList[i].errMsg = errorData[scope.backDatedTransactionsList[i].id];
+                             scope.errorExist = true;                           
+                        }
+                     }
+                }
             }
 
             scope.backdatemodel = function () {
@@ -1295,7 +1305,7 @@
 
         }
     });
-    mifosX.ng.application.controller('TaskController', ['$scope', 'ResourceFactory', '$route', 'dateFilter', '$modal', '$location', mifosX.controllers.TaskController]).run(function ($log) {
+    mifosX.ng.application.controller('TaskController', ['$scope', 'ResourceFactory', '$route', 'dateFilter', '$modal', '$location', 'PaginatorUsingOffsetService', mifosX.controllers.TaskController]).run(function ($log) {
         $log.info("TaskController initialized");
     });
 }(mifosX.controllers || {}));

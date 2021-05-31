@@ -10,35 +10,78 @@
    		<div class="col-md-12">
    			<form novalidate="" class="form-horizontal" name="createtaskform" rc-submit="submit()">
 				<api-validate></api-validate>
+				<div class="form-group col-sm-12">
+					<label class="control-label col-sm-3" for="categoryName">{{'label.view.category' | translate}}
+						<span class="required">*</span>
+					</label>
+		   			<div>
+		   				<span style="padding-left:17px"><select chosen ="taskCategoryOptions" id="CategoryName" ng-model="formData.categoryId" ng-options="category.id as category.name for category in taskCategoryOptions " ng-change="onCategoryChange(formData.categoryId)"><option value="">{{'label.menu.selectcategory'| translate}}</option></select></span>
+		   			</div> 
+	   			</div>
    				<div class="form-group col-sm-12">
 					<label class="control-label col-sm-3" for="taskName">{{'label.view.taskName' | translate}}
 						<span class="required">*</span>
 					</label>
 		   			<div>
-		   				<span style="padding-left:17px"><select id="taskName" ng-model="formData.templateId" ng-options="task.id as task.taskName for task in tasks" ng-change="onselect()"></select></span>
+		   				<span style="padding-left:17px"><select chosen="tasksbycategory"  id="taskName" ng-model="formData.templateId" ng-options="task.id as task.taskName for task in tasksbycategory" ng-change="onChangeTask(formData.templateId)"><option value="">{{'label.menu.tasks'| translate}}</option></select></span>
 		   			</div> 
 	   			</div>
+	   			
 	   			<div class="form-group col-sm-12">
-	   				<label class="control-label col-sm-3" for="description">{{'label.heading.description' | translate}}
-					</label>
-		   			<div>
-		   				<span style="padding-left:17px"><input id="description" type="textarea" ng-model="formData.description" /></span>
-		   			</div> 
-		   		</div>
-	   			<div class="form-group col-sm-12">
-	   				<label class="control-label col-sm-3" for="user">{{'label.input.user' | translate}}
+	   				<label class="control-label col-sm-3" for="user">{{'label.input.assign.to' | translate}}
 	   					<span class="required">*</span>
 					</label>
-		   			<div>
-		   				<span style="padding-left:17px"><select id="user" ng-model="formData.userId" ng-options="user.id as user.username for user in users"></select></span>
+					<div>
+		   				<span style="padding-left:17px"><select chosen="offices" id="officeId" ng-model="formData.userOfficeId" ng-options="office.id as office.name for office in offices" ng-change="onUserOfficeChange(formData.userOfficeId)" value="{{office.id}}"><option value="">{{'label.menu.selectoffice'| translate}}</option></select></span>
+		   				<span style="padding-left:17px"><select chosen="usersbyoffice" id="user" ng-model="formData.userId" ng-options="user.id as user.username for user in usersbyoffice">
+		   					<option value="">{{'label.menu.users'| translate}}</option>
+		   				</select></span>
 		   			</div> 
 		   		</div>
-		   		<div class="form-group col-sm-12" ng-if="idAndNames!=undefinded && idAndNames.length>0">
+		   		<div class="form-group col-sm-12" ng-if ="showEntityIdAsOfficeId">
+	   				<label class="control-label col-sm-3" for="user">{{'label.heading.office' | translate}}
+	   					<span class="required">*</span>
+					</label>
+					<div>
+		   				<span style="padding-left:17px"><select chosen="offices" id="officeId" ng-model="formData.entityId" ng-options="office.id as office.name for office in offices" value="{{office.id}}"><option value="">{{'label.menu.selectoffice'| translate}}</option></select></span>
+		   			</div> 
+		   		</div>
+		   		<div class="form-group col-sm-12" ng-show="!showEntityIdAsClientId && !showEntityIdAsOfficeId && showEntityIdAsLoanId">
+	   				<label class="control-label col-sm-3" for="user">{{'label.input.to.be.done.for' | translate}}
+	   					<span class="required">*</span>
+					</label>
+					<div>
+		   				<span style="padding-left:17px"><select chosen="clientOffices" id="office" ng-model="formData.clientOfficeId" ng-options="office.id as office.name for office in clientOffices" ng-change="onOfficeChange(formData.clientOfficeId)" value="{{office.id}}">
+		   				<option value="">{{'label.menu.selectoffice'| translate}}</option>
+		   				</select></span>
+		   				<span style="padding-left:17px"><select chosen="clients" id="client" ng-model="formData.clientId" ng-options="client.id as client.displayName for client in clients" ng-change="onClientChange(formData.clientId)"><option value="">{{'label.selectclients'| translate}}</option></select></span>
+		   				<span style="padding-left:17px"><select chosen="loans" id="loan" ng-model="formData.entityId" ng-options="loan.id as loan.loanName for loan in loans"><option value="">{{'label.menu.loan'| translate}}</option></select></span>
+		   			</div> 
+		   		</div>
+		   		<div class="form-group col-sm-12" ng-if="showEntityIdAsClientId">
+	   				<label class="control-label col-sm-3" for="user">{{'label.input.to.be.done.for' | translate}}
+	   					<span class="required">*</span>
+					</label>
+					<div>
+		   				<span style="padding-left:17px"><select chosen="clientOffices" id="office" ng-model="formData.clientOfficeId" ng-options="office.id as office.name for office in clientOffices" ng-change="onOfficeChange(formData.clientOfficeId)" valueentityId="{{office.id}}">
+		   				<option value="">{{'label.menu.selectoffice'| translate}}</option>
+		   				</select></span>
+		   				<span style="padding-left:17px"><select chosen="clients" id="client" ng-model="formData.entityId" ng-options="client.id as client.displayName for client in clients" ng-change="onClientChange(formData.clientId)"><option value="">{{'label.selectclients'| translate}}</option></select></span>
+		   			</div> 
+		   		</div>
+		   		<!-- <div class="form-group col-sm-12" ng-if="idAndNames!=undefinded && idAndNames.length>0">
 	   				<label class="control-label  col-sm-3" for="entityType">{{entity.code | translate}}
 					</label>
 		   			<div>
-		   				<span style="padding-left:17px"><select id="entityType" ng-model="formData.entityId" ng-options="idAndName.id as idAndName.name for idAndName in idAndNames"></select></span>
+		   				<span style="padding-left:17px"><select id="entityType" ng-model="formData.entityId" ng-options="idAndName.id as idAndName.name for idAndName in idAndNames"><option value=""></option></select></span>
 		   			</div> 
+		   		</div> -->
+		   		<div class="form-group col-sm-12">
+	   				<label class="control-label col-sm-3" for="description">{{'label.heading.description' | translate}}
+					</label>
+					<div class="col-sm-3">
+                    <textarea id="description" rows="2" ng-model="formData.description" class="form-control"></textarea>
+                    </div>
 		   		</div>
 		   		<div class="form-group col-sm-12">
 	   				<label class="control-label col-sm-3" for="duedate">{{'label.input.duedate' | translate}}

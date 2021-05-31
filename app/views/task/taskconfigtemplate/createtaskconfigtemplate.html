@@ -45,6 +45,13 @@
 							<form-validate valattributeform="createTask" valattribute="entityType"/>
 						</div>
 		   			</div>
+		   			<div class="form-group">
+	   				    <label class="control-label col-sm-2" for="entityType">{{'label.heading.category' | translate}}
+					    </label>
+		   			    <div class="col-sm-3">
+		   				    <select id="taskCategoryTypeId" ng-model="formData.taskCategoryTypeId" ng-options="category.id as category.name for category in taskCategoryOptions"></select>
+		   			    </div> 
+		   		    </div>
 		   			<div class="col-sm-5 col-md-offset-2">
 						<a id="cancel" href="#/taskconfigtemplate">
 							<button type="reset" class="btn btn-default">{{'label.button.cancel' | translate}}</button>

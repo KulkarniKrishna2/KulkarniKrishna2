@@ -52,8 +52,8 @@
 			</div>
 			<div>
 				<td class="col-md-2" ng-show="showmobile"><label class="control-label  ">{{'label.input.mobilenumber' | translate}}</label></td>
-				<td ng-show="showmobile"><input name="mobileno" autocomplete="off" placeholder="{{'label.input.mobilenumber' | translate}}" ng-model="formData.mobileNo"
-					ng-pattern="{{regexFormats.mobileNumberPattern}}"/><span class="finflux-alert alert-dismissible alert-danger" ng-show="searchform.mobileno.$invalid && submitted"><small>{{'validation.msg.search.valid.mobile.number' | translate}}</small></span></td>
+				<td ng-show="showmobile"><input name="mobileno" autocomplete="off" placeholder="{{'label.input.mobilenumber' | translate}}" ng-model="formData.mobileNo"/>
+					<span class="finflux-alert alert-dismissible alert-danger" ng-show="searchform.mobileno.$invalid && submitted"><small>{{'validation.msg.search.valid.mobile.number' | translate}}</small></span></td>
 			</div>
 		</tr>
 		<tr ng-show="identity">

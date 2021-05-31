@@ -52,6 +52,7 @@
             scope.isMobileNumberMandatory = false;
             scope.isEmailIdMandatory = false;
             scope.isGenderMandatory = false;
+            scope.isExternalIdReadOnly = false;
             scope.displayAge = false;
             scope.isGenderAutoPopulate = false;
             if($rootScope.tenantIdentifier == "chaitanya"){
@@ -159,6 +160,9 @@
                     if (scope.response.uiDisplayConfigurations.createClient.isDisabled) {
                         scope.submittedOnDate = scope.response.uiDisplayConfigurations.createClient.isDisabled.submittedOnDate;
                         scope.activationDate = scope.response.uiDisplayConfigurations.createClient.isDisabled.activationDate;
+                    }
+                    if(scope.response && scope.response.uiDisplayConfigurations){
+                        scope.isExternalIdReadOnly = scope.response.uiDisplayConfigurations.createClient.isReadOnlyField.externalId; 
                     }
                 }
             }

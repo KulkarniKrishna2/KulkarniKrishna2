@@ -94,13 +94,13 @@
                 </div>
             </div>
             <div class="form-group" ng-if="showChargeCategoryType">
-                <label class="control-label col-sm-2">{{'label.input.chargeCategoryType' | translate}}<span
-                        class="required">*</span></label>
+                <label class="control-label col-sm-2">{{'label.input.chargeCategoryType' | translate}}</label>
 
                 <div class="col-sm-3">
                     <select id="chargeCategoryType" ng-model="formData.chargeCategoryType"
                             data-ng-options="chargeCategory.id as chargeCategory.value for chargeCategory in template.chargeCategoryTypeOptions"
                             value="{{chargeCategory.id}}" class="form-control">
+                        <option value="">{{'label.selectCategoryType' | translate}}</option>
                     </select>
                 </div>
             </div>

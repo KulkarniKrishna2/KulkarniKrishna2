@@ -61,45 +61,7 @@
             </div>
 
             <hr/>
-            <div class="form-group" ng-show="template">
-            <label class="control-label col-sm-2" for="events">{{'label.input.events' | translate}}<span
-                        class="required">*</span></label>
-                <div class="col-sm-2">
-                    <select ng-model="grouping"
-                    ng-options="grouping as grouping.name for grouping in groupings"
-                    value="{{grouping.name}}" ng-change="resetActions()" class="form-control">
-                        <option style="display:none" value="">{{'label.selectgrouping' | translate}}</option>
-                    </select>
-                </div>
-                <div class="col-sm-2">
-                    <select ng-model="entity"
-                    ng-options="entity as entity.name for entity in grouping.entities"
-                    value="{{entity.name}}" class="form-control" ng-change="changeEntity(entity.name)">
-                        <option style="display:none" value="">{{'label.selectentity' | translate}}</option>
-                    </select>
-                </div>
-                <div class="col-sm-2">
-                    <select ng-model="action"
-                    ng-options="action as action for action in entity.actions"
-                    value="{{action.name}}" class="form-control">
-                        <option style="display:none" value="">{{'label.selectaction' | translate}}</option>
-                    </select>
-
-                </div>
-                <a ng-click="addEvent()"><i class="icon-plus icon-white"></i></a>
-            </div>
-
-            <table class="table" width="100%" ng-show="events.length>0">
-                <tr class="graybg">
-                    <th>{{'label.heading.entityname' | translate}}</th>
-                    <th>{{'label.heading.actionname' | translate}}</th>
-                </tr>
-                <tr ng-repeat="event in events">
-                    <td>{{event.entityName}}</td>
-                    <td>{{event.actionName}}</td>
-                    <td><a ng-click="deleteEvent($index)"><i class="icon-remove icon-white"></i></a></td>
-                </tr>
-            </table>
+            
 
             <div class="col-md-offset-3">
                 <a id="cancel" href="#/hooks" class="btn btn-default">{{'label.button.cancel' | translate}}</a>

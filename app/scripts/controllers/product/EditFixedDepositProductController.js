@@ -24,6 +24,8 @@
             var deleteFeeAccountMappings = [];
             var deletePenaltyAccountMappings = [];
             scope.accountingRuleOptions = [];
+            scope.repeatsOnDayOfMonthOptions = [];
+            scope.selectedOnDayOfMonthOptions = [];
 
             resourceFactory.fixedDepositProductResource.get({productId: routeParams.productId, template: 'true'}, function (data) {
                 scope.product = data;
@@ -162,6 +164,11 @@
                         })
                     });
                 }
+                if(scope.product.interestPostingRecurrenceData && scope.product.interestPostingRecurrenceData.interestPostingRecurrenceOnDay 
+                    && scope.product.interestPostingRecurrenceData.interestPostingRecurrenceOnDay.length>0){
+                    scope.available = scope.product.interestPostingRecurrenceData.interestPostingRecurrenceOnDay;
+                    scope.addMonthDay();
+                }
             });
 
             //advanced accounting rule
@@ -242,6 +249,47 @@
                 location.path('/viewfixeddepositproduct/' + routeParams.productId);
             };
 
+            for (var i = 1; i <= 28; i++) {
+                scope.repeatsOnDayOfMonthOptions.push(i);
+            }
+
+            scope.addMonthDay = function () {
+                for (var i in this.available) {
+                    for (var j in scope.repeatsOnDayOfMonthOptions) {
+                        if (scope.repeatsOnDayOfMonthOptions[j] == this.available[i]) {
+                            scope.selectedOnDayOfMonthOptions.push(this.available[i]);
+                            scope.repeatsOnDayOfMonthOptions.splice(j, 1);
+                            break;
+                        }
+                    }
+                }
+                //We need to remove selected items outside of above loop. If we don't remove, we can see empty item appearing
+                //If we remove available items in above loop, all items will not be moved to selectedRoles
+                scope.available = [];
+                scope.selectedOnDayOfMonthOptions.sort(scope.sortNumber);
+            };
+
+            scope.sortNumber = function(a,b)
+            {
+                return a - b;
+            };
+
+            scope.removeMonthDay = function () {
+                for (var i in this.selected) {
+                    for (var j in scope.selectedOnDayOfMonthOptions) {
+                        if (scope.selectedOnDayOfMonthOptions[j] == this.selected[i]) {
+                            scope.repeatsOnDayOfMonthOptions.push(this.selected[i]);
+                            scope.selectedOnDayOfMonthOptions.splice(j, 1);
+                            break;
+                        }
+                    }
+                }
+                //We need to remove selected items outside of above loop. If we don't remove, we can see empty item appearing
+                //If we remove available items in above loop, all items will not be moved to selectedRoles
+                scope.selected = [];
+                scope.repeatsOnDayOfMonthOptions.sort(scope.sortNumber);
+            };
+
             scope.submit = function () {
                 scope.paymentChannelToFundSourceMappings = [];
                 scope.feeToIncomeAccountMappings = [];
@@ -306,7 +354,7 @@
                 }
                 this.formData.deleteFeeAccountMappings = deleteFeeAccountMappings;
                 this.formData.deletePenaltyAccountMappings = deletePenaltyAccountMappings;
-
+                this.formData.interestPostingRecurrenceOnDay = scope.selectedOnDayOfMonthOptions;
                 if (!_.isUndefined(scope.isCloneFixedDepositProduct) && scope.isCloneFixedDepositProduct) {
                     if(_.isEmpty(this.formData.minDepositAmount)){
                         delete  this.formData.minDepositAmount;

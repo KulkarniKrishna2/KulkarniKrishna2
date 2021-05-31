@@ -473,7 +473,7 @@
 					            </tr>
 					            <tr data-ng-show="client.mobileNo">
 					                <th class="table-bold">{{ 'label.input.mobilenumber' | translate }}</th>
-					                <td><span class="padded-td">{{client.mobileNo}}</span>
+					                <td><span class="padded-td">{{client.mobileNo}}</span>&nbsp<i class="icon-ok-sign icon-green" data-ng-hide="!client.isMobileVerified"></i>
 					                </td>
 								</tr>
 								<tr data-ng-show="client.alternateMobileNo">
@@ -1479,7 +1479,7 @@
 					</tr>
 					</thead>
 					<tbody>
-					<tr class="pointer-main" data-ng-repeat="enquiry in creditBureauEnquiries track by $index">
+					<tr class="pointer-mains" data-ng-repeat="enquiry in creditBureauEnquiries track by $index">
 						<td class="pointer" data-ng-click="routeToViewCBReport(enquiry.id,$index)">
 							{{enquiry.createdDate| DateTimeFormat}}
 						</td>
@@ -1499,6 +1499,7 @@
 							{{enquiry.status.value}}
 						</td>
 						<td>
+							<div class="viewBreport" ng-if="showViewBtn" ng-click="getBureauReportData(enquiry.id)">View</div>
                             <a tooltip="{{'label.button.view.report.file' | translate}}" target="_blank" ng-click="viewEnquiryDocument(enquiry.id)">
                             	<i ng-show ="enquiry.isReportAvailable" class="icon-eye-open text-success"></i></a>
                         </td>
@@ -1543,6 +1544,7 @@
 							{{enquiry.status.value}}
 						</td>
 						<td>
+							<div class="viewBreport" ng-click="getBureauReportData()">View</div>
 							<a tooltip="{{'label.button.view.report.file' | translate}}" target="_blank" ng-click="viewEnquiryDocument(enquiry.id)">
                             	<i ng-show ="enquiry.isReportAvailable" class="icon-eye-open text-success"></i></a>
                         </td>
@@ -1561,6 +1563,258 @@
                         </a>
                     </li>
                 </ul>
+			</div>
+
+			<div class="bReport-main-heading" ng-if="showCBReport">Bureau Report</div>
+
+			<div class="bReport-scoreDetails" ng-if="showCBReport">
+				<div class="bReport-scoreDetails-heading"><span class="scoreDetails-text">Bureau Score</span></div>
+				<div class="bReport-scoreDetails-content">
+					<div class="scoreDetails-error-msg" ng-if="scoreErrorMsg"><span style="color: grey;">No Score Info Present! </span></div>
+					<div class="bReport-score" ng-if="!scoreErrorMsg">
+						<div class="bReport-score-title">SCORE</div>
+						<div class="bReport-score-value">{{bureauScore.score}}</div>
+					</div>
+					<div class="bReport-scoreCardName" ng-if="!scoreErrorMsg">
+						<div class="bReport-score-title">DESCRIPTION</div>
+						<div class="bReport-scoreCardName-value">{{bureauScore.scoreName}}</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="bReport-heading-block" ng-if="showCBReport">
+				<div class="bReport-title">Loan Information</div>
+				<div class="bReport-select-block">
+					<!-- <select class="bReport-select" ng-model="selected"  ng-change="showLoanDetails(selected)">
+						<option value="{{loanNumber}}" ng-repeat="loanNumber in existingLoanIdArray">Existing Loan #{{$index + 1}}</option>
+					</select> -->
+					<div class="filter-loan-text">Filter</div>
+					<!-- <select class="bReport-select" ng-model="selected"  ng-change="loanFilter(selected)">
+						<option value="Active">Active Loans</option>
+						<option value="Closed">Closed Loans</option>
+						<option value="all" ng-selected="selected">Show All Loans</option>
+					</select> -->
+					<select class="bReport-select" data-ng-options="o.name for o in options" data-ng-model="selectedOption" ng-change="loanFilter(selectedOption.id)"></select>
+				</div>
+			</div>
+			<div class="bReport-container" ng-if="showCBReport">
+				<div class="loanInfo-error-msg" ng-if="loanInfoErrorMsg"><span style="color: grey;">No Loan Information Present</span></div>
+				<!-- <div class="bReport-contents-block" ng-repeat="buData in bureaReportDetails.bureauData.existingLoans"> -->
+					<div class="bReport-contents-block" ng-repeat="buData in bureaReportDetails">
+					<div class="bReport-content-1">
+						<div class="bReport-receivedLoanStatus"><span class="statusText" ng-class="{statusTextClosed: buData.receivedLoanStatus == 'Closed', statusTextActive: buData.receivedLoanStatus == 'Active' }">{{buData.receivedLoanStatus}}</span></div>
+						
+						<div class="bReport-detail-1">
+							<div class="bReport-loanType">
+								<div class="bReport-loanType-value"><strong>Loan Type</strong> : <span>{{buData.loanType}}</span></div>
+								<!-- <div class="bReport-loanType-id"><span>#</span>{{buData.clientId}}</div> -->
+							</div>
+							<!-- <div class="bReport-receivedLoanStatus"><span class="statusText" ng-class="{statusTextClosed: buData.receivedLoanStatus == 'Closed', statusTextActive: buData.receivedLoanStatus == 'Active' }">{{buData.receivedLoanStatus}}</span></div> -->
+							<div class="bReport-reportedDate"><strong>Reported Date</strong> : {{buData.reportedDate[2]}}-{{buData.reportedDate[1]}}-{{buData.reportedDate[0]}}</div>
+						</div>
+						<div class="bReport-detail-2">
+							<div class="bReport-date-block">
+								<div class="bReport-detail">
+									<div class="bReport-title-name">Disbursed Date</div>
+									<div class="bReport-title-value">{{buData.disbursedOnDate[2]}}-{{buData.disbursedOnDate[1]}}-{{buData.disbursedOnDate[0]}}</div>
+								</div>
+								<div class="bReport-detail">
+									<div class="bReport-title-name">Closed Date</div>
+									<div class="bReport-title-value">{{buData.closedOnDate[2]}}-{{buData.closedOnDate[1]}}-{{buData.closedOnDate[0]}}</div>
+								</div>
+								<div class="bReport-detail">
+									<div class="bReport-title-name">Last Payment Date</div>
+									<div class="bReport-title-value">{{buData.lastPaymentDate[2]}}-{{buData.lastPaymentDate[1]}}-{{buData.lastPaymentDate[0]}}</div>
+								</div>
+							</div>
+							<div class="bReport-lender-block">
+								<div class="bReport-detail">
+									<div class="bReport-title-name">Lender Name</div>
+									<div class="bReport-title-value">{{buData.lenderName}}</div>
+								</div>
+								<div class="bReport-detail">
+									<div class="bReport-title-name">Repayment Frequency</div>
+									<div class="bReport-title-value">{{buData.repaymentFrequency}}</div>
+								</div>
+								<div class="bReport-detail">
+									<div class="bReport-title-name">Loan Type Recieved</div>
+									<div class="bReport-title-value">{{buData.loanTypeReceived}}</div>
+								</div>
+							</div>
+						</div>
+						<div class="bReport-detail-3">
+							<div class="bReport-actions">
+								<div class="bReport-action-previous"><span class="prv-btn" ng-if="showPrvBtn" ng-click="prvBtn(buData.existingLoanId)">&#9664;</span></div>
+								<div class="bReport-action-next"><span class="next-btn" ng-if="showNextBtn" ng-click="nextBtn(buData.existingLoanId)">&#9654;</span></div>
+							</div>
+							<div class="bReport-borrowAmt-block">
+								<div class="bReport-t1 btlr">Borrowed Amount</div>
+								<div class="bReport-t2 bblr">{{buData.borrowedAmount | number}}</div>
+							</div>
+							<div class="bReport-installmentAmt-block">
+								<div class="bReport-t1">Installment Amount</div>
+								<div class="bReport-t2">{{buData.installmentAmount | number}}</div>
+							</div>
+							<div class="bReport-overDue-block">
+								<div class="bReport-t1">Over Due Amount</div>
+								<div class="bReport-t2">{{buData.overDueAmount | number}}</div>
+							</div>
+							<div class="bReport-currentOutStanding-block">
+								<div class="bReport-t1">Current Outstanding</div>
+								<div class="bReport-t2">{{buData.currentOutstanding | number}}</div>
+							</div>
+							<div class="bReport-writtenOffAmt-block">
+								<div class="bReport-t1 btrr">Written Off Amount</div>
+								<div class="bReport-t2 bbrr">{{buData.writtenOffAmount | number}}</div>
+							</div>
+						</div>
+					</div>
+					<div class="bReport-content-2">
+						<div class="bReport-paymentHistory-title">Payment History</div>
+						<div class="bReport-years-block">
+							<div class="bReport-years" ng-repeat="year in paymentYearsList" ng-class="{yearTag: year == 'Years'}">{{year}}</div>
+						</div>
+						<div class="bReport-months-block">
+							<div class="bReport-months-heading">
+								<div class="bReport-months-heading-value" ng-repeat="month in months">{{month}}</div>
+							</div>
+							<div class="bReport-months-contents">
+								<div class="bReport-months-content-block">
+									<div class="bReport-months-content-value" ng-repeat="janValue in jan track by $index">{{janValue}}</div>
+								</div>
+								<div class="bReport-months-content-block">
+									<div class="bReport-months-content-value" ng-repeat="febValue in feb track by $index">{{febValue}}</div>
+								</div>
+								<div class="bReport-months-content-block">
+									<div class="bReport-months-content-value" ng-repeat="marValue in mar track by $index">{{marValue}}</div>
+								</div>
+								<div class="bReport-months-content-block">
+									<div class="bReport-months-content-value" ng-repeat="aprValue in apr track by $index">{{aprValue}}</div>
+								</div>
+								<div class="bReport-months-content-block">
+									<div class="bReport-months-content-value" ng-repeat="mayValue in may track by $index">{{mayValue}}</div>
+								</div>
+								<div class="bReport-months-content-block">
+									<div class="bReport-months-content-value" ng-repeat="junValue in jun track by $index">{{junValue}}</div>
+								</div>
+								<div class="bReport-months-content-block">
+									<div class="bReport-months-content-value" ng-repeat="julValue in jul track by $index">{{julValue}}</div>
+								</div>
+								<div class="bReport-months-content-block">
+									<div class="bReport-months-content-value" ng-repeat="augValue in aug track by $index">{{augValue}}</div>
+								</div>
+								<div class="bReport-months-content-block">
+									<div class="bReport-months-content-value" ng-repeat="sepValue in sep track by $index">{{sepValue}}</div>
+								</div>
+								<div class="bReport-months-content-block">
+									<div class="bReport-months-content-value" ng-repeat="octValue in oct track by $index">{{octValue}}</div>
+								</div>
+								<div class="bReport-months-content-block">
+									<div class="bReport-months-content-value" ng-repeat="novValue in nov track by $index">{{novValue}}</div>
+								</div>
+								<div class="bReport-months-content-block">
+									<div class="bReport-months-content-value" ng-repeat="decValue in dec track by $index">{{decValue}}</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="bReport-presentLoanNumber">
+						<div class="bReport-loanNumber">{{presentLoanNumber}} / {{totalNumberOfLoans}}</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="bReport-enquiry-container" ng-if="showCBReport">
+				<div class="bReport-enquiry-heading"><span class="enquiry-text">Enquiry History</span></div>
+				<div class="bReport-enquiry-content">
+					<div class="enquiry-block">
+						<div class="enquiry-block-heading">
+							<div class="enquiry-block-heading-title-number">No</div>
+							<div class="enquiry-block-heading-title-member">Member</div>
+							<div class="enquiry-block-heading-title-loanPurpose">Loan Purpose</div>
+							<div class="enquiry-block-heading-title-date">Date</div>
+							<div class="enquiry-block-heading-title-amount">Amount</div>
+						</div>
+						<div class="enquiry-block-list">
+							<div class="enquiry-error-msg" ng-if="enquiryErrorMsg"><span style="color: grey;">No Enquiries Present</span></div>
+							<div class="list-contents" ng-repeat="enquiry in enquiryHistory">
+								<div class="list-value-number">{{$index + 1}}</div>
+								<div class="list-value-member">{{enquiry.memberName}}</div>
+								<div class="list-value-loanPurpose">{{enquiry.loanPurpose}}</div>
+								<div class="list-value-date">{{enquiry.date[2]}}/{{enquiry.date[1]}}/{{enquiry.date[0]}}</div>
+								<div class="list-value-amount">{{enquiry.amount | number}}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="bReport-address-container"  ng-if="showCBReport">
+				<div class="bReport-address-heading"><span class="address-heading-text">Address List</span></div>
+				<div class="bReport-address-content">
+					<div class="bReport-address-block">
+						<div class="bReport-address-block-heading">
+							<div class="address-block-heading-title">Address Description</div>
+							<div class="address-block-heading-date">Reported Date</div>
+						</div>
+						<div class="bReport-address-block-list">
+							<div class="address-error-msg" ng-if="addressErrorMsg"><span style="color: grey;">No Address List Present</span></div>
+							<div class="address-list-contents" ng-repeat="address in addressList">
+								<div class="address-list-address-value">{{address.address}}</div>
+								<div class="address-list-date-value">{{address.reportedDate[2]}}-{{address.reportedDate[1]}}-{{address.reportedDate[0]}}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="bReport-identifier-contianer" ng-if="showCBReport">
+				<div class="bReport-identifier-heading"><span class="identifier-heading-text">Identifier List</span></div>
+				<div class="bReport-identifier-content">
+					<div class="bReport-identifier-list-block">
+						<!-- <div class="identifier-error-msg" ng-if="kycErrorMsg"><span style="color: grey;">No KYC Details Present</span></div>
+						<div class="bReport-identifier-list" ng-repeat="kyc in kycList">
+							<div class="identifier-title">{{kyc.documentType}}</div>
+							<div class="identifier-number"><span class="identifier-number-text">{{kyc.documentNumber}}</span></div>
+							<div class="identifier-date">Reported Date : {{kyc.reportedDate[2]}}-{{kyc.reportedDate[1]}}-{{kyc.reportedDate[0]}}</div>
+						</div> -->
+						<div class="bReport-contact-block-heading">
+							<div class="contact-block-heading-title">Type</div>
+							<div class="contact-block-heading-number">Number</div>
+							<div class="contact-block-heading-date">Reported Date</div>
+						</div>
+						<div class="bReport-contact-block-list">
+							<div class="contact-error-msg" ng-if="kycErrorMsg"><span style="color: grey;">No KYC List Present</span></div>
+							<div class="contact-list-contents" ng-repeat="kyc in kycList">
+								<div class="contact-list-contact-value">{{kyc.documentType}}</div>
+								<div class="contact-list-date-value">{{kyc.documentNumber}}</div>
+								<div class="contact-list-date-value">{{kyc.reportedDate[2]}}-{{kyc.reportedDate[1]}}-{{kyc.reportedDate[0]}}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="bReport-contact-container" ng-if="showCBReport">
+				<div class="bReport-contact-heading"><span class="contact-heading-text">Contact List</span></div>
+				<div class="bReport-contact-content">
+					<div class="bReport-contact-block">
+						<div class="bReport-contact-block-heading">
+							<div class="contact-block-heading-title">Type</div>
+							<div class="contact-block-heading-number">Number</div>
+							<div class="contact-block-heading-date">Reported Date</div>
+						</div>
+						<div class="bReport-contact-block-list">
+							<div class="contact-error-msg" ng-if="contactErrorMsg"><span style="color: grey;">No Contact List Present</span></div>
+							<div class="contact-list-contents" ng-repeat="contact in contactList">
+								<div class="contact-list-contact-value">{{contact.subType}}</div>
+								<div class="contact-list-date-value">{{contact.value}}</div>
+								<div class="contact-list-date-value">{{contact.reportedDate[2]}}-{{contact.reportedDate[1]}}-{{contact.reportedDate[0]}}</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</tab>
 
@@ -1638,6 +1892,139 @@
 					</div>
 			   </tab>
 			</tabset>
+		</tab>
+
+		<tab heading="Score Card" select="getScoreCardList()">
+			<div class="z-scoreCard-body">
+				<div class="z-scoreCard-header">
+					<div class="z-scoreCard-title">Score Card Details</div>
+				</div>
+				<div class="z-scoreCardList-content">
+					<div class="z-scoreCardList-title">Score Card List</div>
+					<div class="z-scoreCardList-blocks">
+						<div class="z-scoreCardList-block" ng-repeat="scoreCard in scoreCardList" ng-class="{listBtnStyle: scoreCard.display == listStyleValue }" ng-click="getScoreCardResult(scoreCard.display)">{{scoreCard.display}}</div>
+					</div>
+				</div>
+				<div class="z-scoreCardList-values">
+					<div class="z-scoreCardList-title">Score Card Result : {{listStyleValue}}</div>
+					<div class="z-scoreCardList-values-block">
+						
+
+						<!-- Output Rule Results -->
+						<div class="z-scoreCardList-subTitle">
+							<div class="z-scoreCardList-subTitle-text1">Output</div>
+							<div class="z-scoreCardList-subTitle-text2" ng-if="outputExpand" ng-click="outputResultExpand()"><span class="result-expand">-</span></div>
+							<div class="z-scoreCardList-subTitle-text2" ng-if="!outputExpand" ng-click="outputResultExpand()"><span class="result-expand">+</span></div>
+						</div>
+						<div class="z-scoreCardList-output-block" ng-if="outputExpand">
+							<div class="z-scoreCardList-output-content" ng-repeat="(key, value) in outputObj.values">
+								<div class="output-key">{{ key }}</div>
+								<div class="output-value">{{ value }}</div>
+							</div>
+							<div class="z-scoreCardList-output-content" ng-if="!outputError">
+								<div class="output-key" ng-if="outputErrorB">Bucket</div>
+								<div class="output-value">{{ outputObj.bucket }}</div>
+							</div>
+							<div class="z-scoreCardList-output-content outputErrorMsg" ng-if="outputError">{{outputErrorMsg}}</div>
+						</div>
+
+						<!-- Input Rule Results -->
+						<div class="z-scoreCardList-subTitle">
+							<div class="z-scoreCardList-subTitle-text1">Input</div>
+							<div class="z-scoreCardList-subTitle-text2" ng-if="inputExpand" ng-click="inputResultExpand()"><span class="result-expand">-</span></div>
+							<div class="z-scoreCardList-subTitle-text2" ng-if="!inputExpand" ng-click="inputResultExpand()"><span class="result-expand">+</span></div>
+						</div>
+						<div class="z-scoreCardList-input-block" ng-if="inputExpand">
+							<div class="z-scoreCardList-input-content" ng-repeat="input in inputObj">
+								<div class="input-key">{{ input[0] }}</div>
+								<div class="input-value">{{ input[1] }}</div>
+							</div>
+						</div>
+
+						<!--  Rule Results Hierarchy -->
+						<div class="z-scoreCardList-subTitle">
+							<div class="z-scoreCardList-subTitle-text1">Rule Result Hierarchy</div>
+							<div class="z-scoreCardList-subTitle-text2" ng-if="ruleResultExpand" ng-click="ruleResultExpandFun()"><span class="result-expand">-</span></div>
+							<div class="z-scoreCardList-subTitle-text2" ng-if="!ruleResultExpand" ng-click="ruleResultExpandFun()"><span class="result-expand">+</span></div>
+						</div>
+						<div class="z-scoreCardList-ruleResult-block" ng-if="ruleResultExpand">
+							<div class="z-scoreCardList-ruleResult-content" ng-repeat="ruleResult in ruleResultHierarchy">
+								<div class="ruleResult-name">{{ruleResult.name}} <span class="ruleResultName-expand-d" ng-if="ruleResult.name !== ruleResultExpandValue"  ng-click="ruleResultHierarchyContentExpandFun(ruleResult.name)">&#11015;</span><span class="ruleResultName-expand-u" ng-if="ruleResult.name == ruleResultExpandValue" ng-click="ruleResultHierarchyContentExpandFun(ruleResult.name)">&#11014;</span></div>
+								<div class="z-scoreCardList-ruleResult-content-expand" ng-show="ruleResult.name == ruleResultExpandValue">
+									
+									<div class="ruleResult-output-block">
+										<div class="ruleResult-output-title">Outputs</div>
+									</div>
+									<div class="ruleResult-output-key" ng-if="ruleResult.output.error == undefined">
+										<div class="ruleResult-output-key-title">Bucket</div>
+										<div class="ruleResult-output-key-value">{{ruleResult.output.bucket}}</div>
+									</div>
+									<div class="ruleResult-output-key" ng-if="(ruleResult.output.error != undefined)">
+										<div class="z-scoreCardList-output-content outputErrorMsg">{{ruleResult.output.error}}</div>
+									</div>
+
+									<div class="ruleResult-output-key" ng-repeat="(key, value) in ruleResult.output.values">
+										<div class="ruleResult-output-key-title">{{key}}</div>
+										<div class="ruleResult-output-key-value">{{value}}</div>
+									</div>
+									<!-- <div class="ruleResult-output-value">
+										<div class="ruleResult-output-value-title">Value</div>
+										<div class="ruleResult-output-value-value">{{ruleResult.output.value}}</div>
+									</div> -->
+
+									<div class="ruleResult-localInputs-block">
+										<div class="ruleResult-localInputs-title">Inputs</div>
+										<!-- <div class="ruleResult-localInputs-contents" ng-repeat="value in localInputs">
+											<div class="ruleResult-localInputs-content">{{value[0]}}</div>
+											<div class="ruleResult-localInputs-content-r">{{value[1]}}</div>
+										</div> -->
+										<div class="ruleResult-localInputs-contents" ng-repeat="(key, value) in ruleResult.localInputs">
+											<div class="ruleResult-localInputs-content">{{key}}</div>
+											<div class="ruleResult-localInputs-content-r">{{value}}</div>
+										</div>
+									</div>
+
+									<!-- Level 2 Hierarchy -->
+									<div class="ruleResult-level2-content">
+										<div class="z-scoreCardList-ruleResult-content ec" ng-repeat="ruleResultLv2 in ruleResult.ruleResultHierarchy">
+											<div class="ruleResult-name ruleResult-name-ec">{{ruleResultLv2.name}}</div>
+											
+											<div class="ruleResult-output-block">
+												<div class="ruleResult-output-title">Outputs</div>
+											</div>
+											<div class="ruleResult-output-key" ng-if="(ruleResultLv2.output.error == undefined)">
+												<div class="ruleResult-output-key-title">Bucket</div>
+												<div class="ruleResult-output-key-value">{{ruleResultLv2.output.bucket}}</div>
+											</div>
+											<div class="ruleResult-output-key" ng-if="(ruleResultLv2.output.error != undefined)">
+												<div class="z-scoreCardList-output-content outputErrorMsg">{{ruleResultLv2.output.error}}</div>
+											</div>
+											<div class="ruleResult-output-key" ng-repeat="(key, value) in ruleResultLv2.output.values">
+												<div class="ruleResult-output-key-title">{{key}}</div>
+												<div class="ruleResult-output-key-value" >{{value}}</div>
+											</div>
+											
+											<!-- <div class="ruleResult-output-value">
+												<div class="ruleResult-output-value-title">Value</div>
+												<div class="ruleResult-output-value-value">{{ruleResultLv2.output.value}}</div>
+											</div> -->
+
+											<div class="ruleResult-localInputs-block">
+												<div class="ruleResult-localInputs-title">Inputs</div>
+												<div class="ruleResult-localInputs-contents" ng-repeat="(key, value) in ruleResultLv2.localInputs">
+													<div class="ruleResult-localInputs-content">{{key}}</div>
+													<div class="ruleResult-localInputs-content-r">{{value}}</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</tab>
 
 	</tabset>

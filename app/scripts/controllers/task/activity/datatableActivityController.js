@@ -35,12 +35,32 @@
                                             data.data[k].row[i] = scope.datatabledetails.columnHeaders[i].columnValues[j].value;
                                         }
                                     }
-                                    for(var m in data.columnData){
+                                   /* for(var m in data.columnData){
                                         for(var n in data.columnData[m].row){
                                             if(data.columnData[m].row[n].columnName == scope.datatabledetails.columnHeaders[i].columnName && data.columnData[m].row[n].value == scope.datatabledetails.columnHeaders[i].columnValues[j].id){
                                                 data.columnData[m].row[n].value = scope.datatabledetails.columnHeaders[i].columnValues[j].value;
                                             }
                                         }
+                                    } */
+                                }
+                            }
+                        }
+                        for(var m in data.columnData){
+                            for(var n in data.columnData[m].row){
+                                if(data.columnData[m].row[n].columnName == scope.datatabledetails.columnHeaders[i].columnName){
+                                    if(scope.datatabledetails.columnHeaders[i].columnDisplayType== 'MULTISELECTCODELOOKUP'|| scope.datatabledetails.columnHeaders[i].columnDisplayType== 'CODELOOKUP'){
+                                        var multiSelectValuesAsString = data.columnData[m].row[n].value;
+                                        var multiSelectValuesAsArray = multiSelectValuesAsString.split(',');
+                                        var displayArray = [];
+                                        for(var x in multiSelectValuesAsArray){
+                                            
+                                            for(var y in scope.datatabledetails.columnHeaders[i].columnValues){
+                                                if(multiSelectValuesAsArray[x]==scope.datatabledetails.columnHeaders[i].columnValues[y].id){
+                                                    displayArray.push(scope.datatabledetails.columnHeaders[i].columnValues[y].value);
+                                                }
+                                            }
+                                        }
+                                        data.columnData[m].row[n].value = displayArray.toString();
                                     }
                                 }
                             }
@@ -173,7 +193,7 @@
                     for (var i in data.columnHeaders) {
                         if (data.columnHeaders[i].columnDisplayType == 'DATETIME') {
                             scope.formDat[data.columnHeaders[i].columnName] = {};
-                        } else if (data.columnHeaders[i].columnDisplayType == 'CODELOOKUP' && data.columnHeaders[i].columnValues) {
+                        } else if ((data.columnHeaders[i].columnDisplayType == 'CODELOOKUP' || data.columnHeaders[i].columnDisplayType == 'MULTISELECTCODELOOKUP') && data.columnHeaders[i].columnValues) {
                             scope.columnValueLookUp = data.columnHeaders[i].columnValues;
                             scope.newcolumnHeaders = angular.fromJson(data.columnHeaders);
                             for (var j in data.columnHeaders[i].columnValues) {
@@ -330,6 +350,9 @@
                     } else if (scope.columnHeaders[i].columnDisplayType == 'DATETIME') {
                         this.formData[scope.columnHeaders[i].columnName] = dateFilter(this.formDat[scope.columnHeaders[i].columnName].date, scope.df)
                             + " " + dateFilter(this.formDat[scope.columnHeaders[i].columnName].time, scope.tf);
+                    } else if(scope.columnHeaders[i].columnDisplayType == 'MULTISELECTCODELOOKUP'){
+                        var multiSelectAsValuesArray = this.formData[scope.columnHeaders[i].columnName];
+                        this.formData[scope.columnHeaders[i].columnName] = multiSelectAsValuesArray.toString(); 
                     }
                 }
                 resourceFactory.DataTablesResource.save(params, this.formData, function (data) {
@@ -364,7 +387,7 @@
                     for (var i in data.columnHeaders) {
                         if (data.columnHeaders[i].columnDisplayType == 'DATETIME') {
                             scope.formDat[data.columnHeaders[i].columnName] = {};
-                        } else if (data.columnHeaders[i].columnDisplayType == 'CODELOOKUP' && data.columnHeaders[i].columnValues) {
+                        } else if ((data.columnHeaders[i].columnDisplayType == 'CODELOOKUP' || data.columnHeaders[i].columnDisplayType == 'MULTISELECTCODELOOKUP')&& data.columnHeaders[i].columnValues) {
                             scope.columnValueLookUp = data.columnHeaders[i].columnValues;
                             scope.newcolumnHeaders = angular.fromJson(data.columnHeaders);
                             for (var j in data.columnHeaders[i].columnValues) {
@@ -540,6 +563,9 @@
                     } else if (scope.columnHeaders[i].columnDisplayType == 'DATETIME') {
                         this.formData[scope.columnHeaders[i].columnName] = dateFilter(this.formDat[scope.columnHeaders[i].columnName].date, scope.df) + " " +
                             dateFilter(this.formDat[scope.columnHeaders[i].columnName].time, scope.tf);
+                    } else if(scope.columnHeaders[i].columnDisplayType == 'MULTISELECTCODELOOKUP'){
+                        var multiSelectAsValuesArray = this.formData[scope.columnHeaders[i].columnName];
+                        this.formData[scope.columnHeaders[i].columnName] = multiSelectAsValuesArray.toString(); 
                     }
                 }
                 var reqparams = {datatablename: scope.tableName, entityId: scope.entityId, genericResultSet: 'true'};
