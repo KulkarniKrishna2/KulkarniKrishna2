@@ -1,0 +1,49 @@
+<div class="col-md-12" ng-controller="ClientCollectionController">
+	<h3 class="paddedleft"><strong>{{'label.heading.recoveries' | translate}}</strong></h3>
+
+	<table class="table">
+        <thead>
+        <tr class="graybg">
+            <th>{{'label.heading.name' | translate}}</th>
+            <th>{{'label.heading.loan' |translate}}</th>
+       		<th colspan="2" style="text-align: center">{{'label.heading.amount' |translate}}</th>
+            <th style="text-align: right">{{'label.heading.dpd' | translate}}</th>
+            <th>{{'label.heading.last.follow.up' | translate}}</th>
+            <th style="text-align: right">{{'label.heading.view.history' | translate}}</th>
+            <th style="text-align: right">{{'label.heading.add.follow.up' | translate}}</th>
+            <th style="text-align: right">{{'label.heading.create.task' | translate}}</th>       
+        </tr>
+        <tr>
+        	<th></th>
+        	<th></th>
+        	<th style="text-align: right">{{'label.heading.arrears'|translate}}</th>
+        	<th style="text-align: right">{{'label.heading.outstanding'|translate}}</th>
+        	<th></th>
+        	<th></th>
+        	<th></th>
+        	<th></th>
+        	<th></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr class="pointer-main" ng-repeat="report in reportData">
+                <td class="pointer" data-ng-click="routeTo(report.row[8])">{{report.row[5]}}({{report.row[14]}})</td>
+                <td class="pointer" data-ng-click="routeTo(report.row[8])" >{{report.row[7]}}({{report.row[13]}})</td>
+                <td class="pointer" data-ng-click="routeTo(report.row[8])" align="right">{{report.row[9] | number}}</td>
+                <td class="pointer" data-ng-click="routeTo(report.row[8])" align="right">{{report.row[10] | number}}</td>
+                <td class="pointer" data-ng-click="routeTo(report.row[8])" align="right">{{report.row[11] |number}}</td>
+                <td class="pointer" data-ng-click="routeTo(report.row[8])" align="right">{{report.row[12] | DateFormat}}</td>
+                <td ><button type="button" has-permission="CREATE_FOLLOWUP" ng-click="routeToViewFollowUp(report.row[8])" class="btn btn-primary btn-xs pull-right">
+                    <i tooltip="View Follow Up" class="icon-eye-open icon-white"></i></button></td>
+                <td ><button type="button" ng-click="routeToAddFollowUp(report.row[8])" class="btn btn-primary btn-xs pull-right">
+                    <i tooltip="Add Follow Up" class="icon-plus icon-white"></i>
+                </button></td>
+                <td ><button type="button" ng-click="routeToAddTask(report.row[0],report.row[4],report.row[8])" class="btn btn-primary btn-xs pull-right">
+                    <i tooltip="Add Task" class="icon-tasks icon-white"></i>
+                </button></td>
+                <td ></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

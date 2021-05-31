@@ -414,6 +414,14 @@
                         }
                     }
                 }
+                else if (route == 'coll') {
+                    var temp3 = ['/collection'];
+                    for (var i in temp3) {
+                        if (temp3[i] == location.path()) {
+                            return true;
+                        }
+                    }
+                }
                 else {
                     var active = route === location.path();
                     return active;

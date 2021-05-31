@@ -160,6 +160,7 @@
 				"isMandatoryField": {
 					"age": true,
 					"familyMemeberIDType": false,
+					"familyMemeberUniqueNoType": true,
 					"dateOfBirth": false
 				},
 				"isValidateDOBField": {
@@ -638,7 +639,7 @@
 		},
 		"createCharges": {
 			"isHiddenField": {
-				"chargeCategoryType": true
+				"chargeCategoryType": false
 			}
 		},
 		"entityType": {

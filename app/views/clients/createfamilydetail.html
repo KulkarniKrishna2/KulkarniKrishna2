@@ -164,22 +164,14 @@
 
                 <div class="form-group" ng-if="formData.documentTypeId">
                     <label class="control-label col-sm-2" for="uniqueNo">{{ 'label.input.familymemberuniqueno' | translate }}
-                        <span class="required">*</span>
+                        <span ng-if="isfamilyMemberUniqueNoMandatory" class="required">*</span>
                     </label>
 
                     <div class="col-sm-3">
-                        <input type="text" autocomplete="off" id="documentKey" name="documentKey" ng-model="formData.documentKey" class="form-control" required late-validate/>
+                        <input type="text" autocomplete="off" id="documentKey" name="documentKey" ng-model="formData.documentKey" class="form-control" ng-required="isfamilyMemberUniqueNoMandatory"/>
                     </div>
                     <div class="col-sm-2">
                         <form-validate valattributeform="createFamilyDetails" valattribute="documentKey" />
-                    </div>
-                    <label class="control-label col-sm-2">{{ 'label.input.dateofbirth' | translate }}</label>
-                    <div class="col-sm-3">
-                        <input id="dateofbirthOnDocument" type="text" name="dateofbirthOnDocument" datepicker-pop="dd MMMM yyyy" ng-model="first.dateOfBirth"
-                        is-open="opened1" class="form-control"/>
-                    </div>
-                    <div class="col-sm-2">
-                        <label class="control-label col-sm-1" ng-show="displayAge">{{'label.input.age' | translate}}{{":"}}{{age}}</label>
                     </div>
                 </div>
              

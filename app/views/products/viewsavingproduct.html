@@ -78,7 +78,11 @@
         </tr>
         <tr>
             <td>{{'label.heading.interestpostingperiod' | translate}}</td>
-            <td colspan="3">{{savingproduct.interestPostingPeriodType.value}}</td>
+            <td>{{savingproduct.interestPostingPeriodType.value}}</td>
+        </tr>
+        <tr ng-if="savingproduct.interestPostingRecurrenceData">
+            <td>{{'label.heading.custom.interest.posting.every' | translate}}</td>
+            <td>{{savingproduct.interestPostingRecurrenceData.interestPostingRecurrenceDisplayFormat}}</td>
         </tr>
         <tr>
             <td>{{'label.heading.interestcalculatedusing' | translate}}</td>

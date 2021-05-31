@@ -18,6 +18,7 @@
             }
 
             scope.filter = function (data) {
+                scope.clients = [];
                 scope.loans = [];
                 scope.savings = [];
                 scope.accounting = [];
@@ -30,7 +31,9 @@
                     data[i].docUrl = url;
                     if (data[i].fileProcessCategory == "LOANS") {
                         scope.loans.push(data[i]);
-                    } else if (data[i].fileProcessCategory == "SAVINGS") {
+                    } else if (data[i].fileProcessCategory == "CLIENTS") {
+                        scope.clients.push(data[i]);
+                    }else if (data[i].fileProcessCategory == "SAVINGS") {
                         scope.savings.push(data[i]);
                     } else if (data[i].fileProcessCategory == "ACCOUNTING") {
                         scope.accounting.push(data[i]);
@@ -77,6 +80,8 @@
                     document.getElementById("loans").style.display = "";
                 }else if(fileProcessCategory == "SAVINGS"){
                     document.getElementById("savings").style.display = "";
+                }else if(fileProcessCategory == "CLIENTS"){
+                    document.getElementById("clients").style.display = "";
                 }else if(fileProcessCategory == "ACCOUNTING"){
                     document.getElementById("accounting").style.display = "";
                 }else if(fileProcessCategory == "ORGANISATION"){

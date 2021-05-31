@@ -1,0 +1,27 @@
+<div class="col-md-12" ng-controller="BranchCollectionController">
+	<h3 class="paddedleft"><strong>{{'label.heading.recoveries' | translate}}</strong></h3>
+
+	<table class="table">
+        <thead>
+        <tr class="graybg">
+            <th>{{'label.heading.branch' | translate}}</th>
+            <th ng-repeat="cat in allCategory" colspan="2" style="text-align: center">{{cat |translate}}</th>
+        </tr>
+       <tr class="graybg">
+       		<th></th>
+            <th ng-repeat="cat in allCategory" style="text-align: right">{{getLabel() | translate}}</th>
+            <th ng-repeat="cat in allCategory" style="text-align: right">{{getLabel() | translate}}</th>       
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr class="pointer-main" ng-repeat="report in reportData">
+                <td class="pointer" data-ng-click="routeTo(report.branchId)">{{report.branch}}
+                </td>
+                <td class="pointer" ng-repeat="cat in allCategory" data-ng-click="routeTo(report.branchId)" align="right">{{getAmount(report.data) | number}}</td>
+                <td class="pointer" ng-repeat="cat in allCategory" data-ng-click="routeTo(report.branchId)" align="right">{{getAmount(report.data) | number}}</td>
+            </tr>
+        </tbody>
+
+    </table>
+</div>	

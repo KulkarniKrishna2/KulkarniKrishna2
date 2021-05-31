@@ -1,4 +1,3 @@
-
 (function (mifosX) {
     var defineRoutes = function ($routeProvider, $locationProvider) {
         $routeProvider
@@ -247,6 +246,9 @@
             })
             .when('/addloandocument/:loanId', {
                 templateUrl: 'views/loans/addloandocument.html'
+            })
+            .when('/addsavingsdocument/:savingsId', {
+                templateUrl: 'views/savings/addsavingsdocument.html'
             })
             .when('/mandate/:loanId/:command/:mandateId', {
                 templateUrl: 'views/loans/mandate.html'
@@ -542,7 +544,7 @@
             })
             .when('/datatables', {
                 templateUrl: 'views/system/datatables.html'
-            })           
+            })
             .when('/viewdatatable/:tableName', {
                 templateUrl: 'views/system/viewdatatable.html'
             })
@@ -593,6 +595,12 @@
             })
             .when('/edithook/:id', {
                 templateUrl: 'views/system/edithook.html'
+            })
+            .when('/viewhook/:id/addhookevent', {
+                templateUrl: 'views/system/addhookevent.html'
+            })
+            .when('/viewhook/:id/edithookevent/:eventId', {
+                templateUrl: 'views/system/edithookevent.html'
             })
             .when('/entitytoentitymapping', {
                 templateUrl: 'views/system/entitytoentitymapping.html'
@@ -885,7 +893,7 @@
             .when('/bulkloan', {
                 templateUrl: 'views/organization/bulkloan.html'
             })
-             .when('/bulkLoanReschedule', {
+            .when('/bulkLoanReschedule', {
                 templateUrl: 'views/organization/bulkloanreschedule.html'
             })
             .when('/audit', {
@@ -1151,7 +1159,7 @@
             })
             .when('/bankstatementsdetails/:bankStatementId/viewportfoliotransactions', {
                 templateUrl: 'views/bulkoperations/viewportfoliotransactions.html'
-            }) 
+            })
             .when('/bankstatementsdetails/:bankStatementId/portfoliotransaction', {
                 templateUrl: 'views/bankstatements/viewbankstatementdetails.html'
             })
@@ -1202,13 +1210,13 @@
             })
             .when('/externalservicesCB/CreditBureau/addcb', {
                 templateUrl: 'views/administration/addNewCreditBureau.html'
-             })
+            })
             .when('/externalservicesCB/CreditBureau', {
                 templateUrl: 'views/administration/CreditBureauSummary.html'
-             })
+            })
             .when('/externalservicesCB/CreditBureau/mapcblp', {
                 templateUrl: 'views/administration/MapCreditBureauToLP.html'
-             })
+            })
             .when('/createcreditbureauloanproduct',{
                 templateUrl:'views/products/createcreditbureauloanproduct.html'
             })
@@ -1438,7 +1446,7 @@
                 templateUrl: 'views/clients/createclientoccupationdetail.html'
             })
             .when('/clients/:clientId/editclientoccupation/:occupationId', {
-                 templateUrl: 'views/clients/editclientoccupationdetail.html'
+                templateUrl: 'views/clients/editclientoccupationdetail.html'
             })
             .when('/clients/:clientId/createclientassetdetails', {
                 templateUrl: 'views/clients/createclientassetdetail.html'
@@ -1613,7 +1621,7 @@
             })
             .when('/workflowtasksconfig', {
                 templateUrl: 'views/task/config/createworkflowtasksconfig.html'
-            })    
+            })
             .when('/createfund', {
                 templateUrl: 'views/organization/funds/createfund.html'
             })
@@ -1784,6 +1792,12 @@
             })
             .when('/groups/:groupId/bankaccountdetails', {
                 templateUrl: 'views/groups/bankaccountdetails/groupbankaccountdetails.html'
+            })
+            .when('/groups/:groupId/addbankaccountdetail', {
+                templateUrl: 'views/groups/bankaccountdetails/creategroupbankaccount.html'
+            })
+            .when('/groups/:groupId/bankaccountdetails/:groupBankAccountDetailAssociationId', {
+                templateUrl: 'views/groups/bankaccountdetails/viewgroupbankaccountdetails.html'
             })
             .when('/workflowanalytics', {
                 templateUrl: 'views/task/analytics/taskanalytics.html'
@@ -2234,6 +2248,27 @@
             })
             .when('/loan/:accountId/refundbytransfer', {
                 templateUrl: 'views/loans/refundbytransfer.html'
+            })
+            .when('/collection',{
+                templateUrl:'views/collection/branchcollection.html'
+            })
+            .when('/collection/:branchId',{
+                templateUrl:'views/collection/staffcollection.html'
+            })
+            .when('/collection/:branchId/:staffId',{
+                templateUrl:'views/collection/clientcollection.html'
+            })
+            .when('/collectionfollowup/:entityType/:entityId',{
+                templateUrl:'views/collection/followup/viewfollowuphistory.html'
+            })
+            .when('/collectionfollowup/:entityType/:entityId/add',{
+                templateUrl:'views/collection/followup/createfollowup.html'
+            })
+            .when('/collectionfollowup/:entityType/:entityId/:followUpId',{
+                templateUrl:'views/collection/followup/viewfollowup.html'
+            })
+            .when('/collectionfollowup/:entityType/:entityId/editfollowup/:followUpId',{
+                templateUrl:'views/collection/followup/editfollowup.html'
             })
         $locationProvider.html5Mode(false);
     };

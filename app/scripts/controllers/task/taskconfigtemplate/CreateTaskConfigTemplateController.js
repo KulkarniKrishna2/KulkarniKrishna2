@@ -5,6 +5,7 @@
                 resourceFactory.taskConfigTemplateCreateResource.get(function (data) {
                     scope.activityType = data.activityType;
                     scope.entityOptions=data.entityOptions;
+                    scope.taskCategoryOptions = data.taskCategoryOptions;
                 });
             }
             scope.formData={};

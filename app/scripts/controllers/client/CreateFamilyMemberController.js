@@ -26,6 +26,7 @@
             if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.viewClient && scope.response.uiDisplayConfigurations.viewClient.familyDeatils && scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isMandatoryField) {
                 scope.isAgeMandatory = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isMandatoryField.age;
                 scope.isfamilyMemeberIDTypeMandatory = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isMandatoryField.familyMemeberIDType;
+                scope.isfamilyMemberUniqueNoMandatory = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isMandatoryField.familyMemeberUniqueNoType;
                 scope.isAgeRequired = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isMandatoryField.age;
                 scope.isfamilyMemeberIDTypeRequired = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isMandatoryField.familyMemeberIDType;
             }

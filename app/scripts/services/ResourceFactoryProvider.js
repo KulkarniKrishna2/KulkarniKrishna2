@@ -533,12 +533,18 @@
                         getHook: { method: 'GET', params: {} },
                         update: { method: 'PUT', params: {} }
                     }),
+                    hookEventResources: defineResource(apiVer + "/hooks/:hookId/events", { hookId: "@hookId" }, {
+                        save: { method: 'POST', params: {} }
+                    }),
                     hookTemplateResource: defineResource(apiVer + "/hooks/template", {}, {
                         get: { method: 'GET', params: {} }
                     }),
                     entityToEntityResource: defineResource(apiVer + "/entitytoentitymapping/:mappingId/:fromId/:toId", { mappingId: '@mappingId' }, {
                         getAllEntityMapping: { method: 'GET', params: {}, isArray: true },
                         getEntityMapValues: { method: 'GET', params: {} }
+                    }),
+                    hookEventActionResources: defineResource(apiVer + "/hooks/:hookId/events/:eventId", { hookId: "@hookId" ,eventId:"@eventId"}, {
+                        delete: { method: 'DELETE', params: {} }
                     }),
                     entityMappingResource: defineResource(apiVer + "/entitytoentitymapping/:mapId", { mappingId: '@mappingId' }, {
                         getAllEntityMapping: { method: 'GET', params: {}, isArray: true },
@@ -959,13 +965,12 @@
                         delete: { method: 'DELETE', params: {} }
                     }),
                     bankStatementsResource: defineResource(apiVer + "/bankstatements/:bankStatementId", { bankStatementId: '@bankStatementId', command: '@command' }, {
-                        getAllBankStatement: { method: 'GET', params: {} },
+                        getAllBankStatement: { method: 'GET', params: {} , isArray: true },
                         update: { method: 'PUT', params: { bankStatementId: '@bankStatementId' } },
                         getBankStatement: { method: 'GET', params: { bankStatementId: '@bankStatementId' } },
                         reconcileBankStatement: { method: 'POST', params: { command: 'reconcile' } }
                     }),
                     bulkStatementsResource: defineResource(apiVer + "/bulkcollection/:bankStatementId", { bankStatementId: '@bankStatementId', command: '@command' }, {
-                        getAllBankStatement: { method: 'GET', params: {} },
                         update: { method: 'PUT', params: { bankStatementId: '@bankStatementId' } },
                         getBankStatement: { method: 'GET', params: { bankStatementId: '@bankStatementId' } },
                         reconcileBankStatement: { method: 'POST', params: { command: 'reconcile' } }
@@ -2263,6 +2268,26 @@
                     loanAppRateOfIntrestResource: defineResource(apiVer2 + '/loanapplicationreferences/:loanAppId/postprocess/poi-update/:poiKey', { loanAppId: '@loanAppId', poiKey: '@poiKey' }, {
                         get: { method: "GET", params: {} },
                         post: { method: 'POST', params: {} },
+                    }),
+                    followUpTemplateResource: defineResource(apiVer + "/collectionsfollowup/:entityTypeId/:entityId/template", {officeId:'@officeId',staffId:'@staffId',entityTypeId:'@entityTypeId',entityId:'@entityId'}, {
+                        get: {method: 'GET', params: {}}
+                    }),
+                    followUpResource: defineResource(apiVer + "/collectionsfollowup/:entityTypeId/:entityId/:followUpId", {entityTypeId:'@entityTypeId',entityId:'@entityId',followUpId:'@followUpId'}, {
+                        getAll: {method: 'GET', params: {},isArray:true},
+                        get: {method: 'GET', params: {},isArray:false},
+                        update: {method: 'PUT', params: {}}
+                    }),
+                    scoreCardsListResource: defineResource(apiVer2 + '/client/:clientId/scorecards', { clientId: '@clientId' }, {
+                        get: { method: "GET", params: {}, isArray: true }
+                    }),
+                    getB2cCreditbureauResource: defineResource(apiVer + '/enquiry/creditbureau/:enquiryId/bureau-data', { clientId: '@enquiryId' }, {
+                        get: { method: "GET", params: {} }
+                    }),    
+                    LoanChargesV2Resource: defineResource(apiVer2 + "/loans/:loanId/charges/:chargeId/:action", { loanId: '@loanId', chargeId: '@chargeId' }, {
+                        waiveCharge: { method: 'POST', params: { action: 'waive' } },
+                    }),
+                    savingsDocumentResource: defineResource(apiVer + "/savings/:savingsId/documents/:documentId", { savingsId: '@savingsId', documentId: '@documentId' }, {
+                        getSavingsDocuments: { method: 'GET', params: {}, isArray: true }
                     }),
                 };
             }];
