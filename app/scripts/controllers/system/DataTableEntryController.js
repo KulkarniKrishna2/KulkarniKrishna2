@@ -207,7 +207,7 @@
             scope.fieldType = function (type) {
                 var fieldType = "";
                 if (type) {
-                    if (type == 'CODELOOKUP' || type == 'CODEVALUE') {
+                    if (type == 'CODELOOKUP' || type == 'CODEVALUE'||type == 'MULTISELECTCODELOOKUP') {
                         fieldType = 'SELECT';
                     } else if (type == 'DATE') {
                         fieldType = 'DATE';
@@ -270,7 +270,7 @@
                     }
                     if (scope.columnHeaders[i].columnCode) {
                         for (var j in scope.columnHeaders[i].columnValues) {
-                                if(scope.columnHeaders[i].columnDisplayType=='CODELOOKUP'){
+                                if(scope.columnHeaders[i].columnDisplayType=='CODELOOKUP'|| scope.columnHeaders[i].columnDisplayType == 'MULTISELECTCODELOOKUP'){
                                     if(scope.columnHeaders[i].value != undefined  && scope.columnHeaders[i].value == scope.columnHeaders[i].columnValues[j].value) {
                                         scope.formData[scope.columnHeaders[i].columnName] = scope.columnHeaders[i].columnValues[j].id;
                                     }
@@ -520,6 +520,10 @@
                         dateFilter(this.formDat[scope.columnHeaders[i].columnName].time, scope.tf);
                         }
                         
+                    }
+                    else if(scope.columnHeaders[i].columnDisplayType == 'MULTISELECTCODELOOKUP'){
+                        var multiSelectAsValuesArray = this.formData[scope.columnHeaders[i].columnName];
+                        this.formData[scope.columnHeaders[i].columnName] = multiSelectAsValuesArray.toString(); 
                     }
                 }
                 if(scope.fromEntity == 'loan'){

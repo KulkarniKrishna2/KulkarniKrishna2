@@ -611,3 +611,1047 @@ tr.newBg td, tr.newBg th {
     padding-top: 15px !important;
     padding-bottom: 15px !important;
 }
+/* New CSS  -------- ZOLVE ------- */
+.z-scoreCard-body {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 3% 0;
+    /* border: 1px solid #eaeaea; */
+    padding: 25px;
+    box-shadow: 0 2.5px 23.9px rgb(0 0 0 / 1%), 0 12.9px 33.5px rgb(0 0 0 / 4%), 0 52px 80px rgb(0 0 0 / 5%);
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.z-scoreCard-header {
+    width: 100%;
+    margin-bottom: 2%;
+}
+
+.z-scoreCard-title {
+    font-size: 22px;
+    border-left: 4px solid royalblue;
+    padding-left: 10px;
+}
+
+.z-scoreCardList-content {
+    width: 28%;
+    border: 1px solid #d6d6d6;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+}
+
+.z-scoreCardList-title {
+    background: #e2eceb;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.z-scoreCardList-values {
+    width: 70%;
+    border: 1px solid #d6d6d6;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+}
+
+.z-scoreCardList-values-block {
+    height: 70vh;
+    overflow: auto;
+    padding: 15px;
+}
+
+.z-scoreCardList-blocks {
+    padding: 10px;
+    height: 70vh;
+    overflow: auto;
+}
+
+.z-scoreCardList-block {
+    padding: 10px;
+    border: 1px solid #e8e8e8;
+    border-radius: 4px;
+    /* margin: 10px 0px; */
+    margin-bottom: 2%;
+    box-shadow: 2px 2px 2px 2px #fbfbfb;
+    cursor: pointer;
+}
+
+.z-scoreCardList-block:hover {
+    border: 1px solid royalblue;
+}
+
+.z-scoreCardList-subTitle {
+    width: 90%;
+    font-size: 16px;
+    margin: 10px 0px;
+    padding: 10px;
+    border-bottom: 2px solid #d6d6d6;
+    display: flex;
+    justify-content: space-between;
+}
+
+.result-expand {
+    padding: 5px 10px;
+    font-weight: bold;
+    font-size: 16px;
+    color: white;
+    background: royalblue;
+    box-shadow: 2px 2px 2px 2px rgb(240, 240, 240);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.z-scoreCardList-input-block,
+.z-scoreCardList-output-block,
+.z-scoreCardList-ruleResult-block {
+    width: 100%;
+    padding: 5px 20px;
+    margin-bottom: 20px;
+}
+
+.z-scoreCardList-input-content,
+.z-scoreCardList-output-content,
+.z-scoreCardList-ruleResult-content {
+    width: 75%;
+    display: flex;
+    justify-self: flex-start;
+    flex-wrap: wrap;
+    padding: 4px;
+    border-bottom: 1px solid #ffe6e6;
+}
+
+.z-scoreCardList-ruleResult-content {
+    margin-bottom: 3%;
+    border: 1px solid #e6e6e6;
+    box-shadow: 2px 2px 17px 0px #ececec;
+    padding: 10px;
+    width: 88%;
+    border-radius: 6px;
+}
+
+.ec {
+    margin-top: 4%;
+    background: #927cff0a;
+    border: 1px solid #dad7d7;
+    width: 100%;
+    box-shadow: none;
+}
+
+.input-key,
+.output-key {
+    width: 49%;
+}
+
+.input-value,
+.output-value {
+    width: 51%;
+    text-align: right;
+}
+
+.listBtnStyle {
+    background: royalblue;
+    color: white;
+    font-weight: bold;
+}
+
+.ruleResult-name {
+    width: 100%;
+    font-size: 16px;
+    font-weight: bold;
+    color: dodgerblue;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.ruleResultName-expand-d,
+.ruleResultName-expand-u {
+    padding: 0px 5px;
+    border-radius: 6px;
+    font-size: 12px;
+    background: white;
+    color: royalblue;
+    font-weight: normal;
+    /* box-shadow: 2px 2px 11px 2px #f3eeee; */
+    border: 2px solid #ececec;
+    cursor: pointer;
+}
+
+.ruleResultName-expand-u {
+    background: rgb(65, 149, 225);
+    color: white;
+}
+
+.z-scoreCardList-ruleResult-content-expand {
+    width: 100%;
+}
+
+.ruleResult-localInputs-block {
+    width: 100%;
+    padding: 10px 0px;
+    margin-top: 2%;
+}
+
+.ruleResult-localInputs-title,
+.ruleResult-output-title {
+    width: 100%;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.ruleResult-output-title {
+    margin-bottom: 0px;
+}
+
+.ruleResult-localInputs-contents {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    padding: 5px 10px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.ruleResult-localInputs-content {
+    width: 50%;
+}
+
+.ruleResult-localInputs-content-r {
+    width: 50%;
+    text-align: right;
+}
+
+.ruleResult-output-block {
+    width: 100%;
+    padding: 5px 10px;
+    font-size: 16px;
+    margin-top: 10px;
+
+}
+
+.ruleResult-output-key,
+.ruleResult-output-value {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    padding: 5px 10px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.ruleResult-output-key-title,
+.ruleResult-output-value-title {
+    width: 50%;
+}
+
+.ruleResult-output-key-value,
+.ruleResult-output-value-value {
+    width: 50%;
+    text-align: right;
+}
+
+.ruleResult-level2-content {
+    padding: 5px 10px;
+}
+
+.ruleResult-name-ec {
+    color: #7b9223;
+}
+
+.outputErrorMsg {
+    color: red;
+    font-weight: bold;
+}
+
+/* New CSS -- Zolve - Bureau Report */
+.viewBreport {
+    width: fit-content;
+    background: #6161ff;
+    color: white;
+    padding: 3px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    /* box-shadow: 2px 2px 12px 2px gainsboro; */
+}
+
+.bReport-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    /* box-shadow:  14px 14px 26px #f0f0f0, -14px -14px 26px #ffffff; */
+    /* margin-top: 3%; */
+    height: max-content;
+    overflow: auto;
+    box-shadow: 0 6.6px 25px rgb(0 0 0 / 5%), 0 53px 200px rgb(0 0 0 / 9%);
+    border-radius: 6px;
+    padding-bottom: 1%;
+    margin-bottom: 2%;
+}
+
+.bReport-paymentHistory-title {
+    width: 100%;
+    padding: 12px 0px;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+}
+
+.bReport-heading-block {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2%;
+    /* margin-top: 3%; */
+    /* border-bottom: 2px solid black; */
+}
+
+.bReport-title {
+    width: 50%;
+    text-align: left;
+    font-size: 22px;
+    border-left: 4px solid royalblue;
+    padding-left: 10px;
+}
+
+.bReport-select-block {
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 3%;
+}
+
+.bReport-select {
+    width: 40%;
+    border: 1px solid rgb(228, 228, 228);
+    border-bottom: 2px solid #092df5;
+    padding: 10px;
+    border-radius: 4px;
+    /* color: black; */
+    box-shadow: 0 2.5px 23.9px rgb(0 0 0 / 1%), 0 12.9px 33.5px rgb(0 0 0 / 4%), 0 52px 80px rgb(0 0 0 / 5%);
+    outline: none;
+    background: white;
+}
+
+.filter-loan-text {
+    margin-right: 10px;
+    font-size: 16px;
+    color: grey;
+}
+
+.bReport-contents-block {
+    width: 98%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: start;
+    padding: 10px;
+    /* box-shadow: 0 6.6px 25px rgb(0 0 0 / 5%), 0 53px 200px rgb(0 0 0 / 9%); */
+    border-radius: 6px;
+    /* margin-top: 2%; */
+    /* border: 1px solid #e2e2e2;
+    border-top: 4px solid #c3c3c3; */
+    transition: all .50s ease-in-out;
+}
+
+/* .bReport-contents-block:hover {
+    transform: scale(1.02);
+    box-shadow: 0 2.5px 23.9px rgb(0 0 0 / 1%), 0 12.9px 33.5px rgb(0 0 0 / 4%), 0 52px 80px rgb(0 0 0 / 5%);
+    border: 2px solid #e2e2e2;
+    border-top: 4px solid #6e4eff;
+} */
+
+.bReport-content-1,
+.bReport-content-2 {
+    width: 100%;
+    margin: 5px 0px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.bReport-detail-1 {
+    width: 100%;
+    margin-bottom: 2%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.bReport-loanType {
+    width: 50%;
+    padding: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.bReport-loanType-id {
+    color: grey;
+}
+
+.bReport-reportedDate {
+    width: 50%;
+    padding: 5px;
+    text-align: right;
+}
+
+.bReport-receivedLoanStatus {
+    width: 100%;
+    padding: 5px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.statusText {
+    padding: 5px 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+.statusTextClosed {
+    background: royalblue;
+    color: white;
+    border-radius: 4px;
+}
+
+.statusTextActive {
+    background: rgba(60, 175, 60, 0.856);
+    color: white;
+    border-radius: 4px;
+}
+
+.bReport-detail {
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    padding: 7px 0px;
+    border-bottom: 1px solid #ececec;
+}
+
+.bReport-title-name {
+    width: 100%;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #777777;
+}
+
+.bReport-title-value {
+    margin-top: 2px;
+}
+
+.bReport-detail-2 {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.bReport-date-block,
+.bReport-lender-block {
+    width: 48%;
+    background: #d6d6d61c;
+    border: 1px solid #e6e6e6;
+    border-radius: 6px;
+    padding: 10px;
+    /* box-shadow: 2px 2px 4px #eaeaea; */
+    box-shadow: 2px 2px 12px 2px #f7f7f7;
+    background: #ffd5a81c;
+}
+
+.bReport-detail-3 {
+    width: 98%;
+    justify-content: center;
+    display: flex;
+    margin-top: 4%;
+    /* box-shadow: 2px 2px 4px #eaeaea; */
+    box-shadow: 2px 2px 12px 2px #f7f7f7;
+    border: 1px solid #f1f1f1;
+    /* box-shadow: 0 2.5px 23.9px rgb(0 0 0 / 1%), 0 12.9px 33.5px rgb(0 0 0 / 4%), 0 52px 80px rgb(0 0 0 / 5%); */
+}
+
+.bReport-actions {
+    width: 105%;
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+}
+
+.bReport-action-previous {
+    width: 50%;
+}
+
+.bReport-action-next {
+    width: 50%;
+    text-align: right;
+}
+
+.prv-btn,
+.next-btn {
+    background: white;
+    padding: 5px;
+    border: 1px solid rgb(190, 190, 190);
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.next-btn {
+    padding-left: 8px;
+}
+
+.next-btn:active {
+    background: rgb(233, 233, 233);
+}
+
+.prv-btn {
+    padding-right: 8px;
+}
+
+.prv-btn:active {
+    background: rgb(233, 233, 233);
+}
+
+.bReport-borrowAmt-block,
+.bReport-installmentAmt-block,
+.bReport-overDue-block,
+.bReport-currentOutStanding-block,
+.bReport-writtenOffAmt-block {
+    width: 20%;
+    /* border: 1px solid rgb(235, 235, 235); */
+}
+
+.bReport-t1 {
+    width: 100%;
+    background: rgb(217 237 255);
+    padding: 10px;
+    font-weight: bold;
+    color: rgb(71, 71, 71);
+}
+
+.bReport-t2 {
+    width: 100%;
+    padding: 10px;
+}
+
+.btlr {
+    border-top-left-radius: 4px;
+}
+
+.bblr {
+    border-bottom-left-radius: 4px;
+}
+
+.btrr {
+    border-top-right-radius: 4px;
+}
+
+.bbrr {
+    border-bottom-left-radius: 4px;
+}
+
+.bReport-content-2 {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 3% 0;
+    /* padding: 10px; */
+    /* box-shadow: 2px 2px 2px 2px whitesmoke; */
+    box-shadow: 2px 2px 12px 2px #f7f7f7;
+    /* box-shadow: 0 2.5px 23.9px rgb(0 0 0 / 1%), 0 12.9px 33.5px rgb(0 0 0 / 4%), 0 52px 80px rgb(0 0 0 / 5%); */
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    /* border: 1px solid #e6e6e6; */
+    /* border-radius: 4px; */
+}
+
+.bReport-years-block {
+    width: 5%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    /* background: #fbf6f6; */
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border: 1px solid #f3eeee;
+}
+
+.bReport-years {
+    width: 100%;
+    /* padding: 10px; */
+    text-align: center;
+    padding: 10px 0px;
+    color: #8970ea;
+    font-weight: bold;
+}
+
+.yearTag {
+    visibility: hidden;
+    background: #a863ff;
+}
+
+.bReport-months-block {
+    width: 95%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.bReport-months-heading {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    background: #a863ff;
+    color: white;
+    border-top-right-radius: 8px;
+}
+
+.bReport-months-contents {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border-bottom-right-radius: 8px;
+    border: 1px solid #f3eeee;
+}
+
+.bReport-months-heading-value {
+    width: 10%;
+    text-align: center;
+    font-weight: bold;
+    margin: 10px 0px;
+    /* padding: 0px 6px; */
+}
+
+.bReport-months-content-block {
+    width: 10%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.bReport-months-content-value {
+    width: 100%;
+    text-align: center;
+    padding: 10px 0px;
+    border-bottom: 1px solid #efefef;
+}
+
+.bReport-loanNumber {
+    padding: 5px 10px;
+    border: 1px solid #e8e8e8;
+    border-radius: 6px;
+    background: #fff8f8;
+    font-weight: bold;
+}
+
+/* .bReport-months-content-value {
+    padding: 0px 6px;
+} */
+
+/* bureau Score */
+.bReport-scoreDetails {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin: 3% 0;
+}
+
+.bReport-scoreDetails-heading,
+.bReport-enquiry-heading,
+.bReport-address-heading,
+.bReport-identifier-heading,
+.bReport-contact-heading {
+    width: 100%;
+    display: flex;
+}
+
+.bReport-main-heading {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+    text-shadow: 2px 2px 19px #fdfdfd;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.bReport-scoreDetails-content {
+    min-width: 70%;
+    margin: 2% 0;
+    /* padding: 10px; */
+    display: flex;
+    border: 1px solid #eaeaea;
+    border-radius: 6px;
+    /* padding: 40px; */
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 2.5px 23.9px rgb(0 0 0 / 1%), 0 12.9px 33.5px rgb(0 0 0 / 4%), 0 52px 80px rgb(0 0 0 / 5%);
+}
+
+.bReport-score,
+.bReport-scoreCardName {
+    padding: 15px;
+    /* border: 1px solid #e2e2e2; */
+    /* border-radius: 8px; */
+}
+
+.bReport-score {
+    width: 20%;
+    background: #f1ffe2;
+    border-right: 3px solid #1fff00;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.bReport-scoreCardName {
+    width: 80%;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.bReport-score-title {
+    font-weight: bold;
+    color: #7b7b7b;
+    width: 100%;
+    text-align: center;
+}
+
+.bReport-score-value {
+    color: #505050;
+    font-size: 44px;
+    width: 100%;
+    text-align: center;
+}
+
+.bReport-scoreCardName-value {
+    width: 100%;
+    color: #505050;
+    text-align: center;
+    font-size: 18px;
+    padding-top: 5px;
+}
+
+.scoreDetails-text,
+.enquiry-text,
+.address-heading-text,
+.identifier-heading-text,
+.contact-heading-text {
+    width: 100%;
+    text-align: left;
+    font-size: 22px;
+    border-left: 4px solid royalblue;
+    padding-left: 10px;
+}
+
+.bReport-enquiry-container,
+.bReport-address-container,
+.bReport-identifier-container,
+.bReport-contact-container {
+    width: 100%;
+    margin: 4% 0;
+}
+
+.bReport-enquiry-content,
+.bReport-address-content,
+.bReport-identifier-content,
+.bReport-contact-content {
+    width: 100%;
+    /* border: 1px solid #f2f2f2; */
+    display: flex;
+    justify-content: center;
+    margin-top: 3%;
+    box-shadow: 0 2.5px 23.9px rgb(0 0 0 / 1%), 0 12.9px 33.5px rgb(0 0 0 / 4%), 0 52px 80px rgb(0 0 0 / 5%);
+}
+
+.enquiry-block,
+.bReport-address-block,
+.bReport-contact-block {
+    width: 100%;
+    /* border: 1px solid #f2f2f2; */
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding-bottom: 5px;
+}
+
+.enquiry-block-heading,
+.enquiry-block-list,
+.bReport-address-block-heading,
+.bReport-contact-block-heading {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.enquiry-block-list,
+.bReport-address-block-list { 
+    height: 40vh;
+    overflow: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border: 1px solid #f3f3f3;
+    box-shadow: 2px 2px 2px 2px #f7f7f7;
+}
+
+.enquiry-block-heading {
+    width: 100%;
+    text-align: center;
+    background: rgb(241 240 240);
+    font-weight: bold;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+
+.enquiry-block-heading-title-number,
+.list-value-number {
+    width: 5%;
+    text-align: center;
+    padding: 15px 10px;
+}
+
+.enquiry-block-heading-title-member,
+.list-value-member,
+.enquiry-block-heading-title-loanPurpose,
+.list-value-loanPurpose {
+    width: 30%;
+    text-align: center;
+    padding: 15px 10px;
+}
+
+.enquiry-block-heading-title-date,
+.list-value-date,
+.enquiry-block-heading-title-amount,
+.list-value-amount {
+    width: 15%;
+    text-align: center;
+    padding: 15px 10px;
+}
+
+.list-contents,
+.address-list-contents {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.enquiry-error-msg,
+.loanInfo-error-msg,
+.address-error-msg,
+.identifier-error-msg,
+.contact-error-msg {
+    width: 100%;
+    height: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loanInfo-error-msg {
+    margin: 7% 0;
+}
+
+.scoreDetails-error-msg {
+    margin: 2% 0;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.address-block-heading-title {
+    width: 80%;
+    padding: 15px 10px;
+    font-weight: bold;
+    font-size: 1.6rem;
+    color: #404040;
+}
+
+.address-block-heading-date{
+    width: 20%;
+    padding: 15px 10px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.6rem;
+    color: #404040;
+}
+
+.address-list-address-value {
+    padding: 15px 10px;
+    width: 80%;
+}
+
+.address-list-date-value {
+    text-align: center;
+    padding: 15px 10px;
+    width: 20%;
+}
+
+.bReport-address-block-heading {
+    background: whitesmoke;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+
+.bReport-address-block-list {
+    width: 100%;
+}
+
+.bReport-contact-block-list {
+    width: 100%;
+    height: 20vh;
+    overflow: auto;
+}
+
+.bReport-identifier-list-block {
+    /* width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    border-bottom: 1px solid #efeeee;
+    border-radius: 6px;
+    padding: 10px;
+    overflow-x: auto; */
+    width: 60%;
+    display: flex;
+    justify-content: flex-start;
+    border: 1px solid #efeeee;
+    flex-wrap: wrap;
+    border-radius: 6px;
+    /* padding: 10px; */
+    overflow-x: auto;
+}
+
+.bReport-identifier-list {
+    max-width: 30%;
+    border: 1px solid #e2e2e2;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-right: 2%;
+    border-radius: 6px;
+    box-shadow: 2px 2px 8px 2px #f5f5f5;
+    background: #f9f9f9;
+}
+
+.identifier-title {
+    width: 100%;
+    font-weight: bold;
+    color: rgb(31, 31, 31);
+    text-align: center;
+    font-size: 1.6rem;
+}
+
+.identifier-number {
+    width: 100%;
+    margin-top: 15%;
+    color: rgb(31, 31, 31);
+    text-align: center;
+}
+
+.identifier-number-text { 
+    background: #6754c7;
+    padding: 5px 20px;
+    color: white;
+    font-weight: bold;
+    border-radius: 4px;
+}
+
+.identifier-date {
+    width: 100%;
+    margin-top: 4%;
+    color: rgb(86 86 86);
+    text-align: center;
+}
+
+.contact-block-heading-title {
+    width: 30%;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 1.6rem;
+    color: #404040;
+    text-align: center;
+}
+
+.contact-block-heading-date {
+    width: 30%;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.6rem;
+    color: #404040;
+}
+
+.contact-block-heading-number {
+    width: 30%;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.6rem;
+    color: #404040;
+}
+
+.contact-list-contact-value {
+    padding: 15px 10px;
+    width: 30%;
+    text-align: center;
+}
+
+.contact-list-date-value {
+    text-align: center;
+    padding: 15px 10px;
+    width: 30%;
+}
+
+.contact-list-number-value {
+    text-align: center;
+    padding: 15px 10px;
+    width: 30%;
+}
+
+.contact-list-contents {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.bReport-contact-block {
+    justify-content: flex-start;
+    width: 60%;
+    border: 1px solid #dedede;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+
+.bReport-contact-block-heading {
+    width: 100%;
+    background: #f7f2f2;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+
+.contact-error-msg {
+    padding: 20px;
+}
+
+.bReport-contact-block-list {
+    width: 100%;
+}
+
+.bReport-contact-content {
+    justify-content: flex-start;
+}
+
+.bReport-identifier-content{
+    justify-content: flex-start;
+}

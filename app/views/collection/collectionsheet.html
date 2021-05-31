@@ -197,7 +197,7 @@
 	                                <label class="col-sm-8" >{{'label.input.reasontype' | translate}}<span  class="required" ng-if="isRejectReasonMandatory">*</span></label>
 	                             	<div class="col-sm-8">
 	                                    <select  id="loanRejectReason[loan.loanId].codeReasonId" name="loanReasonCodeType" ng-model="loanRejectReason[loan.loanId].codeReasonId" ng-options="code.id as code.name for code in collectionReasonList" value="{{code.name}}" 
-	                                    class="input-sm form-control" data-ng-change="getLoanSubReasonValues(loan.loanId,loanRejectReason[loan.loanId].codeReasonId)" ng-required="isRejectReasonMandatory" required late-validate>
+	                                    class="input-sm form-control" data-ng-change="getLoanSubReasonValues(loan.loanId,loanRejectReason[loan.loanId].codeReasonId)" ng-required="isRejectReasonMandatory">
 	                                    <option value="">{{'label.selectone' | translate}}</option></select>
 									</div>
 									<div class="col-sm-8">
@@ -210,7 +210,7 @@
 	                                <div class="col-sm-8">
 	                                    <select id = "loanRejectReason[loan.loanId].reasonId" name="loanReasonCode" ng-model="loanRejectReason[loan.loanId].reasonId" 
 										ng-options="codeValue.id as codeValue.name for codeValue in loanRejectReason[loan.loanId].codeValueOptions" value="{{codeValue.id}}" class="input-sm form-control" 
-										data-ng-change="isDescriptionAvailable(loanRejectReason[loan.loanId])" ng-required="isRejectReasonMandatory" required late-validate>
+										data-ng-change="isDescriptionAvailable(loanRejectReason[loan.loanId])" ng-required="isRejectReasonMandatory">
 	                                    <option value="">{{'label.selectone' | translate}}</option></select>
 									</div>
 									<div class="col-sm-8">
@@ -275,7 +275,7 @@
                                 <label class="col-sm-9" >{{'label.input.reasontype' | translate}}<span ng-if="isRejectReasonMandatory" class="required">*</span></label>
                                 <div class="col-sm-12">
                                     <select  id="client.codeReasonId" name="attendanceReasonCodeType" ng-model="client.codeReasonId" ng-options="code.id as code.name for code in reasonAttendenceList" value="{{code.name}}" 
-                                    class="input-sm form-control" data-ng-change="getValues(client.clientId,client.codeReasonId)" ng-required="isRejectReasonMandatory" required late-validate>
+                                    class="input-sm form-control" data-ng-change="getValues(client.clientId,client.codeReasonId)" ng-required="isRejectReasonMandatory">
                                     <option value="">{{'label.selectone' | translate}}</option></select>
 								</div>
 								<div class="col-sm-8">
@@ -289,7 +289,7 @@
                                 <div class="col-sm-12">
                                     <select id = "client.reasonId" name="attendanceReasonCode" ng-model="client.reasonId" 
 									ng-options="codeValue.id as codeValue.name for codeValue in client.codeValueOptions" value="{{codeValue.id}}" class="input-sm form-control"
-									data-ng-change="initDescription(rejectFormData.reasonCode)" ng-required="isRejectReasonMandatory" required late-validate>
+									data-ng-change="initDescription(rejectFormData.reasonCode)" ng-required="isRejectReasonMandatory">
                                     <option value="">{{'label.selectone' | translate}}</option></select>
 								</div>
 								<div class="col-sm-8">

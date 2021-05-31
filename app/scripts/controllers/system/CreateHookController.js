@@ -63,7 +63,7 @@
             scope.submit = function () {
                 this.formData.name = scope.template.name;
                 this.formData.config = {};
-                this.formData.events = scope.events;
+    
                 if (scope.ugdTemplate !== null) {
                     this.formData.templateId = scope.ugdTemplate.id;
                 }

@@ -56,5 +56,15 @@
             </select>
         </div>
     </span>
+    <div ng-if="columnHeader.columnDisplayType == 'MULTISELECTCODELOOKUP'">
+        <select multiple chosen="columnHeader.columnValuesLookup"
+                autocomplete="off"
+                chosen = "columnHeader.columnValues"
+                ng-model="formData[columnHeader.columnName]"
+                ng-options="columnValue.id as columnValue.value for columnValue in columnHeader.columnValuesLookup"
+                value="{{columnValue.id}}" class="form-control" ng-change="getDependencyList(formData[columnHeader.columnName]); showVisibleCriterialFields(columnHeader.columnName)">
+            <option value="">{{'label.selectone' | translate}}</option>
+        </select>
+    </div>
 </div>
 </form>

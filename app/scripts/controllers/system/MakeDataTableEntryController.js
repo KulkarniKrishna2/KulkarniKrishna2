@@ -97,7 +97,7 @@
                         if (data.columnHeaders[i].columnDisplayType == 'DATETIME') {
                             scope.formDat[data.columnHeaders[i].columnName] = {};
                         }
-                        if (data.columnHeaders[i].columnDisplayType == 'CODELOOKUP' && data.columnHeaders[i].columnValues) {
+                        if ((data.columnHeaders[i].columnDisplayType == 'CODELOOKUP' || data.columnHeaders[i].columnDisplayType == 'MULTISELECTCODELOOKUP' )&& data.columnHeaders[i].columnValues) {
                             scope.columnValueLookUp = data.columnHeaders[i].columnValues;
                             scope.newcolumnHeaders = angular.fromJson(data.columnHeaders);
                             for (var j in data.columnHeaders[i].columnValues) {
@@ -361,6 +361,9 @@
                             this.formData[scope.columnHeaders[i].columnName] = dateFilter(this.formDat[scope.columnHeaders[i].columnName].date, scope.df)
                         + " " + dateFilter(this.formDat[scope.columnHeaders[i].columnName].time, scope.tf);
                         }  
+                    } else if(scope.columnHeaders[i].columnDisplayType == 'MULTISELECTCODELOOKUP'){
+                        var multiSelectAsValuesArray = this.formData[scope.columnHeaders[i].columnName];
+                        this.formData[scope.columnHeaders[i].columnName] = multiSelectAsValuesArray.toString(); 
                     }
                 }
 

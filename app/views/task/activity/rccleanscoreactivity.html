@@ -35,12 +35,38 @@
                     <span><b>{{'label.input.status' | translate}}:&nbsp;</b></span>
                     <span ng-if="detailScore.isSuccess">{{'label.scorecard.success' | translate}}</span><span ng-if="!detailScore.isSuccess">{{'label.scorecard.failed' | translate}}</span><span ng-if="detailScore.error">&nbsp;({{detailScore.error}})</span>
                 </div>
+                
+                
+                
+                <div class="form-group paddedtop" ng-if="detailScore.ruleResult.output && viewRuleResultContent" >
+                    <span><b>{{'label.heading.output' | translate}}:&nbsp;</b></span>
+                    <div>
+                        <ul>
+                            <li ng-repeat="(key, value) in detailScore.ruleResult.output.values">
+                                <span>{{key}}:&nbsp;</span><span >{{value}}</span>
+    
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="form-group paddedtop" ng-if="detailScore.ruleResult.inputs && viewRuleResultContent" >
+                    <span><b>{{'label.rule.inputs' | translate}}:&nbsp;</b></span>
+                    <div>
+                        <ul>
+                            <li ng-repeat="(key, value) in detailScore.ruleResult.inputs">
+                                <span>{{key}}:&nbsp;</span><span >{{value}}</span>
+    
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
                 <div class="form-group paddedtop" ng-if="viewRuleResultContent">
                     <span><b>{{'label.rule.result' | translate}}:&nbsp;</b></span>
                 </div>
                 <span class="badge">{{detailScore.ruleResult.output.value}}</span>
                 {{detailScore.ruleResult.output.bucket}}&nbsp;[{{detailScore.ruleResult.name}}] <span ng-if="detailScore.ruleResult.output.error"> - {{detailScore.ruleResult.output.error}}</span>
-                
                 <ul>
                     <li ng-repeat="dimensionResult in detailScore.ruleResult.ruleResultHierarchy">
                         <span class="badge">{{dimensionResult.output.value}}</span>
@@ -53,7 +79,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="form-group paddedtop" ng-if="detailScore.ruleResult.inputs && viewRuleResultContent" >
+            <!-- <div class="form-group paddedtop" ng-if="detailScore.ruleResult.inputs && viewRuleResultContent" >
                 <span><b>{{'label.rule.inputs' | translate}}:&nbsp;</b></span>
                 <div>
                     <ul>
@@ -64,6 +90,17 @@
                     </ul>
                 </div>
             </div>
+            <div class="form-group paddedtop" ng-if="detailScore.ruleResult.output && viewRuleResultContent" >
+                <span><b>{{'label.heading.output' | translate}}:&nbsp;</b></span>
+                <div>
+                    <ul>
+                        <li ng-repeat="(key, value) in detailScore.ruleResult.output">
+                            <span>{{key}}:&nbsp;</span><span >{{value}}</span>
+
+                        </li>
+                    </ul>
+                </div>
+            </div> -->
         </div>
         
     </div>

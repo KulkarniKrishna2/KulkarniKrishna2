@@ -1219,6 +1219,7 @@
                             <tr class="graybg" ng-show="loandetails.disbursementDetails.length>0">
                                 <th align="left">{{'label.input.expecteddisbursementon' | translate}}</th>
                                 <th align="left">{{'label.input.disbursedon' | translate}}</th>
+                                <th align="left">{{'label.input.interestchargedfrom' | translate}}</th>
                                 <th align="left">{{'label.input.principal' | translate}}</th>
                                 <th align="left" data-ng-show="loandetails.flatInterestRate != null">{{'label.input.discountondisbursalamount' | translate}}</th>
                                 <th align="left">&nbsp;</th>
@@ -1226,6 +1227,7 @@
                             <tr ng-repeat="disbursementDetail in loandetails.disbursementDetails">
                                 <td>{{disbursementDetail.expectedDisbursementDate | DateFormat}}</td>
                                 <td>{{disbursementDetail.actualDisbursementDate | DateFormat}}</td>
+                                <td>{{disbursementDetail.interestChargedFromDate | DateFormat}}</td>
                                 <td>{{disbursementDetail.principal | number}}</td>
                                 <td data-ng-show="loandetails.flatInterestRate != null">{{disbursementDetail.discountOnDisbursalAmount | number}}</td>
                                 <td>
@@ -1284,7 +1286,7 @@
                                 <th>{{'label.heading.interestrate' | translate}}</th>
                             </tr>
                             <tr ng-repeat="period in loandetails.interestRatesPeriods">
-                                <td>{{period.fromDate}}</td>
+                                <td>{{period.fromDate | DateFormat}}</td>
                                 <td>{{period.effectiveInterestRate}}</td>
                             </tr>
                         </table>

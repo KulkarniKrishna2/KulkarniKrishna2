@@ -219,7 +219,7 @@
             // 'annual fee' or 'monthly fee'
             scope.chargeTimeChange = function (chargeTimeType) {
                 if(chargeTimeType == 1){
-                    scope.showChargeCategoryType = scope.response.uiDisplayConfigurations.createCharges.isHiddenField.chargeCategoryType;
+                    scope.showChargeCategoryType = !scope.response.uiDisplayConfigurations.createCharges.isHiddenField.chargeCategoryType;
                 }else{
                     scope.showChargeCategoryType = false;
                 }
@@ -423,7 +423,9 @@
                 }
 
                 if(!(this.formData.chargeAppliesTo == 1 && this.formData.chargeTimeType == 9 && this.formData.chargeCalculationType == 1)){
-                    this.formData.overdueChargeDetail.overdueBasedOn  = undefined;
+                    if(!_.isUndefined(this.formData.overdueChargeDetail)){
+                        this.formData.overdueChargeDetail.overdueBasedOn  = undefined;
+                    }
                 }
                 
                 if (!_.isUndefined(scope.isCloneChargeProduct) && scope.isCloneChargeProduct) {

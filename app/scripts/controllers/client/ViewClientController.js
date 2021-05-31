@@ -322,6 +322,7 @@
                 };
             };
 
+            scope.showViewBtn = false; 
             scope.clientCreditBureauReportSummaryLoaded = false;
             scope.getCreditBureauReportSummary = function () {
                 if(!scope.clientCreditBureauReportSummaryLoaded){
@@ -332,6 +333,15 @@
                         entityId: scope.clientId
                     }, function (data) {
                         scope.creditBureauEnquiries = data;
+                        console.log('Line 335 : ',scope.creditBureauEnquiries);
+                        for(var i=0; i<data.length; i++) {
+                           if(data[i].status.code == "SUCCESS") {
+                                scope.showViewBtn = true;   
+                            } 
+                        }
+                        
+                        
+                        scope.showCBReport = false;
                         scope.checkIfStalePeriodExpired();
                     });
                 }
@@ -1140,15 +1150,30 @@
                                         data.data[k].row[i] = scope.datatabledetails.columnHeaders[i].columnValues[j].value;
                                     }
                                 }
-                                for(var m in data.columnData){
-                                    for(var n in data.columnData[m].row){
-                                        if(data.columnData[m].row[n].columnName == scope.datatabledetails.columnHeaders[i].columnName && data.columnData[m].row[n].value == scope.datatabledetails.columnHeaders[i].columnValues[j].id){
-                                            data.columnData[m].row[n].value = scope.datatabledetails.columnHeaders[i].columnValues[j].value;
+                                
+                            }
+                        }
+                        for(var m in data.columnData){
+                            for(var n in data.columnData[m].row){
+                                if(data.columnData[m].row[n].columnName == scope.datatabledetails.columnHeaders[i].columnName){
+                                    if(scope.datatabledetails.columnHeaders[i].columnDisplayType== 'MULTISELECTCODELOOKUP'||scope.datatabledetails.columnHeaders[i].columnDisplayType== 'CODELOOKUP'){
+                                        var multiSelectValuesAsString = data.columnData[m].row[n].value;
+                                        var multiSelectValuesAsArray = JSON.parse("[" + multiSelectValuesAsString + "]");
+                                        var displayArray = [];
+                                        for(var x in multiSelectValuesAsArray){
+                                            
+                                            for(var y in scope.datatabledetails.columnHeaders[i].columnValues){
+                                                if(multiSelectValuesAsArray[x]==scope.datatabledetails.columnHeaders[i].columnValues[y].id){
+                                                    displayArray.push(scope.datatabledetails.columnHeaders[i].columnValues[y].value);
+                                                }
+                                            }
                                         }
+                                        data.columnData[m].row[n].value = displayArray.toString();
                                     }
                                 }
                             }
                         }
+
                     }
                     
                     if(data.sectionedColumnList != null && data.sectionedColumnList !=undefined && data.sectionedColumnList.length > 0){
@@ -1992,6 +2017,629 @@
                     }
                 }
             };
+
+
+
+            // Score Card Functions
+
+            scope.inputObj;
+
+            scope.getScoreCardList = function() {
+                resourceFactory.scoreCardsListResource.get({clientId: routeParams.id}, function (data) {
+                    console.log('Score Card List :',data);
+                    scope.scoreCardList = data;
+                });
+            }
+            scope.getScoreCardList();
+
+            scope.outputErrorB = false;
+            scope.outputExpand = false;
+            scope.listStyleValue;
+            scope.ruleResultHierarchyLv2LocalInputs = [];
+            scope.ruleResultHierarchyLv2 = [];
+            scope.ruleResultHierarchyLv2Temp = [];
+            scope.localInputsLv2 = true;
+            scope.getScoreCardResult = function(displayName) {
+                for(var i=0; i<scope.scoreCardList.length; i++) {
+                    if(scope.scoreCardList[i].display == displayName) {
+                        scope.listStyleValue = displayName;
+                        if(scope.scoreCardList[i].input !== undefined) {
+                            scope.inputObj = Object.entries(scope.scoreCardList[i].input);
+                        } else {
+                            scope.inputObj = [];
+                            scope.inputExpand = false;
+                        }
+
+                        if(scope.scoreCardList[i].output !== undefined) {
+                            scope.outputError = false;
+                            scope.outputErrorB = true;
+                            scope.outputExpand = true;
+                            // scope.outputObj = Object.entries(scope.scoreCardList[i].output);
+                            scope.outputObj = scope.scoreCardList[i].ruleResult.output;
+                            console.log(scope.outputObj);
+                        } else {
+                            scope.outputObj = [];
+                            scope.outputExpand = true;
+                            if(scope.scoreCardList[i].ruleResult.output.error != undefined) {
+                                scope.outputError = true;
+                                scope.outputErrorB = false;
+                                scope.outputErrorMsg = scope.scoreCardList[i].ruleResult.output.error;
+                            }
+                        }
+                        
+                        // Level 1 Rule Result Hierarchy
+                        scope.ruleResultHierarchy = scope.scoreCardList[i].ruleResult.ruleResultHierarchy;
+                        console.log(scope.ruleResultHierarchy);
+                        if(scope.ruleResultHierarchy.length > 0) {
+                            for(var j=0; j<scope.ruleResultHierarchy.length; j++) {
+                                if(scope.ruleResultHierarchy[j].localInputs !== undefined) {
+                                    scope.localInputs = Object.entries(scope.ruleResultHierarchy[j].localInputs);
+                                } else {
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            scope.getLv2LocalInputs = function(ruleResultLv2Name) {
+                if(ruleResultLv2Name !== undefined) {
+                   return Object.entries(ruleResultLv2Name); 
+                }
+                return;
+            }
+
+            scope.inputExpand = false;
+            scope.outputExpand = true;
+            scope.ruleResultExpand = true;
+            scope.inputResultExpand = function() {
+                if(scope.inputExpand == false) {
+                    scope.inputExpand = true;
+                } else {
+                    scope.inputExpand = false;
+                }
+            }
+
+            scope.outputResultExpand = function() {
+                if(scope.outputExpand == true) {
+                    scope.outputExpand = false;
+                } else {
+                    scope.outputExpand = true;
+                }
+            }
+
+            scope.ruleResultExpandFun = function() {
+                if(scope.ruleResultExpand == true) {
+                    scope.ruleResultExpand = false;
+                } else {
+                    scope.ruleResultExpand = true;
+                }
+            }
+
+            scope.ruleResultExpandValue = '';
+            scope.ruleResultExpandValueBoolean = true;
+            scope.ruleResultHierarchyContentExpandFun = function(value) {
+                if(scope.ruleResultExpandValue != value) {
+                    scope.ruleResultExpandValue = value;
+                } else {
+                    scope.ruleResultExpandValue = '';
+                }
+            }
+
+
+            // Credit Bureau Functions
+            scope.bureaReportDetails = [];
+            scope.paymentStartYear;
+            scope.paymentEndYear;
+            scope.paymentTotalYears;
+            scope.paymentYearsList = ['Years'];
+            scope.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            scope.jan = [];
+            scope.feb = [];
+            scope.mar = [];
+            scope.apr = [];
+            scope.may = [];
+            scope.jun = [];
+            scope.jul = [];
+            scope.aug = [];
+            scope.sep = [];
+            scope.oct = [];
+            scope.nov = [];
+            scope.dec = [];
+            scope.payementHistory = [];
+            scope.displayBoolean = false;
+            scope.existingLoansArray = [];
+            scope.existingLoanIdArray = [];
+            scope.showCBReport = false;
+            scope.totalNumberOfLoans = 0;
+            scope.presentLoanNumber = 1;
+            scope.bureauScore;
+            scope.enquiryHistory = [];
+            scope.addressList = [];
+            scope.kycList = [];
+            scope.contactList = [];
+            scope.enquiryBankList = [];
+            scope.enquiryErrorMsg = false;
+            scope.addressErrorMsg = false;
+            scope.kycErrorMsg = false;
+            scope.contactErrorMsg = false;
+            scope.loanInfoErrorMsg = false;
+            scope.scoreErrorMsg = false;
+            scope.options = [{ name: "Active", id: 'Active' }, { name: "Closed", id: 'Closed' }, { name: "Show All Loans", id: 'all' }];
+            scope.selectedOption = scope.options[2];
+
+            scope.getBureauReportData = function(enquiryIdValue) {
+                console.log(enquiryIdValue);
+                scope.bureaReportDetails = [];
+                scope.existingLoanIdArray = [];
+                scope.jan = [];
+                scope.feb = [];
+                scope.mar = [];
+                scope.apr = [];
+                scope.may = [];
+                scope.jun = [];
+                scope.jul = [];
+                scope.aug = [];
+                scope.sep = [];
+                scope.oct = [];
+                scope.nov = [];
+                scope.dec = [];
+                scope.paymentYearsList = ['Years'];
+                scope.bureaReportDetails = [];
+                scope.payementHistory = [];
+
+                resourceFactory.getB2cCreditbureauResource.get({enquiryId: enquiryIdValue}, function (data) {
+                    console.log('CB Data :', data);
+                    scope.showCBReport = true;
+                    // scope.bureaReportDetails.push(data.bureauData.existingLoans[0]);
+                    // scope.existingLoansArray = data.bureauData.existingLoans;
+                    scope.bureaReportDetails.push(data.existingLoans[0]);
+                    if(data.existingLoans != undefined && data.existingLoans != [] && data.existingLoans.length != 0) {
+                        scope.loanInfoErrorMsg = false;
+                        scope.existingLoansArray = data.existingLoans;
+                        console.log(scope.existingLoansArray);
+                    } else {
+                        scope.loanInfoErrorMsg = true;
+                    }
+
+                    if(data.bureauScore[0] != undefined && data.bureauScore[0] != [] && data.bureauScore.length != 0) {
+                        scope.scoreErrorMsg = false;
+                        scope.bureauScore = data.bureauScore[0];
+                    } else {
+                        scope.scoreErrorMsg = true;
+                    }
+                    
+                    if(data.enquiryHistory != undefined && data.enquiryHistory != [] && data.enquiryHistory.length != 0) {
+                        scope.enquiryErrorMsg = false;
+                        scope.enquiryHistory = data.enquiryHistory;
+                        console.log(scope.bureauScore);
+                    } else {
+                        scope.enquiryErrorMsg = true;
+                    }
+
+                    if(data.bureauConsumerInformation.addressList != undefined && data.bureauConsumerInformation.addressList != [] && data.bureauConsumerInformation.addressList.length != 0) {
+                        scope.addressErrorMsg = false;
+                        scope.addressList = data.bureauConsumerInformation.addressList;
+                        console.log(scope.addressList);
+                    } else {
+                        scope.addressErrorMsg = true;
+                    }
+
+                    if(data.bureauConsumerInformation.bureauConsumerKycData != undefined && data.bureauConsumerInformation.bureauConsumerKycData != [] && data.bureauConsumerInformation.bureauConsumerKycData.length != 0) {
+                        scope.kycErrorMsg = false;
+                        scope.kycList = data.bureauConsumerInformation.bureauConsumerKycData;
+                        console.log(scope.kycList);
+                    } else {
+                        scope.kycErrorMsg = true;
+                    }
+
+                    if(data.bureauConsumerInformation.contactList != undefined && data.bureauConsumerInformation.contactList != [] && data.bureauConsumerInformation.contactList.length != 0) {
+                        scope.contactErrorMsg = false;
+                        scope.contactList = data.bureauConsumerInformation.contactList;
+                        console.log(scope.contactList);
+                    } else {
+                        scope.contactErrorMsg = true;
+                    }
+                    
+                    for(var a=0; a<scope.existingLoansArray.length; a++) {
+                        scope.existingLoanIdArray.push(scope.existingLoansArray[a].existingLoanId);
+                    }
+                    scope.totalNumberOfLoans = scope.existingLoanIdArray.length;
+                    console.log(scope.existingLoanIdArray);
+                    
+                    scope.payementHistory = scope.bureaReportDetails[0].creditBureauExistingLoanPaymentDetails;
+                    // scope.paymentStartYear = scope.bureaReportDetails[0].disbursedOnDate[0];
+                    // scope.paymentEndYear = scope.bureaReportDetails[0].lastPaymentDate[0];
+                    if(scope.payementHistory[0].date[0] < scope.payementHistory[scope.payementHistory.length - 1].date[0]) {
+                        scope.paymentStartYear = scope.payementHistory[0].date[0];
+                        scope.paymentEndYear = scope.payementHistory[scope.payementHistory.length - 1].date[0];
+                    } else {
+                        scope.paymentEndYear = scope.payementHistory[0].date[0];
+                        scope.paymentStartYear = scope.payementHistory[scope.payementHistory.length - 1].date[0];
+                    }
+                    scope.paymentTotalYears  = scope.paymentEndYear - scope.paymentStartYear;
+
+                    scope.tempStartYear = scope.paymentStartYear;
+                    scope.tempEndYear = scope.paymentEndYear;
+                    for(var k=0; k<=scope.paymentTotalYears; k++) {
+                        if(scope.tempStartYear <= scope.tempEndYear) {
+                            scope.paymentYearsList.push(scope.tempStartYear);
+                            scope.tempStartYear = scope.tempStartYear + 1;
+                        } else {
+                            break;
+                        }
+                    }
+                    scope.payementHistory = scope.payementHistory.reverse();
+                    console.log(scope.payementHistory);
+                    console.log(scope.paymentYearsList);
+
+                        scope.janFun();
+                        scope.febFun();
+                        scope.marFun();
+                        scope.aprFun();
+                        scope.mayFun();
+                        scope.junFun();
+                        scope.julFun();
+                        scope.augFun();
+                        scope.sepFun();
+                        scope.octFun();
+                        scope.novFun();
+                        scope.decFun();
+                });
+            }
+
+            scope.showLoanDetails = function(existingLoanIdValue) {
+                console.log(existingLoanIdValue);
+                scope.jan = [];
+                scope.feb = [];
+                scope.mar = [];
+                scope.apr = [];
+                scope.may = [];
+                scope.jun = [];
+                scope.jul = [];
+                scope.aug = [];
+                scope.sep = [];
+                scope.oct = [];
+                scope.nov = [];
+                scope.dec = [];
+                scope.paymentYearsList = ['Years'];
+                scope.bureaReportDetails = [];
+                scope.payementHistory = [];
+                scope.totalNumberOfLoans = 0;
+                scope.totalNumberOfLoans = scope.existingLoanIdArray.length;
+                scope.loanInfoErrorMsg = false;
+
+                if(existingLoanIdValue == undefined) {
+                    scope.loanInfoErrorMsg = true;
+                }
+                
+                for(var i=0; i<scope.existingLoansArray.length; i++) {
+                    if(scope.existingLoansArray[i].existingLoanId == existingLoanIdValue) {
+                        scope.loanInfoErrorMsg = false;
+                        scope.bureaReportDetails.push(scope.existingLoansArray[i]);
+                        console.log(scope.bureaReportDetails);
+                        scope.payementHistory = [];
+                        scope.payementHistory = scope.bureaReportDetails[0].creditBureauExistingLoanPaymentDetails;
+                        // scope.paymentStartYear = scope.bureaReportDetails[0].disbursedOnDate[0];
+                        // scope.paymentEndYear = scope.bureaReportDetails[0].lastPaymentDate[0];
+                        if(scope.payementHistory[0].date[0] < scope.payementHistory[scope.payementHistory.length - 1].date[0]) {
+                            scope.paymentStartYear = scope.payementHistory[0].date[0];
+                            scope.paymentEndYear = scope.payementHistory[scope.payementHistory.length - 1].date[0];
+                        } else {
+                            scope.paymentEndYear = scope.payementHistory[0].date[0];
+                            scope.paymentStartYear = scope.payementHistory[scope.payementHistory.length - 1].date[0];
+                        }
+                        // scope.paymentStartYear = scope.payementHistory[0].date[0];
+                        // scope.paymentEndYear = scope.payementHistory[scope.payementHistory.length - 1].date[0];
+                        console.log(scope.paymentEndYear);
+                        console.log(scope.paymentStartYear);
+                        scope.paymentTotalYears  = scope.paymentEndYear - scope.paymentStartYear;
+
+                        scope.tempStartYear = scope.paymentStartYear;
+                        scope.tempEndYear = scope.paymentEndYear;
+                        for(var k=0; k<=scope.paymentTotalYears; k++) {
+                            if(scope.tempStartYear <= scope.tempEndYear) {
+                                scope.paymentYearsList.push(scope.tempStartYear);
+                                scope.tempStartYear = scope.tempStartYear + 1;
+                            } else {
+                                break;
+                            }
+                        }
+                        scope.payementHistory = scope.payementHistory.reverse();
+                        console.log(scope.payementHistory);
+                        console.log(scope.paymentYearsList);
+                            scope.janFun();
+                            scope.febFun();
+                            scope.marFun();
+                            scope.aprFun();
+                            scope.mayFun();
+                            scope.junFun();
+                            scope.julFun();
+                            scope.augFun();
+                            scope.sepFun();
+                            scope.octFun();
+                            scope.novFun();
+                            scope.decFun();
+                    }
+                }
+            }
+
+            scope.showNextBtn = true;
+            scope.showPrvBtn = false;
+            scope.nextBtn = function(value) {
+                console.log(value);
+                for(var i=0; i<scope.existingLoanIdArray.length; i++) {
+                    if((value == scope.existingLoanIdArray[i]) && (value != scope.existingLoanIdArray[scope.existingLoanIdArray.length-1])) {
+                        scope.showLoanDetails(scope.existingLoanIdArray[i+1]);
+                        scope.showPrvBtn = true;
+                        scope.presentLoanNumber = scope.presentLoanNumber + 1;
+
+                        if(scope.existingLoanIdArray[i+1] == (scope.existingLoanIdArray[scope.existingLoanIdArray.length-1])) {
+                            scope.showNextBtn = false;
+                        }
+                    }
+                    
+                }
+            }
+
+            scope.prvBtn = function(value) {
+                console.log(value);
+                for(var i=0; i<scope.existingLoanIdArray.length; i++) {
+                    if((value == scope.existingLoanIdArray[i]) && (value != scope.existingLoanIdArray[0])) {
+                        scope.showLoanDetails(scope.existingLoanIdArray[i-1]);
+                        scope.showNextBtn = true;
+                        scope.presentLoanNumber = scope.presentLoanNumber - 1;
+                        if(scope.existingLoanIdArray[i-1] == (scope.existingLoanIdArray[0])) {
+                            scope.showPrvBtn = false;
+                        }
+                    }
+                    
+                }
+            }
+
+            scope.loanFilter = function(value) {
+                console.log(value);
+                scope.presentLoanNumber = 1;
+                scope.showPrvBtn = false;
+                scope.showNextBtn = true;
+                if(value != 'all') {
+                    scope.existingLoanIdArray = [];
+                    for(var i=0; i<scope.existingLoansArray.length; i++) {
+                        if(value == scope.existingLoansArray[i].receivedLoanStatus) {
+                            scope.existingLoanIdArray.push(scope.existingLoansArray[i].existingLoanId);
+                        }
+                    }
+                    scope.showLoanDetails(scope.existingLoanIdArray[0]);
+                } else {
+                    scope.existingLoanIdArray = [];
+                    for(var a=0; a<scope.existingLoansArray.length; a++) {
+                        scope.existingLoanIdArray.push(scope.existingLoansArray[a].existingLoanId);
+                    }
+                    scope.showLoanDetails(scope.existingLoanIdArray[0]);
+                }
+                
+            }
+
+            scope.janBoolean = false;
+            scope.janFun = function() {
+                scope.jan = [];
+                for(var j=1; j<scope.paymentYearsList.length; j++) {
+                    scope.janBoolean = false;
+                    for(var i=0; i<scope.payementHistory.length; i++) {
+                        if(scope.paymentYearsList[j] == scope.payementHistory[i].date[0] && scope.payementHistory[i].date[1] == 1) {
+                            scope.jan.push(scope.payementHistory[i].dpdRaw);
+                            scope.janBoolean = true;
+                        }
+                    }
+                    if(scope.janBoolean == false) {
+                        scope.jan.push('--');
+                    }
+                }
+                console.log('Jan Month :',scope.jan);
+            }
+
+            scope.febBoolean = false;
+            scope.febFun = function() {
+                scope.feb = [];
+                for(var j=1; j<scope.paymentYearsList.length; j++) {
+                    scope.febBoolean = false;
+                    for(var i=0; i<scope.payementHistory.length; i++) {
+                        if(scope.paymentYearsList[j] == scope.payementHistory[i].date[0] && scope.payementHistory[i].date[1] == 2) {
+                            scope.feb.push(scope.payementHistory[i].dpdRaw);
+                            scope.febBoolean = true;
+                        }
+                    }
+                    if(scope.febBoolean == false) {
+                        scope.feb.push('--');
+                    }
+                }
+                console.log('Feb Month :',scope.feb);
+            }
+
+            scope.marBoolean = false;
+            scope.marFun = function() {
+                scope.mar = [];
+                for(var j=1; j<scope.paymentYearsList.length; j++) {
+                    scope.marBoolean = false;
+                    for(var i=0; i<scope.payementHistory.length; i++) {
+                        if(scope.paymentYearsList[j] == scope.payementHistory[i].date[0] && scope.payementHistory[i].date[1] == 3) {
+                            scope.mar.push(scope.payementHistory[i].dpdRaw);
+                            scope.marBoolean = true;
+                        }
+                    }
+                    if(scope.marBoolean == false) {
+                        scope.mar.push('--');
+                    }
+                }
+                console.log('Mar Month :',scope.mar);
+            }
+
+            scope.aprBoolean = false;
+            scope.aprFun = function() {
+                scope.apr = [];
+                for(var j=1; j<scope.paymentYearsList.length; j++) {
+                    scope.aprBoolean = false;
+                    for(var i=0; i<scope.payementHistory.length; i++) {
+                        if(scope.paymentYearsList[j] == scope.payementHistory[i].date[0] && scope.payementHistory[i].date[1] == 4) {
+                            scope.apr.push(scope.payementHistory[i].dpdRaw);
+                            scope.aprBoolean = true;
+                        }
+                    }
+                    if(scope.aprBoolean == false) {
+                        scope.apr.push('--');
+                    }
+                }
+                console.log('Apr Month :',scope.apr);
+            }
+            
+            scope.mayBoolean = false;
+            scope.mayFun = function() {
+                scope.may = [];
+                for(var j=1; j<scope.paymentYearsList.length; j++) {
+                    scope.mayBoolean = false;
+                    for(var i=0; i<scope.payementHistory.length; i++) {
+                        if(scope.paymentYearsList[j] == scope.payementHistory[i].date[0] && scope.payementHistory[i].date[1] == 5) {
+                            scope.may.push(scope.payementHistory[i].dpdRaw);
+                            scope.mayBoolean = true;
+                        }
+                    }
+                    if(scope.mayBoolean == false) {
+                        scope.may.push('--');
+                    }
+                }
+                console.log('May Month :',scope.may);
+            }
+
+            scope.junBoolean = false;
+            scope.junFun = function() {
+                scope.jun = [];
+                for(var j=1; j<scope.paymentYearsList.length; j++) {
+                    scope.junBoolean = false;
+                    for(var i=0; i<scope.payementHistory.length; i++) {
+                        if(scope.paymentYearsList[j] == scope.payementHistory[i].date[0] && scope.payementHistory[i].date[1] == 6) {
+                            scope.jun.push(scope.payementHistory[i].dpdRaw);
+                            scope.junBoolean = true;
+                        }
+                    }
+                    if(scope.junBoolean == false) {
+                        scope.jun.push('--');
+                    }
+                }
+                console.log('Jun Month :',scope.jun);
+            }
+
+            scope.julBoolean = false;
+            scope.julFun = function() {
+                scope.jul = [];
+                for(var j=1; j<scope.paymentYearsList.length; j++) {
+                    scope.julBoolean = false;
+                    for(var i=0; i<scope.payementHistory.length; i++) {
+                        if(scope.paymentYearsList[j] == scope.payementHistory[i].date[0] && scope.payementHistory[i].date[1] == 7) {
+                            scope.jul.push(scope.payementHistory[i].dpdRaw);
+                            scope.julBoolean = true;
+                        }
+                    }
+                    if(scope.julBoolean == false) {
+                        scope.jul.push('--');
+                    }
+                }
+                console.log('Jul Month :',scope.jul);
+            }
+
+            scope.augBoolean = false;
+            scope.augFun = function() {
+                scope.aug = [];
+                for(var j=1; j<scope.paymentYearsList.length; j++) {
+                    scope.augBoolean = false;
+                    for(var i=0; i<scope.payementHistory.length; i++) {
+                        if(scope.paymentYearsList[j] == scope.payementHistory[i].date[0] && scope.payementHistory[i].date[1] == 8) {
+                            scope.aug.push(scope.payementHistory[i].dpdRaw);
+                            scope.augBoolean = true;
+                        }
+                    }
+                    if(scope.augBoolean == false) {
+                        scope.aug.push('--');
+                    }
+                }
+                console.log('Aug Month :',scope.aug);
+            }
+
+            scope.sepBoolean = false;
+            scope.sepFun = function() {
+                scope.sep = [];
+                for(var j=1; j<scope.paymentYearsList.length; j++) {
+                    scope.sepBoolean = false;
+                    for(var i=0; i<scope.payementHistory.length; i++) {
+                        if(scope.paymentYearsList[j] == scope.payementHistory[i].date[0] && scope.payementHistory[i].date[1] == 9) {
+                            scope.sep.push(scope.payementHistory[i].dpdRaw);
+                            scope.sepBoolean = true;
+                        }
+                    }
+                    if(scope.sepBoolean == false) {
+                        scope.sep.push('--');
+                    }
+                }
+                console.log('Sep Month :',scope.sep);
+            }
+
+            scope.octBoolean = false;
+            scope.octFun = function() {
+                scope.oct = [];
+                for(var j=1; j<scope.paymentYearsList.length; j++) {
+                    scope.octBoolean = false;
+                    for(var i=0; i<scope.payementHistory.length; i++) {
+                        if(scope.paymentYearsList[j] == scope.payementHistory[i].date[0] && scope.payementHistory[i].date[1] == 10) {
+                            scope.oct.push(scope.payementHistory[i].dpdRaw);
+                            scope.octBoolean = true;
+                        }
+                    }
+                    if(scope.octBoolean == false) {
+                        scope.oct.push('--');
+                    }
+                }
+                console.log('Oct Month :',scope.oct);
+            }
+
+            scope.novBoolean = false;
+            scope.novFun = function() {
+                scope.nov = [];
+                for(var j=1; j<scope.paymentYearsList.length; j++) {
+                    scope.novBoolean = false;
+                    for(var i=0; i<scope.payementHistory.length; i++) {
+                        if(scope.paymentYearsList[j] == scope.payementHistory[i].date[0] && scope.payementHistory[i].date[1] == 11) {
+                            scope.nov.push(scope.payementHistory[i].dpdRaw);
+                            scope.novBoolean = true;
+                        }
+                    }
+                    if(scope.novBoolean == false) {
+                        scope.nov.push('--');
+                    }
+                }
+                console.log('Nov Month :',scope.nov);
+            }
+
+            scope.decBoolean = false;
+            scope.decFun = function() {
+                scope.dec = [];
+                for(var j=1; j<scope.paymentYearsList.length; j++) {
+                    scope.decBoolean = false;
+                    for(var i=0; i<scope.payementHistory.length; i++) {
+                        if(scope.paymentYearsList[j] == scope.payementHistory[i].date[0] && scope.payementHistory[i].date[1] == 12) {
+                            scope.dec.push(scope.payementHistory[i].dpdRaw);
+                            scope.decBoolean = true;
+                        }
+                    }
+                    if(scope.decBoolean == false) {
+                        scope.dec.push('--');
+                    }
+                }
+                console.log('Dec Month :',scope.dec);
+            }
+
+
+
+
         }
     });
 

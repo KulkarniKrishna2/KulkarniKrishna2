@@ -27,7 +27,7 @@
                 </div>
             </div>
         </form>
-        <table class="table well" ng-show="bankStatements.length > 0">
+        <table class="table well" ng-show="bankStatements.currentPageItems.length > 0">
             <thead>
             <tr class="graybg">
                 <th>{{'label.heading.name' | translate}}</th>
@@ -42,8 +42,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr dir-paginate="bankStatement in bankStatements | filter:filterText | orderBy: sortDate : true | itemsPerPage: bankStatementPerPage" total-items="totalBankStatement">
-    
+            <tr ng-if="bankStatements.currentPageItems.length > 0" class="pointer-main" ng-repeat="bankStatement in bankStatements.currentPageItems ">
                 <td>{{bankStatement.name}}</td>
                 <td>{{bankStatement.bankData.name}}</td>
                 <td>{{bankStatement.description}}</td>
@@ -80,7 +79,22 @@
                     </div>
                 </td>
             </tr>
+            <tr ng-if="bankStatements.isResponsePresent && bankStatements.currentPageItems.length == 0">
+                <td>
+                    <div class="alert alert-info col-sm-12" style="border-style: dashed;">
+                        <span class="fa fa-info-circle"></span> {{'label.message.no.data.found' | translate}}
+                    </div>
+                </td>
+            </tr>
             </tbody>
         </table>
-        <dir-pagination-controls boundary-links="true"  template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html" on-page-change="getResultsPage(newPageNumber)"></dir-pagination-controls>
+        <ul class="pager">
+            <li class="previous">
+                <a id="prev" ng-click="bankStatements.previous($index+1)" href="" ng-show="bankStatements.hasPrevious($index+1)">&larr;
+                    {{'label.button.previous' | translate}}</a>
+            </li>
+            <li class="next">
+                <a id="next" ng-click="bankStatements.next()" href=""
+                    ng-show="bankStatements.hasNext()">{{'label.button.next' | translate}} &rarr;</a></li>
+        </ul>
     </div>

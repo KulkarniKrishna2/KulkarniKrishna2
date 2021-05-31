@@ -334,6 +334,12 @@
                             scope.formData.fixedEmiAmount = data.fixedEmiAmount;
                             scope.showEMIAmountField = true;
                         }
+                        if(!_.isUndefined(data.templateAdditionalDetails) &&  !_.isUndefined(data.templateAdditionalDetails.isUpfrontInterestEnabled) 
+                        && data.templateAdditionalDetails.isUpfrontInterestEnabled){
+                            scope.showupfrontinterestamount = true;
+                        }else{
+                            scope.showupfrontinterestamount = false;
+                        }
                     });
                     scope.title = 'label.heading.disburseloanaccount';
                     scope.labelName = 'label.input.disbursedondate';
@@ -435,6 +441,12 @@
                         if(data.isRepaymentAtDisbursement){
                             scope.formData.paymentTypeIdForRepaymentAtDisbursement = data.paymentTypeIdForRepaymentAtDisbursement;
                         }
+                        if(!_.isUndefined(data.templateAdditionalDetails) &&  !_.isUndefined(data.templateAdditionalDetails.isUpfrontInterestEnabled) 
+                            && data.templateAdditionalDetails.isUpfrontInterestEnabled){
+                            scope.showupfrontinterestamount = true;
+                         }else{
+                             scope.showupfrontinterestamount = false;
+                         }
                     });
                     if(routeParams.type && routeParams.type == 'flatinterest'){
                         scope.showdiscountOnDisburse = true;
@@ -864,9 +876,11 @@
                     });
 
                     scope.title = 'label.heading.waiveloancharge';
-                    scope.labelName = 'label.input.installment';
                     scope.showNoteField = false;
-                    scope.showDateField = false;
+                    scope.showDateField = true;
+                    scope.labelName = 'label.input.chargewaivedon';
+                    scope.modelName = 'chargeWaiverDate';
+                    scope.formData[scope.modelName] = new Date();
                     scope.taskPermissionName = 'WAIVE_LOANCHARGE';
                     break;
                 case "paycharge":
@@ -1288,7 +1302,7 @@
                         location.path('/viewloanaccount/' + data.loanId);
                     });
                 } else if (scope.action === "waivecharge") {
-                    resourceFactory.LoanAccountResource.save({loanId: routeParams.id, resourceType: 'charges', chargeId: routeParams.chargeId, 'command': 'waive'}, this.formData, function (data) {
+                    resourceFactory.LoanChargesV2Resource.waiveCharge({loanId: routeParams.id, resourceType: 'charges', chargeId: routeParams.chargeId }, this.formData, function (data) {
                         location.path('/viewloanaccount/' + data.loanId);
                     });
                 } else if (scope.action === "paycharge") {
