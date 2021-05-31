@@ -68,7 +68,14 @@
 				"clientClassificationId": true,
 				"houseNo": true,
 				"lastName": false
-			}	
+			},
+			"isValidateDOBField": {
+				"active": true,
+				"ageCriteria": {
+					"minAge": 18,
+					"maxAge": 55
+				}
+			}
 		},
 		"documentConfiguration": {
 			"restrictTaggedDocuments": true
@@ -115,7 +122,16 @@
 			},
 			"familyDeatils": {
 				"isMandatoryField": {
-					"familyMemeberUniqueNoType": false
+					"age": true,
+					"familyMemeberUniqueNoType": false,
+					"dateOfBirth": false
+				},
+				"isValidateDOBField": {
+					"active": true,
+					"ageCriteria": {
+						"minAge": 21,
+						"maxAge": 58
+					}
 				}
 			}
 		},

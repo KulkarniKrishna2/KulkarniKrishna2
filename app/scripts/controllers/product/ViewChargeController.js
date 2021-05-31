@@ -7,7 +7,7 @@
             scope.installmentAmountSlabType = 1;
             scope.chargeAppliesToLoan = 1;
             scope.showChargeCategoryType = false;
-            
+
             if (scope.response.uiDisplayConfigurations.createCharges.isHiddenField) {
                 scope.showChargeCategoryType = !scope.response.uiDisplayConfigurations.createCharges.isHiddenField.chargeCategoryType;
             }

@@ -815,7 +815,7 @@
                 if (scope.temp.syncRepaymentsWithMeeting) {
                     this.formData.calendarId = scope.loanaccountinfo.calendarOptions[0].id;
                 }
-                if(!_.isUndefined()){
+                if(!_.isUndefined(reqThirdDate)){
                     this.formData.interestChargedFromDate = reqThirdDate;
                 }             
                 this.formData.repaymentsStartingFromDate = reqFourthDate;

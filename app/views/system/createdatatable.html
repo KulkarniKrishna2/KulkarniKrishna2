@@ -160,6 +160,7 @@
 			                <option value="DateTime">{{'label.datetime' | translate}}</option>
 			                <option value="Text">{{'label.text' | translate}}</option>
 			                <option value="Dropdown">{{'label.dropdown' | translate}}</option>
+							<option value="multiSelectDropDown">{{'label.multi.select' | translate}}</option>
 			            </select>
 					</div>
 	                <div class="col-sm-3">
@@ -207,6 +208,7 @@
 										<option value="DateTime">{{'label.datetime' | translate}}</option>
 										<option value="Text">{{'label.text' | translate}}</option>
 										<option value="Dropdown">{{'label.dropdown' | translate}}</option>
+										<option value="multiSelectDropDown">{{'label.multi.select' | translate}}</option>
 									</select>
 								</td>
 								<td  class="col-sm-2">
@@ -219,7 +221,7 @@
 	          
 								</td>
 								<td  class="col-sm-2">
-									<select ng-show="column.type == 'Dropdown'" ng-model="column.code"
+									<select ng-show="column.type == 'Dropdown' || column.type == 'multiSelectDropDown'" ng-model="column.code"
 											ng-options="code.name as code.name for code in codes" value="{{code.name}}"
 											class="input-sm form-control"/>
 								</td>

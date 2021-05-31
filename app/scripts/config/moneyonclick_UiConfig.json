@@ -20,7 +20,7 @@
 				"repaymentFrequencyType": false,
 				"repaymentFrequencyNthDayType": false,
 				"repaymentFrequencyDayOfWeekType": false,
-				"interestChargedFromDate": true,
+				"interestChargedFromDate": false,
 				"repaymentsStartingFromDate": false,
 				"interestType": false,
 				"amortizationType": false,
@@ -41,7 +41,7 @@
 				"writeOff": false,				
 				"previewSchedule": false,
 				"collateral" : false,
-				"graceOnPrincipalPayment" : true
+				"graceOnPrincipalPayment" : false
 			},
 			"isMandatory": {
 				"fundId": false,
@@ -639,7 +639,7 @@
 		},
 		"createCharges": {
 			"isHiddenField": {
-				"chargeCategoryType": false
+				"chargeCategoryType": true
 			}
 		},
 		"entityType": {

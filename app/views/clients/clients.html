@@ -37,7 +37,7 @@
 
                         <div class="col-sm-3">
                             <input placeholder="MOBILE NUMBER" type="text" autocomplete="off" id="mobileNo" name="mobileNo" ng-model="searchConditions.mobileNo"
-                                   ng-pattern="/^[0-9]+$/" class="form-control"/>
+                                 class="form-control"/>
                             <span ng-show="searchClientsForm.mobileNo.$invalid && searchClientsForm.mobileNo.$dirty">
                                 <small class="required" ng-show="searchClientsForm.mobileNo.$error.pattern">{{'label.mustbenumeric' | translate}}</small>
                             </span>
@@ -113,7 +113,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <tr ng-if="clients.currentPageItems.length > 0" class="pointer-main" ng-repeat="client in clients.currentPageItems | orderBy:'displayName':reverse  | filter:filterText">
+                    <tr ng-if="clients.currentPageItems.length > 0" class="pointer-main" ng-repeat="client in clients.currentPageItems | filter:filterText">
                         <td class="pointer" data-ng-click="routeTo(client.id)">
                             <span ng-if = "!displayNameInReverseOrder">{{client.displayName}}</span>
                             <span ng-if = "displayNameInReverseOrder" ng-init="reverseDisplayName(client)">{{client.displayNameInReverseOrder}}</span>

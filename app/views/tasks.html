@@ -9,7 +9,7 @@
 			<legend>{{'label.heading.pendingtasks' | translate}}</legend>
 			<api-validate></api-validate>
 			<tabset tabset-name="taskTabset">
-				<tab heading="{{'label.heading.checkerinbox' | translate}}" has-permission='ALL_FUNCTIONS_READ' >
+				<tab heading="{{'label.heading.checkerinbox' | translate}}" has-permission='ALL_FUNCTIONS_READ' ng-click="rescheduleData()">
 				    <div class="head-affix">
 				        <table class="table condensed-table">
 				            <div class="form-inline">
@@ -108,7 +108,8 @@
 				            </tr>
 				            </thead>
 				            <tbody>
-				            <tr class="pointer-main" ng-repeat="data in searchData">
+							<tr ng-if="searchData.currentPageItems.length > 0" class="pointer-main"
+									ng-repeat="data in searchData.currentPageItems ">
 				                <td><input type="checkbox" data-ng-model="checkData[data.id]"/></td>
 				                <td class="pointer" data-ng-click="routeTo(data.id)">{{data.id}}</td>
 				                <td class="pointer" data-ng-click="routeTo(data.id)">{{data.madeOnDate | DateFormat}}</td>
@@ -117,8 +118,24 @@
 				                <td class="pointer" data-ng-click="routeTo(data.id)">{{data.actionName}}</td>
 				                <td class="pointer" data-ng-click="routeTo(data.id)">{{data.entityName}}</td>
 				            </tr>
+							<tr ng-if="searchData.isResponsePresent && searchData.currentPageItems.length == 0">
+								<td>
+									<div class="alert alert-info col-sm-12" style="border-style: dashed;">
+										<span class="fa fa-info-circle"></span> {{'label.message.no.data.found' | translate}}
+									</div>
+								</td>
+							</tr>
 				            </tbody>
 				        </table>
+						<ul class="pager">
+							<li class="previous">
+								<a id="prev" ng-click="searchData.previous($index+1)" href="" ng-show="searchData.hasPrevious($index+1)">&larr;
+									{{'label.button.previous' | translate}}</a>
+							</li>
+							<li class="next">
+								<a id="next" ng-click="searchData.next()" href=""
+									ng-show="searchData.hasNext()">{{'label.button.next' | translate}} &rarr;</a></li>
+						</ul>
 				    </div>
 				</tab>
 				<tab heading="{{'label.heading.clientapproval' | translate}}" has-permission='READ_CLIENT' ng-click="resetsearchparams()">
@@ -704,7 +721,7 @@
 					</div>
 				</tab>
 
-				<tab heading="{{'label.heading.rescheduleloan' | translate}}" has-permission='RESCHEDULE_LOAN'>
+				<tab heading="{{'label.heading.rescheduleloan' | translate}}" has-permission='RESCHEDULE_LOAN' ng-click="rescheduleData()">
                     <div class="head-affix">
                         <table class="table condensed-table">
                             <thead>

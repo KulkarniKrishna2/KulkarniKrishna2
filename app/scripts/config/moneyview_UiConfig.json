@@ -20,7 +20,7 @@
 				"repaymentFrequencyType": false,
 				"repaymentFrequencyNthDayType": false,
 				"repaymentFrequencyDayOfWeekType": false,
-				"interestChargedFromDate": true,
+				"interestChargedFromDate": false,
 				"repaymentsStartingFromDate": false,
 				"interestType": false,
 				"amortizationType": false,
@@ -639,7 +639,7 @@
 		},
 		"createCharges": {
 			"isHiddenField": {
-				"chargeCategoryType": false
+				"chargeCategoryType": true
 			}
 		},
 		"entityType": {
