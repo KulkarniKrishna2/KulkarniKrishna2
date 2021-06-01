@@ -35,35 +35,30 @@
                                             data.data[k].row[i] = scope.datatabledetails.columnHeaders[i].columnValues[j].value;
                                         }
                                     }
-                                   /* for(var m in data.columnData){
-                                        for(var n in data.columnData[m].row){
-                                            if(data.columnData[m].row[n].columnName == scope.datatabledetails.columnHeaders[i].columnName && data.columnData[m].row[n].value == scope.datatabledetails.columnHeaders[i].columnValues[j].id){
-                                                data.columnData[m].row[n].value = scope.datatabledetails.columnHeaders[i].columnValues[j].value;
-                                            }
-                                        }
-                                    } */
+                                    
                                 }
                             }
-                        }
-                        for(var m in data.columnData){
-                            for(var n in data.columnData[m].row){
-                                if(data.columnData[m].row[n].columnName == scope.datatabledetails.columnHeaders[i].columnName){
-                                    if(scope.datatabledetails.columnHeaders[i].columnDisplayType== 'MULTISELECTCODELOOKUP'|| scope.datatabledetails.columnHeaders[i].columnDisplayType== 'CODELOOKUP'){
-                                        var multiSelectValuesAsString = data.columnData[m].row[n].value;
-                                        var multiSelectValuesAsArray = multiSelectValuesAsString.split(',');
-                                        var displayArray = [];
-                                        for(var x in multiSelectValuesAsArray){
-                                            
-                                            for(var y in scope.datatabledetails.columnHeaders[i].columnValues){
-                                                if(multiSelectValuesAsArray[x]==scope.datatabledetails.columnHeaders[i].columnValues[y].id){
-                                                    displayArray.push(scope.datatabledetails.columnHeaders[i].columnValues[y].value);
+                            for(var m in data.columnData){
+                                for(var n in data.columnData[m].row){
+                                    if(data.columnData[m].row[n].columnName == scope.datatabledetails.columnHeaders[i].columnName){
+                                        if(scope.datatabledetails.columnHeaders[i].columnDisplayType== 'MULTISELECTCODELOOKUP'||scope.datatabledetails.columnHeaders[i].columnDisplayType== 'CODELOOKUP'){
+                                            var multiSelectValuesAsString = data.columnData[m].row[n].value;
+                                            var multiSelectValuesAsArray = JSON.parse("[" + multiSelectValuesAsString + "]");
+                                            var displayArray = [];
+                                            for(var x in multiSelectValuesAsArray){
+                                                
+                                                for(var y in scope.datatabledetails.columnHeaders[i].columnValues){
+                                                    if(multiSelectValuesAsArray[x]==scope.datatabledetails.columnHeaders[i].columnValues[y].id){
+                                                        displayArray.push(scope.datatabledetails.columnHeaders[i].columnValues[y].value);
+                                                    }
                                                 }
                                             }
+                                            data.columnData[m].row[n].value = displayArray.toString();
                                         }
-                                        data.columnData[m].row[n].value = displayArray.toString();
                                     }
                                 }
                             }
+    
                         }
 
                         if(data.sectionedColumnList !=undefined && data.sectionedColumnList != null &&  data.sectionedColumnList.length > 0){
