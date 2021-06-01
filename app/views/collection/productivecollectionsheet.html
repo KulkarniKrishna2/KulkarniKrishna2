@@ -175,7 +175,7 @@
                                 <label class="control-label col-sm-4" >{{'label.input.reasontype' | translate}}<span ng-if="isRejectReasonMandatory"class="required">*</span></label>
                                 <div class="col-sm-5">
                                     <select  id="loanRejectReason[loan.loanId].codeReasonId"  name="loanReasonCodeType" ng-model="loanRejectReason[loan.loanId].codeReasonId" ng-options="code.id as code.name for code in collectionReasonList" value="{{code.name}}" 
-                                    class="input-sm form-control" data-ng-change="getLoanSubReasonValues(loan.loanId,loanRejectReason[loan.loanId].codeReasonId)" ng-required="isRejectReasonMandatory" required late-validate>
+                                    class="input-sm form-control" data-ng-change="getLoanSubReasonValues(loan.loanId,loanRejectReason[loan.loanId].codeReasonId)" ng-required="isRejectReasonMandatory">
                                     <option value="">{{'label.selectone' | translate}}</option></select>
                                 </div>
                                 <div class="control-label col-sm-8">
@@ -189,7 +189,7 @@
                                 <div class="col-sm-8">
                                     <select id = "loanRejectReason[loan.loanId].reasonId" name="loanReasonCode" ng-model="loanRejectReason[loan.loanId].reasonId" 
                                     ng-options="codeValue.id as codeValue.name for codeValue in loanRejectReason[loan.loanId].codeValueOptions" value="{{codeValue.id}}" 
-                                    class="input-sm form-control" data-ng-change="isDescriptionAvailable(loanRejectReason[loan.loanId])" ng-required="isRejectReasonMandatory" required late-validate>
+                                    class="input-sm form-control" data-ng-change="isDescriptionAvailable(loanRejectReason[loan.loanId])" ng-required="isRejectReasonMandatory">
                                     <option value="">{{'label.selectone' | translate}}</option></select>
                                 </div>
                                 <div class="control-label col-sm-8">
@@ -201,7 +201,7 @@
                                 <label class="control-label col-sm-4" >{{'label.input.description' | translate}}<span ng-if="isRejectReasonMandatory" class="required">*</span></label>
                                 <div class="col-sm-8">
                                     <textarea row="3" col="3" id="loanRejectReason[loan.loanId].reason" name="loanReasonDescription" ng-model="loanRejectReason[loan.loanId].reason"  class="form-control"
-                                    ng-required="isRejectReasonMandatory" required late-validate></textarea>
+                                    ng-required="isRejectReasonMandatory"></textarea>
                                 </div>
                                 <div class="control-label col-sm-8">
                                     <form-validate valattributeform="productivecollectionsheetform" valattribute="loanReasonDescription"/>
@@ -257,10 +257,10 @@
                                             <label class="control-label col-sm-4" >{{'label.input.reasontype' | translate}}<span ng-if="isRejectReasonMandatory" class="required">*</span></label>
                                             <div class="col-sm-6">
                                                 <select  id="client.codeReasonId" name="attendanceReasonCodeType" ng-model="client.codeReasonId" ng-options="code.id as code.name for code in reasonAttendenceList" value="{{code.name}}" 
-                                                class="form-control" data-ng-change="getValuesByClient(client, client.codeReasonId)" ng-required="isRejectReasonMandatory" required late-validate>
+                                                class="form-control" data-ng-change="getValuesByClient(client, client.codeReasonId)" ng-required="isRejectReasonMandatory">
                                                 <option value="">{{'label.selectone' | translate}}</option></select>
                                             </div>
-                                            <div class="col-sm-8">
+                                            <div class="control-label col-sm-7 loan-reject-reason">
                                                 <form-validate valattributeform="productivecollectionsheetform" valattribute="attendanceReasonCodeType"/>
                                             </div>
                                             <br/>

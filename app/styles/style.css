@@ -1655,3 +1655,7 @@ tr.newBg td, tr.newBg th {
 .bReport-identifier-content{
     justify-content: flex-start;
 }
+
+.loan-reject-reason{
+    margin-left: 2%;
+}
