@@ -13,6 +13,8 @@ on:
       - release*
       # Push events to hotifx branches
       - hotfix*
+    tags: 
+      - '*'  
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -36,7 +38,7 @@ jobs:
       
     - name: Extract Branch Name
       shell: bash
-      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/*/})"
       id: extract_branch   
     
     - name: Configure AWS credentials
