@@ -2,7 +2,7 @@
     mifosX.controllers = _.extend(module, {
         CreateChargeController: function (scope, resourceFactory, location, dateFilter, translate) {
             scope.template = [];
-            scope.formData = {};
+            scope.formData = { active:true };
             scope.first = {};
             scope.isCollapsed = true;
             scope.showdatefield = false;

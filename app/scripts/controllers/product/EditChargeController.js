@@ -24,6 +24,7 @@
             scope.showEventTypeOptions = false;
             scope.chargeEventsTypeOptions = [];
             scope.overdueBasedOnOptions = [];
+            scope.isActiveCheckBoxDisabled = false;
 
             if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createCharges &&
                 scope.response.uiDisplayConfigurations.createCharges.isHiddenField) {
@@ -100,6 +101,10 @@
                     isCapitalized: data.isCapitalized,
                     isCollectedAsCash :  data.isCollectedAsCash
                 };
+                if(scope.isCloneChargeProduct){
+                    scope.formData.active = true;
+                    scope.isActiveCheckBoxDisabled = true;
+                }
                 if(data.roundingMode){
                     scope.formData.roundingMode = data.roundingMode.id;
                 }
@@ -418,7 +423,9 @@
                 }
 
                 if(!(this.formData.chargeAppliesTo == 1 && this.formData.chargeTimeType == 9 && this.formData.chargeCalculationType == 1)){
-                    this.formData.overdueChargeDetail.overdueBasedOn  = undefined;
+                    if(!_.isUndefined(this.formData.overdueChargeDetail)){
+                        this.formData.overdueChargeDetail.overdueBasedOn  = undefined;
+                    }
                 }
                 
                 if (!_.isUndefined(scope.isCloneChargeProduct) && scope.isCloneChargeProduct) {
