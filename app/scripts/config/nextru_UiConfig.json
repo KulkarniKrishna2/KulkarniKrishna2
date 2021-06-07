@@ -33,6 +33,11 @@
             "isReadOnlyField": {
 				"externalId": true
 			}
+        },
+        "loanAccount": {
+            "isDefaultValue":{
+                "paymentTypeId": 10
+            }
         }
     }
 } 
