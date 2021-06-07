@@ -842,6 +842,8 @@
                                     <th scope="col" class="loanAcc-table-header-srs">{{'label.heading.interest' | translate}}</th>
                                     <th scope="col" class="loanAcc-table-header-srs">{{'label.heading.fees' | translate}}</th>
                                     <th scope="col" class="loanAcc-table-header-srs">{{'label.heading.penalties' | translate}}</th>
+                                    <th scope="col" class="loanAcc-table-header-srs">{{'label.heading.full.emi.paid.date' | translate}}</th>
+
                                     <th scope="col" class="loanAcc-table-header-srs">{{'label.heading.total.period.due' | translate}}</th>
                                     <th scope="col" class="loanAcc-table-header-srs">{{'label.heading.fully.paid.date' | translate}}</th>
                                     <th scope="col" class="loanAcc-table-header-srs">{{'label.heading.paid.amount' | translate}}</th>
@@ -868,7 +870,8 @@
                                     <td>{{schedule.interest | number}}</td>
                                     <td>{{schedule.fees | number}}</td>
                                     <td>{{schedule.penalties | number}}</td>
-    
+                                    <td>{{schedule.emiClearedOn | DateFormat}}</td>
+
                                     <td>{{schedule.totalPeriodDue | number}}</td>
                                     <td>{{schedule.fullyPaidDate | DateFormat}}</td>
                                     <td>{{schedule.paidAmount | number}}</td>
