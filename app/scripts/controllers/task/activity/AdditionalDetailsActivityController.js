@@ -833,7 +833,7 @@
                 $scope.displaySurveyInfo = true;
                 $scope.surveyName = scope.response.uiDisplayConfigurations.viewClient.takeSurveyName;
                 $scope.isDetailEditable = true;
-                $scope.showBankAccountActivate = false;
+                $scope.hideBankAccountActivate = false;
                 //loan account
                 if (memberParams.activeClientMember.loanAccountBasicData) {
                     $scope.loanAccountData = memberParams.activeClientMember.loanAccountBasicData;
@@ -846,7 +846,7 @@
                         $scope.isReadOnlyFields = scope.response.uiDisplayConfigurations.bankAccountDetails.isReadOnlyField;
                     }
                     if(scope.response.uiDisplayConfigurations.workflow && scope.response.uiDisplayConfigurations.workflow.hiddenFields){
-                        $scope.showBankAccountActivate = !scope.response.uiDisplayConfigurations.workflow.hiddenFields.bankAccountActivate;
+                        $scope.hideBankAccountActivate = scope.response.uiDisplayConfigurations.workflow.hiddenFields.bankAccountActivate;
                     }
                 }
 
@@ -1607,12 +1607,11 @@
                     });
                 };
                 $scope.activateBankAccountDetail = function () {
-                    resourceFactory.bankAccountDetailActionResource.doAction({
-                        'entityId': $scope.entityId,
-                        'entityType': $scope.entityType,
-                        clientBankAccountDetailAssociationId: getClientBankAccountDetailAssociationId(),
-                            command: 'activate'
-                        }, $scope.bankAccFormData, function (data) {
+                    resourceFactory.bankAccountDetailsActivateResource.activate({
+                        entityId: $scope.entityId,
+                        entityType: $scope.entityType,
+                        bankAccountDetailsId: getBankAccountDetails()
+                        }, {}, function (data) {
                             populateDetails();
                             enableShowSummary();
                         }
