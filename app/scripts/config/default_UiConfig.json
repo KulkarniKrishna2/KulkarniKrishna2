@@ -813,6 +813,9 @@
             "sc2": 32,
             "sc3": 42,
             "sc4": 50
+        },
+		"isReceiptMandatory": {
+            "ReceiptNumberMendatory": false
         }
 	}
 }

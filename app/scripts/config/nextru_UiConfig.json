@@ -26,6 +26,9 @@
 				"externalId": true
 			}
         },
+        "isReceiptMandatory": {
+            "ReceiptNumberMendatory": true
+        },
         "createGroup": {
             "isHiddenMenu": {
                 "groupExternalId": true

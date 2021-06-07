@@ -34,6 +34,7 @@
             scope.isShowReasonDropDown = false;
             scope.isRejectReasonMandatory = false;
             scope.isProductive = false;
+            scope.isReceiptNumberMendatory = false;
             
             scope.showAllAttendanceTypes = true;
             resourceFactory.configurationResource.get({configName:'reason-code-allowed'}, function (data) {
@@ -65,6 +66,9 @@
             }
             if(scope.response && scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.paymentTypeId) {
                 scope.paymentTypeId = scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.paymentTypeId;
+            }
+            if(scope.response.uiDisplayConfigurations.isReceiptMandatory.ReceiptNumberMendatory){
+                scope.isReceiptNumberMendatory = scope.response.uiDisplayConfigurations.isReceiptMandatory.ReceiptNumberMendatory;
             }
             resourceFactory.officeResource.getAllOffices(function (data) {
                 scope.offices = data;
