@@ -435,11 +435,11 @@
                 parameterValidationErrors();
 
                 if (scope.errorDetails.length == 0) {
-                    scope.isCollapsed = true;
                     switch (scope.reportType) {
                         case "Table":
                             var params = buildReportParmsForStretchyReportRequest();
                             resourceFactory.advancedReportsResource.post(params, function (data) {
+                                scope.isCollapsed = true;
                                 location.path('/reports');
                               });
                             break;
@@ -447,6 +447,7 @@
                         case "Pentaho":
                               var params = buildReportParmsForReportRequest();
                               resourceFactory.advancedReportsResource.post(params, function (data) {
+                                scope.isCollapsed = true;
                                 location.path('/reports');
                               });
                             break;
@@ -456,6 +457,7 @@
                             scope.hideChart = false;
                             scope.formData.reportSource = scope.reportName;
                             resourceFactory.runReportsResource.getReport(scope.formData, function (data) {
+                                scope.isCollapsed = true;
                                 scope.reportData.columnHeaders = data.columnHeaders;
                                 scope.reportData.data = data.data;
                                 scope.chartData = [];
@@ -478,6 +480,7 @@
                             });
                             break;
                         default:
+                            scope.isCollapsed = true;
                             var errorObj = new Object();
                             errorObj.field = scope.reportType;
                             errorObj.code = 'error.message.report.type.is.invalid';

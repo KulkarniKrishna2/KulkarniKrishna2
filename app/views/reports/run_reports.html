@@ -3,11 +3,12 @@
         <li><a href="#/reports">{{'label.anchor.reports' | translate}}</a></li>
         <li class="active">{{'label.anchor.runreport' | translate}}</li>
     </ul>
+	<api-validate></api-validate>
 	<div ng-controller="RunReportsController">
 	    <api-validate></api-validate>
 	    <div class="span gray-head" style="margin-left:0%;height:30px;">
-	          <span style="margin-left: 10px;font-size:20px;">
-	                <strong>{{''+reportName+'' | translate}}</strong>
+			  <span style="margin-left: 10px;font-size:20px;">
+				    <strong>{{''+reportName+'' | translate}}</strong>
 	                <button type="button" class="btn btn-primary pull-right" ng-show="checkStatus()"
 	                        ng-click="isCollapsed=!isCollapsed"><i class="icon-chevron-down icon-white"></i>{{
 	                    'label.button.parameters' | translate }}
@@ -94,7 +95,7 @@
 				</div>
 	        </div>
 
-	        <span class="col-md-offset-3 paddedleft120"><a id="run" ng-click="runReport()" class="btn btn-primary control" has-permission='READ_{{reportName}}'></i>
+			<span class="col-md-offset-3 paddedleft120"><a id="run" ng-click="runReport()" class="btn btn-primary control" has-permission='READ_{{reportName}}'></i>
 	            &nbsp;&nbsp;{{ 'label.button.runreport' | translate }}</a></span>
 	    </div>
 	    <div style="visibility: hidden">
