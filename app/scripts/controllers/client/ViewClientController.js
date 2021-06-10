@@ -333,7 +333,6 @@
                         entityId: scope.clientId
                     }, function (data) {
                         scope.creditBureauEnquiries = data;
-                        console.log('Line 335 : ',scope.creditBureauEnquiries);
                         for(var i=0; i<data.length; i++) {
                            if(data[i].status.code == "SUCCESS") {
                                 scope.showViewBtn = true;   
@@ -1466,7 +1465,6 @@
             };
 
             scope.downloadClientIdentifierDocument = function (identifierId, documentId) {
-                console.log(identifierId, documentId);
             };
 
             scope.waiveCharge = function(chargeId){
@@ -2026,7 +2024,6 @@
 
             scope.getScoreCardList = function() {
                 resourceFactory.scoreCardsListResource.get({clientId: routeParams.id}, function (data) {
-                    console.log('Score Card List :',data);
                     scope.scoreCardList = data;
                 });
             }
@@ -2069,7 +2066,6 @@
                         
                         // Level 1 Rule Result Hierarchy
                         scope.ruleResultHierarchy = scope.scoreCardList[i].ruleResult.ruleResultHierarchy;
-                        console.log(scope.ruleResultHierarchy);
                         if(scope.ruleResultHierarchy.length > 0) {
                             for(var j=0; j<scope.ruleResultHierarchy.length; j++) {
                                 if(scope.ruleResultHierarchy[j].localInputs !== undefined) {
@@ -2170,7 +2166,6 @@
             scope.selectedOption = scope.options[2];
 
             scope.getBureauReportData = function(enquiryIdValue) {
-                console.log(enquiryIdValue);
                 scope.bureaReportDetails = [];
                 scope.existingLoanIdArray = [];
                 scope.jan = [];
@@ -2190,7 +2185,6 @@
                 scope.payementHistory = [];
 
                 resourceFactory.getB2cCreditbureauResource.get({enquiryId: enquiryIdValue}, function (data) {
-                    console.log('CB Data :', data);
                     scope.showCBReport = true;
                     // scope.bureaReportDetails.push(data.bureauData.existingLoans[0]);
                     // scope.existingLoansArray = data.bureauData.existingLoans;
@@ -2198,7 +2192,6 @@
                     if(data.existingLoans != undefined && data.existingLoans != [] && data.existingLoans.length != 0) {
                         scope.loanInfoErrorMsg = false;
                         scope.existingLoansArray = data.existingLoans;
-                        console.log(scope.existingLoansArray);
                     } else {
                         scope.loanInfoErrorMsg = true;
                     }
@@ -2213,7 +2206,6 @@
                     if(data.enquiryHistory != undefined && data.enquiryHistory != [] && data.enquiryHistory.length != 0) {
                         scope.enquiryErrorMsg = false;
                         scope.enquiryHistory = data.enquiryHistory;
-                        console.log(scope.bureauScore);
                     } else {
                         scope.enquiryErrorMsg = true;
                     }
@@ -2221,7 +2213,6 @@
                     if(data.bureauConsumerInformation.addressList != undefined && data.bureauConsumerInformation.addressList != [] && data.bureauConsumerInformation.addressList.length != 0) {
                         scope.addressErrorMsg = false;
                         scope.addressList = data.bureauConsumerInformation.addressList;
-                        console.log(scope.addressList);
                     } else {
                         scope.addressErrorMsg = true;
                     }
@@ -2229,7 +2220,6 @@
                     if(data.bureauConsumerInformation.bureauConsumerKycData != undefined && data.bureauConsumerInformation.bureauConsumerKycData != [] && data.bureauConsumerInformation.bureauConsumerKycData.length != 0) {
                         scope.kycErrorMsg = false;
                         scope.kycList = data.bureauConsumerInformation.bureauConsumerKycData;
-                        console.log(scope.kycList);
                     } else {
                         scope.kycErrorMsg = true;
                     }
@@ -2237,7 +2227,6 @@
                     if(data.bureauConsumerInformation.contactList != undefined && data.bureauConsumerInformation.contactList != [] && data.bureauConsumerInformation.contactList.length != 0) {
                         scope.contactErrorMsg = false;
                         scope.contactList = data.bureauConsumerInformation.contactList;
-                        console.log(scope.contactList);
                     } else {
                         scope.contactErrorMsg = true;
                     }
@@ -2246,7 +2235,6 @@
                         scope.existingLoanIdArray.push(scope.existingLoansArray[a].existingLoanId);
                     }
                     scope.totalNumberOfLoans = scope.existingLoanIdArray.length;
-                    console.log(scope.existingLoanIdArray);
                     
                     scope.payementHistory = scope.bureaReportDetails[0].creditBureauExistingLoanPaymentDetails;
                     // scope.paymentStartYear = scope.bureaReportDetails[0].disbursedOnDate[0];
@@ -2271,8 +2259,6 @@
                         }
                     }
                     scope.payementHistory = scope.payementHistory.reverse();
-                    console.log(scope.payementHistory);
-                    console.log(scope.paymentYearsList);
 
                         scope.janFun();
                         scope.febFun();
@@ -2290,7 +2276,6 @@
             }
 
             scope.showLoanDetails = function(existingLoanIdValue) {
-                console.log(existingLoanIdValue);
                 scope.jan = [];
                 scope.feb = [];
                 scope.mar = [];
@@ -2318,7 +2303,6 @@
                     if(scope.existingLoansArray[i].existingLoanId == existingLoanIdValue) {
                         scope.loanInfoErrorMsg = false;
                         scope.bureaReportDetails.push(scope.existingLoansArray[i]);
-                        console.log(scope.bureaReportDetails);
                         scope.payementHistory = [];
                         scope.payementHistory = scope.bureaReportDetails[0].creditBureauExistingLoanPaymentDetails;
                         // scope.paymentStartYear = scope.bureaReportDetails[0].disbursedOnDate[0];
@@ -2332,8 +2316,6 @@
                         }
                         // scope.paymentStartYear = scope.payementHistory[0].date[0];
                         // scope.paymentEndYear = scope.payementHistory[scope.payementHistory.length - 1].date[0];
-                        console.log(scope.paymentEndYear);
-                        console.log(scope.paymentStartYear);
                         scope.paymentTotalYears  = scope.paymentEndYear - scope.paymentStartYear;
 
                         scope.tempStartYear = scope.paymentStartYear;
@@ -2347,8 +2329,6 @@
                             }
                         }
                         scope.payementHistory = scope.payementHistory.reverse();
-                        console.log(scope.payementHistory);
-                        console.log(scope.paymentYearsList);
                             scope.janFun();
                             scope.febFun();
                             scope.marFun();
@@ -2368,7 +2348,6 @@
             scope.showNextBtn = true;
             scope.showPrvBtn = false;
             scope.nextBtn = function(value) {
-                console.log(value);
                 for(var i=0; i<scope.existingLoanIdArray.length; i++) {
                     if((value == scope.existingLoanIdArray[i]) && (value != scope.existingLoanIdArray[scope.existingLoanIdArray.length-1])) {
                         scope.showLoanDetails(scope.existingLoanIdArray[i+1]);
@@ -2384,7 +2363,6 @@
             }
 
             scope.prvBtn = function(value) {
-                console.log(value);
                 for(var i=0; i<scope.existingLoanIdArray.length; i++) {
                     if((value == scope.existingLoanIdArray[i]) && (value != scope.existingLoanIdArray[0])) {
                         scope.showLoanDetails(scope.existingLoanIdArray[i-1]);
@@ -2399,7 +2377,6 @@
             }
 
             scope.loanFilter = function(value) {
-                console.log(value);
                 scope.presentLoanNumber = 1;
                 scope.showPrvBtn = false;
                 scope.showNextBtn = true;
@@ -2436,7 +2413,6 @@
                         scope.jan.push('--');
                     }
                 }
-                console.log('Jan Month :',scope.jan);
             }
 
             scope.febBoolean = false;
@@ -2454,7 +2430,6 @@
                         scope.feb.push('--');
                     }
                 }
-                console.log('Feb Month :',scope.feb);
             }
 
             scope.marBoolean = false;
@@ -2472,7 +2447,6 @@
                         scope.mar.push('--');
                     }
                 }
-                console.log('Mar Month :',scope.mar);
             }
 
             scope.aprBoolean = false;
@@ -2490,7 +2464,6 @@
                         scope.apr.push('--');
                     }
                 }
-                console.log('Apr Month :',scope.apr);
             }
             
             scope.mayBoolean = false;
@@ -2508,7 +2481,6 @@
                         scope.may.push('--');
                     }
                 }
-                console.log('May Month :',scope.may);
             }
 
             scope.junBoolean = false;
@@ -2526,7 +2498,6 @@
                         scope.jun.push('--');
                     }
                 }
-                console.log('Jun Month :',scope.jun);
             }
 
             scope.julBoolean = false;
@@ -2544,7 +2515,6 @@
                         scope.jul.push('--');
                     }
                 }
-                console.log('Jul Month :',scope.jul);
             }
 
             scope.augBoolean = false;
@@ -2562,7 +2532,6 @@
                         scope.aug.push('--');
                     }
                 }
-                console.log('Aug Month :',scope.aug);
             }
 
             scope.sepBoolean = false;
@@ -2580,7 +2549,6 @@
                         scope.sep.push('--');
                     }
                 }
-                console.log('Sep Month :',scope.sep);
             }
 
             scope.octBoolean = false;
@@ -2598,7 +2566,6 @@
                         scope.oct.push('--');
                     }
                 }
-                console.log('Oct Month :',scope.oct);
             }
 
             scope.novBoolean = false;
@@ -2616,7 +2583,6 @@
                         scope.nov.push('--');
                     }
                 }
-                console.log('Nov Month :',scope.nov);
             }
 
             scope.decBoolean = false;
@@ -2634,12 +2600,17 @@
                         scope.dec.push('--');
                     }
                 }
-                console.log('Dec Month :',scope.dec);
             }
 
-
-
-
+            scope.sortDates = function(item) {
+                if ( "reportedDate" in item ) {
+                    return new Date(item['reportedDate']);
+                }
+                if ( "date" in item ) {
+                   return new Date(item['date']);
+                }
+            }
+            
         }
     });
 
