@@ -54,16 +54,24 @@
 
             };
 
-            scope.viewDocument = function (document) {
-                scope.showPreview = true;
-                var url = document.url;
-                $http({
-                    method: 'GET',
-                    url: url
-                }).then(function (documentImage) {
-                    scope.documentImg = documentImage.data;
+            var viewDocumentCtrl = function ($scope, $modalInstance, document) {
+                $scope.data = document;
+                $scope.close = function () {
+                    $modalInstance.close('close');
+                };
+
+            };
+            scope.openViewDocument = function (document) {
+                $modal.open({
+                    templateUrl: 'viewDocument.html',
+                    controller: viewDocumentCtrl,
+                    resolve: {
+                        document: function () {
+                            return document;
+                        }
+                    }
                 });
-            }
+            };
 
             function calculateClientAge(dateOfBirth){
                 dateOfBirth = new Date(dateFilter(dateOfBirth, scope.df));
