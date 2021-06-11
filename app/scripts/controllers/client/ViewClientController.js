@@ -2183,6 +2183,9 @@
                 scope.paymentYearsList = ['Years'];
                 scope.bureaReportDetails = [];
                 scope.payementHistory = [];
+                scope.showPrvBtn = false;
+                scope.showNextBtn = true;
+                scope.presentLoanNumber = 1;
 
                 resourceFactory.getB2cCreditbureauResource.get({enquiryId: enquiryIdValue}, function (data) {
                     scope.showCBReport = true;
