@@ -500,9 +500,10 @@
                         search: { method: 'GET', params: {}, isArray: true }
                     }),
                     frequentPostingResource: defineResource(apiVer + "/frequentpostings", {}, {}),
-                    accountingClosureResource: defineResource(apiVer + "/glclosures/:accId", { accId: "@accId" }, {
-                        get: { method: 'GET', params: {}, isArray: true },
-                        getView: { method: 'GET', params: {} }
+                    accountingClosureResource: defineResource(apiVer + "/glclosures/:accId", {}, {
+                        get: { method: 'GET', params: { accId: '@accId' }, isArray: true },
+                        getAll: { method: 'GET', params: {}, isArray: true },
+                        getView: { method: 'GET',params: { accId: '@accId' }}
                     }),
                     outboundCallResource: defineResource(apiVer + "/clients/:clientId/call", {clientId: '@clientId'}, {
                         save: { method: 'POST'}
