@@ -275,7 +275,7 @@
                                 <label class="col-sm-9" >{{'label.input.reasontype' | translate}}<span ng-if="isRejectReasonMandatory" class="required">*</span></label>
                                 <div class="col-sm-12">
                                     <select  id="client.codeReasonId" name="attendanceReasonCodeType" ng-model="client.codeReasonId" ng-options="code.id as code.name for code in reasonAttendenceList" value="{{code.name}}" 
-                                    class="input-sm form-control" data-ng-change="getValues(client.clientId,client.codeReasonId)" ng-required="isRejectReasonMandatory">
+                                    class="input-sm form-control" data-ng-change="getValuesByClient(client, client.codeReasonId)" ng-required="isRejectReasonMandatory">
                                     <option value="">{{'label.selectone' | translate}}</option></select>
 								</div>
 								<div class="col-sm-8">

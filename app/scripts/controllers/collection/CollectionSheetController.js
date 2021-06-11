@@ -157,6 +157,16 @@
                 return [];
             };
 
+            scope.getValuesByClient = function (client, codeId) {
+                for (var i in scope.reasonAttendenceList) {
+                    if (scope.reasonAttendenceList[i].id == codeId) {
+                       
+                                    client.codeValueOptions = scope.reasonAttendenceList[i].values;
+                    }
+                }
+                return [];
+            };
+
 
             scope.productiveCollectionSheet = function () {
                 for (var i = 0; i < scope.offices.length; i++) {

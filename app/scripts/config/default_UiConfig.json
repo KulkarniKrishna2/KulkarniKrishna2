@@ -525,7 +525,7 @@
 				"editCenterMeeting": true,
 				"expectedDisbursementDate": false,
 				"insuranceCharge": true,
-				"bankAccountActivate": true
+				"bankAccountActivate": false
 			},
 			"showMembersStepsInfo": false,
 			"disableSelectAllClients": false,
