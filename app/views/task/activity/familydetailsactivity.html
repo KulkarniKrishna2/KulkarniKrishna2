@@ -90,7 +90,7 @@
 
                         <div class="col-sm-3">
                             <input id="dateofbirth" type="text" name="dateofbirth" datepicker-pop="dd MMMM yyyy" ng-model="formData.dateOfBirth"
-                            is-open="opened1" class="form-control" ng-required="isDateOfBirthMandatory" late-validate/>
+                            is-open="opened1" class="form-control" ng-required="isDateOfBirthMandatory"/>
                             <form-validate valattributeform="createFamilyDetails" valattribute="dateofbirth"/>
                         </div>
                         <div class="col-sm-2">
@@ -160,7 +160,7 @@
                         <a id="cancel" ng-click="cancel()" class="btn btn-default">{{'label.button.cancel'
                             |
                             translate}}</a>
-                        <button id="save" ng-click="submit()" type="submit" class="btn btn-primary">{{'label.button.save' |
+                        <button id="save" ng-click="submit()" type="submit" ng-disabled="!createFamilyDetails.$valid" class="btn btn-primary">{{'label.button.save' |
                             translate}}</button>
                     </div>
                 </fieldset>

@@ -1737,11 +1737,11 @@
 						</div>
 						<div class="enquiry-block-list">
 							<div class="enquiry-error-msg" ng-if="enquiryErrorMsg"><span style="color: grey;">No Enquiries Present</span></div>
-							<div class="list-contents" ng-repeat="enquiry in enquiryHistory">
+							<div class="list-contents" ng-repeat="enquiry in enquiryHistory | orderBy:sortDates:true">
 								<div class="list-value-number">{{$index + 1}}</div>
 								<div class="list-value-member">{{enquiry.memberName}}</div>
 								<div class="list-value-loanPurpose">{{enquiry.loanPurpose}}</div>
-								<div class="list-value-date">{{enquiry.date[2]}}/{{enquiry.date[1]}}/{{enquiry.date[0]}}</div>
+								<div class="list-value-date">{{ enquiry.date | DateFormat }}</div>
 								<div class="list-value-amount">{{enquiry.amount | number}}</div>
 							</div>
 						</div>
@@ -1760,9 +1760,9 @@
 						</div>
 						<div class="bReport-address-block-list">
 							<div class="address-error-msg" ng-if="addressErrorMsg"><span style="color: grey;">No Address List Present</span></div>
-							<div class="address-list-contents" ng-repeat="address in addressList">
+							<div class="address-list-contents" ng-repeat="address in addressList| orderBy:sortDates:true">
 								<div class="address-list-address-value">{{address.address}}</div>
-								<div class="address-list-date-value">{{address.reportedDate[2]}}-{{address.reportedDate[1]}}-{{address.reportedDate[0]}}</div>
+								<div class="address-list-date-value">{{ address.reportedDate | DateFormat }}</div>
 							</div>
 						</div>
 					</div>
@@ -1786,10 +1786,10 @@
 						</div>
 						<div class="bReport-contact-block-list">
 							<div class="contact-error-msg" ng-if="kycErrorMsg"><span style="color: grey;">No KYC List Present</span></div>
-							<div class="contact-list-contents" ng-repeat="kyc in kycList">
+							<div class="contact-list-contents" ng-repeat="kyc in kycList | orderBy:sortDates:true">
 								<div class="contact-list-contact-value">{{kyc.documentType}}</div>
 								<div class="contact-list-date-value">{{kyc.documentNumber}}</div>
-								<div class="contact-list-date-value">{{kyc.reportedDate[2]}}-{{kyc.reportedDate[1]}}-{{kyc.reportedDate[0]}}</div>
+								<div class="contact-list-date-value">{{ kyc.reportedDate | DateFormat }}</div>
 							</div>
 						</div>
 					</div>
@@ -1807,10 +1807,10 @@
 						</div>
 						<div class="bReport-contact-block-list">
 							<div class="contact-error-msg" ng-if="contactErrorMsg"><span style="color: grey;">No Contact List Present</span></div>
-							<div class="contact-list-contents" ng-repeat="contact in contactList">
+							<div class="contact-list-contents" ng-repeat="contact in contactList | orderBy:sortDates:true">
 								<div class="contact-list-contact-value">{{contact.subType}}</div>
 								<div class="contact-list-date-value">{{contact.value}}</div>
-								<div class="contact-list-date-value">{{contact.reportedDate[2]}}-{{contact.reportedDate[1]}}-{{contact.reportedDate[0]}}</div>
+								<div class="contact-list-date-value">{{ contact.reportedDate | DateFormat }}</div>
 							</div>
 						</div>
 					</div>
