@@ -677,7 +677,8 @@
                         get: { method: 'GET', params: {}, isArray: true }
                     }),
                     villageResource: defineResource(apiVer + "/villages/:villageId/:anotherresource", { villageId: '@villageId', anotherresource: '@anotherresource' }, {
-                        get: { method: 'GET', params: {} },
+                        get: { method: 'GET', params: {}},
+                        getAll: { method: 'GET', params: {}, isArray: true},
                         getAllVillages: { method: 'GET', params: {}, isArray: true },
                         update: { method: 'PUT', params: {} }
 
