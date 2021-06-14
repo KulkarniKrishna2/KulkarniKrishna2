@@ -66,7 +66,7 @@
                 resourceFactory.clientsSearchResource.getAllClients({displayName: value, orderBy : 'displayName',
                     sortOrder : 'ASC', orphansOnly : false,limit:15}, function (data) {
                     removeExistingClients(data);
-                    deferred.resolve(data.pageItems);
+                    deferred.resolve(data);
                 });
                 return deferred.promise;
             };
