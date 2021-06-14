@@ -745,7 +745,6 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'organization/smscampaigns/ViewSmsCampaignController',
             'organization/smscampaigns/EditSmsCampaignController',
             'organization/smscampaigns/SmsCampaignsController',
-            'organization/SmsController',
             'organization/smscampaigns/SmsProvidersController',
             'client/ClientDeceasedController',
             'insurance/InsuranceDetailsController',

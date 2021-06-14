@@ -50,8 +50,6 @@
                         update: { method: 'PUT' }
                     }),
                     clientResource: defineResource(apiVer + "/clients/:clientId/:anotherresource", { clientId: '@clientId', anotherresource: '@anotherresource', searchConditions: '@searchConditions' }, {
-                        getAllClients: { method: 'GET', params: { limit: 100, searchConditions: '@searchConditions' } },
-                        getAllClientsWithoutLimit: { method: 'GET', params: { limit: -1, searchConditions: '@searchConditions' } },
                         getClientClosureReasons: { method: 'GET', params: {} },
                         getAllClientDocuments: { method: 'GET', params: {}, isArray: true },
                         update: { method: 'PUT' }
@@ -492,8 +490,7 @@
                     }),
                     journalEntriesResource: defineResource(apiVer + "/journalentries/:trxid", { trxid: '@transactionId' }, {
                         get: { method: 'GET', params: { transactionId: '@transactionId' } },
-                        reverse: { method: 'POST', params: { command: 'reverse' } },
-                        search: { method: 'GET', params: {} }
+                        reverse: { method: 'POST', params: { command: 'reverse' } }
                     }),
                     journalEntriesSearchResource: defineResource(apiVer + "/journalentries/search", {trxid: '@transactionId'}, {
                         get: { method: 'GET', params: { transactionId: '@transactionId' }, isArray: true },
