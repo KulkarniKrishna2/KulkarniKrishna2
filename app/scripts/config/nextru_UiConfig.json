@@ -41,6 +41,15 @@
             "isDefaultValue":{
                 "paymentTypeId": 10
             }
-        }
+        },
+        "collectionSheet": {
+			"isAutoPopulate": {
+				"showEmiAmount": true,
+				"showEmiAmountOnNoDue": true
+			},
+			"isHiddenFeild": {
+				"toggleButton":false
+			}
+		}
     }
 } 

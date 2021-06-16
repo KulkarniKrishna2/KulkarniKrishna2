@@ -191,7 +191,8 @@
 			"isAutoPopulate": {
 				"paymentTypeOption": true,
 				"cashPaymentType": false,
-				"showEmiAmount": false
+				"showEmiAmount": false,
+				"showEmiAmountOnNoDue": false
 			},
 			"isHiddenFeild": {
 				"newtransactionDate": false,
