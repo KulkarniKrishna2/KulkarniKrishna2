@@ -20,7 +20,7 @@
 				"repaymentFrequencyType": false,
 				"repaymentFrequencyNthDayType": false,
 				"repaymentFrequencyDayOfWeekType": false,
-				"interestChargedFromDate": true,
+				"interestChargedFromDate": false,
 				"repaymentsStartingFromDate": false,
 				"interestType": false,
 				"amortizationType": false,
