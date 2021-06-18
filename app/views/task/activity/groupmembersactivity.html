@@ -781,8 +781,9 @@
 
             <div class="col-md-12" ng-show="formData.loanProductId">
                 <label><strong>{{ 'label.heading.charges' | translate }}</strong></label>
-                <select ng-model="chargeFormData.chargeId" ng-options="charge.id as (charge.name + ',' + charge.currency.displaySymbol) for charge in loanaccountinfo.chargeOptions|filter:loanaccountinfo.currency.code:strict" value="{{charge.id}}" class="form-control width170px">
-                    <option value="">{{'label.selectcharge' | translate}}</option>
+                <select ng-model="chargeFormData.chargeId" ng-options="charge.chargeId as (charge.name + ',' + loanaccountinfo.currency.displaySymbol) for charge in loanaccountinfo.charges|filter:loanaccountinfo.currency.code:strict"
+                value="{{charge.chargeId}}" class="form-control width170px">
+                <option value="">{{'label.selectcharge' | translate}}</option>
                 </select>
                 <a ng-click="addCharge()"><i class="icon-plus icon-white"></i></a>
             </div>

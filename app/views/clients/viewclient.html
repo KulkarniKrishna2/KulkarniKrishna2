@@ -1637,8 +1637,12 @@
 									<div class="bReport-title-value">{{buData.repaymentFrequency}}</div>
 								</div>
 								<div class="bReport-detail">
-									<div class="bReport-title-name">Loan Type Recieved</div>
-									<div class="bReport-title-value">{{buData.loanTypeReceived}}</div>
+									<div class="bReport-title-name">Wilful Status / Written Off Status</div>
+									<div class="bReport-title-value">
+										<span>	{{	buData.wilfulStatus ? buData.wilfulStatus : ' - ' }} </span>
+										/ 
+										<span>	{{ buData.writtenOffStatus ? buData.writtenOffStatus : ' - ' }}</span>	
+									</div>
 								</div>
 							</div>
 						</div>

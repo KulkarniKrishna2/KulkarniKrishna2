@@ -90,7 +90,6 @@
 
             scope.setvaluesByClient = function(client){
                 client.reasonId = undefined;
-                client.codeValueOptions = undefined;
                 client.reason = undefined;
             }
 
@@ -339,8 +338,8 @@
                 }
                 scope.updateAttendenceData();
                 scope.formData.bulkDisbursementTransactions = [];
-                scope.updatebulkRepaymentTransactionsWithReason();
                 scope.constructBulkLoanAndSavingsRepaymentTransactions();
+                scope.updatebulkRepaymentTransactionsWithReason();
                 scope.formData.bulkRepaymentTransactions = scope.bulkRepaymentTransactions;
                 scope.formData.bulkSavingsTransactions = scope.bulkSavingsTransactions;
                 scope.formData.forcedSubmitOfCollectionSheet=false;
