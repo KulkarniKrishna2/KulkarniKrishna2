@@ -34,6 +34,8 @@
             scope.isShowReasonDropDown = false;
             scope.isRejectReasonMandatory = false;
             scope.isProductive = false;
+            scope.isReceiptNumberMendatory = false;
+            scope.showEmiAmountOnNoDue = false;
             
             scope.showAllAttendanceTypes = true;
             resourceFactory.configurationResource.get({configName:'reason-code-allowed'}, function (data) {
@@ -52,6 +54,7 @@
                 }
                 if(scope.response.uiDisplayConfigurations.collectionSheet.isAutoPopulate){
                     scope.showEmiAmountOverTotalDue = scope.response.uiDisplayConfigurations.collectionSheet.isAutoPopulate.showEmiAmount; 
+                    scope.showEmiAmountOnNoDue = scope.response.uiDisplayConfigurations.collectionSheet.isAutoPopulate.showEmiAmountOnNoDue; 
                 }
                 if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild){
                     scope.showEmiAmountTotalDueButton = !scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild.toggleButton; 
@@ -65,6 +68,9 @@
             }
             if(scope.response && scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.paymentTypeId) {
                 scope.paymentTypeId = scope.response.uiDisplayConfigurations.loanAccount.isDefaultValue.paymentTypeId;
+            }
+            if(scope.response && scope.response.uiDisplayConfigurations.isReceiptMandatory.ReceiptNumberMendatory){
+                scope.isReceiptNumberMendatory = scope.response.uiDisplayConfigurations.isReceiptMandatory.ReceiptNumberMendatory;
             }
             resourceFactory.officeResource.getAllOffices(function (data) {
                 scope.offices = data;
@@ -990,7 +996,8 @@
                 _.each(data.groups, function (group) {
                     _.each(group.clients,function(client){
                         _.each(client.loans,function(loan){
-                            if(!_.isUndefined(loan.installmentAmount) && loan.totalDue > 0 && !loan.lastPayment){
+                            var isInstallmentAmt =  (scope.showEmiAmountOnNoDue && loan.totalDue == 0) || (!_.isUndefined(loan.installmentAmount) && loan.totalDue > 0 && !loan.lastPayment);
+                            if(isInstallmentAmt){
                                 loan.totalDue = loan.installmentAmount;
                             }
                         });

@@ -26,6 +26,9 @@
 				"externalId": true
 			}
         },
+        "isReceiptMandatory": {
+            "ReceiptNumberMendatory": true
+        },
         "createGroup": {
             "isHiddenMenu": {
                 "groupExternalId": true
@@ -33,6 +36,20 @@
             "isReadOnlyField": {
 				"externalId": true
 			}
-        }
+        },
+        "loanAccount": {
+            "isDefaultValue":{
+                "paymentTypeId": 10
+            }
+        },
+        "collectionSheet": {
+			"isAutoPopulate": {
+				"showEmiAmount": true,
+				"showEmiAmountOnNoDue": true
+			},
+			"isHiddenFeild": {
+				"toggleButton":false
+			}
+		}
     }
 } 
