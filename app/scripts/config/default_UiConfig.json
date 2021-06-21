@@ -192,7 +192,8 @@
 			"isAutoPopulate": {
 				"paymentTypeOption": true,
 				"cashPaymentType": false,
-				"showEmiAmount": false
+				"showEmiAmount": false,
+				"showEmiAmountOnNoDue": false
 			},
 			"isHiddenFeild": {
 				"newtransactionDate": false,
@@ -814,6 +815,9 @@
             "sc2": 32,
             "sc3": 42,
             "sc4": 50
+        },
+		"isReceiptMandatory": {
+            "ReceiptNumberMendatory": false
         }
 	}
 }

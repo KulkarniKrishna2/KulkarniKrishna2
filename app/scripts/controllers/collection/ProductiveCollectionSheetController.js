@@ -37,10 +37,12 @@
             scope.formData = {};
             scope.isShowReasonDropDown = false;
             scope.showErrMsg = false;
+            scope.showEmiAmountOnNoDue = false;
 
             scope.showAllAttendanceTypes = true;
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.collectionSheet){
                scope.showEmiAmountOverTotalDue = scope.response.uiDisplayConfigurations.collectionSheet.isAutoPopulate.showEmiAmount; 
+               scope.showEmiAmountOnNoDue = scope.response.uiDisplayConfigurations.collectionSheet.isAutoPopulate.showEmiAmountOnNoDue; 
             }
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild){
                scope.showEmiAmountTotalDueButton = !scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild.toggleButton; 
@@ -874,7 +876,8 @@
                 _.each(data.groups, function (group) {
                     _.each(group.clients,function(client){
                         _.each(client.loans,function(loan){
-                            if(!_.isUndefined(loan.installmentAmount) && loan.totalDue > 0 && !loan.lastPayment){
+                            var isInstallmentAmt =  (scope.showEmiAmountOnNoDue && loan.totalDue == 0) || (!_.isUndefined(loan.installmentAmount) && loan.totalDue > 0 && !loan.lastPayment);
+                            if(isInstallmentAmt){
                                 loan.totalDue = loan.installmentAmount;
                             }
                         });
