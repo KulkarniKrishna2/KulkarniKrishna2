@@ -401,7 +401,7 @@
                 <td ng-show="paymentDetail.paymentTypeId">{{ 'label.input.accnum' | translate}}</td>
                 <td ng-show="paymentDetail.paymentTypeId">{{ 'label.input.checknumber' | translate}}</td>
                 <td ng-show="paymentDetail.paymentTypeId">{{ 'label.input.routingcode' | translate}}</td>
-                <td ng-show="paymentDetail.paymentTypeId">{{ 'label.input.receiptnumber' | translate}}</td>
+                <td ng-show="paymentDetail.paymentTypeId">{{ 'label.input.receiptnumber' | translate}}<span ng-if="isReceiptNumberMendatory" class="required">*</span></td>
                 <td ng-show="paymentDetail.paymentTypeId">{{ 'label.input.banknumber' | translate}}</td>
                 <td>{{'label.heading.actions' | translate}}</td>
             </tr>
@@ -418,8 +418,9 @@
                            ng-model="paymentDetail.checkNumber"></td>
                 <td ng-show="paymentDetail.paymentTypeId"><input class="form-control" type="text" autocomplete="off"
                            ng-model="paymentDetail.routingCode"></td>
-                <td ng-show="paymentDetail.paymentTypeId"><input class="form-control" type="text" autocomplete="off"
-                           ng-model="paymentDetail.receiptNumber"></td>
+                <td ng-show="paymentDetail.paymentTypeId"><input name="receipt" class="form-control" type="text" autocomplete="off"
+                           ng-model="paymentDetail.receiptNumber" ng-required="isReceiptNumberMendatory">
+						   <form-validate valattributeform="collectionsheetform" valattribute="receipt"/></td>
                 <td ng-show="paymentDetail.paymentTypeId"><input class="form-control" type="text" autocomplete="off"
                            ng-model="paymentDetail.bankNumber"></td>
                 <td>
