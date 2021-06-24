@@ -94,6 +94,11 @@
 
            };
 
+           scope.download = function(file){
+            var url = $rootScope.hostUrl + file.docUrl;
+            var fileType = file.fileName.substr(file.fileName.lastIndexOf('.') + 1);
+            CommonUtilService.downloadFile(url,fileType,file.fileName);
+        };
         }
     });
     mifosX.ng.application.controller('VerifiedClaimController', ['$controller', '$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', 'CommonUtilService', '$modal', mifosX.controllers.VerifiedClaimController]).run(function ($log) {

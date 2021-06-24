@@ -344,6 +344,10 @@
                 scope.formData.bankCity = account.bankCity;
             }
 
+            scope.download = function(file){
+                var url = $rootScope.hostUrl + file.url;
+                CommonUtilService.downloadFile(url," ");
+            };
         }
     });
     mifosX.ng.application.controller('ClaimDocumentsUpload', ['$controller', '$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', 'CommonUtilService', '$modal', mifosX.controllers.ClaimDocumentsUpload]).run(function ($log) {

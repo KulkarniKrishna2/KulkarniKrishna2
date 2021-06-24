@@ -59,7 +59,9 @@
                                         <th colspan="3" >{{data.name}} <span ng-show="data.mandatory" class="required">*</span></th>
                                         <td colspan="2"><a ng-click="uploadDoument(data)"
                                             ng-show="!data.isDocumentAttached" has-permission='CREATE_DOCUMENT'><i
-                                                 class="icon-cloud-upload"></i></a>&nbsp;
+                                                 class="paddedleft icon-upload-alt icon-dark"></i></a>&nbsp;
+                                                 <a target="_blank" ng-click = "download(data)" has-permission='DOWNLOAD_DOCUMENT' ng-show="data.isDocumentAttached"><i
+                                                    class="icon-cloud-download"></i></a>&nbsp;
                                                  <a ng-click="openViewDocument(data)"
                                                  has-permission='READ_DOCUMENT' ng-show="data.isDocumentAttached" ><i class="icon-eye-open text-success"></i></a>&nbsp;
                                                  <a ng-click="deleteDocument(data)"
