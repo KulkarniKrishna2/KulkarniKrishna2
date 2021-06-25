@@ -51,6 +51,7 @@
             scope.loanSchedule = [];
             scope.submitBankTransactionForTransferOnRetry = false;
             scope.isWorkflowEnabled = scope.isSystemGlobalConfigurationEnabled('work-flow');
+            scope.allowMultipleNominees = scope.isSystemGlobalConfigurationEnabled('allow-multiple-nominees');
             
             scope.showBankApprovalStatus = false;
             scope.displayInterestRateFromProduct = false;
@@ -1078,6 +1079,12 @@
 
                     creditBureauCheckIsRequired();
                 }
+            };
+
+            scope.getNomineeDetails = function(){
+                resourceFactory.loanNomineeResource.get({ loanId: routeParams.id }, function (data) {
+                    scope.familyMembers = data;
+                });
             };
 
             scope.isRepaymentSchedule = false;

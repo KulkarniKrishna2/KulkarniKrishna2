@@ -474,6 +474,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'task/activity/reviewloanapplicationactivitycontroller',
             'task/activity/familyDetailActivityController',
             'task/activity/clientdocumentActivityController',
+            'task/activity/NomineeDetailsActivityController',
             'task/activity/existingLoanActivityController',
             'task/activity/creditbureauActivityController',
             'task/activity/surveyActivityController',

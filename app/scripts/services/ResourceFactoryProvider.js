@@ -2288,6 +2288,16 @@
                     savingsDocumentResource: defineResource(apiVer + "/savings/:savingsId/documents/:documentId", { savingsId: '@savingsId', documentId: '@documentId' }, {
                         getSavingsDocuments: { method: 'GET', params: {}, isArray: true }
                     }),
+                    loanApplicationNomineeResource: defineResource(apiVer + "/loanapplicationreferences/:loanApplicationReferenceId/nominee", { loanApplicationReferenceId: '@loanApplicationReferenceId' }, {
+                        get: { method: 'GET', params: {loanApplicationReferenceId: '@loanApplicationReferenceId'}, isArray: true},
+                        post: { method: 'POST', params: {}, isArray: false }
+                    }),
+                    deleteNomineeResource: defineResource(apiVer + "/loanapplicationreferences/:loanApplicationReferenceId/nominee/:familyMemberId", { loanApplicationReferenceId: '@loanApplicationReferenceId' ,familyMemberId:'@familyMemberId'}, {
+                        delete: { method: 'DELETE', params: { loanApplicationReferenceId: "@loanApplicationReferenceId", familyMemberId: "@familyMemberId" } }
+                    }),
+                    loanNomineeResource: defineResource(apiVer + "/loans/:loanId/nominee", { loanId: '@loanId' }, {
+                        get: { method: 'GET', params: {loanId: '@loanId'}, isArray: true},
+                    })
                 };
             }];
         }

@@ -1998,6 +1998,35 @@
                     <tab ng-if="loandetails.summary && loandetails.summary.principalNetDisbursed" heading="{{'lable.tab.heading.insurance.policy' | translate}}">
                         <div has-permission="READ_INSURANCE_POLICY" ng-include="'views/loans/insurancepolicy.html'"></div>
                     </tab>
+                    <tab  heading="{{'label.heading.nomineedetails' | translate}}" select="getNomineeDetails()">
+                        <div class="form-horizontal">
+                            <h3>{{'label.heading.nomineedetails' | translate}} </h3>
+                            <table class="table">
+                                <thead>
+                                    <tr class="graybg">
+                                        <th class="ng-binding">{{ 'label.heading.fullname' | translate }}</th>
+                                        <th class="ng-binding">{{ 'label.heading.relationship' | translate }}</th>
+                                        <th class="ng-binding">{{ 'label.heading.dob' | translate }}</th>
+                                        <th class="ng-binding">{{ 'label.heading.age' | translate }}</th>
+                                        <th class="ng-binding">{{ 'label.heading.gender' | translate }}</th>
+                                        <th ng-show="allowMultipleNominees" class="ng-binding">{{ 'label.percentage' | translate }}</th>
+                                        <th class="ng-binding">{{ 'label.heading.hasAddress' | translate }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="familyMember in familyMembers">
+                                        <td>{{familyMember.fullName}}</td>
+                                        <td>{{familyMember.relationship}}</td>
+                                        <td>{{familyMember.dateOfBirth | DateFormat}}</td>
+                                        <td>{{familyMember.age}}</td>
+                                        <td>{{familyMember.gender}}</td>
+                                        <td ng-show="allowMultipleNominees">{{familyMember.percentage}}</td>
+                                        <td>{{familyMember.hasAddress == true ? 'Yes' : 'No'}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </tab>
                 </tabset>
             </div>
         </div>
