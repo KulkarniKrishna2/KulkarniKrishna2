@@ -10,6 +10,7 @@
             })
             
             scope.getWorkflowCBReviewData = function () {
+                scope.clearCBReviewData();
                 resourceFactory.cbReviewResource.query({
                     offset: scope.requestoffset,
                     limit: scope.limit,
@@ -18,9 +19,7 @@
                 }, function (data) {
                     scope.cbReviewData = data;
                     scope.totalMembers = data.length;
-                    scope.cbPassedMembers = 0;
-                    scope.cbRejectedMembers = 0;
-                    scope.cbReviewMembers = 0;
+                    
                     for (var i = 0; i < scope.cbReviewData.length; i++) {
                         if (scope.cbReviewData[i].isApproved){
                             scope.cbReviewData[i].status = 'label.anchor.cb.passed';
@@ -39,6 +38,13 @@
 
                 });
             };
+            scope.clearCBReviewData = function(){
+                    scope.cbPassedMembers = 0;
+                    scope.cbRejectedMembers = 0;
+                    scope.cbReviewMembers = 0;
+                    scope.totalMembers = 0;
+                    scope.cbReviewData = [];
+            }
 
             scope.routeToViewClient = function(clientId){
                 location.path('/viewclient/' + clientId);
