@@ -27,6 +27,7 @@
 
             scope.addInsurancePolicy = function () {
                 resourceFactory.insurancePolicyTemplateResource.getTemplate({ loanId: scope.loanId }, function (data) {
+                    scope.insuranceClientTypeOptions = data.insuranceClientTypeOptions;
                     scope.formData.insurancePolicyDetails = scope.getInsurancePolicyDetails(data.insuranceClientTypeOptions);
                     scope.insuranceProviderOptions = data.insuranceProviderOptions;
                     scope.clientData = data.clientData;
@@ -36,18 +37,7 @@
                         scope.formData.insurancePolicyDetails[i].effectiveDate = dateFilter(new Date(data.effectiveDate), scope.df);
                         scope.formData.insurancePolicyDetails[i].expiryDate = dateFilter(new Date(data.expiryDate), scope.df);
                     }
-                    if(scope.insurancePolicyDatas != null && scope.insurancePolicyDatas.length > 0) {
-                        for (var i in scope.insurancePolicyDatas) {
-                            if(scope.insurancePolicyDatas[i].insuranceClientType.value == 'INSURED') {
-                                var index = scope.formData.insurancePolicyDetails.map(function(item) { return item.insuranceClientType.value; }).indexOf('INSURED');
-                                scope.formData.insurancePolicyDetails.splice(index,1);
-                            }
-                            if(scope.insurancePolicyDatas[i].insuranceClientType.value == 'CO-INSURED') {
-                                var index = scope.formData.insurancePolicyDetails.map(function(item) { return item.insuranceClientType.value; }).indexOf('CO-INSURED');
-                                scope.formData.insurancePolicyDetails.splice(index,1);
-                            }
-                        }
-                    } 
+                    scope.initialiseFamilyMember(scope.familyDetails);
                 });
                 scope.showAdd = false;
                 scope.isUpdate = false;
@@ -76,7 +66,9 @@
                         scope.formData.insurancePolicyDetails[i].effectiveDate = dateFilter(new Date(scope.formData.insurancePolicyDetails[i].effectiveDate), scope.df);
                         scope.formData.insurancePolicyDetails[i].expiryDate = dateFilter(new Date(scope.formData.insurancePolicyDetails[i].expiryDate), scope.df);
                         if(scope.formData.insurancePolicyDetails[i].familyDetailData){
-                            scope.formData.insurancePolicyDetails[i].familyMemberId = scope.formData.insurancePolicyDetails[i].familyDetailData.id;
+                            var familyDetail = scope.formData.insurancePolicyDetails[i].familyDetailData;
+                            scope.familyMemberId = familyDetail.id;
+                            scope.familyMemberName = familyDetail.firstname + ' ' +familyDetail.lastname+'('+familyDetail.relationship.name+')';
                         }
                     }
                     scope.formData.providerId = scope.formData.insurancePolicyDetails[0].insuranceProvider.id;
@@ -119,8 +111,8 @@
                         insurancePolicyDetails.insuredAmount = this.formData.insurancePolicyDetails[i].insuredAmount;
                         insurancePolicyDetails.effectiveDate = this.formData.insurancePolicyDetails[i].effectiveDate;
                         insurancePolicyDetails.expiryDate = this.formData.insurancePolicyDetails[i].expiryDate;
-                        if(this.formData.insurancePolicyDetails[i].familyMemberId){
-                            insurancePolicyDetails.familyMemberId = this.formData.insurancePolicyDetails[i].familyMemberId;
+                        if(scope.isCoApplicant(insurancePolicyDetails.insuranceClientTypeId)){
+                            insurancePolicyDetails.familyMemberId = scope.familyMemberId;
                         }
                         if (scope.isUpdate) {
                             insurancePolicyDetails.id = this.formData.insurancePolicyDetails[i].id;
@@ -168,6 +160,23 @@
             scope.resetFormSatus = function () {
                 scope.isUpdate = false;
                 scope.showform = false;
+            };
+
+            scope.initialiseFamilyMember = function () {
+                var index = scope.familyDetails.findIndex(x => x.relationship.name == 'Spouse');
+                if (index > -1) {
+                    var familyDetail= scope.familyDetails[index];
+                    scope.familyMemberName = familyDetail.firstname + ' ' +familyDetail.lastname+'('+familyDetail.relationship.name+')';
+                    scope.familyMemberId = scope.familyDetails[index].id;
+                }
+            };
+
+            scope.isCoApplicant = function (typeId) {
+                var index = scope.insuranceClientTypeOptions.findIndex(x => x.value == 'CO-INSURED');
+                if (index > -1) {
+                    return scope.insuranceClientTypeOptions[index].id == typeId;
+                }
+                return false;
             };
         }
     });

@@ -86,6 +86,11 @@
                     });
                 };
 
+                $scope.download = function(file){
+                    var url = $rootScope.hostUrl + file.docUrl;
+                    var fileType = file.fileName.substr(file.fileName.lastIndexOf('.') + 1);
+                    CommonUtilService.downloadFile(url,fileType,file.fileName);
+                };
             };
 
             scope.getHistory = function () {
@@ -107,8 +112,6 @@
                };
 
            };
-            
- 
         }
     });
     mifosX.ng.application.controller('InsurancSetteledClaimsController', ['$controller', '$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', 'CommonUtilService', '$modal', mifosX.controllers.InsurancSetteledClaimsController]).run(function ($log) {
