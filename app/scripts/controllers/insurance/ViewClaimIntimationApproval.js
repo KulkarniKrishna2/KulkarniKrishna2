@@ -151,7 +151,7 @@
             };
  
             scope.download = function(file){
-                var url = $rootScope.hostUrl + file.url;
+                var url = file.url;
                 CommonUtilService.downloadFile(url," ");
             };
         }
