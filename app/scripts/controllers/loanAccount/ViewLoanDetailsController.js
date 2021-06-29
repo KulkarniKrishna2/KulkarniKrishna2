@@ -51,7 +51,6 @@
             scope.loanSchedule = [];
             scope.submitBankTransactionForTransferOnRetry = false;
             scope.isWorkflowEnabled = scope.isSystemGlobalConfigurationEnabled('work-flow');
-            scope.allowMultipleNominees = scope.isSystemGlobalConfigurationEnabled('allow-multiple-nominees');
             
             scope.showBankApprovalStatus = false;
             scope.displayInterestRateFromProduct = false;

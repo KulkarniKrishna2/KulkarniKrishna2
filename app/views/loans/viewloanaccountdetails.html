@@ -2009,7 +2009,6 @@
                                         <th class="ng-binding">{{ 'label.heading.dob' | translate }}</th>
                                         <th class="ng-binding">{{ 'label.heading.age' | translate }}</th>
                                         <th class="ng-binding">{{ 'label.heading.gender' | translate }}</th>
-                                        <th ng-show="allowMultipleNominees" class="ng-binding">{{ 'label.percentage' | translate }}</th>
                                         <th class="ng-binding">{{ 'label.heading.hasAddress' | translate }}</th>
                                     </tr>
                                 </thead>
@@ -2020,7 +2019,6 @@
                                         <td>{{familyMember.dateOfBirth | DateFormat}}</td>
                                         <td>{{familyMember.age}}</td>
                                         <td>{{familyMember.gender}}</td>
-                                        <td ng-show="allowMultipleNominees">{{familyMember.percentage}}</td>
                                         <td>{{familyMember.hasAddress == true ? 'Yes' : 'No'}}</td>
                                     </tr>
                                 </tbody>

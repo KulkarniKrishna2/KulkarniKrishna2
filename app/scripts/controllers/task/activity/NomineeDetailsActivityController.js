@@ -14,7 +14,6 @@
             scope.showAddNomineeButton = true;
             scope.isAddressTypeDisabled = false;
             scope.addMemberData = false;
-            scope.isFamilyAddressEnabled = scope.isSystemGlobalConfigurationEnabled('enable-family-member-address');
             scope.isNomineeAddressEnabled = scope.isSystemGlobalConfigurationEnabled('enable-nominee-address');
             scope.allowMultipleNominees = scope.isSystemGlobalConfigurationEnabled('allow-multiple-nominees');
 
@@ -54,7 +53,7 @@
 
             }
 
-            if (scope.isFamilyAddressEnabled == true) {
+            if (scope.isNomineeAddressEnabled == true) {
                 resourceFactory.addressTemplateResource.get({}, function (data) {
                     scope.countries = data.countryDatas;
                     scope.addressType = data.addressTypeOptions;
@@ -210,6 +209,7 @@
                 scope.showAddNomineeButton = false;
                 scope.addMemberData = true;
                 scope.isAddressTypeDisabled = false;
+                scope.isAddressPresent = false
                 populateTemplateData();
             };
 
@@ -240,7 +240,7 @@
                     this.formData.dateOfBirth = dateFilter(scope.formData.dateOfBirth, scope.df);
                 }
 
-                if ((scope.isAddressPresent && scope.addressData.addressEntityData[0].addressType.name == "kycAddress") || !scope.isFamilyAddressEnabled) {
+                if ((scope.isAddressPresent && scope.addressData.addressEntityData[0].addressType.name == "kycAddress") || !scope.isNomineeAddressEnabled) {
                     delete this.formData.addresses;
                 }
 
