@@ -10,7 +10,8 @@
                 }
 			},
             "isMandatoryField": {
-				"dateOfBirth": true
+				"dateOfBirth": true,
+                "lastName": false
             }
         },
 		"workflow": {
