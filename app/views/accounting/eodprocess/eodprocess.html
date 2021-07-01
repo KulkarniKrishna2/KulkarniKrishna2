@@ -8,7 +8,7 @@
         <div class="pull-right">
             <button class="btn btn-primary col-sm-offset-1" ng-click="initiateEOD()"><i class="icon-plus icon-white"></i>{{'label.button.initiate.eod' | translate}}</button>
         </div>
-        <div class="pull-right">
+        <div class="pull-right" ng-hide="isEodWithoutWorkflowHidden">
             <button class="btn btn-primary" ng-click="createEOD()"><i class="icon-plus icon-white"></i>{{'label.button.create.eod.without.workflow' | translate}}</button>
         </div>
     </legend>
