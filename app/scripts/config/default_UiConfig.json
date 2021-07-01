@@ -818,6 +818,11 @@
         },
 		"isReceiptMandatory": {
             "ReceiptNumberMendatory": false
-        }
+        },
+		"eodProcess": {
+		  "isHiddenField": {
+			"eodWithoutWorkflow": false
+		  }
+		}
 	}
 }
