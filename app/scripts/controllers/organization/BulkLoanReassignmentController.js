@@ -60,7 +60,8 @@
                 loanAccounts=[];
                 scope.selectAll.checked=false;
                 scope.reschedule = true;
-                resourceFactory.loanRepaymentRescheduleResource.get({templateSource: 'template', officeId: scope.officeIdTemp, loanOfficerId: scope.loanOfficerId, rescheduleFromDate: dateFilter(scope.first.date, scope.df)}, function (data) {
+                resourceFactory.loanRepaymentRescheduleResource.get({templateSource: 'template', officeId: scope.officeIdTemp, loanOfficerId: scope.loanOfficerId, rescheduleFromDate: dateFilter(scope.first.date, scope.df), dateFormat : scope.df,
+                locale : scope.optlang.code}, function (data) {
                     scope.accountSummaryCollection = data.accountSummaryCollection.centerDataList;
                     scope.centersDataList = scope.accountSummaryCollection;
                     scope.groups = data.accountSummaryCollection.groups;
