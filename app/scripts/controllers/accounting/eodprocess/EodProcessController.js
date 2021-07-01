@@ -5,6 +5,10 @@
             scope.first = {};
             scope.accountClosurePerPage = 10;
           
+            if(scope.response.uiDisplayConfigurations.eodProcess.isHiddenField) {
+                scope.isEodWithoutWorkflowHidden= scope.response.uiDisplayConfigurations.eodProcess.isHiddenField.eodWithoutWorkflow;
+            }
+
             resourceFactory.eodProcessTemplateResource.get(function (data) {
                 scope.offices = data.officeOptions;
                 scope.eodClosureTypeOptions = data.eodClosureTypeOptions;
