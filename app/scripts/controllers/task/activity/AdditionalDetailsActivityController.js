@@ -1124,7 +1124,7 @@
                         enableShowSummary();
                     });
                 };
-
+                
                 $scope.deActivateBankAccountDetails = function () {
                     resourceFactory.bankAccountDetailsDeActivateResource.deActivate({
                         entityType: $scope.entityType,
@@ -1135,12 +1135,11 @@
                     });
                 };
                 $scope.activateBankAccountDetail = function () {
-                    resourceFactory.bankAccountDetailActionResource.doAction({
+                    resourceFactory.bankAccountDetailsActivateResource.activate({
                         'entityId': $scope.entityId,
                         'entityType': $scope.entityType,
-                        clientBankAccountDetailAssociationId: getClientBankAccountDetailAssociationId(),
-                            command: 'activate'
-                        }, $scope.bankAccFormData, function (data) {
+                        bankAccountDetailsId: $scope.bankAccountDetailsId
+                    }, {}, function (data) {
                             populateDetails();
                             enableShowSummary();
                         }

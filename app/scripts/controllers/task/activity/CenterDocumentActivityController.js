@@ -7,11 +7,17 @@
             scope.documentFormdata = {};
             scope.documentUploadData = {};
             scope.restrictTaggedDocuments = false;
+            scope.allowDuplicateDocumentTag = false;
 
-            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.documentConfiguration && scope.response.uiDisplayConfigurations.documentConfiguration.restrictTaggedDocuments) {
-                scope.restrictTaggedDocuments = scope.response.uiDisplayConfigurations.documentConfiguration.restrictTaggedDocuments;
+            if (scope.response && scope.response.uiDisplayConfigurations){
+                if (scope.response.uiDisplayConfigurations.documentConfiguration && scope.response.uiDisplayConfigurations.documentConfiguration.restrictTaggedDocuments) {
+                    scope.restrictTaggedDocuments = scope.response.uiDisplayConfigurations.documentConfiguration.restrictTaggedDocuments;
+                }
+                if (scope.response.uiDisplayConfigurations.workflow && scope.response.uiDisplayConfigurations.workflow.center) {
+                    scope.allowDuplicateDocumentTag = scope.response.uiDisplayConfigurations.workflow.center.allowDuplicateDocumentTag;
+                }
             }
-
+            
             function initTask() {
                 scope.$parent.clientsCount();
                 scope.isAllClientFinishedThisTask = true;
@@ -103,7 +109,7 @@
             }
 
             function initCenterDocumentNames() {
-                if (scope.centerdocuments != undefined) {
+                if (!scope.allowDuplicateDocumentTag && scope.centerdocuments != undefined) {
                     for (var key in scope.centerdocuments) {
                         for (var value in scope.centerdocuments[key]) {
                             var index = scope.centerDocumentNames.findIndex(obj => obj.name === scope.centerdocuments[key][value].name);
@@ -173,7 +179,7 @@
                     file: scope.file
                 }).then(function (data) {
                     getCenterDocuments();
-                    if (!_.isUndefined(scope.documentFormdata) && !_.isUndefined(scope.documentFormdata.name)) {
+                    if (!scope.allowDuplicateDocumentTag && !_.isUndefined(scope.documentFormdata) && !_.isUndefined(scope.documentFormdata.name)) {
                         var index = scope.centerDocumentNames.findIndex(x => x.name === scope.documentFormdata.name);
                         if (index >= 0) {
                             scope.availableDocumentNames.splice(index, 1);

@@ -539,7 +539,10 @@
 				"maxDaysLimit":"",
 				"repeatsEveryOptions" :["1", "2", "3", "4", "5"]
 			},
-			"isEditTaskEnableAfterCompleted":false
+			"isEditTaskEnableAfterCompleted":false,
+			"center": {
+				"allowDuplicateDocumentTag" : false
+			}
 		},
 		"globalSearchScope": {
 			"name": "label.search.scope.clients.and.clientIdentifiers",
