@@ -587,7 +587,7 @@
 							<th>{{'label.heading.originalLoan' | translate}}</th>
 							<th>{{'label.heading.loanbalance' | translate}}</th>
 							<th>{{'label.heading.installmentamount' | translate}}</th>
-							<th>{{'label.heading.interestRate' | translate}}</th>
+							<th data-ng-hide="isRateOfInterestHidden">{{'label.heading.interestRate' | translate}}</th>
 							<th>{{'label.heading.tenor' | translate}}</th>
 							<th>{{'label.heading.principlepaid' | translate}}</th>
 							<th>{{'label.heading.interestpaid' | translate}}</th>
@@ -611,7 +611,7 @@
 							<td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.balance|number}}
 							<td width="80px" class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.installmentAmount|number}}
 							</td>
-							<td width="80px" class="pointer" data-ng-click="routeToLoan(loanaccount.id)">
+							<td width="80px" class="pointer" data-ng-click="routeToLoan(loanaccount.id)" data-ng-hide="isRateOfInterestHidden">  
 								{{loanaccount.annualInterestRate|number}}</td>
 							<td width="100px" class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.tenure}}</td>
 							<td class="pointer" data-ng-click="routeToLoan(loanaccount.id)">{{loanaccount.principalPaid|number}}</td>
