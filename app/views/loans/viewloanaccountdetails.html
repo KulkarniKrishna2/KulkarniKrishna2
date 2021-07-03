@@ -823,7 +823,7 @@
 
                     </tab>
 
-                    <tab active = "tabs[15].active" heading="{{'label.heading.smart.repaymentschedule' | translate}}" select="getLoanScheduleData()">
+                    <tab active = "tabs[4].active" heading="{{'label.heading.smart.repaymentschedule' | translate}}" select="getLoanScheduleData()">
                         <div style="max-height:500px;overflow-y:auto;display: block;width:100%;">
                             <table class="table table-striped .width100">
                                 <thead>
@@ -890,7 +890,7 @@
 
                     </tab>
 
-                    <tab ng-if="showFutureSchedule" active="tabs[4].active" heading="{{'label.heading.futureschedule' | translate}}" select="getSpecificData('futureSchedule')">
+                    <tab ng-if="showFutureSchedule" active="tabs[5].active" heading="{{'label.heading.futureschedule' | translate}}" select="getSpecificData('futureSchedule')">
 
                         <table class="table table-striped .width100" ng-show="futurePeriods">
                             <colgroup span="4"></colgroup>
@@ -931,7 +931,7 @@
 
                     </tab>
 
-                    <tab  active="tabs[5].active" heading="{{'label.heading.transactions' | translate}}" select="getSpecificData('transactions')">
+                    <tab  active="tabs[6].active" heading="{{'label.heading.transactions' | translate}}" select="getSpecificData('transactions')">
                         <div  ng-show="loandetails.transactions">
                         <button class="btn btn-primary pull-right" ng-show="checkStatus()" ng-click="export()">{{'label.button.export' | translate}}</button>
                         <button class="btn btn-primary pull-right" ng-show="checkStatus()" ng-click="viewJournalEntries()" style="margin-right: 8px;">{{'label.button.viewjournalentries' | translate}}</button>
@@ -1027,7 +1027,7 @@
                         </div>
                        </div>
                     </tab>
-                    <tab ng-show="transferDetails"  has-permission='READ_BANK_TRANSACTION' heading="{{'label.heading.banktransfer' | translate}}">
+                    <tab active = "tabs[7].active" ng-show="transferDetails"  has-permission='READ_BANK_TRANSACTION' heading="{{'label.heading.banktransfer' | translate}}" select="bankAccountDetails()">
                         <div class="pull-right">
                             {{'label.input.view.closed.transactions' | translate}}<input type="checkbox" ng-model="viewClosedTransactions" ng-change="selectClosedTransactions(viewClosedTransactions)" style="margin-left: 10px">
                         </div>
@@ -1064,7 +1064,7 @@
                             </tr>
                         </table>
                     </tab>
-                    <tab has-permission='READ_BANK_TRANSACTION' heading="{{'label.heading.loanbankaccountassociation' | translate}}" select="fetchBankDetailAssociation()">
+                    <tab active = "tabs[8].active" has-permission='READ_BANK_TRANSACTION' heading="{{'label.heading.loanbankaccountassociation' | translate}}" select="fetchBankDetailAssociation()">
                         <div class="pull-right">
                               <a has-permission='CREATE_ASSIGNBANKACCOUNTDETAIL' ng-hide="loanBankAccountDetailAssociation" href="#/client/{{loandetails.clientId}}/bankaccountdetails/loan/{{loandetails.id}}" ng-show="createPossible" class="btn btn-primary">{{'label.button.add.bankaccount' | translate}} </a>
                         </div>
@@ -1087,7 +1087,7 @@
                         </table>
                     </tab>
 
-                    <tab ng-if="loandetails.collateral" active="tabs[6].active" heading="{{'label.heading.loancollaterals' | translate}}" select="getSpecificData('collateral')">
+                    <tab ng-if="loandetails.collateral" active="tabs[9].active" heading="{{'label.heading.loancollaterals' | translate}}" select="getSpecificData('collateral')">
                         <table class="table" ng-show="loandetails.collateral">
                             <thead>
                             <th>{{'label.heading.type' | translate}}</th>
@@ -1104,7 +1104,7 @@
                         </table>
                     </tab>
 
-                    <tab ng-show="loandetails.isTopup" heading="{{'label.heading.loantopupdetails' | translate}}" ng-click="getLoanTopDetails()">
+                    <tab active = "tabs[10].active" ng-show="loandetails.isTopup" heading="{{'label.heading.loantopupdetails' | translate}}" ng-click="getLoanTopDetails()">
                                   <br/>
                                 <table class="table  table-striped well">
                                     <thead>
@@ -1127,7 +1127,7 @@
 
                     </tab>
 
-                    <tab active="isGlimTabActive" heading="{{'label.heading.groupClientsDetails' | translate}}" ng-show="glimClientsDetails.length>0">
+                    <tab active = "tabs[11].active" active="isGlimTabActive" heading="{{'label.heading.groupClientsDetails' | translate}}" ng-show="glimClientsDetails.length>0">
 
                             <table class="table table-striped" ng-repeat="client in glimClientsDetails" class="pointer-main" ng-show="client.isClientSelected">
                                 <thead>
@@ -1190,7 +1190,7 @@
                             </table>
                     </tab>
 
-                    <tab ng-if="loandetails.multiDisburseLoan" active="tabs[7].active" heading="{{'label.heading.tranchedetails' | translate}}" select="getSpecificData('multiDisburseDetails')">
+                    <tab ng-if="loandetails.multiDisburseLoan" active="tabs[12].active" heading="{{'label.heading.tranchedetails' | translate}}" select="getSpecificData('multiDisburseDetails')">
                         <div ng-show="loandetails.multiDisburseLoan">
                         <table class="width100">
 
@@ -1261,7 +1261,7 @@
                       </div>
                     </tab>
 
-                    <tab ng-show="loandetails.overdueCharges.length>0" heading="{{'label.heading.overduepenalitycharge' | translate}}">
+                    <tab active = "tabs[13].active" ng-show="loandetails.overdueCharges.length>0" heading="{{'label.heading.overduepenalitycharge' | translate}}">
                         <table class="table width100">
                             <tr class="graybg">
                                 <th>{{'label.heading.name' | translate}}</th>
@@ -1279,7 +1279,7 @@
                         </table>
                     </tab>
 
-                    <tab active="tabs[9].active" heading="{{'label.heading.floatinginterestrates' | translate}}" ng-show="loandetails.isLoanProductLinkedToFloatingRate" select="getSpecificData('interestRatesPeriods')">
+                    <tab active="tabs[14].active" heading="{{'label.heading.floatinginterestrates' | translate}}" ng-show="loandetails.isLoanProductLinkedToFloatingRate" select="getSpecificData('interestRatesPeriods')">
                         <table class="table width100">
                             <tr class="graybg">
                                 <th>{{'label.heading.fromdate' | translate}}</th>
@@ -1293,7 +1293,7 @@
                     </tab>
 
 
-                    <tab active="tabs[10].active" heading="{{'label.heading.charges' | translate}}" select="getSpecificData('charges')">
+                    <tab active="tabs[15].active" heading="{{'label.heading.charges' | translate}}" select="getSpecificData('charges')">
                         <div ng-show="chargeTableShow">
                         <table class="table width100">
                             <tr class="graybg sticky1">
@@ -1347,7 +1347,7 @@
                             </button>
                         </div>
                     </tab>
-                    <tab active="tabs[11].active" heading="{{'label.heading.eventbased.charge' | translate}}" select="getSpecificData('eventBasedCharges')">
+                    <tab active="tabs[16].active" heading="{{'label.heading.eventbased.charge' | translate}}" select="getSpecificData('eventBasedCharges')">
                         <table ng-show="loanSpecificData.eventBasedCharges.length>0" class="table" class="width100" >
                             <tr class="graybg">
                                 <th>{{'label.heading.name' | translate}}</th>
@@ -1565,7 +1565,7 @@
                           </div>
                     </script>
 
-                    <tab heading="{{'label.heading.loandocuments' | translate}}" select="getLoanDocuments()">
+                    <tab active = "tabs[17].active" heading="{{'label.heading.loandocuments' | translate}}" select="getLoanDocuments()">
                         <div class="pull-right" data-ng-show="choice">
                             <a href="#/addloandocument/{{loandetails.id}}" class="btn btn-primary"><i class="icon-plus icon-white"></i>{{'label.button.upload'
                                 | translate}}</a>
@@ -1597,7 +1597,7 @@
                           </table>
                         </div>
                     </tab>
-                    <tab heading="{{'label.anchor.mandate' | translate}}" select="getMandatesOnSelect()">
+                    <tab active = "tabs[18].active" heading="{{'label.anchor.mandate' | translate}}" select="getMandatesOnSelect()">
                         <div class="pull-right">
                             <a href="#/mandate/{{loandetails.id}}/CREATE" ng-show="createPossible" class="btn btn-primary">{{'label.button.mandate.create'
                                 | translate}}</a>
@@ -1639,7 +1639,7 @@
                             </tbody>
                         </table>
                     </tab>
-                    <tab heading="{{ 'label.heading.notes' | translate }}" has-permission='READ_LOANNOTE' select="fetchNotes()">
+                    <tab active = "tabs[19].active" heading="{{ 'label.heading.notes' | translate }}" has-permission='READ_LOANNOTE' select="fetchNotes()">
                         <br/>
 
                         <form>
@@ -1694,7 +1694,7 @@
                             </div>
                         </div>
                     </tab>
-                    <tab ng-show="showCreditBureau" heading="{{ 'label.heading.bureau' | translate }}" has-permission='READ_CREDIT_BUREAU_REPORT' select="getCreditBureauReportSummary()">
+                    <tab active = "tabs[21].active" ng-show="showCreditBureau" heading="{{ 'label.heading.bureau' | translate }}" has-permission='READ_CREDIT_BUREAU_REPORT' select="getCreditBureauReportSummary()">
                         <div class="span gray-head">
                             <span class="boldlabel">
                                   <strong>{{'label.anchor.creditbureauteport' | translate}}</strong>
@@ -1932,13 +1932,13 @@
                         </div>
                     </tab>
 
-                    <tab heading="{{'lable.tab.heading.pdc' | translate}}" select="isDisplayPDC=true">
+                    <tab active = "tabs[22].active" heading="{{'lable.tab.heading.pdc' | translate}}" select="isDisplayPDC=true" select="pdc()">
                         <div data-ng-if="isDisplayPDC == true" ng-include="'views/pdc/displaypdclist.html'"></div>
                         <script data-ng-if="isDisplayPDC == true" type="text/ng-template" id="createpdc.html">
                             <div ng-include="'views/pdc/createpdc.html'"></div>
                         </script>
                     </tab>
-                    <tab ng-if="loandetails.isDpConfigured" heading="{{'label.tab.heading.dpdetails' | translate}}" select="getLoanAccountDpDetailData()">
+                    <tab active = "tabs[23].active" ng-if="loandetails.isDpConfigured" heading="{{'label.tab.heading.dpdetails' | translate}}" select="getLoanAccountDpDetailData()">
                         <div ng-show="loandetails.isDpConfigured">
                             <table class="table table-striped">
                                 <thead>
@@ -1991,7 +1991,7 @@
                             </table>
                         </div>
                     </tab>
-                    <tab ng-if="loandetails.summary && loandetails.summary.principalNetDisbursed" heading="{{'lable.tab.heading.insurance.policy' | translate}}">
+                    <tab active = "tabs[24].active" ng-if="loandetails.summary && loandetails.summary.principalNetDisbursed" heading="{{'lable.tab.heading.insurance.policy' | translate}}">
                         <div has-permission="READ_INSURANCE_POLICY" ng-include="'views/loans/insurancepolicy.html'"></div>
                     </tab>
                 </tabset>

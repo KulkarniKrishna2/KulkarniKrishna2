@@ -1,16 +1,44 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         ViewClientController: function (scope, routeParams, route, location, resourceFactory, http, $modal, API_VERSION, $rootScope, $upload, dateFilter, commonUtilService, localStorageService,$sce,paginatorUsingOffsetService, popUpUtilService) {
-            
+            scope.clientId = routeParams.id;
             if(!_.isUndefined($rootScope.isClientAdditionalDetailTabActive)){
                 delete $rootScope.isClientAdditionalDetailTabActive;
             }else{
                 var savedTabs = localStorageService.getFromLocalStorage("tabPersistence");
-                if(savedTabs){
-                    delete savedTabs.clientTabset;
-                    delete savedTabs.clientADTabset;
-                    localStorageService.addToLocalStorage('tabPersistence', savedTabs);
+                var lsClientId = localStorageService.getFromLocalStorage("lsClientId");
+
+                // ----- clearing local storage of loan accounts -----
+                var savedTabArrayValue = localStorageService.getFromLocalStorage("loanAccountTabPersistance");
+                var lsLoadnId = localStorageService.getFromLocalStorage("lsLoanId");
+                if(savedTabArrayValue && lsLoadnId) {
+                   delete lsLoadnId.lsLoadIdValue;
+                   delete savedTabArrayValue.savedTabArrayValue;
+                   localStorageService.addToLocalStorage('lsLoanId', lsLoadnId);
+                   localStorageService.addToLocalStorage('loanAccountTabPersistance', {savedTabArrayValue: 0}); 
                 }
+                
+
+                if(lsClientId) {
+                    if(scope.clientId != lsClientId.lsClientIdValue) {
+                        if(savedTabs){
+                            delete savedTabs.clientTabset;
+                            delete savedTabs.clientADTabset;
+                            delete lsClientId.lsClientIdValue;
+                            localStorageService.addToLocalStorage('tabPersistence', savedTabs);
+                            localStorageService.addToLocalStorage('lsClientId', {lsClientIdValue: scope.clientId});
+                        }
+                    }
+                } else {
+                    localStorageService.addToLocalStorage('lsClientId', {lsClientIdValue: scope.clientId});
+                }
+                
+                console.log(savedTabs);
+                // if(savedTabs ){
+                //     delete savedTabs.clientTabset;
+                //     delete savedTabs.clientADTabset;
+                //     localStorageService.addToLocalStorage('tabPersistence', savedTabs);
+                // }
             }
             
             scope.client = [];
@@ -42,7 +70,7 @@
             scope.isUpdate = false;
             scope.showNoteField = false;
             scope.showSmartcard = true;
-            scope.clientId = routeParams.id;
+            // scope.clientId = routeParams.id;
             scope.entityType = routeParams.entityType;
             if(!scope.entityType){
                 scope.entityType = "client";

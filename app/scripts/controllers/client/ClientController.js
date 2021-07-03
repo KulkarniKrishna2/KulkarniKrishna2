@@ -1,6 +1,14 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ClientController: function (scope, resourceFactory, location, paginatorUsingOffsetService) {
+        ClientController: function (scope, resourceFactory, location, localStorageService, paginatorUsingOffsetService) {
+            var savedTabs = localStorageService.getFromLocalStorage("tabPersistence");
+            var lsClientId = localStorageService.getFromLocalStorage("lsClientId");
+            if(savedTabs && lsClientId) {
+                delete savedTabs.clientTabset;
+                delete lsClientId.lsClientIdValue;
+                localStorageService.addToLocalStorage('tabPersistence', savedTabs);
+                localStorageService.addToLocalStorage('lsClientId', lsClientId);
+             }
             scope.showSearch = true;
             scope.clientsPerPage = 15;
             scope.isWorkflowEnabled = scope.isSystemGlobalConfigurationEnabled('work-flow');
@@ -106,7 +114,7 @@
         }
     });
 
-    mifosX.ng.application.controller('ClientController', ['$scope', 'ResourceFactory', '$location', 'PaginatorUsingOffsetService', mifosX.controllers.ClientController]).run(function ($log) {
+    mifosX.ng.application.controller('ClientController', ['$scope', 'ResourceFactory', '$location', 'localStorageService', 'PaginatorUsingOffsetService', mifosX.controllers.ClientController]).run(function ($log) {
         $log.info("ClientController initialized");
     });
 }(mifosX.controllers || {}));

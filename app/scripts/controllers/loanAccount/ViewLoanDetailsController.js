@@ -1,6 +1,8 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewLoanDetailsController: function (scope, routeParams, resourceFactory, location, route, http, $modal, dateFilter, API_VERSION, $sce, $rootScope, CommonUtilService) {
+        ViewLoanDetailsController: function (scope, routeParams, resourceFactory, location, route, http, $modal, dateFilter, API_VERSION, $sce, $rootScope, localStorageService, CommonUtilService) {
+            scope.loanIdValue = routeParams.id;
+            console.log(scope.loanIdValue);
             scope.loandocuments = [];
             scope.report = false;
             scope.hidePentahoReport = true;
@@ -372,7 +374,16 @@
                 };
             };
             scope.tabs = [
-                { active: true },
+                { active: false },
+                { active: false },
+                { active: false },
+                { active: false },
+                { active: false },
+                { active: false },
+                { active: false },
+                { active: false },
+                { active: false },
+                { active: false },
                 { active: false },
                 { active: false },
                 { active: false },
@@ -389,6 +400,63 @@
                 { active: false },
                 { active: false }
             ];
+
+            var savedTabArrayValue = localStorageService.getFromLocalStorage("loanAccountTabPersistance");
+            var lsLoadnId = localStorageService.getFromLocalStorage("lsLoanId");
+            if(lsLoadnId && savedTabArrayValue) {
+                if(scope.loanIdValue != lsLoadnId.lsLoadIdValue) {
+                    delete lsLoadnId.lsLoadIdValue;
+                    delete savedTabArrayValue.savedTabArrayValue;
+                    localStorageService.addToLocalStorage('lsLoanId', {lsLoadIdValue: scope.loanIdValue});
+                    localStorageService.addToLocalStorage('loanAccountTabPersistance', {savedTabArrayValue: 0});
+                } else {
+                    for(var i=0; i<scope.tabs.length; i++) {
+                        if(i == savedTabArrayValue.savedTabArrayValue) {
+                            scope.tabs[i].active = true;
+                        } else {
+                            scope.tabs[i].active = false;
+                        }
+                    }
+                }
+            } else {
+                scope.tabs = [
+                    { active: true },
+                    { active: false },
+                    { active: false },
+                    { active: false },
+                    { active: false },
+                    { active: false },
+                    { active: false },
+                    { active: false },
+                    { active: false },
+                    { active: false },
+                    { active: false },
+                    { active: false },
+                    { active: false },
+                    { active: false },
+                    { active: false },
+                    { active: false },
+                    { active: false },
+                    { active: false },
+                    { active: false },
+                    { active: false },
+                    { active: false },
+                    { active: false },
+                    { active: false },
+                    { active: false },
+                    { active: false }
+                ];
+                localStorageService.addToLocalStorage('lsLoanId', {lsLoadIdValue: scope.loanIdValue});
+                localStorageService.addToLocalStorage('loanAccountTabPersistance', {savedTabArrayValue: 0});
+            }
+
+            scope.bankAccountDetails = function() {
+                localStorageService.addToLocalStorage('loanAccountTabPersistance', {savedTabArrayValue: 7});
+            }
+
+            scope.pdc = function() {
+                localStorageService.addToLocalStorage('loanAccountTabPersistance', {savedTabArrayValue: 22});
+            }
 
             /* For multiple disbursement loans, if second loan is due for disbursement, disburse button does not appearing,
                  hot fix is done by adding "associations: multiTranchDataRequest,isFetchSpecificData: true" in the first request itself
@@ -975,6 +1043,7 @@
             };
 
             scope.fetchBankDetailAssociation = function () {
+                localStorageService.addToLocalStorage('loanAccountTabPersistance', {savedTabArrayValue: 8});
                 if (angular.isUndefined(scope.loanBankAccountDetailAssociation)) {
                     resourceFactory.bankAccountDetailsResource.getAll({ entityType: "loans", entityId: routeParams.id }, function (data) {
                         scope.loanBankAccountDetailAssociation = data;
@@ -1090,6 +1159,8 @@
             scope.getSpecificData = function (associations) {
                 scope.isDataAlreadyFetched = false;
                 if (associations === 'repaymentSchedule') {
+                    console.log('repaymentSchedule Tab');
+                    localStorageService.addToLocalStorage('loanAccountTabPersistance', {savedTabArrayValue: 3});
                     associations = "repaymentSchedule,originalSchedule";
                 }
                 if (associations === 'multiDisburseDetails') {
@@ -1103,6 +1174,7 @@
                         scope.isDataAlreadyFetched = true;
                     }
                 } else if (associations === 'transactions' && scope.istransactions === true) {
+                    localStorageService.addToLocalStorage('loanAccountTabPersistance', {savedTabArrayValue: 6});
                     scope.isDataAlreadyFetched = true;
                 } else if (associations === 'collateral' && scope.iscollateral === true) {
                     scope.isDataAlreadyFetched = true;
@@ -1111,6 +1183,7 @@
                 } else if (associations === 'interestRatesPeriods' && scope.isInterestRatesPeriods === true) {
                     scope.isDataAlreadyFetched = true;
                 } else if (associations === 'charges' && scope.ischarges === true) {
+                    localStorageService.addToLocalStorage('loanAccountTabPersistance', {savedTabArrayValue: 7});
                     scope.isDataAlreadyFetched = true;
                 } 
                 if (!scope.isDataAlreadyFetched) {
@@ -1137,6 +1210,7 @@
                             scope.isFutureSchedule = true;
                             scope.futurePeriods = data.repaymentSchedule.futurePeriods;
                         } else if (associations === 'transactions') {
+                            localStorageService.addToLocalStorage('loanAccountTabPersistance', {savedTabArrayValue: 6});
                             scope.istransactions = true;
                             scope.loandetails.transactions = scope.loanSpecificData.transactions;
                             scope.convertDateArrayToObject('date');
@@ -1152,6 +1226,7 @@
                             scope.isInterestRatesPeriods = true;
                             scope.loandetails.interestRatesPeriods = scope.loanSpecificData.interestRatesPeriods;
                         } else if (associations === 'charges') {
+                            localStorageService.addToLocalStorage('loanAccountTabPersistance', {savedTabArrayValue: 7});
                             scope.ischarges = true;
                             scope.loandetails.charges = scope.loanSpecificData.charges;
                             if (scope.loandetails.charges) {
@@ -1210,6 +1285,7 @@
             };
 
             scope.getLoanDocuments = function () {
+                localStorageService.addToLocalStorage('loanAccountTabPersistance', {savedTabArrayValue: 17});
                 scope.loandocuments = {};
                 resourceFactory.LoanDocumentResource.getLoanDocuments({ loanId: routeParams.id }, function (data) {
                     for (var i = 0; i < data.length; i++) {
@@ -1255,6 +1331,7 @@
             };
 
             scope.getMandatesOnSelect = function () {
+                localStorageService.addToLocalStorage('loanAccountTabPersistance', {savedTabArrayValue: 18});
                 if (!scope.mandatesLoaded) {
                     scope.getMandates();
                     scope.mandatesLoaded = true;
@@ -1337,6 +1414,8 @@
 
 
             scope.dataTableChange = function (datatable) {
+                console.log(datatable);
+                localStorageService.addToLocalStorage('loanAccountTabPersistance', {savedTabArrayValue: 20});
                 resourceFactory.DataTablesResource.getTableDetails({
                     datatablename: datatable.registeredTableName,
                     entityId: routeParams.id, genericResultSet: 'true', associateAppTable: 'm_loan'
@@ -1988,6 +2067,7 @@
             };
 
             scope.getCreditBureauReportSummary = function () {
+                localStorageService.addToLocalStorage('loanAccountTabPersistance', {savedTabArrayValue: 21});
                 if (!scope.existingclientdetailsloaded) {
                     if (_.isUndefined(scope.fileContentData)) {
                         resourceFactory.creditBureauReportFileContentResource.get({
@@ -2166,6 +2246,7 @@
             };
 
             scope.getLoanTopDetails = function () {
+                localStorageService.addToLocalStorage('loanAccountTabPersistance', {savedTabArrayValue: 9});
                 if (scope.loanTopupDetails == undefined || scope.loanTopupDetails.length == 0) {
                     resourceFactory.loanTopupResource.get({ loanId: routeParams.id }, function (data) {
                         scope.loanTopupDetails = data;
@@ -2329,7 +2410,7 @@
         }
     });
 
-    mifosX.ng.application.controller('ViewLoanDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$http', '$modal', 'dateFilter', 'API_VERSION', '$sce', '$rootScope', 'CommonUtilService', mifosX.controllers.ViewLoanDetailsController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewLoanDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route', '$http', '$modal', 'dateFilter', 'API_VERSION', '$sce', '$rootScope', 'localStorageService', 'CommonUtilService', mifosX.controllers.ViewLoanDetailsController]).run(function ($log) {
         $log.info("ViewLoanDetailsController initialized");
     });
 }(mifosX.controllers || {}));
