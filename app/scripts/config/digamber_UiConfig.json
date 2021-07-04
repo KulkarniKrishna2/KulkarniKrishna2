@@ -118,7 +118,8 @@
 		},
 		"viewClient": {
 			"isHiddenField": {
-				"referenceNo": false
+				"referenceNo": false,
+				"rateOfInterest": true
 			},
 			"familyDeatils": {
 				"isMandatoryField": {
