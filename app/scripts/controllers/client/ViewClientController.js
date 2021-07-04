@@ -42,6 +42,7 @@
             scope.isUpdate = false;
             scope.showNoteField = false;
             scope.showSmartcard = true;
+            scope.isRateOfInterestHidden = false;
             scope.clientId = routeParams.id;
             scope.entityType = routeParams.entityType;
             if(!scope.entityType){
@@ -68,6 +69,9 @@
                 }
                 if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.pincode){
                     scope.pincode = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.pincode;
+                }
+                if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.rateOfInterest){
+                    scope.isRateOfInterestHidden = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.rateOfInterest;
                 }
                 if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.displayNameInReverseOrder){
                     scope.displayNameInReverseOrder = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.displayNameInReverseOrder;

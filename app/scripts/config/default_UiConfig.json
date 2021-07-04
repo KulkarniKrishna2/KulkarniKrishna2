@@ -146,7 +146,8 @@
 				"blackList": true,
 				"whiteList": true,
 				"crnNumber" : true,
-				"makeCall" : true
+				"makeCall" : true,
+				"rateOfInterest": false
 			},
 			"familyDeatils": {
 				"isHiddenField": {
