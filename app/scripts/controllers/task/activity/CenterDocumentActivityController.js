@@ -196,6 +196,8 @@
                 scope.documentUploadData.name = scope.documentFormdata.name;
                 if (!_.isUndefined(scope.documentFormdata.description)) {
                     scope.documentUploadData.description = scope.documentFormdata.description;
+                } else {
+                    delete scope.documentUploadData.description;
                 }
             }
 
