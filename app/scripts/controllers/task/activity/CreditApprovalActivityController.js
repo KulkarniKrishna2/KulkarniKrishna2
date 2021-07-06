@@ -681,6 +681,9 @@
                 }
             }
 
+            scope.refreshTask = function () {
+                initTask();
+            }
         }
     });
     mifosX.ng.application.controller('CreditApprovalActivityController', ['$q', '$controller', '$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', 'ngXml2json', '$route', '$http', '$rootScope', '$sce', 'CommonUtilService', '$route', '$upload', 'API_VERSION','$filter', 'PopUpUtilService', mifosX.controllers.CreditApprovalActivityController]).run(function ($log) {

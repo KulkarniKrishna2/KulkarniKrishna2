@@ -1359,6 +1359,9 @@
                 });
             }
 
+            scope.refreshTask = function () {
+                initTask();
+            }
         }
     });
     mifosX.ng.application.controller('CreditBureauCheckActivityController', ['$controller', '$scope', '$modal', 'ResourceFactory', 'dateFilter', '$http', '$rootScope', '$sce', 'CommonUtilService', '$upload', 'API_VERSION', '$routeParams', 'PopUpUtilService',mifosX.controllers.CreditBureauCheckActivityController]).run(function ($log) {

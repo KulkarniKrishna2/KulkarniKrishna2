@@ -1146,6 +1146,10 @@
                     );
                 };
             };
+
+            scope.refreshTask = function () {
+                initTask();
+            }
         }
     });
     mifosX.ng.application.controller('AdditionalDetailsActivityController', ['$controller', '$scope', '$modal', 'ResourceFactory', 'dateFilter', '$http', '$rootScope', '$upload', 'API_VERSION', 'PopUpUtilService', mifosX.controllers.AdditionalDetailsActivityController]).run(function ($log) {

@@ -442,6 +442,10 @@
                 };
 
             }
+
+            scope.refreshTask = function () {
+                initTask();
+            }
         }
     });
     mifosX.ng.application.controller('DisbursalActivityController', ['$controller', '$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', 'ngXml2json', '$route', '$http', '$rootScope', '$sce', 'CommonUtilService', '$route', '$upload', 'API_VERSION', 'PopUpUtilService', mifosX.controllers.DisbursalActivityController]).run(function ($log) {

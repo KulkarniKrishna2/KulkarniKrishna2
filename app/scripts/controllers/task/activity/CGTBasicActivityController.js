@@ -847,6 +847,10 @@
                     }
                 }
             }
+
+            scope.refreshTask = function () {
+                initTask();
+            }
         }
     });
     mifosX.ng.application.controller('CGTBasicActivityController', ['$controller', '$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', '$route', '$http', '$rootScope','CommonUtilService', '$route', '$upload', 'API_VERSION', 'dateFilter', 'PopUpUtilService', mifosX.controllers.CGTBasicActivityController]).run(function($log) {

@@ -372,6 +372,10 @@
                     }
                 }
             }
+
+            scope.refreshTask = function () {
+                initTask();
+            }
         }
     });
     mifosX.ng.application.controller('GRTBasicActivityController', ['$controller', '$scope', '$routeParams', '$modal', 'ResourceFactory', '$location', 'dateFilter', 'PopUpUtilService', mifosX.controllers.GRTBasicActivityController]).run(function ($log) {
