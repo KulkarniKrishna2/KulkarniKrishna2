@@ -9058,6 +9058,7 @@
     "error.msg.charge.rule.criteria.not.met": "Could not meet the charge rule criteria", 
     "error.msg.loan.cannot.writeoff" : "Cannot writeoff loan with negative balance",
     "error.msg.loan.over.payment": "Over payment not alllowed",
+    "error.msg.cannot.add.the.same.charge.multiple.times" : "Charge with name {{params[1].value}} is already added to the loan",
 
      "------ end of translation file ------": "----------"
 }
