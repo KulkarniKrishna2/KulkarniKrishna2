@@ -50,7 +50,12 @@
 			},
 			"isHiddenFeild": {
 				"toggleButton":false
-			}
+			},
+            "productiveSheet": {
+                "isRequired": {
+                    "receiptNumber": true
+                }
+            }
 		}
     }
 } 
