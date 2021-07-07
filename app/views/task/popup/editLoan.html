@@ -111,13 +111,13 @@
 						<div class="form-group">
 							<table width="50%">
 								<tbody class="width36" >
-									<tr ng-if="showLoanTerms" ng-show="loanaccountinfo.canUseForTopup">
+									<tr ng-show="loanaccountinfo.canUseForTopup">
 										<td ><label>{{ 'label.heading.isTopup' | translate }}</label> &nbsp;
 											<input type="checkbox" name="isTopup" ng-model="editLoanAccountdata.isTopup" ng-change="isTopupSelected()"/>
 										</td>
 									</tr>
-									<tr ng-if="showLoanTerms" ng-show="loanaccountinfo.canUseForTopup && editLoanAccountdata.isTopup == true">
-										<td class="paddedbottom10"  ng-show="editLoanAccountdata.isTopup == true">
+									<tr ng-show="loanaccountinfo.canUseForTopup && editLoanAccountdata.isTopup == true">
+										<td class="paddedbottom10" >
 											 <div  style="display: block; max-height: 300px; overflow-y: auto">
 												<table class="table well" style="table-layout: fixed">
 													<thead>

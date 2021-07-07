@@ -411,6 +411,7 @@
                     scope.updateEmiPacks(scope.loanaccountinfo);
                     scope.charges = data.charges;
                     scope.editLoanAccountdata.isTopup = scope.loanaccountinfo.isTopup;
+                    scope.showLoanTerms =!(scope.loanaccountinfo.loanEMIPacks && scope.isLoanEmiPackEnabled)?true:false;
                     if (data.isTopup && scope.loanaccountinfo.clientActiveLoanOptions.length > 0 && data.loanTopupDetailsData.length > 0) {
                         for (var i in data.loanTopupDetailsData) {
                             var closureLoanId = data.loanTopupDetailsData[i].closureLoanId;
