@@ -8954,6 +8954,7 @@
     "label.input.pan": "PAN number",
     "label.name.on.card" : "Name on Card",
     "label.pan.no.score" : "PAN No Score",
+    "error.msg.loan.cannot.writeoff" : "Cannot writeoff loan with negative balance",
 
      "------ end of translation file ------": "----------"
 

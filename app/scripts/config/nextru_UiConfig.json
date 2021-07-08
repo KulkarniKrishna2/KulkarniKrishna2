@@ -10,7 +10,8 @@
                 }
 			},
             "isMandatoryField": {
-				"dateOfBirth": true
+				"dateOfBirth": true,
+                "lastName": false
             }
         },
 		"workflow": {
@@ -49,7 +50,12 @@
 			},
 			"isHiddenFeild": {
 				"toggleButton":false
-			}
+			},
+            "productiveSheet": {
+                "isRequired": {
+                    "receiptNumber": true
+                }
+            }
 		}
     }
 } 
