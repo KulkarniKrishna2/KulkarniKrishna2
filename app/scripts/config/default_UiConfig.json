@@ -207,7 +207,12 @@
 			"attendanceType": {
 				"defaultValue": "",
 				"showAllAttendanceTypes" : true
-			}
+			},
+            "productiveSheet": {
+                "isRequired": {
+                    "receiptNumber": false
+                }
+            }
 		},
 		"createClient": {
 			"isReadOnlyField": {
