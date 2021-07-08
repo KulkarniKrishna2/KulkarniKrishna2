@@ -38,6 +38,7 @@
             scope.isShowReasonDropDown = false;
             scope.showErrMsg = false;
             scope.showEmiAmountOnNoDue = false;
+            scope.isReceiptNumberMandatory = false;
 
             scope.showAllAttendanceTypes = true;
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.collectionSheet){
@@ -815,6 +816,10 @@
             }
 
             var submitCollectionSheetCtrl = function ($scope, $modalInstance, collectionParams) {
+                if(scope.response && scope.response.uiDisplayConfigurations.collectionSheet){
+                    scope.isReceiptNumberMandatory = scope.response.uiDisplayConfigurations.collectionSheet.productiveSheet.isRequired.receiptNumber;
+                }
+                $scope.receiptNumberErrorValue = false;
                 $scope.paymentTypeOptions = collectionParams.paymentTypeOption;
                 $scope.showPaymentDetailsFn = function () {
                     $scope.paymentDetail = {};
@@ -843,6 +848,14 @@
                 $scope.showPaymentDetailsFn();
                 $scope.isRequired = false;
                 $scope.submitCollectionSheet = function () {
+                    if(scope.isReceiptNumberMandatory){
+                        if(($scope.paymentDetail.receiptNumber == null || $scope.paymentDetail.receiptNumber == "")){
+                            $scope.receiptNumberErrorValue = true;
+                            return;
+                        }else{
+                            $scope.receiptNumberErrorValue = false;
+                        }
+                    }
                     if(_.isUndefined($scope.paymentDetail.paymentTypeId)){
                         $scope.isRequired = true;
                         return false;

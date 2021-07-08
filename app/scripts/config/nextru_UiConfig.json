@@ -19,7 +19,10 @@
         "editClient":{
             "isReadOnlyField": {
 				"externalId": true
-			}
+			},
+				"dateOfBirth": true,
+                "lastName": false
+            
         },
 		"workflow": {
             "showClosedLoanApplicationInGroupActivity" : false
@@ -70,7 +73,12 @@
 			},
 			"isHiddenFeild": {
 				"toggleButton":false
-			}
+			},
+            "productiveSheet": {
+                "isRequired": {
+                    "receiptNumber": true
+                }
+            }
 		}
     }
 } 
