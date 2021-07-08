@@ -9047,6 +9047,7 @@
     "validation.msg.interest.charged.from.date.must.be.greater.than.or.equal.to.the.last.disbursed.tranche.interest.charged.from.date" : "Interest Charged From Date must be greater than or equal to `{{params[0].value}}` ",
     "validation.msg.disbursement.date.must.be.greater.than.or.equal.to.the.last.disbursed.tranche.interest.charged.from.date" : "Disbursement date must be greater than or equal to `{{params[0].value}}` ",
     "label.heading.upfrontinterestamount":"Upfront Interest Amount",
+    "error.msg.loan.cannot.writeoff" : "Cannot writeoff loan with negative balance",
 
      "------ end of translation file ------": "----------"
 }
