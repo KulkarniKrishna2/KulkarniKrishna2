@@ -595,15 +595,14 @@
                     <input id="fixedEmiAmount" type="text" autocomplete="off" ng-model="formData.fixedEmiAmount" class="form-control" number-format/>&nbsp;
                 </td>
             </tr>
-            <tr ng-if="showLoanTerms" ng-show="loanaccountinfo.canUseForTopup">
+            <tr ng-show="loanaccountinfo.canUseForTopup">
                 <td><label>{{ 'label.heading.isTopup' | translate }}</label></td>
                 <td class="paddedbottom10" colspan="3">
                     <input type="checkbox" name="isTopup" ng-model="formData.isTopup" ng-change="isTopupSelected()"/>
                 </td>
             </tr>
-            <tr ng-if="showLoanTerms" ng-show="loanaccountinfo.canUseForTopup && formData.isTopup == true">
-                <td></td>
-              <td class="width36 paddedbottom10"  colspan="2" ng-show="formData.isTopup == true">
+            <tr ng-show="loanaccountinfo.canUseForTopup && formData.isTopup == true">
+              <td class="width36 paddedbottom10"  colspan="2">
                      
                      <div  style="display: block; max-height: 300px; overflow-y: auto">
                         <table class="table well" style="table-layout: fixed">
