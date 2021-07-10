@@ -9057,6 +9057,7 @@
     "label.heading.full.emi.paid.date": "Full EMI paid date",
     "error.msg.charge.rule.criteria.not.met": "Could not meet the charge rule criteria", 
     "error.msg.loan.cannot.writeoff" : "Cannot writeoff loan with negative balance",
+    "error.msg.loan.over.payment": "Over payment not alllowed",
 
      "------ end of translation file ------": "----------"
 }
