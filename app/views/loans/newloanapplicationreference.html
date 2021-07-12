@@ -277,10 +277,11 @@
                     <input type="checkbox" ng-model="formData.Workflowtype" ng-disabled="newLoanApplicationLimitAllowed">
                 </td>
             </tr>
+
             <tr ng-show="loanaccountinfo.canUseForTopup">
                 <td><label>{{ 'label.heading.isTopup' | translate }}</label></td>
                 <td class="paddedbottom10" colspan="3">
-                    <input type="checkbox" name="isTopup" ng-model="formData.isTopup" ng-change="isTopupSelected()" disabled="formData.isTopup"/>
+                    <input type="checkbox" name="isTopup" ng-model="formData.isTopup" ng-change="isTopupSelected()" ng-disabled="allowTopup()"/>
                 </td>
             </tr>
             <tr ng-show="loanaccountinfo.canUseForTopup && formData.isTopup == true">

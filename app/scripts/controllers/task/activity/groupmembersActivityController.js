@@ -954,6 +954,10 @@
                 scope.loanaccountinfo.clientActiveLoanOptions[i].isSelected = isAllLoanToClose;
             }
         }
+
+        scope.allowTopup = function () {
+            return scope.formData.isTopup && scope.loanaccountinfo.clientActiveLoanOptions.length>0;
+        }
       }
     });
     mifosX.ng.application.controller('groupmembersActivityController', ['$q','$controller','$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope','$filter', mifosX.controllers.groupmembersActivityController]).run(function ($log) {
