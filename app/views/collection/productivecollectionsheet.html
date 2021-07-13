@@ -5,6 +5,7 @@
     <form name="productivecollectionsheetform" novalidate="" class="form-horizontal well" rc-submit="submitCollection()">
     <api-validate></api-validate>
     <script type="text/ng-template" id="submitCollectionSheet.html">
+        <form name="paymentdetailform">
             <div class="modal-header silver">
                 <h3 class="bolder">{{'label.anchor.collectionsheet' | translate}}</h3>
             </div>
@@ -20,7 +21,7 @@
                 <td ng-show="paymentDetail.paymentTypeId">{{ 'label.input.accnum' | translate}}</td>
                 <td ng-show="paymentDetail.paymentTypeId">{{ 'label.input.checknumber' | translate}}</td>
                 <td ng-show="paymentDetail.paymentTypeId">{{ 'label.input.routingcode' | translate}}</td>
-                <td ng-show="paymentDetail.paymentTypeId">{{ 'label.input.receiptnumber' | translate}}</td>
+                <td ng-show="paymentDetail.paymentTypeId">{{ 'label.input.receiptnumber' | translate}}<span ng-required="isReceiptNumberMandatory" class="required">*</span></td>
                 <td ng-show="paymentDetail.paymentTypeId">{{ 'label.input.banknumber' | translate}}</td>
             </tr>
             </thead>
@@ -36,8 +37,9 @@
                            ng-model="paymentDetail.checkNumber"></td>
                 <td ng-show="paymentDetail.paymentTypeId"><input class="form-control" type="text" autocomplete="off"
                            ng-model="paymentDetail.routingCode"></td>
-                <td ng-show="paymentDetail.paymentTypeId"><input class="form-control" type="text" autocomplete="off"
-                           ng-model="paymentDetail.receiptNumber"></td>
+                <td ng-show="paymentDetail.paymentTypeId"><input name="receiptNo" class="form-control" type="text" autocomplete="off"
+                        ng-model="paymentDetail.receiptNumber" ng-required="isReceiptNumberMandatory" required late-validate>
+                            <span class="ng-scope" ng-show="receiptNumberErrorValue" style="color: red;">Required*</span> </td>
                 <td ng-show="paymentDetail.paymentTypeId"><input class="form-control" type="text" autocomplete="off"
                            ng-model="paymentDetail.bankNumber"></td>
             </tr>
@@ -49,6 +51,7 @@
 
                 <button class="btn btn-primary" ng-click="submitCollectionSheet()">{{'label.button.confirm' | translate}}</button>
             </div>
+        </form>
         </script>
     <div>
         <div class="col-md-offset-9 paddedtop">
