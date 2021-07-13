@@ -1774,7 +1774,7 @@
 <div class="form-group">
     <div class="col-sm-3">
         <select id="chargeId" ng-model="chargeId" class="form-control"
-                ng-options="charge.id as charge.name for charge in chargeOptions | filter:filterCharges(formData.currencyCode, formData.multiDisburseLoan)"
+                ng-options="charge.id as charge.name for charge in chargeOptions | filter:filterCharges(formData.currencyCode, formData.multiDisburseLoan) | filter: !scope.charges"
                 value="{{charge.id}}">
             <option class="displaynone" value="">{{'label.selectcharge' | translate}}</option>
         </select>

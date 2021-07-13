@@ -8,6 +8,14 @@
             scope.displayAge = false;
             scope.minAge = 0;
             scope.maxAge = 0;
+            scope.addressType = [];
+            scope.countrys = [];
+            scope.states = [];
+            scope.stateName = [];
+            scope.formAddressData = {};
+            scope.showAddressForm = false;
+            scope.showAdressAddingButton = true;
+            scope.isFamilyAddressEnabled = scope.isSystemGlobalConfigurationEnabled('enable-family-member-address');
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient && 
                 scope.response.uiDisplayConfigurations.createClient.isValidateDOBField && scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.active) {
                 if(scope.response.uiDisplayConfigurations.createClient.isMandatoryField.dateOfBirth){
@@ -79,6 +87,10 @@
                     scope.familyMemberId=undefined;
                     scope.showform=true;
                     scope.formData={};
+                    scope.formAddressData={};
+                    scope.editAddressForm = false;    
+                    scope.showAdressAddingButton = true      
+                    scope.showAddressForm = false        
                 };
             scope.cancel = function () 
                 {
@@ -88,6 +100,17 @@
                 scope.formData.dateFormat = scope.df;
                 this.formData.locale = scope.optlang.code;
                 if(this.formData.dateOfBirth){
+                    this.formData.dateOfBirth = dateFilter(scope.formData.dateOfBirth, scope.df);
+                }
+                if (scope.showAddressForm) {
+                    scope.formAddressData.addressTypes = [scope.formAddressData.addressTypes[0]];
+                    this.formData.addresses = [scope.formAddressData];
+                }
+                if ((scope.isAddressPresent && scope.addressData.addressEntityData[0].addressType.name == "kycAddress") || !scope.showAddressForm) {
+                    delete this.formData.addresses;
+                }
+                
+                if (this.formData.dateOfBirth) {
                     this.formData.dateOfBirth = dateFilter(scope.formData.dateOfBirth, scope.df);
                 }
                 if(scope.familyMemberId==undefined){
@@ -105,9 +128,16 @@
                 
             };
 
+            scope.addAddress = function () {
+                scope.showAddressForm = true;
+                scope.showAdressAddingButton = false;
+            };
+
             scope.showEdit = function (id) {
                 scope.familyMemberId=id;
                 scope.formData={};
+                scope.editAddressForm = true;
+                scope.showAdressAddingButton = false;
                 var i=0;
                 var member={};
                 for(i=0;i<scope.familyMembers.length;i++){
@@ -125,6 +155,30 @@
                 if(member.gender!=undefined){
                     scope.formData.genderId=member.gender.id;
                 }
+
+                scope.addressEntityData = [];
+                scope.addressData = [];
+                scope.entityType = "familymember";
+                resourceFactory.addressDataResource.getAll({
+                    entityType: scope.entityType,
+                    entityId: scope.familyMemberId
+                }, function (response) {
+                    scope.addressData = response[0];
+                    if (scope.addressData) {
+                        scope.showAddressForm = true;
+                        scope.isAddressPresent = true;
+                        if (scope.addressData.addressEntityData[0].addressType) {
+                            scope.formAddressData.addressTypes = [scope.addressData.addressEntityData[0].addressType.id];
+                        }
+                        scope.formAddressData.houseNo = scope.addressData.houseNo;
+                        scope.formAddressData.addressLineOne = scope.addressData.addressLineOne;
+                        scope.formAddressData.villageTown = scope.addressData.villageTown;
+                        scope.formAddressData.postalCode = scope.addressData.postalCode;
+                        scope.formAddressData.stateId = scope.addressData.stateData.stateId;
+                        scope.formAddressData.addressId = scope.addressData.addressId;
+                    }
+                });
+
                 if(member.occupation!=undefined){
                     var j=0;
                     for(j=0;j<scope.occupationOptions.length;j++){
@@ -153,6 +207,39 @@
                     scope.formData.middlename=member.middlename;
                 }
                 scope.showform=true;
+            };
+
+            if (scope.isFamilyAddressEnabled == true) {
+                resourceFactory.addressTemplateResource.get({}, function (data) {
+                    scope.countries = data.countryDatas;
+                    scope.addressType = data.addressTypeOptions;
+                    scope.setDefaultGISConfig();
+                });
+            }
+            scope.setDefaultGISConfig = function () {
+                if (scope.responseDefaultGisData && scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig && scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address) {
+                    if (scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address.countryName) {
+
+                        var countryName = scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address.countryName;
+                        scope.defaultCountry = _.filter(scope.countries, function (country) {
+                            return country.countryName === countryName;
+
+                        });
+                        scope.formAddressData.countryId = scope.defaultCountry[0].countryId;
+                        scope.states = scope.defaultCountry[0].statesDatas;
+                    }
+
+                    if (scope.states && scope.states.length > 0 && scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address.stateName) {
+                        scope.stateName = scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address.stateName;
+                        scope.defaultState = _.filter(scope.states, function (state) {
+                            return state.stateName === scope.stateName;
+
+                        });
+                        scope.formAddressData.stateId = scope.defaultState[0].stateId;
+                    }
+
+                }
+
             };
 
             var FamilyDetailsDeleteCtrl = function ($scope, $modalInstance, familyDetailsId) {

@@ -129,9 +129,9 @@
             };
             scope.addClients = function(clientName){
                 var deferred = $q.defer();
-                resourceFactory.clientResource.getAllClientsWithoutLimit({displayName: clientName, orderBy : 'displayName', officeId : scope.formData.officeId,
+                resourceFactory.clientsSearchResource.getAllClients({displayName: clientName, orderBy : 'displayName', officeId : scope.formData.officeId,
                     sortOrder : 'ASC', orphansOnly : true}, function (data) {
-                    deferred.resolve(data.pageItems);
+                    deferred.resolve(data);
                 });
                 return deferred.promise;
             };

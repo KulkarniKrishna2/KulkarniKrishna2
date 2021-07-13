@@ -19,7 +19,10 @@
         "editClient":{
             "isReadOnlyField": {
 				"externalId": true
-			}
+			},
+				"dateOfBirth": true,
+                "lastName": false
+            
         },
 		"workflow": {
             "showClosedLoanApplicationInGroupActivity" : false
@@ -36,6 +39,9 @@
             "isReadOnlyField": {
 				"externalId": true
 			}
+        },
+        "isReceiptMandatory": {
+            "ReceiptNumberMendatory": true
         },
         "createGroup": {
             "isHiddenMenu": {
@@ -54,6 +60,25 @@
 			"isHiddenField": {
 				"createGroup": true
             }
-        }
+        },
+        "loanAccount": {
+            "isDefaultValue":{
+                "paymentTypeId": 10
+            }
+        },
+        "collectionSheet": {
+			"isAutoPopulate": {
+				"showEmiAmount": true,
+				"showEmiAmountOnNoDue": true
+			},
+			"isHiddenFeild": {
+				"toggleButton":false
+			},
+            "productiveSheet": {
+                "isRequired": {
+                    "receiptNumber": true
+                }
+            }
+		}
     }
 } 

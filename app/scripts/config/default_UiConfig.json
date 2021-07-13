@@ -146,7 +146,8 @@
 				"blackList": true,
 				"whiteList": true,
 				"crnNumber" : true,
-				"makeCall" : true
+				"makeCall" : true,
+				"rateOfInterest": false
 			},
 			"familyDeatils": {
 				"isHiddenField": {
@@ -192,7 +193,8 @@
 			"isAutoPopulate": {
 				"paymentTypeOption": true,
 				"cashPaymentType": false,
-				"showEmiAmount": false
+				"showEmiAmount": false,
+				"showEmiAmountOnNoDue": false
 			},
 			"isHiddenFeild": {
 				"newtransactionDate": false,
@@ -205,7 +207,12 @@
 			"attendanceType": {
 				"defaultValue": "",
 				"showAllAttendanceTypes" : true
-			}
+			},
+            "productiveSheet": {
+                "isRequired": {
+                    "receiptNumber": false
+                }
+            }
 		},
 		"createClient": {
 			"isReadOnlyField": {
@@ -525,7 +532,7 @@
 				"editCenterMeeting": true,
 				"expectedDisbursementDate": false,
 				"insuranceCharge": true,
-				"bankAccountActivate": true
+				"bankAccountActivate": false
 			},
 			"showMembersStepsInfo": false,
 			"disableSelectAllClients": false,
@@ -814,6 +821,14 @@
             "sc2": 32,
             "sc3": 42,
             "sc4": 50
-        }
+        },
+		"isReceiptMandatory": {
+            "ReceiptNumberMendatory": false
+        },
+		"eodProcess": {
+		  "isHiddenField": {
+			"eodWithoutWorkflow": false
+		  }
+		}
 	}
 }

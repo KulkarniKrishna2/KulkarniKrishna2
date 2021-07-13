@@ -54,16 +54,24 @@
 
             };
 
-            scope.viewDocument = function (document) {
-                scope.showPreview = true;
-                var url = document.url;
-                $http({
-                    method: 'GET',
-                    url: url
-                }).then(function (documentImage) {
-                    scope.documentImg = documentImage.data;
+            var viewDocumentCtrl = function ($scope, $modalInstance, document) {
+                $scope.data = document;
+                $scope.close = function () {
+                    $modalInstance.close('close');
+                };
+
+            };
+            scope.openViewDocument = function (document) {
+                $modal.open({
+                    templateUrl: 'viewDocument.html',
+                    controller: viewDocumentCtrl,
+                    resolve: {
+                        document: function () {
+                            return document;
+                        }
+                    }
                 });
-            }
+            };
 
             function calculateClientAge(dateOfBirth){
                 dateOfBirth = new Date(dateFilter(dateOfBirth, scope.df));
@@ -142,6 +150,10 @@
                 };
             };
  
+            scope.download = function(file){
+                var url = file.url;
+                CommonUtilService.downloadFile(url," ");
+            };
         }
     });
     mifosX.ng.application.controller('ViewClaimIntimationApproval', ['$controller', '$scope', 'ResourceFactory', '$location', 'dateFilter', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', 'CommonUtilService', '$modal', mifosX.controllers.ViewClaimIntimationApproval]).run(function ($log) {

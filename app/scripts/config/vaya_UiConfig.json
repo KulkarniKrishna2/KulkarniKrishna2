@@ -135,6 +135,11 @@
       "isHiddenField": {
         "createCenter": true
       }
+    },
+    "eodProcess": {
+      "isHiddenField": {
+        "eodWithoutWorkflow": true
+      }
     }
   }
 }

@@ -1149,6 +1149,12 @@
                 }
             };
 
+            scope.getNomineeDetails = function(){
+                resourceFactory.loanNomineeResource.get({ loanId: routeParams.id }, function (data) {
+                    scope.familyMembers = data;
+                });
+            };
+
             scope.isRepaymentSchedule = false;
             scope.istransactions = false;
             scope.iscollateral = false;
@@ -2321,7 +2327,7 @@
                         waiverChargeIds.push(element.id);
                     });
                     formData.chargeIds = waiverChargeIds;
-                    resourceFactory.loanChargesResource.save({ loanId: routeParams.id, command: 'waive' }, formData, function (data) {
+                    resourceFactory.LoanChargesV2Resource.waiveCharge({ loanId: routeParams.id }, formData, function (data) {
                         $modalInstance.close('delete');
                         route.reload();
                     });

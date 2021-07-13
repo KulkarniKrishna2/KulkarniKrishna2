@@ -53,12 +53,7 @@
                             {{clientData.displayName}}
                             </span>
                         <span data-ng-show="insurancePolicyDetail.insuranceClientType.value == 'CO-INSURED'">
-
-                            <select id="familymemberid" name="familymemberid" ng-model="insurancePolicyDetail.familyMemberId"
-                                ng-options="familyDetail.id as (familyDetail.firstname + ' ' +familyDetail.lastname+'('+familyDetail.relationship.name+')') for familyDetail in familyDetails"
-                                value="{{familyDetail.id}}" class="input-sm form-control">
-                                <option value="">{{'label.selectone' | translate}}</option>
-                            </select>
+                            {{familyMemberName}}
                         </span>
                         </td>
                         <td>
