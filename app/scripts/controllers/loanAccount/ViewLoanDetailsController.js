@@ -1080,6 +1080,12 @@
                 }
             };
 
+            scope.getNomineeDetails = function(){
+                resourceFactory.loanNomineeResource.get({ loanId: routeParams.id }, function (data) {
+                    scope.familyMembers = data;
+                });
+            };
+
             scope.isRepaymentSchedule = false;
             scope.istransactions = false;
             scope.iscollateral = false;

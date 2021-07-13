@@ -405,14 +405,18 @@
             </tr>
             <tr ng-if="showLoanTerms || !hideFirstRepaymentDate || !hideInterestChargedFromDate">
                 <td ng-hide="hideFirstRepaymentDate"><label>{{ 'label.input.firstrepaymenton' | translate }}
-                    <span class="required" ng-show="response.uiDisplayConfigurations.loanAccount.isMandatory.repaymentsStartingFromDate">*</span></label></td>
+                    <span class="required" ng-show="response.uiDisplayConfigurations.loanAccount.isMandatory.repaymentsStartingFromDate">*</span></label>
+                    <i class="icon-question-sign" tooltip="{{'label.tooltip.firstrepaymenton' | translate}}"></i>
+                </td>
                 <td class="paddedbottom10" ng-hide="hideFirstRepaymentDate">
                     <input id="repaymentsStartingFromDate" type="text" autocomplete="off" datepicker-pop="{{df}}" class="form-control" name="repaymentsStartingFromDate"
                            ng-model="formData.repaymentsStartingFromDate" is-open="opened3" min="minDate"
                            max="globalMaxDate" ng-required="response.uiDisplayConfigurations.loanAccount.isMandatory.repaymentsStartingFromDate" ng-disabled="firstRepaymentDateReadOnlyType" ng-readonly="isDatePickerReadOnly"/>
                     <span class="error" ng-show="issubmitted && editloanaccountform.repaymentsStartingFromDate.$error.required">{{'label.error.required' | translate}}</span>
                 </td>
-                <td ng-hide="hideInterestChargedFromDate"><label class="control-label">{{ 'label.input.interestchargedfrom' | translate }}:</label></td>
+                <td ng-hide="hideInterestChargedFromDate"><label class="control-label">{{ 'label.input.interestchargedfrom' | translate }}:</label>
+                    <i class="icon-question-sign" tooltip="{{'label.tooltip.interestchargedfrom' | translate}}"></i></td>
+                </td>
                 <td class="paddedbottom10" ng-hide="hideInterestChargedFromDate">
                     <input id="interestChargedFromDate" type="text" autocomplete="off" datepicker-pop="{{df}}" class="form-control"
                            ng-model="formData.interestChargedFromDate" is-open="opened2" min="minDate"
@@ -922,7 +926,7 @@
         <label><strong>{{ 'label.heading.charges' | translate }}</strong></label>
         </div>
         <select ng-show="canAddCharges" ng-model="chargeFormData.chargeId" class="form-control width170px"
-                ng-options="charge.id as (charge.name + ',' + charge.currency.displaySymbol) for charge in loanaccountinfo.chargeOptions|filter:loanaccountinfo.currency.code:strict"
+                ng-options="charge.id as (charge.name + ',' + charge.currency.displaySymbol) for charge in loanaccountinfo.chargeOptions|filter:loanaccountinfo.currency.code:strict|filter : charge.chargeTimeType.code == 'chargeTimeType.specifiedDueDate' | filter : !scope.charges"
                 value="{{charge.id}}">
             <option value="">{{'label.selectcharge' | translate}}</option>
         </select>

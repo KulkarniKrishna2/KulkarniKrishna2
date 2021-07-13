@@ -120,12 +120,12 @@
                             <option value="">--{{'label.input.selectoptions' | translate}}--</option>
                         </select>
                     </div>
-                    <label class="control-label col-sm-2">{{ 'label.input.gender' | translate }}</label>
+                    <label class="control-label col-sm-2">{{ 'label.input.gender' | translate }}<span class="required">*</span></label>
 
                     <div class="col-sm-3">
                         <select id="gender" name="gender" ng-model="formData.genderId" class="form-control"
                                 ng-options="genderOption.id as genderOption.name for genderOption in genderOptions"
-                                value="genderOption.id">
+                                value="genderOption.id" ng-required = true>
                             <option value="">--{{'label.input.selectoptions' | translate}}--</option>
                         </select>
                     </div>
@@ -246,8 +246,98 @@
                     <div class="col-sm-2">
                         <form-validate valattributeform="editFamilyDetails" valattribute="education" />
                     </div>
+
                 </div>
                 
+                <div ng-if="showAddressForm && isFamilyAddressEnabled">
+                    <legend></legend>
+                    <legend>{{'label.heading.address' | translate}}</legend>
+                
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">
+                            {{'label.input.addresstype' | translate}} <span class="required">*</span>
+                        </label>
+                
+                        <div class="col-sm-3">
+                            <select id="addressId" name="addressType" ng-model="formAddressData.addressTypes[0]" class="form-control"
+                            ng-options="address.id as address.name for address in addressType" value="{{address.id}}"
+                                ng-required="true" ng-disabled="true">
+                                <option value="">{{'label.menu.addressType' | translate}}</option>
+                            </select>
+                            <span class="">
+                                <form-validate valattributeform="editFamilyDetails" valattribute="addressType" />
+                            </span>
+                        </div>
+                
+                        <label class="control-label col-sm-2" for="villagename">{{'label.input.villagename' |
+                            translate}}<span class="required">*</span></label>
+                
+                        <div class="col-sm-3">
+                            <input type="text" autocomplete="off" id="villagename" name="villageTown"
+                                ng-model="formAddressData.villageTown" class="form-control" ng-required="true" />
+                            <span class="">
+                                <form-validate valattributeform="editFamilyDetails" valattribute="villageTown" />
+                            </span>
+                        </div>
+                        <div class="col-sm-1">
+                        </div>
+                    </div>
+                
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="houseNo">{{'label.input.houseno' | translate}}
+                            <span class="required">*</span>
+                        </label>
+                
+                        <div class="col-sm-3">
+                            <input type="text" autocomplete="off" id="houseNo" ng-model="formAddressData.houseNo" class="form-control"
+                                ng-required="true" />
+                        </div>
+                
+                        <label class="control-label col-sm-2" for="streetname">{{'label.input.streetname' | translate}}
+                            <span class="required">*</span>
+                        </label>
+                
+                        <div class="col-sm-3">
+                            <input type="text" autocomplete="off" id="streetname" name="streetName"
+                                ng-model="formAddressData.addressLineOne" class="form-control" ng-required="true" />
+                        </div>
+                        <div class="col-sm-2">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">
+                            {{'label.input.statename' | translate}} <span class="required">*</span>
+                        </label>
+                    
+                        <div class="col-sm-3">
+                            <select id="stateId" name="states" ng-model="formAddressData.stateId" class="form-control"
+                                ng-options="state.stateId as state.stateName for state in states" value="{{state.stateId}}"
+                                ng-change="changeState(formAddressData.stateId)" required late-validate="">
+                                <option value="">{{'label.menu.selectState' | translate}}</option>
+                            </select>
+                        </div>
+                        <span>
+                            <form-validate valattributeform="editFamilyDetails" valattribute="states" />
+                        </span>
+                    
+                        <label class="control-label col-sm-2" for="pincode">{{'label.input.pincode' | translate}}
+                            <span class="required">*</span>
+                        </label>
+                    
+                        <div class="col-sm-3">
+                            <input type="text" autocomplete="off" id="pincode" name="pincode" ng-pattern="{{regexFormats.pincodePattern}}"
+                                ng-minlength="6" maxlength="6" ng-model="formAddressData.postalCode" class="form-control" required />
+                            <span ng-show="editFamilyDetails.pincode.$error.pattern">
+                                <small class="required"
+                                    ng-show="editFamilyDetails.pincode.$error.pattern">{{'invalid.pin.code.format'|translate}}</small>
+                            </span>
+                        </div>
+                    </div>                   
+                    <div class="col-sm-1">
+                    </div>                   
+                    <legend></legend>
+                </div>
+
                 <div class="col-md-offset-2 paddedleft">
                     <a id="cancel" href="#/listfamilydetails/{{clientId}}" class="btn btn-default">{{'label.button.cancel'
                         |

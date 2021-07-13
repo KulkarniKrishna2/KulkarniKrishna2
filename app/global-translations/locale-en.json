@@ -943,6 +943,7 @@
     "label.heading.address.line.two": "Address Line Two",
     "label.heading.addclientaddress": "Add address",
     "label.heading.clientaddress": "Address",
+    "label.heading.nomineedetails": "Nomineee Details",
     "label.heading.editclientAddress": "Edit address",
     "label.heading.smartcard": "Smart Card",
     "label.heading.inactivated": "Inactivate Smartcard",
@@ -1992,6 +1993,7 @@
     "label.heading.applypenalties": "Apply Penalties",
     "label.heading.penalty.charge.not.applicable": "Penalty charges not applicable for this Loan Account",
     "label.heading.loanrectification": "Loan rectification",
+    "label.heading.hasAddress": "Is Address Linked",
 
     "#Menu Links": "..",
     "label.menu.rescheduleReason": "Select Reschedule Reason",
@@ -3114,6 +3116,8 @@
     "label.heading.newuser": "New User",
     "label.heading.familyname": "Family Name",
     "label.heading.familydetails": "Family Details",
+    "label.heading.addnominee": "Add Nominee",
+    "label.heading.familyMemberName": "Family Member Name",
     "label.heading.givenname": "Given Name",
     "label.heading.usersettings": "User Settings",
     "label.heading.email": "Email",
@@ -5752,6 +5756,7 @@
     "label.button.add.occ.category": "Add Sub Occupation",
     "label.button.create.household.expense": "Create House Hold Expense Category",
     "label.button.add.householdexpense": "Add House Hold Expense",
+    "label.button.add.address": "Add Address",
 
     "#LUC": "............",
     "label.button.loanutilization": "Loan Utilization Check",
@@ -5806,6 +5811,7 @@
 
     "label.view.familymembersumary": "Family Member Summary",
     "label.view.add.familymember": "Add Family Member Details",
+    "label.view.add.nominee": "Add Nominee",
 
     "label.input.salutation": "Salutation",
     "label.input.firstName": "First Name",
@@ -5823,6 +5829,7 @@
     "label.input.education": "Education",
     "label.input.addbucket": "Add a Bucket",
     "label.input.isExisiting.client": "Existing Client",
+    "label.input.familymembers": "Family Members",
 
     "label.button.skip": "Skip",
     "label.button.next": "Next",
@@ -9047,7 +9054,11 @@
     "validation.msg.interest.charged.from.date.must.be.greater.than.or.equal.to.the.last.disbursed.tranche.interest.charged.from.date" : "Interest Charged From Date must be greater than or equal to `{{params[0].value}}` ",
     "validation.msg.disbursement.date.must.be.greater.than.or.equal.to.the.last.disbursed.tranche.interest.charged.from.date" : "Disbursement date must be greater than or equal to `{{params[0].value}}` ",
     "label.heading.upfrontinterestamount":"Upfront Interest Amount",
+    "label.heading.full.emi.paid.date": "Full EMI paid date",
+    "error.msg.charge.rule.criteria.not.met": "Could not meet the charge rule criteria", 
     "error.msg.loan.cannot.writeoff" : "Cannot writeoff loan with negative balance",
+    "error.msg.loan.over.payment": "Over payment not alllowed",
+    "error.msg.cannot.add.the.same.charge.multiple.times" : "Charge with name {{params[1].value}} is already added to the loan",
 
      "------ end of translation file ------": "----------"
 }

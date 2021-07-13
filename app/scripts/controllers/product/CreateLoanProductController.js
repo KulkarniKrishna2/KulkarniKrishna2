@@ -217,11 +217,21 @@
                             scope.chargeFlag = true;
                             scope.chargeId = '';
                         }
+                        for (var i = 0; i < scope.chargeOptions.length; i++) {
+                            if (scope.chargeOptions[i].id == data.id && data.chargeTimeType.code != "chargeTimeType.specifiedDueDate") {
+                                scope.chargeOptions.splice(i, 1);  //removes 1 element at position i
+                                break;
+                            }
+                        }
                     });
                 }
             };
 
             scope.deleteCharge = function (index) {
+                var temp = scope.charges[index];
+                if (temp.chargeTimeType.code != "chargeTimeType.specifiedDueDate") {
+                    scope.chargeOptions.push(temp);
+                }
                 scope.charges.splice(index, 1);
             };
 

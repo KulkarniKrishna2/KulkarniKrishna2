@@ -50,8 +50,6 @@
                         update: { method: 'PUT' }
                     }),
                     clientResource: defineResource(apiVer + "/clients/:clientId/:anotherresource", { clientId: '@clientId', anotherresource: '@anotherresource', searchConditions: '@searchConditions' }, {
-                        getAllClients: { method: 'GET', params: { limit: 100, searchConditions: '@searchConditions' } },
-                        getAllClientsWithoutLimit: { method: 'GET', params: { limit: -1, searchConditions: '@searchConditions' } },
                         getClientClosureReasons: { method: 'GET', params: {} },
                         getAllClientDocuments: { method: 'GET', params: {}, isArray: true },
                         update: { method: 'PUT' }
@@ -492,17 +490,17 @@
                     }),
                     journalEntriesResource: defineResource(apiVer + "/journalentries/:trxid", { trxid: '@transactionId' }, {
                         get: { method: 'GET', params: { transactionId: '@transactionId' } },
-                        reverse: { method: 'POST', params: { command: 'reverse' } },
-                        search: { method: 'GET', params: {} }
+                        reverse: { method: 'POST', params: { command: 'reverse' } }
                     }),
                     journalEntriesSearchResource: defineResource(apiVer + "/journalentries/search", {trxid: '@transactionId'}, {
                         get: { method: 'GET', params: { transactionId: '@transactionId' }, isArray: true },
                         search: { method: 'GET', params: {}, isArray: true }
                     }),
                     frequentPostingResource: defineResource(apiVer + "/frequentpostings", {}, {}),
-                    accountingClosureResource: defineResource(apiVer + "/glclosures/:accId", { accId: "@accId" }, {
-                        get: { method: 'GET', params: {}, isArray: true },
-                        getView: { method: 'GET', params: {} }
+                    accountingClosureResource: defineResource(apiVer + "/glclosures/:accId", {}, {
+                        get: { method: 'GET', params: { accId: '@accId' }, isArray: true },
+                        getAll: { method: 'GET', params: {}, isArray: true },
+                        getView: { method: 'GET',params: { accId: '@accId' }}
                     }),
                     outboundCallResource: defineResource(apiVer + "/clients/:clientId/call", {clientId: '@clientId'}, {
                         save: { method: 'POST'}
@@ -676,7 +674,8 @@
                         get: { method: 'GET', params: {}, isArray: true }
                     }),
                     villageResource: defineResource(apiVer + "/villages/:villageId/:anotherresource", { villageId: '@villageId', anotherresource: '@anotherresource' }, {
-                        get: { method: 'GET', params: {} },
+                        get: { method: 'GET', params: {}},
+                        getAll: { method: 'GET', params: {}, isArray: true},
                         getAllVillages: { method: 'GET', params: {}, isArray: true },
                         update: { method: 'PUT', params: {} }
 
@@ -2289,6 +2288,16 @@
                     savingsDocumentResource: defineResource(apiVer + "/savings/:savingsId/documents/:documentId", { savingsId: '@savingsId', documentId: '@documentId' }, {
                         getSavingsDocuments: { method: 'GET', params: {}, isArray: true }
                     }),
+                    loanApplicationNomineeResource: defineResource(apiVer + "/loanapplicationreferences/:loanApplicationReferenceId/nominee", { loanApplicationReferenceId: '@loanApplicationReferenceId' }, {
+                        get: { method: 'GET', params: {loanApplicationReferenceId: '@loanApplicationReferenceId'}, isArray: true},
+                        post: { method: 'POST', params: {}, isArray: false }
+                    }),
+                    deleteNomineeResource: defineResource(apiVer + "/loanapplicationreferences/:loanApplicationReferenceId/nominee/:familyMemberId", { loanApplicationReferenceId: '@loanApplicationReferenceId' ,familyMemberId:'@familyMemberId'}, {
+                        delete: { method: 'DELETE', params: { loanApplicationReferenceId: "@loanApplicationReferenceId", familyMemberId: "@familyMemberId" } }
+                    }),
+                    loanNomineeResource: defineResource(apiVer + "/loans/:loanId/nominee", { loanId: '@loanId' }, {
+                        get: { method: 'GET', params: {loanId: '@loanId'}, isArray: true},
+                    })
                 };
             }];
         }

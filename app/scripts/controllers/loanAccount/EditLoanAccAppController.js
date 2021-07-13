@@ -218,6 +218,14 @@
                         }
                     }
                 }
+                for (var i = 0; i < scope.charges.length; i++) {
+                    for (var j = 0; j < scope.loanaccountinfo.chargeOptions.length; j++) {
+                        if (scope.charges[i].chargeId == scope.loanaccountinfo.chargeOptions[j].id && scope.charges[i].chargeTimeType.code != "chargeTimeType.specifiedDueDate") {
+                            scope.loanaccountinfo.chargeOptions.splice(j, 1);  
+                            break;
+                        }
+                    }
+                }
 
                 scope.formData.disbursementData = scope.loanaccountinfo.disbursementDetails || [];
                 if (scope.formData.disbursementData.length > 0) {
@@ -651,7 +659,12 @@
                         data.isMandatory = false;
                         data = scope.updateChargeForSlab(data);
                         scope.charges.push(data);
-                        
+                        for (var i = 0; i < scope.loanaccountinfo.chargeOptions.length; i++) {
+                            if (scope.loanaccountinfo.chargeOptions[i].id == data.chargeId && data.chargeTimeType.code != "chargeTimeType.specifiedDueDate") {
+                                scope.loanaccountinfo.chargeOptions.splice(i, 1);  //removes 1 element at position i
+                                break;
+                            }
+                        }
                         scope.chargeFormData.chargeId = undefined;
                     });
                 }
@@ -717,6 +730,10 @@
             }
 
             scope.deleteCharge = function (index) {
+                var temp = scope.charges[index];
+                if (temp.chargeTimeType.code != "chargeTimeType.specifiedDueDate") {
+                    scope.loanaccountinfo.chargeOptions.push(temp);
+                }
                 scope.charges.splice(index, 1);
             }
 

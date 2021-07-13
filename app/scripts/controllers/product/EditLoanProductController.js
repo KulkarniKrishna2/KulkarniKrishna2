@@ -11,6 +11,7 @@
             scope.formData = {};
             scope.restrictDate = new Date();
             scope.charges = [];
+            scope.chargesAppplicableToLoanProduct = [];
             scope.loanProductConfigurableAttributes = [];
             scope.showOrHideValue = "show";
             scope.configureFundOptions = [];
@@ -92,12 +93,19 @@
                 scope.paymentTypeOptions = scope.product.paymentTypeOptions || [];
                 scope.charges = [];
                 scope.transactionTypeOptions = data.transactionTypeOptions;
+                scope.chargesAppplicableToLoanProduct = scope.chargeOptions;
                 for(var i in scope.product.charges){
                     if(scope.product.charges[i].chargeData){
                         var charge = scope.product.charges[i].chargeData;
                         charge.isMandatory = scope.product.charges[i].isMandatory;
                         charge.isAmountNonEditable = scope.product.charges[i].isAmountNonEditable;
                         scope.charges.push(charge);
+                        for (var i = 0; i < scope.chargeOptions.length; i++) {
+                            if (scope.chargeOptions[i].id == charge.id && charge.chargeTimeType.code != "chargeTimeType.specifiedDueDate") {
+                                scope.chargesAppplicableToLoanProduct.splice(i, 1);  //removes 1 element at position i
+                                break;
+                            }
+                        }
                     }
                 }
                 for(var i in scope.product.eventBasedCharges){
@@ -627,8 +635,15 @@
                         //to charge select box empty
                         scope.chargeId = '';
                         scope.penalityId = '';
+                        for (var i = 0; i < scope.chargeOptions.length; i++) {
+                            if (scope.chargeOptions[i].id == chargeId && data.chargeTimeType.code != "chargeTimeType.specifiedDueDate") {
+                                scope.chargesAppplicableToLoanProduct.splice(i, 1);  //removes 1 element at position i
+                                break;
+                            }
+                        }
                     });
                 }
+
             };
 
             scope.getCodeValues = function(optionsArray,codeValues){
@@ -644,6 +659,10 @@
             };
 
             scope.deleteCharge = function (index) {
+                var temp = scope.charges[index];
+                if (temp.chargeTimeType.code != "chargeTimeType.specifiedDueDate") {
+                    scope.chargeOptions.push(temp);
+                }
                 scope.charges.splice(index, 1);
             };
 

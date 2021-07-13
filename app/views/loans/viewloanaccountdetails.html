@@ -824,70 +824,72 @@
                     </tab>
 
                     <tab active = "tabs[15].active" heading="{{'label.heading.smart.repaymentschedule' | translate}}" select="getLoanScheduleData()">
-                    <div style="max-height:500px;overflow-y:auto;display: block;width:100%;">
-                        <table class="table table-striped .width100">
-                           <!-- <colgroup span="4"></colgroup> -->
-                            <thead>
-                            <tr>
-                                <th colspan="15" scope="colgroup" class=""></th>
-                                <th colspan="2" scope="colgroup" class="">{{'label.heading.overdue.details' | translate}}</th>
-                            </tr>            
-                            <tr>
-                                <th scope="col" class="">{{'label.heading.days' | translate}}</th>
-                                <th scope="col" class="">{{'label.heading.balanceofloan' | translate}}</th>
-                                <th scope="col" class="">{{'label.heading.date' | translate}}</th>
-                                <th scope="col" class="">{{'label.heading.schedule.emi' | translate}}</th>
-                                <th scope="col" class="">{{'label.heading.principal' | translate}}</th>
-                                
+                        <div style="max-height:500px;overflow-y:auto;display: block;width:100%;">
+                            <table class="table table-striped .width100">
+                                <thead>
+                                <tr class="">
+                                    <th colspan="15" scope="colgroup" class="loanAcc-table-header bgWhite"></th>
+                                    <th colspan="6" scope="colgroup" class="loanAcc-table-header bgWhite">{{'label.heading.overdue.details' | translate}}</th>
+                                </tr>            
+                                <tr class="newBg">
+                                    <th scope="col" class="loanAcc-table-header-srs">{{'label.heading.days' | translate}}</th>
+                                    <th scope="col" class="loanAcc-table-header-srs">{{'label.heading.balanceofloan' | translate}}</th>
+                                    <th scope="col" class="loanAcc-table-header-srs">{{'label.heading.date' | translate}}</th>
+                                    <th scope="col" class="loanAcc-table-header-srs">{{'label.heading.schedule.emi' | translate}}</th>
+                                    <th scope="col" class="loanAcc-table-header-srs">{{'label.heading.principal' | translate}}</th>
+                                    
+    
+                                    <th scope="col" class="loanAcc-table-header-srs">{{'label.heading.interest' | translate}}</th>
+                                    <th scope="col" class="loanAcc-table-header-srs">{{'label.heading.fees' | translate}}</th>
+                                    <th scope="col" class="loanAcc-table-header-srs">{{'label.heading.penalties' | translate}}</th>
+                                    <th scope="col" class="loanAcc-table-header-srs">{{'label.heading.full.emi.paid.date' | translate}}</th>
 
-                                <th scope="col" class="">{{'label.heading.interest' | translate}}</th>
-                                <th scope="col" class="">{{'label.heading.fees' | translate}}</th>
-                                <th scope="col" class="">{{'label.heading.penalties' | translate}}</th>
-                                <th scope="col" class="">{{'label.heading.total.period.due' | translate}}</th>
-                                <th scope="col" class="">{{'label.heading.fully.paid.date' | translate}}</th>
-                                <th scope="col" class="">{{'label.heading.paid.amount' | translate}}</th>
-                                <th scope="col" class="">{{'label.heading.paid.inadvance' | translate}}</th>
-                                <th scope="col" class="">{{'label.heading.paid.late' | translate}}</th>
-                                <th scope="col" class="">&nbsp;</th>
+                                    <th scope="col" class="loanAcc-table-header-srs">{{'label.heading.total.period.due' | translate}}</th>
+                                    <th scope="col" class="loanAcc-table-header-srs">{{'label.heading.fully.paid.date' | translate}}</th>
+                                    <th scope="col" class="loanAcc-table-header-srs">{{'label.heading.paid.amount' | translate}}</th>
+                                    <th scope="col" class="loanAcc-table-header-srs">{{'label.heading.paid.inadvance' | translate}}</th>
+                                    <th scope="col" class="loanAcc-table-header-srs">{{'label.heading.paid.late' | translate}}</th>
+                                    <th scope="col" class="loanAcc-table-header-srs">&nbsp;</th>
+    
+                                    <th scope="col" class="loanAcc-table-header-srs">{{'label.heading.days' | translate}}</th>
+                                    <th scope="col" class="loanAcc-table-header-srs">{{'label.heading.principal' | translate}}</th>
+                                    <th scope="col" class="loanAcc-table-header-srs">{{'label.heading.interest' | translate}}</th>
+                                    <th scope="col" class="loanAcc-table-header-srs">{{'label.heading.fees' | translate}}</th>
+                                    <th scope="col" class="loanAcc-table-header-srs">{{'label.heading.penalties' | translate}}</th>
+                                    <th scope="col" class="loanAcc-table-header-srs">{{'label.heading.total' | translate}}</th>
+                                </tr>
+                                </thead>
+                            
+                                <tbody>
+                                <tr ng-repeat="schedule in loanSchedule">
+                                    <td>{{schedule.days}}</td>
+                                    <td>{{schedule.balance | number}}</td>
+                                    <td>{{schedule.installementDueDate | DateFormat}}</td>
+                                    <td>{{schedule.emi | number}}</td>
+                                    <td>{{schedule.principal | number}}</td>
+                                    <td>{{schedule.interest | number}}</td>
+                                    <td>{{schedule.fees | number}}</td>
+                                    <td>{{schedule.penalties | number}}</td>
+                                    <td>{{schedule.emiClearedOn | DateFormat}}</td>
 
-                                <th scope="col" class="">{{'label.heading.days' | translate}}</th>
-                                <th scope="col" class="">{{'label.heading.principal' | translate}}</th>
-                                <th scope="col" class="">{{'label.heading.interest' | translate}}</th>
-                                <th scope="col" class="">{{'label.heading.fees' | translate}}</th>
-                                <th scope="col" class="">{{'label.heading.penalties' | translate}}</th>
-                                <th scope="col" class="">{{'label.heading.total' | translate}}</th>
-                            </tr>
-                            </thead>
-                        
-                            <tbody>
-                            <tr ng-repeat="schedule in loanSchedule">
-                                <td>{{schedule.days}}</td>
-                                <td>{{schedule.balance | number}}</td>
-                                <td>{{schedule.installementDueDate | DateFormat}}</td>
-                                <td>{{schedule.emi | number}}</td>
-                                <td>{{schedule.principal | number}}</td>
-                                <td>{{schedule.interest | number}}</td>
-                                <td>{{schedule.fees | number}}</td>
-                                <td>{{schedule.penalties | number}}</td>
-
-                                <td>{{schedule.totalPeriodDue | number}}</td>
-                                <td>{{schedule.fullyPaidDate | DateFormat}}</td>
-                                <td>{{schedule.paidAmount | number}}</td>
-                                <td>{{schedule.paidInAdvance | number}}</td>
-                                <td>{{schedule.paidLate | number}}</td>
-                                <td scope="col">&nbsp;</td>
-                                <td>{{schedule.overdueDetails.days | number}}</td>
-                                <td>{{schedule.overdueDetails.principal | number}}</td>
-                                <td>{{schedule.overdueDetails.interest | number}}</td>
-                                <td>{{schedule.overdueDetails.fees | number}}</td>
-                                <td>{{schedule.overdueDetails.penalties | number}}</td>
-                                <td>{{schedule.overdueDetails.totalOverdue | number}}</td>
-                                
-                            </tr>
-                            </tbody>
-                          
-                        </table>
-                        </div>
+                                    <td>{{schedule.totalPeriodDue | number}}</td>
+                                    <td>{{schedule.fullyPaidDate | DateFormat}}</td>
+                                    <td>{{schedule.paidAmount | number}}</td>
+                                    <td>{{schedule.paidInAdvance | number}}</td>
+                                    <td>{{schedule.paidLate | number}}</td>
+                                    <td scope="col">&nbsp;</td>
+                                    <td>{{schedule.overdueDetails.days | number}}</td>
+                                    <td>{{schedule.overdueDetails.principal | number}}</td>
+                                    <td>{{schedule.overdueDetails.interest | number}}</td>
+                                    <td>{{schedule.overdueDetails.fees | number}}</td>
+                                    <td>{{schedule.overdueDetails.penalties | number}}</td>
+                                    <td>{{schedule.overdueDetails.totalOverdue | number}}</td>
+                                    
+                                </tr>
+                                </tbody>
+                              
+                            </table>
+                            </div>
 
                     </tab>
 
@@ -1995,6 +1997,33 @@
                     </tab>
                     <tab ng-if="loandetails.summary && loandetails.summary.principalNetDisbursed" heading="{{'lable.tab.heading.insurance.policy' | translate}}">
                         <div has-permission="READ_INSURANCE_POLICY" ng-include="'views/loans/insurancepolicy.html'"></div>
+                    </tab>
+                    <tab  heading="{{'label.heading.nomineedetails' | translate}}" select="getNomineeDetails()">
+                        <div class="form-horizontal">
+                            <h3>{{'label.heading.nomineedetails' | translate}} </h3>
+                            <table class="table">
+                                <thead>
+                                    <tr class="graybg">
+                                        <th class="ng-binding">{{ 'label.heading.fullname' | translate }}</th>
+                                        <th class="ng-binding">{{ 'label.heading.relationship' | translate }}</th>
+                                        <th class="ng-binding">{{ 'label.heading.dob' | translate }}</th>
+                                        <th class="ng-binding">{{ 'label.heading.age' | translate }}</th>
+                                        <th class="ng-binding">{{ 'label.heading.gender' | translate }}</th>
+                                        <th class="ng-binding">{{ 'label.heading.hasAddress' | translate }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="familyMember in familyMembers">
+                                        <td>{{familyMember.fullName}}</td>
+                                        <td>{{familyMember.relationship}}</td>
+                                        <td>{{familyMember.dateOfBirth | DateFormat}}</td>
+                                        <td>{{familyMember.age}}</td>
+                                        <td>{{familyMember.gender}}</td>
+                                        <td>{{familyMember.hasAddress == true ? 'Yes' : 'No'}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </tab>
                 </tabset>
             </div>
