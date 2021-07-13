@@ -842,6 +842,8 @@
                                     <th scope="col" class="loanAcc-table-header-srs">{{'label.heading.interest' | translate}}</th>
                                     <th scope="col" class="loanAcc-table-header-srs">{{'label.heading.fees' | translate}}</th>
                                     <th scope="col" class="loanAcc-table-header-srs">{{'label.heading.penalties' | translate}}</th>
+                                    <th scope="col" class="loanAcc-table-header-srs">{{'label.heading.full.emi.paid.date' | translate}}</th>
+
                                     <th scope="col" class="loanAcc-table-header-srs">{{'label.heading.total.period.due' | translate}}</th>
                                     <th scope="col" class="loanAcc-table-header-srs">{{'label.heading.fully.paid.date' | translate}}</th>
                                     <th scope="col" class="loanAcc-table-header-srs">{{'label.heading.paid.amount' | translate}}</th>
@@ -868,7 +870,8 @@
                                     <td>{{schedule.interest | number}}</td>
                                     <td>{{schedule.fees | number}}</td>
                                     <td>{{schedule.penalties | number}}</td>
-    
+                                    <td>{{schedule.emiClearedOn | DateFormat}}</td>
+
                                     <td>{{schedule.totalPeriodDue | number}}</td>
                                     <td>{{schedule.fullyPaidDate | DateFormat}}</td>
                                     <td>{{schedule.paidAmount | number}}</td>
@@ -1381,6 +1384,7 @@
                         <div class="modal-header silver">
                             <h3 class="bolder">{{'label.heading.bulkwaiveconfirm' | translate}}</h3>
                         </div>
+                        <api-validate></api-validate>
                         <div class="modal-body">
                              <div>
                                            
@@ -1993,6 +1997,33 @@
                     </tab>
                     <tab active = "tabs[24].active" ng-if="loandetails.summary && loandetails.summary.principalNetDisbursed" heading="{{'lable.tab.heading.insurance.policy' | translate}}">
                         <div has-permission="READ_INSURANCE_POLICY" ng-include="'views/loans/insurancepolicy.html'"></div>
+                    </tab>
+                    <tab  heading="{{'label.heading.nomineedetails' | translate}}" select="getNomineeDetails()">
+                        <div class="form-horizontal">
+                            <h3>{{'label.heading.nomineedetails' | translate}} </h3>
+                            <table class="table">
+                                <thead>
+                                    <tr class="graybg">
+                                        <th class="ng-binding">{{ 'label.heading.fullname' | translate }}</th>
+                                        <th class="ng-binding">{{ 'label.heading.relationship' | translate }}</th>
+                                        <th class="ng-binding">{{ 'label.heading.dob' | translate }}</th>
+                                        <th class="ng-binding">{{ 'label.heading.age' | translate }}</th>
+                                        <th class="ng-binding">{{ 'label.heading.gender' | translate }}</th>
+                                        <th class="ng-binding">{{ 'label.heading.hasAddress' | translate }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="familyMember in familyMembers">
+                                        <td>{{familyMember.fullName}}</td>
+                                        <td>{{familyMember.relationship}}</td>
+                                        <td>{{familyMember.dateOfBirth | DateFormat}}</td>
+                                        <td>{{familyMember.age}}</td>
+                                        <td>{{familyMember.gender}}</td>
+                                        <td>{{familyMember.hasAddress == true ? 'Yes' : 'No'}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </tab>
                 </tabset>
             </div>

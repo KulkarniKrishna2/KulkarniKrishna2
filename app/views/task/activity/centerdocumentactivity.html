@@ -54,7 +54,7 @@
                         <td>{{centerdocument.fileName}}</td>
                         <td>
                             <a ng-if="centerdocument.id" ng-click="download(centerdocument)" has-permission='DOWNLOAD_DOCUMENT'><i class="icon-cloud-download"></i></a>&nbsp;
-                            <a ng-if="centerdocument.id" ng-click="deleteDoc(centerdocument,$index, key)"><i class="icon-remove"></i></a>
+                            <a ng-if="centerdocument.id" data-text="{{'label.heading.delete.document'| translate}}" data-confirm-popup ng-confirm-success="deleteDoc(centerdocument,$index, key)"><i class="icon-remove"></i></a>
                         </td>
                     </tr>
                 </tbody>

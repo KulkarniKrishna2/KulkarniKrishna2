@@ -970,17 +970,20 @@ input.marginbottom3px, textarea.marginbottom3px  {
     background-color: #bbbbbb;
     border-bottom: none;
     height: 1px;
-    margin: 18px;
+    margin: 14px;
     overflow: hidden;
     background-color: #e5e5e5;
 }
-.left-nav .dividermargin10px {
+.left-nav .dividermargin12px {
     background-color: #bbbbbb;
     border-bottom: none;
     height: 1px;
-    margin: 10px;
+    margin: 12px;
     overflow: hidden;
     background-color: #e5e5e5;
+}
+.left-nav .icon{
+    font-size: 13px;
 }
 .tooltip-wide .tooltip {
     min-width:180px;

@@ -9,13 +9,21 @@
             scope.formData = {};
             scope.isDateOfBirthMandatory = false;
             scope.isValidAge = true;
-
+            scope.addressType = [];
+            scope.states = [];
+            scope.stateName = [];
+            scope.formAddressData = {};
+            scope.formAddressData.addressTypes = [];
+            scope.formDataList = [scope.formAddressData];
             scope.salutationOptions = [];
             scope.relationshipOptions = [];
             scope.genderOptions = [];
             scope.educationOptions = [];
             scope.occupationOptions = [];
             scope.subOccupations = [];
+            scope.showAddressForm = false;
+            scope.isFamilyAddressEnabled = scope.isSystemGlobalConfigurationEnabled('enable-family-member-address');
+
             if(scope.response && scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isValidateDOBField.active && scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isValidateDOBField.ageCriteria){
                 scope.familyMemberMinAge = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isValidateDOBField.ageCriteria.minAge;
                 scope.familyMemberMaxAge = scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isValidateDOBField.ageCriteria.maxAge;
@@ -122,6 +130,29 @@
                     }
                     if(data.documentKey){
                         scope.formData.documentKey = data.documentKey;
+                    }
+                });
+
+                scope.addressEntityData = [];
+                scope.addressData = [];
+                scope.entityType = "familymember";
+                resourceFactory.addressDataResource.getAll({
+                    entityType: scope.entityType,
+                    entityId: scope.familyDetailId
+                }, function (response) {
+                    scope.addressData = response[0];
+                    if (scope.addressData) {
+                        scope.showAddressForm = true;
+                        scope.isAddressPresent = true;
+                        if (scope.addressData.addressEntityData[0].addressType) {
+                            scope.formAddressData.addressTypes = [scope.addressData.addressEntityData[0].addressType.id];
+                        }
+                        scope.formAddressData.houseNo = scope.addressData.houseNo;
+                        scope.formAddressData.addressLineOne = scope.addressData.addressLineOne;
+                        scope.formAddressData.villageTown = scope.addressData.villageTown;
+                        scope.formAddressData.postalCode = scope.addressData.postalCode;
+                        scope.formAddressData.stateId = scope.addressData.stateData.stateId;
+                        scope.formAddressData.addressId = scope.addressData.addressId;
                     }
                 });
             });
@@ -282,18 +313,60 @@
                 }
             };
 
+            if (scope.isFamilyAddressEnabled == true) {
+                resourceFactory.addressTemplateResource.get({}, function (data) {
+                    scope.countries = data.countryDatas;
+                    scope.addressType = data.addressTypeOptions;
+                    scope.setDefaultGISConfig();
+                });
+            }
+            scope.setDefaultGISConfig = function () {
+                if (scope.responseDefaultGisData && scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig && scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address) {
+                    if (scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address.countryName) {
+
+                        var countryName = scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address.countryName;
+                        scope.defaultCountry = _.filter(scope.countries, function (country) {
+                            return country.countryName === countryName;
+
+                        });
+                        scope.formAddressData.countryId = scope.defaultCountry[0].countryId;
+                        scope.states = scope.defaultCountry[0].statesDatas;
+                    }
+
+                    if (scope.states && scope.states.length > 0 && scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address.stateName) {
+                        scope.stateName = scope.responseDefaultGisData.uiDisplayConfigurations.defaultGISConfig.address.stateName;
+                        scope.defaultState = _.filter(scope.states, function (state) {
+                            return state.stateName === scope.stateName;
+
+                        });
+                        scope.formAddressData.stateId = scope.defaultState[0].stateId;
+                    }
+                }
+            };
+
             scope.submit = function () {
                 if(scope.formData.dateOfBirth) {
                     scope.formData.dateOfBirth = dateFilter(scope.formData.dateOfBirth, scope.df);
                 }
                 scope.formData.dateFormat = scope.df;
                 scope.formData.locale = scope.optlang.code;
+                if (scope.showAddressForm) {
+                    this.formData.addresses = scope.formDataList;
+                }
+                if ((scope.isAddressPresent && scope.addressData.addressEntityData[0].addressType.name == "kycAddress") || !scope.showAddressForm) {
+                    delete this.formData.addresses;
+                }
                 if (!scope.formData.documentTypeId) {
                     if (scope.formData.documentKey != undefined) {
                         delete scope.formData.documentKey;
                         delete scope.formData.documentTypeId;
                     }
                 }
+
+                if (!scope.showAddressForm) {
+                    delete this.formData.addresses;
+                }
+
                 resourceFactory.familyDetails.update({
                     clientId: scope.clientId,
                     familyDetailId: scope.familyDetailId

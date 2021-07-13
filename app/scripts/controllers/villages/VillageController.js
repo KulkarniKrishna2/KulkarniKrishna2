@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        VillageController: function (scope, resourceFactory, location) {
+        VillageController: function (scope, resourceFactory, location, paginatorUsingOffsetService) {
             scope.villages = [];
             scope.actualVillages = [];
             scope.searchText = "";
@@ -22,22 +22,15 @@
 
 
             scope.villagesPerPage = 15;
-            scope.getResultsPage = function (pageNumber) {
-                if(scope.searchText){
-                    var startPosition = (pageNumber - 1) * scope.villagesPerPage;
-                    scope.villages = scope.actualVillages.slice(startPosition, startPosition + scope.villagesPerPage);
-                    return;
-                }
-                var items = resourceFactory.villageResource.get({
-                    offset: ((pageNumber - 1) * scope.villagesPerPage),
-                    limit: scope.villagesPerPage,
-                    paged: 'true',
+
+            var fetchFunction = function (offset, limit, callback) {
+                 resourceFactory.villageResource.getAll({
+                    offset: offset,
+                    limit: limit,
                     orderBy: 'name',
                     sortOrder: 'ASC'
-                }, function (data) {
-                    scope.villages = data.pageItems;
-                });
-            }
+                }, callback);
+            };
 
             scope.initiateWorkflow = function (villageId) {
                 resourceFactory.villageResource.save({villageId: villageId, command: 'initiateWorkflow'},{}, function (data) {
@@ -47,16 +40,7 @@
             } ;
 
             scope.initPage = function () {
-                var items = resourceFactory.villageResource.get({
-                    offset: 0,
-                    limit: scope.villagesPerPage,
-                    paged: 'true',
-                    orderBy: 'name',
-                    sortOrder: 'ASC'
-                }, function (data) {
-                    scope.totalVillages = data.totalFilteredRecords;
-                    scope.villages = data.pageItems;
-                });
+                scope.villages = paginatorUsingOffsetService.paginate(fetchFunction, scope.villagesPerPage);
             }
             scope.initPage();
             scope.getOfficeName=function(officeName,officeReferenceNumber){
@@ -99,7 +83,7 @@
             }
         }
     });
-    mifosX.ng.application.controller('VillageController', ['$scope', 'ResourceFactory', '$location', mifosX.controllers.VillageController]).run(function ($log) {
+    mifosX.ng.application.controller('VillageController', ['$scope', 'ResourceFactory', '$location','PaginatorUsingOffsetService', mifosX.controllers.VillageController]).run(function ($log) {
         $log.info("VillageController initialized");
     });
 }(mifosX.controllers || {}));

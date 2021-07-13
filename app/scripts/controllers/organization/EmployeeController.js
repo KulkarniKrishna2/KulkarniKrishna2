@@ -69,7 +69,9 @@
                         for (var i = 0; i < arrayLength; i++) {
                             var result = data[i];
                             var employee = {};
-                            employee.displayName = result.entityName;
+                            var employeeName = result.entityName.split(",");
+                            employee.firstname = employeeName[1];
+                            employee.lastname = employeeName[0];
                             employee.id = result.entityId;
                             employee.officeName = result.officeName;
                             employee.externalId = result.entityExternalId;

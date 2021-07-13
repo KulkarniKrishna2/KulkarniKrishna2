@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        AccountingClosureController: function (scope, resourceFactory, location, translate, routeParams, dateFilter, $rootScope, paginatorService, route) {
+        AccountingClosureController: function (scope, resourceFactory, location, translate, routeParams, dateFilter, $rootScope, paginatorUsingOffsetService, route) {
             scope.first = {};
             scope.formData = {};
             scope.first.date = new Date();
@@ -89,12 +89,11 @@
                 var params = {};
                 params.offset = offset;
                 params.limit = limit;
-                params.paged ='true';
                 params.orderBy = 'name';
                 params.officeId = scope.formData.officeId;
                 params.limitToOne = scope.limitToOne;
                 params.sortOrder = 'ASC';
-                resourceFactory.accountingClosureResource.getView(params, callback);
+                resourceFactory.accountingClosureResource.getAll(params, callback);
             }
 
             scope.resetoffice = function(){
@@ -109,7 +108,7 @@
                     scope.error = false;
 
                 scope.limitToOne = limitToOne;
-                scope.accountClosures = paginatorService.paginate(scope.fetchFunction, scope.accountClosurePerPage);
+                scope.accountClosures = paginatorUsingOffsetService.paginate(scope.fetchFunction, scope.accountClosurePerPage);
                 }
 
                 else {
@@ -121,7 +120,7 @@
                 scope.error = false;
                 scope.limitToOne = scope.formData.limitToOne;
                 scope.formData.officeId = officeId;
-                scope.accountClosures = paginatorService.paginate(scope.fetchFunction, scope.accountClosurePerPage);
+                scope.accountClosures = paginatorUsingOffsetService.paginate(scope.fetchFunction, scope.accountClosurePerPage);
                 if( scope.accountClosures) {
                     scope.showClosure = true;
                 }else{
@@ -171,7 +170,7 @@
 
         }
     });
-    mifosX.ng.application.controller('AccountingClosureController', ['$scope', 'ResourceFactory', '$location', '$translate', '$routeParams', 'dateFilter', '$rootScope', 'PaginatorService', mifosX.controllers.AccountingClosureController]).run(function ($log) {
+    mifosX.ng.application.controller('AccountingClosureController', ['$scope', 'ResourceFactory', '$location', '$translate', '$routeParams', 'dateFilter', '$rootScope', 'PaginatorUsingOffsetService', mifosX.controllers.AccountingClosureController]).run(function ($log) {
         $log.info("AccountingClosureController initialized");
     });
 }(mifosX.controllers || {}));

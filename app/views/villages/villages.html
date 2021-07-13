@@ -22,7 +22,6 @@
             </div>
         </div>
     </form>
-
     <table class="table">
         <thead>
         <tr class="graybg">
@@ -35,7 +34,7 @@
         </thead>
 
         <tbody>
-        <tr class="pointer-main" dir-paginate="village in villages | orderBy:'name':reverse  | filter:filterText |  itemsPerPage: villagesPerPage" total-items="totalVillages" pagination-id="villages">
+        <tr class="pointer-main" dir-paginate="village in villages.currentPageItems | orderBy:'name':reverse  | filter:filterText |  itemsPerPage: villagesPerPage" >
             <td class="pointer" data-ng-click="routeTo(village.villageId)">{{village.villageName}}</td>
             <td class="pointer" data-ng-click="routeTo(village.villageId)">{{village.villageId}}</td>
             <td class="pointer" data-ng-click="routeTo(village.villageId)">{{village.externalId}}</td>
@@ -46,5 +45,13 @@
            </tr>
         </tbody>
     </table>
-    <dir-pagination-controls boundary-links="true" pagination-id="villages" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html" on-page-change="getResultsPage(newPageNumber)"></dir-pagination-controls>
+    <ul class="pager">
+        <li class="previous">
+            <a id="prev" ng-click="villages.previous($index+1)" href="" ng-show="villages.hasPrevious($index+1)">&larr;
+                {{'label.button.previous' | translate}}</a>
+        </li>
+        <li class="next">
+            <a id="next" ng-click="villages.next()" href=""
+                ng-show="villages.hasNext()">{{'label.button.next' | translate}} &rarr;</a></li>
+    </ul>
 </div>

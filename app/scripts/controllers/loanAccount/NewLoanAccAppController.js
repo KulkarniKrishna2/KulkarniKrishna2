@@ -233,6 +233,10 @@
                                                 }
                                             }
                                             scope.charges.push(charge);
+                                        if (charge.chargeTimeType.code != "chargeTimeType.specifiedDueDate") {
+                                            var index = scope.loanaccountinfo.chargeOptions.indexOf(scope.loanaccountinfo.chargeOptions[j]);
+                                            scope.loanaccountinfo.chargeOptions.splice(index, 1);
+                                        }
                                        // }
                                         break;
                                     }
@@ -517,6 +521,12 @@
                             } 
                         }
                         scope.charges.push(data);
+                        for (var i = 0; i < scope.loanaccountinfo.chargeOptions.length; i++) {
+                            if (scope.loanaccountinfo.chargeOptions[i].id == data.id && data.chargeTimeType.code != "chargeTimeType.specifiedDueDate") {
+                                scope.loanaccountinfo.chargeOptions.splice(i, 1);  //removes 1 element at position i
+                                break;
+                            }
+                        }
                         scope.chargeFormData.chargeId = undefined;
                     });
                 }
@@ -600,6 +610,10 @@
             }
 
             scope.deleteCharge = function (index) {
+                var temp = scope.charges[index];
+                if (temp.chargeTimeType.code != "chargeTimeType.specifiedDueDate") {
+                    scope.loanaccountinfo.chargeOptions.push(temp);
+                }
                 scope.charges.splice(index, 1);
             }
 

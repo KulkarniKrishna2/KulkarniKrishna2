@@ -14,8 +14,8 @@
                 scope.template = data;
                 scope.loanId = routeParams.id;
             });
-            resourceFactory.clientResource.getAllClientsWithoutLimit(function (data) {
-                scope.clients = data.pageItems;
+            resourceFactory.clientsSearchResource.getAllClients(function (data) {
+                scope.clients = data;
             });
             scope.viewClient = function (item) {
                 scope.clientview = true;

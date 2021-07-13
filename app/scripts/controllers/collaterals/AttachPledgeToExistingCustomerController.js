@@ -11,9 +11,9 @@
 
             scope.clientOptions = function(value){
                 var deferred = $q.defer();
-                resourceFactory.clientResource.getAllClients({displayName: value, orderBy : 'displayName',
+                resourceFactory.clientsSearchResource.getAllClients({displayName: value, orderBy : 'displayName',
                     sortOrder : 'ASC'}, function (data) {
-                    deferred.resolve(data.pageItems);
+                    deferred.resolve(data);
                 });
                 return deferred.promise;
             };

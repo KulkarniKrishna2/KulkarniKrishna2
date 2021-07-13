@@ -943,6 +943,7 @@
     "label.heading.address.line.two": "Address Line Two",
     "label.heading.addclientaddress": "Add address",
     "label.heading.clientaddress": "Address",
+    "label.heading.nomineedetails": "Nomineee Details",
     "label.heading.editclientAddress": "Edit address",
     "label.heading.smartcard": "Smart Card",
     "label.heading.inactivated": "Inactivate Smartcard",
@@ -1694,7 +1695,7 @@
     "validation.msg.GLJournalEntry.transactionDate.cannot.be.blank": "Please select a Transaction date.",
     "validation.msg.GLJournalEntry.officeId.cannot.be.blank": "Please select an Office.",
     "validation.msg.GLJournalEntry.currencyCode.cannot.be.blank": "Please select a currency",
-    "error.msg.glJournalEntry.invalid.accounting.closed": "Accounting has been closed for this branch as of `{{params[0].value}}`.",
+    "error.msg.glJournalEntry.invalid.accounting.closed": "Accounting has been closed for this branch as of `{{params[0].value | DateFormat}}`.",
     "error.msg.glJournalEntry.invalid.no.debits.or.credits": "Journal Entry must contain a debit and credit or should be linked to an accounting rule.",
     "error.msg.glJournalEntry.invalid.mismatch.debits.credits": "Sum of all Credits must be equal to the sum of all Debits.",
     "error.msg.glJournalEntry.invalid.empty.account.or.amount": "Please select an account and enter an amount for all debits and credits.",
@@ -1992,6 +1993,7 @@
     "label.heading.applypenalties": "Apply Penalties",
     "label.heading.penalty.charge.not.applicable": "Penalty charges not applicable for this Loan Account",
     "label.heading.loanrectification": "Loan rectification",
+    "label.heading.hasAddress": "Is Address Linked",
 
     "#Menu Links": "..",
     "label.menu.rescheduleReason": "Select Reschedule Reason",
@@ -3114,6 +3116,8 @@
     "label.heading.newuser": "New User",
     "label.heading.familyname": "Family Name",
     "label.heading.familydetails": "Family Details",
+    "label.heading.addnominee": "Add Nominee",
+    "label.heading.familyMemberName": "Family Member Name",
     "label.heading.givenname": "Given Name",
     "label.heading.usersettings": "User Settings",
     "label.heading.email": "Email",
@@ -3127,6 +3131,7 @@
     "label.heading.unlockuser": "Unlock User",
     "label.heading.lockuser": "Lock User",
     "label.heading.suspend.message": "Do you want to suspend the User?",
+    "label.heading.delete.document": "Do you want to delete the Document?",
     "label.heading.revoke.message": "Do you want to revoke the User?",
     "label.heading.deactivate.employee": "Are you sure, do you want to deactivate the Employee?",
     "label.heading.disbursement.charge.amount.as.cash": "I have collected Disbursement charges of Rs.",
@@ -5751,6 +5756,7 @@
     "label.button.add.occ.category": "Add Sub Occupation",
     "label.button.create.household.expense": "Create House Hold Expense Category",
     "label.button.add.householdexpense": "Add House Hold Expense",
+    "label.button.add.address": "Add Address",
 
     "#LUC": "............",
     "label.button.loanutilization": "Loan Utilization Check",
@@ -5805,6 +5811,7 @@
 
     "label.view.familymembersumary": "Family Member Summary",
     "label.view.add.familymember": "Add Family Member Details",
+    "label.view.add.nominee": "Add Nominee",
 
     "label.input.salutation": "Salutation",
     "label.input.firstName": "First Name",
@@ -5822,6 +5829,7 @@
     "label.input.education": "Education",
     "label.input.addbucket": "Add a Bucket",
     "label.input.isExisiting.client": "Existing Client",
+    "label.input.familymembers": "Family Members",
 
     "label.button.skip": "Skip",
     "label.button.next": "Next",
@@ -9047,6 +9055,11 @@
     "validation.msg.disbursement.date.must.be.greater.than.or.equal.to.the.last.disbursed.tranche.interest.charged.from.date" : "Disbursement date must be greater than or equal to `{{params[0].value}}` ",
     "label.heading.upfrontinterestamount":"Upfront Interest Amount",
     "error.msg.report.request.inprogress":"Report is already in progress",
+    "label.heading.full.emi.paid.date": "Full EMI paid date",
+    "error.msg.charge.rule.criteria.not.met": "Could not meet the charge rule criteria", 
+    "error.msg.loan.cannot.writeoff" : "Cannot writeoff loan with negative balance",
+    "error.msg.loan.over.payment": "Over payment not alllowed",
+    "error.msg.cannot.add.the.same.charge.multiple.times" : "Charge with name {{params[1].value}} is already added to the loan",
 
      "------ end of translation file ------": "----------"
 }

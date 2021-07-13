@@ -24,6 +24,7 @@
             scope.showEventTypeOptions = false;
             scope.chargeEventsTypeOptions = [];
             scope.overdueBasedOnOptions = [];
+            scope.isActiveCheckBoxDisabled = false;
 
             if (scope.response.uiDisplayConfigurations.createCharges.isHiddenField) {
                 scope.showChargeCategoryType = !scope.response.uiDisplayConfigurations.createCharges.isHiddenField.chargeCategoryType;
@@ -100,6 +101,10 @@
                     isCollectedAsCash :  data.isCollectedAsCash
                 };
                 scope.chargeTimeChange(scope.formData.chargeTimeType);
+                if(scope.isCloneChargeProduct){
+                    scope.formData.active = true;
+                    scope.isActiveCheckBoxDisabled = true;
+                }
                 if(data.roundingMode){
                     scope.formData.roundingMode = data.roundingMode.id;
                 }

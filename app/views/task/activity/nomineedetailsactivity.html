@@ -1,0 +1,357 @@
+<div class="col-md-12" ng-controller="NomineeDetailsActivityController">
+    <api-validate></api-validate>
+    <div class="form-horizontal">
+        <h3 ng-if="showAddNomineeButton" ng-show="!isTaskCompleted()">{{'label.heading.addnominee' | translate}}
+            <button ng-click="addNominee()" ng-show="!isTaskCompleted()" class="btn-primary"><i
+                    class="icon-plus"></i></button>
+        </h3>
+        <table ng-if="!showAddNomineeForm && !showAddMemberForm" class="table">
+            <thead>
+                <tr class="graybg">
+                    <th class="ng-binding">{{ 'label.heading.fullname' | translate }}</th>
+                    <th class="ng-binding">{{ 'label.heading.relationship' | translate }}</th>
+                    <th class="ng-binding">{{ 'label.heading.dob' | translate }}</th>
+                    <th class="ng-binding">{{ 'label.heading.age' | translate }}</th>
+                    <th class="ng-binding">{{ 'label.heading.gender' | translate }}</th>
+                    <th ng-show="allowMultipleNominees" class="ng-binding">{{ 'label.percentage' | translate }}</th>
+                    <th class="ng-binding">{{ 'label.heading.hasAddress' | translate }}</th>
+                    <th class="ng-binding" ng-show="!isTaskCompleted()">{{ 'label.heading.action' | translate}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="familyMember in nomineeMembers">
+                    <td>{{familyMember.fullName}}</td>
+                    <td>{{familyMember.relationship}}</td>
+                    <td>{{familyMember.dateOfBirth | DateFormat}}</td>
+                    <td>{{familyMember.age}}</td>
+                    <td>{{familyMember.gender}}</td>
+                    <td ng-show="allowMultipleNominees">{{familyMember.percentage}}</td>
+                    <td>{{familyMember.hasAddress == true ? 'Yes' : 'No'}}</td>
+                    <td>
+                        <button role="button" ng-click="editFamilyMember(familyMember.familyMemberId)"
+                            ng-show="!isTaskCompleted()" class="btn-link ng-binding">
+                            <i class="icon-edit icon-white"></i>
+                        </button>
+                        <button role="button" ng-click="deleteNominee(familyMember.familyMemberId)"
+                            ng-show="!isTaskCompleted()" class="btn-link ng-binding">
+                            <i class="icon-remove icon-white"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div ng-if="showAddNomineeForm" class="form-horizontal ">
+        <a ng-click="addMember()" ng-if="!isTaskCompleted()" class="btn btn-primary pull-right"><i
+                class="icon-plus icon-white"></i>
+            {{'label.heading.addmember' | translate}}
+        </a>
+        <legend>{{'label.view.add.nominee' | translate}}</legend>
+        <div class="form-group">
+            <label class="control-label col-sm-2">{{ 'label.input.familymembers' | translate }}<span
+                    class="required">*</span></label>
+
+            <div class="col-sm-3">
+                <select name="familyMember" ng-model="formData.familyMemberId" class="form-control"
+                    ng-options="familyMember.id as familyMember.firstname for familyMember in familyMembers"
+                    value="familyMember.id" ng-change="changeMember(formData.familyMemberId)" ng-required="true"
+                    late-Validate>
+                    <option value="">--{{'label.input.selectoptions' | translate}}--</option>
+                </select>
+                <form-validate valattributeform="showAddNomineeForm" valattribute="familyMember" />
+            </div>
+
+            <span>
+                <small class="error" ng-show="addressNotFound">
+                    Address Not Found
+                </small>
+                <form-validate valattributeform="showAddNomineeForm" valattribute="address" />
+            </span>
+
+            <div class="col-sm-2" ng-show="addressNotFound">
+                <a ng-click="addAdress(formData.familyMemberId)" ng-if="!isTaskCompleted()" class="btn btn-primary"><i
+                        class="icon-plus icon-white">{{'label.button.add.address' |
+                        translate}}</i></a>
+
+            </div>
+
+        </div>
+
+        <div ng-show="allowMultipleNominees" class="form-group">
+            <label class="control-label col-sm-2">{{ 'label.input.percentage' | translate }}<span
+                    class="required">*</span></label>
+
+            <div class="col-sm-3">
+                <input id="percentage" type="number" autocomplete="off" name="percentage" step="any"
+                    ng-model="formData.percentage" class="form-control"
+                    placeholder="{{'label.input.percentage' | number}}" number-format required />
+            </div>
+        </div>
+
+        <div class="col-md-offset-2 paddedleft">
+            <button ng-click="cancel()" class="btn btn-default">{{'label.button.cancel' |
+                translate}}</button>
+            <button ng-click="submit()" type="submit" class="btn btn-primary">{{'label.button.save' |
+                translate}}</button>
+        </div>
+    </div>
+
+    <div ng-if="showAddMemberForm && !isTaskCompleted()">
+        <form name="createMemberDetails" novalidate="" class="form-horizontal" rc-submit="submitAddMember()">
+            <api-validate></api-validate>
+            <fieldset>
+                <legend>{{'label.view.add.familymember' | translate}}</legend>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.salutation' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <select id="salutation" name="salutation" ng-model="formData.salutationId" class="form-control"
+                            ng-options="salutationOption.id as salutationOption.name for salutationOption in salutationOptions "
+                            value="salutationOption.id">
+                            <option value="">--{{'label.input.selectoptions' | translate}}--</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="firstName">{{ 'label.input.firstName' | translate }}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input ng-autofocus="true" type="text" autocomplete="off" name="firstName"
+                            ng-model="formData.firstname" class="form-control" required late-validate />
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="createMemberDetails" valattribute="firstName" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="middlename">{{ 'label.input.middlename' | translate
+                        }}</label>
+
+                    <div class="col-sm-3">
+                        <input type="text" autocomplete="off" id="middleName" name="middleName"
+                            ng-model="formData.middlename" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="lastName">{{ 'label.input.lastName' | translate }}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <input type="text" autocomplete="off" name="lastName" ng-model="formData.lastname"
+                            class="form-control" required late-validate />
+                    </div>
+                    <div class="col-sm-2">
+                        <form-validate valattributeform="createMemberDetails" valattribute="lastName" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.relationship' | translate }}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <select id="relationshipId" name="relationship" ng-model="formData.relationshipId"
+                            class="form-control" ng-change="findRelationCodeValue(formData.relationshipId)"
+                            ng-options="relationshipOption.id as relationshipOption.name for relationshipOption in relationshipOptions"
+                            value="relationshipOption.id" required late-validate>
+                            <option value="">--{{'label.input.selectoptions' | translate}}--</option>
+                        </select>
+                        <form-validate valattributeform="createMemberDetails" valattribute="relationship" />
+                    </div>
+                    <label class="control-label col-sm-2">{{ 'label.input.gender' | translate }}<span
+                            class="required">*</span></label>
+
+                    <div class="col-sm-3">
+                        <select id="gender" name="gender" ng-model="formData.genderId" class="form-control"
+                            ng-options="genderOption.id as genderOption.name for genderOption in genderOptions"
+                            value="genderOption.id" ng-required="true">
+                            <option value="">--{{'label.input.selectoptions' | translate}}--</option>
+                        </select>
+                        <form-validate valattributeform="createMemberDetails" valattribute="gender" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+
+                    <label class="control-label col-sm-2">{{'label.input.dateofbirth' | translate}}<span
+                            class="required">*</span></label>
+                    </label>
+
+                    <div class="col-sm-3">
+                        <input id="dateofbirth" type="text" name="dateofbirth" datepicker-pop="dd MMMM yyyy"
+                            ng-model="formData.dateOfBirth" is-open="opened1" class="form-control"
+                            ng-required="true" />
+                        <span class="error"
+                            ng-show="createMemberDetails.dateofbirth.$error.required">{{'label.error.required'|translate}}</span>
+                    </div>
+                    <div class="col-sm-2">
+                        <input id="age" type="text" autocomplete="off" name="age" ng-model="formData.age"
+                            class="form-control" ng-disabled="true" />
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2"></label>
+
+                    <div class="col-sm-3">
+                        <input id="isDependent" type="checkbox" ng-model="formData.isDependent"> {{
+                        'label.input.dependent' | translate }}
+                    </div>
+                    <div class="col-sm-3">
+                        <input id="isSeriousIllness" type="checkbox" ng-model="formData.isSeriousIllness"> {{
+                        'label.input.isSeriousIllness' | translate }}
+                    </div>
+                    <div class="col-sm-3">
+                        <input id="isDeceased" type="checkbox" ng-model="formData.isDeceased"> {{
+                        'label.input.isDeceased' | translate }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div>
+                        <label class="control-label col-sm-2">{{ 'label.input.occupation' | translate }}</label>
+
+                        <div class="col-sm-3">
+                            <select id="occupationId" name="occupation" ng-model="occupationOption" class="form-control"
+                                ng-options="occupationOption as occupationOption.name for occupationOption in occupationOptions"
+                                value="occupationOption.id">
+                                <option value="">--{{'label.input.selectoptions' | translate}}--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="control-label col-sm-2">{{ 'label.input.sub.occupation' | translate }}</label>
+
+                        <div class="col-sm-3">
+                            <select id="subOccupation" name="subOccupation" ng-model="formData.occupationDetailsId"
+                                class="form-control"
+                                ng-options="subOccupation.id as subOccupation.name for subOccupation in occupationOption.incomeExpenseDatas"
+                                value="subOccupation.id">
+                                <option value="">--{{'label.input.selectoptions' | translate}}--</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{ 'label.input.education' | translate }}</label>
+
+                    <div class="col-sm-3">
+                        <select id="education" name="education" ng-model="formData.educationId" class="form-control"
+                            ng-options="educationOption.id as educationOption.name for educationOption in educationOptions "
+                            value="occupationOption.id">
+                            <option value="">--{{'label.input.selectoptions' | translate}}--</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div ng-if="isNomineeAddressEnabled">
+                    <legend></legend>
+                    <legend>{{'label.heading.address' | translate}}</legend>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">
+                            {{'label.input.addresstype' | translate}} <span class="required">*</span>
+                        </label>
+
+                        <div class="col-sm-3">
+                            <select id="addressId" name="addressType" ng-model="formAddressData.addressTypes[0]"
+                                class="form-control" ng-options="address.id as address.name for address in addressType"
+                                value="{{address.id}}" ng-required="true" ng-disabled="isAddressTypeDisabled">
+                                <option value="">{{'label.menu.addressType' | translate}}</option>
+                            </select>
+                            <span class="">
+                                <form-validate valattributeform="createMemberDetails" valattribute="addressType" />
+                            </span>
+                        </div>
+
+                        <label class="control-label col-sm-2" for="villagename">{{'label.input.villagename' |
+                            translate}}<span class="required">*</span></label>
+
+                        <div class="col-sm-3">
+                            <input type="text" autocomplete="off" id="villagename" name="villageTown"
+                                ng-model="formAddressData.villageTown" class="form-control" ng-required="true" />
+                            <span class="">
+                                <form-validate valattributeform="createMemberDetails" valattribute="villageTown" />
+                            </span>
+                        </div>
+                        <div class="col-sm-1">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="houseNo">{{'label.input.houseno' | translate}}
+                            <span class="required">*</span>
+                        </label>
+                    
+                        <div class="col-sm-3">
+                            <input ng-autofocus="true" type="text" autocomplete="off" name="houseNo" ng-model="formAddressData.houseNo"
+                                class="form-control" ng-required="true" />
+                        </div>
+                        <span class="">
+                            <form-validate valattributeform="createMemberDetails" valattribute="houseNo" />
+                        </span>
+
+                        <label class="control-label col-sm-2" for="streetname">{{'label.input.streetname' | translate}}
+                            <span class="required">*</span>
+                        </label>
+                    
+                        <div class="col-sm-3">
+                            <input type="text" autocomplete="off" name="streetname" ng-model="formAddressData.addressLineOne"
+                                class="form-control" ng-required="true" />
+                        </div>
+                        <div class="col-sm-1">
+                            <form-validate valattributeform="createMemberDetails" valattribute="streetname" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">
+                            {{'label.input.statename' | translate}} <span class="required">*</span>
+                        </label>
+
+                        <div class="col-sm-3">
+                            <select id="stateId" name="states" ng-model="formAddressData.stateId" class="form-control"
+                                ng-options="state.stateId as state.stateName for state in states"
+                                value="{{state.stateId}}" ng-change="changeState(formAddressData.stateId)" ng-required="true">
+                                <option value="">{{'label.menu.selectState' | translate}}</option>
+                            </select>
+                            <span class="">
+                                <form-validate valattributeform="createMemberDetails" valattribute="states" />
+                            </span>
+                        </div>
+
+                        <label class="control-label col-sm-2" for="pincode">{{'label.input.pincode' | translate}}
+                            <span class="required">*</span>
+                        </label>
+
+                        <div class="col-sm-3">
+                            <input type="text" autocomplete="off" id="pincode" name="pincode"
+                                ng-pattern="{{regexFormats.pincodePattern}}" ng-minlength="6" maxlength="6"
+                                ng-model="formAddressData.postalCode" class="form-control" ng-required="true" />
+                            <span ng-show="createMemberDetails.pincode.$error.pattern">
+                                <small class="required"
+                                    ng-show="createMemberDetails.pincode.$error.pattern">{{'invalid.pin.code.format' |
+                                    translate}}</small>
+                            </span>
+                        </div>
+                        <form-validate valattributeform="createMemberDetails" valattribute="pincode" />
+                        <div class="col-sm-2"></div>
+                    </div>
+                    <legend></legend>
+
+                </div>
+
+                <div class="col-md-offset-2 paddedleft">
+                    <button id="cancel" ng-click="cancel()"
+                        class="btn btn-default">{{'label.button.cancel'|translate}}</button>
+                    <button id="save" ng-click="submitAddMember()" type="submit" ng-disabled="!createMemberDetails.$valid"
+                        class="btn btn-primary">{{'label.button.save' |translate}}</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+</div>

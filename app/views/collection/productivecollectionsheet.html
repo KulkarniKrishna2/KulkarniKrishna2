@@ -5,6 +5,7 @@
     <form name="productivecollectionsheetform" novalidate="" class="form-horizontal well" rc-submit="submitCollection()">
     <api-validate></api-validate>
     <script type="text/ng-template" id="submitCollectionSheet.html">
+        <form name="paymentdetailform">
             <div class="modal-header silver">
                 <h3 class="bolder">{{'label.anchor.collectionsheet' | translate}}</h3>
             </div>
@@ -20,7 +21,7 @@
                 <td ng-show="paymentDetail.paymentTypeId">{{ 'label.input.accnum' | translate}}</td>
                 <td ng-show="paymentDetail.paymentTypeId">{{ 'label.input.checknumber' | translate}}</td>
                 <td ng-show="paymentDetail.paymentTypeId">{{ 'label.input.routingcode' | translate}}</td>
-                <td ng-show="paymentDetail.paymentTypeId">{{ 'label.input.receiptnumber' | translate}}</td>
+                <td ng-show="paymentDetail.paymentTypeId">{{ 'label.input.receiptnumber' | translate}}<span ng-required="isReceiptNumberMandatory" class="required">*</span></td>
                 <td ng-show="paymentDetail.paymentTypeId">{{ 'label.input.banknumber' | translate}}</td>
             </tr>
             </thead>
@@ -36,8 +37,9 @@
                            ng-model="paymentDetail.checkNumber"></td>
                 <td ng-show="paymentDetail.paymentTypeId"><input class="form-control" type="text" autocomplete="off"
                            ng-model="paymentDetail.routingCode"></td>
-                <td ng-show="paymentDetail.paymentTypeId"><input class="form-control" type="text" autocomplete="off"
-                           ng-model="paymentDetail.receiptNumber"></td>
+                <td ng-show="paymentDetail.paymentTypeId"><input name="receiptNo" class="form-control" type="text" autocomplete="off"
+                        ng-model="paymentDetail.receiptNumber" ng-required="isReceiptNumberMandatory" required late-validate>
+                            <span class="ng-scope" ng-show="receiptNumberErrorValue" style="color: red;">Required*</span> </td>
                 <td ng-show="paymentDetail.paymentTypeId"><input class="form-control" type="text" autocomplete="off"
                            ng-model="paymentDetail.bankNumber"></td>
             </tr>
@@ -49,6 +51,7 @@
 
                 <button class="btn btn-primary" ng-click="submitCollectionSheet()">{{'label.button.confirm' | translate}}</button>
             </div>
+        </form>
         </script>
     <div>
         <div class="col-md-offset-9 paddedtop">
@@ -175,7 +178,7 @@
                                 <label class="control-label col-sm-4" >{{'label.input.reasontype' | translate}}<span ng-if="isRejectReasonMandatory"class="required">*</span></label>
                                 <div class="col-sm-5">
                                     <select  id="loanRejectReason[loan.loanId].codeReasonId"  name="loanReasonCodeType" ng-model="loanRejectReason[loan.loanId].codeReasonId" ng-options="code.id as code.name for code in collectionReasonList" value="{{code.name}}" 
-                                    class="input-sm form-control" data-ng-change="getLoanSubReasonValues(loan.loanId,loanRejectReason[loan.loanId].codeReasonId)" ng-required="isRejectReasonMandatory" required late-validate>
+                                    class="input-sm form-control" data-ng-change="getLoanSubReasonValues(loan.loanId,loanRejectReason[loan.loanId].codeReasonId)" ng-required="isRejectReasonMandatory">
                                     <option value="">{{'label.selectone' | translate}}</option></select>
                                 </div>
                                 <div class="control-label col-sm-8">
@@ -189,7 +192,7 @@
                                 <div class="col-sm-8">
                                     <select id = "loanRejectReason[loan.loanId].reasonId" name="loanReasonCode" ng-model="loanRejectReason[loan.loanId].reasonId" 
                                     ng-options="codeValue.id as codeValue.name for codeValue in loanRejectReason[loan.loanId].codeValueOptions" value="{{codeValue.id}}" 
-                                    class="input-sm form-control" data-ng-change="isDescriptionAvailable(loanRejectReason[loan.loanId])" ng-required="isRejectReasonMandatory" required late-validate>
+                                    class="input-sm form-control" data-ng-change="isDescriptionAvailable(loanRejectReason[loan.loanId])" ng-required="isRejectReasonMandatory">
                                     <option value="">{{'label.selectone' | translate}}</option></select>
                                 </div>
                                 <div class="control-label col-sm-8">
@@ -201,7 +204,7 @@
                                 <label class="control-label col-sm-4" >{{'label.input.description' | translate}}<span ng-if="isRejectReasonMandatory" class="required">*</span></label>
                                 <div class="col-sm-8">
                                     <textarea row="3" col="3" id="loanRejectReason[loan.loanId].reason" name="loanReasonDescription" ng-model="loanRejectReason[loan.loanId].reason"  class="form-control"
-                                    ng-required="isRejectReasonMandatory" required late-validate></textarea>
+                                    ng-required="isRejectReasonMandatory"></textarea>
                                 </div>
                                 <div class="control-label col-sm-8">
                                     <form-validate valattributeform="productivecollectionsheetform" valattribute="loanReasonDescription"/>
@@ -257,10 +260,10 @@
                                             <label class="control-label col-sm-4" >{{'label.input.reasontype' | translate}}<span ng-if="isRejectReasonMandatory" class="required">*</span></label>
                                             <div class="col-sm-6">
                                                 <select  id="client.codeReasonId" name="attendanceReasonCodeType" ng-model="client.codeReasonId" ng-options="code.id as code.name for code in reasonAttendenceList" value="{{code.name}}" 
-                                                class="form-control" data-ng-change="getValuesByClient(client, client.codeReasonId)" ng-required="isRejectReasonMandatory" required late-validate>
+                                                class="form-control" data-ng-change="getValuesByClient(client, client.codeReasonId)" ng-required="isRejectReasonMandatory">
                                                 <option value="">{{'label.selectone' | translate}}</option></select>
                                             </div>
-                                            <div class="col-sm-8">
+                                            <div class="control-label col-sm-7 loan-reject-reason">
                                                 <form-validate valattributeform="productivecollectionsheetform" valattribute="attendanceReasonCodeType"/>
                                             </div>
                                             <br/>

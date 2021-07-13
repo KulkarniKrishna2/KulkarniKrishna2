@@ -25,10 +25,12 @@
             init();
 
             scope.onOfficeChange = function(officeId){
-                resourceFactory.clientResource.getAllClients({officeId : officeId,
-                    sortOrder : 'ASC', orphansOnly : true},function(data)
-                {
-                    scope.clients=data.pageItems;
+                if(_.isUndefined(officeId) || isNaN(officeId)){
+                    return ;
+                }
+                resourceFactory.clientsSearchResource.getAllClients({officeId : officeId,
+                    sortOrder : 'ASC', orphansOnly : true},function(data){
+                    scope.clients=data;
                     if(scope.urlParam != undefined && scope.urlParam.clientId != undefined){
                        scope.formData.clientId = parseInt(scope.urlParam.clientId); 
                        scope.onClientChange(scope.formData.clientId);

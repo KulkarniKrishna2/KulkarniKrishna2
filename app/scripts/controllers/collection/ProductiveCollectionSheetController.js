@@ -37,10 +37,13 @@
             scope.formData = {};
             scope.isShowReasonDropDown = false;
             scope.showErrMsg = false;
+            scope.showEmiAmountOnNoDue = false;
+            scope.isReceiptNumberMandatory = false;
 
             scope.showAllAttendanceTypes = true;
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.collectionSheet){
                scope.showEmiAmountOverTotalDue = scope.response.uiDisplayConfigurations.collectionSheet.isAutoPopulate.showEmiAmount; 
+               scope.showEmiAmountOnNoDue = scope.response.uiDisplayConfigurations.collectionSheet.isAutoPopulate.showEmiAmountOnNoDue; 
             }
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild){
                scope.showEmiAmountTotalDueButton = !scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild.toggleButton; 
@@ -90,7 +93,6 @@
 
             scope.setvaluesByClient = function(client){
                 client.reasonId = undefined;
-                client.codeValueOptions = undefined;
                 client.reason = undefined;
             }
 
@@ -339,8 +341,8 @@
                 }
                 scope.updateAttendenceData();
                 scope.formData.bulkDisbursementTransactions = [];
-                scope.updatebulkRepaymentTransactionsWithReason();
                 scope.constructBulkLoanAndSavingsRepaymentTransactions();
+                scope.updatebulkRepaymentTransactionsWithReason();
                 scope.formData.bulkRepaymentTransactions = scope.bulkRepaymentTransactions;
                 scope.formData.bulkSavingsTransactions = scope.bulkSavingsTransactions;
                 scope.formData.forcedSubmitOfCollectionSheet=false;
@@ -814,6 +816,10 @@
             }
 
             var submitCollectionSheetCtrl = function ($scope, $modalInstance, collectionParams) {
+                if(scope.response && scope.response.uiDisplayConfigurations.collectionSheet){
+                    scope.isReceiptNumberMandatory = scope.response.uiDisplayConfigurations.collectionSheet.productiveSheet.isRequired.receiptNumber;
+                }
+                $scope.receiptNumberErrorValue = false;
                 $scope.paymentTypeOptions = collectionParams.paymentTypeOption;
                 $scope.showPaymentDetailsFn = function () {
                     $scope.paymentDetail = {};
@@ -842,6 +848,14 @@
                 $scope.showPaymentDetailsFn();
                 $scope.isRequired = false;
                 $scope.submitCollectionSheet = function () {
+                    if(scope.isReceiptNumberMandatory){
+                        if(($scope.paymentDetail.receiptNumber == null || $scope.paymentDetail.receiptNumber == "")){
+                            $scope.receiptNumberErrorValue = true;
+                            return;
+                        }else{
+                            $scope.receiptNumberErrorValue = false;
+                        }
+                    }
                     if(_.isUndefined($scope.paymentDetail.paymentTypeId)){
                         $scope.isRequired = true;
                         return false;
@@ -875,7 +889,8 @@
                 _.each(data.groups, function (group) {
                     _.each(group.clients,function(client){
                         _.each(client.loans,function(loan){
-                            if(!_.isUndefined(loan.installmentAmount) && loan.totalDue > 0 && !loan.lastPayment){
+                            var isInstallmentAmt =  (scope.showEmiAmountOnNoDue && loan.totalDue == 0) || (!_.isUndefined(loan.installmentAmount) && loan.totalDue > 0 && !loan.lastPayment);
+                            if(isInstallmentAmt){
                                 loan.totalDue = loan.installmentAmount;
                             }
                         });
