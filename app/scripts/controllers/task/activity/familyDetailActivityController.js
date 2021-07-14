@@ -90,7 +90,8 @@
                     scope.formAddressData={};
                     scope.editAddressForm = false;    
                     scope.showAdressAddingButton = true      
-                    scope.showAddressForm = false        
+                    scope.showAddressForm = false   
+                    scope.isAddressPresent = false;     
                 };
             scope.cancel = function () 
                 {
@@ -136,6 +137,9 @@
             scope.showEdit = function (id) {
                 scope.familyMemberId=id;
                 scope.formData={};
+                scope.formAddressData = {};
+                scope.isAddressPresent = false;     
+                scope.showAddressForm = false   
                 scope.editAddressForm = true;
                 scope.showAdressAddingButton = false;
                 var i=0;
