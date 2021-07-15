@@ -79,6 +79,7 @@
                 scope.showLoanEmiPack = true;
             };
 
+            scope.chargesApplicableToLoanApplication = [];
             scope.constructExistingCharges = function (data) {
                 data.chargeId = data.id;
                 scope.charges.push(data);
@@ -103,6 +104,12 @@
                     scope.existingFeeCharges = $filter('filter')(scope.existingCharges, { penalty: false }) || [];
                     scope.penalCharges = $filter('filter')(scope.charges, { penalty: true }) || [];
                     scope.feeCharges = $filter('filter')(scope.charges, { penalty: false }) || [];
+                }
+                for (var i in scope.charges) {
+                    var isChargeAdded = scope.chargesApplicableToLoanApplication.some(chargeAdded => JSON.stringify(chargeAdded) === JSON.stringify(scope.charges[i]));
+                    if (scope.charges[i].chargeTimeType.code == "chargeTimeType.specifiedDueDate" && !isChargeAdded) {
+                        scope.chargesApplicableToLoanApplication.push(scope.charges[i]);
+                    }
                 }
             };
 
@@ -838,6 +845,12 @@
                         scope.chargeFormData.chargeId = undefined;
                         scope.penalCharges = $filter('filter')(scope.charges, { penalty: true }) || [];
                         scope.feeCharges = $filter('filter')(scope.charges, { penalty: false }) || [];
+                        for (var i = 0; i < scope.chargesApplicableToLoanApplication.length; i++) {
+                            if (scope.chargesApplicableToLoanApplication[i].id == data.id && data.chargeTimeType.code != "chargeTimeType.specifiedDueDate") {
+                                scope.chargesApplicableToLoanApplication.splice(i, 1);  //removes 1 element at position i
+                                break;
+                            }
+                        }
                     });
                 }
             };
@@ -848,6 +861,9 @@
                 scope.charges.splice(indexCharge,1);
                 scope.penalCharges = $filter('filter')(scope.charges, { penalty: true }) || [];
                 scope.feeCharges = $filter('filter')(scope.charges, { penalty: false }) || [];
+                if(deleteCharge.chargeTimeType.code != "chargeTimeType.specifiedDueDate"){
+                    scope.chargesApplicableToLoanApplication.push(deleteCharge);
+                }
             };
 
             scope.report = false;
