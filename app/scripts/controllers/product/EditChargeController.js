@@ -399,7 +399,9 @@
                 }
 
                 if(!(this.formData.chargeAppliesTo == 1 && this.formData.chargeTimeType == 9 && this.formData.chargeCalculationType == 1)){
-                    this.formData.overdueChargeDetail.overdueBasedOn  = undefined;
+                    if(!_.isUndefined(this.formData.overdueChargeDetail)){
+                        this.formData.overdueChargeDetail.overdueBasedOn  = undefined;
+                    }    
                 }
                 
                 if (!_.isUndefined(scope.isCloneChargeProduct) && scope.isCloneChargeProduct) {
