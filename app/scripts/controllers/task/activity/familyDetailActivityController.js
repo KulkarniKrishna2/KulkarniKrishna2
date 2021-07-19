@@ -14,7 +14,6 @@
             scope.stateName = [];
             scope.formAddressData = {};
             scope.showAddressForm = false;
-            scope.showAdressAddingButton = true;
             scope.isFamilyAddressEnabled = scope.isSystemGlobalConfigurationEnabled('enable-family-member-address');
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient && 
                 scope.response.uiDisplayConfigurations.createClient.isValidateDOBField && scope.response.uiDisplayConfigurations.createClient.isValidateDOBField.active) {
@@ -141,7 +140,7 @@
                 scope.isAddressPresent = false;     
                 scope.showAddressForm = false   
                 scope.editAddressForm = true;
-                scope.showAdressAddingButton = false;
+                scope.showAdressAddingButton = true;
                 var i=0;
                 var member={};
                 for(i=0;i<scope.familyMembers.length;i++){
@@ -170,6 +169,7 @@
                     scope.addressData = response[0];
                     if (scope.addressData) {
                         scope.showAddressForm = true;
+                        scope.showAdressAddingButton = false;
                         scope.isAddressPresent = true;
                         if (scope.addressData.addressEntityData[0].addressType) {
                             scope.formAddressData.addressTypes = [scope.addressData.addressEntityData[0].addressType.id];
