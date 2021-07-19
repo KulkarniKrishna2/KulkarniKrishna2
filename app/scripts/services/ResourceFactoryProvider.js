@@ -2297,7 +2297,10 @@
                     }),
                     loanNomineeResource: defineResource(apiVer + "/loans/:loanId/nominee", { loanId: '@loanId' }, {
                         get: { method: 'GET', params: {loanId: '@loanId'}, isArray: true},
-                    })
+                    }),
+                    InsuranceClaimsExportResource: defineResource(apiVer + "/insurance/claim/export", {}, {
+                        export: { method: 'POST'}
+                    }),
                 };
             }];
         }
