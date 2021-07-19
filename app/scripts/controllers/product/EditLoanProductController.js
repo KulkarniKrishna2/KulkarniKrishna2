@@ -93,7 +93,7 @@
                 scope.paymentTypeOptions = scope.product.paymentTypeOptions || [];
                 scope.charges = [];
                 scope.transactionTypeOptions = data.transactionTypeOptions;
-                scope.chargesAppplicableToLoanProduct = scope.chargeOptions;
+                angular.copy(scope.chargeOptions, scope.chargesAppplicableToLoanProduct);
                 for(var i in scope.product.charges){
                     if(scope.product.charges[i].chargeData){
                         var charge = scope.product.charges[i].chargeData;
