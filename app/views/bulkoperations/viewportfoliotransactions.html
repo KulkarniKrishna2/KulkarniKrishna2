@@ -43,7 +43,7 @@
                 <tr ng-repeat="bankStatementDetail in bankStatementDetails | orderBy:'-isError'" ng-class="($index%2!=0)?'graybg':''">
                     <td ng-if="bankStatementDetail.transactionId != undefined && !bankStatementDetail.nodalIdentifier " ng-click="routeTo(bankStatementDetail)"><a>{{bankStatementDetail.transactionId}}</a></td>
                     <td ng-if="bankStatementDetail.transactionId != undefined && bankStatementDetail.nodalIdentifier ">{{bankStatementDetail.transactionId}}</td>
-                    <td ng-if="bankStatementDetail.transactionId == undefined && bankStatementDetail.isError"><a tooltip=' Account not found with {{bankStatementDetail.errmsg}}' class="icon-exclamation-sign" style="color: red"></a></td>
+                    <td ng-if="bankStatementDetail.transactionId == undefined && bankStatementDetail.isError"><a tooltip=' Account not found with {{bankStatementDetail.errmsg | translate}}' class="icon-exclamation-sign" style="color: red"></a></td>
                     <td ng-if="bankStatementDetail.transactionId == undefined && !bankStatementDetail.isError">{{bankStatementDetail.transactionId}}</td>
                     <td ng-hide="isSimplified">{{bankStatementDetail.accountingType}}</td>
                     <td ng-hide="isSimplified">{{bankStatementDetail.actionType}}</td>
