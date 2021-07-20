@@ -1251,8 +1251,11 @@
                     resourceFactory.loanResource.get($scope.inparams, function (data) {
                         $scope.loanaccountinfo = data;
                         $scope.previewClientLoanAccInfo();
+                        $scope.loanAccountFormData.isTopup = $scope.loanaccountinfo.canUseForTopup;
+                        $scope.showLoanTerms =!($scope.loanaccountinfo.loanEMIPacks && $scope.isLoanEmiPackEnabled)?true:false;
                         $scope.canDisburseToGroupBankAccounts = data.product.allowDisbursementToGroupBankAccounts;
                         $scope.productLoanCharges = data.product.charges || [];
+                        $scope.loanAccountFormData.isTopup = $scope.loanaccountinfo.canUseForTopup;
                         if($scope.productLoanCharges && $scope.productLoanCharges.length > 0){
                             for(var i in $scope.productLoanCharges){
                                 if($scope.productLoanCharges[i].chargeData){
@@ -1303,6 +1306,12 @@
                     return (value>=min && value<=max);
                 };
 
+                $scope.selectAllLoanToClose = function(isAllLoanToClose){
+                    for(var i in $scope.loanaccountinfo.clientActiveLoanOptions){
+                        $scope.loanaccountinfo.clientActiveLoanOptions[i].isSelected = isAllLoanToClose;
+                    }
+                }
+
                 $scope.getSlabBasedAmount = function(slab, amount , repayment){
                     var slabValue = 0;
                     slabValue = (slab.type.id == $scope.installmentAmountSlabChargeType)?amount:repayment;
@@ -1349,6 +1358,22 @@
                     $scope.charges.splice(index, 1);
                 }
 
+                $scope.selectAllLoanToClose = function(isAllLoanToClose){
+                    for(var i in $scope.loanaccountinfo.clientActiveLoanOptions){
+                        $scope.loanaccountinfo.clientActiveLoanOptions[i].isSelected = isAllLoanToClose;
+                    }
+                }
+
+                $scope.updateAllCheckbox = function(){
+                    var isAll = true;
+                    for(var i in $scope.loanaccountinfo.clientActiveLoanOptions){
+                        if($scope.loanaccountinfo.clientActiveLoanOptions[i].isSelected == undefined || $scope.loanaccountinfo.clientActiveLoanOptions[i].isSelected==false){
+                            isAll = false;
+                        }
+                    }
+                    $scope.isAllLoanToClose = isAll;
+                };
+                
                 $scope.isChargeAmountNonEditable = function (charge) {
                     if ((charge.chargeCalculationType.value == 'slabBasedCharge') || charge.isAmountNonEditable) {
                         return true;
@@ -1502,6 +1527,16 @@
                         if($scope.loanAccountFormData.interestRatePerPeriod != undefined){
                             delete $scope.loanAccountFormData.interestRatePerPeriod;
                         }
+                    }
+                    if(this.loanAccountFormData.isTopup==true){
+                        this.loanAccountFormData.loanIdToClose = [];
+                        for(var i in $scope.loanaccountinfo.clientActiveLoanOptions){
+                            if($scope.loanaccountinfo.clientActiveLoanOptions[i].isSelected==true){
+                                this.loanAccountFormData.loanIdToClose.push($scope.loanaccountinfo.clientActiveLoanOptions[i].id);
+                            }
+                        }
+                    } else {
+                        this.loanAccountFormData.loanIdToClose = undefined;
                     }
     
                     resourceFactory.loanResource.save($scope.loanAccountFormData, function (data) {
