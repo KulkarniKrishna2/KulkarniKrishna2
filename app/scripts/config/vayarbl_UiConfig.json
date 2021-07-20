@@ -126,7 +126,8 @@
     "viewClient": {
       "isHiddenField": {
         "createClient": true,
-        "createLoanApplication": true
+        "createLoanApplication": true,
+        "initiateCreditBureau": true
       }
     },
     "createJlgLoan": {
