@@ -67,9 +67,7 @@
                 }
                 if (scope.response.uiDisplayConfigurations.viewLoanAccountDetails &&
                     scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild) {
-                    if (scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.prepayLoanButton) {
-                        scope.hidePrepayButton = scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.prepayLoanButton;
-                    }
+                    scope.hidePrepayButton = scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.prepayLoanButton;
                     if (scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.netDisbursedAmount) {
                         scope.hideNetDisbursedAmount = scope.response.uiDisplayConfigurations.viewLoanAccountDetails.isHiddenFeild.netDisbursedAmount;
                     }
