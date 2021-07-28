@@ -5,6 +5,8 @@
             scope.formdata = {};
             routeParams.status;
             scope.dateFormat = scope.df;
+            scope.requestoffset = 0;
+            scope.limit = 25;
 
             switch(routeParams.status) {
                 case 'intimationapprovalpending': scope.intimationapprovalpending = true;
@@ -41,10 +43,29 @@
                 }
                 var searchConditions = {};
                 searchConditions.active = true;
+                searchConditions.limit = scope.limit;
+                searchConditions.offset = scope.requestoffset;
                 resourceFactory.getInsuranceDetailsResource.getActiveInuranceData({ claimStatus: cliamStatus, searchConditions: searchConditions }, {},
                     function (data) {
                         scope.insuranceData = data;
                     });
+            }
+
+            scope.previousList= function(){
+                if(scope.requestoffset != 0){
+                    scope.requestoffset = scope.requestoffset - scope.limit;
+                    if(scope.requestoffset <= 0){
+                        scope.requestoffset = 0;
+                    }
+                    scope.fetchInsuranceData(scope.claimStatusForNavigate);
+                }
+            } 
+
+            scope.nextList= function(){
+                if(scope.insuranceData.length == scope.limit){
+                    scope.requestoffset = scope.requestoffset + scope.limit;
+                    scope.fetchInsuranceData(scope.claimStatusForNavigate);
+                }
             }
 
             scope.fetchIntimationapprovalpendingInsuranceData = function (cliamStatus) {
@@ -80,28 +101,16 @@
 
             scope.exportVerfiedInsuranceData = function () {
                 scope.deceasedMemberArray = [];
-                scope.errorDetails = [];
+                delete scope.errorDetails;
                 for (var i = 0; i < scope.insuranceData.length; i++) {
                     if (scope.insuranceData[i].isMemberChecked) {
                         scope.deceasedMemberArray.push(scope.insuranceData[i].deceasedId)
                     }
-                } 
-                var R_resourceId = scope.deceasedMemberArray.toString();
-                if (R_resourceId.undefined || R_resourceId == "") {
-                    var errorObj = new Object();
-                    errorObj.field = '';
-                    errorObj.code = 'error.minimum.one.client.required';
-                    errorObj.args = {params: []};
-                    errorObj.args.params.push({value: 'error.minimum.one.client.required'});
-                    scope.errorDetails.push(errorObj);
-                    return;
                 }
-                var params = {
-                    "reportName":"Insurance Verified Claim Data",
-                    "reportParams":{"R_resourceId": R_resourceId, "output-type":"XLS"},
-                    "displayParams":{}
+                var requestPayload = {
+                    deceasedIds : scope.deceasedMemberArray
                 }
-                resourceFactory.advancedReportsResource.post(params, function (data) {
+                resourceFactory.InsuranceClaimsExportResource.export(requestPayload, function (data) {
                     location.path('/reports');
                 });
             }
