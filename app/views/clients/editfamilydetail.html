@@ -182,7 +182,7 @@
                     <div class="col-sm-2">
                         <input id="age" type="number" autocomplete="off" name="age" ng-model="formData.age" ng-minlength="1"
                             ng-maxlength="3" min="{{minAge}}" max="{{maxAge}}" class="form-control" placeholder="{{formData.age}}"
-                            ng-change="validateAge()" ng-required="isAgeMandatory" />
+                            ng-change="validateAge()" ng-required="isAgeMandatory" ng-disabled="true"/>
                         <span class="error" ng-hide="isValidAge">{{'label.input.dob.not.range' | translate}}
                             {{minAge}}{{'label.input.and' | translate}} {{maxAge}}</span>
                     </div>
