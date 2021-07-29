@@ -114,6 +114,12 @@
       "isHiddenField": {
         "createClient": true,
         "createLoanApplication": true
+      },
+      "familyDeatils": {
+        "isMandatoryField": {
+          "age": true,
+          "dateOfBirth": true
+        }
       }
     },
     "createJlgLoan": {
