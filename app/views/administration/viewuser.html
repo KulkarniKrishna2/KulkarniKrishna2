@@ -183,10 +183,12 @@
             <h3 class="bolder">{{'label.heading.deactivate' | translate}}</h3>
         </div>
         <div class="modal-body ">
-            <api-validate></api-validate>
+            <div ng-if="!isReassign"><api-validate></api-validate></div>
+            <div class="text-warning" ng-if="isReassign">{{reassignErrMsg | translate}}</div>
             <br>
             <button class="btn btn-warning" ng-click="cancel()">{{'label.button.cancel' | translate}}</button>
-            <button class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+            <button ng-if="!isReassign" class="btn btn-primary" ng-click="delete()">{{'label.button.confirm' | translate}}</button>
+            <button ng-if="isReassign" class="btn btn-primary" ng-click="routeToReassign()">{{'label.anchor.reassign.staff' | translate}}</button>
         </div>
     </script>
 

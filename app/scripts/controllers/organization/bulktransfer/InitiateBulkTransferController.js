@@ -6,6 +6,8 @@
             scope.getSelectedCenters = [];
             scope.getSelectedGroups = [];
             scope.getSelectedClients = [];
+            scope.getSelectedOrphanGroups = [];
+            scope.getSelectedOrphanClients = [];
             scope.fromStaffOptions = [];
             scope.toStaffOptions = [];
             scope.unassignedStaff = {'id':-1,'displayName' : 'Unassigned'};
@@ -13,10 +15,16 @@
             scope.allCenter = {};
             scope.allGroups = {};
             scope.allClients = {};
+            scope.allOrphanGroups = {};
+            scope.allOrphanClients = {};
             scope.recordExists = true;
             scope.isStaffReassignment = false;
             scope.isEntityNotSelectedForReassignment = true;
             scope.showErrorMessage = false;
+            scope.requestData = {};
+            scope.getSelectedOrphanSavings = [];
+            scope.getSelectedOrphanLoans = [];
+            scope.getSelectedOrphanLoanApps = [];
             if(routeParams.isStaffReassignment){
                scope.isStaffReassignment = true;
             }
@@ -61,11 +69,21 @@
                 scope.reschedule = true;
                 scope.isEntityNotSelectedForReassignment = true;
                 scope.showErrorMessage = false;
-                resourceFactory.bulkTransferTemplateResource.get({'officeId': scope.formData.fromOfficeId, staffId: scope.formData.fromStaffId}, function (data) {
+                
+                resourceFactory.bulkTransferTemplateResource.get({'officeId': scope.requestData.fromOfficeId, staffId: scope.requestData.fromStaffId}, function (data) {
                     scope.centers = data.centerDataList;
                     scope.groups = data.groups;
                     scope.clients = data.clients;
-                    if(scope.centers.length >0 || scope.groups.length > 0 ||  scope.clients.length > 0){
+                    scope.orphanGroups = data.orphanGroups;
+                    scope.orphanClients = data.orphanClients;
+                    scope.orphanLoans = data.orphanLoans;
+                    scope.orphanLoanApps = data.orphanLoanApps;
+                    scope.orphanSavings = data.orphanSavings;
+
+                    scope.formData.fromOfficeId = scope.requestData.fromOfficeId;
+                    scope.formData.fromStaffId = scope.requestData.fromStaffId;
+                    scope.formData.isAssignParentStaff = true;
+                    if(scope.centers.length >0 || scope.groups.length > 0 ||  scope.clients.length > 0 || scope.showAssignParentStaffCheckbox()){
                         scope.showAssignToStaff = true;
                         scope.recordExists = true;
                     }else{
@@ -132,6 +150,33 @@
                 }
             };
 
+            scope.getSelectedOrphanGroupDetails = function(value,groupId){
+                var groupIndex = -1;
+                groupIndex = scope.orphanGroups.findIndex(x=>x.id == groupId);
+
+                    if(groupIndex > -1){
+                        if(value){
+                            scope.addEntity(scope.orphanGroups, scope.getSelectedOrphanGroups, groupId);
+                        }else{
+                            scope.removeEntity(scope.getSelectedOrphanGroups, groupId);
+                        }
+                    }
+                
+            };
+
+            scope.getSelectedOrphanClientsDetails = function(value,clientId){
+                var clientIndex = -1;
+                clientIndex = scope.orphanClients.findIndex(x=>x.id == clientId);
+
+                if(clientIndex > -1){
+                    if(value){
+                        scope.getSelectedOrphanClients.push({"id":scope.orphanClients[clientIndex].id, "name":scope.orphanClients[clientIndex].displayName});
+                    }else{
+                        scope.removeEntity(scope.getSelectedOrphanClients, clientId);
+                    }
+                }
+            };
+
             scope.selectAll = function(value){
                 scope.selectAllCenters(value);
                 scope.selectAllGroups(value);
@@ -139,7 +184,8 @@
                 scope.allCenter.checked = value;
                 scope.allGroups.checked = value;
                 scope.allClients.checked = value;
-
+                scope.allOrphanGroups.checked = value;
+                scope.allOrphanClients.checked = value;
             }
 
             scope.selectAllCenters = function(value){
@@ -170,6 +216,26 @@
                 }
             };
 
+            scope.selectAllOrphanGroups = function(value){
+                scope.getSelectedOrphanGroups = [];
+                for(var i =0 ; i < scope.orphanGroups.length ; i++) {
+                    scope.orphanGroups[i].checked = value;
+                    if(value){
+                        scope.getSelectedOrphanGroups.push({"id":scope.orphanGroups[i].id, "name":scope.orphanGroups[i].name});
+                    }
+                }
+            };
+
+            scope.selectAllOrphanClients = function(value){
+                scope.getSelectedOrphanClients = [];
+                for(var i =0 ; i < scope.orphanClients.length ; i++) {
+                    scope.orphanClients[i].checked = value;
+                    if(value){
+                        scope.getSelectedOrphanClients.push({"id":scope.orphanClients[i].id, "name":scope.orphanClients[i].displayName});
+                    }                        
+                }
+            };
+
             scope.reassignStaff = function () {
                 this.formData.toOfficeId = this.formData.fromOfficeId;
                 if(scope.isSubmitDetailsEmpty()){
@@ -188,7 +254,13 @@
                 this.formData.clients = scope.getSelectedClients;
                 this.formData.groups = scope.getSelectedGroups;
                 this.formData.centers = scope.getSelectedCenters;
+                this.formData.orphanClients = scope.getSelectedOrphanClients;
+                this.formData.orphanGroups = scope.getSelectedOrphanGroups;
+                this.formData.orphanCenters = scope.getSelectedOrphanCenters;
                 this.formData.isStaffReassignment = scope.isStaffReassignment;
+                this.formData.orphanLoans = scope.getSelectedOrphanLoans;
+                this.formData.orphanLoanApplications = scope.getSelectedOrphanLoanApps;
+                this.formData.orphanSavings = scope.getSelectedOrphanSavings;
                 resourceFactory.bulkTransferResource.save({'officeId': scope.formData.fromOfficeId},this.formData, function (data) {
                     location.path('/bulktransfer');
                 });
@@ -202,9 +274,9 @@
                 }
             };
 
-            scope.getSelectedGroupDetails = function(value,id){
+            scope.getSelectedGroupDetails = function(groups, value,id){
                 if(value){
-                    scope.addEntity(scope.groups, scope.getSelectedGroups, id);
+                    scope.addEntity(groups, scope.getSelectedGroups, id);
                 }else{
                     scope.removeEntity(scope.getSelectedGroups, id);
                 }
@@ -229,7 +301,8 @@
             }; 
 
             scope.isSubmitDetailsEmpty = function(){
-                return (scope.getSelectedClients.length < 1 && scope.getSelectedGroups.length < 1 && scope.getSelectedCenters.length < 1);
+                return (scope.getSelectedClients.length < 1 && scope.getSelectedGroups.length < 1 && scope.getSelectedCenters.length < 1 && scope.getSelectedOrphanGroups.length < 1 && scope.getSelectedOrphanClients.length < 1
+                    && scope.getSelectedOrphanLoans.length < 1 && scope.getSelectedOrphanLoanApps.length < 1 && scope.getSelectedOrphanSavings.length < 1);
             };
 
             scope.displayError = function(){
@@ -240,14 +313,52 @@
                 scope.allCenter.checked = false;
                 scope.allGroups.checked = false;
                 scope.allClients.checked = false;
+                scope.allOrphanGroups.checked = false;
+                scope.allOrphanClients.checked = false;
                 scope.centers = [];
                 scope.groups = [];
-                scope.clients = [];        
+                scope.clients = [];      
+                scope.orphanGroups = [];
+                scope.orphanClients = [];    
                 scope.getSelectedClients = [];
                 scope.getSelectedGroups = [];
                 scope.getSelectedCenters = [];
+                scope.getSelectedOrphanGroups = [];
+                scope.getSelectedOrphanClients = [];
+                scope.getSelectedOrphanSavings = [];
+                scope.getSelectedOrphanLoans = [];
+                scope.getSelectedOrphanLoanApps = [];
+                scope.orphanLoans = [];
+                scope.orphanLoanApps = [];    
+                scope.orphanSavings = [];
             };
 
+            scope.selectAllOrphanAccounts = function(selectedOrphanAccounts, orphanAccounts, value){
+                selectedOrphanAccounts = [];
+                for(var i =0 ; i < orphanAccounts.length ; i++) {
+                    orphanAccounts[i].checked = value;
+                    if(value){
+                        selectedOrphanAccounts.push({"id":orphanAccounts[i].id, "name":orphanAccounts[i].name});
+                    }
+                }
+            };
+
+            scope.getSelectedOrphanAccounts = function(selectedOrphanAccounts, orphanAccounts, value,accountId){
+                var index = -1;
+                index = orphanAccounts.findIndex(x=>x.id == accountId);
+
+                if(index > -1){
+                    if(value){
+                        selectedOrphanAccounts.push({"id":orphanAccounts[index].id, "accountNo":orphanAccounts[index].accountNo, "productName":orphanAccounts[index].productName});
+                    }else{
+                        scope.removeEntity(selectedOrphanAccounts, accountId);
+                    }
+                }
+            };
+
+            scope.showAssignParentStaffCheckbox = function(){
+                return (scope.orphanClients.length>0 || scope.orphanGroups.length>0 || scope.orphanSavings.length>0 || scope.orphanLoans.length>0 || scope.orphanLoanApps.length>0);
+            }
         }
     });
     mifosX.ng.application.controller('InitiateBulkTransferController', ['$scope' , '$location', 'ResourceFactory', '$route', 'dateFilter', '$rootScope', '$routeParams', mifosX.controllers.InitiateBulkTransferController]).run(function ($log) {

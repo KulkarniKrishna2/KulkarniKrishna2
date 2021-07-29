@@ -7572,7 +7572,7 @@
     "label.input.chargeCategoryType": "Charge CategoryType",
     "label.selectCategoryType": "Select CategoryType",
     "label.heading.chargeCategoryType": "Charge Category Type",
-    "error.msg.user.associate.with.other.resource": "User associate with other resource : `{{params[0].value}}`",
+    "error.msg.user.associate.with.other.resource": "User associated with other resource. Kindly Unassign/Reassign the Centers/Groups/Client entities associated from the user to deactivate",
     "error.msg.group.submittedOnDate.in.the.future": "Submitted date should not be future date",
     "error.msg.group.activationDate.in.the.future": "Activation date should not be future date",
     "invalid.streetName.format": "Invalid Street name",
@@ -9060,6 +9060,13 @@
     "error.msg.loan.cannot.writeoff" : "Cannot writeoff loan with negative balance",
     "error.msg.loan.over.payment": "Over payment not alllowed",
     "error.msg.cannot.add.the.same.charge.multiple.times" : "Charge with name {{params[1].value}} is already added to the loan",
+    "label.heading.orphan.groupdetails": "Hierarchy Broken Group Details",
+    "label.heading.orphan.clientdetails": "Hierarchy Broken Client Details",
+    "validation.msg.bulktransfer.officeId.cannot.be.blank": "Please select office",
+    "label.heading.orphan.savingsdetails": "Hierarchy Broken Savings Details",
+    "label.heading.orphan.loanappdetails": "Hierarchy Broken Loan Application Details",
+    "label.heading.orphan.loandetails": "Hierarchy Broken Loan Details",
+    "label.heading.is.assign.parent.staff": "Is Assign Parent Staff",
 
      "------ end of translation file ------": "----------"
 }

@@ -1,4 +1,4 @@
-<div class="col-md-12">
+<div class="col-md-12" ng-controller="InitiateBulkTransferController">
     <ul class="breadcrumb">
         <li><a href="#/organization">{{'label.anchor.organization' |
 				translate}}</a></li>
@@ -7,7 +7,7 @@
         <li class="active">{{'label.anchor.reassign.staff' | translate}}
         </li>
     </ul>
-    <form class="form-horizontal well" novalidate="" ng-controller="InitiateBulkTransferController" name="staffReassignForm">
+    <form class="form-horizontal well" novalidate=""  name="staffReassignInputForm">
         <api-validate></api-validate>
         <div class="form-horizontal error" ng-if="displayError()">
                         {{labelEmptyListErrorMessage | translate}}
@@ -19,8 +19,7 @@
         </div>
         <br>
             <div class="form-group">
-
-                <table class="col-sm-6">
+                <table class="col-sm-10">
                     <tbody>
                         <tr>
                             <td class="width14">
@@ -29,45 +28,45 @@
                                 </label>
                             </td>
                             <td class="width36 paddedbottom10">
-                                <select chosen="offices" name="fromOfficeId" id="fromOfficeId" ng-model="formData.fromOfficeId" data-ng-options="office.id as office.name for office in offices" data-ng-change="getFromStaffOptions(formData.fromOfficeId)" class="form-control">
-                                    <option value="">{{'label.selectoffice' | translate}}</option>
+                                <select chosen="offices" name="fromOfficeId" id="fromOfficeId" ng-model="requestData.fromOfficeId" data-ng-options="office.id as office.name for office in offices" 
+                                data-ng-change="getFromStaffOptions(requestData.fromOfficeId)" class="form-control" >
+                                    <option value="" >{{'label.selectoffice' | translate}}</option>
                                 </select>
-                                <form-validate valattributeform="staffReassignForm" valattribute="fromOfficeId" />
+                                <form-validate valattributeform="staffReassignInputForm" valattribute="fromOfficeId" />
                             </td>
-
+                            <td></td>
                         </tr>
 
                         <tr>
                             <td class="width14">
-                                <label class="control-label">{{ 'label.menu.selectloanofficer' | translate }}<span class="required">*</span>
-                                </label>
+                                <label class="control-label">{{ 'label.menu.selectloanofficer' | translate }}</label>
                             </td>
                             <td class="width36 paddedbottom10">
-                                <select chosen="fromStaffOptions" id="fromStaffId" name="fromStaffId" ng-model="formData.fromStaffId" data-ng-options="officer.id as officer.displayName for officer in fromStaffOptions" class="form-control" ng-change= "getDataForTransfer()">
-                                    <option value="">{{'label.selectone' | translate}}</option>
+                                <select chosen="fromStaffOptions" id="fromStaffId" name="fromStaffId" ng-model="requestData.fromStaffId" data-ng-options="officer.id as officer.displayName for officer in fromStaffOptions" class="form-control">
+                                    <option value="" >{{'label.selectone' | translate}}</option>
                                 </select>
-                                <form-validate valattributeform="staffReassignForm" valattribute="fromStaffId" />
+                            </td>
+                            <td>
+                                <button class="btn btn-primary" ng-click="getDataForTransfer()" >{{'label.button.fetchdetails' | translate}}</button>
                             </td>
                         </tr>
                         <tr>
                             <td class="width14" ng-if="showAssignToStaff">
-                                <label class="control-label">
-                                    {{'label.input.assign.to.staff' | translate }}<span class="required">*</span>
-                                </label>
+                                <label class="control-label">{{'label.input.assign.to.staff' | translate }} </label>
                             </td>
 
                             <td class="width36 paddedbottom10" ng-if="showAssignToStaff">
                                 <select chosen="toStaffOptions" id="toStaffId" name="toStaffId" ng-model="formData.toStaffId" data-ng-options="officer.id as officer.displayName for officer in toStaffOptions" class="form-control">
-                                    <option value="">{{'label.selectone' | translate}}</option>
+                                    <option value="" >{{'label.selectone' | translate}}</option>
                                 </select>
-                                <form-validate valattributeform="staffReassignForm" valattribute="toStaffId" />
                             </td>
+                            <td></td>
                         </tr>
                     </tbody>
                 </table>
-
             </div>
-
+    </form>
+    <form novalidate=""  name="staffReassignForm">
             <div ng-if="recordsStatus()">
                 <p> {{'label.message.no.records.found' | translate}} </p>
             </div>
@@ -194,6 +193,111 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="form-group" data-ng-show="orphanGroups">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <hr/>
+                                    <strong>{{'label.heading.orphan.groupdetails' | translate}}</strong>&nbsp;
+                                    <input type="checkbox" ng-model="allOrphanGroups.checked" ng-change="selectAllOrphanGroups(allOrphanGroups.checked)">
+                                    <hr/>
+                                </tr>
+                                <tr ng-repeat-start="orphanGroup in orphanGroups">
+                                    <td>
+                                        <button ng-if="orphanGroup.clientMembers" type="button" style="border: 0" ng-click="expandGroup(orphanGroup, goupExpanded = !goupExpanded)">
+                                            <span style="border: 0" ng-bind="goupExpanded ? '-' : '+'"></span>
+                                        </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </td>
+                                    <td>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input class="pull-left" type="checkbox" ng-model="orphanGroup.checked" ng-change="getSelectedOrphanGroupDetails(orphanGroup.checked, orphanGroup.id)"><strong>{{orphanGroup.name}}</strong></td>
+                                </tr>
+                                <tr ng-repeat-end ng-if="orphanGroup.isExpanded">
+                                    <td></td>
+                                    <td>
+                                        <table>
+                                            <tbody>
+                                                <tr ng-repeat="ogClient in orphanGroup.clientMembers">
+                                                    <td><strong>{{ogClient.displayName}}</strong></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="form-group" data-ng-show="orphanClients">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <hr/>
+                                    <strong>{{'label.heading.orphan.clientdetails' | translate}}</strong> &nbsp;
+                                    <input type="checkbox" ng-model="allOrphanClients.checked" ng-change="selectAllOrphanClients(allOrphanClients.checked)">
+                                    <hr/>
+                                </tr>
+                                <tr ng-repeat="oClient in orphanClients">
+                                    <td>
+                                        <input class="pull-left" type="checkbox" ng-model="oClient.checked" ng-change="getSelectedOrphanClientsDetails(oClient.checked, oClient.id)">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                    <td><strong>{{oClient.displayName}}</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="form-group" data-ng-show="orphanLoans">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <hr/>
+                                    <strong>{{'label.heading.orphan.loandetails' | translate}}</strong> &nbsp;
+                                    <input type="checkbox" ng-model="allOrphanLoans.checked" ng-change="selectAllOrphanAccounts(getSelectedOrphanLoans, orphanLoans, allOrphanLoans.checked)">
+                                    <hr/>
+                                </tr>
+                                <tr ng-repeat="orphanLoan in orphanLoans">
+                                    <td>
+                                        <input class="pull-left" type="checkbox" ng-model="orphanLoan.checked" ng-change="getSelectedOrphanAccounts(getSelectedOrphanLoans, orphanLoans,orphanLoan.checked, orphanLoan.id)">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                    <td><strong>{{orphanLoan.productName}}({{orphanLoan.accountNo}})</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="form-group" data-ng-show="orphanLoanApps">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <hr/>
+                                    <strong>{{'label.heading.orphan.loanappdetails' | translate}}</strong> &nbsp;
+                                    <input type="checkbox" ng-model="allOrphanLoanApps.checked" ng-change="selectAllOrphanAccounts(getSelectedOrphanLoanApps, orphanLoanApps, allOrphanLoanApps.checked)">
+                                    <hr/>
+                                </tr>
+                                <tr ng-repeat="orphanLoanApp in orphanLoanApps">
+                                    <td>
+                                        <input class="pull-left" type="checkbox" ng-model="orphanLoanApp.checked" ng-change="getSelectedOrphanAccounts(getSelectedOrphanLoanApps, orphanLoanApps,orphanLoanApp.checked, orphanLoanApp.id)">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                    <td><strong>{{orphanLoanApp.productName}}({{orphanLoanApp.accountNo}})</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="form-group" data-ng-show="orphanSavings">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <hr/>
+                                    <strong>{{'label.heading.orphan.savingsdetails' | translate}}</strong> &nbsp;
+                                    <input type="checkbox" ng-model="allOrphanSavings.checked" ng-change="selectAllOrphanAccounts(getSelectedOrphanSavings, orphanSavings, allOrphanSavings.checked)">
+                                    <hr/>
+                                </tr>
+                                <tr ng-repeat="orphanSaving in orphanSavings">
+                                    <td>
+                                        <input class="pull-left" type="checkbox" ng-model="orphanSaving.checked" ng-change="getSelectedOrphanAccounts(getSelectedOrphanSavings, orphanSavings,orphanSaving.checked, orphanSaving.id)">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                    <td><strong>{{orphanSaving.productName}}({{orphanSaving.accountNo}})</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>                    
+                </div>
+                <div ng-if="showAssignParentStaffCheckbox()">
+                    <input id="isAssignParentStaff" type="checkbox" ng-model="formData.isAssignParentStaff">
+                    <label class="control-label col-sm-2">{{'label.heading.is.assign.parent.staff' | translate}}</label>
                 </div>
             </div>
             <div class="col-md-offset-3" ng-if="showAssignToStaff">

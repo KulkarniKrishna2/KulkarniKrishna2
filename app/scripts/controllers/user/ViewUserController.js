@@ -83,6 +83,8 @@
             }
 
             var UserDeleteCtrl = function ($scope, $modalInstance) {
+                $scope.reassignErrMsg = "error.msg.user.associate.with.other.resource";
+                $scope.isReassign = false;
                 $scope.delete = function () {
                     resourceFactory.userListResource.delete({
                         userId: routeParams.id
@@ -91,11 +93,20 @@
                         location.path('/users');
                         // added dummy request param because Content-Type header gets removed
                         // if the request does not contain any data (a request body)
-                    });
+                    }, function(err) {
+                        if(err.data.errors[0].userMessageGlobalisationCode == $scope.reassignErrMsg){
+                            $scope.isReassign = true;
+                        }
+                }) ;
                 };
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
                 };
+
+                $scope.routeToReassign = function() {
+                    location.path('/reassignstaff/true'); 
+                    $scope.cancel();
+                }
             };
 
             scope.lock = function(){
