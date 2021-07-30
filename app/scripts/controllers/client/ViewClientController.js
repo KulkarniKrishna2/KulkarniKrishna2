@@ -1,16 +1,44 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         ViewClientController: function (scope, routeParams, route, location, resourceFactory, http, $modal, API_VERSION, $rootScope, $upload, dateFilter, commonUtilService, localStorageService,$sce,paginatorUsingOffsetService, popUpUtilService) {
-            
+            scope.clientId = routeParams.id;
             if(!_.isUndefined($rootScope.isClientAdditionalDetailTabActive)){
                 delete $rootScope.isClientAdditionalDetailTabActive;
             }else{
                 var savedTabs = localStorageService.getFromLocalStorage("tabPersistence");
-                if(savedTabs){
-                    delete savedTabs.clientTabset;
-                    delete savedTabs.clientADTabset;
-                    localStorageService.addToLocalStorage('tabPersistence', savedTabs);
+                var lsClientId = localStorageService.getFromLocalStorage("lsClientId");
+
+                // ----- clearing local storage of loan accounts -----
+                var savedTabArrayValue = localStorageService.getFromLocalStorage("loanAccountTabPersistance");
+                var lsLoadnId = localStorageService.getFromLocalStorage("lsLoanId");
+                if(savedTabArrayValue && lsLoadnId) {
+                   delete lsLoadnId.lsLoadIdValue;
+                   delete savedTabArrayValue.savedTabArrayValue;
+                   localStorageService.addToLocalStorage('lsLoanId', lsLoadnId);
+                   localStorageService.addToLocalStorage('loanAccountTabPersistance', {savedTabArrayValue: 0}); 
                 }
+                
+
+                if(lsClientId) {
+                    if(scope.clientId != lsClientId.lsClientIdValue) {
+                        if(savedTabs){
+                            delete savedTabs.clientTabset;
+                            delete savedTabs.clientADTabset;
+                            delete lsClientId.lsClientIdValue;
+                            localStorageService.addToLocalStorage('tabPersistence', savedTabs);
+                            localStorageService.addToLocalStorage('lsClientId', {lsClientIdValue: scope.clientId});
+                        }
+                    }
+                } else {
+                    localStorageService.addToLocalStorage('lsClientId', {lsClientIdValue: scope.clientId});
+                }
+                
+                console.log(savedTabs);
+                // if(savedTabs ){
+                //     delete savedTabs.clientTabset;
+                //     delete savedTabs.clientADTabset;
+                //     localStorageService.addToLocalStorage('tabPersistence', savedTabs);
+                // }
             }
             
             scope.client = [];
@@ -2057,7 +2085,6 @@
                             scope.outputExpand = true;
                             // scope.outputObj = Object.entries(scope.scoreCardList[i].output);
                             scope.outputObj = scope.scoreCardList[i].ruleResult.output;
-                            console.log(scope.outputObj);
                         } else {
                             scope.outputObj = [];
                             scope.outputExpand = true;
@@ -2314,6 +2341,9 @@
                         scope.payementHistory = scope.bureaReportDetails[0].creditBureauExistingLoanPaymentDetails;
                         // scope.paymentStartYear = scope.bureaReportDetails[0].disbursedOnDate[0];
                         // scope.paymentEndYear = scope.bureaReportDetails[0].lastPaymentDate[0];
+                        if( scope.payementHistory.length === 0) {
+                            break;
+                        }
                         if(scope.payementHistory[0].date[0] < scope.payementHistory[scope.payementHistory.length - 1].date[0]) {
                             scope.paymentStartYear = scope.payementHistory[0].date[0];
                             scope.paymentEndYear = scope.payementHistory[scope.payementHistory.length - 1].date[0];
