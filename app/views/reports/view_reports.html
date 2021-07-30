@@ -28,7 +28,7 @@
                         <span ng-repeat="(key, value) in report.displyParams">
                             <b>{{key}}:</b>{{value}}<span ng-hide="$last">&nbsp;|&nbsp;</span>
                         </span>
-                        <button class="btn btn-link" data-ng-click="rerunreport(report)">{{'label.button.rerun' | translate}}</button>
+                        <button class="btn btn-link" ng-if="report.reportType!='Custom'" data-ng-click="rerunreport(report)">{{'label.button.rerun' | translate}}</button>
                         </td>
                         <td>{{report.runRequestedTime |  DateTimeFormat }}</td>
                     </tr>

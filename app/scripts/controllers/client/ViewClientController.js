@@ -2085,7 +2085,6 @@
                             scope.outputExpand = true;
                             // scope.outputObj = Object.entries(scope.scoreCardList[i].output);
                             scope.outputObj = scope.scoreCardList[i].ruleResult.output;
-                            console.log(scope.outputObj);
                         } else {
                             scope.outputObj = [];
                             scope.outputExpand = true;
@@ -2342,6 +2341,9 @@
                         scope.payementHistory = scope.bureaReportDetails[0].creditBureauExistingLoanPaymentDetails;
                         // scope.paymentStartYear = scope.bureaReportDetails[0].disbursedOnDate[0];
                         // scope.paymentEndYear = scope.bureaReportDetails[0].lastPaymentDate[0];
+                        if( scope.payementHistory.length === 0) {
+                            break;
+                        }
                         if(scope.payementHistory[0].date[0] < scope.payementHistory[scope.payementHistory.length - 1].date[0]) {
                             scope.paymentStartYear = scope.payementHistory[0].date[0];
                             scope.paymentEndYear = scope.payementHistory[scope.payementHistory.length - 1].date[0];
