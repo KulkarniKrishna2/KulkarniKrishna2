@@ -9067,6 +9067,7 @@
     "label.heading.orphan.loanappdetails": "Hierarchy Broken Loan Application Details",
     "label.heading.orphan.loandetails": "Hierarchy Broken Loan Details",
     "label.heading.is.assign.parent.staff": "Is Assign Parent Staff",
+    "validation.msg.exportClaimDetails.arg0.deceasedIds.isInvalid" : "Select 1 - 25 claims for Export",
 
      "------ end of translation file ------": "----------"
 }

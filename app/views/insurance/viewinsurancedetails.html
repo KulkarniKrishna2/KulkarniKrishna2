@@ -134,6 +134,15 @@
                       </tr>
               </tbody>
           </table>
+          <ul class="pager">
+            <li class="previous">
+                <a id="prev" ng-click="previousList()" href=""
+                   ng-hide="requestoffset == 0"> &larr; {{'label.button.previous' | translate}}</a>
+            </li>
+            <li class="next">
+                <a id="next" ng-click="nextList()" href=""
+                   ng-hide="insuranceData.length != limit">{{'label.button.next' | translate}} &rarr;</a></li>
+        </ul>
         </tab>
         <tab  ng-show="rejectTabToBeshown" tab-highlight select="fetchRejectedInsuranceData('intimationapprovalpending')"> <!-- the tab highlight directive -->
           <tab-heading>
