@@ -111,12 +111,14 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2">{{ 'label.input.relationship' | translate }}</label>
+                    <label class="control-label col-sm-2">{{ 'label.input.relationship' | translate }}
+                        <span class="required">*</span>
+                    </label>
 
                     <div class="col-sm-3">
                         <select id="relationship" name="relationship" ng-model="formData.relationshipId" class="form-control" ng-change="findRelationCodeValue(formData.relationshipId)"
                             ng-options="relationshipOption.id as relationshipOption.name for relationshipOption in relationshipOptions "
-                            value="relationshipOption.id">
+                            value="relationshipOption.id" ng-required = true>
                             <option value="">--{{'label.input.selectoptions' | translate}}--</option>
                         </select>
                     </div>
