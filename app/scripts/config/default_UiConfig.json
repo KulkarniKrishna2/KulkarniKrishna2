@@ -574,7 +574,8 @@
 				"disbursementPaymentMode": false,
 				"amountForUpfrontCollection": false,
 				"disbursementPaymentType":false,
-				"loanOfficer": false
+				"loanOfficer": false,
+				"externalIdOne": false
 			},
 			"isMandatory": {
 				"trancheData": false,

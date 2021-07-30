@@ -61,6 +61,16 @@
 			"isHiddenFeild": {
                 "prepayLoanButton": false
             }
+        },
+        "createLoanApplication":{
+            "isMandatoryField":{
+                "externalIdOne": true
+            }
+        },
+        "paymentDetails":{
+            "isMandatory":{
+                "receiptNumber": true
+            }
         }
     }
 } 
