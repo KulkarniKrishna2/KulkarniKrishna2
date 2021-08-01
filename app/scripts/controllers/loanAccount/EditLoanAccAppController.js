@@ -841,6 +841,8 @@
                 this.formData.submittedOnDate = dateFilter(this.formData.submittedOnDate, scope.df);
                 if(!_.isUndefined(this.formData.interestChargedFromDate)){
                     this.formData.interestChargedFromDate = dateFilter(this.formData.interestChargedFromDate, scope.df);
+                }else{
+                    this.formData.interestChargedFromDate = null;
                 }
                 this.formData.repaymentsStartingFromDate = dateFilter(this.formData.repaymentsStartingFromDate, scope.df);
                 this.formData.recalculationRestFrequencyStartDate = dateFilter(scope.formData.recalculationRestFrequencyStartDate, scope.df);
@@ -944,6 +946,8 @@
                 this.formData.submittedOnDate = dateFilter(this.formData.submittedOnDate, scope.df);
                 if(!_.isUndefined(this.formData.interestChargedFromDate)){
                     this.formData.interestChargedFromDate = dateFilter(this.formData.interestChargedFromDate, scope.df);
+                }else{
+                    this.formData.interestChargedFromDate = null;
                 }
                 this.formData.repaymentsStartingFromDate = dateFilter(this.formData.repaymentsStartingFromDate, scope.df);
                 this.formData.recalculationRestFrequencyStartDate = dateFilter(scope.formData.recalculationRestFrequencyStartDate, scope.df);
