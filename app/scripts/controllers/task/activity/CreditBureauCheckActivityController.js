@@ -709,8 +709,8 @@
                 return false;
             }
             scope.disableCBCheck = function (activeClientMember) {         
-                if (activeClientMember.isClientFinishedThisTask || (activeClientMember.cbExistingLoansSummaryData == undefined && !scope.isCBCheckEnable) || activeClientMember.cbCriteriaReviewData == undefined
-                    || ((!scope.isSendToCBReviewHidden && activeClientMember.cbCriteriaReviewData && !activeClientMember.cbCriteriaReviewData.isApproved))) {
+                if (activeClientMember.isClientFinishedThisTask || (activeClientMember.cbExistingLoansSummaryData == undefined && !scope.isCBCheckEnable)
+                    || (!scope.isSendToCBReviewHidden && activeClientMember.cbCriteriaReviewData && !activeClientMember.cbCriteriaReviewData.isApproved)) {
                     return true;
                 }
                 return false;
