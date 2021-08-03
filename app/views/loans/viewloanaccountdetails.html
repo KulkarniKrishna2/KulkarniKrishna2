@@ -2009,7 +2009,7 @@
                                         <th class="ng-binding">{{ 'label.heading.dob' | translate }}</th>
                                         <th class="ng-binding">{{ 'label.heading.age' | translate }}</th>
                                         <th class="ng-binding">{{ 'label.heading.gender' | translate }}</th>
-                                        <th class="ng-binding">{{ 'label.heading.hasAddress' | translate }}</th>
+                                        <th class="ng-binding">{{ 'label.heading.address' | translate }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -2019,7 +2019,9 @@
                                         <td>{{familyMember.dateOfBirth | DateFormat}}</td>
                                         <td>{{familyMember.age}}</td>
                                         <td>{{familyMember.gender}}</td>
-                                        <td>{{familyMember.hasAddress == true ? 'Yes' : 'No'}}</td>
+                                        <td>{{familyMember.addressData.houseNo}},&nbsp;{{familyMember.addressData.addressLineOne}},&nbsp;{{familyMember.addressData.villageTown}},&nbsp;
+                                            {{familyMember.addressData.stateName}},&nbsp;{{familyMember.addressData.postalCode}}
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>

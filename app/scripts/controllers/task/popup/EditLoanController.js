@@ -55,7 +55,7 @@
             scope.formData = {};
             scope.isEmiAmountEditable = true;
             scope.loanEMIPacks = [];
-
+            scope.showLoanTerms = true;
             if (scope.response && scope.response.uiDisplayConfigurations.loanAccount) {
 
                 scope.showExternalId = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.externalId;
@@ -248,6 +248,9 @@
                     scope.loanaccountinfo = data;
                     scope.loanEMIPacks = data.loanEMIPacks;
                     var refreshLoanCharges = true;
+                    scope.editLoanAccountdata.isTopup = scope.loanaccountinfo.canUseForTopup;
+                    scope.showLoanTerms =!(scope.loanaccountinfo.loanEMIPacks && scope.isLoanEmiPackEnabled)?true:false;
+
                     scope.previewClientLoanAccInfo(refreshLoanCharges);
                     scope.updateSlabBasedCharges();
                     scope.canDisburseToGroupBankAccounts = data.product.allowDisbursementToGroupBankAccounts;
@@ -349,7 +352,6 @@
 
 
                 scope.editLoanAccountdata.amortizationType = scope.loanaccountinfo.amortizationType.id;
-                scope.editLoanAccountdata.isTopup = scope.loanaccountinfo.isTopup;
                 scope.editLoanAccountdata.deferPaymentsForHalfTheLoanTerm = scope.loanaccountinfo.deferPaymentsForHalfTheLoanTerm;
                 scope.editLoanAccountdata.interestType = scope.loanaccountinfo.interestType.id;
 
@@ -381,6 +383,17 @@
                 scope.editLoanAccountdata.expectedDisbursementDate = dateFilter(new Date(dateFilter(scope.loanAccountData.expectedDisbursementOnDate, scope.df)), scope.df);
                 scope.editLoanAccountdata.disbursementData = [];
                 scope.constructSubmitData();
+
+                if(scope.editLoanAccountdata.isTopup==true){
+                    scope.editLoanAccountdata.loanIdToClose = [];
+                    for(var i in scope.loanaccountinfo.clientActiveLoanOptions){
+                        if(scope.loanaccountinfo.clientActiveLoanOptions[i].isSelected==true){
+                            scope.editLoanAccountdata.loanIdToClose.push(scope.loanaccountinfo.clientActiveLoanOptions[i].id);
+                        }
+                    }
+                }else{
+                    scope.editLoanAccountdata.loanIdToClose = undefined;
+                }
                 resourceFactory.loanResource.put({ loanId: scope.loanAccountBasicData.id }, scope.editLoanAccountdata, function (data) {
                     scope.closeLoanAccountForm();
                     scope.refreshTask();
@@ -393,10 +406,23 @@
             }
 
             scope.getLoanData = function (loanId) {
-                resourceFactory.loanResource.get({ loanId: loanId, template: true, associations: 'charges,meeting', staffInSelectedOfficeOnly: true }, function (data) {
+                resourceFactory.loanResource.get({ loanId: loanId, template: true, associations: 'charges,meeting, loanTopupDetails', staffInSelectedOfficeOnly: true }, function (data) {
                     scope.loanaccountinfo = data;
                     scope.updateEmiPacks(scope.loanaccountinfo);
                     scope.charges = data.charges;
+                    scope.editLoanAccountdata.isTopup = scope.loanaccountinfo.isTopup;
+                    scope.showLoanTerms =!(scope.loanaccountinfo.loanEMIPacks && scope.isLoanEmiPackEnabled)?true:false;
+                    if (data.isTopup && scope.loanaccountinfo.clientActiveLoanOptions.length > 0 && data.loanTopupDetailsData.length > 0) {
+                        for (var i in data.loanTopupDetailsData) {
+                            var closureLoanId = data.loanTopupDetailsData[i].closureLoanId;
+                            for (var j = 0; j < scope.loanaccountinfo.clientActiveLoanOptions.length; j++) {
+                                if (scope.loanaccountinfo.clientActiveLoanOptions[j].id == closureLoanId) {
+                                    scope.loanaccountinfo.clientActiveLoanOptions[j].isSelected = true;
+                                }
+                            };
+                        }
+                        scope.isAllLoanToClose = (scope.loanaccountinfo.clientActiveLoanOptions.length == data.loanTopupDetailsData.length);
+                    }
                 });
             }
 
@@ -460,6 +486,21 @@
                 }
             }
 
+            scope.selectAllLoanToClose = function(isAllLoanToClose){
+                for(var i in scope.loanaccountinfo.clientActiveLoanOptions){
+                    scope.loanaccountinfo.clientActiveLoanOptions[i].isSelected = isAllLoanToClose;
+                }
+            }
+
+            scope.updateAllCheckbox = function(){
+                var isAll = true;
+                for(var i in scope.loanaccountinfo.clientActiveLoanOptions){
+                    if(scope.loanaccountinfo.clientActiveLoanOptions[i].isSelected == undefined || scope.loanaccountinfo.clientActiveLoanOptions[i].isSelected==false){
+                        isAll = false;
+                    }
+                }
+                scope.isAllLoanToClose = isAll;
+            };
         }
 
     });

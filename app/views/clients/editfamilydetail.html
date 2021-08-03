@@ -111,12 +111,14 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2">{{ 'label.input.relationship' | translate }}</label>
+                    <label class="control-label col-sm-2">{{ 'label.input.relationship' | translate }}
+                        <span class="required">*</span>
+                    </label>
 
                     <div class="col-sm-3">
                         <select id="relationship" name="relationship" ng-model="formData.relationshipId" class="form-control" ng-change="findRelationCodeValue(formData.relationshipId)"
                             ng-options="relationshipOption.id as relationshipOption.name for relationshipOption in relationshipOptions "
-                            value="relationshipOption.id">
+                            value="relationshipOption.id" ng-required = true>
                             <option value="">--{{'label.input.selectoptions' | translate}}--</option>
                         </select>
                     </div>
@@ -182,7 +184,7 @@
                     <div class="col-sm-2">
                         <input id="age" type="number" autocomplete="off" name="age" ng-model="formData.age" ng-minlength="1"
                             ng-maxlength="3" min="{{minAge}}" max="{{maxAge}}" class="form-control" placeholder="{{formData.age}}"
-                            ng-change="validateAge()" ng-required="isAgeMandatory" />
+                            ng-change="validateAge()" ng-required="isAgeMandatory" ng-disabled="true"/>
                         <span class="error" ng-hide="isValidAge">{{'label.input.dob.not.range' | translate}}
                             {{minAge}}{{'label.input.and' | translate}} {{maxAge}}</span>
                     </div>
@@ -247,6 +249,11 @@
                         <form-validate valattributeform="editFamilyDetails" valattribute="education" />
                     </div>
 
+                    <div class="col-sm-3">
+                        <a ng-show = "showAdressAddingButton && isFamilyAddressEnabled" data-ng-click="addAddress()" class="btn btn-primary"><i class="icon-plus icon-white"></i>
+                            {{'label.button.add.address' | translate}}</a>
+                    </div>
+
                 </div>
                 
                 <div ng-if="showAddressForm && isFamilyAddressEnabled">
@@ -261,7 +268,7 @@
                         <div class="col-sm-3">
                             <select id="addressId" name="addressType" ng-model="formAddressData.addressTypes[0]" class="form-control"
                             ng-options="address.id as address.name for address in addressType" value="{{address.id}}"
-                                ng-required="true" ng-disabled="true">
+                                ng-required="true" ng-disabled="isAddressPresent">
                                 <option value="">{{'label.menu.addressType' | translate}}</option>
                             </select>
                             <span class="">
