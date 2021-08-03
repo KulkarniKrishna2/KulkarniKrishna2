@@ -92,6 +92,7 @@
 
 
             scope.setvaluesByClient = function(client){
+                client.codeReasonId = undefined;
                 client.reasonId = undefined;
                 client.reason = undefined;
             }

@@ -266,7 +266,7 @@
 								<div class="col-sm-12">
                                     <select id="client.attendanceType"
 										ng-model="client.attendanceType" ng-init=" client.attendanceType = defaultClientAttendanceType"  class="input-sm form-control"
-										ng-options="attendance.id as attendance.value for attendance in collectionsheetdata.attendanceTypeOptions"  data-ng-change="setvalues(client.clientId)"
+										ng-options="attendance.id as attendance.value for attendance in collectionsheetdata.attendanceTypeOptions"  data-ng-change="setvaluesByClient(client)"
 										value="{{attendance.id}}">
 									</select>
                                 </div>								

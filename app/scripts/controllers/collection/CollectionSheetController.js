@@ -94,6 +94,12 @@
                 scope.collectionReasonList = data;
             });
 
+            scope.setvaluesByClient = function(client){
+                client.codeReasonId = undefined;
+                client.reasonId = undefined;
+                client.reason = undefined;
+            }
+
             scope.setvalues = function(clientId){
                 scope.groups = scope.savingsgroups;
                 var gl = scope.groups.length;
