@@ -115,7 +115,7 @@
                 
                     <div class="col-sm-2">
                         <input id="age" type="number" autocomplete="off" name="age" ng-model="formData.age" ng-minlength="1"
-                            ng-maxlength="3" min="{{familyMemberMinAge}}" max="{{familyMemberMaxAge}}" class="form-control" value="{{formData.age}}"
+                            ng-maxlength="3" min="{{familyMemberMinAge}}" max="{{familyMemberMaxAge}}" class="form-control" placeholder="{{formData.age}}"
                             ng-change="validateAge()" ng-required="isAgeMandatory" ng-disabled="true"/>
                         <span class="error" ng-hide="isValidAge">{{'label.input.dob.not.range' | translate}}
                             {{familyMemberMinAge}}{{'label.input.and' | translate}} {{familyMemberMaxAge}}</span>
