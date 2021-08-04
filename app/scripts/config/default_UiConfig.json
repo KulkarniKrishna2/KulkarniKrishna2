@@ -832,6 +832,11 @@
 		  "isHiddenField": {
 			"eodWithoutWorkflow": false
 		  }
+		},
+		"cbReview":{
+			"isHiddenField":{
+				"appliedAmount": false
+			}
 		}
 	}
 }

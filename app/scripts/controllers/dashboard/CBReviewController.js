@@ -5,6 +5,10 @@
             scope.formData = {};
             scope.limit = 15;
             scope.requestoffset = 0;
+        
+            if(scope.response.uiDisplayConfigurations.cbReview.isHiddenField) {
+                scope.isAppliedAmountHidden = scope.response.uiDisplayConfigurations.cbReview.isHiddenField.appliedAmount;
+            }
             resourceFactory.officeDropDownResource.getAllOffices({}, function (officelist) {
                 scope.offices = officelist.allowedParents;
             })
