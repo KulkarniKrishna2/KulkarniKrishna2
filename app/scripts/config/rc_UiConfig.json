@@ -13,7 +13,8 @@
 				"dateOfBirth": true,
                 "clientClassificationId": true,
                 "mobileNumber": true,
-                "clientType": true
+                "clientType": true,
+                "lastName": false
             }
         },
         "scoreCardRange": {
