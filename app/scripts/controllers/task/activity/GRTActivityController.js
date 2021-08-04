@@ -133,6 +133,7 @@
                     this.formData.grtDate = dateFilter(scope.formData.grtDate, scope.df);
                     this.formData.loanIds = scope.loanIds;
                     this.formData.centerId = scope.centerDetails.id;
+                    this.formData.loanOfficerId = scope.centerDetails.staffId
                 }
                 scope.taskTrackingFormData = {};
                 scope.taskTrackingFormData.taskInfoTrackArray = [];
