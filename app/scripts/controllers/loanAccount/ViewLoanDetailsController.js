@@ -344,6 +344,9 @@
                     case "viewhistory":
                         location.path('/history/' + scope.entityType + '/' + accountId);
                         break;
+                    case "loansoareport":
+                        location.path('/loansoareport/' + accountId);
+                        break;
                 }
             };
 
@@ -798,7 +801,11 @@
                             {
                                 name: "button.returnloan",
                                 taskPermissionName: 'RETURNLOAN_LOAN'
-                            }
+                            },
+                            {
+                                name: "button.loansoareport",
+                                taskPermissionName: 'READ_LOAN'
+                            },
                         ]
 
                     };
