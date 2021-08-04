@@ -1,0 +1,50 @@
+<div ng-controller="LoanSOAReportController">
+    <div>
+        <ul class="breadcrumb">
+            <li><a href="#/viewloanaccount/{{accountId}}">{{'label.anchor.viewloanaccount' | translate}}</a></li>
+            <li class="active">{{'label.anchor.loan.soa.report' | translate}}</li>
+        </ul>
+    </div>
+    <loan-header-details></loan-header-details>
+    <form class="form-horizontal well" name="loansoaform" ng-submit="submit()">
+        <fieldset>
+            <legend>{{ 'label.heading.loan.soa.report' | translate }}</legend>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">{{ 'label.input.ason' | translate }}<span
+                        class="required">*</span></label>
+
+                <div class="col-sm-3">
+                    <input id="ason" type="text" autocomplete="off" datepicker-pop="yyyy-MM-dd" class="form-control"
+                           placeholder="{{'label.input.ason' | translate}}" ng-model="formData.R_ason"
+                           is-open="opened" min="minDate" max="restrictedDate" readonly />
+                </div>
+            </div>
+	        <div class="form-group info">
+	            <label class="control-label col-sm-2" for="outputType">{{ 'label.input.outputtype' | translate }}<span
+                    class="required">*</span></label>
+
+	            <div class="col-sm-3">
+	                <select class="form-control input-xlarge" ng-model="formData.outputType">
+	                    <option value="HTML">{{ 'label.input.showreport' | translate }}</option>
+	                    <option value="XLS">{{ 'label.input.exportexcel' | translate }}</option>
+	                    <option value="XLSX">{{ 'label.input.exportexcel2' | translate }}</option>
+						<option value="PDF">{{ 'label.input.pdfformat' | translate }}</option>
+	                </select>
+	            </div>
+	        </div>
+            <div class="col-md-offset-3">
+                <button id="cancel" type="reset" class="btn btn-default" ng-click="cancel()">{{ 'label.button.cancel' | translate }}
+                </button>
+                <button id="save" type="submit" class="btn btn-primary" has-permission='READ_LOAN'>{{ 'label.button.viewprint' |
+                    translate }}
+                </button>
+            </div>
+            <div ng-show="reportGenerated" class="col-md-12 alert-block span tab-content">
+                <div id="printcontent">
+                    <iframe id="rptLoadingFrame" ng-src="{{viewReportDetails}}" frameborder="0" width="100%" height="800px"></iframe>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
