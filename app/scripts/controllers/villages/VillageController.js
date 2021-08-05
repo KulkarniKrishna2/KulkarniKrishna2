@@ -1,7 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         VillageController: function (scope, resourceFactory, location, paginatorUsingOffsetService) {
-            scope.villages = [];
+            scope.villages = [];           
             scope.actualVillages = [];
             scope.searchText = "";
             scope.searchResults = [];
@@ -77,7 +77,7 @@
                         }
                         var numberOfVillages = scope.actualVillages.length;
                         scope.totalVillages = numberOfVillages;
-                        scope.villages = scope.actualVillages.slice(0, scope.villagesPerPage);
+                        scope.villages.currentPageItems = scope.actualVillages.slice(0, scope.villagesPerPage);
                     });
                 }
             }
