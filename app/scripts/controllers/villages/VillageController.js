@@ -1,8 +1,7 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
         VillageController: function (scope, resourceFactory, location, paginatorUsingOffsetService) {
-            scope.villages = [];
-            scope.villages.currentPageItems = [];
+            scope.villages = [];           
             scope.actualVillages = [];
             scope.searchText = "";
             scope.searchResults = [];
