@@ -38,6 +38,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'loanAccount/UpdateLoanApplicationReference',
             'loanAccount/ApproveLoanApplicationReference',
             'loanAccount/ManageCoApplicantsController',
+            'loanAccount/ApplicationScoreCardController',
             'loanAccount/CreditBureauReportController',
             'loanAccount/LoanAccountActionsController',
             'loanAccount/AddLoanChargeController',

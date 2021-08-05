@@ -6382,8 +6382,10 @@
     "label.error.banktransaction.notsubmitted": "Transaction not yet submitted.",
 
     "label.button.managecoapplicants": "Manage Co-Applicants",
+    "label.button.applicationscorecard": "Application Score Card",
     "label.button.addcoapplicant": "Add Co-Applicant",
     "label.anchor.managecoapplicants": "Manage Co-Applicants",
+    "label.anchor.applicationscorecard": "Application Score Card",
     "label.button.addnewclient": "Add New Client",
     "label.button.addexistingclients": "Add Existing Client",
     "label.heading.coapplicantname": "Co-Applicant",

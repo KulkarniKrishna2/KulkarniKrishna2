@@ -166,6 +166,9 @@
             .when('/managecoapplicants/:loanApplicationReferenceId', {
                 templateUrl: 'views/loans/managecoapplicants.html'
             })
+            .when('/applicationscorecard/:loanApplicationReferenceId', {
+                templateUrl: 'views/loans/applicationscorecard.html'
+            })
             .when('/approveloanapplicationreference/:loanApplicationReferenceId', {
                 templateUrl: 'views/loans/approveloanapplicationreference.html'
             })

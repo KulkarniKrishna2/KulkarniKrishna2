@@ -54,6 +54,12 @@
         <div class="row primarydiv">
             <div class="pull-right" ng-if="isDisplayActions == true">
                 <span ng-if="formData.status.id < 200">
+                    <a href="#/applicationscorecard/{{loanApplicationReferenceId}}"
+                       class="btn btn-primary"
+                       has-permission='READ_COAPPLICANTS'><i
+                            class="icon-edit icon-white"></i>{{'label.button.applicationscorecard' | translate}}</a>
+                  </span>
+                <span ng-if="formData.status.id < 200">
                   <a href="#/managecoapplicants/{{loanApplicationReferenceId}}"
                      class="btn btn-primary"
                      has-permission='READ_COAPPLICANTS'><i
@@ -477,7 +483,7 @@
                 </table>
             </form>
         </div>
-        <div class="row client well" ng-if="showScore">
+        <div class="row client well" style="display: none;" ng-if="showScore">
             
                 <div class="span gray-head">
                     <span class="boldlabel">

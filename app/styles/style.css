@@ -663,6 +663,31 @@ tr.newBg td, tr.newBg th {
     padding: 15px;
 }
 
+.z-scoreCardList-pre-select-block {
+    height: 70vh;
+    overflow: auto;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.z-scoreCardList-pre-select-text {
+    color: #b7b7b7;
+    font-weight: bold;
+    font-size: 1.5rem;
+    border: 2px dotted #d3d3d3;
+    border-radius: 6px;
+    padding: 10px 45px;
+}
+
+.z-scoreCardList-values-not-available {
+    width: 90%;
+    text-align: center;
+    color: grey;
+    font-style: italic;
+}
+
 .z-scoreCardList-blocks {
     padding: 10px;
     height: 70vh;
