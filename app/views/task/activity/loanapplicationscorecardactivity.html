@@ -1,32 +1,26 @@
-<div class="col-md-12" data-ng-controller="ApplicationScoreCardController">
-    <div>
-        <ul class="breadcrumb">
-            <li ng-show="groupName"><a href="#/viewgroup/{{formData.groupId}}"><strong>'{{groupName}}'</strong></a></li>
-            <li ng-show="clientName"><a href="#/viewclient/{{formData.clientId}}"><strong>'{{clientName}}'</strong></a>
-            </li>
-            <li><a href="#/viewloanapplicationreference/{{loanApplicationReferenceId}}"><strong>{{'label.anchor.viewloanapplication' | translate}}</strong></a>
-            </li>
-            <li class="active">{{'label.anchor.applicationscorecard' | translate}}</li>
-        </ul>
-    </div>
-    <api-validate></api-validate>
+<div class="col-md-12" ng-controller="loanpplicationscorecardActivityController">
     <div class="">
-        <!-- <button ng-click="fetchScorecardDetail(score.name)" ng-repeat="score in scoreList">Click</button> -->
+        <div class="loanApp-scoreCard-init-block" ng-if="loanApplicationScoreCardInitBlock">
+            <div class="loanApp-scoreCard-init-text">Generate Loan Application Score Card</div>
+            <div class="loanApp-scoreCard-init-btn" ng-click="loanApplicationScoreCardInit()">Generate</div>
+            <div class="loanApp-scoreCard-init-unavailable-text" ng-if="loanApplicationScoreCardInitNotice">No Score Cards Available!.</div>
+            <div class="loanApp-scoreCard-init-error-text" ng-if="loanApplicationScoreCardInitError">Error on generating score cards, <br> Try Again!.</div>
+        </div>
 
-        <div class="z-scoreCard-body">
+        <div class="z-scoreCard-body" ng-if="!loanApplicationScoreCardInitBlock">
             <div class="z-scoreCard-header">
                 <div class="z-scoreCard-title">Score Card Details</div>
             </div>
             <div class="z-scoreCardList-content">
                 <div class="z-scoreCardList-title">Score Card List</div>
                 <div class="z-scoreCardList-blocks">
-                    <div class="z-scoreCardList-block" ng-repeat="scoreCard in scoreList" ng-class="{listBtnStyle: scoreCard.name == listStyleValue }" ng-click="fetchScorecardDetail(scoreCard.name)">{{scoreCard.display}}</div>
+                    <div class="z-scoreCardList-block" ng-repeat="scoreCard in scoreList" ng-class="{listBtnStyle: scoreCard.name == listStyleValue }" ng-click="fetchScorecardDetail(scoreCard.name)">{{scoreCard.name}}</div>
                 </div>
             </div>
             <div class="z-scoreCardList-values">
-                <div class="z-scoreCardList-title">Score Card Result : {{listStyleValue}}</div>
+                <div class="z-scoreCardList-title">Score Card Result : <span class="z-scoreCardList-title-value" ng-if='listStyleValue'>{{listStyleValue}}</span></div>
                 <div class="z-scoreCardList-pre-select-block" ng-if="listStyleValue == '' ">
-                    <span class="z-scoreCardList-pre-select-text">Select on any of the Score Card</span>
+                    <span class="z-scoreCardList-pre-select-text">Select any of the Score Card</span>
                 </div>
                 <div class="z-scoreCardList-values-block" ng-if="listStyleValue != '' ">
                     
@@ -165,7 +159,6 @@
                                     </div>
                                 </div>
                             </div>
-                            
                         </div>
                     </div>
                 </div>

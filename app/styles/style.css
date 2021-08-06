@@ -618,7 +618,7 @@ tr.newBg td, tr.newBg th {
     justify-content: space-between;
     flex-wrap: wrap;
     margin: 3% 0;
-    /* border: 1px solid #eaeaea; */
+    border: 1px solid #e8e8e8;
     padding: 25px;
     box-shadow: 0 2.5px 23.9px rgb(0 0 0 / 1%), 0 12.9px 33.5px rgb(0 0 0 / 4%), 0 52px 80px rgb(0 0 0 / 5%);
     border-radius: 8px;
@@ -648,6 +648,14 @@ tr.newBg td, tr.newBg th {
     padding: 10px;
     font-size: 16px;
     font-weight: bold;
+}
+
+.z-scoreCardList-title-value {
+    color: #6d5839;
+    border: 1px solid #c5c5c5;
+    padding: 5px 20px;
+    border-radius: 4px;
+    background: #efefef;
 }
 
 .z-scoreCardList-values {
@@ -1683,4 +1691,63 @@ tr.newBg td, tr.newBg th {
 
 .loan-reject-reason{
     margin-left: 2%;
+}
+
+/* Loan Application Score Card CSS */
+.loanApp-scoreCard-init-block {
+    width: 100%;
+    border: 1px solid #d6d6d6;
+    border-radius: 4px;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    height: 40vh;
+    align-content: center;
+    background: #fbfbfb;
+}
+
+.loanApp-scoreCard-init-text {
+    width: 100%;
+    text-align: center;
+    font-size: 3rem;
+    font-weight: bold;
+    color: #444444;
+}
+
+.loanApp-scoreCard-init-btn {
+    width: 15%;
+    text-align: center;
+    padding: 10px 40px;
+    background-color: royalblue;
+    color: white;
+    font-weight: bold;
+    border-radius: 4px;
+    margin-top: 2%;
+    font-size: 1.6rem;
+    transition: box-shadow 0.6s;
+    cursor: pointer;
+}
+
+.loanApp-scoreCard-init-btn:hover {
+    background-color: rgb(53, 88, 192);
+    box-shadow: 4px 7px 10px 2px #d4d4d4;
+}
+
+.loanApp-scoreCard-init-btn:active {
+    background-color: rgb(58, 93, 199);
+    box-shadow: 4px 7px 8px #d4d4d4;
+}
+
+.loanApp-scoreCard-init-unavailable-text,
+.loanApp-scoreCard-init-error-text {
+    margin-top: 3%;
+    color: rgb(140 140 140);
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+}
+
+.loanApp-scoreCard-init-error-text {
+    color: rgb(179, 10, 10);
 }
