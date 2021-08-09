@@ -11,7 +11,9 @@
 			},
             "isMandatoryField": {
 				"dateOfBirth": true,
-                "lastName": false
+                "lastName": false,
+                "clientType":true,
+                "clientClassificationId":true
             }
         },
 		"workflow": {
