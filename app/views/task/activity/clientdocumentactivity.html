@@ -49,6 +49,7 @@
                 <td>{{clientdocument.description}}</td>
                 <td>{{clientdocument.fileName}}</td>
                 <td>
+                    <a ng-if="clientdocument.id" ng-click="openViewDocument(clientdocument)" has-permission='DOWNLOAD_DOCUMENT'><i class="icon-eye-open text-success"></i></a>&nbsp;
                     <a ng-if="clientdocument.id" ng-click="download(clientdocument)" has-permission='DOWNLOAD_DOCUMENT'><i class="icon-cloud-download"></i></a>&nbsp;
                     <a ng-if="!isTaskCompleted() && clientdocument.id" data-text="{{'label.heading.delete.document'| translate}}" data-confirm-popup ng-confirm-success="deleteDocument(clientdocument,$index, key)"><i class="icon-remove"></i></a>
                     <a ng-if="clientdocument.id && clientdocument.reportIdentifier" ng-click="reGenerateDocument(clientdocument)"><i class="icon-repeat"></i></a>
@@ -58,4 +59,11 @@
             </tbody>
         </table>    
     </div>
+    <script type="text/ng-template" id="viewDocument.html">
+        <div style="position: fixed; top:20%; right:10%; width:600px; height: 500px;">
+           <view-document-directive  ng-entity-type="{{data.parentEntityType}}"
+           ng-entity-id="{{data.parentEntityId}}"
+           ng-document-id="{{data.id}}"></view-document-directive>
+       </div>
+</script>
 </div>
