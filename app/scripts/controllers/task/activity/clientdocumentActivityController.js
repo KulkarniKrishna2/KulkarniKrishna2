@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        clientdocumentActivityController: function ($controller, scope, resourceFactory, API_VERSION, location, http, routeParams, API_VERSION, $upload, $rootScope, commonUtilService) {
+        clientdocumentActivityController: function ($controller, scope, resourceFactory, API_VERSION, location, http, routeParams, API_VERSION, $upload, $rootScope, commonUtilService,$modal) {
             angular.extend(this, $controller('defaultActivityController', {$scope: scope}));
             scope.onFileSelect = function ($files) {
                 scope.file = $files[0];
@@ -264,9 +264,28 @@
                 commonUtilService.downloadFile(url,documentType,document.fileName);
             };
 
+            var viewDocumentCtrl= function ($scope, $modalInstance, documentDetail) {
+                $scope.data = documentDetail;
+                $scope.close = function () {
+                    $modalInstance.close('close');
+                };
+               
+            };
+            scope.openViewDocument = function (documentDetail) {
+                $modal.open({
+                    templateUrl: 'viewDocument.html',
+                    controller: viewDocumentCtrl,
+                    resolve: {
+                        documentDetail: function () {
+                            return documentDetail;
+                        }
+                    }
+                });
+            };
+
         }
     });
-    mifosX.ng.application.controller('clientdocumentActivityController', ['$controller','$scope', 'ResourceFactory', 'API_VERSION', '$location', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', 'CommonUtilService', mifosX.controllers.clientdocumentActivityController]).run(function ($log) {
+    mifosX.ng.application.controller('clientdocumentActivityController', ['$controller','$scope', 'ResourceFactory', 'API_VERSION', '$location', '$http', '$routeParams', 'API_VERSION', '$upload', '$rootScope', 'CommonUtilService','$modal', mifosX.controllers.clientdocumentActivityController]).run(function ($log) {
         $log.info("clientdocumentActivityController initialized");
     });
 }(mifosX.controllers || {}));
