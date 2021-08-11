@@ -3,6 +3,14 @@
         loanpplicationscorecardActivityController: function ($controller, scope, resourceFactory, API_VERSION, location, http, routeParams, API_VERSION, $upload, $rootScope, commonUtilService) {
             angular.extend(this, $controller('defaultActivityController', {$scope: scope}));
 
+            scope.scorekey = scope.taskconfig['scorecard'];
+            scope.loanApplicationScoreCardInitBlock = true;
+            scope.loanApplicationScoreCardInitNotice = false;
+            scope.loanApplicationScoreCardInitError = false;
+            scope.loanApplicationScoreCardInit = function() {
+                fetchScores();
+            }
+
             function checkTaskStatus() {
                 if(scope.isTaskCompleted()) {
                     scope.loanApplicationScoreCardInitBlock = false;
@@ -11,45 +19,49 @@
             }
             checkTaskStatus();
 
-            scope.loanApplicationScoreCardInitBlock = true;
-            scope.loanApplicationScoreCardInitNotice = false;
-            scope.loanApplicationScoreCardInitError = false;
-            scope.loanApplicationScoreCardInit = function() {
-                fetchScores();
-            }
+            
 
             scope.loanApplicationReferenceId = routeParams.loanApplicationId;
             
             // For Fetching the score card details
             function fetchScores(){
-                resourceFactory.loanAppScoreCardResourceList.getAll({loanAppId:scope.loanApplicationReferenceId}, function (response) {
+                // resourceFactory.loanAppScoreCardResourceList.getAll({loanAppId:scope.loanApplicationReferenceId}, function (response) {
+                //     scope.loanApplicationScoreCardInitError = false;
+                //     scope.loanApplicationScoreCardInitNotice = false;
+                //     scope.showScore = true;
+                //     scope.scoreList = response;
+                //     console.log(response);
+                //     if(scope.scoreList.length > 0) {
+                //         scope.loanApplicationScoreCardInitBlock = false;
+                //     } else {
+                //         scope.loanApplicationScoreCardInitNotice = true;
+                //     }
+
+                //     if(scope.isTaskCompleted()) {
+                //         scope.fetchScorecardDetail(scope.scoreList[0].name);
+                //     }
+                // },function(error) {
+                //     scope.loanApplicationScoreCardInitError = true;
+                // });
+                resourceFactory.loanAppScoreCardResource.post({loanAppId:scope.loanApplicationReferenceId, scoreKey: scope.scorekey}, function (response) {
                     scope.loanApplicationScoreCardInitError = false;
                     scope.loanApplicationScoreCardInitNotice = false;
                     scope.showScore = true;
-                    scope.scoreList = response;
-                    console.log(response);
-                    if(scope.scoreList.length > 0) {
-                        scope.loanApplicationScoreCardInitBlock = false;
-                    } else {
-                        scope.loanApplicationScoreCardInitNotice = true;
-                    }
-
-                    if(scope.isTaskCompleted()) {
-                        scope.fetchScorecardDetail(scope.scoreList[0].name);
-                    }
+                    scope.scoreList = [];
+                    scope.scoreList.push(scope.scorekey);
+                    scope.loanApplicationScoreCardInitBlock = false;
+                    scope.fetchScorecardDetail(scope.scoreList[0]);
                 },function(error) {
-                    scope.loanApplicationScoreCardInitError = true;
+                        scope.loanApplicationScoreCardInitError = true;
                 });
             }
 
             // fetchScores();
 
             scope.fetchScorecardDetail = function (selctedScoreKey) {
-                console.log(selctedScoreKey);
                 scope.showScoreDetail = true;
                 resourceFactory.loanAppScoreCardResource.get({loanAppId:scope.loanApplicationReferenceId, scoreKey:selctedScoreKey}, function (response) {
                     scope.scoreCardList = response;
-                    console.log(response);
                     scope.getScoreCardResult(selctedScoreKey);
                 });
             };
