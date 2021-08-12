@@ -851,8 +851,9 @@
                     delete this.formData.interestRateDifferential ;
                     delete this.formData.isFloatingInterestRate ;
                 }
-                if(scope.formData.repaymentFrequencyType == 2 && scope.formData.repaymentFrequencyNthDayType){
+                if(scope.formData.repaymentFrequencyType == 2 && scope.formData.repaymentFrequencyNthDayType == -2){
                     scope.formData.repeatsOnDayOfMonth = scope.selectedOnDayOfMonthOptions;
+                    delete scope.formData.repaymentFrequencyDayOfWeekType;
                 }else{
                     scope.formData.repeatsOnDayOfMonth = [];
                 }
@@ -869,6 +870,8 @@
                 }else{
                     this.formData.loanIdToClose = undefined;
                 }
+                scope.formData.userOverriddenTerms = populateUserOverriddenTerms();
+                scope.formData.id = routeParams.id;
                 resourceFactory.loanResource.save({command: 'calculateLoanSchedule'}, this.formData, function (data) {
                     scope.repaymentscheduleinfo = data;
                     scope.previewRepayment = true;
@@ -991,8 +994,9 @@
                 if(this.formData.fixedEmiAmount == undefined){
                     //this.formData.fixedEmiAmount = null;
                 }
-                if(scope.formData.repaymentFrequencyType == 2 && scope.formData.repaymentFrequencyNthDayType){
+                if(scope.formData.repaymentFrequencyType == 2 && scope.formData.repaymentFrequencyNthDayType == -2){
                     scope.formData.repeatsOnDayOfMonth = scope.selectedOnDayOfMonthOptions;
+                    delete scope.formData.repaymentFrequencyDayOfWeekType;
                 }else{
                     scope.formData.repeatsOnDayOfMonth = [];
                 }
@@ -1034,6 +1038,7 @@
                 if (!(scope.loanaccountinfo.product.isRepaymentAtDisbursement == true && scope.formData.brokenPeriodMethodType === 3)) {
                     delete scope.formData.brokenPeriodInterestCollectAtDisbursement;
                 }
+                scope.formData.userOverriddenTerms = populateUserOverriddenTerms();
                 resourceFactory.loanResource.put({loanId: routeParams.id}, this.formData, function (data) {
                     location.path('/viewloanaccount/' + data.loanId);
                 });
@@ -1063,7 +1068,7 @@
                 for (var i in this.available) {
                     for (var j in scope.repeatsOnDayOfMonthOptions) {
                         if (scope.repeatsOnDayOfMonthOptions[j] == this.available[i]) {
-                            scope.selectedOnDayOfMonthOptions.push(this.available[i]);
+                            scope.selectedOnDayOfMonthOptions.push(parseInt(this.available[i]));
                             scope.repeatsOnDayOfMonthOptions.splice(j, 1);
                             break;
                         }
@@ -1192,6 +1197,36 @@
                         }
                     }
                     return tempCharges;
+            }
+
+            var populateUserOverriddenTerms = function() {
+                var userOverriddenTerms = [];
+                if (dateFilter(new Date(scope.loanaccountinfo.interestChargedFromDate), scope.df)!= dateFilter(new Date(scope.formData.interestChargedFromDate), scope.df)) {
+                    userOverriddenTerms.push("interestChargedFromDate");
+                }
+                if(dateFilter(new Date(scope.loanaccountinfo.expectedFirstRepaymentOnDate), scope.df) != dateFilter(new Date(scope.formData.repaymentsStartingFromDate), scope.df) || scope.formData.repaymentEvery != scope.loanaccountinfo.repaymentEvery || scope.formData.repaymentFrequencyType != scope.loanaccountinfo.repaymentFrequencyType.id
+                    || ((scope.loanaccountinfo.meeting.repeatsOnNthDayOfMonth && scope.formData.repaymentFrequencyNthDayType != scope.loanaccountinfo.meeting.repeatsOnNthDayOfMonth.id) || (!scope.loanaccountinfo.meeting.repeatsOnNthDayOfMonth && scope.formData.repaymentFrequencyNthDayType))
+                     || ((scope.loanaccountinfo.meeting.repeatsOnDay && scope.formData.repaymentFrequencyDayOfWeekType != scope.loanaccountinfo.meeting.repeatsOnDay.id) || (!scope.loanaccountinfo.meeting.repeatsOnDay && scope.formData.repaymentFrequencyDayOfWeekType))) {
+                    userOverriddenTerms.push("repaymentDay");
+                }  else if (scope.formData.repaymentFrequencyNthDayType && scope.formData.repaymentFrequencyNthDayType == -2) { 
+                    if(scope.formData.repeatsOnDayOfMonth.length != scope.loanaccountinfo.meeting.repeatsOnDayOfMonth.length) {
+                        userOverriddenTerms.push("repaymentDay");
+                    } else {
+                        for(var i=0; i<scope.loanaccountinfo.meeting.repeatsOnDayOfMonth.length; i++) {
+                            if(scope.formData.repeatsOnDayOfMonth.indexOf(scope.loanaccountinfo.meeting.repeatsOnDayOfMonth[i])== -1) {
+                                userOverriddenTerms.push("repaymentDay");
+                                break;
+                            }
+                        }
+                    }
+                }
+                if((scope.loanaccountinfo.brokenPeriodMethodType &&  scope.loanaccountinfo.brokenPeriodMethodType.id != scope.formData.brokenPeriodMethodType)|| (!scope.loanaccountinfo.brokenPeriodMethodType && scope.formData.brokenPeriodMethodType)) {
+                    userOverriddenTerms.push("brokenPeriodMethod");
+                }
+                if (scope.loanaccountinfo.product.isRepaymentAtDisbursement == true && scope.formData.brokenPeriodMethodType === 3 && (scope.formData.brokenPeriodInterestCollectAtDisbursement !=undefined || scope.formData.brokenPeriodInterestCollectAtDisbursement!=null) && scope.formData.brokenPeriodInterestCollectAtDisbursement !=scope.loanaccountinfo.brokenPeriodInterestCollectAtDisbursement) {
+                    userOverriddenTerms.push("collectBrokenPeriodInterestAtDisbursement");
+                }                
+                return userOverriddenTerms;
             }
         }
     });

@@ -704,8 +704,9 @@
                 if(this.formData.interestCalculationPeriodType == 0){
                     this.formData.allowPartialPeriodInterestCalcualtion = false;
                 }
-                if(scope.formData.repaymentFrequencyType == 2 && scope.formData.repaymentFrequencyNthDayType){
+                if(scope.formData.repaymentFrequencyType == 2 && scope.formData.repaymentFrequencyNthDayType == -2){
                     scope.formData.repeatsOnDayOfMonth = scope.selectedOnDayOfMonthOptions;
+                    delete scope.formData.repaymentFrequencyDayOfWeekType;
                 }else{
                     scope.formData.repeatsOnDayOfMonth = [];
                 }
@@ -733,6 +734,7 @@
                 }else{
                     this.formData.loanIdToClose = undefined;
                 }
+                scope.formData.userOverriddenTerms = populateUserOverriddenTerms();
                 resourceFactory.loanResource.save({command: 'calculateLoanSchedule'}, this.formData, function (data) {
                     scope.repaymentscheduleinfo = data;
                     if(data.periods.length > 0) {        
@@ -846,8 +848,9 @@
                 if(this.formData.interestCalculationPeriodType == 0){
                     this.formData.allowPartialPeriodInterestCalcualtion = false;
                 }
-                if(scope.formData.repaymentFrequencyType == 2 && scope.formData.repaymentFrequencyNthDayType){
+                if(scope.formData.repaymentFrequencyType == 2 && scope.formData.repaymentFrequencyNthDayType == -2){
                     scope.formData.repeatsOnDayOfMonth = scope.selectedOnDayOfMonthOptions;
+                    delete scope.formData.repaymentFrequencyDayOfWeekType;
                 }else{
                     scope.formData.repeatsOnDayOfMonth = [];
                 }
@@ -894,6 +897,7 @@
                 if (!(scope.loanaccountinfo.product.isRepaymentAtDisbursement == true && scope.formData.brokenPeriodMethodType === 3)) {
                     delete scope.formData.brokenPeriodInterestCollectAtDisbursement;
                 }
+                scope.formData.userOverriddenTerms = populateUserOverriddenTerms();
                 resourceFactory.loanResource.save(this.formData, function (data) {
                     location.path('/viewloanaccount/' + data.loanId);
                 });
@@ -949,7 +953,7 @@
                 for (var i in this.available) {
                     for (var j in scope.repeatsOnDayOfMonthOptions) {
                         if (scope.repeatsOnDayOfMonthOptions[j] == this.available[i]) {
-                            scope.selectedOnDayOfMonthOptions.push(this.available[i]);
+                            scope.selectedOnDayOfMonthOptions.push(parseInt(this.available[i]));
                             scope.repeatsOnDayOfMonthOptions.splice(j, 1);
                             break;
                         }
@@ -1072,6 +1076,36 @@
                 if(selectedLoanPurpose){
                     scope.showLoanPurposeCustomField = selectedLoanPurpose.isCustom;
                 }
+            }
+
+            var populateUserOverriddenTerms = function() {
+                var userOverriddenTerms = [];
+                if(scope.date.third) {
+                    userOverriddenTerms.push("interestChargedFromDate");
+                }
+                if(scope.date.fourth || scope.formData.repaymentEvery != scope.loanaccountinfo.repaymentEvery || scope.formData.repaymentFrequencyType != scope.loanaccountinfo.repaymentFrequencyType.id
+                    || ((scope.loanaccountinfo.product.repaymentFrequencyNthDayType && scope.formData.repaymentFrequencyNthDayType != scope.loanaccountinfo.product.repaymentFrequencyNthDayType.id) || (!scope.loanaccountinfo.product.repaymentFrequencyNthDayType && scope.formData.repaymentFrequencyNthDayType))
+                     || ((scope.loanaccountinfo.product.repaymentFrequencyDayOfWeekType && scope.formData.repaymentFrequencyDayOfWeekType != scope.loanaccountinfo.product.repaymentFrequencyDayOfWeekType.id) || (!scope.loanaccountinfo.product.repaymentFrequencyDayOfWeekType && scope.formData.repaymentFrequencyDayOfWeekType))) {
+                    userOverriddenTerms.push("repaymentDay");
+                }  else if (scope.formData.repaymentFrequencyNthDayType && scope.formData.repaymentFrequencyNthDayType == -2) { 
+                    if(scope.formData.repeatsOnDayOfMonth.length != scope.loanaccountinfo.product.repeatsOnDayOfMonth.length) {
+                        userOverriddenTerms.push("repaymentDay");
+                    } else {
+                        for(var i=0; i<scope.loanaccountinfo.product.repeatsOnDayOfMonth.length; i++) {
+                            if(scope.formData.repeatsOnDayOfMonth.indexOf(scope.loanaccountinfo.product.repeatsOnDayOfMonth[i])== -1) {
+                                userOverriddenTerms.push("repaymentDay");
+                                break;
+                            }
+                        }
+                    }
+                }
+                if((scope.loanaccountinfo.brokenPeriodMethodType && scope.loanaccountinfo.brokenPeriodMethodType.id != scope.formData.brokenPeriodMethodType) || (!scope.loanaccountinfo.brokenPeriodMethodType &&  scope.formData.brokenPeriodMethodType.toString() !="")) {
+                    userOverriddenTerms.push("brokenPeriodMethod");
+                }
+                if (scope.loanaccountinfo.product.isRepaymentAtDisbursement == true && scope.formData.brokenPeriodMethodType === 3 && (scope.formData.brokenPeriodInterestCollectAtDisbursement !=undefined || scope.formData.brokenPeriodInterestCollectAtDisbursement!=null) && scope.formData.brokenPeriodInterestCollectAtDisbursement !=scope.loanaccountinfo.product.brokenPeriodInterestCollectAtDisbursement) {
+                    userOverriddenTerms.push("collectBrokenPeriodInterestAtDisbursement");
+                }                
+                return userOverriddenTerms;
             }
         }
     });
