@@ -161,6 +161,11 @@
 				"interestRate": false,
 				"flatInterestRate": false
 			}
+		},
+		"cbReview":{
+			"isHiddenField":{
+				"appliedAmount": true
+			}
 		}
 	}
 }

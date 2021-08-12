@@ -172,6 +172,7 @@
     "label.heading.arrears": "Arrears",
     "label.heading.serviceType": "External Service Type",
     "label.heading.reset": "Reset",
+    "label.heading.loan.soa.report": "Statement of Account",
     "label.input.indays": "In Days",
     "label.input.liabilityaccount": "Liability Account (CR)",
     "label.input.expenseaccount": "Expense Account (DR)",
@@ -472,6 +473,7 @@
     "label.button.viewworkflow": "View Workflow",
     "label.button.clientprofilereport": "Client Profile Reports",
     "label.button.loanaccountreport": "Loan Account Reports",
+    "label.button.loansoareport": "Statement of Account",
     "label.button.savingaccountreport": "Saving Account Reports",
     "label.button.preapprove": "Pre Approve",
     "label.button.overridecrn": "Tag CRN",
@@ -2054,6 +2056,7 @@
     "label.anchor.loanaccountreports": "Loan Reports",
     "label.anchor.savingaccountreports": "Saving Reports",
     "label.anchor.loanrectification": "Loan rectification",
+    "label.anchor.loan.soa.report": "Statement of Account",
 
     "#Inputs": "..",
     "label.input.grouptotal": "Group total",
@@ -4168,6 +4171,7 @@
     "label.checkbox.ischargeamountnoneditable": "Is Amount Non Editable",
     "label.input.available.permission.groups": "Available Permission Groups",
     "label.input.selected.permission.groups": "Selected Permission Groups",
+    "label.input.ason": "As On",
 
     "#Buttons": "..",
     "label.button.createcharge": "Create Charge",

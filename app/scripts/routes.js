@@ -286,6 +286,9 @@
             .when('/viewclientchargetrxn/:clientId/transactionId/:transactionId', {
                 templateUrl: 'views/clients/view_client_charge_transaction.html'
             })
+            .when('/loansoareport/:loanId', {
+                templateUrl: 'views/loans/loansoareport.html'
+            })
             .when('/organization', {
                 templateUrl: 'views/administration/organization.html'
             })
