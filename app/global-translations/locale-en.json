@@ -8121,6 +8121,8 @@
     "error.msg.loan.prudential.written.off" : "Loan is prudential written off.",
     "error.msg.fldg.loan.prudential.written.off" : "FLDG loan can be prudential write of.",
     "label.anchor.repaidamount":"Repaid Amount",
+    "error.msg.loan.in.arrears.cant.be.refund":"Loan in arrears cant be refund",
+    "validation.msg.loan.transaction.transactionDate.is.greater.than.date":"Loan transaction date is greater than current date",
     "validation.msg.recurringdepositaccount.summital.cannot.be.before.client.activation.date" : "Account cannot be created before client activation date. ",
     "error.msg.loan.application.add.all.loan.product.mandatory.charges" : "Please add all the loan product mandatory charges.",
     "validation.msg.loanapplicationreference.expectedTrancheDisbursementDate.disbursement.date.must.be.unique.for.tranches" : "Disbursement date shouldbe unique for all tranches",
