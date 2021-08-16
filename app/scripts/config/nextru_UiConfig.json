@@ -11,7 +11,9 @@
 			},
             "isMandatoryField": {
 				"dateOfBirth": true,
-                "lastName": false
+                "lastName": false,
+                "clientType":true,
+                "clientClassificationId":true
             }
         },
 		"workflow": {
@@ -60,6 +62,16 @@
         "viewLoanAccountDetails": {
 			"isHiddenFeild": {
                 "prepayLoanButton": false
+            }
+        },
+        "createLoanApplication":{
+            "isMandatoryField":{
+                "externalIdOne": true
+            }
+        },
+        "paymentDetails":{
+            "isMandatory":{
+                "receiptNumber": true
             }
         }
     }
