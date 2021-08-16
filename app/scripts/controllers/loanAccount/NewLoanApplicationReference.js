@@ -61,6 +61,7 @@
                     scope.isMandatoryRateOfInterest = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.interestRatePerPeriod;
                     scope.isMandatoryDisbursementPaymentMode = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.disbursementPaymentMode;
                     scope.isMandatoryDisbursementPaymentType = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.disbursementPaymentType;
+                    scope.isExternalIdOne = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.externalIdOne;
                 }
                 if (scope.response.uiDisplayConfigurations.createLoanApplication.isMandatory) {
                     scope.loanReferenceTrancheData = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatory.trancheData;
