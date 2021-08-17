@@ -6226,6 +6226,7 @@
 
     "task": ".....",
     "info.message.activity.kyc.nodata": "No KYC data found for the client.",
+    "info.message.activity.bankaccount.nodata": "No Bank Account details found for the client.",
     "info.message.activity.creditbureauactivity.nodata": "No Credit Bureau details found for the client.",
     "info.message.taskList.noTasks": "Do not have any tasks!",
     "label.camactivity.heading.applicantdetails": "Applicant Details",
@@ -7669,6 +7670,7 @@
 
     "#Bank Accounts for Clients": "..",
     "label.anchor.bank.accounts": "Bank Accounts",
+    "label.anchor.add.bank.account.details": "Add Bank Account Details",
     "label.heading.bank.account.details": "Bank Account Details",
     "label.heading.ifsc": "IFSC",
     "label.button.add.bankaccountdetails": "Add Bank Account Details",

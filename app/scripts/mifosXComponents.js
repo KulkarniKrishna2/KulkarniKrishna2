@@ -496,6 +496,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'task/activity/groupmembersActivityController',
             'task/activity/loanAppCoApplicantActivityController',
             'task/activity/ClientDeDuplicationActivityController',
+            'task/activity/ClientBankAccountActivityController',
             'task/activity/AddressActivityController',
             'task/activity/clientActivationActivityController',
             'task/activity/CoApplicantActivityController',
