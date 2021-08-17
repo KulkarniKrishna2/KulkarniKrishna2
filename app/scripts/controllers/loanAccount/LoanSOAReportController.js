@@ -17,7 +17,7 @@
 
             scope.reportGenerated = false;
             scope.formData = {};
-            scope.formData.R_account = scope.loandetails.accountNo;
+            scope.formData.R_account = scope.accountId;
             scope.formData.R_ason = new Date();
             scope.formData.outputType = 'PDF';
 
@@ -30,7 +30,7 @@
                 var paramName = "R_ason";
                 reportParams += encodeURIComponent(paramName) + "=" + encodeURIComponent(scope.formData.R_ason) + "&";
                 paramName = "R_account";
-                reportParams += encodeURIComponent(paramName) + "=" + encodeURIComponent(scope.loandetails.accountNo);
+                reportParams += encodeURIComponent(paramName) + "=" + encodeURIComponent(scope.accountId);
                 if (reportParams > "") {
                     scope.baseURL += "&" + reportParams;
                 }
