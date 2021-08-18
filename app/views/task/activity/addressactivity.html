@@ -188,7 +188,7 @@
                     <div class="col-sm-6 col-md-6">
                         <div class="span gray-head" ng-show="addressData.length > 0">
                         <span class="boldlabel">
-                            <strong>{{address.addressEntityData[0].addressType.name}}</strong>r
+                            <strong>{{address.addressEntityData[0].addressType.name}}</strong>
                         </span>
                         </div>
                         <table class="table table-stripped table-bordered" ng-show="addressData.length > 0">
@@ -246,7 +246,7 @@
                                     <span class="padded-td" ng-if = address.addressRegionValueData.Township.name>{{address.addressRegionValueData.Township.name}}</span>
                             </td>
                             </tr>
-                                <tr ng-if = "!isLevelBasedAddressEnabled">    
+                                <tr ng-if = "!isLevelBasedAddressEnabled" ng-hide="isTalukaHidden">    
                                     <th class="table-bold-loan">{{'label.heading.talukname' | translate}}</th>
                                     <td>
                                         <span class="padded-td">{{address.talukaData.talukaName}}</span>

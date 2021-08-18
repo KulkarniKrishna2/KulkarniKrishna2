@@ -75,6 +75,8 @@
             if (scope.response && scope.response.uiDisplayConfigurations) {
 
                 scope.isGenderReadOnly = scope.response.uiDisplayConfigurations.createClient.isReadOnlyField.gender; 
+                scope.isTalukaHidden = scope.response.uiDisplayConfigurations.taluka.isTalukaHidden;
+                scope.isTalukaMandatory = scope.response.uiDisplayConfigurations.taluka.isTalukaMandatory;
 
                 if (scope.response.uiDisplayConfigurations.defaultGISConfig && scope.response.uiDisplayConfigurations.defaultGISConfig.isReadOnlyField && scope.response.uiDisplayConfigurations.defaultGISConfig.isReadOnlyField.countryName) {
                     scope.isCountryReadOnly = scope.response.uiDisplayConfigurations.defaultGISConfig.isReadOnlyField.countryName;
@@ -129,6 +131,12 @@
                         }
                         if (scope.response.uiDisplayConfigurations.createClient.isMandatoryField.addressType) {
                             scope.isAddressTypeMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.addressType;
+                        }
+                        if (scope.response.uiDisplayConfigurations.createClient.isMandatoryField.streetName){
+                            scope.isStreetNameMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.streetName;
+                        }
+                        if (scope.response.uiDisplayConfigurations.createClient.isMandatoryField.houseNo){
+                            scope.isHouseNoMandatory = scope.response.uiDisplayConfigurations.createClient.isMandatoryField.houseNo;
                         }
                     }
 
@@ -810,7 +818,6 @@
                     return false;
                 }
                 if (!scope.dateOfBirthNotInRange || !scope.invalidClassificationId || !scope.pincode || !scope.isVillageTownMandatory || !isCountryReadOnly || !isAddressTypeMandatory) {
-
                     resourceFactory.clientResource.save(this.formData, function (data) {
                         if (routeParams.pledgeId) {
                             var updatedData = {};

@@ -6,6 +6,20 @@
             "isHiddenField": {
               "interestChargedFromDate": false
             }
+          },
+          "taluka":{
+              "isTalukaHidden": true,
+              "isTalukaMandatory":false
+          },
+          "createClient":{
+            "isMandatoryField": {
+              "villageTown": true,
+              "addressType": true,
+              "mobileNumber": true,
+              "emailId": true,
+              "streetName": true,
+              "houseNo": true
+            }
           }
     }
   }

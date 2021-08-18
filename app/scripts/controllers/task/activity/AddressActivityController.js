@@ -16,6 +16,9 @@
                 if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.defaultGISConfig.isReadOnlyField.countryName) {
                     scope.isCountryReadOnly = scope.response.uiDisplayConfigurations.defaultGISConfig.isReadOnlyField.countryName;
                 }
+                if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.taluka){
+                    scope.isTalukaHidden = scope.response.uiDisplayConfigurations.taluka.isTalukaHidden;
+                }
                 if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createOffice) {
                     if(scope.response.uiDisplayConfigurations.createOffice.isHiddenField){
                         if(scope.response.uiDisplayConfigurations.createOffice.isHiddenField.pincode){

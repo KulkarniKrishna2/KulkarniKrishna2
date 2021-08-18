@@ -837,6 +837,10 @@
 			"isHiddenField":{
 				"appliedAmount": false
 			}
+		},
+		"taluka":{
+				"isTalukaHidden": false,
+				"isTalukaMandatory":true
 		}
 	}
 }
