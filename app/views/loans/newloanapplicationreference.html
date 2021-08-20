@@ -111,16 +111,83 @@
                     <form-validate valattributeform="newloanapplicationform" valattribute="numberOfRepayments"/>
                 </td>
 
-                <td><label>{{ 'label.input.repaidevery' | translate }}&nbsp;<span class="required">*</span></label></td>
-                <td class="paddedbottom10 width500px">
+                <td ng-if="!repaidEveryConfigIsActive"><label>{{ 'label.input.repaidevery' | translate }}&nbsp;<span class="required">*</span></label></td>
+                <td ng-if="!repaidEveryConfigIsActive" class="paddedbottom10 width500px">
                     <input id="repayEvery" name="repayEvery" class="form-control" type="text" autocomplete="off"
                            ng-model="formData.repayEvery"  ng-change="calculateTermFrequency()"/>
-                    <select id="repaymentFrequencyType" class="form-control"
+                    <select id="repaymentPeriodFrequencyEnum" class="form-control"
                             ng-model="formData.repaymentPeriodFrequencyEnum"
                             ng-options="termFrequencyType.id as termFrequencyType.value for termFrequencyType in loanaccountinfo.termFrequencyTypeOptions"
                             value="{{termFrequencyType.id}}" ng-change="calculateTermFrequency()"/>
                     <form-validate valattributeform="newloanapplicationform" valattribute="repayEvery"/>
                 </td>
+
+                <tr ng-if="repaidEveryConfigIsActive && !loanaccountinfo.loanEMIPacks">
+                    <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentEvery == true">
+                        <label>{{ 'label.input.repaidevery' | translate }}&nbsp;<span class="required">*</span></label></td>
+                    <td class="paddedbottom10 width500px"
+                        ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentEvery == true">
+                        <input id="repaymentEvery" class="form-control" type="text" autocomplete="off" name="repaidevery"
+                            ng-model="formData.repayEvery"
+                            ng-disabled="!loanaccountinfo.product.allowAttributeOverrides.repaymentEvery" required late-Validate />
+                        <select id="repaymentPeriodFrequencyEnum" class="form-control" ng-model="formData.repaymentPeriodFrequencyEnum"
+                            ng-options="repaymentPeriodFrequencyEnum.id as repaymentPeriodFrequencyEnum.value for repaymentPeriodFrequencyEnum in loanaccountinfo.termFrequencyTypeOptions"
+                            ng-disabled="((!loanaccountinfo.product.allowAttributeOverrides.repaymentEvery) ||(response.uiDisplayConfigurations.loanAccount.isReadOnlyField.repaymentFrequencyType))"
+                            value="{{repaymentPeriodFrequencyEnum.id}}" />&nbsp;<span
+                            ng-show="formData.repaymentPeriodFrequencyEnum == 2 && showRepaymentFrequencyNthDayType">on</span>
+                        <select id="repaymentFrequencyNthDayType" class="form-control" ng-model="formData.repaymentFrequencyNthDayType"
+                            ng-options="repaymentFrequencyNthDayType.id as repaymentFrequencyNthDayType.value for repaymentFrequencyNthDayType in loanaccountinfo.repaymentFrequencyNthDayTypeOptions"
+                            ng-show="formData.repaymentPeriodFrequencyEnum == 2 && showRepaymentFrequencyNthDayType"
+                            ng-disabled="((!loanaccountinfo.product.allowAttributeOverrides.repaymentEvery) ||(response.uiDisplayConfigurations.loanAccount.isReadOnlyField.repaymentFrequencyType))"
+                            value="{{repaymentFrequencyNthDayType.id}}" />&nbsp;
+                        <select id="repaymentFrequencyDayOfWeekType" class="form-control"
+                            ng-model="formData.repaymentFrequencyDayOfWeekType"
+                            ng-options="repaymentFrequencyDayOfWeekType.id as repaymentFrequencyDayOfWeekType.value for repaymentFrequencyDayOfWeekType in loanaccountinfo.repaymentFrequencyDaysOfWeekTypeOptions"
+                            ng-show="formData.repaymentPeriodFrequencyEnum == 2 &&  formData.repaymentFrequencyNthDayType != -2 && showRepaymentFrequencyDayOfWeekType"
+                            ng-disabled="((!loanaccountinfo.product.allowAttributeOverrides.repaymentEvery) ||(response.uiDisplayConfigurations.loanAccount.isReadOnlyField.repaymentFrequencyType))"
+                            value="{{repaymentFrequencyDayOfWeekType.id}}" />&nbsp;
+                        <form-validate valattributeform="newloanaccountform" valattribute="repaidevery" />
+                    </td>
+                    <td data-ng-show="formData.repaymentPeriodFrequencyEnum == 2 && formData.repaymentFrequencyNthDayType == -2">
+                        <label>{{ 'label.input.selectmonthday' | translate }}</label>
+                    </td>
+                    <td align="left" class="paddedbottom10"
+                        data-ng-show="formData.repaymentPeriodFrequencyEnum == 2 && formData.repaymentFrequencyNthDayType == -2">
+                        <table>
+                            <tr>
+                                <td align="left">
+                                    <select id="avilabledays" ng-model="available" name="avilabledays"
+                                        class="form-control multiselectmin"
+                                        ng-disabled="((!loanaccountinfo.product.allowAttributeOverrides.repaymentEvery) ||(response.uiDisplayConfigurations.loanAccount.isReadOnlyField.repaymentFrequencyType))"
+                                        multiple>
+                                        <option ng-repeat="onday in repeatsOnDayOfMonthOptions" value="{{onday}}">
+                                            {{onday}}
+                                        </option>
+                                    </select>
+                                    &nbsp;
+                                </td>
+                                <td align="left">
+                                    <button type="button" class="btn btn-primary" data-ng-click="addMonthDay()"><i
+                                            class="icon-double-angle-right"></i></button>
+                                    <br />
+                                    <button type="button" class="btn btn-primary" data-ng-click="removeMonthDay()"><i
+                                            class="icon-double-angle-left"></i></button>
+                                    &nbsp;
+                                </td>
+                                <td align="left">
+                                    <select id="selecteddays" ng-model="selected" name="selecteddays"
+                                        class="form-control multiselectmin"
+                                        ng-disabled="((!loanaccountinfo.product.allowAttributeOverrides.repaymentEvery) ||(response.uiDisplayConfigurations.loanAccount.isReadOnlyField.repaymentPeriodFrequencyEnum))"
+                                        multiple>
+                                        <option ng-repeat="onday in selectedOnDayOfMonthOptions" value="{{onday}}">
+                                            {{onday}}
+                                        </option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
             </tr>
             <tr ng-show="loanaccountinfo.loanEMIPacks" class="width100">
                 <td colspan="4">
@@ -504,7 +571,7 @@
                 {{'label.button.save' |
                 translate}}
             </button>
-            <a  ng-show="showPreviewRepayments()" class="btn btn-primary" ng-click="previewRepayments()">{{'label.button.schedulepreview' | translate}}</a>
+            <a  ng-show="showPreviewRepayments() && !loanaccountinfo.loanEMIPacks && repaidEveryConfigIsActive" class="btn btn-primary" ng-click="previewRepayments()">{{'label.button.schedulepreview' | translate}}</a>
             <a ng-show="showBackToPreviewRepayments()" class="btn btn-primary" ng-click="previewRepayment=!previewRepayment">{{'label.anchor.backtoloaninfo'
             | translate}}</a>
         </div>

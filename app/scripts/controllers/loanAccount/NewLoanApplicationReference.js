@@ -46,6 +46,9 @@
             scope.isLoanOfficerRequired = false;
             scope.showLoanPurposeCustomField = false;
             scope.showLoanTerms = true;
+            scope.repeatsOnDayOfMonthOptions = [];
+            scope.selectedOnDayOfMonthOptions = [];
+            scope.repeatsOnDayOfMonth =[];
 
             if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createLoanApplication) {
                 if (scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField) {
@@ -68,6 +71,20 @@
                     scope.isLoanOfficerRequired = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.loanOfficer;
                 }
             }
+
+            for (var i = 1; i <= 28; i++) {
+                scope.repeatsOnDayOfMonthOptions.push(i);
+            }
+
+            if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.loanAccount) {
+                scope.showRepaymentFrequencyNthDayType = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentFrequencyNthDayType;
+                scope.showRepaymentFrequencyDayOfWeekType = !scope.response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentFrequencyDayOfWeekType;     
+            }
+
+            if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.loanApplicationDisbursal){
+                scope.repaidEveryConfigIsActive = !scope.response.uiDisplayConfigurations.loanApplicationDisbursal.isHiddenField.repaidEvery;
+            }
+
             resourceFactory.clientResource.get({clientId: routeParams.clientId, associations:'hierarchyLookup'}, function (data) {
                 if (data.groups.length == 1) {
                     if (data.groups[0].groupLevel == 2) {
@@ -128,6 +145,7 @@
                     scope.loanPurposeOptions = scope.loanaccountinfo.loanPurposeOptions;
                     scope.formData.isTopup = scope.loanaccountinfo.canUseForTopup;
                     scope.product = scope.loanaccountinfo.product;
+                 
                     if(scope.loanaccountinfo.loanEMIPacks){
                         var len = scope.loanaccountinfo.loanEMIPacks.length;
                         for(var i = 0; i < len; i++){
@@ -142,14 +160,34 @@
                         }
                     }else{
                         scope.formData.loanAmountRequested = scope.loanaccountinfo.principal;
-                        scope.formData.fixedEmiAmount = scope.loanaccountinfo.fixedEmiAmount;
+                        if (scope.loanaccountinfo.fixedEmiAmount) {
+                            scope.formData.fixedEmiAmount = scope.loanaccountinfo.fixedEmiAmount;
+                        }
                         scope.formData.numberOfRepayments = scope.loanaccountinfo.numberOfRepayments;
                         scope.formData.repayEvery = scope.loanaccountinfo.repaymentEvery;
                         scope.formData.repaymentPeriodFrequencyEnum = scope.loanaccountinfo.repaymentFrequencyType.id;
                         delete scope.formData.loanEMIPackId;
                     }
+
                     if(scope.canDisburseToGroupsBanks() && scope.inparams.templateType ==='individual'){
                         scope.formData.groupId = undefined;
+                    }
+                    if(scope.loanaccountinfo.product.repaymentFrequencyNthDayType){
+                        scope.formData.repaymentFrequencyNthDayType = scope.loanaccountinfo.product.repaymentFrequencyNthDayType.id;
+                    } else {
+                        delete scope.formData.repaymentFrequencyNthDayType;
+                    }
+                    if(scope.loanaccountinfo.product.repaymentFrequencyDayOfWeekType){
+                        scope.formData.repaymentFrequencyDayOfWeekType = scope.loanaccountinfo.product.repaymentFrequencyDayOfWeekType.id;
+                    } else {
+                        delete scope.formData.repaymentFrequencyDayOfWeekType;
+                    }
+                    if(scope.loanaccountinfo.product.repeatsOnDayOfMonth && scope.loanaccountinfo.product.repeatsOnDayOfMonth.length>0){
+                        scope.available = scope.loanaccountinfo.product.repeatsOnDayOfMonth;
+                        scope.addMonthDay();
+                    } else {
+                        scope.available = [];
+                        scope.selectedOnDayOfMonthOptions = [];
                     }
                     scope.canDisburseToGroupBankAccounts = scope.loanaccountinfo.allowsDisbursementToGroupBankAccounts;
                     if( scope.loanaccountinfo.paymentOptions){
@@ -214,6 +252,47 @@
                         }
                     }
                 });
+            };
+
+            scope.loanTermCalculation=function(){
+                scope.loanTerm= scope.formData.numberOfRepayments*scope.formData.repayEvery;
+            }
+
+            scope.addMonthDay = function () {
+                for (var i in this.available) {
+                    for (var j in scope.repeatsOnDayOfMonthOptions) {
+                        if (scope.repeatsOnDayOfMonthOptions[j] == this.available[i]) {
+                            scope.selectedOnDayOfMonthOptions.push(this.available[i]);
+                            scope.repeatsOnDayOfMonthOptions.splice(j, 1);
+                            break;
+                        }
+                    }
+                }
+                //We need to remove selected items outside of above loop. If we don't remove, we can see empty item appearing
+                //If we remove available items in above loop, all items will not be moved to selectedRoles
+                scope.available = [];
+                scope.selectedOnDayOfMonthOptions.sort(scope.sortNumber);
+            };
+
+            scope.removeMonthDay = function () {
+                for (var i in this.selected) {
+                    for (var j in scope.selectedOnDayOfMonthOptions) {
+                        if (scope.selectedOnDayOfMonthOptions[j] == this.selected[i]) {
+                            scope.repeatsOnDayOfMonthOptions.push(this.selected[i]);
+                            scope.selectedOnDayOfMonthOptions.splice(j, 1);
+                            break;
+                        }
+                    }
+                }
+                //We need to remove selected items outside of above loop. If we don't remove, we can see empty item appearing
+                //If we remove available items in above loop, all items will not be moved to selectedRoles
+                scope.selected = [];
+                scope.repeatsOnDayOfMonthOptions.sort(scope.sortNumber);
+            };
+
+            scope.sortNumber = function(a,b)
+            {
+                return a - b;
             };
 
             scope.setDefaultGISConfig = function () {
@@ -477,6 +556,20 @@
                     this.formData.charges.push(charge);
                     //}
                 }
+                if (scope.repaidEveryConfigIsActive) {
+                    if (scope.formData.repaymentPeriodFrequencyEnum == 2 && scope.formData.repaymentFrequencyNthDayType) {
+                        scope.formData.repeatsOnDayOfMonth = scope.selectedOnDayOfMonthOptions;
+                    } else {
+                        scope.formData.repeatsOnDayOfMonth = [];
+                    }
+                }
+
+                if (scope.loanaccountinfo.loanEMIPacks) {
+                    delete scope.formData.repeatsOnDayOfMonth;
+                    delete scope.formData.loanTermFrequencyType;
+                    delete scope.formData.repaymentFrequencyNthDayType;
+                }
+
                 if (scope.loanaccountinfo.overdueCharges && scope.loanaccountinfo.overdueCharges.length > 0) {
                     for (var i in scope.loanaccountinfo.overdueCharges) {
                         if (scope.loanaccountinfo.overdueCharges[i].chargeData.amount > 0) {
@@ -532,6 +625,8 @@
                 
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
+                scope.formData.userOverriddenTerms = populateUserOverriddenTerms();
+
                 resourceFactory.loanApplicationReferencesResource.save(this.formData, function (data) {
                     // if(data.changes.isProductMappedToWorkFlow === true){
                     //     location.path('/loanapplication/' + data.resourceId+'/workflow');
@@ -644,6 +739,24 @@
                     }
                 }       
 
+                if (scope.repaidEveryConfigIsActive) {
+                    scope.formPreviewRepaymentData.repaymentFrequencyType = scope.formData.repaymentPeriodFrequencyEnum;
+                    scope.formPreviewRepaymentData.repaymentFrequencyDayOfWeekType = scope.formData.repaymentFrequencyDayOfWeekType;
+                    scope.formPreviewRepaymentData.repaymentFrequencyNthDayType = scope.formData.repaymentFrequencyNthDayType;
+                    scope.formPreviewRepaymentData.loanTermFrequencyType = scope.loanaccountinfo.termPeriodFrequencyType.id;
+                    scope.formPreviewRepaymentData.loanTermFrequency = scope.loanTerm;
+                    if (scope.formPreviewRepaymentData.repaymentFrequencyType == 2 && scope.formData.repaymentFrequencyNthDayType) {
+                        scope.formData.repeatsOnDayOfMonth = scope.selectedOnDayOfMonthOptions;
+                    } else {
+                        scope.formData.repeatsOnDayOfMonth = [];
+                    }
+                    if (scope.formData.repeatsOnDayOfMonth) {
+                        scope.formPreviewRepaymentData.repeatsOnDayOfMonth = scope.formData.repeatsOnDayOfMonth;
+                    }
+                    else {
+                        delete scope.formPreviewRepaymentData.repeatsOnDayOfMonth;
+                    }
+                }
 
                 if(this.loanaccountinfo.loanEMIPacks && scope.formData.loanEMIPackId){
                     if(this.formPreviewRepaymentData.amountForUpfrontCollection){
@@ -715,6 +828,9 @@
                 delete this.formPreviewRepaymentData.repayEvery;
                 delete this.formPreviewRepaymentData.repaymentPeriodFrequencyEnum;
                 delete this.formPreviewRepaymentData.noOfTranche;
+
+                this.formPreviewRepaymentData.expectedDisbursementDate = dateFilter(new Date(), scope.df);
+
                 
                 resourceFactory.loanResource.save({command: 'calculateLoanSchedule'}, this.formPreviewRepaymentData, function (data) {
                     scope.repaymentscheduleinfo = data;
@@ -722,6 +838,43 @@
                 });
 
             }
+
+            scope.addMonthDay = function () {
+                for (var i in this.available) {
+                    for (var j in scope.repeatsOnDayOfMonthOptions) {
+                        if (scope.repeatsOnDayOfMonthOptions[j] == this.available[i]) {
+                            scope.selectedOnDayOfMonthOptions.push(this.available[i]);
+                            scope.repeatsOnDayOfMonthOptions.splice(j, 1);
+                            break;
+                        }
+                    }
+                }
+                //We need to remove selected items outside of above loop. If we don't remove, we can see empty item appearing
+                //If we remove available items in above loop, all items will not be moved to selectedRoles
+                scope.available = [];
+                scope.selectedOnDayOfMonthOptions.sort(scope.sortNumber);
+            };
+
+            scope.removeMonthDay = function () {
+                for (var i in this.selected) {
+                    for (var j in scope.selectedOnDayOfMonthOptions) {
+                        if (scope.selectedOnDayOfMonthOptions[j] == this.selected[i]) {
+                            scope.repeatsOnDayOfMonthOptions.push(this.selected[i]);
+                            scope.selectedOnDayOfMonthOptions.splice(j, 1);
+                            break;
+                        }
+                    }
+                }
+                //We need to remove selected items outside of above loop. If we don't remove, we can see empty item appearing
+                //If we remove available items in above loop, all items will not be moved to selectedRoles
+                scope.selected = [];
+                scope.repeatsOnDayOfMonthOptions.sort(scope.sortNumber);
+            };
+
+            scope.sortNumber = function(a,b)
+            {
+                return a - b;
+            };
 
             scope.selectAllLoanToClose = function(isAllLoanToClose){
                 for(var i in scope.loanaccountinfo.clientActiveLoanOptions){
@@ -731,6 +884,29 @@
 
             scope.allowTopup = function () {
                 return scope.formData.isTopup && scope.loanaccountinfo.clientActiveLoanOptions.length > 0;
+            }
+
+            var populateUserOverriddenTerms = function () {
+                var userOverriddenTerms = [];
+                if (_.isUndefined(scope.loanaccountinfo.loanEMIPacks)) {
+                    if (scope.formData.repayEvery != scope.loanaccountinfo.repaymentEvery || scope.formData.repaymentPeriodFrequencyEnum != scope.loanaccountinfo.repaymentFrequencyType.id
+                        || ((scope.loanaccountinfo.product.repaymentFrequencyNthDayType && scope.formData.repaymentFrequencyNthDayType != scope.loanaccountinfo.product.repaymentFrequencyNthDayType.id) || (!scope.loanaccountinfo.product.repaymentFrequencyNthDayType && scope.formData.repaymentFrequencyNthDayType))
+                        || ((scope.loanaccountinfo.product.repaymentFrequencyDayOfWeekType && scope.formData.repaymentFrequencyDayOfWeekType != scope.loanaccountinfo.product.repaymentFrequencyDayOfWeekType.id) || (!scope.loanaccountinfo.product.repaymentFrequencyDayOfWeekType && scope.formData.repaymentFrequencyDayOfWeekType))) {
+                        userOverriddenTerms.push("repaymentDay");
+                    } else if (scope.formData.repaymentFrequencyNthDayType && scope.formData.repaymentFrequencyNthDayType == -2) {
+                        if (scope.formData.repeatsOnDayOfMonth.length != scope.loanaccountinfo.product.repeatsOnDayOfMonth.length) {
+                            userOverriddenTerms.push("repaymentDay");
+                        } else {
+                            for (var i = 0; i < scope.loanaccountinfo.product.repeatsOnDayOfMonth.length; i++) {
+                                if (scope.formData.repeatsOnDayOfMonth.indexOf(scope.loanaccountinfo.product.repeatsOnDayOfMonth[i]) == -1) {
+                                    userOverriddenTerms.push("repaymentDay");
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+                return userOverriddenTerms;
             }
         }
     });

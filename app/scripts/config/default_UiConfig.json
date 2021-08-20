@@ -844,6 +844,11 @@
 		},
 		"district":{
 			"isDistrictMandatory":true
+		},
+		"loanApplicationDisbursal": {
+			"isHiddenField": {
+				"repaidEvery": true
+			}
 		}
 	}
 }
