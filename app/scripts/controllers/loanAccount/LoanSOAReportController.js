@@ -6,6 +6,13 @@
             scope.accountId = routeParams.loanId;
             
             scope.restrictedDate = new Date();
+            if (scope.loandetails && scope.loandetails.timeline && scope.loandetails.timeline.actualDisbursementDate) {
+                scope.minDate = new Date(scope.loandetails.timeline.actualDisbursementDate);
+            } else if (scope.loandetails && scope.loandetails.timeline && scope.loandetails.timeline.expectedDisbursementDate) {
+                scope.minDate = new Date(scope.loandetails.timeline.expectedDisbursementDate);
+            } else {
+                scope.minDate = new Date();
+            }
             if(scope.response  && scope.response.uiDisplayConfigurations &&
                 scope.response.uiDisplayConfigurations.reportParameterConfiguration.datePicker.reportNames.indexOf(scope.reportName) > 0) {
                 scope.restrictedDate = scope.response.uiDisplayConfigurations.reportParameterConfiguration.datePicker.restrictedDate;
@@ -23,7 +30,7 @@
 
             scope.submit = function () {
                 scope.formData.R_ason = dateFilter(scope.formData.R_ason, 'yyyy-MM-dd');
-                scope.baseURL = $rootScope.hostUrl + API_VERSION + "/runreports/" + encodeURIComponent("Loan Account Statement");
+                scope.baseURL = $rootScope.hostUrl + API_VERSION + "/runreports/" + encodeURIComponent("Statement of Account");
                 scope.baseURL += "?output-type=" + encodeURIComponent(scope.formData.outputType) + "&locale=" + scope.optlang.code;
 
                 var reportParams = "";
