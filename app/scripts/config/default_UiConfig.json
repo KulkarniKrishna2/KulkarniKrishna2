@@ -841,6 +841,9 @@
 		"taluka":{
 				"isTalukaHidden": false,
 				"isTalukaMandatory":true
+		},
+		"district":{
+			"isDistrictMandatory":true
 		}
 	}
 }

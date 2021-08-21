@@ -77,6 +77,7 @@
                 scope.isGenderReadOnly = scope.response.uiDisplayConfigurations.createClient.isReadOnlyField.gender; 
                 scope.isTalukaHidden = scope.response.uiDisplayConfigurations.taluka.isTalukaHidden;
                 scope.isTalukaMandatory = scope.response.uiDisplayConfigurations.taluka.isTalukaMandatory;
+                scope.isDistrictMandatory = scope.response.uiDisplayConfigurations.district.isDistrictMandatory;
 
                 if (scope.response.uiDisplayConfigurations.defaultGISConfig && scope.response.uiDisplayConfigurations.defaultGISConfig.isReadOnlyField && scope.response.uiDisplayConfigurations.defaultGISConfig.isReadOnlyField.countryName) {
                     scope.isCountryReadOnly = scope.response.uiDisplayConfigurations.defaultGISConfig.isReadOnlyField.countryName;

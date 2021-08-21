@@ -20,6 +20,9 @@
               "streetName": true,
               "houseNo": true
             }
+          },
+          "district":{
+            "isDistrictMandatory":false
           }
     }
   }
