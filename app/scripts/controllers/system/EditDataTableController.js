@@ -121,6 +121,7 @@
                     tempColumn.displayPosition = data.columnHeaderData[i].orderPosition;
                     tempColumn.visible = data.columnHeaderData[i].visible;
                     tempColumn.mandatoryIfVisible = data.columnHeaderData[i].mandatoryIfVisible;
+                    tempColumn.regex = data.columnHeaderData[i].regex;
                     if (data.columnHeaderData[i].columnValues != '' && data.columnHeaderData[i].columnValues != undefined) {
                         tempColumn.columnValues = data.columnHeaderData[i].columnValues;
                     }
@@ -309,7 +310,8 @@
                         mandatory: false,
                         visible: true,
                         mandatoryIfVisible: false,
-                        hasValueMandatory : false
+                        hasValueMandatory : false,
+                        regex:""
                     }
                     scope.columns.push(column);
                     scope.datatableTemplate.columnName = undefined;

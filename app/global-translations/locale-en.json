@@ -9079,5 +9079,9 @@
     "label.heading.is.assign.parent.staff": "Is Assign Parent Staff",
     "validation.msg.exportClaimDetails.arg0.deceasedIds.isInvalid" : "Select 1 - 25 claims for Export",
 
+    "label.heading.regex":"Regex",
+    "label.input.regex":"Regex",
+    "error.msg.is.invalid":"is not valid",
+
      "------ end of translation file ------": "----------"
 }

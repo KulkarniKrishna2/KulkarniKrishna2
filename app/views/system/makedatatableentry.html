@@ -19,7 +19,7 @@
         <li ng-show="village"><a
             ng-href="#/viewvillage/{{entityId}}">{{villageName}}</a></li>        
     </ul>
-<form class="form-horizontal well"  ng-submit="submit()">
+<form name="dataentryform" class="form-horizontal well"  ng-submit="submit()">
 
   <api-validate></api-validate>
     <fieldset>
@@ -41,10 +41,11 @@
                 <input ng-show="fieldType(columnHeader.columnDisplayType) == 'DATE' && !columnHeader.hideElement" type="text" autocomplete="off"
                        datepicker-pop="{{df}}" ng-model="formDat[columnHeader.columnName]"
                        is-open="opened{{$index}}" class="form-control" ng-readonly="isDatePickerReadOnly"/>
-
-                <input ng-show="isShowfieldType(columnHeader.columnDisplayType) && !columnHeader.hideElement" type="text" autocomplete="off"
-                 ng-model="formData[columnHeader.columnName]" class="form-control"/>
-
+                <ng-form name="innerForm">
+                    <input ng-show="isShowfieldType(columnHeader.columnDisplayType) && !columnHeader.hideElement" type="text" autocomplete="off"
+                    ng-model="formData[columnHeader.columnName]"  name="column" class="form-control" ng-pattern="{{columnHeader.regex}}"/>
+                    <span ng-show="innerForm.column.$error.pattern"><small class="required">{{ columnHeader.displayName}} {{'error.msg.is.invalid' | translate}}</small></span>
+                </ng-form>
                 <div ng-show="fieldType(columnHeader.columnDisplayType) == 'DATETIME' && !columnHeader.hideElement" class="form-inline">&nbsp;&nbsp;&nbsp;&nbsp;
                     <div class="form-group">
                         <input type="text" autocomplete="off" datepicker-pop="{{df}}"
@@ -127,8 +128,11 @@
                     <input ng-if="fieldType(column.columnDisplayType) == 'DATE' && !column.hideElement" type="text" autocomplete="off"
                        datepicker-pop="{{df}}" ng-model="formDat[column.columnName]"
                        is-open="opened{{$index}}" class="form-control" ng-readonly="isDatePickerReadOnly"/>
-                    <input ng-if="isShowfieldType(column.columnDisplayType) && !column.hideElement" type="text" autocomplete="off" ng-model="formData[column.columnName]"
-                     class="form-control"/>
+                    <ng-form name="innerForm2">
+                       <input ng-if="isShowfieldType(column.columnDisplayType) && !column.hideElement" type="text" autocomplete="off" name="column" ng-model="formData[column.columnName]"
+                     class="form-control" ng-pattern="{{column.regex}}"/>
+                        <span ng-show="innerForm2.column.$error.pattern"><small class="required">{{ column.displayName}} {{'error.msg.is.invalid' | translate}}</small></span>
+                    </ng-form>
                     <div ng-if="fieldType(column.columnDisplayType) == 'DATETIME' && !column.hideElement" class="form-inline"> &nbsp;&nbsp;&nbsp;&nbsp;
                         <div class="form-group">
                             <input type="text" autocomplete="off" datepicker-pop="{{df}}"
@@ -188,8 +192,8 @@
         </div>
         <div class="col-md-offset-3">
             <a id="cancel" class="btn btn-default" ng-click="cancel()">{{ 'label.button.cancel' | translate }}</a>
-            <button id="save" type="submit" class="btn btn-primary" has-permission='CREATE_{{tableName}}'>{{ 'label.button.save' | translate }}</button>
-            <button id="save" type="submit" class="btn btn-primary" ng-if="isMultirow" ng-click="submitcontinue()"has-permission='CREATE_{{tableName}}'>{{ 'label.submit.and.continue' | translate }}({{count}})</button></div>
+            <button id="save" type="submit" class="btn btn-primary" ng-disabled="dataentryform.$invalid" has-permission='CREATE_{{tableName}}'>{{ 'label.button.save' | translate }}</button>
+            <button id="save" type="submit" class="btn btn-primary" ng-disabled="dataentryform.$invalid" ng-if="isMultirow" ng-click="submitcontinue()"has-permission='CREATE_{{tableName}}'>{{ 'label.submit.and.continue' | translate }}({{count}})</button></div>
         </div>
     </fieldset>
 </form>

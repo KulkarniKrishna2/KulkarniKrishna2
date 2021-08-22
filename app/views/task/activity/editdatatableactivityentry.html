@@ -1,4 +1,4 @@
-<form name="editDatatableActivityEntryForm" novalidate="" >
+
 <label class="control-label col-sm-3" ng-if="!hideField(columnHeader) && columnHeader.displayName != 'null'">{{ columnHeader.displayName | prettifyDataTableColumn }}
     <span ng-show="!columnHeader.isColumnNullable || columnHeader.mandatoryIfVisible" class="required">*</span>
 </label>
@@ -6,7 +6,10 @@
     <span ng-show="!columnHeader.isColumnNullable || columnHeader.mandatoryIfVisible" class="required">*</span>
 </label>
 <div class="col-sm-3">
-    <input ng-show="(fieldType(columnHeader.columnDisplayType) == 'STRING') && !hideField(columnHeader)" type="text" autocomplete="off" ng-model="formData[columnHeader.columnName]" class="form-control" />
+    <ng-form name="innerForm">
+        <input ng-show="(fieldType(columnHeader.columnDisplayType) == 'STRING') && !hideField(columnHeader)" type="text" autocomplete="off" ng-model="formData[columnHeader.columnName]" name="column" class="form-control" ng-pattern="{{columnHeader.regex}}"/>
+        <span ng-show="innerForm.column.$error.pattern"><small class="required">{{ columnHeader.displayName}} {{'error.msg.is.invalid' | translate}}</small></span>
+    </ng-form>
     <input ng-show="isNumericField(columnHeader.columnDisplayType)" type="text" autocomplete="off" ng-model="formData[columnHeader.columnName]" class="form-control" ng-readonly="columnHeader.readOnly" ng-change="evaluateFormulas()"/>
     <input ng-show="fieldType(columnHeader.columnDisplayType) == 'DATE'" type="text" autocomplete="off" datepicker-pop="{{df}}" ng-model="formDat[columnHeader.columnName]" is-open="opened{{$index}}" class="form-control" ng-readonly="isDatePickerReadOnly" />
     <input ng-show="fieldType(columnHeader.columnDisplayType) == 'TEXT'"  type="textarea"  autocomplete="off" ng-model="formData[columnHeader.columnName]" class="form-control" />
@@ -67,4 +70,3 @@
         </select>
     </div>
 </div>
-</form>

@@ -20,7 +20,7 @@
             ng-href="#/viewvillage/{{entityId}}">{{villageName}}</a>
         </li>        
     </ul>
-<form class="form-horizontal well" ng-submit="submit()">
+<form name="dataentryform" class="form-horizontal well" ng-submit="submit()">
     <div ng-show="isViewMode">
         <h2>{{ 'label.heading.viewdatatableentry' | translate }}</h2>
 
@@ -84,21 +84,26 @@
             </label>
             <label class="control-label col-sm-3" ng-if="columnHeader.labelDisplayType == 'false'"></label>
 
-            <div class="col-sm-3">
-                <textarea ng-show="fieldType(columnHeader.columnDisplayType) == 'TEXT' && enableDependency"
-                       ng-model="formData[columnHeader.columnName]" class="form-control"/>
+            <div class="col-sm-3">                
+                <textarea ng-show="fieldType(columnHeader.columnDisplayType) == 'TEXT' && enableDependency"  autocomplete="off" 
+                    ng-model="formData[columnHeader.columnName]" class="form-control" />
+                <ng-form name="innerForm">
+                    <input ng-show="fieldType(columnHeader.columnDisplayType) == 'STRING' && enableDependency" type="text" autocomplete="off" 
+                    name="column" ng-model="formData[columnHeader.columnName]" class="form-control" ng-pattern="{{columnHeader.regex}}" />
+                    <span ng-show="innerForm.column.$error.pattern"><small class="required">{{ columnHeader.displayName}} {{'error.msg.is.invalid' | translate}}</small></span>
+                </ng-form>
                 <input ng-show="fieldType(columnHeader.columnDisplayType) == 'DATE' && enableDependency" type="text" autocomplete="off"
                        datepicker-pop="{{df}}" ng-model="formDat[columnHeader.columnName]"
                        is-open="opened{{$index}}" class="form-control" ng-readonly="isDatePickerReadOnly"/>
                 <div ng-show="fieldType(columnHeader.columnDisplayType) == 'DATETIME'" class="form-inline">
                     <div class="form-group">
                         <input type="text" autocomplete="off" datepicker-pop="{{df}}"
-                               ng-model="formDat[columnHeader.columnName].date"
+                               ng-model="formData[columnHeader.columnName].date"
                                is-open="opened{{$index}}" class="form-control"/>
                     </div>
                     <div class="form-group">
                         <input type="time" placeholder="HH:MM:SS"
-                               ng-model="formDat[columnHeader.columnName].time" class="form-control"/>
+                               ng-model="formData[columnHeader.columnName].time" class="form-control"/>
                     </div>
                 </div>
                 <div ng-show="fieldType(columnHeader.columnDisplayType) == 'BOOLEAN'">
@@ -157,7 +162,7 @@
         </div>
         <div class="col-md-offset-3">
             <a id="cancel" class="btn btn-default" ng-click="cancel()">{{ 'label.button.cancel' | translate }}</a>
-            <button id="save" type="submit" has-permission='UPDATE_{{tableName}}' class="btn btn-primary">{{ 'label.button.save' | translate }}</button>
+            <button id="save" type="submit" ng-disabled="dataentryform.$invalid" has-permission='UPDATE_{{tableName}}' class="btn btn-primary">{{ 'label.button.save' | translate }}</button>
         </div>
     </div>
     <div class="well" ng-show="!isViewMode && isEditSections">
@@ -181,6 +186,11 @@
                     <input ng-show="fieldType(column.columnDisplayType) == 'TEXT' && enableDependency"
                         type="text" autocomplete="off"
                        ng-model="formData[column.columnName]" class="form-control"/>
+                    <ng-form name="innerForm">
+                        <input ng-show="fieldType(column.columnDisplayType) == 'STRING' && enableDependency" type="text" autocomplete="off" 
+                        name="column" ng-model="formData[column.columnName]" class="form-control" ng-pattern="{{column.regex}}" />
+                        <span ng-show="innerForm.column.$error.pattern"><small class="required">{{ column.displayName}} {{'error.msg.is.invalid' | translate}}</small></span>
+                    </ng-form>                       
                     <input ng-show="fieldType(column.columnDisplayType) == 'DATE' && enableDependency" type="text" autocomplete="off"
                        datepicker-pop="{{df}}" ng-model="formDat[column.columnName]"
                        is-open="opened{{$index}}" class="form-control" ng-readonly="isDatePickerReadOnly"/>
@@ -241,7 +251,7 @@
         </div>
         <div class="col-md-offset-3">
             <a id="cancel" class="btn btn-default" ng-click="cancel()">{{ 'label.button.cancel' | translate }}</a>
-            <button id="save" type="submit" has-permission='UPDATE_{{tableName}}' class="btn btn-primary">{{ 'label.button.save' | translate }}</button>
+            <button id="save" type="submit" ng-disabled="dataentryform.$invalid" has-permission='UPDATE_{{tableName}}' class="btn btn-primary">{{ 'label.button.save' | translate }}</button>
         </div>
     </div>  
 </form>

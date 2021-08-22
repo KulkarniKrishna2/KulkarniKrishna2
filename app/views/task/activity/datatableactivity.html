@@ -2,7 +2,7 @@
     <api-validate></api-validate>
     <!-- Submit form, new data    -->
     <div  ng-show ="status=='ADD'">
-        <form class="form-horizontal"  ng-submit="submit()">
+        <form name="dataentryform" class="form-horizontal"  ng-submit="submit()">
             <fieldset>
                 <div ng-if="!isSectioned">
                     <div class="form-group" ng-repeat="columnHeader in columnHeaders" ng-hide="hideField(columnHeader)">
@@ -19,7 +19,7 @@
                     </div>
                 </div>
                 <div class="col-md-offset-3">
-                    <button id="save" type="submit" has-permission='CREATE_{{tableName}}' class="btn btn-primary">{{ 'label.button.save' | translate }}</button>
+                    <button id="save" type="submit" ng-disabled="dataentryform.$invalid" has-permission='CREATE_{{tableName}}' class="btn btn-primary">{{ 'label.button.save' | translate }}</button>
                 </div>
             </fieldset>
         </form>
@@ -37,7 +37,7 @@
     </div>
     
     <div  id="print" ng-show="status=='VIEW' && !isViewMultiRowTable">
-        <table class="table" ng-if="datatabledetails.isMultirow">
+        <table class="table" ng-if="datatabledetails.isMultirow && !isSectioned" >
             <thead>
             <th ng-repeat="column in datatabledetails.columnData[0].row track by $index" ng-init="multirowThIndex = $index" ng-hide="hideField(column)" >
                             <label ng-if="column.displayName != undefined && column.displayName != 'null'">{{column.displayName | prettifyDataTableColumn}} </label>
@@ -55,7 +55,7 @@
             </tbody>
         </table>
 
-        <div class="row" ng-if="!datatabledetails.isMultirow" ng-if="!isSectioned">
+        <div class="row" ng-if="!datatabledetails.isMultirow && !isSectioned">
             <div class="col-md-8">
                 <table class="table width100">
                     <tr ng-repeat="value in singleRow">
@@ -113,7 +113,7 @@
     </div>
     <!-- Edit data    -->
     <div  ng-show="status =='EDIT'">
-        <form class="form-horizontal" ng-submit="editSubmit()">
+        <form name="editdataentryform" class="form-horizontal" ng-submit="editSubmit()">
             <!--<div ng-show="isViewMode">
                 <h2>{{ 'label.heading.viewdatatableentry' | translate }}</h2>
 
@@ -161,7 +161,7 @@
                 
                 <div class="col-md-offset-3">
                     <a ng-if="false" class="btn btn-default" ng-click="cancel()">{{ 'label.button.cancel' | translate }}</a>
-                    <button type="submit" has-permission='UPDATE_{{tableName}}' class="btn btn-primary">{{ 'label.button.save' | translate }}</button>
+                    <button type="submit" has-permission='UPDATE_{{tableName}}'   ng-disabled="editdataentryform.$invalid" class="btn btn-primary">{{ 'label.button.save' | translate }}</button>
                 </div>
             </div>
            

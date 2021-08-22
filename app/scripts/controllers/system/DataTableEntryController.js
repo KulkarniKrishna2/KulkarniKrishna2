@@ -215,8 +215,10 @@
                         fieldType = 'DATETIME';
                     } else if (type == 'BOOLEAN') {
                         fieldType = 'BOOLEAN';
+                    } else if (type == 'STRING') {
+                        fieldType = 'STRING';
                     } else {
-                        fieldType = 'TEXT';
+                        fieldType = type ;
                     }
                 }
                 return fieldType;
