@@ -1,0 +1,143 @@
+<div class="col-md-12" ng-controller="kycCheckActivityController">
+    <div class="">
+        <div class="kyc-check-container">
+            <div class="kyc-check-initiate-block" ng-if="showKycCheckBlock == '' ">
+                <div class="kyc-check-initiate-title">Initiate KYC Check</div>
+                <div class="kyc-check-initiate-btn-block">
+                    <div class="kyc-check-initiate-btn" ng-click="initiateKycCheck()">Initiate</div>
+                </div>
+            </div>
+            <div class="kyc-check-list-block" ng-if="showKycCheckBlock != '' ">
+                <div class="kyc-check-list-btn-block">
+                    <div class="kyc-check-list-btn" ng-class="{listBtnStyle: showKycCheckBlock == 'Pan-Kyc-Check' }" ng-click="showKycCheckDetails('Pan-Kyc-Check')">PAN KYC Check</div>
+                    <div class="kyc-check-list-btn" ng-class="{listBtnStyle: showKycCheckBlock == 'Pan-Kyc-Face-Compare' }" ng-click="showKycCheckDetails('Pan-Kyc-Face-Compare')">PAN KYC Face Compare</div>
+                    <div class="kyc-check-list-btn" ng-class="{listBtnStyle: showKycCheckBlock == 'Aadhar-Kyc-Face-Compare' }" ng-click="showKycCheckDetails('Aadhar-Kyc-Face-Compare')">Aadhar KYC Face Compare</div>
+                </div>
+            </div>
+            <div class="kyc-check-details-block" ng-if="showKycCheckBlock != '' ">
+                <div class="kyc-check-details-content" ng-if="showKycCheckBlock == 'Pan-Kyc-Check' ">
+                    <div class="kyc-check-details-content-header">
+                        <div class="kyc-check-details-content-title">PAN KYC Check Details</div>
+                        <div class="kyc-check-details-content-subtitle">Reference ID : {{panKycCheckResponseData.requestReferenceId}}</div>
+                        <div class="kyc-check-details-content-refresh-btn" ng-if="panKycCheckResponseData.status != 'success' " ng-click="getPanKycCheckDetails()">Refresh</div>
+                        <div class="kyc-check-details-content-refresh-btn" ng-if="panKycCheckResponseData.result.sourceStatus == 'in_progress' " ng-click="refreshPanKycDetails()">Refresh</div>
+                    </div>
+                    
+                    <div class="kyc-check-details-content-notice-block" ng-if="!panKycCheckResponseStatusError">
+                        <div class="kyc-check-details-content-notice">
+                            <div class="kyc-check-details-content-notice-title">Status</div>
+                            <div class="kyc-check-details-content-notice-value" ng-if="panKycCheckResponseData.result.sourceStatus != 'in_progress' ">{{panKycCheckResponseData.status}}</div>
+                            <div class="kyc-check-details-content-notice-value" ng-if="panKycCheckResponseData.result.sourceStatus == 'in_progress' ">{{panKycCheckResponseData.result.sourceStatus}}</div>
+                        </div>
+                        <div class="kyc-check-details-content-notice">
+                            <div class="kyc-check-details-content-notice-title">Card Score</div>
+                            <div class="kyc-check-details-content-notice-value">{{panKycCheckResponseData.kycCheckOutputParameters.nameOnCardScore}}</div>
+                        </div>
+                    </div>
+                    <div class="kyc-check-details-content-body" ng-if="!panKycCheckResponseStatusError">
+                        <div class="kyc-check-details-content-body-block">
+                            <div class="kyc-check-details-content-body-title">Client ID</div>
+                            <div class="kyc-check-details-content-body-value">{{panKycCheckResponseData.clientId}}</div>
+                        </div>
+                        <div class="kyc-check-details-content-body-block">
+                            <div class="kyc-check-details-content-body-title">Name</div>
+                            <div class="kyc-check-details-content-body-value">{{panKycCheckResponseData.kycCheckOutputParameters.nameOnCard}}</div>
+                        </div>
+                        <div class="kyc-check-details-content-body-block">
+                            <div class="kyc-check-details-content-body-title">Identifier ID</div>
+                            <div class="kyc-check-details-content-body-value">{{panKycCheckResponseData.clientIdentifierId}}</div>
+                        </div>
+                        <div class="kyc-check-details-content-body-block">
+                            <div class="kyc-check-details-content-body-title">KYC Type</div>
+                            <div class="kyc-check-details-content-body-value">{{panKycCheckResponseData.kycType}}</div>
+                        </div>
+                        <div class="kyc-check-details-content-body-block">
+                            <div class="kyc-check-details-content-body-title">Check Type</div>
+                            <div class="kyc-check-details-content-body-value">{{panKycCheckResponseData.kycCheckType}}</div>
+                        </div>
+                        <div class="kyc-check-details-content-body-block">
+                            <div class="kyc-check-details-content-body-title">Source</div>
+                            <div class="kyc-check-details-content-body-value">{{panKycCheckResponseData.kycCheckOutputParameters.source}}</div>
+                        </div>
+                    </div>
+                    <div class="kyc-check-details-content-msg-block" ng-if="panKycCheckResponseStatusError">
+                        <!-- <div class="kyc-check-details-content-msg">Error!!, Please refresh or try again.</div> -->
+                        <div class="kyc-check-details-content-msg">{{panKycCheckResponseStatusErrorMsg != '' ? panKycCheckResponseStatusErrorMsg : 'Documents does not exist!!'}}</div>
+                    </div>
+                </div>
+                <div class="kyc-check-details-content" ng-if="showKycCheckBlock == 'Pan-Kyc-Face-Compare' ">
+                    
+                    <div class="kyc-check-details-content-header">
+                        <div class="kyc-check-details-content-title">PAN KYC Face Compare Details</div>
+                        <div class="kyc-check-details-content-subtitle">Reference ID : {{panKycFaceCompareResource.requestReferenceId}}</div>
+                        <div class="kyc-check-details-content-refresh-btn" ng-if="panKycFaceCompareResource.status != 'success'" ng-click="getPanKycFaceCompareDetails()">Refresh</div>
+                    </div>
+                    <div class="kyc-check-details-content-notice-block" ng-if="!panKycFaceCompareResponseStatusError">
+                        <div class="kyc-check-details-content-notice">
+                            <div class="kyc-check-details-content-notice-title">Status</div>
+                            <div class="kyc-check-details-content-notice-value">{{panKycFaceCompareResource.status}}</div>
+                        </div>
+                        <div class="kyc-check-details-content-notice">
+                            <div class="kyc-check-details-content-notice-title">Match Score</div>
+                            <div class="kyc-check-details-content-notice-value">{{panKycFaceCompareResource.matchScore}}</div>
+                        </div>
+                    </div>
+                    <div class="kyc-check-details-content-body" ng-if="!panKycFaceCompareResponseStatusError">
+                        <div class="kyc-check-details-content-body-block">
+                            <div class="kyc-check-details-content-body-title">Client ID</div>
+                            <div class="kyc-check-details-content-body-value">{{panKycFaceCompareResource.clientId}}</div>
+                        </div>
+                        <div class="kyc-check-details-content-body-block">
+                            <div class="kyc-check-details-content-body-title">KYC Type</div>
+                            <div class="kyc-check-details-content-body-value">{{panKycFaceCompareResource.kycType}}</div>
+                        </div>
+                        <div class="kyc-check-details-content-body-block">
+                            <div class="kyc-check-details-content-body-title">Check Type</div>
+                            <div class="kyc-check-details-content-body-value">{{panKycFaceCompareResource.kycCheckType}}</div>
+                        </div>
+                    </div>
+                    <div class="kyc-check-details-content-msg-block" ng-if="panKycFaceCompareResponseStatusError">
+                        <!-- <div class="kyc-check-details-content-msg">Error!!, Please refresh or try again.</div> -->
+                        <div class="kyc-check-details-content-msg">{{panKycFaceCompareResponseStatusErrorMsg != '' ? panKycFaceCompareResponseStatusErrorMsg : 'No Information is Present.'}}</div>
+                    </div>
+                </div>
+                <div class="kyc-check-details-content" ng-if="showKycCheckBlock == 'Aadhar-Kyc-Face-Compare' ">
+                    
+                    <div class="kyc-check-details-content-header">
+                        <div class="kyc-check-details-content-title">Aadhar KYC Face Compare Details</div>
+                        <div class="kyc-check-details-content-subtitle">Reference ID : {{aadharKycFaceCompareResource.requestReferenceId}}</div>
+                        <div class="kyc-check-details-content-refresh-btn" ng-if="aadharKycFaceCompareResource.status != 'success'" ng-click="getAadharKycFaceCompareDetails()">Refresh</div>
+                    </div>
+                    <div class="kyc-check-details-content-notice-block" ng-if="!aadharKycFaceCompareResponseStatusError">
+                        <div class="kyc-check-details-content-notice">
+                            <div class="kyc-check-details-content-notice-title">Status</div>
+                            <div class="kyc-check-details-content-notice-value">{{aadharKycFaceCompareResource.status}}</div>
+                        </div>
+                        <div class="kyc-check-details-content-notice">
+                            <div class="kyc-check-details-content-notice-title">Match Score</div>
+                            <div class="kyc-check-details-content-notice-value">{{aadharKycFaceCompareResource.matchScore}}</div>
+                        </div>
+                    </div>
+                    <div class="kyc-check-details-content-body" ng-if="!aadharKycFaceCompareResponseStatusError">
+                        <div class="kyc-check-details-content-body-block">
+                            <div class="kyc-check-details-content-body-title">Client ID</div>
+                            <div class="kyc-check-details-content-body-value">{{aadharKycFaceCompareResource.clientId}}</div>
+                        </div>
+                        <div class="kyc-check-details-content-body-block">
+                            <div class="kyc-check-details-content-body-title">KYC Type</div>
+                            <div class="kyc-check-details-content-body-value">{{aadharKycFaceCompareResource.kycType}}</div>
+                        </div>
+                        <div class="kyc-check-details-content-body-block">
+                            <div class="kyc-check-details-content-body-title">Check Type</div>
+                            <div class="kyc-check-details-content-body-value">{{aadharKycFaceCompareResource.kycCheckType}}</div>
+                        </div>
+                    </div>
+                    <div class="kyc-check-details-content-msg-block" ng-if="aadharKycFaceCompareResponseStatusError">
+                        <!-- <div class="kyc-check-details-content-msg">Error!!, Please refresh or try again.</div> -->
+                        <div class="kyc-check-details-content-msg">{{aadharKycFaceCompareResponseStatusErrorMsg != '' ? aadharKycFaceCompareResponseStatusErrorMsg : 'No Information is Present.'}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

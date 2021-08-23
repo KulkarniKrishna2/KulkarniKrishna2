@@ -2301,6 +2301,22 @@
                     InsuranceClaimsExportResource: defineResource(apiVer + "/insurance/claim/export", {}, {
                         export: { method: 'POST'}
                     }),
+                    panKycCheckResource: defineResource(apiVer + "/clients/:clientId/kycchecks/pan/nsdl-check", { clientId: '@clientId' }, {
+                        post: { method: 'POST', params: {}, isArray: false },
+                        get: { method: 'GET', params: {}, isArray: false }
+                    }),
+                    panKycFaceCompareResource: defineResource(apiVer + "/clients/:clientId/kycchecks/pan/face-compare", { clientId: '@clientId' }, {
+                        post: { method: 'POST', params: {}, isArray: false },
+                        get: { method: 'GET', params: {}, isArray: false }
+                    }),
+                    aadharKycFaceCompareResource: defineResource(apiVer + "/clients/:clientId/kycchecks/aadhaar/face-compare", { clientId: '@clientId' }, {
+                        post: { method: 'POST', params: {}, isArray: false },
+                        get: { method: 'GET', params: {}, isArray: false }
+                    }),
+                    refreshPanKycCheckResource: defineResource(apiVer + "/clients/:clientId/kycchecks/pan/nsdl-check/refresh", { clientId: '@clientId' }, {
+                        post: { method: 'POST', params: {}, isArray: false },
+                        get: { method: 'GET', params: {}, isArray: false }
+                    })
                 };
             }];
         }

@@ -1751,3 +1751,235 @@ tr.newBg td, tr.newBg th {
 .loanApp-scoreCard-init-error-text {
     color: rgb(179, 10, 10);
 }
+
+/* KYC Check CSS */
+.kyc-check-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    border: 1px solid #dedede;
+    border-radius: 4px;
+    /* padding: 2rem; */
+    min-height: 40vh;
+    /* align-content: center; */
+    background: #f9f8f8;
+}
+
+.kyc-check-list-block {
+    width: 25%;
+    background: white;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 2rem 1rem;
+}
+
+.kyc-check-list-btn-block {
+    width: 98%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: baseline;
+}
+
+.kyc-check-list-btn {
+    width: 100%;
+    text-align: center;
+    border: 1px solid #d2d2d2;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 5%;
+    cursor: pointer;
+    transition: border 0.6s;
+}
+
+.kyc-check-list-btn:hover {
+    border: 1px solid royalblue;
+}
+
+.kyc-check-list-btn:active {
+    border: 1px solid royalblue;
+    background: rgb(243, 243, 243);
+}
+
+.kyc-check-details-block {
+    width: 75%;
+    border-left: 1px solid #eaeaea;
+    padding: 2rem 4rem;
+}
+
+.kyc-check-details-content {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.kyc-check-details-content-header {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    align-items: center;
+}
+
+.kyc-check-details-content-title {
+    width: 100%;
+    font-size: 2.1rem;
+    font-weight: bold;
+}
+
+.kyc-check-details-content-subtitle {
+    width: 100%;
+    font-size: 1.4rem;
+    color: grey;
+    border-bottom: 1px solid rgb(233, 233, 233);
+    padding-bottom: 5px;
+}
+
+.kyc-check-details-content-refresh-btn {
+    position: absolute;
+    right: 0;
+    background: rgb(121, 160, 121);
+    padding: 5px 15px;
+    color: white;
+    font-weight: bold;
+    border-radius: 4px;
+    transition: box-shadow 0.4s;
+    cursor: pointer;
+}
+
+.kyc-check-details-content-refresh-btn:hover {
+    background: rgb(113, 155, 113);
+    box-shadow: 4px 7px 10px 2px #d4d4d4;
+}
+
+.kyc-check-details-content-refresh-btn:active {
+    background: rgb(106, 141, 106);
+    box-shadow: 4px 7px 8px #d4d4d4;
+}
+
+.kyc-check-details-content-body {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin: 5% 0;
+}
+
+.kyc-check-details-content-body-block {
+    width: 75%;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    border-bottom: 1px solid #efeeee;
+}
+
+.kyc-check-details-content-body-title {
+    /* font-size: 1.6rem; */
+    font-weight: bold;
+    color: rgb(59, 59, 59);
+}
+
+.kyc-check-details-content-body-value {
+    /* font-size: 1.6rem; */
+    color: black;
+}
+
+.kyc-check-details-content-notice-block {
+    width: 50%;
+    margin-top: 5%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.kyc-check-details-content-notice {
+    width: 80%;
+    display: flex;
+    border: 1px solid rgb(220 218 218);
+    margin: 2px 0;
+    border-radius: 4px;
+    box-shadow: 0 0px 80px rgb(0 0 0 / 8%);
+}
+
+.kyc-check-details-content-notice-title {
+    width: 50%;
+    padding: 8px 10px;
+    font-weight: bold;
+    font-size: 1.6rem;
+    border-radius: 4px;
+    /* background: #f4f4ff; */
+    /* background: #d9de9f59; */
+    /* background: #c7ce7959; */
+    /* background: #94d6ff6b; */
+}
+
+.kyc-check-details-content-notice-value {
+    width: 50%;
+    padding: 8px 10px;
+    font-size: 1.6rem;
+    background: white;
+    border-radius: 4px;
+    text-transform: capitalize;
+}
+
+.kyc-check-initiate-block {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: center;
+}
+
+.kyc-check-initiate-title {
+    width: 100%;
+    text-align: center;
+    font-size: 2.8rem;
+    font-weight: bold;
+    color: #4a4a4a;
+}
+
+.kyc-check-initiate-btn-block {
+    width: 100%;
+    margin: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.kyc-check-initiate-btn {
+    padding: 10px 25px;
+    text-align: center;
+    background: royalblue;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    font-size: 1.6rem;
+    transition: box-shadow 0.4s;
+    cursor: pointer;
+}
+
+.kyc-check-initiate-btn:hover {
+    background-color: rgb(53, 88, 192);
+    box-shadow: 4px 7px 10px 2px #d4d4d4;
+}
+
+.kyc-check-initiate-btn:active {
+    background-color: rgb(58, 93, 199);
+    box-shadow: 4px 7px 8px #d4d4d4;
+}
+
+.kyc-check-details-content-msg-block {
+    width: 100%;
+    margin-top: 15%;
+    display: flex;
+    justify-content: center;
+}
+
+.kyc-check-details-content-msg {
+    border: 2px dashed #efe9e9;
+    width: 70%;
+    text-align: center;
+    color: grey;
+    padding: 2rem;
+    border-radius: 6px;
+}
