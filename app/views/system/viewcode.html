@@ -160,7 +160,7 @@
                                 data-ng-click="editCodeValue(codevalue.id,codevalue)">{{'label.button.save' |
                             translate}}
                         </button>
-                        <button data-ng-hide="codevalue.edit" class="btn-warning" type="button" has-permission='DELETE_CODEVALUE'
+                        <button data-ng-hide="codevalue.systemIdentifier" class="btn-warning" type="button" has-permission='DELETE_CODEVALUE'
                                 data-ng-click="deleteCodeValue(codevalue.id)"><i class="icon-trash icon-white"></i>
                         </button>
                     </td>
