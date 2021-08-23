@@ -19,7 +19,8 @@
               "mobileNumber": true,
               "emailId": true,
               "streetName": true,
-              "houseNo": true
+              "houseNo": true,
+              "gender":true
             }
           },
           "district":{
