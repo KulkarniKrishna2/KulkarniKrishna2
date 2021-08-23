@@ -116,40 +116,66 @@
 
 	<div class="col-md-12">
 		<div class="col-md-12">
-			<div class="row paddedtop10" ng-if="clientdocuments.uploadedDocuments.length > 0">
-				<div class="col-md-12">
-					<strong class="ng-binding">{{'label.heading.identitydocuments' | translate}}</strong>
-				</div>
-				<div>
-					<table class="table identity-detail">
-						<thead>
-							<tr>
-								<th class="col-md-3">
-									<h5><strong>{{'label.heading.name' | translate}}</strong></h5>
-								</th>
-								<th class="col-md-3">
-									<h5><strong>{{'label.heading.filename' | translate}}</strong></h5>
-								</th>
-								<th class="col-md-3">
-									<h5><strong>{{'label.heading.actions' | translate}}</strong></h5>
-								</th>
+			<tabset>
+				<tab heading="{{'label.heading.documents' | translate}}" select="getClientDocuments()" has-permission='READ_DOCUMENT'>
+						<table class="table">
+							<thead>
+							<tr class="graybg">
+								<th class="col-md-3"><h5><strong>{{'label.heading.documenttype' | translate}}</strong></h5></th>
+									<th class="col-md-3"><h5><strong>{{'label.heading.name' | translate}}</strong></h5></th>
+									<th class="col-md-3"><h5><strong>{{'label.heading.filename' | translate}}</strong></h5></th>
+									<th class="col-md-3"><h5><strong>{{'label.heading.actions' | translate}}</strong></h5></th>
 							</tr>
-						</thead>
-						<tbody>
-							<tr class="client-identity-details" ng-repeat="identitydocument in clientdocuments.uploadedDocuments">
-								<td>{{identitydocument.name}}</td>
-								<td>{{identitydocument.fileName}}</td>
+							</thead>
+							<tbody ng-repeat="(key, value) in clientdocuments">
+							<tr ng-repeat="clientdocument in value">
+								<td>{{clientdocument.tagValue}}</td>
+								<td>{{clientdocument.name}}</td>
 								<td>
-									<a target="_blank" ng-click="download(identitydocument)"><i
-										class="icon-cloud-download"></i></a>&nbsp;
-									<a target="_blank" ng-click="viewDocument(identitydocument.docUrl)">
-									<i class="icon-eye-open text-success"></i></a>
+									<span>
+										{{clientdocument.fileName}}&nbsp;  
+									</span>
+								</td>
+								<td>
+									<a target="_blank" data-ng-click="openViewDocument(clientdocument)"><i
+										class="icon-eye-open text-success"></i></a>
+									<a ng-show="clientdocument.id" target="_blank" has-permission='DOWNLOAD_DOCUMENT' ng-click = "download(clientdocument)"><i class="icon-cloud-download"></i></a>&nbsp;
 								</td>
 							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
+							</tbody>
+						</table>	
+				</tab>
+		
+				<tab heading="{{'label.heading.loandocuments' | translate}}" select="getLoanDocuments()" has-permission='READ_DOCUMENT'>
+					  <table class="table">
+						  <thead>
+							<th class="col-md-3"><h5><strong>{{'label.heading.documenttype' | translate}}</strong></h5></th>
+							<th class="col-md-3"><h5><strong>{{'label.heading.name' | translate}}</strong></h5></th>
+							<th class="col-md-3"><h5><strong>{{'label.heading.filename' | translate}}</strong></h5></th>
+							<th class="col-md-3"><h5><strong>{{'label.heading.actions' | translate}}</strong></h5></th>
+						  </thead>
+						  <tbody ng-repeat="(key, value) in loandocuments">
+						  <tr ng-repeat="document in value">
+							  <td>{{document.tagValue}}</td>
+							  <td>{{document.name}}</td>
+							  <td>
+								<span>
+									{{document.fileName}}&nbsp; 
+								</span>
+							  </td>
+							  <td >
+								<a target="_blank" data-ng-click="openViewDocument(document)"><i
+									class="icon-eye-open text-success"></i></a>
+								  <a ng-show="document.id" target="_blank"  ng-click = "download(document)" has-permission='DOWNLOAD_DOCUMENT'><i class="icon-cloud-download"></i></a>&nbsp;
+							  </td>
+						  </tr>
+						  </tbody>
+					</div>
+				</table>
+				</tab>
+			</tabset>
+			
+			
 			
 		</div>
 

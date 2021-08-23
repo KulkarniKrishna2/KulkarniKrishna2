@@ -4,7 +4,8 @@
             angular.extend(this, $controller('defaultActivityController', { $scope: scope }));
             scope.formValidationData = {};
             scope.identitydocuments = [];
-            scope.clientdocuments = [];
+            scope.clientdocuments = {};
+            scope.loandocuments = {};
             scope.bankAccountDetails = [];
             scope.bankDocuments = [];
             scope.familyDetails = [];
@@ -77,19 +78,57 @@
 
 
 
-                resourceFactory.clientDocumentsResource.getAllClientDocuments({clientId: scope.clientId}, function (data) {
-                    scope.clientdocuments = {};
-                    for (var l = 0; l < data.length; l++) {
-                        if (data[l].id) {
-                            var loandocs = {};
-                            loandocs = $rootScope.hostUrl + API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id  + '/download';                         
-                            data[l].docUrl = loandocs;
+                function documentsURL(document){
+                    return API_VERSION + '/' + document.parentEntityType + '/' + document.parentEntityId + '/documents/' + document.id + '/attachment';
+                };
+    
+                scope.getLoanDocuments = function() {
+                    resourceFactory.documentsResource.getAllDocuments({entityType: "loanapplication", entityId:  scope.loanApplicationReferenceId}, function (data) {
+                        scope.loandocuments = {};
+                        for (var l = 0; l < data.length; l++) {
+                            if (data[l].id) {
+                                data[l].docUrl = documentsURL(data[l]);
+                            }
+                            if (data[l].tagValue && !scope.restrictTaggedDocuments) {
+                                scope.pushLoanDocumentToTag(data[l], data[l].tagValue);
+                            } else if (!data[l].tagValue) {
+                                scope.pushLoanDocumentToTag(data[l], 'uploadedDocuments');
+                            }
                         }
-                        scope.pushDocumentToTag(data[l], 'uploadedDocuments');
+                    });
+                };
+    
+    
+                scope.pushLoanDocumentToTag = function (document, tagValue) {
+                    if (scope.loandocuments.hasOwnProperty(tagValue)) {
+                        scope.loandocuments[tagValue].push(document);
+                    } else {
+                        scope.loandocuments[tagValue] = [];
+                        scope.loandocuments[tagValue].push(document);
                     }
-                });
-
-                scope.pushDocumentToTag = function(document, tagValue){
+                }
+    
+                scope.clientDocumentsLoaded = false;
+                scope.getClientDocuments = function () {
+                    if(!scope.clientDocumentsLoaded) {
+                        resourceFactory.clientDocumentsResource.getAllClientDocuments({clientId:  scope.clientId}, function (data) {
+                            scope.clientdocuments = {};
+                            for (var l = 0; l < data.length; l++) {
+                                if (data[l].id) {
+                                    data[l].docUrl = documentsURL(data[l]);
+                                }
+                                if(data[l].tagValue){
+                                    scope.pushClientDocumentToTag(data[l], data[l].tagValue);
+                                } else {
+                                    scope.pushClientDocumentToTag(data[l], 'uploadedDocuments');
+                                }
+                            }
+                        });
+                        scope.clientDocumentsLoaded = true;
+                    }
+                };
+    
+                scope.pushClientDocumentToTag = function(document, tagValue){
                     if (scope.clientdocuments.hasOwnProperty(tagValue)) {
                         scope.clientdocuments[tagValue].push(document);
                     } else {
@@ -97,6 +136,32 @@
                         scope.clientdocuments[tagValue].push(document);
                     }
                 };
+    
+                var viewDocumentCtrl= function ($scope, $modalInstance, documentDetail) {
+                    $scope.data = documentDetail;
+                    $scope.close = function () {
+                        $modalInstance.close('close');
+                    };
+                   
+                };
+                scope.openViewDocument = function (documentDetail) {
+                    $modal.open({
+                        templateUrl: 'viewDocument.html',
+                        controller: viewDocumentCtrl,
+                        resolve: {
+                            documentDetail: function () {
+                                return documentDetail;
+                            }
+                        }
+                    });
+                };
+    
+                scope.download = function(file){
+                    var url = $rootScope.hostUrl + file.docUrl;
+                    var fileType = file.fileName.substr(file.fileName.lastIndexOf('.') + 1);
+                    commonUtilService.downloadFile(url,fileType,file.fileName);
+                };
+    
 
 
             }
@@ -138,12 +203,6 @@
             }
 
             initTask();
-
-            scope.download = function (file) {
-                var url = file.docUrl.replace('download','attachment');
-                var fileType = file.fileName.substr(file.fileName.lastIndexOf('.') + 1);
-                CommonUtilService.downloadFile(url, fileType,file.fileName);
-            }
 
         }
     });
