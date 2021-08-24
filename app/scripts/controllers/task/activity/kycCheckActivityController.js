@@ -26,7 +26,7 @@
             }
 
             scope.initiatePanKycCheckDetails = function() {
-                resourceFactory.panKycCheckResource.post({clientId:scope.clientId}, function(response) {\
+                resourceFactory.panKycCheckResource.post({clientId:scope.clientId}, function(response) {
                     scope.showKycCheckBlock = 'Pan-Kyc-Check';
                     scope.panKycCheckResponseData = response;
                     if(scope.panKycCheckResponseData.status == 'error') {
