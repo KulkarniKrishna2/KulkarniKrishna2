@@ -40,6 +40,11 @@
 				"externalId": true
 			}
         },
+        "editLoanApplication": {
+			"editableFields":{
+				"emiPacks":true
+			}
+		},
         "loanAccount": {
             "isDefaultValue":{
                 "paymentTypeId": 10
@@ -57,7 +62,10 @@
                 "isRequired": {
                     "receiptNumber": true
                 }
-            }
+            },
+            "isRequired":{
+				"isPaymentTypeMandatory": true
+			}
 		},
         "viewLoanAccountDetails": {
 			"isHiddenFeild": {
