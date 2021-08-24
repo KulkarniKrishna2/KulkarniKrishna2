@@ -210,7 +210,10 @@
                 "isRequired": {
                     "receiptNumber": false
                 }
-            }
+            },
+			"isRequired":{
+				"isPaymentTypeMandatory": false
+			}
 		},
 		"createClient": {
 			"isReadOnlyField": {
