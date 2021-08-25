@@ -1983,3 +1983,198 @@ tr.newBg td, tr.newBg th {
     padding: 2rem;
     border-radius: 6px;
 }
+
+/* Offer Update CSS */
+.offer-update-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    border: 1px solid #dedede;
+    border-radius: 4px;
+    /* padding: 2rem; */
+    min-height: 30vh;
+    /* align-content: center; */
+    background: #f9f8f8;
+}
+
+.offer-update-block {
+    width: 100%;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.offer-update-content {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-content: baseline;
+    align-items: baseline;
+}
+
+.offer-update-content-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #eae7e7;
+    align-items: center;
+    position: relative;
+}
+
+.offer-update-content-title {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: rgb(32, 32, 32);
+}
+
+.offer-update-content-title-update-btn {
+    /* position: absolute;
+    right: 0; */
+    background: rgb(121, 160, 121);
+    padding: 5px 15px;
+    color: white;
+    font-weight: bold;
+    border-radius: 4px;
+    transition: box-shadow 0.4s;
+    cursor: pointer;
+}
+
+.offer-update-content-title-update-btn:hover {
+    background: rgb(113, 155, 113);
+    box-shadow: 4px 7px 10px 2px #d4d4d4;
+}
+
+.offer-update-content-title-update-btn:active {
+    background: rgb(106, 141, 106);
+    box-shadow: 4px 7px 8px #d4d4d4;
+}
+
+.offer-update-content-body,
+.offer-update-content-form {
+    width: 45%;
+    margin: 3rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    box-shadow: 2px 20px 30px -20px #e2e2e2;
+}
+
+.offer-update-content-body-block {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.6rem;
+    /* padding: 10px; */
+    /* border-bottom: 2px solid #e0e0e0; */
+    margin-top: 1rem;
+    border-left: 4px solid #57ca70;
+}
+
+.offer-update-content-body-title {
+    width: 50%;
+    background: #f3f0f0;
+    padding: 8px;
+    font-weight: bold;
+    color: #565656;
+}
+
+.offer-update-content-body-value {
+    width: 50%;
+    text-align: right;
+    background: white;
+    padding: 8px;
+}
+
+.offer-update-content-form {
+    border: 1px solid #eaeaea;
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    transform: scale(0);
+    transition: transform 1s;
+}
+
+.addScale {
+    transform: scale(1);
+}
+
+.offer-update-content-form-title {
+    width: 100%;
+    font-size: 1.8rem;
+    font-weight: bold;
+    padding-bottom: 3px;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.offer-update-content-form-block {
+    width: 100%;
+    margin: 1.5rem 0;
+}
+
+.offer-update-content-form-block-title {
+    margin-bottom: 2px;
+    color: #656565;
+    font-weight: bold;
+}
+
+.offer-update-content-form-block-input {
+    border: 1px solid #e2e2e2;
+    padding: 10px 15px;
+    border-radius: 4px;
+    width: 45%;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: rgb(197, 197, 197);
+    font-size: 1.4rem;
+  }
+
+  .offer-update-content-form-update-btn-block {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin: 2.5rem 0;
+  }
+
+  .offer-update-content-form-update-btn {
+    /* position: absolute;
+    right: 0; */
+    background: royalblue;
+    padding: 8px 25px;
+    color: white;
+    font-weight: bold;
+    border-radius: 4px;
+    transition: box-shadow 0.4s;
+    cursor: pointer;
+    border: none;
+}
+
+.offer-update-content-form-update-btn:hover {
+    background: rgb(23, 51, 212);
+    box-shadow: 4px 7px 10px 2px #d4d4d4;
+}
+
+.offer-update-content-form-update-btn:active {
+    background: rgb(29, 26, 202);
+    box-shadow: 4px 7px 8px #d4d4d4;
+}
+
+.offer-update-content-notice-block {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.offer-update-content-notice {
+    padding: 8px 15px;
+    background: #eaeaea;
+    border-radius: 6px;
+    border: 1px solid silver;
+    color: #3e3c3c;
+    font-style: italic;
+}

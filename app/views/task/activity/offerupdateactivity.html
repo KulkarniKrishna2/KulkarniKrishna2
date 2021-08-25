@@ -1,0 +1,55 @@
+<div class="col-md-12" ng-controller="offerUpdateActivityController">
+    <div class="">
+        <div class="offer-update-container">
+            <div class="offer-update-block">
+                <div class="offer-update-content">
+                    <div class="offer-update-content-header">
+                        <div class="offer-update-content-title">Current Offer Details</div>
+                        <div class="offer-update-content-title-update-btn" ng-click="toggleUpdateOfferForm()">Modify</div>
+                    </div>
+                    <div class="offer-update-content-notice-block" ng-if="showUpdatedNotice">
+                        <div class="offer-update-content-notice">Loan App Details Updated.</div>
+                    </div>
+                    <div class="offer-update-content-notice-block" ng-if="showErrorBlock">
+                        <div class="offer-update-content-notice">{{errorMsg}}</div>
+                    </div>
+                    <div class="offer-update-content-body">
+                        <div class="offer-update-content-body-block">
+                            <div class="offer-update-content-body-title">Principal</div>
+                            <div class="offer-update-content-body-value">{{loanAppDetails.loanAmountRequested | number}}</div>
+                        </div>
+                        <div class="offer-update-content-body-block">
+                            <div class="offer-update-content-body-title">Repaid Tenure</div>
+                            <div class="offer-update-content-body-value">{{loanAppDetails.termFrequency}} Months</div>
+                        </div>
+                        <div class="offer-update-content-body-block">
+                            <div class="offer-update-content-body-title">Rate Of Interest (ROI %)</div>
+                            <div class="offer-update-content-body-value">{{loanAppDetails.interestRatePerPeriod}} %</div>
+                        </div>
+                    </div>
+                    <form ng-submit="submitOfferUpdateDetails()" name="offerUpdateForm" class="offer-update-content-form" ng-class="{addScale: showUpdateOfferForm }" ng-if="showUpdateOfferForm">
+                        <div class="offer-update-content-form-title">Update Offer</div>
+                        <div class="offer-update-content-form-block">
+                            <div class="offer-update-content-form-block-title">Principal Amount</div>
+                            <input class="offer-update-content-form-block-input" placeholder="Enter Principal Amount"  type="number" min="{{minPrincipalLength}}" max="{{loanAppDetails.loanAmountRequested}}" ng-model="offerUpdateFormData.loanAmountRequested">
+                            <span style="margin-left: 2%; color: #484848;">&#8377;</span>
+                        </div>
+                        <div class="offer-update-content-form-block">
+                            <div class="offer-update-content-form-block-title">Repaid Tenure</div>
+                            <input class="offer-update-content-form-block-input" placeholder="Enter Repaid Tenure" type="number" ng-model="offerUpdateFormData.tenure">
+                            <span style="margin-left: 2%; color: #484848;">Months</span>
+                        </div>
+                        <div class="offer-update-content-form-block">
+                            <div class="offer-update-content-form-block-title">Rate Of Interest (ROI %)</div>
+                            <input class="offer-update-content-form-block-input" placeholder="Enter Rate Of Interest %" type="number" ng-model="offerUpdateFormData.rateOfInterest">
+                            <span style="margin-left: 2%; color: #484848;">%</span>
+                        </div>
+                        <div class="offer-update-content-form-update-btn-block">
+                            <input type="submit" class="offer-update-content-form-update-btn" value="Update" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
