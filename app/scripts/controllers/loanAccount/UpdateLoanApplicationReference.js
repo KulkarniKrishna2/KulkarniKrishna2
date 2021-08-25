@@ -167,6 +167,9 @@
                     scope.getRepaymentTypeOptions();
                     scope.paymentModeOptions = data.paymentModeOptions ;
                     scope.productLoanCharges = data.product.charges || [];
+                    for (var i in scope.productLoanCharges) {
+                        scope.chargesApplicableToLoanApplication.push(scope.productLoanCharges[i].chargeData);
+                    }
                     scope.canDisburseToGroupBankAccounts = data.product.allowDisbursementToGroupBankAccounts;
                     scope.isMultiDisburse = scope.product.multiDisburseLoan;
 
@@ -495,6 +498,12 @@
                         }
                         scope.penalCharges = $filter('filter')(scope.charges, { penalty: true }) || [];
                         scope.feeCharges = $filter('filter')(scope.charges, { penalty: false }) || [];
+                    }
+                    if (data.chargeTimeType.code != "chargeTimeType.specifiedDueDate") {
+                        var index = scope.chargesApplicableToLoanApplication.findIndex(x => x.id === data.chargeId);
+                        if (index > -1) {
+                            scope.chargesApplicableToLoanApplication.splice(index, 1);
+                        }
                     }
                 });
             };
