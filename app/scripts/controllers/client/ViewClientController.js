@@ -1189,17 +1189,18 @@
                                 if(data.columnData[m].row[n].columnName == scope.datatabledetails.columnHeaders[i].columnName){
                                     if(scope.datatabledetails.columnHeaders[i].columnDisplayType== 'MULTISELECTCODELOOKUP'||scope.datatabledetails.columnHeaders[i].columnDisplayType== 'CODELOOKUP'){
                                         var multiSelectValuesAsString = data.columnData[m].row[n].value;
-                                        var multiSelectValuesAsArray = JSON.parse("[" + multiSelectValuesAsString + "]");
-                                        var displayArray = [];
-                                        for(var x in multiSelectValuesAsArray){
-                                            
-                                            for(var y in scope.datatabledetails.columnHeaders[i].columnValues){
-                                                if(multiSelectValuesAsArray[x]==scope.datatabledetails.columnHeaders[i].columnValues[y].id){
-                                                    displayArray.push(scope.datatabledetails.columnHeaders[i].columnValues[y].value);
+                                        if(multiSelectValuesAsString!=undefined){
+                                            var multiSelectValuesAsArray = JSON.parse("[" + multiSelectValuesAsString + "]");
+                                            var displayArray = [];
+                                            for(var x in multiSelectValuesAsArray){
+                                                for(var y in scope.datatabledetails.columnHeaders[i].columnValues){
+                                                    if(multiSelectValuesAsArray[x]==scope.datatabledetails.columnHeaders[i].columnValues[y].id){
+                                                        displayArray.push(scope.datatabledetails.columnHeaders[i].columnValues[y].value);
+                                                    }
                                                 }
                                             }
+                                            data.columnData[m].row[n].value = displayArray.toString();
                                         }
-                                        data.columnData[m].row[n].value = displayArray.toString();
                                     }
                                 }
                             }

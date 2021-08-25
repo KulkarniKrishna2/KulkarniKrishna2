@@ -15,7 +15,6 @@
       "villageTown": true,
       "addressType": true,
       "mobileNumber": true,
-      "emailId": true,
       "streetName": true,
       "houseNo": true,
       "gender":true
