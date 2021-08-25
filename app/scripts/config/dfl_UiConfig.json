@@ -1,30 +1,37 @@
 {
-    "enableUIDisplayConfiguration": true,
-    "uiDisplayConfigurations": {
-  
-        "loanAccount": {
-            "isHiddenField": {
-              "interestChargedFromDate": false
-            }
-          },
-          "taluka":{
-              "isTalukaHidden": true,
-              "isTalukaMandatory":false
-          },
-          "createClient":{
-            "isMandatoryField": {
-              "dateOfBirth": true,
-              "villageTown": true,
-              "addressType": true,
-              "mobileNumber": true,
-              "emailId": true,
-              "streetName": true,
-              "houseNo": true,
-              "gender":true
-            }
-          },
-          "district":{
-            "isDistrictMandatory":false
-          }
+  "enableUIDisplayConfiguration": true,
+  "uiDisplayConfigurations": {
+    "loanAccount": {
+      "isHiddenField": {
+        "interestChargedFromDate": false
+      }
+    },
+    "taluka": {
+      "isTalukaHidden": true,
+      "isTalukaMandatory": false
+    },
+    "createClient": {
+      "dateOfBirth": true,
+      "villageTown": true,
+      "addressType": true,
+      "mobileNumber": true,
+      "emailId": true,
+      "streetName": true,
+      "houseNo": true,
+      "gender":true
+    },
+    "district":{
+      "isDistrictMandatory":false
+    },
+    "createLoanApplication": {
+      "isHiddenField": {
+        "expectedDisbursementDate": false
+      }
+    },
+    "loanApplicationDisbursal": {
+      "isHiddenField": {
+        "repaidEvery": false
+      }
     }
   }
+}
