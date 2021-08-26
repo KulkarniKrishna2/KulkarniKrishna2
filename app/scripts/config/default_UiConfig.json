@@ -572,6 +572,9 @@
 				"printReportButton": false,
 				"upfrontAmount":true
 			},
+			"isAutoPopulate": {
+				"firstRepaymentDate": true
+			},
 			"isMandatoryField": {
 				"expectedDisbursementDate": false,
 				"firstRepaymentDate": false,

@@ -23,6 +23,11 @@
                 scope.isAutoUpdateInterestStartDate = scope.response.uiDisplayConfigurations.loanAccount.isAutoPopulate.interestChargedFromDate;
 
             }
+            if (scope.response && scope.response.uiDisplayConfigurations.createLoanApplication.isAutoPopulate.firstRepaymentDate) {
+                scope.isAutoPopulateFirstRepaymentDate = scope.response.uiDisplayConfigurations.createLoanApplication.isAutoPopulate.firstRepaymentDate;
+
+            }
+
             scope.hideClientAdrresssBlock = scope.response.uiDisplayConfigurations.workflow.loanApproval.hiddenField.clientAddress;
             scope.onReject = function(){
 
@@ -1403,7 +1408,9 @@
                                 }
                             }
                         }
-                        scope.formRequestData.repaymentsStartingFromDate = expectedFirstRepaymentOnDate;                       
+                        if (scope.isAutoPopulateFirstRepaymentDate) {
+                            scope.formRequestData.repaymentsStartingFromDate = expectedFirstRepaymentOnDate;
+                        }
                     }
                 }
             }
