@@ -25,6 +25,9 @@
     "createLoanApplication": {
       "isHiddenField": {
         "expectedDisbursementDate": false
+      },
+      "isAutoPopulate": {
+        "firstRepaymentDate": false
       }
     },
     "loanApplicationDisbursal": {

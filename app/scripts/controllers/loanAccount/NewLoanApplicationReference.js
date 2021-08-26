@@ -625,8 +625,9 @@
                 
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
-                scope.formData.userOverriddenTerms = populateUserOverriddenTerms();
-
+                if (scope.repaidEveryConfigIsActive) {
+                    scope.formData.userOverriddenTerms = populateUserOverriddenTerms();
+                }
                 resourceFactory.loanApplicationReferencesResource.save(this.formData, function (data) {
                     // if(data.changes.isProductMappedToWorkFlow === true){
                     //     location.path('/loanapplication/' + data.resourceId+'/workflow');

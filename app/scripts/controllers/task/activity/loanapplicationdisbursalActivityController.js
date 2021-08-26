@@ -48,6 +48,10 @@
                 scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField && scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.upfrontAmount) {
                 scope.showUpfrontAmount = !scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.upfrontAmount;
             }
+            if (scope.response && scope.response.uiDisplayConfigurations.createLoanApplication.isAutoPopulate.firstRepaymentDate) {
+                scope.isAutoPopulateFirstRepaymentDate = scope.response.uiDisplayConfigurations.createLoanApplication.isAutoPopulate.firstRepaymentDate;
+
+            }
             
             resourceFactory.loanApplicationReferencesTemplateResource.get({}, function (data) {
                 scope.paymentTypes = data.paymentOptions;
@@ -851,7 +855,9 @@
                                 }
                             }
                         }
-                        scope.formRequestData.disburse.repaymentsStartingFromDate = expectedFirstRepaymentOnDate;                        
+                        if (scope.isAutoPopulateFirstRepaymentDate) {
+                            scope.formRequestData.disburse.repaymentsStartingFromDate = expectedFirstRepaymentOnDate;
+                        }
                     }
                 }
             }
