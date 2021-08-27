@@ -336,12 +336,29 @@
                 scope.getTotalAmount(scope.loanDisburseData);
             }
 
-            scope.checkerInboxAllCheckBoxesClicked = function() {
-                var newValue = !scope.checkerInboxAllCheckBoxesMet();
+            scope.selectAllCheckboxBtn = true;
+            scope.allCheckboxsCheckedBoolean = false;
+            scope.getErrorResponseArray = [];
+            scope.checkerInboxAllCheckBoxesClicked = function(value) {
+                scope.unCheckedBoxCount = 0;
+                scope.checkData = [];
+                scope.itemsIdArray = [];
                 if(!angular.isUndefined(scope.searchData)) {
-                    for (var i = scope.searchData.length - 1; i >= 0; i--) {
-                        scope.checkData[scope.searchData[i].id] = newValue; 
-                    };
+                    if(scope.selectAllCheckboxBtn) {
+                        for(var i=0; i<scope.searchData.currentPageItems.length; i++) {
+                            scope.checkData.push(value)
+                            scope.allCheckboxsCheckedBoolean = true;
+                            scope.itemsIdArray.push(scope.searchData.currentPageItems[i]);
+                        }
+                        scope.selectAllCheckboxBtn = false;
+                    } else {
+                        for(var i=0; i<scope.searchData.currentPageItems.length; i++) {
+                            scope.checkData.push(value);
+                            scope.allCheckboxsCheckedBoolean = false;
+                            scope.itemsIdArray.push(scope.searchData.currentPageItems[i]);
+                        }
+                        scope.selectAllCheckboxBtn = true;
+                    }
                 }
             }
             scope.checkerInboxAllCheckBoxesMet = function() {
@@ -355,6 +372,52 @@
                         }
                     });
                     return (checkBoxesMet===scope.searchData.length);
+                }
+            }
+
+            scope.itemsIdArray = [];
+            scope.getInitialCheckData = function() {
+                scope.checkData = [];
+                scope.itemsIdArray = [];
+                if(!angular.isUndefined(scope.searchData)) {
+                    for(var i=0; i<scope.searchData.currentPageItems.length; i++) {
+                        scope.checkData.push(false);
+                        scope.itemsIdArray.push(scope.searchData.currentPageItems[i]);
+                    }
+                }
+            }
+
+            scope.enableInitialCheckData = false;
+            scope.unCheckedBoxCount = 0;
+            scope.monitorItemsCheckbox = function(index) {
+                if(!scope.enableInitialCheckData) {
+                    scope.getInitialCheckData();
+                    scope.enableInitialCheckData = true;
+                }
+
+                // For updating or overriding the items checkbox value. i.e : If it is true, make it false and vice versa.
+                for(var i=0; i<scope.searchData.currentPageItems.length; i++) {
+                    if(i == index) {
+                        if(scope.checkData[i]) {
+                            scope.checkData.splice(index, 1, false);
+                            scope.unCheckedBoxCount++;
+                        } else {
+                            scope.checkData.splice(index, 1, true);
+                            scope.unCheckedBoxCount--;
+                        }
+                    }
+                }
+
+                // For Enabling All Selected Checkbox Value in the heading.
+                for(var i=0; i<scope.checkData.length; i++) {
+                    if(scope.checkData[i]) {
+                        scope.allCheckboxsCheckedBoolean = true;
+                        scope.selectAllCheckboxBtn = false;
+                    } else {
+                        scope.allCheckboxsCheckedBoolean = false;
+                        scope.selectAllCheckboxBtn = true;
+                        break;
+                    }
                 }
             }
 
@@ -430,6 +493,7 @@
                 $scope.approve = function () {
                     var totalApprove = 0;
                     var approveCount = 0;
+                    scope.getErrorResponseArray = [];
                     _.each(scope.checkData, function (value, key) {
                         if (value == true) {
                             totalApprove++;
@@ -437,13 +501,14 @@
                     });
                     _.each(scope.checkData, function (value, key) {
                         if (value == true) {
-
-                            resourceFactory.checkerInboxResource.save({templateResource: key, command: action}, {}, function (data) {
+                            
+                            resourceFactory.checkerInboxResource.save({templateResource: scope.itemsIdArray[key].id, command: action}, {}, function (data) {
                                 approveCount++;
                                 if (approveCount == totalApprove) {
                                     scope.search();
                                 }
-                            }, function (data) {
+                            }, function (error) {
+                                scope.getErrorResponseArray.push({id: scope.itemsIdArray[key].id, errorMsg: error.data.errors[0].defaultUserMessage});
                                 approveCount++;
                                 if (approveCount == totalApprove) {
                                     scope.search();
@@ -480,7 +545,7 @@
                     _.each(scope.checkData, function (value, key) {
                         if (value == true) {
 
-                            resourceFactory.checkerInboxResource.delete({templateResource: key}, {}, function (data) {
+                            resourceFactory.checkerInboxResource.delete({templateResource: scope.itemsIdArray[key].id}, {}, function (data) {
                                 deleteCount++;
                                 if (deleteCount == totalDelete) {
                                     scope.search();
@@ -601,6 +666,8 @@
             };
 
             scope.search = function () {
+                scope.allCheckboxsCheckedBoolean = false;
+                scope.selectAllCheckboxBtn = true;
                 scope.isCollapsed = true;
                 var reqFromDate = dateFilter(scope.date.from, scope.sqlFilerDf);
                 var reqToDate = dateFilter(scope.date.to, scope.sqlFilerDf);

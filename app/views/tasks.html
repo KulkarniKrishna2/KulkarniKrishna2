@@ -7,7 +7,7 @@
 		<div style="color:red" ng-show="error">{{'label.error.select.client' | translate}}</div>
 		<fieldset>
 			<legend>{{'label.heading.pendingtasks' | translate}}</legend>
-			<api-validate></api-validate>
+			<!-- <api-validate></api-validate> -->
 			<tabset tabset-name="taskTabset">
 				<tab heading="{{'label.heading.checkerinbox' | translate}}" has-permission='ALL_FUNCTIONS_READ' ng-click="rescheduleData()">
 				    <div class="head-affix">
@@ -98,25 +98,32 @@
 				        <table class="table" style="margin-top: -20px;">
 				            <thead>
 				            <tr class="graybg">
-				                <th><input type="checkbox" ng-click="checkerInboxAllCheckBoxesClicked()" ng-checked="checkerInboxAllCheckBoxesMet()"/></th>
+				                <!-- <th><input type="checkbox" ng-click="checkerInboxAllCheckBoxesClicked()" ng-model="isCheckedAll" ng-checked="checkerInboxAllCheckBoxesMet()"/></th> -->
+								<th><input type="checkbox" ng-click="checkerInboxAllCheckBoxesClicked(selectAllCheckboxBtn)" data-ng-model="allCheckboxsCheckedBoolean"/></th>
 				                <th>{{'label.heading.id' | translate}}</th>
 				                <th>{{'label.heading.madeondate' | translate}}</th>
 				                <th>{{'label.heading.status' | translate}}</th>
 				                <th>{{'label.heading.user' | translate}}</th>
 				                <th>{{'label.heading.action' | translate}}</th>
 				                <th>{{'label.heading.entity' | translate}}</th>
+								<th>Notice</th>
 				            </tr>
 				            </thead>
 				            <tbody>
-							<tr ng-if="searchData.currentPageItems.length > 0" class="pointer-main"
+							<tr ng-if="searchData.currentPageItems.length > 0" class="pointer-main" style="border-bottom: 1px solid #eaeaea;"
 									ng-repeat="data in searchData.currentPageItems ">
-				                <td><input type="checkbox" data-ng-model="checkData[data.id]"/></td>
+				                <td><input type="checkbox" ng-click="monitorItemsCheckbox($index)" data-ng-model="checkData[$index]"/></td>
 				                <td class="pointer" data-ng-click="routeTo(data.id)">{{data.id}}</td>
 				                <td class="pointer" data-ng-click="routeTo(data.id)">{{data.madeOnDate | DateFormat}}</td>
 				                <td class="pointer" data-ng-click="routeTo(data.id)">{{data.processingResult}}</td>
 				                <td class="pointer" data-ng-click="routeTo(data.id)">{{data.maker}}</td>
 				                <td class="pointer" data-ng-click="routeTo(data.id)">{{data.actionName}}</td>
 				                <td class="pointer" data-ng-click="routeTo(data.id)">{{data.entityName}}</td>
+								<!-- <td class="pointer">{{getErrorResponseArray.length > 0 ? getErrorResponseArray}}</td> -->
+								<td class="pointer">
+									<span ng-if="getErrorResponseArray.length > 0" ng-repeat="errorResponse in getErrorResponseArray">{{errorResponse.id == data.id ? errorResponse.errorMsg : null}}</span>
+									<span ng-if="getErrorResponseArray.length == 0"></span>
+								</td>
 				            </tr>
 							<tr ng-if="searchData.isResponsePresent && searchData.currentPageItems.length == 0">
 								<td>
