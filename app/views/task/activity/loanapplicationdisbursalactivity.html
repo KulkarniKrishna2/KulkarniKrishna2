@@ -582,6 +582,73 @@
                                                        ng-disabled="response.uiDisplayConfigurations.loanAccount.isReadOnlyField.interestChargedFromDate" ng-readonly="isDatePickerReadOnly"/>
                                             </td>
                                         </tr>
+
+                                        <tr ng-if="repaidEveryConfigIsActive">
+                                            <td ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentEvery == true">
+                                                <label>{{ 'label.input.repaidevery' | translate }}&nbsp;<span class="required">*</span></label></td>
+                                            <td class="paddedbottom10 width500px"
+                                                ng-hide="response.uiDisplayConfigurations.loanAccount.isHiddenField.repaymentEvery == true">
+                                                <input id="repaymentEvery" class="form-control" type="text" autocomplete="off" name="repaidevery"
+                                                    ng-model="formData.repayEvery"
+                                                    ng-disabled="!loanaccountinfo.product.allowAttributeOverrides.repaymentEvery" required late-Validate />
+                                                <select id="repaymentFrequencyType" class="form-control" ng-model="formRequestData.repaymentFrequencyType"
+                                                    ng-options="repaymentFrequencyType.id as repaymentFrequencyType.value for repaymentFrequencyType in loanaccountinfo.termFrequencyTypeOptions"
+                                                    ng-disabled="((!loanaccountinfo.product.allowAttributeOverrides.repaymentEvery) ||(response.uiDisplayConfigurations.loanAccount.isReadOnlyField.repaymentFrequencyType))"
+                                                    value="{{repaymentFrequencyType.id}}" />&nbsp;<span
+                                                    ng-show="formRequestData.repaymentFrequencyType == 2 && showRepaymentFrequencyNthDayType">on</span>
+                                                <select id="repaymentFrequencyNthDayType" class="form-control" ng-model="formRequestData.repaymentFrequencyNthDayType"
+                                                    ng-options="repaymentFrequencyNthDayType.id as repaymentFrequencyNthDayType.value for repaymentFrequencyNthDayType in loanaccountinfo.repaymentFrequencyNthDayTypeOptions"
+                                                    ng-show="formRequestData.repaymentFrequencyType == 2 && showRepaymentFrequencyNthDayType"
+                                                    ng-disabled="((!loanaccountinfo.product.allowAttributeOverrides.repaymentEvery) ||(response.uiDisplayConfigurations.loanAccount.isReadOnlyField.repaymentFrequencyType))"
+                                                    value="{{repaymentFrequencyNthDayType.id}}" />&nbsp;
+                                                <select id="repaymentFrequencyDayOfWeekType" class="form-control"
+                                                    ng-model="formRequestData.repaymentFrequencyDayOfWeekType"
+                                                    ng-options="repaymentFrequencyDayOfWeekType.id as repaymentFrequencyDayOfWeekType.value for repaymentFrequencyDayOfWeekType in loanaccountinfo.repaymentFrequencyDaysOfWeekTypeOptions"
+                                                    ng-show="formRequestData.repaymentFrequencyType == 2 &&  formRequestData.repaymentFrequencyNthDayType != -2 && showRepaymentFrequencyDayOfWeekType"
+                                                    ng-disabled="((!loanaccountinfo.product.allowAttributeOverrides.repaymentEvery) ||(response.uiDisplayConfigurations.loanAccount.isReadOnlyField.repaymentFrequencyType))"
+                                                    value="{{repaymentFrequencyDayOfWeekType.id}}" />&nbsp;
+                                                <form-validate valattributeform="newloanaccountform" valattribute="repaidevery" />
+                                            </td>
+                                            <td data-ng-show="formRequestData.repaymentFrequencyType == 2 && formRequestData.repaymentFrequencyNthDayType == -2">
+                                                <label>{{ 'label.input.selectmonthday' | translate }}</label>
+                                            </td>
+                                            <td align="left" class="paddedbottom10"
+                                                data-ng-show="formRequestData.repaymentFrequencyType == 2 && formRequestData.repaymentFrequencyNthDayType == -2">
+                                                <table>
+                                                    <tr>
+                                                        <td align="left">
+                                                            <select id="avilabledays" ng-model="available" name="avilabledays"
+                                                                class="form-control multiselectmin"
+                                                                ng-disabled="((!loanaccountinfo.product.allowAttributeOverrides.repaymentEvery) ||(response.uiDisplayConfigurations.loanAccount.isReadOnlyField.repaymentFrequencyType))"
+                                                                multiple>
+                                                                <option ng-repeat="onday in repeatsOnDayOfMonthOptions" value="{{onday}}">
+                                                                    {{onday}}
+                                                                </option>
+                                                            </select>
+                                                            &nbsp;
+                                                        </td>
+                                                        <td align="left">
+                                                            <button type="button" class="btn btn-primary" data-ng-click="addMonthDay()"><i
+                                                                    class="icon-double-angle-right"></i></button>
+                                                            <br />
+                                                            <button type="button" class="btn btn-primary" data-ng-click="removeMonthDay()"><i
+                                                                    class="icon-double-angle-left"></i></button>
+                                                            &nbsp;
+                                                        </td>
+                                                        <td align="left">
+                                                            <select id="selecteddays" ng-model="selected" name="selecteddays"
+                                                                class="form-control multiselectmin"
+                                                                ng-disabled="((!loanaccountinfo.product.allowAttributeOverrides.repaymentEvery) ||(response.uiDisplayConfigurations.loanAccount.isReadOnlyField.repaymentFrequencyType))"
+                                                                multiple>
+                                                                <option ng-repeat="onday in selectedOnDayOfMonthOptions" value="{{onday}}">
+                                                                    {{onday}}
+                                                                </option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
                                         <tr>
                                             <td class="width25"></td>
                                             <td class="width25 paddedbottom10">
