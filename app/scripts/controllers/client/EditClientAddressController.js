@@ -66,6 +66,12 @@
                 }
             }
 
+            if (scope.response && scope.response.uiDisplayConfigurations) {
+                scope.isTalukaHidden = scope.response.uiDisplayConfigurations.taluka.isTalukaHidden;
+                scope.isTalukaMandatory = scope.response.uiDisplayConfigurations.taluka.isTalukaMandatory;
+                scope.isDistrictMandatory = scope.response.uiDisplayConfigurations.district.isDistrictMandatory;
+            }
+
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createClient.isHiddenField.pincode) {
                 scope.pincode = scope.response.uiDisplayConfigurations.createClient.isHiddenField.pincode;
             }
