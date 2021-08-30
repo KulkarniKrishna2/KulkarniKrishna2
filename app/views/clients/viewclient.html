@@ -1019,7 +1019,7 @@
 									<span class="padded-td" ng-if = address.addressRegionValueData.Township.name>{{address.addressRegionValueData.Township.name}}</span>
 								</td>
 							</tr>
-							<tr ng-if = "!isLevelBasedAddressEnabled">
+							<tr ng-if = "!isLevelBasedAddressEnabled" ng-hide="isTalukaHidden">
 								<th class="table-bold-loan">{{'label.heading.talukname' | translate}}</th>
 								<td>
 									<span class="padded-td">{{address.talukaData.talukaName}}</span>
