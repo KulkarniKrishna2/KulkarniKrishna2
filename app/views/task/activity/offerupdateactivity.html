@@ -5,13 +5,14 @@
                 <div class="offer-update-content">
                     <div class="offer-update-content-header">
                         <div class="offer-update-content-title">Current Offer Details</div>
-                        <div class="offer-update-content-title-update-btn" ng-click="toggleUpdateOfferForm()">Modify</div>
+                        <div class="offer-update-content-title-update-btn" ng-if="showModifyBtn" ng-click="toggleUpdateOfferForm()">Modify</div>
                     </div>
                     <div class="offer-update-content-notice-block" ng-if="showUpdatedNotice">
                         <div class="offer-update-content-notice">Loan App Details Updated.</div>
                     </div>
                     <div class="offer-update-content-notice-block" ng-if="showErrorBlock">
-                        <div class="offer-update-content-notice">{{errorMsg}}</div>
+                        <!-- <div class="offer-update-content-notice" style="color: red;">{{errorMsg}}</div> -->
+                        <api-validate></api-validate>
                     </div>
                     <div class="offer-update-content-body">
                         <div class="offer-update-content-body-block">

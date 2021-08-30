@@ -10,7 +10,7 @@
             scope.maxPrincipalLength;
             scope.loanAppDetails = {};
             scope.showErrorBlock = false;
-            scope.showModifyBtn = false;
+            scope.showModifyBtn = true;
             scope.errorMsg = 'Error!! Please try again.';
             scope.offerUpdateFormData = {
                 loanAmountRequested: null,
@@ -48,21 +48,18 @@
                     console.log(error);
                     scope.showErrorBlock = true;
                     scope.showUpdatedNotice = false;
-                    scope.errorMsg = 'Error getting Loan Resource!! Please try again.';
                 });
             }
 
             scope.getLoanAppDetails = function() {
                 resourceFactory.loanApplicationReferencesResource.getByLoanAppId({loanApplicationReferenceId: scope.loanApplicationReferenceId}, function (applicationData) {
                     scope.loanAppDetails = applicationData;
-                    scope.showModifyBtn = true;
                     scope.getLoanAppProductDetails(scope.loanAppDetails.loanProductId);
                     scope.showErrorBlock = false;
                 }, function(error) {
                     console.log(error);
                     scope.showErrorBlock = true;
                     scope.showUpdatedNotice = false;
-                    scope.errorMsg = 'Error getting Loan App Details!! Please try again.';
                 });
             }
             scope.getLoanAppDetails();
@@ -79,7 +76,6 @@
                     console.log(error);
                     scope.showErrorBlock = true;
                     scope.showUpdatedNotice = false;
-                    scope.errorMsg = 'Error Submitting details!! Please try again.';
                 });
             }
 
