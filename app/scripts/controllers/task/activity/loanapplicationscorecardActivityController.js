@@ -7,6 +7,7 @@
             scope.loanApplicationScoreCardInitBlock = true;
             scope.loanApplicationScoreCardInitNotice = false;
             scope.loanApplicationScoreCardInitError = false;
+            scope.loanApplicationReferenceId = scope.taskconfig['loanApplicationId'];
             scope.loanApplicationScoreCardInit = function() {
                 fetchScores();
             }
@@ -20,8 +21,6 @@
             checkTaskStatus();
 
             
-
-            scope.loanApplicationReferenceId = routeParams.loanApplicationId;
             
             // For Fetching the score card details
             function fetchScores(){
