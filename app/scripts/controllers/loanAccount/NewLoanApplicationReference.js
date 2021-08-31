@@ -725,7 +725,12 @@
                     }
                 }
 
-                this.formPreviewRepaymentData.expectedDisbursementDate = dateFilter(this.formData.expectedDisbursementDate,scope.df);
+                if (!_.isUndefined(this.formData.expectedDisbursementDate)) {
+                    this.formPreviewRepaymentData.expectedDisbursementDate = dateFilter(this.formData.expectedDisbursementDate, scope.df);
+                }
+                else {
+                    this.formPreviewRepaymentData.expectedDisbursementDate = dateFilter(new Date(), scope.df);
+                }
                 this.formPreviewRepaymentData.submittedOnDate = dateFilter(scope.formData.submittedOnDate,scope.df);
                 this.formPreviewRepaymentData.repaymentsStartingFromDate = dateFilter(this.formData.repaymentsStartingFromDate,scope.df);
                 
@@ -829,9 +834,6 @@
                 delete this.formPreviewRepaymentData.repayEvery;
                 delete this.formPreviewRepaymentData.repaymentPeriodFrequencyEnum;
                 delete this.formPreviewRepaymentData.noOfTranche;
-
-                this.formPreviewRepaymentData.expectedDisbursementDate = dateFilter(new Date(), scope.df);
-
                 
                 resourceFactory.loanResource.save({command: 'calculateLoanSchedule'}, this.formPreviewRepaymentData, function (data) {
                     scope.repaymentscheduleinfo = data;
