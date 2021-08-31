@@ -2,7 +2,7 @@
     mifosX.services = _.extend(module, {
 
         UIConfigService: function ($q, $http) {
-            var customConfig = {"lms.moneytap.com":"moneytap","finflux.tapstart.in":"tapstart","finfluxuat.dfltd.in":"dfl","dfltd.in":"dfl","finflux-preprod.dfltd.in":"dfl","finflux.dfltd.in":"dfl"};
+            var customConfig = {"lms.moneytap.com":"moneytap","finflux.tapstart.in":"tapstart","finfluxuat.dfltd.in":"dfl","dfltd.in":"dfl","finflux-preprod.dfltd.in":"dfl","finflux.dfltd.in":"dfl","loms.dfltd.in":"dfl"};
 
             var configUIArray = ["agronomica", "almajmoua", "bss", "chaitanya", "crediangolar", "creditonepayments", "digamber","dfl", "eastlanka", "flexi", "grayquest", "habitat", "hana", "kapilcapital", "light", "mobilityfinance","moc","moneytap","neev",
                 "nextru", "phakamani", "rc", "renet", "secdep", "sef", "shivakarifin", "sunvest", "tapstart", "vayarbl", "vayabc", "vaya", "mfi", "default","slicepay"];
