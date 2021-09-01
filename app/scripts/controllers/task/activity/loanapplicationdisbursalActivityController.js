@@ -286,6 +286,9 @@
                     if (scope.loanaccountinfo.isLoanProductLinkedToFloatingRate) {
                         scope.formRequestData.submitApplication.isFloatingInterestRate = false;
                     }
+                    if (scope.formData.approvedData.noOfAdvEmiCollection) {
+                        scope.formRequestData.submitApplication.noOfAdvEmiCollection = scope.formData.approvedData.noOfAdvEmiCollection;
+                    }
                     scope.fetchBankAccountDetails();
                     if(scope.formData.approvedData.amountForUpfrontCollection){
                         scope.formRequestData.submitApplication.amountForUpfrontCollection = scope.formData.approvedData.amountForUpfrontCollection;
