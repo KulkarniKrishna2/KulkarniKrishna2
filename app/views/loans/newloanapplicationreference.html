@@ -345,6 +345,18 @@
                 </td>
             </tr>
 
+            <tr>
+                <td class="width19" data-ng-show="loanaccountinfo.product.isRepaymentAtDisbursement">
+                    <label>{{ 'label.input.no.of.adv.emi.collection' | translate }}</label>
+                </td>
+                <td class="width32 paddedbottom10" data-ng-show="loanaccountinfo.product.isRepaymentAtDisbursement">
+                    <input ng-if="loanaccountinfo.product.isRepaymentAtDisbursement" id="noOfAdvEmiCollection"
+                        placeholder="{{'label.input.no.of.adv.emi.collection' | translate}}" type="text" autocomplete="off"
+                        class="form-control" ng-model="formData.noOfAdvEmiCollection">
+                </td>
+            </tr>
+
+
             <tr ng-show="loanaccountinfo.canUseForTopup">
                 <td><label>{{ 'label.heading.isTopup' | translate }}</label></td>
                 <td class="paddedbottom10" colspan="3">

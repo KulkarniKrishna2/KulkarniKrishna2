@@ -198,6 +198,10 @@
                         scope.formData.loanOfficerId = scope.loanaccountinfo.loanOfficerId;
                     }
 
+                    if (scope.loanaccountinfo.product.isRepaymentAtDisbursement == true && scope.loanaccountinfo.product.noOfAdvEmiCollection) {
+                        scope.formData.noOfAdvEmiCollection = scope.loanaccountinfo.product.noOfAdvEmiCollection;
+                    }
+
                     if(scope.loanaccountinfo.loanOfficerOptions){
                         resourceFactory.clientResource.get({clientId: scope.clientId}, function (data) {
                             if(data.staffId != null){
@@ -622,7 +626,7 @@
                 }else{
                     this.formData.loanIdToClose = undefined;
                 }
-                
+
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
                 if (scope.repaidEveryConfigIsActive) {
