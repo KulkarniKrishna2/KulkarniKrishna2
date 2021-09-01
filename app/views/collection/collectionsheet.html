@@ -397,7 +397,7 @@
         <table class="table table-bordered">
             <thead>
             <tr>
-                <td>{{ 'label.input.paymenttype' | translate}}</td>
+                <td>{{ 'label.input.paymenttype' | translate}}<span  class="required" ng-if="isPaymentTypeMandatory">*</span></td>
                 <td ng-show="paymentDetail.paymentTypeId">{{ 'label.input.accnum' | translate}}</td>
                 <td ng-show="paymentDetail.paymentTypeId">{{ 'label.input.checknumber' | translate}}</td>
                 <td ng-show="paymentDetail.paymentTypeId">{{ 'label.input.routingcode' | translate}}</td>
@@ -411,7 +411,7 @@
                 <td><select ng-model="paymentDetail.paymentTypeId"
                             class="form-control"
                             ng-options="paymentType.id as paymentType.name for paymentType in collectionsheetdata.paymentTypeOptions"
-                            value="{{paymentType.id}}"></select></td>
+                            value="{{paymentType.id}}" ng-required="isPaymentTypeMandatory"></select></td>
                 <td ng-show="paymentDetail.paymentTypeId"><input type="text" autocomplete="off" class="form-control"
                            ng-model="paymentDetail.accountNumber"></td>
                 <td ng-show="paymentDetail.paymentTypeId"><input class="form-control" type="text" autocomplete="off"
