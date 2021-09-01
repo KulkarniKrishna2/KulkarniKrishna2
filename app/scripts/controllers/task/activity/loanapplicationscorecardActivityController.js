@@ -4,67 +4,55 @@
             angular.extend(this, $controller('defaultActivityController', {$scope: scope}));
 
             scope.scorekey = scope.taskconfig['scorecard'];
+            console.log(scope.taskconfig);
             scope.loanApplicationScoreCardInitBlock = true;
             scope.loanApplicationScoreCardInitNotice = false;
             scope.loanApplicationScoreCardInitError = false;
+            scope.showReRunBtn = true;
             scope.loanApplicationReferenceId = scope.taskconfig['loanApplicationId'];
             scope.loanApplicationScoreCardInit = function() {
-                fetchScores();
+                scope.onGenerate();
             }
 
-            function checkTaskStatus() {
+            scope.initTask = function() {
+                scope.showViewDetails = true;
                 if(scope.isTaskCompleted()) {
-                    scope.loanApplicationScoreCardInitBlock = false;
-                    fetchScores();
-                }
+                    scope.showReRunBtn = false;
+                } 
+                fetchScorecardDetails();
             }
-            checkTaskStatus();
-
+            scope.initTask();
             
-            
-            // For Fetching the score card details
-            function fetchScores(){
-                // resourceFactory.loanAppScoreCardResourceList.getAll({loanAppId:scope.loanApplicationReferenceId}, function (response) {
-                //     scope.loanApplicationScoreCardInitError = false;
-                //     scope.loanApplicationScoreCardInitNotice = false;
-                //     scope.showScore = true;
-                //     scope.scoreList = response;
-                //     console.log(response);
-                //     if(scope.scoreList.length > 0) {
-                //         scope.loanApplicationScoreCardInitBlock = false;
-                //     } else {
-                //         scope.loanApplicationScoreCardInitNotice = true;
-                //     }
-
-                //     if(scope.isTaskCompleted()) {
-                //         scope.fetchScorecardDetail(scope.scoreList[0].name);
-                //     }
-                // },function(error) {
-                //     scope.loanApplicationScoreCardInitError = true;
-                // });
+            scope.onGenerate = function(){
+                console.log('Clicked On Generate');
                 resourceFactory.loanAppScoreCardResource.post({loanAppId:scope.loanApplicationReferenceId, scoreKey: scope.scorekey}, function (response) {
-                    scope.loanApplicationScoreCardInitError = false;
-                    scope.loanApplicationScoreCardInitNotice = false;
-                    scope.showScore = true;
-                    scope.scoreList = [];
-                    scope.scoreList.push(scope.scorekey);
-                    scope.loanApplicationScoreCardInitBlock = false;
-                    scope.fetchScorecardDetail(scope.scoreList[0]);
+                    console.log(response);
+                    fetchScorecardDetails();
                 },function(error) {
                         scope.loanApplicationScoreCardInitError = true;
+                        
                 });
             }
 
-            // fetchScores();
-
-            scope.fetchScorecardDetail = function (selctedScoreKey) {
-                scope.showScoreDetail = true;
-                resourceFactory.loanAppScoreCardResource.get({loanAppId:scope.loanApplicationReferenceId, scoreKey:selctedScoreKey}, function (response) {
+            function fetchScorecardDetails() {
+                resourceFactory.loanAppScoreCardResource.get({loanAppId:scope.loanApplicationReferenceId, scoreKey: scope.scorekey}, function (response) {
+                    console.log(response);
                     scope.scoreCardList = response;
-                    scope.getScoreCardResult(selctedScoreKey);
+                    scope.showViewDetails = true;
+                    scope.loanApplicationScoreCardInitError = false;
+                    scope.loanApplicationScoreCardInitNotice = false;
+                    scope.loanApplicationScoreCardInitBlock = false;
+                    scope.getScoreCardResult(scope.scorekey);
+                },function(error) {
+                    scope.handleView();
                 });
             };
-
+            
+            scope.handleView = function() {
+                if(!scope.isTaskCompleted()) {
+                    scope.showViewDetails = false;
+                }
+            }
             // Score Card Functions
 
             scope.inputObj;

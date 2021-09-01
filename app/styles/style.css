@@ -645,9 +645,12 @@ tr.newBg td, tr.newBg th {
 
 .z-scoreCardList-title {
     background: #e2eceb;
-    padding: 10px;
+    padding: 15px;
     font-size: 16px;
     font-weight: bold;
+    position: relative;
+    display: flex;
+    align-items: center;
 }
 
 .z-scoreCardList-title-value {
@@ -656,6 +659,7 @@ tr.newBg td, tr.newBg th {
     padding: 5px 20px;
     border-radius: 4px;
     background: #efefef;
+    margin-left: 1%;
 }
 
 .z-scoreCardList-values {
@@ -2177,4 +2181,19 @@ tr.newBg td, tr.newBg th {
     border: 1px solid silver;
     color: #3e3c3c;
     font-style: italic;
+}
+
+.re-run-scoreCard {
+    position: absolute;
+    right: 2%;
+    border: 1px solid #c5c5c5;
+    padding: 5px 20px;
+    border-radius: 4px;
+    background: #2bc378;
+    color: whitesmoke;
+    cursor: pointer;
+}
+
+.re-run-scoreCard:active {
+    background: #27af6b;
 }

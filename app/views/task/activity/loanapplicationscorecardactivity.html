@@ -1,13 +1,13 @@
 <div class="col-md-12" ng-controller="loanpplicationscorecardActivityController">
     <div class="">
-        <div class="loanApp-scoreCard-init-block" ng-if="loanApplicationScoreCardInitBlock">
+        <div class="loanApp-scoreCard-init-block" ng-if="!showViewDetails">
             <div class="loanApp-scoreCard-init-text">Generate Loan Application Score Card</div>
             <div class="loanApp-scoreCard-init-btn" ng-click="loanApplicationScoreCardInit()">Generate</div>
             <div class="loanApp-scoreCard-init-unavailable-text" ng-if="loanApplicationScoreCardInitNotice">No Score Cards Available!.</div>
             <div class="loanApp-scoreCard-init-error-text" ng-if="loanApplicationScoreCardInitError">Error on generating score cards, <br> Try Again!.</div>
         </div>
 
-        <div class="z-scoreCard-body" ng-if="!loanApplicationScoreCardInitBlock">
+        <div class="z-scoreCard-body" ng-if="showViewDetails">
             <div class="z-scoreCard-header">
                 <div class="z-scoreCard-title">Score Card Details</div>
             </div>
@@ -19,9 +19,10 @@
                 </div>
             </div>
             <div class="z-scoreCardList-values" style="justify-content: center; width: 100%;">
-                <div class="z-scoreCardList-title">Score Card Result : <span class="z-scoreCardList-title-value" style="color: white; background: #4a6be8;" ng-if='listStyleValue'>{{listStyleValue}}</span></div>
+                <div class="z-scoreCardList-title">Score Card Result : <span class="z-scoreCardList-title-value" style="color: white; background: #4a6be8;" ng-if='listStyleValue'>{{listStyleValue}}</span> <div class="re-run-scoreCard" ng-if="showReRunBtn" ng-click="onGenerate()">Re-Run</div></div>
                 <div class="z-scoreCardList-pre-select-block" ng-if="listStyleValue == '' ">
-                    <span class="z-scoreCardList-pre-select-text">Select any of the Score Card</span>
+                    <!-- <span class="z-scoreCardList-pre-select-text">Select any of the Score Card</span> -->
+                    <span class="z-scoreCardList-pre-select-text">No Score Card Details present.</span>
                 </div>
                 <div class="z-scoreCardList-values-block" ng-if="listStyleValue != '' ">
                     
