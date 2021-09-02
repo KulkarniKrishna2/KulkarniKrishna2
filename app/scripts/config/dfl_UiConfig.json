@@ -11,13 +11,15 @@
       "isTalukaMandatory": false
     },
     "createClient": {
-      "dateOfBirth": true,
-      "villageTown": true,
-      "addressType": true,
-      "mobileNumber": true,
-      "streetName": true,
-      "houseNo": true,
-      "gender":true
+      "isMandatoryField": {
+        "dateOfBirth": true,
+        "villageTown": true,
+        "addressType": true,
+        "mobileNumber": true,
+        "streetName": true,
+        "houseNo": true,
+        "gender":true
+      }
     },
     "district":{
       "isDistrictMandatory":false
