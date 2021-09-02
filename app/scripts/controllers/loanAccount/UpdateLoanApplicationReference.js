@@ -81,9 +81,6 @@
                 scope.formData.clientId = applicationData.clientId;
                 scope.formData.groupId = applicationData.groupId;
                 scope.accountType = scope.applicationData.accountType.value.toLowerCase();
-                if (applicationData.noOfAdvEmiCollection) {
-                    scope.formData.noOfAdvEmiCollection = applicationData.noOfAdvEmiCollection;
-                }
                 if(scope.applicationData.expectedDisbursalPaymentType){
                     scope.formData.expectedDisbursalPaymentType = scope.applicationData.expectedDisbursalPaymentType.id;
                     if(scope.applicationData.expectedDisbursalPaymentType.paymentMode){
