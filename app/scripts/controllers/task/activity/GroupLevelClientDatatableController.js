@@ -217,12 +217,12 @@
                     windowClass: 'modalwidth700',
                     resolve: {
                         memberParams: function () {
-                            if (member.loanAccountBasicData) {
+                            if (member.clientLevelTaskTrackingData) {
                                 return {
                                     'memberId': member.id,
                                     'memberName': member.displayName,
                                     'fcsmNumber': member.fcsmNumber,
-                                    'loanId': member.loanAccountBasicData.id,
+                                    'loanId': member.clientLevelTaskTrackingData.loanId,
                                     'allowLoanRejection': member.allowLoanRejection
                                 };
                             }
