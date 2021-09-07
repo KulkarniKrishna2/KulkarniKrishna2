@@ -149,6 +149,9 @@
                     else if (colType == 'codelookup') {
                         colType = 'dropdown';
                     }
+                    else if (colType == 'multiselectcodelookup') {
+                        colType = 'multiSelectDropDown';
+                    }
                     tempColumn.type = colType;
 
                     if (colType == 'string') {
