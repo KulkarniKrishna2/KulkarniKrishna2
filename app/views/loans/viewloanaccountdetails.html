@@ -1036,6 +1036,7 @@
                         </div>
                         <table class="table width100">
                             <tr class="graybg">
+                                <th></th>
                                 <th >{{'label.heading.transferid' | translate}}</th>
                                 <th >{{'label.heading.createdon' | translate}}</th>
                                 <th >{{'label.heading.transfertype' | translate}}</th>
@@ -1045,26 +1046,82 @@
                                 <th ng-if="isWorkflowEnabled">{{'label.view.bank.transaction.workflow' | translate}}</th>
                             </tr>
 
-                            <tr ng-repeat="transferData in transferDetails">
-                                <td class="btn btn-link" data-ng-click="viewBasicTransferDetails(transferData)">{{transferData.transactionId}}</td>
-                                <td class="pointer" data-ng-click="viewBasicTransferDetails(transferData)">{{transferData.createdDate | DateFormat}} </td>
-                                <td class="pointer" data-ng-click="viewBasicTransferDetails(transferData)">{{transferData.transferType.value}}</td>
-                                <td class="pointer" data-ng-click="viewBasicTransferDetails(transferData)">{{transferData.amount}}</td>
-                                <td class="pointer">{{transferData.status.value}}</td>
-                                <td>
-                                    <div class="btn-group">
-                                        <button class="btn btn-info" type="button" ng-click="retryTransfer(transferData)" ng-if="(transferData.status.id == failedTransaction || transferData.status.id == rejectedTransaction) && showRetryBankTransaction"
-                                            has-permission="RETRY_BANK_TRANSACTION">{{'label.button.retry' | translate}}</button>
-                                        <button class="btn btn-danger" type="button" ng-click="reject(transferData)" ng-if="showRejectButton(transferData)"
-                                            has-permission="REJECT_BANK_TRANSACTION">{{'label.button.reject' | translate}}</button>
-                                        <button class="btn btn-danger" type="button" ng-click="forceReject(transferData)" ng-if="transferData.status.id == initiatedTransaction"
-                                            has-permission="FORCE_REJECT_BANK_TRANSACTION">{{'label.button.force.reject' | translate}}</button>
-                                        <button class="btn btn-danger" type="button" ng-click="closeBankTransfer(transferData)" ng-if="transferData.status.id == successTransaction"
-                                            has-permission="CLOSE_BANK_TRANSACTION">{{'label.button.close' | translate}}</button>
-                                    </div>
-                                </td>
-                                <td class="pointer" ng-if="isWorkflowEnabled" data-ng-click="viewTransferDetails(transferData)"> <i class="icon-arrow-right ng-scope icon-primary" tooltip="{{'label.view.bank.transaction.workflow' | translate}}"></i></td>
-                            </tr>
+                            <tbody ng-repeat="transferData in transferDetails">
+                            
+                                <tr>
+                                    <td >
+                                        <button ng-show="transferData.isChildTransactions" ng-click="expanded = !expanded" expand>
+                                            <span ng-bind="expanded ? '-' : '+'"></span>
+                                        </button>
+                                    </td>
+                                    <td class="btn btn-link" data-ng-click="viewBasicTransferDetails(transferData)">{{transferData.transactionId}}
+                                    </td>
+                                    <td class="pointer" data-ng-click="viewBasicTransferDetails(transferData)">{{transferData.createdDate |
+                                        DateFormat}} </td>
+                                    <td class="pointer" data-ng-click="viewBasicTransferDetails(transferData)">{{transferData.transferType.value}}
+                                    </td>
+                                    <td class="pointer" data-ng-click="viewBasicTransferDetails(transferData)">{{transferData.amount}}</td>
+                                    <td class="pointer">{{transferData.status.value}}</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button class="btn btn-info" type="button" ng-click="retryTransfer(transferData)"
+                                                ng-if="(transferData.status.id == failedTransaction || transferData.status.id == rejectedTransaction) && showRetryBankTransaction"
+                                                has-permission="RETRY_BANK_TRANSACTION">{{'label.button.retry' | translate}}</button>
+                                            <button class="btn btn-danger" type="button" ng-click="reject(transferData)"
+                                                ng-if="showRejectButton(transferData)"
+                                                has-permission="REJECT_BANK_TRANSACTION">{{'label.button.reject' | translate}}</button>
+                                            <button class="btn btn-danger" type="button" ng-click="forceReject(transferData)"
+                                                ng-if="transferData.status.id == initiatedTransaction"
+                                                has-permission="FORCE_REJECT_BANK_TRANSACTION">{{'label.button.force.reject' | translate}}</button>
+                                            <button class="btn btn-danger" type="button" ng-click="closeBankTransfer(transferData)"
+                                                ng-if="transferData.status.id == successTransaction"
+                                                has-permission="CLOSE_BANK_TRANSACTION">{{'label.button.close' | translate}}</button>
+                                        </div>
+                                    </td>
+                                    <td class="pointer" ng-if="isWorkflowEnabled" data-ng-click="viewTransferDetails(transferData)"> <i
+                                            class="icon-arrow-right ng-scope icon-primary"
+                                            tooltip="{{'label.view.bank.transaction.workflow' | translate}}"></i></td>
+                                </tr>
+
+
+                                <tr ng-show="expanded" ng-repeat="childTransferData in transferData.childTransactions">
+                                    <td></td>
+                                    <td class="btn btn-link" data-ng-click="viewBasicTransferDetails(childTransferData)">
+                                        {{childTransferData.transactionId}}
+                                    </td>
+                                    <td class="pointer" data-ng-click="viewBasicTransferDetails(childTransferData)">
+                                        {{childTransferData.createdDate |
+                                        DateFormat}} </td>
+                                    <td class="pointer" data-ng-click="viewBasicTransferDetails(childTransferData)">
+                                        {{childTransferData.transferType.value}}
+                                    </td>
+                                    <td class="pointer" data-ng-click="viewBasicTransferDetails(childTransferData)">
+                                        {{childTransferData.amount}}</td>
+                                    <td class="pointer">{{childTransferData.status.value}}</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button class="btn btn-info" type="button" ng-click="retryTransfer(childTransferData)"
+                                                ng-if="(childTransferData.status.id == failedTransaction || childTransferData.status.id == rejectedTransaction) && showRetryBankTransaction"
+                                                has-permission="RETRY_BANK_TRANSACTION">{{'label.button.retry' | translate}}</button>
+                                            <button class="btn btn-danger" type="button" ng-click="reject(childTransferData)"
+                                                ng-if="showRejectButton(childTransferData)"
+                                                has-permission="REJECT_BANK_TRANSACTION">{{'label.button.reject' | translate}}</button>
+                                            <button class="btn btn-danger" type="button" ng-click="forceReject(childTransferData)"
+                                                ng-if="childTransferData.status.id == initiatedTransaction"
+                                                has-permission="FORCE_REJECT_BANK_TRANSACTION">{{'label.button.force.reject' |
+                                                translate}}</button>
+                                            <button class="btn btn-danger" type="button" ng-click="closeBankTransfer(childTransferData)"
+                                                ng-if="childTransferData.status.id == successTransaction"
+                                                has-permission="CLOSE_BANK_TRANSACTION">{{'label.button.close' | translate}}</button>
+                                        </div>
+                                    </td>
+                                    <td class="pointer" ng-if="isWorkflowEnabled" data-ng-click="viewTransferDetails(childTransferData)"> <i
+                                            class="icon-arrow-right ng-scope icon-primary"
+                                            tooltip="{{'label.view.bank.transaction.workflow' | translate}}"></i></td>
+                                </tr>
+
+
+                            </tbody>
                         </table>
                     </tab>
                     <tab active = "tabs[8].active" has-permission='READ_BANK_TRANSACTION' heading="{{'label.heading.loanbankaccountassociation' | translate}}" select="fetchBankDetailAssociation()">
