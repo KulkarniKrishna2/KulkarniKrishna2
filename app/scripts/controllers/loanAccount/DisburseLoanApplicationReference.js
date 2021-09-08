@@ -356,6 +356,10 @@
                         scope.formRequestData.submitApplication.amountForUpfrontCollection = scope.formData.approvedData.amountForUpfrontCollection;
                     }
 
+                    if (scope.formData.approvedData.noOfAdvEmiCollection) {
+                        scope.formRequestData.submitApplication.noOfAdvEmiCollection = scope.formData.approvedData.noOfAdvEmiCollection;
+                    }
+
                     if (scope.formData.approvedData.repaymentFrequencyNthDayType) {
                         scope.formRequestData.repaymentFrequencyNthDayType = scope.formData.approvedData.repaymentFrequencyNthDayType.id;
                     }

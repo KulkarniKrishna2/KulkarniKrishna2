@@ -149,6 +149,7 @@
 		                    <option value="datetime">{{'label.datetime' | translate}}</option>
 		                    <option value="text">{{'label.text' | translate}}</option>
 		                    <option value="dropdown">{{'label.dropdown' | translate}}</option>
+                            <option value="multiSelectDropDown">{{'label.multi.select' | translate}}</option>
 		                </select>
 					</div>
 					<div class="col-sm-1">
@@ -211,6 +212,7 @@
                                                 <option value="datetime">{{'label.datetime' | translate}}</option>
                                                 <option value="text">{{'label.text' | translate}}</option>
                                                 <option value="dropdown">{{'label.dropdown' | translate}}</option>
+                                                <option value="multiSelectDropDown">{{'label.multi.select' | translate}}</option>
                                             </select>
                                         </td>
                                         <td align="center" class="col-sm-1"><input ng-model="column.mandatory" type="checkbox"/></td>
@@ -219,12 +221,12 @@
                                                    class="input-sm form-control"/>
                                         </td>
                                         <td class="col-sm-2">
-                                            <select ng-show="column.type == 'dropdown'" ng-model="column.code"
+                                            <select ng-show="column.type == 'dropdown'|| column.type == 'multiSelectDropDown'" ng-model="column.code"
                                                     ng-options="code.name as code.name for code in codes" value="{{code.name}}"
                                                     class="input-sm form-control" ng-disabled="column.originalName"/>
                                         </td>
                                         <td class="col-sm-2">
-                                            <select ng-show="column.type == 'dropdown'" ng-disabled="!column.originalName"
+                                            <select ng-show="column.type == 'dropdown'|| column.type == 'multiSelectDropDown'" ng-disabled="!column.originalName"
                                                     ng-model="column.newCode"
                                                     ng-options="code.name as code.name for code in codes" value="{{code.name}}"
                                                     class="input-sm form-control"/>
