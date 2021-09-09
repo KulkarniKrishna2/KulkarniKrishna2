@@ -135,7 +135,7 @@
                     for (var i in scope.existingLoans) {
                         var existingLoan = scope.existingLoans[i];
                         if (existingLoan.source && existingLoan.source.name === 'Credit Bureau') {
-                            if (existingLoan.loanStatus && existingLoan.loanStatus.id === 600) {
+                            if (existingLoan.loanStatus && (existingLoan.loanStatus.id === 600 || existingLoan.loanStatus.id === 601)) {
                                 if (_.isUndefined(scope.closedLoan)) {
                                     scope.closedLoan = {};
                                     scope.closedLoan.summaries = [];
