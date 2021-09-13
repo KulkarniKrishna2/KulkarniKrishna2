@@ -51,6 +51,9 @@
                 if(applicationData.expectedFirstRepaymentOnDate != undefined){
                         scope.formRequestData.repaymentsStartingFromDate=dateFilter(new Date(applicationData.expectedFirstRepaymentOnDate), scope.df);
                 }
+                if(applicationData.noOfAdvEmiCollection) {
+                    scope.formRequestData.noOfAdvEmiCollection = applicationData.noOfAdvEmiCollection;
+                }
                 resourceFactory.loanApplicationReferencesResource.getChargesByLoanAppId({
                     loanApplicationReferenceId: scope.loanApplicationReferenceId,
                     command: 'loanapplicationchargeswithchargetemplate'
