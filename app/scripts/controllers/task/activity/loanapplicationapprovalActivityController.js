@@ -85,6 +85,9 @@
                         scope.upfrontAmount = true;
                         scope.formRequestData.amountForUpfrontCollection = scope.formData.amountForUpfrontCollection;
                     }
+                    if (applicationData.noOfAdvEmiCollection) {
+                        scope.formRequestData.noOfAdvEmiCollection = applicationData.noOfAdvEmiCollection;
+                    }
                     scope.formRequestData.interestRatePerPeriod = scope.formData.interestRatePerPeriod;
                     if(scope.formData.expectedDisbursementDate != undefined){
                         scope.formRequestData.expectedDisbursementDate=dateFilter(new Date(scope.formData.expectedDisbursementDate), scope.df);
@@ -1034,6 +1037,16 @@
                  * This formValidationData data is required only for validation purpose
                  * @type {{}|*}
                  */
+
+
+                if (!_.isUndefined(scope.submitData.formRequestData.repaymentFrequencyNthDayType)) {
+                    delete scope.submitData.formRequestData.repaymentFrequencyNthDayType;
+                }
+
+                if (!_.isUndefined(scope.submitData.formRequestData.repeatsOnDayOfMonth)) {
+                    delete scope.submitData.formRequestData.repeatsOnDayOfMonth;
+                }
+
                 resourceFactory.loanApplicationReferencesResource.update({
                     loanApplicationReferenceId: scope.loanApplicationReferenceId,
                     command: 'approve'
