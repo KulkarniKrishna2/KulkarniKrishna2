@@ -212,7 +212,10 @@
                 "isRequired": {
                     "receiptNumber": false
                 }
-            }
+            },
+			"isRequired":{
+				"isPaymentTypeMandatory": false
+			}
 		},
 		"createClient": {
 			"isReadOnlyField": {
@@ -579,7 +582,8 @@
 				"disbursementPaymentMode": false,
 				"amountForUpfrontCollection": false,
 				"disbursementPaymentType":false,
-				"loanOfficer": false
+				"loanOfficer": false,
+				"externalIdOne": false
 			},
 			"isMandatory": {
 				"trancheData": false,
@@ -832,6 +836,11 @@
 		  "isHiddenField": {
 			"eodWithoutWorkflow": false
 		  }
+		},
+		"cbReview":{
+			"isHiddenField":{
+				"appliedAmount": false
+			}
 		}
 	}
 }

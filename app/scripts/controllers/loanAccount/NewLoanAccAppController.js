@@ -658,9 +658,7 @@
 
                 var reqFirstDate = dateFilter(scope.date.first, scope.df);
                 var reqSecondDate = dateFilter(scope.date.second, scope.df);
-                if(!_.isUndefined(scope.date.third)){
-                    var reqThirdDate = dateFilter(scope.date.third, scope.df);
-                }              
+                var reqThirdDate = dateFilter(scope.date.third, scope.df);
                 var reqFourthDate = dateFilter(scope.date.fourth, scope.df);
                 if (scope.charges.length > 0) {
                     scope.formData.charges = [];
@@ -693,9 +691,7 @@
                 if (scope.temp.syncRepaymentsWithMeeting) {
                     this.formData.calendarId = scope.loanaccountinfo.calendarOptions[0].id;
                 }
-                if(!_.isUndefined(reqThirdDate)){
-                  this.formData.interestChargedFromDate = reqThirdDate;  
-                }               
+                this.formData.interestChargedFromDate = reqThirdDate;  
                 this.formData.repaymentsStartingFromDate = reqFourthDate;
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;
@@ -829,9 +825,7 @@
                 if (scope.temp.syncRepaymentsWithMeeting) {
                     this.formData.calendarId = scope.loanaccountinfo.calendarOptions[0].id;
                 }
-                if(!_.isUndefined(reqThirdDate)){
-                    this.formData.interestChargedFromDate = reqThirdDate;
-                }             
+                this.formData.interestChargedFromDate = reqThirdDate;
                 this.formData.repaymentsStartingFromDate = reqFourthDate;
                 this.formData.locale = scope.optlang.code;
                 this.formData.dateFormat = scope.df;

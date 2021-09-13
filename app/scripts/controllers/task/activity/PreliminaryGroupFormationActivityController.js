@@ -7,8 +7,6 @@
                 scope.centerId = scope.taskconfig.centerId;
                 scope.taskInfoTrackArray = [];
                 scope.clientProfileRatingScoreForSuccess = 0;
-                scope.familyMemberMinAge = 0;
-                scope.familyMemberMaxAge = 100;
                 scope.isAllClientFinishedThisTask = true;
 
                 if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.workflow &&
@@ -1074,12 +1072,7 @@
                     var ageDifMs = Date.now() - $scope.familyMembersFormData.dateOfBirth.getTime();
                     var ageDifMs = Date.now() - $scope.familyMembersFormData.dateOfBirth.getTime();
                     var ageDate = new Date(ageDifMs); // miliseconds from epoch
-                    $scope.familyMembersFormData.age=Math.abs(ageDate.getUTCFullYear() - 1970);
-                    if($scope.familyMemberMinAge <= $scope.familyMembersFormData.age && $scope.familyMembersFormData.age <= $scope.familyMemberMaxAge){
-                        $scope.isValidAge = true;
-                    }else{
-                        $scope.isValidAge = false;
-                    }       
+                    $scope.familyMembersFormData.age=Math.abs(ageDate.getUTCFullYear() - 1970);    
                 } 
             });
 

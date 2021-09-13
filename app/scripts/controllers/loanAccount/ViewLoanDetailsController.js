@@ -99,6 +99,7 @@
             scope.initiatedTransaction = 3;
             scope.errorTransaction = 8;
             scope.rejectedTransaction = 10;
+            scope.splitTransaction = 14;
             scope.enableClientVerification = scope.isSystemGlobalConfigurationEnabled('client-verification');
             scope.canForceDisburse = false;
             scope.allowBankAccountsForGroups = scope.isSystemGlobalConfigurationEnabled('allow-bank-account-for-groups');
@@ -343,6 +344,9 @@
                         break;
                     case "viewhistory":
                         location.path('/history/' + scope.entityType + '/' + accountId);
+                        break;
+                    case "loansoareport":
+                        location.path('/loansoareport/' + accountId);
                         break;
                 }
             };
@@ -798,7 +802,11 @@
                             {
                                 name: "button.returnloan",
                                 taskPermissionName: 'RETURNLOAN_LOAN'
-                            }
+                            },
+                            {
+                                name: "button.loansoareport",
+                                taskPermissionName: 'READ_LOAN'
+                            },
                         ]
 
                     };
@@ -1027,7 +1035,21 @@
                                 scope.closedTransferDetails.push(scope.transferDetails[i]);
                             }
                             else {
-                                scope.activeTransferDetails.push(scope.transferDetails[i]);
+                                if (scope.transferDetails[i].parentId == 0) {
+                                    var parentTransferDetail = scope.transferDetails[i];
+                                    parentTransferDetail.childTransactions = [];
+                                    for (var j in scope.transferDetails) {
+                                        if (scope.transferDetails[j].parentId == parentTransferDetail.transactionId) {
+                                            parentTransferDetail.childTransactions.push(scope.transferDetails[j]);
+                                        }
+                                    }
+                                    if(_.isEmpty(parentTransferDetail.childTransactions)){
+                                        parentTransferDetail.isChildTransactions = false
+                                    }else{
+                                        parentTransferDetail.isChildTransactions = true
+                                    }
+                                    scope.activeTransferDetails.push(parentTransferDetail);
+                                }
                             }
                         }
                     }

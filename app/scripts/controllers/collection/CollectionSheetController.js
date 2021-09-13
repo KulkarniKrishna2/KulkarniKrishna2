@@ -38,6 +38,7 @@
             scope.showEmiAmountOnNoDue = false;
             
             scope.showAllAttendanceTypes = true;
+            scope.isPaymentTypeMandatory = false;
             resourceFactory.configurationResource.get({configName:'reason-code-allowed'}, function (data) {
                 scope.showRejectReason = data.enabled;
             });
@@ -46,6 +47,7 @@
                 scope.hideLoanAccountNumber = scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild.loanAccountNumber;
                 scope.hideSavingsAccountNumber = scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild.savingsAccountNumber;
                 scope.hideClientForNoRepayments = scope.response.uiDisplayConfigurations.collectionSheet.isHiddenFeild.clientForNoRepayments;
+                scope.isPaymentTypeMandatory = scope.response.uiDisplayConfigurations.collectionSheet.isRequired.isPaymentTypeMandatory;
             }
             if (scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.collectionSheet) {
                 if(scope.response.uiDisplayConfigurations.collectionSheet.attendanceType){
@@ -93,6 +95,12 @@
             resourceFactory.codeHierarchyResource.get({codeName: 'Reject Reason',childCodeName:'CollectionReason'}, function (data) {
                 scope.collectionReasonList = data;
             });
+
+            scope.setvaluesByClient = function(client){
+                client.codeReasonId = undefined;
+                client.reasonId = undefined;
+                client.reason = undefined;
+            }
 
             scope.setvalues = function(clientId){
                 scope.groups = scope.savingsgroups;

@@ -15,6 +15,12 @@
                     scope.selectedCenters = json.centers;
                     scope.selectedGroups = json.groups;
                     scope.selectedClients = json.clients;
+                    scope.selectedOrphanClients = json.orphanClients;
+                    scope.selectedOrphanGroups = json.orphanGroups;
+                    scope.selectedOrphanLoans = json.orphanLoans;
+                    scope.selectedOrphanLoanApps = json.orphanLoanApplications;
+                    scope.selectedOrphanSavings = json.orphanSavings;
+                    scope.isAssignParentStaff = json.isAssignParentStaff;
                     var staffId = null;
                     if(scope.bulkTransfer.fromStaff){
                     	if(scope.bulkTransfer.fromStaff.id == 0){
@@ -44,6 +50,11 @@
                     scope.centers = data.centerDataList;
                     scope.groups = data.groups;
                     scope.clients = data.clients;
+                    scope.orphanGroups = data.orphanGroups;
+                    scope.orphanClients = data.orphanClients;
+                    scope.orphanLoans = data.orphanLoans;
+                    scope.orphanLoanApps = data.orphanLoanApps;
+                    scope.orphanSavings = data.orphanSavings;
                 });
             };
 
@@ -58,7 +69,7 @@
             }
             
             scope.entityExists = function(entityArray, entityId){
-                if(entityArray.findIndex(x=>x.id == entityId) != -1){
+                if(entityArray && entityArray.findIndex(x=>x.id == entityId) != -1){
                     ++scope.entityCount;
                     return true;
                 }
@@ -73,7 +84,7 @@
             };
             
             scope.noDataToTransferInPendingState = function (){
-                return (scope.bulkTransfer.status.id == scope.pendingState) &&  scope.isTransferDataEmpty() ;
+                return (scope.bulkTransfer.status && scope.bulkTransfer.status.id == scope.pendingState) &&  scope.isTransferDataEmpty() ;
             };
         }
     });

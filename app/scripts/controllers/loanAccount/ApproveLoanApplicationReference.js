@@ -79,6 +79,7 @@
                 scope.showLoanEmiPack = true;
             };
 
+            scope.chargesApplicableToLoanApplication = [];
             scope.constructExistingCharges = function (data) {
                 data.chargeId = data.id;
                 scope.charges.push(data);
@@ -128,6 +129,17 @@
                         }
                     }
                     scope.productLoanCharges = data.product.charges || [];
+                    for (var i in scope.productLoanCharges) {
+                        var chargeI = scope.productLoanCharges[i].chargeData;
+                        if(chargeI.chargeTimeType.code  != "chargeTimeType.specifiedDueDate"){
+                            var index = scope.charges.findIndex(x => x.id === chargeI.id);
+                            if (index == -1) {
+                                scope.chargesApplicableToLoanApplication.push(chargeI);
+                            }
+                        } else {
+                            scope.chargesApplicableToLoanApplication.push(chargeI);
+                        }
+                    }
                     if (scope.loanaccountinfo.product.multiDisburseLoan) {
                         scope.formRequestData.loanApplicationSanctionTrancheDatas = [];
                     }
@@ -838,6 +850,12 @@
                         scope.chargeFormData.chargeId = undefined;
                         scope.penalCharges = $filter('filter')(scope.charges, { penalty: true }) || [];
                         scope.feeCharges = $filter('filter')(scope.charges, { penalty: false }) || [];
+                        for (var i = 0; i < scope.chargesApplicableToLoanApplication.length; i++) {
+                            if (scope.chargesApplicableToLoanApplication[i].id == data.id && data.chargeTimeType.code != "chargeTimeType.specifiedDueDate") {
+                                scope.chargesApplicableToLoanApplication.splice(i, 1);  //removes 1 element at position i
+                                break;
+                            }
+                        }
                     });
                 }
             };
@@ -848,6 +866,9 @@
                 scope.charges.splice(indexCharge,1);
                 scope.penalCharges = $filter('filter')(scope.charges, { penalty: true }) || [];
                 scope.feeCharges = $filter('filter')(scope.charges, { penalty: false }) || [];
+                if(deleteCharge.chargeTimeType.code != "chargeTimeType.specifiedDueDate"){
+                    scope.chargesApplicableToLoanApplication.push(deleteCharge);
+                }
             };
 
             scope.report = false;

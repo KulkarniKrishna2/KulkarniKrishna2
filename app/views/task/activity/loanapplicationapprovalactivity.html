@@ -771,7 +771,7 @@
                                                    placeholder="{{'label.input.expecteddisbursementon' | translate}}"
                                                    ng-model="disbursementDetail.expectedTrancheDisbursementDate"
                                                    is-open="'openedtranche'+$index" min="minDate" max="globalMaxDate"
-                                                   class="form-control" ng-readonly="isDatePickerReadOnly" required ng-disabled="$index == 0"/>
+                                                   class="form-control" ng-readonly="isDatePickerReadOnly" required/>
                                             <form-validate valattributeform="approveloanapplicationform"
                                                            valattribute="expectedTrancheDisbursementDate"/>
                                         </td>
@@ -945,7 +945,7 @@
                             <div class="col-md-12">
                                 <label><strong>{{ 'label.heading.charges' | translate }}</strong></label>
                                 <select ng-model="chargeFormData.chargeId"
-                                        ng-options="charge.id as (charge.name + ',' + charge.currency.displaySymbol) for charge in loanaccountinfo.chargeOptions|filter:loanaccountinfo.currency.code:strict"
+                                        ng-options="charge.id as (charge.name + ',' + charge.currency.displaySymbol) for charge in chargesApplicableToLoanApplication|filter:loanaccountinfo.currency.code:strict"
                                         value="{{charge.id}}" class="form-control width170px">
                                     <option value="">{{'label.selectcharge' | translate}}</option>
                                 </select>

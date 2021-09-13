@@ -115,7 +115,7 @@
                 
                     <div class="col-sm-2">
                         <input id="age" type="number" autocomplete="off" name="age" ng-model="formData.age" ng-minlength="1"
-                            ng-maxlength="3" min="{{familyMemberMinAge}}" max="{{familyMemberMaxAge}}" class="form-control" value="{{formData.age}}"
+                            ng-maxlength="3" min="{{familyMemberMinAge}}" max="{{familyMemberMaxAge}}" class="form-control" placeholder="{{formData.age}}"
                             ng-change="validateAge()" ng-required="isAgeMandatory" ng-disabled="true"/>
                         <span class="error" ng-hide="isValidAge">{{'label.input.dob.not.range' | translate}}
                             {{familyMemberMinAge}}{{'label.input.and' | translate}} {{familyMemberMaxAge}}</span>
@@ -128,13 +128,13 @@
  
                 <div class="form-group">
                     <label class="control-label col-sm-2">{{ 'label.input.relationship' | translate }}
-                
+                        <span class="required">*</span>
                     </label>
                 
                     <div class="col-sm-3">
                         <select id="relationship" name="relationship" ng-model="relationshipId" class="form-control" ng-change="findRelationCodeValue(relationshipId)"
                             ng-options="relationshipOption.id as relationshipOption.name for relationshipOption in relationshipOptions"
-                            value="relationshipOption.id">
+                            value="relationshipOption.id" ng-required = true>
                             <option value="">--{{'label.input.selectoptions' | translate}}--</option>
                         </select>
                     </div>

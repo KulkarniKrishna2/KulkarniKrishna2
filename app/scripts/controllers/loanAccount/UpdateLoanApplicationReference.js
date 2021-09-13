@@ -36,14 +36,15 @@
             scope.previewRepayment = false;
             scope.isMultiDisburse = false;
             scope.showUpfrontAmount = true;
-            scope.isMandatoryUpfrontAmountCollection = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.amountForUpfrontCollection;
+            scope.isMandatoryUpfrontAmountCollection = false;
             scope.isEmiPacksEditable = false;
             scope.showLoanPurposeCustomField = false;
             scope.showLoanTerms = true;
 
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createLoanApplication &&
-                scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField && scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.disbursementPaymentType) {
+                scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField && scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField) {
                 scope.isMandatoryDisbursementPaymentType = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.disbursementPaymentType;
+                scope.isMandatoryUpfrontAmountCollection = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.amountForUpfrontCollection;
             }
             if(scope.response && scope.response.uiDisplayConfigurations && scope.response.uiDisplayConfigurations.createLoanApplication &&
                 scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField && scope.response.uiDisplayConfigurations.createLoanApplication.isHiddenField.upfrontAmount) {
@@ -64,6 +65,7 @@
                     scope.isMandatoryFirstRepaymentDate = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.firstRepaymentDate;
                     scope.isMandatoryRateOfInterest = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.interestRatePerPeriod;
                     scope.isMandatoryDisbursementPaymentMode = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.disbursementPaymentMode;
+                    scope.isExternalIdOne = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatoryField.externalIdOne;
                 }
                 if (scope.response.uiDisplayConfigurations.createLoanApplication.isMandatory) {
                     scope.loanReferenceTrancheData = scope.response.uiDisplayConfigurations.createLoanApplication.isMandatory.trancheData;
@@ -167,6 +169,9 @@
                     scope.getRepaymentTypeOptions();
                     scope.paymentModeOptions = data.paymentModeOptions ;
                     scope.productLoanCharges = data.product.charges || [];
+                    for (var i in scope.productLoanCharges) {
+                        scope.chargesApplicableToLoanApplication.push(scope.productLoanCharges[i].chargeData);
+                    }
                     scope.canDisburseToGroupBankAccounts = data.product.allowDisbursementToGroupBankAccounts;
                     scope.isMultiDisburse = scope.product.multiDisburseLoan;
 
@@ -300,7 +305,6 @@
                                 }
                             }
                         });
-
                     }
                     for (var i in scope.productLoanCharges) {
                         var charge = scope.productLoanCharges[i].chargeData;
@@ -495,6 +499,12 @@
                         }
                         scope.penalCharges = $filter('filter')(scope.charges, { penalty: true }) || [];
                         scope.feeCharges = $filter('filter')(scope.charges, { penalty: false }) || [];
+                    }
+                    if (data.chargeTimeType.code != "chargeTimeType.specifiedDueDate") {
+                        var index = scope.chargesApplicableToLoanApplication.findIndex(x => x.id === data.chargeId);
+                        if (index > -1) {
+                            scope.chargesApplicableToLoanApplication.splice(index, 1);
+                        }
                     }
                 });
             };

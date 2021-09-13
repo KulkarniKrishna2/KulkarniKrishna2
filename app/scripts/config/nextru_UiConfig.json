@@ -10,7 +10,10 @@
                 }
 			},
             "isMandatoryField": {
-				"dateOfBirth": true
+				"dateOfBirth": true,
+                "lastName": false,
+                "clientType":true,
+                "clientClassificationId":true
             },
             "isReadOnlyField": {
 				"externalId": true
@@ -22,7 +25,6 @@
 			},
 				"dateOfBirth": true,
                 "lastName": false
-            
         },
 		"workflow": {
             "showClosedLoanApplicationInGroupActivity" : false
@@ -61,6 +63,13 @@
 				"createGroup": true
             }
         },
+
+        "editLoanApplication": {
+			"editableFields":{
+				"emiPacks":true
+			}
+		},
+
         "loanAccount": {
             "isDefaultValue":{
                 "paymentTypeId": 10
@@ -78,11 +87,24 @@
                 "isRequired": {
                     "receiptNumber": true
                 }
-            }
+            },
+            "isRequired":{
+				"isPaymentTypeMandatory": true
+			}
 		},
         "viewLoanAccountDetails": {
 			"isHiddenFeild": {
                 "prepayLoanButton": false
+            }
+        },
+        "createLoanApplication":{
+            "isMandatoryField":{
+                "externalIdOne": true
+            }
+        },
+        "paymentDetails":{
+            "isMandatory":{
+                "receiptNumber": true
             }
         }
     }

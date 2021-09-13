@@ -36,7 +36,6 @@
                 <td  class="col-sm-3" align="left">
                     <label>{{bulkTransfer.toStaff.displayName}}</label>
                 </td>
-
             </tr>
             <tr>
                 <td  class="col-sm-3" align="right">
@@ -52,6 +51,14 @@
                     <label>{{bulkTransfer.status.value}}</label>
                 </td>
             </tr>
+			<tr ng-if="isAssignParentStaff">
+				<td  class="col-sm-3" align="right">
+                    <label>{{'label.heading.is.assign.parent.staff' | translate}}:</label>
+                </td>
+				<td  class="col-sm-3" align="left">
+                    <label>{{isAssignParentStaff}}</label>
+                </td>
+			</tr>
         </table>
 	<form class="form-horizontal">
 		<api-validate></api-validate>
@@ -61,7 +68,7 @@
 
 			<div class="row paddedleft" ng-if="bulkTransfer.status.id==pendingState">
 				<div>
-					<div class="form-group" data-ng-show="centers">
+					<div class="form-group" data-ng-show="selectedCenters">
 						<table>
 							<tbody>
 								<tr> 
@@ -120,7 +127,7 @@
 							</tbody>
 						</table>
 					</div>
-					<div class="form-group" data-ng-show="groups">
+					<div class="form-group" data-ng-show="selectedGroups">
 						<table>
 							<tbody>
 								<tr>
@@ -152,7 +159,7 @@
 							</tbody>
 						</table>
 					</div>
-					<div class="form-group" data-ng-show="clients">
+					<div class="form-group" data-ng-show="selectedClients">
 						<table>
 							<tbody>
 								<tr>
@@ -162,6 +169,94 @@
 								</tr>
 								<tr ng-repeat="client in clients"  ng-if= "entityExists(selectedClients, client.id)">
 								    <td ng-if= "entityExists(selectedClients, client.id)"><strong>{{client.displayName}}</strong></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="form-group" data-ng-show="selectedOrphanGroups">
+						<table>
+							<tbody>
+								<tr>
+									<hr/>
+									<strong>{{'label.heading.orphan.groupdetails' | translate}}</strong>
+									<hr/>
+								</tr>
+								<tr ng-repeat-start="orphanGroup in orphanGroups">
+									<td ng-if= "entityExists(selectedOrphanGroups, orphanGroup.id)">
+										<button type="button" style="border: 0"
+											ng-click="expandGroup(orphanGroup, goupExpanded = !goupExpanded)">
+											<span style="border: 0" ng-bind="goupExpanded ? '-' : '+'"></span>
+										</button>&nbsp;&nbsp;&nbsp;&nbsp;
+									</td>
+									<td ng-if= "entityExists(selectedOrphanGroups, orphanGroup.id)">&nbsp;&nbsp;&nbsp;&nbsp;<strong>{{orphanGroup.name}}</strong></td>
+								</tr>
+								<tr ng-repeat-end ng-if="orphanGroup.isExpanded">
+									<td></td>
+									<td>
+										<table>
+											<tbody>
+												<tr ng-repeat="oClient in orphanGroup.clientMembers">
+													<td><strong>{{oClient.displayName}}</strong></td>
+												</tr>
+											</tbody>
+										</table>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="form-group" data-ng-show="selectedOrphanClients">
+						<table>
+							<tbody>
+								<tr>
+									<hr/>
+									<strong>{{'label.heading.orphan.clientdetails' | translate}}</strong>
+									<hr/>
+								</tr>
+								<tr ng-repeat="orphanClient in orphanClients"  ng-if= "entityExists(selectedOrphanClients, orphanClient.id)">
+									<td ng-if= "entityExists(selectedOrphanClients, orphanClient.id)"><strong>{{orphanClient.displayName}}</strong></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="form-group" data-ng-show="selectedOrphanLoans">
+						<table>
+							<tbody>
+								<tr>
+									<hr/>
+									<strong>{{'label.heading.orphan.loandetails' | translate}}</strong>
+									<hr/>
+								</tr>
+								<tr ng-repeat="orphanLoan in orphanLoans"  ng-if= "entityExists(selectedOrphanLoans, orphanLoan.id)">
+									<td ng-if= "entityExists(selectedOrphanLoans, orphanLoan.id)"><strong>{{orphanLoan.productName}}({{orphanLoan.accountNo}})</strong></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="form-group" data-ng-show="selectedOrphanLoanApps">
+						<table>
+							<tbody>
+								<tr>
+									<hr/>
+									<strong>{{'label.heading.orphan.loanappdetails' | translate}}</strong>
+									<hr/>
+								</tr>
+								<tr ng-repeat="orphanLoanApp in orphanLoanApps"  ng-if= "entityExists(selectedOrphanLoanApps, orphanLoanApp.id)">
+									<td ng-if= "entityExists(selectedOrphanLoanApps, orphanLoanApp.id)"><strong>{{orphanLoanApp.productName}}({{orphanLoanApp.accountNo}})</strong></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="form-group" data-ng-show="selectedOrphanSavings">
+						<table>
+							<tbody>
+								<tr>
+									<hr/>
+									<strong>{{'label.heading.orphan.savingsdetails' | translate}}</strong>
+									<hr/>
+								</tr>
+								<tr ng-repeat="orphanSaving in orphanSavings"  ng-if= "entityExists(selectedOrphanSavings, orphanSaving.id)">
+									<td ng-if= "entityExists(selectedOrphanSavings, orphanSaving.id)"><strong>{{orphanSaving.productName}}({{orphanSaving.accountNo}})</strong></td>
 								</tr>
 							</tbody>
 						</table>
@@ -217,6 +312,63 @@
 								<tr ng-repeat="client in selectedClients">
 									<td><button type="button" style="border: 0"><span>-</span></button></td>
 									<td><strong>{{client.name}}</strong></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="form-group" data-ng-show="selectedOrphanGroups">
+						<table>
+							<tbody>
+								<tr>
+									<hr/><strong>{{'label.heading.orphan.groupdetails' | translate}}</strong><hr/>
+								</tr>
+								<tr ng-repeat="orphanGroup in selectedOrphanGroups">
+									<td><button type="button" style="border: 0"><span>-</span></button></td>	
+									<td>&nbsp;&nbsp;&nbsp;&nbsp;<strong>{{orphanGroup.name}}</strong></td>
+								</tr>		
+							</tbody>
+						</table>
+					</div>
+					<div class="form-group" data-ng-show="selectedOrphanClients">
+						<table>
+							<tbody>
+								<tr><hr/><strong>{{'label.heading.orphan.clientdetails' | translate}}</strong><hr/></tr>
+								<tr ng-repeat="orphanClient in selectedOrphanClients">
+									<td><button type="button" style="border: 0"><span>-</span></button></td>
+									<td><strong>{{orphanClient.name}}</strong></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="form-group" data-ng-show="selectedOrphanLoans">
+						<table>
+							<tbody>
+								<tr><hr/><strong>{{'label.heading.orphan.loandetails' | translate}}</strong><hr/></tr>
+								<tr ng-repeat="orphanLoan in selectedOrphanLoans">
+									<td><button type="button" style="border: 0"><span>-</span></button></td>
+									<td><strong>{{orphanLoan.productName}}({{orphanLoan.accountNo}})</strong></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="form-group" data-ng-show="selectedOrphanLoanApps">
+						<table>
+							<tbody>
+								<tr><hr/><strong>{{'label.heading.orphan.loanappdetails' | translate}}</strong><hr/></tr>
+								<tr ng-repeat="orphanLoanApp in selectedOrphanLoanApps">
+									<td><button type="button" style="border: 0"><span>-</span></button></td>
+									<td><strong>{{orphanLoanApp.productName}}({{orphanLoanApp.accountNo}})</strong></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="form-group" data-ng-show="selectedOrphanSavings">
+						<table>
+							<tbody>
+								<tr><hr/><strong>{{'label.heading.orphan.savingsdetails' | translate}}</strong><hr/></tr>
+								<tr ng-repeat="orphanSaving in selectedOrphanSavings">
+									<td><button type="button" style="border: 0"><span>-</span></button></td>
+									<td><strong>{{orphanSaving.productName}}({{orphanSaving.accountNo}})</strong></td>
 								</tr>
 							</tbody>
 						</table>

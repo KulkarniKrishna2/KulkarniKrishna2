@@ -14,6 +14,7 @@
             scope.showAddNomineeButton = true;
             scope.isAddressTypeDisabled = false;
             scope.addMemberData = false;
+            scope.addressNotFound = false;
             scope.isNomineeAddressEnabled = scope.isSystemGlobalConfigurationEnabled('enable-nominee-address');
             scope.allowMultipleNominees = scope.isSystemGlobalConfigurationEnabled('allow-multiple-nominees');
 
@@ -220,13 +221,15 @@
             };
 
             scope.submit = function () {
-                if (!scope.allowMultipleNominees) {
-                    var percentage = 100;
-                    scope.formData.percentage = percentage;
+                if (!scope.addressNotFound) {
+                    if (!scope.allowMultipleNominees) {
+                        var percentage = 100;
+                        scope.formData.percentage = percentage;
+                    }
+                    resourceFactory.loanApplicationNomineeResource.post({ loanApplicationReferenceId: scope.loanApplicationReferenceId }, scope.formData, function (data) {
+                        refreshAndShowSummaryView();
+                    });
                 }
-                resourceFactory.loanApplicationNomineeResource.post({ loanApplicationReferenceId: scope.loanApplicationReferenceId }, scope.formData, function (data) {
-                    refreshAndShowSummaryView();
-                });
             };
 
             scope.submitAddMember = function () {

@@ -22,6 +22,7 @@
             scope.occupationOptions = [];
             scope.subOccupations = [];
             scope.showAddressForm = false;
+            scope.showAdressAddingButton = true;
             scope.isFamilyAddressEnabled = scope.isSystemGlobalConfigurationEnabled('enable-family-member-address');
 
             if(scope.response && scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isValidateDOBField.active && scope.response.uiDisplayConfigurations.viewClient.familyDeatils.isValidateDOBField.ageCriteria){
@@ -144,6 +145,7 @@
                     if (scope.addressData) {
                         scope.showAddressForm = true;
                         scope.isAddressPresent = true;
+                        scope.showAdressAddingButton = false;
                         if (scope.addressData.addressEntityData[0].addressType) {
                             scope.formAddressData.addressTypes = [scope.addressData.addressEntityData[0].addressType.id];
                         }
@@ -342,6 +344,11 @@
                         scope.formAddressData.stateId = scope.defaultState[0].stateId;
                     }
                 }
+            };
+
+            scope.addAddress = function () {
+                scope.showAddressForm = true;
+                scope.showAdressAddingButton = false;
             };
 
             scope.submit = function () {
