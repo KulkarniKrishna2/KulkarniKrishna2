@@ -2301,6 +2301,9 @@
                     InsuranceClaimsExportResource: defineResource(apiVer + "/insurance/claim/export", {}, {
                         export: { method: 'POST'}
                     }),
+                    overrideRoiResource: defineResource(apiVer + "/loanapplicationreferences/:loanApplicationReferenceId/discount/roi", { loanApplicationReferenceId: '@loanApplicationReferenceId'}, {
+                        update: {method: 'PUT', params: {}}
+                    })
                 };
             }];
         }

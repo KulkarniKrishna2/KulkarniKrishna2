@@ -12,6 +12,7 @@
             scope.interestReceivableLabel = "label.heading.receivableinterest";
 
             resourceFactory.loanProductResource.get({loanProductId: routeParams.id, template: 'true'}, function (data) {
+                console.log(data);
                 scope.loanproduct = data;
                 scope.loanProductData = [];
                 angular.copy(scope.loanproduct,scope.loanProductData);
@@ -58,6 +59,7 @@
                 if(scope.loanproduct.minimumPeriodsBetweenDisbursalAndFirstRepayment) {
                     scope.minimumPeriodsBetweenDisbursalAndFirstRepaymentShow = true;
                 }
+                scope.isInterestRateDiscountingEnabled = scope.loanproduct.isInterestRateDiscountingEnabled;
                 //construct feesToIncomeMappingData
                 var tempChargeId;
                 var loopCount = 0;

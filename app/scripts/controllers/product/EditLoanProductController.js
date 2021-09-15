@@ -31,7 +31,7 @@
             scope.interestRecalculationOnDayTypeOptions = commonUtilService.onDayTypeOptions();
 
             scope.INDIVIDUAL_CLIENT = 2;
-
+            scope.isInterestRateDiscountAllowed = true;
             scope.minimumPeriodsBetweenDisbursalAndFirstRepaymentShow = false;
             scope.minimumDaysBetweenDisbursalAndFirstRepaymentShow = false;
             scope.maxPeriodsBetweenDisbursalAndFirstRepaymentShow = false;
@@ -58,6 +58,7 @@
             }
 
             resourceFactory.loanProductResource.get({loanProductId: routeParams.id, template: 'true'}, function (data) {
+                console.log(data);
                 scope.product = data;
                 scope.changelabel(scope.product.isPostIRDEnabled);
                 scope.assetAccountOptions = scope.product.accountingMappingOptions.assetAccountOptions || [];
@@ -77,6 +78,7 @@
                     scope.assetAndLiabilityAccountOptions = scope.glAccounts;
                     scope.assetLiabilityAndIncomeAccountOptions = scope.glAccounts;
                 }
+                scope.isInterestRateDiscountAllowed = scope.product.isInterestRateDiscountingEnabled;
                 scope.penaltyOptions = scope.product.penaltyOptions || [];
                 scope.chargeOptions = [];
                 scope.eventBasedChargeOptions = [];
@@ -1125,6 +1127,7 @@
                 this.formData.locale = scope.optlang.code;
                 this.formData.startDate = reqFirstDate ? reqFirstDate : ""; 
                 this.formData.closeDate = reqSecondDate ? reqSecondDate : ""; 
+                this.formData.isInterestRateDiscountAllowed = scope.isInterestRateDiscountAllowed;
 
                 //Interest recalculation data
                 if (this.formData.isInterestRecalculationEnabled) {
@@ -1323,10 +1326,12 @@
                     if(this.formData.maxLoanTerm == null){
                         delete  this.formData.maxLoanTerm;
                     }
+                    console.log(this.formData);
                     resourceFactory.loanProductResource.save(this.formData, function (data) {
                         location.path('/viewloanproduct/' + data.resourceId);
                     });
                 }else{
+                    console.log(this.formData);
                     resourceFactory.loanProductResource.put({loanProductId: routeParams.id}, this.formData, function (data) {
                         location.path('/viewloanproduct/' + data.resourceId);
                     });
