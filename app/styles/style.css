@@ -1659,3 +1659,168 @@ tr.newBg td, tr.newBg th {
 .loan-reject-reason{
     margin-left: 2%;
 }
+
+/* Override CSS */
+.override-roi-container {
+    width: 100%;
+    margin: 2% 0;
+    border-left: 4px solid royalblue;
+    border-radius: 4px;
+    box-shadow: 0 2.5px 23.9px rgb(0 0 0 / 1%), 0 12.9px 33.5px rgb(0 0 0 / 4%), 0 52px 80px rgb(0 0 0 / 5%);
+    position: relative;
+}
+
+.override-roi-edit-btn-block {
+    width: 100%;
+    padding: 8px;
+    display: flex;
+    justify-content: flex-end;
+    position: absolute;
+}
+
+.override-roi-edit-btn {
+    width: fit-content;    
+    padding: 3px 12px;
+    cursor: pointer;
+    background-color: royalblue;
+    color: white;
+    border-radius: 4px;
+}
+
+.override-roi-edit-btn:hover { 
+    background-color: rgb(51, 85, 185);
+}
+
+.override-roi-edit-btn:active { 
+    background-color: rgb(30, 64, 168);
+}
+
+.override-roi-contents {
+    padding: 3%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+}
+
+.override-roi-content-1 {
+    width: 50%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.override-roi-content-1-heading {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    font-size: 2.2rem;
+    /* border-bottom: 1px solid #eae7e7; */
+    color: #636363;
+}
+
+.override-roi-content-1-value {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    font-size: 6rem;
+    margin: 10% 0;
+}
+
+.override-roi-content-2 {
+    width: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    border-left: 1px solid #d8cccc;
+}
+
+.override-roi-content-2-heading {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    font-size: 2.2rem;
+    /* border-bottom: 1px solid #eae7e7; */
+    color: #636363;
+}
+
+.override-roi-content-2-input-content {
+    width: 100%;
+    margin: 10% 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.override-roi-content-2-input-heading {
+    width: 100%;
+    text-align: center;
+    color: grey;
+    padding: 10px 0;
+}
+
+.override-roi-content-2-input-block,
+.override-roi-content-2-input-btn-block {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.override-roi-content-2-input {
+    width: 20%;
+    text-align: center;
+    height: 55px;
+    font-size: 2.5rem;
+    border: 1px solid #e2e2e2;
+    border-radius: 6px;
+}
+
+.override-roi-content-2-input-sideText {
+    margin-left: 37%;
+    font-size: 2rem;
+    position: absolute;
+}
+
+.override-roi-content-2-input-btn {
+    background: royalblue;
+    border: none;
+    color: white;
+    padding: 7px 18px;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-top: 5%;
+}
+
+.override-roi-content-2-input-btn:hover { 
+    background: rgb(54, 87, 187);
+}
+
+.override-roi-content-2-input-btn:active { 
+    background: rgb(43, 69, 148);
+}
+
+.override-roi-content-2-input-updated-value {
+    font-size: 6rem;
+    font-weight: bold;
+    border-radius: 4px;
+}
+
+.override-roi-pa-text {
+    font-size: 3rem;
+}
+
+.override-roi-content-2-total-discount-block {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 10%;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.override-roi-content-2-total-discount-value {
+    padding: 10px 20px;
+    border: 1px solid #b1b1b1;
+    border-radius: 5px;
+    background: whitesmoke;
+}

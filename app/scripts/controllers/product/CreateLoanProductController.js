@@ -36,6 +36,7 @@
             scope.transactionProcessingStrategy = true;
             scope.allowAttributeConfiguration = true;
             scope.canCrossMaturityDateOnFixingEMI = true;
+            scope.isInterestRateDiscountAllowed = true;
             scope.eventBasedFee = 51;
             scope.interestRecalculationOnDayTypeOptions = commonUtilService.onDayTypeOptions();
             scope.minimumDaysOrrPeriodsBetweenDisbursalAndFirstRepayment = "minimumDaysBetweenDisbursalAndFirstRepayment";
@@ -376,6 +377,7 @@
                     scope.graceOnPrincipalAndInterest = false;
                     scope.repaymentFrequency = false;
                     scope.transactionProcessingStrategy = false;
+                    scope.isInterestRateDiscountAllowed = false;
                 }
             }
 
@@ -603,6 +605,7 @@
                     scope.graceOnPrincipalAndInterest = false;
                     scope.repaymentFrequency = false;
                     scope.transactionProcessingStrategy = false;
+                    scope.isInterestRateDiscountAllowed = false;
                 }
 
                 scope.selectedConfigurableAttributes =
@@ -629,6 +632,7 @@
                 this.formData.closeDate = reqSecondDate;
                 this.formData.interestRatesListPerPeriod = scope.interestratesListPerPeriod;
                 this.formData.transactionTypeToLoanPortfolioMappings = scope.transactionTypeToLoanPortfolioMappings;
+                this.formData.isInterestRateDiscountAllowed = scope.isInterestRateDiscountAllowed;
 
                 //Interest recalculation data
                 if (this.formData.isInterestRecalculationEnabled) {
@@ -794,6 +798,7 @@
                 resourceFactory.loanProductResource.save(this.formData, function (data) {
                     location.path('/viewloanproduct/' + data.resourceId);
                 });
+                console.log(this.formData);
             };
         }
     });
