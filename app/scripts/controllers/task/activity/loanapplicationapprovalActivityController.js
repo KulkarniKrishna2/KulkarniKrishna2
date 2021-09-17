@@ -318,10 +318,10 @@
                     scope.feeCharges = $filter('filter')(scope.charges, { penalty: false }) || [];
                     }
                 }
-                for (var i in scope.charges) {
-                    var isChargeAdded = scope.chargesApplicableToLoanApplication.some(chargeAdded => JSON.stringify(chargeAdded) === JSON.stringify(scope.charges[i]));
-                    if (scope.charges[i].chargeTimeType.code == "chargeTimeType.specifiedDueDate" && !isChargeAdded) {
-                        scope.chargesApplicableToLoanApplication.push(scope.charges[i]);
+                if (data.chargeTimeType.code != "chargeTimeType.specifiedDueDate") {
+                    var index = scope.chargesApplicableToLoanApplication.findIndex(x => x.id === data.chargeId);
+                    if (index > -1) {
+                        scope.chargesApplicableToLoanApplication.splice(index, 1);
                     }
                 }
             };
@@ -351,6 +351,9 @@
                     scope.loanaccountinfo = data;
                     scope.isValidateFRD = true;
                     scope.productLoanCharges = data.product.charges || [];
+                    for (var i in scope.productLoanCharges) {
+                        scope.chargesApplicableToLoanApplication.push(scope.productLoanCharges[i].chargeData);
+                    }
 
                     if (data.clientName) {
                         scope.clientName = data.clientName;
