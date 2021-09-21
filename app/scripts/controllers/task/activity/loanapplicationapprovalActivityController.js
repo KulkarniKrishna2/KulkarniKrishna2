@@ -291,7 +291,7 @@
             scope.chargesApplicableToLoanApplication = [];
             scope.constructExistingCharges = function (chargeId, data) {
                 data.chargeId = data.id;
-                if(scope.isExists(scope.charges,data.id,chargeId)){
+                if(scope.isExists(scope.charges,chargeId)){
                     scope.charges.push(data);  
                 }
                 curIndex++;
@@ -326,9 +326,9 @@
                 }
             };
 
-            scope.isExists = function(array,value,key){
+            scope.isExists = function(array,value){
                for (var i = 0; i < array.length; i++) {
-                 if (array[i].key === value) {
+                 if (array[i].id === value) {
                     return false;
                  }
               }
@@ -351,10 +351,7 @@
                     scope.loanaccountinfo = data;
                     scope.isValidateFRD = true;
                     scope.productLoanCharges = data.product.charges || [];
-                    for (var i in scope.productLoanCharges) {
-                        scope.chargesApplicableToLoanApplication.push(scope.productLoanCharges[i].chargeData);
-                    }
-
+    
                     if (data.clientName) {
                         scope.clientName = data.clientName;
                     }
@@ -931,7 +928,14 @@
                  * This formValidationData data is required only for validation purpose
                  * @type {{}|*}
                  */
+                
+                if (!_.isUndefined(scope.submitData.formRequestData.repaymentFrequencyNthDayType)) {
+                    delete scope.submitData.formRequestData.repaymentFrequencyNthDayType;
+                }
 
+                if (!_.isUndefined(scope.submitData.formRequestData.repeatsOnDayOfMonth)) {
+                    delete scope.submitData.formRequestData.repeatsOnDayOfMonth;
+                }
 
                 if(scope.submitData.formRequestData.loanAccountNumber){
                     delete scope.submitData.formRequestData.loanAccountNumber;
