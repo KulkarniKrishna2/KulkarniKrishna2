@@ -487,6 +487,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'task/activity/clientLimitsManagementActivityController',
             'task/activity/clientSavingsAccountActivityController',
             'task/activity/camActivityController',
+            'task/activity/roiDiscountingActivityController',
             'task/activity/NewcamActivityController',
             'task/activity/cashflowActivityController',
             'task/activity/criteriacheckActivityController',
