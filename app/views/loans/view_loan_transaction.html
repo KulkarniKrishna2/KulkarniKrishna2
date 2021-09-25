@@ -1,5 +1,5 @@
 <div ng-controller="ViewLoanTransactionController">
-    <div class="paddedbottom10">
+    <div>
         <ul class="breadcrumb">
             <li><a href="#/viewloanaccount/{{transaction.accountId}}">{{'label.anchor.viewloanaccount' | translate}}</a></li>
             <li class="active">{{ 'label.anchor.viewtransaction' | translate}}</li>
@@ -38,9 +38,18 @@
             </div>
     </script>
     
-    
-    <h3>{{ 'label.heading.details' | translate}}</h3>
+    <script type="text/ng-template" id="viewDocument.html">
+                	    	 <div style="position: fixed; top:20%; right:10%; width:600px; height: 500px;">
+                            	<view-document-directive  ng-entity-type="{{data.parentEntityType}}"
+                            	ng-entity-id="{{data.parentEntityId}}"
+                            	ng-document-id="{{data.id}}"></view-document-directive>
+                        	</div>
+        </script>
 
+    <tabset class="overflowhidden marginbottom0">
+
+    <tab ng-if="true" heading="{{'label.heading.basicdetails' | translate}}" ng-click="isDisplayReverseButton()">
+    
     <div ng-hide="hideEditUndoTrxnButton" class="pull-right">
         <div class="btn-group">
             <a ng-if="transaction.status.id == 1 && isValuedateUpdateRequired" ng-click="updateValueDate(transaction.accountId, transaction.id)" class="btn btn-success" has-permission='UPDATE_VALUEDATE_LOANTRANSACTION'>
@@ -273,6 +282,127 @@
                 <button class="btn btn-primary">{{'label.button.submit' | translate}}</button>
             </div>
         </form>
-    </script>
+      </script>
     </div>
+</tab>
+<tab ng-if="true" heading="{{'label.input.attachments' | translate}}" select="getDocuments()">
+    <div class="pull-right" ng-if="!isUploadNewDocuments">
+        <a id="idUploadNewDocuments" ng-click="uploadNewDocuments()" class="btn btn-primary"><i
+                class="icon-plus icon-white"></i>
+            {{'label.button.upload' | translate}}
+        </a>
+        <a id="receipt" ng-click="downloadReceipt(transaction.accountId, transaction.id)" class="btn btn-primary"><i
+                class="icon-print icon-white"></i>
+            {{'label.button.dowload.receipt' | translate}}
+        </a>
+    </div>
+    <br>
+    <table class="table" ng-show="documents.length > 0" ng-if="!isUploadNewDocuments">
+        <thead>
+            <tr class="graybg">
+                <th>#</th>
+                <th>{{'label.heading.name' | translate}}</th>
+                <th>{{'label.heading.description' | translate}}</th>
+                <th>{{'label.heading.filename' | translate}}</th>
+                <th>{{'label.heading.actions' | translate}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="document in documents track by $index">
+                <td>
+                    {{($index+1)}}
+                </td>
+                <td>{{document.name}}</td>
+                <td>{{document.description}}</td>
+                <td>{{document.fileName}}</td>
+                <td>
+                    <a target="_blank" ng-click="download(document)" has-permission='DOWNLOAD_DOCUMENT'><i
+                            class="icon-cloud-download"></i></a>&nbsp;
+                    <a ng-click="deleteDocument(document.id,$index)"><i class="icon-remove"></i></a>
+                    <a target="_blank" data-ng-click="openViewDocument(document)"><i
+                        class="icon-eye-open text-success"></i></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div ng-if="isUploadNewDocuments == true">
+        <form name="uploadDocumentsFrom" novalidate="" class="form-horizontal" rc-submit="uploadDocuments()">
+            <api-validate></api-validate>
+            <fieldset>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{'label.input.selectfile' | translate}}<span
+                            class="required"></span></label>
+                    <div class="col-sm-3">
+                        <input type="text" autocomplete="off" id="fileName" name="fileName" ng-model="docData.name"
+                            class="form-control" placeholder="{{'label.heading.filename'|translate}}" />
+                    </div>
+                    <div class="col-sm-3">
+                        <textarea rows="1" cols="15" ng-model="docData.description" class="form-control"
+                            placeholder="{{'label.input.file.description'|translate}}"></textarea>
+                    </div>
+                    <div class="col-sm-2" data-ng-if="docData.name && docData.name != ''">
+                        <input type="file" id="file" name="file" ng-file-select="onFileSelect($files)">
+                    </div>
+                    <div class="col-md-2">
+                        <a id="uploadFile" type="submit" ng-show="docData.fName!==undefined"
+                            data-ng-click="addDocument()" class="btn btn-primary">
+                            {{'label.button.upload' |
+                            translate}}
+                        </a>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">&nbsp;<span class="required"></span></label>
+                    <div class="col-sm-8">
+                        <table class="table">
+                            <thead>
+                                <tr class="graybg">
+                                    <th>#</th>
+                                    <th>{{'label.input.filename' | translate}}</th>
+                                    <th>{{'label.input.attachments' | translate}}</th>
+                                    <th>{{'label.heading.actions' | translate}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-ng-repeat="document in newDocuments track by $index">
+                                    <td>
+                                        {{($index+1)}}
+                                    </td>
+                                    <td>
+                                        {{document.name}}
+                                    </td>
+                                    <td>
+                                        {{document.fName}}
+                                    </td>
+                                    <td>
+                                        <button data-ng-if='false' role="button" ng-click="viewDocument($index)"
+                                            class="btn-link ng-binding">
+                                            <i class="icon-eye-open icon-white"></i>
+                                        </button>
+                                        <button role="button" ng-click="deleteSingleDocument($index)"
+                                            class="btn-link ng-binding">
+                                            <i class="icon-remove icon-white"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-md-offset-5">
+                    <a id="idCancelDocuments" ng-click="cancelDocuments()"
+                        class="btn btn-default">{{'label.button.cancel'
+                        | translate}}</a>
+                    <button id="idUploadDocuments" type="submit" data-ng-click="validate=true" class="btn btn-primary">
+                        {{'label.button.submit' | translate}}
+                    </button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</tab>
+</tabset>
 </div>
