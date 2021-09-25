@@ -2319,6 +2319,9 @@
                     }),
                     offerUpdateResource: defineResource(apiVer + "/loanapplicationreferences/:loanApplicationReferenceId/terms", { loanApplicationReferenceId: '@loanApplicationReferenceId' }, {
                         update: { method: 'PUT', params: {} }
+                    }),
+                    loanTrxnsReceiptDownloadResource: defineResource(apiVer + "/loans/:loanId/transactions/:transactionId/receipt", { loanId: '@loanId', transactionId: '@transactionId' }, {
+                        post: { method: 'POST', params: {} }
                     })
                 };
             }];
