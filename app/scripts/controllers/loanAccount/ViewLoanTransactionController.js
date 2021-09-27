@@ -1,6 +1,6 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        ViewLoanTransactionController: function (scope, resourceFactory, location, routeParams, dateFilter, $modal, route, $rootScope, API_VERSION, $upload, commonUtilService) {
+        ViewLoanTransactionController: function (scope, resourceFactory, location, routeParams, dateFilter, $modal, route) {
 
             scope.glimTransactions = [];
             scope.groupBankAccountDetails = {};
@@ -12,10 +12,6 @@
             scope.isGlimLoan = false;
             scope.backDatedTxn = false;
             scope.backDatedTxnError = false;
-            scope.isDisplayReverse = true;
-            scope.viewConfig = {};
-            scope.viewConfig.data = false;
-            scope.viewConfig.viewDocument = false;
             scope.backDatedReasonMandatory = scope.response.uiDisplayConfigurations.loanAccount.isMandatory.backDatedReason;
             
             function init(){
@@ -99,133 +95,6 @@
                           return transactionId;
                         }
                     }
-                });
-            };
-
-            scope.downloadReceipt = function (accountId, transactionId) {
-                resourceFactory.loanTrxnsReceiptDownloadResource.post({ loanId: accountId, transactionId: transactionId }, function (data) {
-                    fileId = data.resourceId;
-                    resourceFactory.fileUrlResource.get({ fileId: fileId }, function (data) {
-                        var url = data.locationPath;
-                        url = $rootScope.hostUrl + API_VERSION + '/' + url;
-                        commonUtilService.downloadFile(url, data.contentType.toLowerCase(), "Receipt");
-                    });
-                });
-            };
-
-            scope.download = function(file){
-                var url =$rootScope.hostUrl + file.docUrl;
-                var fileType = file.fileName.substr(file.fileName.lastIndexOf('.') + 1);
-                commonUtilService.downloadFile(url,fileType,file.fileName);
-            }
-
-            scope.isDisplayReverseButton = function () {
-                if (scope.isDisplayReverse) {
-                    scope.isDisplayReverse = false;
-                } else {
-                    scope.isDisplayReverse = true;
-                }
-            }
-
-            scope.newDocuments = [];
-            scope.docData = {};
-            scope.files = [];
-            scope.onFileSelect = function ($files) {
-                scope.docData.fName = $files[0].name;
-                scope.files.push($files[0]);
-            };
-            scope.addDocument = function () {
-                scope.newDocuments.push(scope.docData);
-                scope.docData = {};
-            };
-            scope.deleteDocument = function (documentId, index) {
-                resourceFactory.documentsResource.delete({ 'entityType': 'loantransaction', 'entityId': scope.transaction.id, 'documentId': documentId })
-                scope.documents.splice(index, 1);
-            };
-            scope.deleteSingleDocument = function (index) {
-                scope.newDocuments.splice(index, 1);
-            };
-
-            scope.openViewDocument = function (documentDetail) {
-                $modal.open({
-                    templateUrl: 'viewDocument.html',
-                    controller: viewDocumentCtrl,
-                    resolve: {
-                        documentDetail: function () {
-                            return documentDetail;
-                        }
-                    }
-                });
-            };
-
-            var viewDocumentCtrl= function ($scope, $modalInstance, documentDetail) {
-                $scope.data = documentDetail;
-                $scope.close = function () {
-                    $modalInstance.close('close');
-                };
-            };
-
-            var docResponse = 0;
-            var uploadURL = null;
-            scope.uploadDocuments = function () {
-                docResponse = 0;
-                uploadURL = $rootScope.hostUrl + API_VERSION + '/loantransaction/' + scope.transaction.id + '/documents';
-                if (!_.isUndefined(scope.newDocuments) && scope.newDocuments.length > 0) {
-                    uploadProcessDocumets();
-                }
-            };
-
-            scope.$on('attachmentsUpload', function (event) {
-                uploadProcessDocumets();
-            });
-
-            function uploadProcessDocumets() {
-                $upload.upload({
-                    url: uploadURL,
-                    data: scope.newDocuments[docResponse],
-                    file: scope.files[docResponse]
-                }).then(function (data) {
-                    // to fix IE not refreshing the model
-                    if (!scope.$$phase) {
-                        scope.$apply();
-                    }
-                    docResponse++;
-                    if (docResponse == scope.newDocuments.length) {
-                        scope.getDocuments();
-                    } else {
-                        if ($rootScope.requestsInProgressAPIs["POST" + uploadURL]) {
-                            delete $rootScope.requestsInProgressAPIs["POST" + uploadURL];
-                        }
-                        scope.$emit("attachmentsUpload");
-                    }
-                });
-            };
-
-            scope.uploadNewDocuments = function () {
-                scope.newDocuments = [];
-                scope.docData = {};
-                scope.files = [];
-                scope.isUploadNewDocuments = true;
-            };
-
-            scope.cancelDocuments = function () {
-                scope.isUploadNewDocuments = false;
-            };
-
-            scope.isUploadNewDocuments = false;
-            scope.getDocuments = function () {
-                scope.isDisplayReverseButton();
-                resourceFactory.documentsResource.getAllDocuments({
-                    entityType: 'loantransaction',
-                    entityId: scope.transaction.id
-                }, function (data) {
-                    for (var l in data) {
-                        var loandocs = {};
-                        loandocs = API_VERSION + '/' + data[l].parentEntityType + '/' + data[l].parentEntityId + '/documents/' + data[l].id + '/attachment';
-                        data[l].docUrl = loandocs;
-                    }
-                    scope.documents = data;
-                    scope.isUploadNewDocuments = false;
                 });
             };
             
@@ -333,7 +202,7 @@
             init();
         }
     });
-    mifosX.ng.application.controller('ViewLoanTransactionController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', '$modal', '$route', '$rootScope', 'API_VERSION','$upload', 'CommonUtilService', mifosX.controllers.ViewLoanTransactionController]).run(function ($log) {
+    mifosX.ng.application.controller('ViewLoanTransactionController', ['$scope', 'ResourceFactory', '$location', '$routeParams', 'dateFilter', '$modal', '$route', mifosX.controllers.ViewLoanTransactionController]).run(function ($log) {
         $log.info("ViewLoanTransactionController initialized");
     });
 }(mifosX.controllers || {}));
