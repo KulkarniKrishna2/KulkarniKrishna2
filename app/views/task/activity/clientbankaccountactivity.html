@@ -5,17 +5,22 @@
             {{'label.button.add.bankaccountdetails' | translate}}
         </a>
     </div>
+    <api-validate></api-validate>
 
-    <div class="col-md-offset-2 paddedleft">
-        <a ng-click="activate()" ng-show="showActivateBankAccountsButton && !isTaskCompleted()" class="btn btn-success pull-right"><i
+    <div class="col-md-offset-2 paddedleft pull-right">
+        <a ng-click="activate()" ng-show="!isPennyDrop && showActivateBankAccountsButton && !isTaskCompleted()" class="btn btn-success"><i
                 class="icon-ok icon-white"></i>
             {{'label.button.activate' | translate}}
         </a>
-        <a ng-click="edit()" ng-show="showEditBankAccountsButton && !isTaskCompleted()" class="btn btn-primary pull-right"><i
+        <a ng-click="verify()" ng-show="isPennyDrop && showVerifyBankAccountsButton && !isTaskCompleted()" class="btn btn-success "><i
+            class="icon-ok icon-white"></i>
+        {{'label.button.verify' | translate}}
+         </a>
+        <a ng-click="edit()" ng-show="showEditBankAccountsButton && !isTaskCompleted()" class="btn btn-primary "><i
                 class="icon-edit icon-white"></i>
             {{'label.button.edit' | translate}}
         </a>
-        <a ng-click="deactivate()" ng-show="showDeactivateBankAccountsButton && !isTaskCompleted()" class="btn btn-danger pull-right"><i
+        <a ng-click="deactivate()" ng-show="showDeactivateBankAccountsButton && !isTaskCompleted()" class="btn btn-danger "><i
                 class="icon-trash icon-white"></i>
             {{'label.button.deactivate' | translate}}
         </a>
@@ -235,6 +240,35 @@
                     <span><b>{{'label.input.mobilenumber' | translate}}:&nbsp;</b></span>
                     <span>{{bankAccountDetailsData.mobileNumber}}</span>
                 </div>
+            </div>
+        </div>
+        <legend></legend>
+        <div ng-if="bankAccountDetailsData.isVerified" class="row paddedtop10">>
+            <div class="col-md-12 span gray-head">
+                <span class="boldlabel">
+                    <strong class="ng-binding">{{'label.heading.verification.bankaccount' | translate}}</strong>
+                </span>
+            </div>
+            <div class="col-md-12">
+                <table class="table loan-details">
+                    <thead>
+                    <tr>
+                        <th><h5><strong>{{'label.heading.verification.type' | translate}}</strong></h5></th>
+                        <th><h5><strong>{{'label.heading.verification.status' | translate}}</strong></h5></th>
+                        <th><h5><strong>{{'label.heading.verification.beneficiary' | translate}}</strong></h5></th>
+                        <th><h5><strong>{{'label.heading.verification.comment' | translate}}</strong></h5></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class= "verification-details" >
+                        <td> {{bankAccountDetailsData.verificationType.value}}</td>
+                        <td> {{bankAccountDetailsData.verificationStatus.value}}</td>
+                        <td> {{bankAccountDetailsData.verifiedBeneficiaryName}}</td>
+                        <td> {{bankAccountDetailsData.verifiedComment}}</td>
+                        
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </form>

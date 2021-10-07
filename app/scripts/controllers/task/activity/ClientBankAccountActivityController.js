@@ -6,25 +6,57 @@
             scope.formData = {};
             scope.bankAccountDetails = [];
             scope.showAddBankAccountsButton = true;
+            scope.showVerifyBankAccountsButton = false;
             scope.showActivateBankAccountsButton = false;
             scope.showEditBankAccountsButton = false;
             scope.showDeactivateBankAccountsButton = false;
             scope.showAddBankAccountsScreen = false;
             scope.showViewBankAccountsScreen = false;
             scope.clientId = scope.taskconfig['clientId'];
+            scope.isPennyDrop = scope.taskconfig['pennydrop'];
 
-            function initTask(bankAccountDetailsId) {
-                scope.bankAccountDetailsId = bankAccountDetailsId;
+            function initTask(bankAccountDetailsData) {
+                scope.bankAccountDetailsId = bankAccountDetailsData.id;   
+                scope.showAddBankAccountsScreen = false;
+                scope.showAddBankAccountsButton = false;
+                scope.showViewBankAccountsScreen = true;             
+                if(bankAccountDetailsData.status.id == 100 || bankAccountDetailsData.status.id == 400){
+                    scope.showVerifyBankAccountsButton = true; 
+                    scope.showEditBankAccountsButton = true;         
+                    scope.showActivateBankAccountsButton = true;
+                    scope.showAddBankAccountsButton = false;
+                }
+                if(bankAccountDetailsData.status.id == 200){
+                    scope.showVerifyBankAccountsButton = false; 
+                    scope.showEditBankAccountsButton = false; 
+                    scope.showEditBankAccountsButton = false;         
+                    scope.showDeactivateBankAccountsButton = true;
+                    scope.showAddBankAccountsButton = false;
+                }
             };
 
             function populateDetails() {
-                resourceFactory.bankAccountDetailsResource.getAll({ entityType: scope.entityType, entityId: scope.clientId, status: "active" }, function (data) {
+                resourceFactory.bankAccountDetailsResource.getAll({ entityType: scope.entityType, entityId: scope.clientId, status: "all" }, function (data) {
                     scope.bankAccountDetails = data;
-                    scope.bankAccountDetailsData = scope.bankAccountDetails[0];
-                    scope.bankAccountDetailsId = scope.bankAccountDetailsData.id;
-                    scope.showViewBankAccountsScreen = true;
-                    scope.showDeactivateBankAccountsButton = true;
-
+                    scope.bankAccountDetailsData = null;
+                    scope.bankAccountDetails.forEach(function (item, index) {
+                        if(item.status.id ==200){
+                            scope.bankAccountDetailsData = item;
+                            initTask(scope.bankAccountDetailsData );
+                            scope.showViewBankAccountsScreen = true;
+                            
+                        }                        
+                    });
+                    if(scope.bankAccountDetailsData ==undefined){
+                        scope.bankAccountDetails.forEach(function (item, index) {
+                            if(item.status.id ==100 || item.status.id ==400){
+                                scope.bankAccountDetailsData = item;
+                                initTask(scope.bankAccountDetailsData );
+                                scope.showViewBankAccountsScreen = true;
+                            }                        
+                        });
+                    }                    
+                    
                 });
             }
             populateDetails();
@@ -45,7 +77,7 @@
                     scope.bankAccountDetailsData = data;
                     scope.showAddBankAccountsButton = false;
                     constructBankAccountDetails();
-                    initTask(bankAccountDetailsId);
+                    initTask(data);
                 });
             };
 
@@ -63,35 +95,65 @@
                     entityId: scope.clientId,
                     bankAccountDetailsId: scope.bankAccountDetailsId
                 }, {}, function (data) {
-                    scope.showViewBankAccountsScreen = true;
-                    scope.showAddBankAccountsButton = false;
-                    scope.showAddBankAccountsScreen = false;
-                    scope.showDeactivateBankAccountsButton = true;
-                    scope.showActivateBankAccountsButton = false;
-                    scope.showEditBankAccountsButton = false;
                     fetchBankAccountDetails(scope.bankAccountDetailsId);
 
                 });
             };
+
+            scope.verify = function(){
+                if(scope.bankAccountDetailsData.isVerified){
+                    reverify();
+                }else{
+                    verify();
+                }
+            }
+
+            function verify() {
+                resourceFactory.bankAccountDetailsVerifyResource.verify({
+                    entityType: scope.entityType,
+                    entityId: scope.clientId,
+                    bankAccountDetailsId: scope.bankAccountDetailsId
+                }, {}, function (data) {
+                    fetchBankAccountDetails(scope.bankAccountDetailsId);
+
+                });
+            };
+
+            function reverify() { 
+                resourceFactory.bankAccountDetailsReVerifyResource.reVerify({
+                    entityType: scope.entityType,
+                    entityId: scope.clientId,
+                    bankAccountDetailsId: scope.bankAccountDetailsId
+                }, {}, function (data) {
+                    fetchBankAccountDetails(scope.bankAccountDetailsId);
+
+                });
+            };
+
+
 
             scope.edit = function () {
                 scope.showActivateBankAccountsButton = false;
                 scope.showEditBankAccountsButton = false;
                 scope.showAddBankAccountsScreen = true;
                 scope.showViewBankAccountsScreen = false;
-                fetchBankAccountDetails(scope.bankAccountDetailsId);
+                scope.showVerifyBankAccountsButton = false;
+                constructBankAccountDetails();
             };
 
             scope.cancel = function () {
                 if (!_.isUndefined(scope.bankAccountDetailsData)) {
+                    scope.showAddBankAccountsScreen = false;
                     scope.showAddBankAccountsButton = false;
+                    scope.showViewBankAccountsScreen = true;
                     refreshAndSummary();
                 }
                 else {
                     scope.showViewBankAccountsScreen = false;
                     scope.showAddBankAccountsButton = true;
+                    scope.showAddBankAccountsScreen = false;
                 }
-                scope.showAddBankAccountsScreen = false;
+                
             };
 
 
@@ -101,13 +163,7 @@
                     entityId: scope.clientId,
                     bankAccountDetailsId: scope.bankAccountDetailsId
                 }, {}, function (data) {
-                    scope.showViewBankAccountsScreen = false;
-                    scope.showActivateBankAccountsButton = false;
-                    scope.showDeactivateBankAccountsButton = false;
-                    scope.showAddBankAccountsScreen = false;
-                    scope.showAddBankAccountsButton = true;
-                    scope.bankAccountDetailsData = undefined;
-                    scope.showEditBankAccountsButton = false;
+                    populateDetails();
                 });
             };
 
@@ -131,10 +187,7 @@
             }
 
             function refreshAndSummary() {
-                scope.showAddBankAccountsScreen = false;
-                scope.showActivateBankAccountsButton = true;
-                scope.showEditBankAccountsButton = true;
-                scope.showViewBankAccountsScreen = true;
+                initTask(scope.bankAccountDetailsData);
             };
 
             scope.submit = function () {
@@ -148,7 +201,6 @@
                     }, scope.formData, function (data) {
                         scope.bankAccountDetailsId = data.resourceId;
                         fetchBankAccountDetails(scope.bankAccountDetailsId);
-                        refreshAndSummary();
                     });
                 } else {
                     scope.formData.locale = scope.optlang.code;
@@ -159,7 +211,6 @@
                         bankAccountDetailsId: scope.bankAccountDetailsId
                     }, scope.formData, function (data) {
                         fetchBankAccountDetails(scope.bankAccountDetailsId);
-                        refreshAndSummary();
 
                     });
                 }
