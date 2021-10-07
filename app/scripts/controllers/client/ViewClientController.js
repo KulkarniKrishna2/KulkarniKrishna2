@@ -133,6 +133,9 @@
                 if(scope.response.uiDisplayConfigurations.viewClient.isHiddenField.makeCall){
                     scope.makeCall =  scope.response.uiDisplayConfigurations.viewClient.isHiddenField.makeCall;
                 }
+                if(scope.response && scope.response.uiDisplayConfigurations.viewClient.isHiddenField.addressLineTwo){
+                    scope.hideAddressLineTwo = scope.response.uiDisplayConfigurations.viewClient.isHiddenField.addressLineTwo;
+                }
                 
             }
             scope.isStalePeriodExceeded = false;

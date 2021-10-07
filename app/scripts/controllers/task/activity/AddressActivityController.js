@@ -29,6 +29,9 @@
                         if(scope.response.uiDisplayConfigurations.createOffice.isHiddenField.villageTown){
                             scope.isVillageTownHidden = scope.response.uiDisplayConfigurations.createOffice.isHiddenField.villageTown;
                         }
+                        if(scope.response.uiDisplayConfigurations.createOffice.isHiddenField.addressLineTwo){
+                            scope.isAddressLineTwoHidden = scope.response.uiDisplayConfigurations.createOffice.isHiddenField.addressLineTwo;
+                        }
                     }
                     
                     if (scope.response.uiDisplayConfigurations.createOffice.isMandatoryField) {

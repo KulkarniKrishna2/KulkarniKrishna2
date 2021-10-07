@@ -147,7 +147,8 @@
 				"whiteList": true,
 				"crnNumber" : true,
 				"makeCall" : true,
-				"rateOfInterest": false
+				"rateOfInterest": false,
+				"addressLineTwo": false
 			},
 			"familyDeatils": {
 				"isHiddenField": {
@@ -631,6 +632,7 @@
 			},
 			"isHiddenField": {
 				"pincode": false,
+				"addressLineTwo":false,
 				"referenceNo": true
 			}
 		},

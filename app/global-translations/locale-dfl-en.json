@@ -1,0 +1,8 @@
+{
+    "label.heading.houseno": "Address Line 1",
+    "label.heading.streetname": "Address Line 2",
+    "label.heading.villagename": "Address Line 3",
+    "label.input.houseno": "Address Line 1",
+    "label.input.streetname": "Address Line 2",
+    "label.input.villagename": "Address Line 3"
+}

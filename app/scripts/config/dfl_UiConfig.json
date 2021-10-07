@@ -10,6 +10,11 @@
       "isTalukaHidden": true,
       "isTalukaMandatory": false
     },
+    "viewClient" :{
+      "isHiddenField" :{
+        "addressLineTwo": true
+      }
+    },
     "createClient": {
       "isMandatoryField": {
         "dateOfBirth": true,
@@ -32,6 +37,11 @@
         "firstRepaymentDate": false
       }
     },
+    "createOffice": {
+			"isHiddenField": {
+				"addressLineTwo":true
+			}
+		},
     "loanApplicationDisbursal": {
       "isHiddenField": {
         "repaidEvery": false
