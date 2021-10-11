@@ -35,7 +35,7 @@
       // For multi tenant hosting
       if (domains[0] == "demo") {
         $httpProvider.defaults.headers.common["Fineract-Platform-TenantId"] =
-          "default";
+          "finfluxuat";
         ResourceFactoryProvider.setTenantIdenetifier("default");
       } else {
         $httpProvider.defaults.headers.common["Fineract-Platform-TenantId"] =
@@ -66,7 +66,7 @@
       portNumber = queryLink.port;
 
       $httpProvider.defaults.headers.common["Fineract-Platform-TenantId"] =
-        "default";
+        "finfluxuat";
       ResourceFactoryProvider.setTenantIdenetifier("default");
       if (QueryParameters["tenantIdentifier"]) {
         $httpProvider.defaults.headers.common["Fineract-Platform-TenantId"] =
